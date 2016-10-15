@@ -1,6 +1,4 @@
-﻿using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
-using Grayscale.A450_Server_____.B110_Server_____.C___497_EngineClient;
+﻿using Grayscale.A450_Server_____.B110_Server_____.C___497_EngineClient;
 
 namespace Grayscale.A450_Server_____.B110_Server_____.C___498_Server
 {
@@ -14,7 +12,13 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C___498_Server
         /// <summary>
         /// 将棋エンジン。
         /// </summary>
-        EngineClient Client2P { get; }
-        void SetClient2P(string filepath);
+        EngineClient[] Clients { get; }
+        void SetClient(int index, string filepath);
+
+        /// <summary>
+        /// クライアントが起動しているか否かです。
+        /// </summary>
+        /// <returns></returns>
+        bool IsLive_Client(int index);
     }
 }

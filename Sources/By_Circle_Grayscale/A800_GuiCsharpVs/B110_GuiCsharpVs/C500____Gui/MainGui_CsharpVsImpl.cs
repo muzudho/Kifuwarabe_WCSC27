@@ -27,18 +27,15 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C500____Gui
         /// ************************************************************************************************************************
         /// </summary>
         public override void ChangedTurn(
-
-            //MoveEx endNode,
             Tree kifu1,
-
-            Playerside pside,//endNode.GetNodeValue().KaisiPside,
-            KwLogger errH)
+            Playerside pside,
+            KwLogger logger)
         {
-            this.Link_Server.Client2P.OnChangedTurn(
+            this.Link_Server.Clients[2].OnChangedTurn(
                 this.Link_Server.Storage.Earth,
-                kifu1,// endNode,//エンドノード
+                kifu1,//エンドノード
                 pside,
-                errH);
+                logger);
         }
 
         /// <summary>
@@ -46,7 +43,7 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C500____Gui
         /// </summary>
         public override void Shutdown( KwLogger errH)
         {
-            this.Link_Server.Client2P.Send_Shutdown(errH);
+            this.Link_Server.Clients[2].Send_Shutdown(errH);
         }
 
         /// <summary>
@@ -54,7 +51,7 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C500____Gui
         /// </summary>
         public override void Logdase( KwLogger errH)
         {
-            this.Link_Server.Client2P.Send_Logdase(errH);
+            this.Link_Server.Clients[2].Send_Logdase(errH);
         }
 
         /// <summary>
@@ -62,20 +59,20 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C500____Gui
         /// 将棋エンジンを起動します。
         /// ************************************************************************************************************************
         /// </summary>
-        public override void Start_ShogiEngine(string shogiEngineFilePath, KwLogger logger)
+        public override void Do_Boot2Computer_Button1(string shogiEngineFilePath, KwLogger logger)
         {
-            this.Link_Server.SetClient2P(shogiEngineFilePath);
+            this.Link_Server.SetClient(2,shogiEngineFilePath);
 
             // 将棋エンジンの標準入力へ、メッセージを送ります。
-            this.Link_Server.Client2P.Download(EngineClient_Impl.COMMAND_USI, logger);
+            this.Link_Server.Clients[2].Download(EngineClient_Impl.COMMAND_USI, logger);
         }
 
         /// <summary>
         /// コンピューターの先手
         /// </summary>
-        public override void Do_ComputerSente(KwLogger logger)
+        public override void Do_Boot2PComputer_Button2(KwLogger logger)
         {
-            this.Link_Server.Client2P.Download(
+            this.Link_Server.Clients[2].Download(
                 Util_KirokuGakari.ToSfen_PositionCommand(
                     this.Link_Server.Storage.Earth,
                     this.Link_Server.Storage.KifuTree
@@ -83,7 +80,7 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C500____Gui
                 logger);
 
             // 将棋エンジンの標準入力へ、メッセージを送ります。
-            this.Link_Server.Client2P.Download(EngineClient_Impl.COMMAND_GO, logger);
+            this.Link_Server.Clients[2].Download(EngineClient_Impl.COMMAND_GO, logger);
         }
 
 

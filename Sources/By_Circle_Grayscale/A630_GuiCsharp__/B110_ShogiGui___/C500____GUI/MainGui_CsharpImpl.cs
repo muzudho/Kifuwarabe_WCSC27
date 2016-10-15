@@ -225,14 +225,14 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
         /// 将棋エンジンを起動します。
         /// ************************************************************************************************************************
         /// </summary>
-        public virtual void Start_ShogiEngine(string shogiEngineFilePath, KwLogger errH)
+        public virtual void Do_Boot2Computer_Button1(string shogiEngineFilePath, KwLogger errH)
         {
         }
 
         /// <summary>
         /// コンピューターの先手
         /// </summary>
-        public virtual void Do_ComputerSente(KwLogger errH)
+        public virtual void Do_Boot2PComputer_Button2(KwLogger errH)
         {
         }
 
@@ -269,14 +269,14 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
         private int noopSend_counter;
         public void Timer_Tick( KwLogger errH)
         {
-            if (this.server.Client2P.IsLive_ShogiEngine())
+            if (this.server.IsLive_Client(2))
             {
                 // だいたい 1tick 50ms と考えて、20倍で 1秒。
                 if ( 20 * 3 < this.noopSend_counter) // 3秒に 1 回ぐらい ok を送れば？
                 {
                     // noop
                     // 将棋エンジンの標準入力へ、メッセージを送ります。
-                    this.server.Client2P.Download(EngineClient_Impl.COMMAND_NOOP_FROM_SERVER, errH);
+                    this.server.Clients[2].Download(EngineClient_Impl.COMMAND_NOOP_FROM_SERVER, errH);
 
                     this.noopSend_counter = 0;
                 }
