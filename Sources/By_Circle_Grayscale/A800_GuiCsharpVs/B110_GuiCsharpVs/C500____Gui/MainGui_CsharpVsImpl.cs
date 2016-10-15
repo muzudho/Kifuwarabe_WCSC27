@@ -34,8 +34,8 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C500____Gui
             Playerside pside,//endNode.GetNodeValue().KaisiPside,
             KwLogger errH)
         {
-            this.Link_Server.EngineClient.OnChangedTurn(
-                this.Link_Server.Earth,
+            this.Link_Server.Client2P.OnChangedTurn(
+                this.Link_Server.Storage.Earth,
                 kifu1,// endNode,//エンドノード
                 pside,
                 errH);
@@ -46,7 +46,7 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C500____Gui
         /// </summary>
         public override void Shutdown( KwLogger errH)
         {
-            this.Link_Server.EngineClient.Send_Shutdown(errH);
+            this.Link_Server.Client2P.Send_Shutdown(errH);
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C500____Gui
         /// </summary>
         public override void Logdase( KwLogger errH)
         {
-            this.Link_Server.EngineClient.Send_Logdase(errH);
+            this.Link_Server.Client2P.Send_Logdase(errH);
         }
 
         /// <summary>
@@ -62,12 +62,12 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C500____Gui
         /// 将棋エンジンを起動します。
         /// ************************************************************************************************************************
         /// </summary>
-        public override void Start_ShogiEngine(string shogiEngineFilePath, KwLogger errH)
+        public override void Start_ShogiEngine(string shogiEngineFilePath, KwLogger logger)
         {
-            this.Link_Server.EngineClient.Start(shogiEngineFilePath);
+            this.Link_Server.SetClient2P(shogiEngineFilePath);
 
             // 将棋エンジンの標準入力へ、メッセージを送ります。
-            this.Link_Server.EngineClient.Download(EngineClient_Impl.COMMAND_USI, errH);
+            this.Link_Server.Client2P.Download(EngineClient_Impl.COMMAND_USI, logger);
         }
 
         /// <summary>
@@ -75,15 +75,15 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C500____Gui
         /// </summary>
         public override void Do_ComputerSente(KwLogger logger)
         {
-            this.Link_Server.EngineClient.Download(
+            this.Link_Server.Client2P.Download(
                 Util_KirokuGakari.ToSfen_PositionCommand(
-                    this.Link_Server.Earth,
-                    this.Link_Server.KifuTree//.CurrentNode//エンドノード
+                    this.Link_Server.Storage.Earth,
+                    this.Link_Server.Storage.KifuTree
                     ),
                 logger);
 
             // 将棋エンジンの標準入力へ、メッセージを送ります。
-            this.Link_Server.EngineClient.Download(EngineClient_Impl.COMMAND_GO, logger);
+            this.Link_Server.Client2P.Download(EngineClient_Impl.COMMAND_GO, logger);
         }
 
 

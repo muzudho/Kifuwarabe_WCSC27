@@ -269,14 +269,14 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
         private int noopSend_counter;
         public void Timer_Tick( KwLogger errH)
         {
-            if (this.server.EngineClient.IsLive_ShogiEngine())
+            if (this.server.Client2P.IsLive_ShogiEngine())
             {
                 // だいたい 1tick 50ms と考えて、20倍で 1秒。
                 if ( 20 * 3 < this.noopSend_counter) // 3秒に 1 回ぐらい ok を送れば？
                 {
                     // noop
                     // 将棋エンジンの標準入力へ、メッセージを送ります。
-                    this.server.EngineClient.Download(EngineClient_Impl.COMMAND_NOOP_FROM_SERVER, errH);
+                    this.server.Client2P.Download(EngineClient_Impl.COMMAND_NOOP_FROM_SERVER, errH);
 
                     this.noopSend_counter = 0;
                 }

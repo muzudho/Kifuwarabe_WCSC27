@@ -33,20 +33,20 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
         {
             get
             {
-                return this.Owner.Link_Server.InputString99;
+                return this.Owner.Link_Server.Storage.InputString99;
             }
         }
         public void AddInputString99(string line)
         {
-            this.Owner.Link_Server.AddInputString99(line);
+            this.Owner.Link_Server.Storage.AddInputString99(line);
         }
         public void SetInputString99(string line)
         {
-            this.Owner.Link_Server.SetInputString99(line);
+            this.Owner.Link_Server.Storage.SetInputString99(line);
         }
         public void ClearInputString99()
         {
-            this.Owner.Link_Server.ClearInputString99();
+            this.Owner.Link_Server.Storage.ClearInputString99();
         }
 
         /// <summary>

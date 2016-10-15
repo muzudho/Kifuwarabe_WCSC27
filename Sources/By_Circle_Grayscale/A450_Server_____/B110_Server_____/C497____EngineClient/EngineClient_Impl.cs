@@ -147,7 +147,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
                     // 将棋エンジンが、手を指されました。
                     //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-                    ((Server)this.Owner_Server).AddInputString99(
+                    this.Owner_Server.Storage.AddInputString99(
                         line.Substring("bestmove".Length + "".Length)
                         );
 

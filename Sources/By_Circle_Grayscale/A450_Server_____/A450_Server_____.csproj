@@ -7,7 +7,7 @@
     <ProjectGuid>{70AEF273-46C9-4E60-AC97-8AEADA3ED5F7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Grayscale</RootNamespace>
+    <RootNamespace>Grayscale.A450_Server_____</RootNamespace>
     <AssemblyName>Grayscale.A450_Server_____</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -59,10 +59,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="B110_Server_____\C250____Util\Util_Server.cs" />
+    <Compile Include="B110_Server_____\C498____Server\ServersideStorage_Impl.cs" />
     <Compile Include="B110_Server_____\C498____Server\Server_Impl.cs" />
     <Compile Include="B110_Server_____\C497____EngineClient\EngineClient_Impl.cs" />
     <Compile Include="B110_Server_____\C___497_EngineClient\EngineClient.cs" />
     <Compile Include="B110_Server_____\C___498_Server\Server.cs" />
+    <Compile Include="B110_Server_____\C___498_Server\ServersideStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

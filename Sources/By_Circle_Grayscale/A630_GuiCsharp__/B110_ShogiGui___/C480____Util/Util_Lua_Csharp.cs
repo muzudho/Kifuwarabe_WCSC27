@@ -135,7 +135,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C480____Util
         {
             KwLogger logger = Util_Loggers.ProcessNone_ERROR;
 
-            mainGui.Link_Server.Earth.Clear();
+            mainGui.Link_Server.Storage.Earth.Clear();
 
             // 棋譜を空っぽにします。
             //Playerside rootPside = TreeImpl.MoveEx_ClearAllCurrent(mainGui.Link_Server.KifuTree, null,logger);
@@ -241,7 +241,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C480____Util
 
                 string jsaFugoStr;
 
-                Playerside rootPside = TreeImpl.MoveEx_ClearAllCurrent(mainGui.Link_Server.KifuTree, newSky,logger);
+                Playerside rootPside = TreeImpl.MoveEx_ClearAllCurrent(mainGui.Link_Server.Storage.KifuTree, newSky,logger);
 
 
                 Util_Server.AfterSetCurNode_Srv(
@@ -250,11 +250,11 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C480____Util
                     newNode.Move,
                     newSky,
                     out jsaFugoStr,
-                    mainGui.Link_Server.KifuTree,
+                    mainGui.Link_Server.Storage.KifuTree,
                     logger);
                 repaintRequest.SetFlag_RefreshRequest();
 
-                mainGui.Link_Server.Earth.SetProperty(Word_KifuTree.PropName_Startpos, "9/9/9/9/9/9/9/9/9 b K1R1B1G2S2N2L2P9 k1r1b1g2s2n2l2p9 1");
+                mainGui.Link_Server.Storage.Earth.SetProperty(Word_KifuTree.PropName_Startpos, "9/9/9/9/9/9/9/9/9 b K1R1B1G2S2N2L2P9 k1r1b1g2s2n2l2p9 1");
             }
         }
 

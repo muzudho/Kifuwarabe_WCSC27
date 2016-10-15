@@ -134,17 +134,17 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     Util_Server.Komaokuri_Srv(
                         ref restText,
 
-                        mainGui3.Link_Server.Earth,
-                        mainGui3.Link_Server.KifuTree,
+                        mainGui3.Link_Server.Storage.Earth,
+                        mainGui3.Link_Server.Storage.KifuTree,
 
                         mainGui3.SkyWrapper_Gui,
                         errH
                         );
                     Util_Function_Csharp.Komaokuri_Gui(restText,
-                        mainGui3.Link_Server.KifuTree.MoveEx_Current,
-                        mainGui3.Link_Server.KifuTree.PositionA,//.CurNode2ok.GetNodeValue()
+                        mainGui3.Link_Server.Storage.KifuTree.MoveEx_Current,
+                        mainGui3.Link_Server.Storage.KifuTree.PositionA,//.CurNode2ok.GetNodeValue()
                         mainGui3,
-                        mainGui3.Link_Server.KifuTree,
+                        mainGui3.Link_Server.Storage.KifuTree,
                         errH);
                     Util_Menace.Menace(mainGui3, errH);// メナス
                 };
@@ -169,16 +169,16 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     if (!Util_Server.Makimodosi_Srv(
                         out movedKoma, out foodKoma,
                         out fugoJStr,
-                        mainGui2.Link_Server.KifuTree.MoveEx_Current,
-                        mainGui2.Link_Server.KifuTree,
+                        mainGui2.Link_Server.Storage.KifuTree.MoveEx_Current,
+                        mainGui2.Link_Server.Storage.KifuTree,
                         logger))
                     {
                         goto gt_EndBlock;
                     }
 
                     Util_Function_Csharp.Makimodosi_Gui(
-                        mainGui2.Link_Server.KifuTree,//.CurrentNode,
-                        mainGui2.Link_Server.KifuTree.PositionA.GetKaisiPside(),
+                        mainGui2.Link_Server.Storage.KifuTree,//.CurrentNode,
+                        mainGui2.Link_Server.Storage.KifuTree.PositionA.GetKaisiPside(),
                         mainGui2,
                         movedKoma, foodKoma, fugoJStr, Util_Function_Csharp.ReadLine_FromTextbox(), logger);
                     Util_Menace.Menace(mainGui2, logger);//メナス
@@ -310,11 +310,11 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     
                     Util_KifuTree282.Clear_SetStartpos_KokokaraSaifu(
 
-                        shogibanGui2.Link_Server.Earth,
-                        shogibanGui2.Link_Server.KifuTree.PositionA,
-                        shogibanGui2.Link_Server.KifuTree,
+                        shogibanGui2.Link_Server.Storage.Earth,
+                        shogibanGui2.Link_Server.Storage.KifuTree.PositionA,
+                        shogibanGui2.Link_Server.Storage.KifuTree,
                         
-                        shogibanGui2.Link_Server.KifuTree.PositionA.GetKaisiPside(),
+                        shogibanGui2.Link_Server.Storage.KifuTree.PositionA.GetKaisiPside(),
                         logger
                         );
                     shogibanGui2.RepaintRequest.SyuturyokuRequest = RepaintRequestGedanTxt.Kifu;
@@ -376,7 +376,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     if (Busstop.Empty != koma)
                     {
                         Sky positionA = new SkyImpl(mainGui3.SkyWrapper_Gui.GuiSky);
-                        MoveEx modifyNode = new MoveExImpl(mainGui3.Link_Server.KifuTree.MoveEx_Current.Move);
+                        MoveEx modifyNode = new MoveExImpl(mainGui3.Link_Server.Storage.KifuTree.MoveEx_Current.Move);
                         positionA.AddObjects(
                                 new Finger[] { figKoma }, new Busstop[] {
                                     Conv_Busstop.ToBusstop(
@@ -391,14 +391,14 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                         // ここで局面データを変更します。
                         // ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
                         string jsaFugoStr;
-                        mainGui3.Link_Server.KifuTree.MoveEx_OnEditCurrent(modifyNode, positionA);
+                        mainGui3.Link_Server.Storage.KifuTree.MoveEx_OnEditCurrent(modifyNode, positionA);
                         Util_Server.AfterSetCurNode_Srv(
                             mainGui3.SkyWrapper_Gui,
                             modifyNode,
                             modifyNode.Move,
                             positionA,
                             out jsaFugoStr,
-                            mainGui3.Link_Server.KifuTree,
+                            mainGui3.Link_Server.Storage.KifuTree,
                             errH2);
                         mainGui3.RepaintRequest.SetFlag_RefreshRequest();
                     }
@@ -566,22 +566,22 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     //----------------------------------------
                     // 次ノード追加
                     //----------------------------------------
-                    mainGui.Link_Server.Earth.GetSennititeCounter().CountUp_New(Conv_Sky.ToKyokumenHash(positionA), "After_NaruNaranai");
+                    mainGui.Link_Server.Storage.Earth.GetSennititeCounter().CountUp_New(Conv_Sky.ToKyokumenHash(positionA), "After_NaruNaranai");
 
                     // ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
                     // ここで棋譜の変更をします。
                     // ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                    mainGui.Link_Server.KifuTree.Pv_Append(newNode.Move, logger);
-                    mainGui.Link_Server.KifuTree.MoveEx_OnEditCurrent(newNode, positionA);
+                    mainGui.Link_Server.Storage.KifuTree.Pv_Append(newNode.Move, logger);
+                    mainGui.Link_Server.Storage.KifuTree.MoveEx_OnEditCurrent(newNode, positionA);
 
                     string jsaFugoStr;
                     Util_Server.AfterSetCurNode_Srv(
                         mainGui.SkyWrapper_Gui,
-                        mainGui.Link_Server.KifuTree.MoveEx_Current,
-                        mainGui.Link_Server.KifuTree.MoveEx_Current.Move,
+                        mainGui.Link_Server.Storage.KifuTree.MoveEx_Current,
+                        mainGui.Link_Server.Storage.KifuTree.MoveEx_Current.Move,
                         positionA,
                         out jsaFugoStr,
-                        mainGui.Link_Server.KifuTree,
+                        mainGui.Link_Server.Storage.KifuTree,
                         logger);
                     mainGui.RepaintRequest.SetFlag_RefreshRequest();
 
@@ -602,8 +602,8 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                 {
                     //System.C onsole.WriteLine("マウス左ボタンを押したのでチェンジターンします。");
                     mainGui.ChangedTurn(
-                        mainGui.Link_Server.KifuTree,//.CurrentNode,
-                        mainGui.Link_Server.KifuTree.PositionA.GetKaisiPside(),
+                        mainGui.Link_Server.Storage.KifuTree,//.CurrentNode,
+                        mainGui.Link_Server.Storage.KifuTree.PositionA.GetKaisiPside(),
                         logger);
                 }
             }
@@ -620,8 +620,8 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
             mainGui.RepaintRequest.SetFlag_RefreshRequest();
 
             mainGui.ChangedTurn(
-                mainGui.Link_Server.KifuTree,
-                mainGui.Link_Server.KifuTree.PositionA.GetKaisiPside(),
+                mainGui.Link_Server.Storage.KifuTree,
+                mainGui.Link_Server.Storage.KifuTree.PositionA.GetKaisiPside(),
                 logger);//マウス左ボタンを押したのでチェンジターンします。
 
             mainGui.Shape_PnlTaikyoku.Request_NaruDialogToShow(false);

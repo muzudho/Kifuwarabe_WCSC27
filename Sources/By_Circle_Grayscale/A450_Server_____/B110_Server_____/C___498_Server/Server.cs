@@ -9,21 +9,12 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C___498_Server
     /// </summary>
     public interface Server
     {
+        ServersideStorage Storage { get; set; }
+
         /// <summary>
         /// 将棋エンジン。
         /// </summary>
-        EngineClient EngineClient { get; }
-
-        /// <summary>
-        /// 将棋エンジンからの入力文字列（入力欄に入ったもの）を、一旦　蓄えたもの。
-        /// </summary>
-        string InputString99 { get; }
-        void AddInputString99(string inputString99);
-        void SetInputString99(string inputString99);
-        void ClearInputString99();
-
-
-        Earth Earth { get; }
-        Tree KifuTree { get; }
+        EngineClient Client2P { get; }
+        void SetClient2P(string filepath);
     }
 }

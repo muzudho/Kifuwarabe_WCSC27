@@ -387,8 +387,8 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C081____Canvas
 
 
             base.Paint(sender, e,
-                psideA,//shogiGui.Link_Server.KifuTree.PositionA.GetKaisiPside(),
-                shogiGui.Link_Server.KifuTree.PositionA,
+                psideA,
+                shogiGui.Link_Server.Storage.KifuTree.PositionA,
                 shogiGui, windowName, errH);
 
         gt_EndMethod:

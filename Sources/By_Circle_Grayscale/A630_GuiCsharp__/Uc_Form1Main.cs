@@ -145,12 +145,12 @@ namespace Grayscale.P699_Form_______
             //
             {
                 Sky positionInit = Util_SkyCreator.New_Hirate();//起動直後
-                this.MainGui.Link_Server.Earth.Clear();
+                this.MainGui.Link_Server.Storage.Earth.Clear();
 
                 // 棋譜を空っぽにします。
-                Playerside rootPside = TreeImpl.MoveEx_ClearAllCurrent(this.MainGui.Link_Server.KifuTree, positionInit,logger);
+                Playerside rootPside = TreeImpl.MoveEx_ClearAllCurrent(this.MainGui.Link_Server.Storage.KifuTree, positionInit,logger);
 
-                this.MainGui.Link_Server.Earth.SetProperty(Word_KifuTree.PropName_Startpos, "startpos");//平手の初期局面
+                this.MainGui.Link_Server.Storage.Earth.SetProperty(Word_KifuTree.PropName_Startpos, "startpos");//平手の初期局面
 
                 this.MainGui.SkyWrapper_Gui.SetGuiSky(positionInit);
             }
@@ -219,8 +219,8 @@ namespace Grayscale.P699_Form_______
             this.MainGui.Shape_PnlTaikyoku.Paint(
                 sender,
                 e,
-                this.MainGui.Link_Server.KifuTree.PositionA.GetKaisiPside(),
-                this.MainGui.Link_Server.KifuTree.PositionA,
+                this.MainGui.Link_Server.Storage.KifuTree.PositionA.GetKaisiPside(),
+                this.MainGui.Link_Server.Storage.KifuTree.PositionA,
                 this.MainGui, Shape_CanvasImpl.WINDOW_NAME_SHOGIBAN, Util_Loggers.ProcessGui_PAINT);
 
         gt_EndMethod:
@@ -427,15 +427,15 @@ namespace Grayscale.P699_Form_______
                         {
                             case SyuturyokuKirikae.Japanese:
                                 form2.WriteLine_Syuturyoku(Util_KirokuGakari.ToJsaFugoListString(
-                                    this.MainGui.Link_Server.Earth,
-                                    this.MainGui.Link_Server.KifuTree,//.CurrentNode,
+                                    this.MainGui.Link_Server.Storage.Earth,
+                                    this.MainGui.Link_Server.Storage.KifuTree,//.CurrentNode,
                                     "Ui_PnlMain.Response", errH));
                                 break;
                             case SyuturyokuKirikae.Sfen:
                                 form2.WriteLine_Syuturyoku(
                                     Util_KirokuGakari.ToSfen_PositionCommand(
-                                        this.MainGui.Link_Server.Earth,
-                                        this.MainGui.Link_Server.KifuTree//.CurrentNode//エンドノード
+                                        this.MainGui.Link_Server.Storage.Earth,
+                                        this.MainGui.Link_Server.Storage.KifuTree//.CurrentNode//エンドノード
                                         ));
                                 break;
                             case SyuturyokuKirikae.Html:

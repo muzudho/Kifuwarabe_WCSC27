@@ -63,18 +63,18 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                     Util_Server.Komaokuri_Srv(
                         ref restText,
 
-                        this.mainGui.Link_Server.Earth,
-                        this.mainGui.Link_Server.KifuTree,
+                        this.mainGui.Link_Server.Storage.Earth,
+                        this.mainGui.Link_Server.Storage.KifuTree,
 
                         this.mainGui.SkyWrapper_Gui,
                         logger
                         );// 棋譜の[コマ送り]を実行します。
                     Util_Function_Csharp.Komaokuri_Gui(
                         restText,
-                        this.mainGui.Link_Server.KifuTree.MoveEx_Current,
-                        this.mainGui.Link_Server.KifuTree.PositionA,//.CurNode2ok.GetNodeValue()
+                        this.mainGui.Link_Server.Storage.KifuTree.MoveEx_Current,
+                        this.mainGui.Link_Server.Storage.KifuTree.PositionA,//.CurNode2ok.GetNodeValue()
                         this.mainGui,
-                        this.mainGui.Link_Server.KifuTree,
+                        this.mainGui.Link_Server.Storage.KifuTree,
                         logger);//追加
                     // ↑チェンジターン済み
                     Util_Menace.Menace((MainGui_Csharp)this.mainGui, logger);// メナス

@@ -72,8 +72,8 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                 Util_Server.ReadLine_TuginoItteSusumu_Srv_CurrentMutable(
                                     ref restText,
 
-                                    this.mainGui.Link_Server.Earth,
-                                    this.mainGui.Link_Server.KifuTree,
+                                    this.mainGui.Link_Server.Storage.Earth,
+                                    this.mainGui.Link_Server.Storage.KifuTree,
 
                                     this.mainGui.SkyWrapper_Gui,
                                     out toBreak,
@@ -94,10 +94,10 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                 //------------------------------
                                 Util_Function_Csharp.Komaokuri_Gui(
                                     restText,
-                                    mainGui.Link_Server.KifuTree.MoveEx_Current,
-                                    mainGui.Link_Server.KifuTree.PositionA,//.CurNode2ok.GetNodeValue()
+                                    mainGui.Link_Server.Storage.KifuTree.MoveEx_Current,
+                                    mainGui.Link_Server.Storage.KifuTree.PositionA,//.CurNode2ok.GetNodeValue()
                                     mainGui,
-                                    mainGui.Link_Server.KifuTree,
+                                    mainGui.Link_Server.Storage.KifuTree,
                                     eventState.Flg_logTag);//追加
 
                                 //------------------------------

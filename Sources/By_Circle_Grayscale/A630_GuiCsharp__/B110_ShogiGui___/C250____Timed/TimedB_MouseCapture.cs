@@ -63,7 +63,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
             //kikiZukei.DebugWrite("駒の利きLv1");
 
             // 味方の駒
-            Sky positionA = shogiGui.Link_Server.KifuTree.PositionA;
+            Sky positionA = shogiGui.Link_Server.Storage.KifuTree.PositionA;
             Playerside psideA = positionA.GetKaisiPside();
 
             //shogiGui.Model_PnlTaikyoku.Kifu.AssertPside(shogiGui.Model_PnlTaikyoku.Kifu.CurNode, "Check_MouseoverKomaKiki",errH);
@@ -404,18 +404,18 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                                     //----------------------------------------
                                                     // 次ノード追加
                                                     //----------------------------------------
-                                                    mainGui.Link_Server.Earth.GetSennititeCounter().CountUp_New(Conv_Sky.ToKyokumenHash(sky_newChild), "TimedB.Step(1)");
+                                                    mainGui.Link_Server.Storage.Earth.GetSennititeCounter().CountUp_New(Conv_Sky.ToKyokumenHash(sky_newChild), "TimedB.Step(1)");
 
-                                                    mainGui.Link_Server.KifuTree.MoveEx_SetCurrent(TreeImpl.OnDoCurrentMove(newNode, mainGui.Link_Server.KifuTree, sky_newChild,logger));
+                                                    mainGui.Link_Server.Storage.KifuTree.MoveEx_SetCurrent(TreeImpl.OnDoCurrentMove(newNode, mainGui.Link_Server.Storage.KifuTree, sky_newChild,logger));
 
                                                     string jsaFugoStr;
                                                     Util_Server.AfterSetCurNode_Srv(
                                                         mainGui.SkyWrapper_Gui,
-                                                        mainGui.Link_Server.KifuTree.MoveEx_Current,
-                                                        mainGui.Link_Server.KifuTree.MoveEx_Current.Move,
+                                                        mainGui.Link_Server.Storage.KifuTree.MoveEx_Current,
+                                                        mainGui.Link_Server.Storage.KifuTree.MoveEx_Current.Move,
                                                         sky_newChild,
                                                         out jsaFugoStr,
-                                                        mainGui.Link_Server.KifuTree,
+                                                        mainGui.Link_Server.Storage.KifuTree,
                                                         logger);
                                                     mainGui.RepaintRequest.SetFlag_RefreshRequest();
 
@@ -434,8 +434,8 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                                     if (!mainGui.Shape_PnlTaikyoku.Requested_NaruDialogToShow)
                                                     {
                                                         mainGui.ChangedTurn(
-                                                            mainGui.Link_Server.KifuTree,
-                                                            mainGui.Link_Server.KifuTree.PositionA.GetKaisiPside(),
+                                                            mainGui.Link_Server.Storage.KifuTree,
+                                                            mainGui.Link_Server.Storage.KifuTree.PositionA.GetKaisiPside(),
                                                             eventState.Flg_logTag);//マウス左ボタンを放したのでチェンジターンします。
                                                     }
 
@@ -548,19 +548,19 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                                         //----------------------------------------
                                                         // 次ノード追加
                                                         //----------------------------------------
-                                                        mainGui.Link_Server.Earth.GetSennititeCounter().CountUp_New(Conv_Sky.ToKyokumenHash(sky_newChild), "TimedB.Step(2)");
+                                                        mainGui.Link_Server.Storage.Earth.GetSennititeCounter().CountUp_New(Conv_Sky.ToKyokumenHash(sky_newChild), "TimedB.Step(2)");
 
-                                                        mainGui.Link_Server.KifuTree.MoveEx_SetCurrent(TreeImpl.OnDoCurrentMove(newNode, mainGui.Link_Server.KifuTree, sky_newChild,logger));
+                                                        mainGui.Link_Server.Storage.KifuTree.MoveEx_SetCurrent(TreeImpl.OnDoCurrentMove(newNode, mainGui.Link_Server.Storage.KifuTree, sky_newChild,logger));
 
                                                         string jsaFugoStr;
 
                                                         Util_Server.AfterSetCurNode_Srv(
                                                             mainGui.SkyWrapper_Gui,
-                                                            mainGui.Link_Server.KifuTree.MoveEx_Current,
-                                                            mainGui.Link_Server.KifuTree.MoveEx_Current.Move,
+                                                            mainGui.Link_Server.Storage.KifuTree.MoveEx_Current,
+                                                            mainGui.Link_Server.Storage.KifuTree.MoveEx_Current.Move,
                                                             sky_newChild,
                                                             out jsaFugoStr,
-                                                            mainGui.Link_Server.KifuTree,
+                                                            mainGui.Link_Server.Storage.KifuTree,
                                                             logger);
                                                         mainGui.RepaintRequest.SetFlag_RefreshRequest();
 
@@ -584,8 +584,8 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                                         {
                                                             //System.C onsole.WriteLine("マウス左ボタンを放したのでチェンジターンします。");
                                                             mainGui.ChangedTurn(
-                                                                mainGui.Link_Server.KifuTree,
-                                                                mainGui.Link_Server.KifuTree.PositionA.GetKaisiPside(),
+                                                                mainGui.Link_Server.Storage.KifuTree,
+                                                                mainGui.Link_Server.Storage.KifuTree.PositionA.GetKaisiPside(),
                                                                 eventState.Flg_logTag);//マウス左ボタンを放したのでチェンジターンします。
                                                         }
 
@@ -720,7 +720,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                                     (
                                                         Conv_Masu.InBanjoAitejin(
                                                             btnSasitaiMasu.Zahyo,
-                                                            mainGui.Link_Server.KifuTree.PositionA.GetKaisiPside()
+                                                            mainGui.Link_Server.Storage.KifuTree.PositionA.GetKaisiPside()
                                                             )
                                                         ||
                                                         Util_Sky_BoolQuery.InBanjoAitejin(Conv_Busstop.ToMasu( koma), Conv_Busstop.ToPlayerside( koma))

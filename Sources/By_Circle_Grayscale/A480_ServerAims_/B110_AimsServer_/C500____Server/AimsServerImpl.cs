@@ -44,7 +44,7 @@ namespace Grayscale.A480_ServerAims_.B110_AimsServer_.C500____Server
             : base(positionA)
         {
             // AIMSサーバー用の特別処理。
-            ((EngineClient_ForAimsImpl)this.EngineClient).SetOwner_AimsServer(this);
+            ((EngineClient_ForAimsImpl)this.Client2P).SetOwner_AimsServer(this);
 
             // 最初の状態。
             this.phase_AimsServer = Phase_AimsServer._01_Server_Booted;
@@ -106,7 +106,7 @@ namespace Grayscale.A480_ServerAims_.B110_AimsServer_.C500____Server
 
                                 // 将棋エンジンを起動するぜ☆
                                 //MessageBox.Show("サーバー「将棋エンジンを起動するぜ☆」");
-                                this.EngineClient.Start(this.ShogiEngineFilePath);
+                                this.SetClient2P(this.ShogiEngineFilePath);
                             }
                         }
                         break;
@@ -117,7 +117,7 @@ namespace Grayscale.A480_ServerAims_.B110_AimsServer_.C500____Server
                             // 将棋サーバーが起ち上がっていることを確認したいぜ☆！
                             //----------------------------------------
 
-                            if (this.EngineClient.IsLive_ShogiEngine())
+                            if (this.Client2P.IsLive_ShogiEngine())
                             {
 
                                 // コマンドを送る前に、先にフェーズ変更
@@ -128,7 +128,7 @@ namespace Grayscale.A480_ServerAims_.B110_AimsServer_.C500____Server
 
                                 // 将棋エンジンに usi コマンドを送るぜ☆
                                 // 将棋エンジンの標準入力へ、メッセージを送ります。
-                                this.EngineClient.Download(EngineClient_Impl.COMMAND_USI, logger);
+                                this.Client2P.Download(EngineClient_Impl.COMMAND_USI, logger);
                             }
                             else
                             {
@@ -162,16 +162,16 @@ namespace Grayscale.A480_ServerAims_.B110_AimsServer_.C500____Server
 
                                 // 将棋エンジンへ：　「私は将棋サーバーですが、USIプロトコルのponderコマンドには対応していませんので、送ってこないでください」
                                 // 将棋エンジンの標準入力へ、メッセージを送ります。
-                                this.EngineClient.Download(EngineClient_Impl.COMMAND_SETOPTION + " name USI_Ponder value false", logger);
+                                this.Client2P.Download(EngineClient_Impl.COMMAND_SETOPTION + " name USI_Ponder value false", logger);
 
                                 // 将棋エンジンへ：　「私は将棋サーバーです。noop コマンドを送ってくれば、すぐに ok コマンドを返します。1分間を空けてください」
                                 // 将棋エンジンの標準入力へ、メッセージを送ります。
-                                this.EngineClient.Download(EngineClient_Impl.COMMAND_SETOPTION + " name noopable value true", logger);
+                                this.Client2P.Download(EngineClient_Impl.COMMAND_SETOPTION + " name noopable value true", logger);
 
                                 //------------------------------------------------------------
                                 // 将棋エンジンへ：　「準備はいいですか？」
                                 //------------------------------------------------------------
-                                this.EngineClient.Download(EngineClient_Impl.COMMAND_ISREADY, logger);
+                                this.Client2P.Download(EngineClient_Impl.COMMAND_ISREADY, logger);
                             }
                         }
                         break;

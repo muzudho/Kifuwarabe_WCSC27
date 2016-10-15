@@ -37,12 +37,12 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
             MoveEx newNode = new MoveExImpl();
 
             Sky positionA = Util_SkyCreator.New_Hirate();//[初期配置]ボタン押下時
-            mainGui.Link_Server.Earth.Clear();
+            mainGui.Link_Server.Storage.Earth.Clear();
 
             // 棋譜を空っぽにします。
-            Playerside rootPside = TreeImpl.MoveEx_ClearAllCurrent(mainGui.Link_Server.KifuTree, positionA,logger);
+            Playerside rootPside = TreeImpl.MoveEx_ClearAllCurrent(mainGui.Link_Server.Storage.KifuTree, positionA,logger);
 
-            mainGui.Link_Server.Earth.SetProperty(Word_KifuTree.PropName_Startpos, "startpos");//平手の初期局面
+            mainGui.Link_Server.Storage.Earth.SetProperty(Word_KifuTree.PropName_Startpos, "startpos");//平手の初期局面
 
 
             // ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
@@ -55,7 +55,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
                 newNode.Move,
                 positionA,
                 out jsaFugoStr,
-                mainGui.Link_Server.KifuTree,
+                mainGui.Link_Server.Storage.KifuTree,
                 logger);
             mainGui.RepaintRequest.SetFlag_RefreshRequest();
 
