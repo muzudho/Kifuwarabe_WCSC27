@@ -9,8 +9,8 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
     /// </summary>
     public class SubGuiImpl : SubGui
     {
-        private MainGui_Csharp Owner { get { return this.owner; } }//ShogibanGui_CSharpImpl
-        private MainGui_Csharp owner;//ShogibanGui_CSharpImpl
+        private ServersideGui_Csharp Owner { get { return this.owner; } }//ShogibanGui_CSharpImpl
+        private ServersideGui_Csharp owner;//ShogibanGui_CSharpImpl
 
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
         /// <summary>
         /// コンストラクター。
         /// </summary>
-        public SubGuiImpl(MainGui_CsharpImpl owner)
+        public SubGuiImpl(ServersideGui_CsharpImpl owner)
         {
             this.owner = owner;
 

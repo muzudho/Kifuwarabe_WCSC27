@@ -21,7 +21,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C101____Conv
         /// <param name="hKomas"></param>
         /// <param name="shape_PnlTaikyoku"></param>
         /// <returns></returns>
-        public static List<Shape_BtnKoma> HKomasToBtns(List<int> hKomas, MainGui_Csharp shogiGui)
+        public static List<Shape_BtnKoma> HKomasToBtns(List<int> hKomas, ServersideGui_Csharp shogiGui)
         {
             List<Shape_BtnKoma> btns = new List<Shape_BtnKoma>();
 
@@ -48,7 +48,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C101____Conv
         /// <param name="hKoma"></param>
         /// <param name="shape_PnlTaikyoku"></param>
         /// <returns>なければヌル</returns>
-        public static Shape_BtnKoma FingerToKomaBtn(Finger koma, MainGui_Csharp shogiGui)
+        public static Shape_BtnKoma FingerToKomaBtn(Finger koma, ServersideGui_Csharp shogiGui)
         {
             Shape_BtnKoma found = null;
 

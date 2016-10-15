@@ -19,10 +19,10 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
     {
 
 
-        private MainGui_Csharp mainGui;
+        private ServersideGui_Csharp mainGui;
 
 
-        public TimedA_EngineCapture(MainGui_Csharp shogibanGui)
+        public TimedA_EngineCapture(ServersideGui_Csharp shogibanGui)
         {
             this.mainGui = shogibanGui;
         }
@@ -77,7 +77,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                         this.mainGui.Link_Server.Storage.KifuTree,
                         logger);//追加
                     // ↑チェンジターン済み
-                    Util_Menace.Menace((MainGui_Csharp)this.mainGui, logger);// メナス
+                    Util_Menace.Menace((ServersideGui_Csharp)this.mainGui, logger);// メナス
                 }
 
                 // ここで、テキストボックスには「（例）6a6b」が入っています。

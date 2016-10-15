@@ -82,7 +82,7 @@
     <Compile Include="B110_ShogiGui___\C081____Canvas\Shape_CanvasImpl.cs" />
     <Compile Include="B110_ShogiGui___\C101____Conv\Conv_Koma_InGui.cs" />
     <Compile Include="B110_ShogiGui___\C249____Function\Util_Function_Csharp.cs" />
-    <Compile Include="B110_ShogiGui___\C500____GUI\SubGuiImpl.cs" />
+    <Compile Include="B110_ShogiGui___\C500____ServersideGui\SubGuiImpl.cs" />
     <Compile Include="B110_ShogiGui___\C491____Event\Event_CsharpImpl.cs" />
     <Compile Include="B110_ShogiGui___\C___491_Event\ShogibanGuiEvent.cs" />
     <Compile Include="B110_ShogiGui___\C___080_Shape\Shape.cs" />
@@ -93,7 +93,7 @@
     <Compile Include="B110_ShogiGui___\C___081_Canvas\Shape_PnlTaikyoku.cs" />
     <Compile Include="B110_ShogiGui___\C___081_Canvas\Shape_Canvas.cs" />
     <Compile Include="B110_ShogiGui___\C___125_Scene\Timed.cs" />
-    <Compile Include="B110_ShogiGui___\C___500_Gui\SubGui.cs" />
+    <Compile Include="B110_ShogiGui___\C___500_ServersideGui\SubGui.cs" />
     <Compile Include="B110_ShogiGui___\C___499_Repaint\RepaintRequest.cs" />
     <Compile Include="B110_ShogiGui___\C___499_Repaint\RepaintRequestGedanTxt.cs" />
     <Compile Include="B110_ShogiGui___\C060____TextBoxListener\TextboxListener.cs" />
@@ -119,11 +119,11 @@
     <Compile Include="B110_ShogiGui___\C250____Timed\Timed_Abstract.cs" />
     <Compile Include="B110_ShogiGui___\C250____Timed\TimedB_MouseCapture.cs" />
     <Compile Include="B110_ShogiGui___\C250____Timed\TimedC_SaiseiCapture.cs" />
-    <Compile Include="B110_ShogiGui___\C500____GUI\MainGui_CsharpImpl.cs" />
+    <Compile Include="B110_ShogiGui___\C500____ServersideGui\ServersideGui_CsharpImpl.cs" />
     <Compile Include="B110_ShogiGui___\C480____Util\Util_Lua_Csharp.cs" />
     <Compile Include="B110_ShogiGui___\C492____Widgets\WidgetsLoader_CsharpImpl.cs" />
     <Compile Include="B110_ShogiGui___\C___492_Widgets\UserWidget.cs" />
-    <Compile Include="B110_ShogiGui___\C___500_Gui\MainGui_Csharp.cs" />
+    <Compile Include="B110_ShogiGui___\C___500_ServersideGui\ServersideGui_Csharp.cs" />
     <Compile Include="B110_ShogiGui___\C___492_Widgets\WidgetsLoader.cs" />
     <Compile Include="B110_ShogiGui___\C___510_Form\Form1_Mutex.cs" />
     <Compile Include="B110_ShogiGui___\C___510_Form\Form1_Shogiable.cs" />

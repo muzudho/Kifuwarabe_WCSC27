@@ -26,30 +26,35 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C491____Event
                 //
                 // [将棋エンジン起動ボタン_学習]ボタンのイベント。
                 //
-                ins.delegate_BtnShogiEngineKidoL = (
+                ins.delegate_BtnKido1 = (
                     object obj_shogiGui2
-                    , object userWidget2 // UerWidget
+                    , object userWidget2
                     , object btnKoma_Selected2
-                    , KwLogger errH) =>
+                    , KwLogger logger2) =>
                 {
                     Shape_BtnKoma btnKoma_Selected = (Shape_BtnKoma)btnKoma_Selected2;
-                    // ここに処理を書く
+                    ServersideGui_Csharp shogiGui = (ServersideGui_Csharp)obj_shogiGui2;
+                    Uc_Form1Mainable ui_PnlMain = ((Form1_Shogi)shogiGui.OwnerForm).Uc_Form1Main;
+
+                    int clientIndex = 1;
+                    ui_PnlMain.MainGui.Do_BootComputer_Button1(clientIndex, ui_PnlMain.SetteiXmlFile.ShogiEngine.Filepath, logger2);
                 };
 
                 //
                 // [将棋エンジン起動ボタン_直観]ボタンのイベント。
                 //
-                ins.delegate_BtnShogiEngineKidoF = (
+                ins.delegate_BtnKido2 = (
                     object obj_shogiGui2
-                    , object userWidget2 // UerWidget
+                    , object userWidget2
                     , object btnKoma_Selected2
-                    , KwLogger errH) =>
+                    , KwLogger logger2) =>
                 {
                     Shape_BtnKoma btnKoma_Selected = (Shape_BtnKoma)btnKoma_Selected2;
-                    MainGui_Csharp shogiGui = (MainGui_Csharp)obj_shogiGui2;
+                    ServersideGui_Csharp shogiGui = (ServersideGui_Csharp)obj_shogiGui2;
                     Uc_Form1Mainable ui_PnlMain = ((Form1_Shogi)shogiGui.OwnerForm).Uc_Form1Main;
 
-                    ui_PnlMain.MainGui.Do_Boot2Computer_Button1(ui_PnlMain.SetteiXmlFile.ShogiEngineFilePath, errH);
+                    int clientIndex = 2;
+                    ui_PnlMain.MainGui.Do_BootComputer_Button1(clientIndex, ui_PnlMain.SetteiXmlFile.ShogiEngine.Filepath, logger2);
                 };
 
                 //
@@ -62,10 +67,11 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C491____Event
                     , KwLogger logger) =>
                 {
                     Shape_BtnKoma btnKoma_Selected = (Shape_BtnKoma)btnKoma_Selected2;
-                    MainGui_Csharp shogiGui = (MainGui_Csharp)obj_shogiGui2;
+                    ServersideGui_Csharp shogiGui = (ServersideGui_Csharp)obj_shogiGui2;
                     Uc_Form1Mainable ui_PnlMain = ((Form1_Shogi)shogiGui.OwnerForm).Uc_Form1Main;
 
-                    ui_PnlMain.MainGui.Do_Boot2PComputer_Button2( logger);
+                    int clientIndex = 2;
+                    ui_PnlMain.MainGui.Do_SenteComputer_Button2(clientIndex, logger);
                 };
             }
             return Event_CsharpVsImpl.instance;
@@ -73,16 +79,16 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C491____Event
         private static Event_CsharpVsImpl instance;
 
         /// <summary>
-        /// [将棋エンジン起動ボタン_学習]ボタンのイベント。
+        /// [起動１]ボタンのイベント。
         /// </summary>
-        public DELEGATE_MouseHitEvent Delegate_BtnShogiEngineKidoL { get { return this.delegate_BtnShogiEngineKidoL; } }
-        private DELEGATE_MouseHitEvent delegate_BtnShogiEngineKidoL;
+        public DELEGATE_MouseHitEvent Delegate_BtnKido1 { get { return this.delegate_BtnKido1; } }
+        private DELEGATE_MouseHitEvent delegate_BtnKido1;
 
         /// <summary>
-        /// [将棋エンジン起動ボタン_直観]ボタンのイベント。
+        /// [起動２]ボタンのイベント。
         /// </summary>
-        public DELEGATE_MouseHitEvent Delegate_BtnComputerBoot { get { return this.delegate_BtnShogiEngineKidoF; } }
-        private DELEGATE_MouseHitEvent delegate_BtnShogiEngineKidoF;
+        public DELEGATE_MouseHitEvent Delegate_BtnKido2 { get { return this.delegate_BtnKido2; } }
+        private DELEGATE_MouseHitEvent delegate_BtnKido2;
 
         /// <summary>
         /// [将棋エンジン起動ボタン_思考]ボタンのイベント。

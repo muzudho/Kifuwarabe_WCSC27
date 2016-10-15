@@ -13,7 +13,7 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C500____Gui
     /// <summary>
     /// 将棋盤ＧＵＩ VS（C#）用
     /// </summary>
-    public class MainGui_CsharpVsImpl : MainGui_CsharpImpl, MainGui_Csharp
+    public class MainGui_CsharpVsImpl : ServersideGui_CsharpImpl, ServersideGui_Csharp
     {
 
 
@@ -27,11 +27,12 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C500____Gui
         /// ************************************************************************************************************************
         /// </summary>
         public override void ChangedTurn(
+            int clientIndex,
             Tree kifu1,
             Playerside pside,
             KwLogger logger)
         {
-            this.Link_Server.Clients[2].OnChangedTurn(
+            this.Link_Server.Clients[clientIndex].OnChangedTurn(
                 this.Link_Server.Storage.Earth,
                 kifu1,//エンドノード
                 pside,
@@ -41,17 +42,17 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C500____Gui
         /// <summary>
         /// 将棋エンジンに、終了するように促します。
         /// </summary>
-        public override void Shutdown( KwLogger errH)
+        public override void Shutdown(int clientIndex, KwLogger logger)
         {
-            this.Link_Server.Clients[2].Send_Shutdown(errH);
+            this.Link_Server.Clients[clientIndex].Send_Shutdown(logger);
         }
 
         /// <summary>
         /// 将棋エンジンに、ログを出すように促します。
         /// </summary>
-        public override void Logdase( KwLogger errH)
+        public override void Logdase(int clientIndex, KwLogger logger)
         {
-            this.Link_Server.Clients[2].Send_Logdase(errH);
+            this.Link_Server.Clients[clientIndex].Send_Logdase(logger);
         }
 
         /// <summary>
@@ -59,20 +60,20 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C500____Gui
         /// 将棋エンジンを起動します。
         /// ************************************************************************************************************************
         /// </summary>
-        public override void Do_Boot2Computer_Button1(string shogiEngineFilePath, KwLogger logger)
+        public override void Do_BootComputer_Button1(int clientIndex, string shogiEngineFilePath, KwLogger logger)
         {
-            this.Link_Server.SetClient(2,shogiEngineFilePath);
+            this.Link_Server.SetClient(clientIndex, shogiEngineFilePath);
 
             // 将棋エンジンの標準入力へ、メッセージを送ります。
-            this.Link_Server.Clients[2].Download(EngineClient_Impl.COMMAND_USI, logger);
+            this.Link_Server.Clients[clientIndex].Download(EngineClient_Impl.COMMAND_USI, logger);
         }
 
         /// <summary>
         /// コンピューターの先手
         /// </summary>
-        public override void Do_Boot2PComputer_Button2(KwLogger logger)
+        public override void Do_SenteComputer_Button2(int clientIndex, KwLogger logger)
         {
-            this.Link_Server.Clients[2].Download(
+            this.Link_Server.Clients[clientIndex].Download(
                 Util_KirokuGakari.ToSfen_PositionCommand(
                     this.Link_Server.Storage.Earth,
                     this.Link_Server.Storage.KifuTree
@@ -80,7 +81,7 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C500____Gui
                 logger);
 
             // 将棋エンジンの標準入力へ、メッセージを送ります。
-            this.Link_Server.Clients[2].Download(EngineClient_Impl.COMMAND_GO, logger);
+            this.Link_Server.Clients[clientIndex].Download(EngineClient_Impl.COMMAND_GO, logger);
         }
 
 

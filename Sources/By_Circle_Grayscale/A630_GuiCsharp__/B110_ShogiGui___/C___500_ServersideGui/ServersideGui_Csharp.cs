@@ -20,7 +20,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C___500_Gui
     /// <summary>
     /// 将棋盤ウィンドウ（Ｃ＃用）に対応。
     /// </summary>
-    public interface MainGui_Csharp
+    public interface ServersideGui_Csharp
     {
         #region プロパティー
 
@@ -38,23 +38,21 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C___500_Gui
         /// ************************************************************************************************************************
         /// </summary>
         void ChangedTurn(
-
-            //MoveEx endNode,
+            int clientIndex,
             Tree kifu1,
-
             Playerside pside,
-            KwLogger errH);
+            KwLogger logger);
 
         /// <summary>
         /// 将棋エンジンに、終了するように促します。
         /// </summary>
-        void Shutdown(KwLogger errH);
+        void Shutdown(int clientIndex, KwLogger logger);
 
 
         /// <summary>
         /// 将棋エンジンに、ログを出すように促します。
         /// </summary>
-        void Logdase(KwLogger errH);
+        void Logdase(int clientIndex, KwLogger logger);
 
 
         /// <summary>
@@ -62,12 +60,12 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C___500_Gui
         /// 将棋エンジンを起動します。
         /// ************************************************************************************************************************
         /// </summary>
-        void Do_Boot2Computer_Button1(string shogiEngineFilePath, KwLogger errH);
+        void Do_BootComputer_Button1(int clientIndex, string shogiEngineFilePath, KwLogger errH);
 
         /// <summary>
         /// コンピューターの先手
         /// </summary>
-        void Do_Boot2PComputer_Button2( KwLogger errH);
+        void Do_SenteComputer_Button2(int clientIndex, KwLogger errH);
 
 
         Busstop GetKoma(Finger finger);

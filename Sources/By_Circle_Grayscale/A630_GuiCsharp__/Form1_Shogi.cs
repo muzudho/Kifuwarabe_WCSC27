@@ -11,7 +11,7 @@ namespace Grayscale.P699_Form_______
     [Serializable]
     public partial class Form1_Shogi : Form, Form1_Shogiable
     {
-        private MainGui_Csharp owner;
+        private ServersideGui_Csharp owner;
 
         /// <summary>
         /// 別窓。コンソール・ウィンドウ。
@@ -38,7 +38,7 @@ namespace Grayscale.P699_Form_______
         /// コンストラクターです。
         /// ************************************************************************************************************************
         /// </summary>
-        public Form1_Shogi(MainGui_Csharp owner)
+        public Form1_Shogi(ServersideGui_Csharp owner)
         {
             this.owner = owner;
             InitializeComponent();
@@ -85,14 +85,18 @@ namespace Grayscale.P699_Form_______
         /// <param name="e"></param>
         private void Ui_Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            KwLogger errH = Util_Loggers.ProcessGui_DEFAULT;
-            this.owner.Shutdown(errH);
+            KwLogger logger = Util_Loggers.ProcessGui_DEFAULT;
+
+            int clientIndex = 2;
+            this.owner.Shutdown(clientIndex, logger);
         }
 
         private void Ui_Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            KwLogger errH = Util_Loggers.ProcessGui_DEFAULT;
-            this.owner.Shutdown(errH);
+            KwLogger logger = Util_Loggers.ProcessGui_DEFAULT;
+
+            int clientIndex = 2;
+            this.owner.Shutdown(clientIndex, logger);
         }
     }
 }

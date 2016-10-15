@@ -22,7 +22,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
         /// <summary>
         /// v(^▽^)v超能力『メナス』だぜ☆ 未来の脅威を予測し、可視化するぜ☆ｗｗｗ
         /// </summary>
-        public static void Menace( MainGui_Csharp mainGui, KwLogger logger)
+        public static void Menace( ServersideGui_Csharp mainGui, KwLogger logger)
         {
             if (0 < mainGui.SkyWrapper_Gui.GuiSky.Temezumi)
             {

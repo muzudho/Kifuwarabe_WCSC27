@@ -30,7 +30,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
         /// [初期配置]ボタン
         /// </summary>
         public static void Perform_SyokiHaichi_CurrentMutable(
-            MainGui_Csharp mainGui,
+            ServersideGui_Csharp mainGui,
             KwLogger logger
             )
         {
@@ -75,19 +75,22 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
             Tree kifu1,
 
             Playerside pside,
-            MainGui_Csharp mainGui,
+            ServersideGui_Csharp mainGui,
             Finger movedKoma,
             Finger foodKoma,
             string fugoJStr,
             string backedInputText,
             KwLogger errH)
         {
+            int clientIndex = 2;
+
             //------------------------------
             // チェンジターン
             //------------------------------
             mainGui.ChangedTurn(
-                kifu1,// curNode1,
-                pside,// curNode1.GetNodeValue().KaisiPside,
+                clientIndex,
+                kifu1,
+                pside,
                 errH);//[巻戻し]ボタンを押したあと
 
 
@@ -125,7 +128,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
             string restText,
             MoveEx node6,// = shogiGui.Link_Server.KifuTree.CurNode;
             Sky positionA,// = shogiGui.Link_Server.KifuTree.CurNode.GetNodeValue();
-            MainGui_Csharp shogiGui,
+            ServersideGui_Csharp shogiGui,
             Tree kifu1,
             KwLogger logger
             )
@@ -169,7 +172,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
             out Busstop dst,
             Shape_BtnKoma btnKoma_Selected,
             Shape_BtnMasu btnMasu,
-            MainGui_Csharp mainGui
+            ServersideGui_Csharp mainGui
         )
         {
             // 駒の種類
@@ -213,7 +216,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
         public static void Komamove1a_51Gui(
             bool torareruKomaAri,
             Busstop koma_Food_after,
-            MainGui_Csharp shogiGui
+            ServersideGui_Csharp shogiGui
         )
         {
             if (torareruKomaAri)
@@ -236,7 +239,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
         /// <param name="btnKoma">駒</param>
         public static void Redraw_KomaLocation(
             Finger figKoma,
-            MainGui_Csharp mainGui,
+            ServersideGui_Csharp mainGui,
             KwLogger errH
             )
         {

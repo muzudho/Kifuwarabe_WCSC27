@@ -46,7 +46,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
     /// 
     /// コンソール・ウィンドウを持っている。
     /// </summary>
-    public class MainGui_CsharpImpl : MainGui_Csharp
+    public class ServersideGui_CsharpImpl : ServersideGui_Csharp
     {
 
         #region プロパティー
@@ -183,7 +183,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
         /// <summary>
         /// 生成後、OwnerFormをセットしてください。
         /// </summary>
-        public MainGui_CsharpImpl()
+        public ServersideGui_CsharpImpl()
         {
             this.m_skyWrapper_Gui_ = new SkyWrapper_GuiImpl();
             this.server = new Server_Impl(this.m_skyWrapper_Gui_.GuiSky);
@@ -225,14 +225,14 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
         /// 将棋エンジンを起動します。
         /// ************************************************************************************************************************
         /// </summary>
-        public virtual void Do_Boot2Computer_Button1(string shogiEngineFilePath, KwLogger errH)
+        public virtual void Do_BootComputer_Button1(int clientIndex, string shogiEngineFilePath, KwLogger errH)
         {
         }
 
         /// <summary>
         /// コンピューターの先手
         /// </summary>
-        public virtual void Do_Boot2PComputer_Button2(KwLogger errH)
+        public virtual void Do_SenteComputer_Button2(int clientIndex, KwLogger errH)
         {
         }
 
@@ -242,9 +242,10 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
         /// ************************************************************************************************************************
         /// </summary>
         public virtual void ChangedTurn(
+            int clientIndex,
             Tree kifu1,
             Playerside pside,
-            KwLogger errH)
+            KwLogger logger)
         {
         }
 
@@ -252,7 +253,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
         /// <summary>
         /// 将棋エンジンに、終了するように促します。
         /// </summary>
-        public virtual void Shutdown(KwLogger errH)
+        public virtual void Shutdown(int clientIndex, KwLogger logger)
         {
         }
 
@@ -260,14 +261,14 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
         /// <summary>
         /// 将棋エンジンに、ログを出すように促します。
         /// </summary>
-        public virtual void Logdase(KwLogger errH)
+        public virtual void Logdase(int clientIndex, KwLogger logger)
         {
         }
 
 
 
         private int noopSend_counter;
-        public void Timer_Tick( KwLogger errH)
+        public void Timer_Tick( KwLogger logger)
         {
             if (this.server.IsLive_Client(2))
             {
@@ -276,7 +277,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
                 {
                     // noop
                     // 将棋エンジンの標準入力へ、メッセージを送ります。
-                    this.server.Clients[2].Download(EngineClient_Impl.COMMAND_NOOP_FROM_SERVER, errH);
+                    this.server.Clients[2].Download(EngineClient_Impl.COMMAND_NOOP_FROM_SERVER, logger);
 
                     this.noopSend_counter = 0;
                 }
@@ -286,9 +287,9 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
                 }
             }
 
-            this.TimedA.Step(errH);
-            this.TimedB_MouseCapture.Step(errH);
-            this.TimedC.Step(errH);
+            this.TimedA.Step(logger);
+            this.TimedB_MouseCapture.Step(logger);
+            this.TimedC.Step(logger);
         }
 
 
@@ -414,7 +415,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
 
         public void LaunchForm_AsBody(KwLogger errH)
         {
-            ((Form1_Shogiable)this.OwnerForm).Delegate_Form1_Load = (MainGui_Csharp shogiGui, object sender, EventArgs e) =>
+            ((Form1_Shogiable)this.OwnerForm).Delegate_Form1_Load = (ServersideGui_Csharp shogiGui, object sender, EventArgs e) =>
             {
 
                 //

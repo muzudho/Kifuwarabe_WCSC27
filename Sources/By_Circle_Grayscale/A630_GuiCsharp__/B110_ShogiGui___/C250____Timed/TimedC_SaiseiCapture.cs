@@ -17,7 +17,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
     {
 
 
-        private MainGui_Csharp mainGui;
+        private ServersideGui_Csharp mainGui;
 
         /// <summary>
         /// [再生]の状態です。
@@ -28,7 +28,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
         private string restText;
 
 
-        public TimedC_SaiseiCapture(MainGui_Csharp shogiGui)
+        public TimedC_SaiseiCapture(ServersideGui_Csharp shogiGui)
         {
             this.mainGui = shogiGui;
             this.SaiseiEventQueue = new Queue<SaiseiEventState>();

@@ -8,29 +8,29 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C492____Widget
     public class WidgetsLoader_CsharpVsImpl : WidgetsLoader_CsharpImpl
     {
 
-        public WidgetsLoader_CsharpVsImpl(string fileName, MainGui_Csharp shogibanGui)
+        public WidgetsLoader_CsharpVsImpl(string fileName, ServersideGui_Csharp shogibanGui)
             : base(fileName, shogibanGui)
         {
         }
 
         public override void Step3_SetEvent(object obj_shogiGui)
         {
-            MainGui_Csharp shogibanGui1 = (MainGui_Csharp)obj_shogiGui;
+            ServersideGui_Csharp shogibanGui1 = (ServersideGui_Csharp)obj_shogiGui;
 
             //----------
             // 将棋エンジン起動ボタン_学習
             //----------
             {
-                UserWidget widget = shogibanGui1.GetWidget("BtnShogiEngineKidoL");
-                widget.Delegate_MouseHitEvent = Event_CsharpVsImpl.GetInstance().Delegate_BtnShogiEngineKidoL;
+                UserWidget widget = shogibanGui1.GetWidget("BtnShogiEngineKido1P");
+                widget.Delegate_MouseHitEvent = Event_CsharpVsImpl.GetInstance().Delegate_BtnKido1;
             }
 
             //----------
-            // 将棋エンジン起動ボタン_CP起動
+            // 将棋エンジン２Ｐ起動ボタン
             //----------
             {
-                UserWidget widget = shogibanGui1.GetWidget("BtnShogiEngineKidoF");
-                widget.Delegate_MouseHitEvent = Event_CsharpVsImpl.GetInstance().Delegate_BtnComputerBoot;
+                UserWidget widget = shogibanGui1.GetWidget("BtnShogiEngineKido2P");
+                widget.Delegate_MouseHitEvent = Event_CsharpVsImpl.GetInstance().Delegate_BtnKido2;
             }
 
             //----------

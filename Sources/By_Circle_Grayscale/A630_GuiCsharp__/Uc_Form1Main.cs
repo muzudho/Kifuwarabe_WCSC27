@@ -1,7 +1,7 @@
 ﻿using Grayscale.A060_Application.B110_Log________.C___500_Struct;
 using Grayscale.A060_Application.B110_Log________.C500____Struct;
 using Grayscale.A060_Application.B310_Settei_____.C500____Struct;
-using Grayscale.A060_Application.B310_Settei_____.L510____Xml;
+using Grayscale.A060_Application.B310_Settei_____.C510____Xml;
 using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C500____Util;
 using Grayscale.A210_KnowNingen_.B200_ConvMasu___.C500____Conv;
@@ -49,12 +49,12 @@ namespace Grayscale.P699_Form_______
 
         #region プロパティー類
 
-        public MainGui_Csharp MainGui { get { return this.mainGui; } }
-        public void SetMainGui(MainGui_Csharp mainGui)
+        public ServersideGui_Csharp MainGui { get { return this.mainGui; } }
+        public void SetMainGui(ServersideGui_Csharp mainGui)
         {
             this.mainGui = mainGui;
         }
-        private MainGui_Csharp mainGui;
+        private ServersideGui_Csharp mainGui;
 
         /// <summary>
         /// 設定XMLファイル
@@ -372,7 +372,7 @@ namespace Grayscale.P699_Form_______
         /// </summary>
         /// <param name="response"></param>
         public void Solute_RepaintRequest(
-            Form1_Mutex mutex, MainGui_Csharp mainGui, KwLogger errH)
+            Form1_Mutex mutex, ServersideGui_Csharp mainGui, KwLogger errH)
         {
             Uc_Form2Main form2 = ((Form1_Shogi)this.ParentForm).Form2_Console.Uc_Form2Main;
 
@@ -513,7 +513,7 @@ namespace Grayscale.P699_Form_______
         /// HTML出力。（これは作者のホームページ用に書かれています）
         /// ************************************************************************************************************************
         /// </summary>
-        public static string CreateHtml(MainGui_Csharp mainGui)
+        public static string CreateHtml(ServersideGui_Csharp mainGui)
         {
             StringBuilder sb = new StringBuilder();
 

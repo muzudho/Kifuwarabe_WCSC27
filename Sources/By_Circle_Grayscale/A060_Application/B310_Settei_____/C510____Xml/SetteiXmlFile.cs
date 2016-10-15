@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using System.Xml;
 
-namespace Grayscale.A060_Application.B310_Settei_____.L510____Xml
+namespace Grayscale.A060_Application.B310_Settei_____.C510____Xml
 {
 
     /// <summary>
@@ -45,33 +45,7 @@ namespace Grayscale.A060_Application.B310_Settei_____.L510____Xml
         }
         private string setteiFileVer;
 
-        /// <summary>
-        /// ------------------------------------------------------------------------------------------------------------------------
-        /// 将棋エンジンの名前です。
-        /// ------------------------------------------------------------------------------------------------------------------------
-        /// </summary>
-        public string ShogiEngineName
-        {
-            get
-            {
-                return this.shogiEngineName;
-            }
-        }
-        private string shogiEngineName;
-
-        /// <summary>
-        /// ------------------------------------------------------------------------------------------------------------------------
-        /// 将棋エンジンのファイル・パスです。
-        /// ------------------------------------------------------------------------------------------------------------------------
-        /// </summary>
-        public string ShogiEngineFilePath
-        {
-            get
-            {
-                return this.shogiEngineFilePath;
-            }
-        }
-        private string shogiEngineFilePath;
+        public ShogiEngineImpl ShogiEngine { get; set; }
 
         #endregion
 
@@ -84,8 +58,7 @@ namespace Grayscale.A060_Application.B310_Settei_____.L510____Xml
         {
             this.fileName = fileName;
             this.setteiFileVer = "0.00.0";
-            this.shogiEngineName = "The将棋エンジン";
-            this.shogiEngineFilePath = "shogiEngine.exe";
+            this.ShogiEngine = new ShogiEngineImpl("The将棋エンジン", "shogiEngine.exe");
         }
 
         public void DebugWrite()
@@ -93,8 +66,8 @@ namespace Grayscale.A060_Application.B310_Settei_____.L510____Xml
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("設定ファイル          : " + this.FileName);
             sb.AppendLine("設定ファイルVer       : " + this.SetteiFileVer);
-            sb.AppendLine("将棋エンジン          : " + this.ShogiEngineName);
-            sb.AppendLine("将棋エンジン・ファイル: " + this.ShogiEngineFilePath);
+            sb.AppendLine("将棋エンジン          : " + this.ShogiEngine.Name);
+            sb.AppendLine("将棋エンジン・ファイル: " + this.ShogiEngine.Filepath);
             sb.AppendLine();
             sb.AppendLine();
             sb.AppendLine();
@@ -126,8 +99,8 @@ namespace Grayscale.A060_Application.B310_Settei_____.L510____Xml
                 {
                     XmlElement xShogiEngine = (XmlElement)xShogiEngineNode;
 
-                    this.shogiEngineName = xShogiEngine.GetAttribute("name");
-                    this.shogiEngineFilePath = xShogiEngine.GetAttribute("file");
+                    this.ShogiEngine.Name = xShogiEngine.GetAttribute("name");
+                    this.ShogiEngine.Filepath = xShogiEngine.GetAttribute("file");
                     break;
                 }
             }
@@ -169,10 +142,10 @@ namespace Grayscale.A060_Application.B310_Settei_____.L510____Xml
                 XmlElement xShogiEngine = xDoc.CreateElement("shogiEngine");
 
                 // name="The将棋エンジン"
-                xShogiEngine.SetAttribute("file", this.ShogiEngineName);
+                xShogiEngine.SetAttribute("name", this.ShogiEngine.Name);
 
                 // file="shogiEngine.exe"
-                xShogiEngine.SetAttribute("file", this.ShogiEngineFilePath);
+                xShogiEngine.SetAttribute("file", this.ShogiEngine.Filepath);
 
                 xKifunarabe.AppendChild(xShogiEngine);
 

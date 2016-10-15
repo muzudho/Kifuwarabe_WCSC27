@@ -25,7 +25,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C480____Util
     {
         private static Lua lua;
 
-        public static MainGui_Csharp ShogiGui { get; set; }
+        public static ServersideGui_Csharp ShogiGui { get; set; }
         public static KwLogger ErrH { get; set; }
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C480____Util
         /// 将棋盤の上の駒を、全て駒袋に移動します。 [クリアー]
         /// ************************************************************************************************************************
         /// </summary>
-        public static void ClearKifu(MainGui_Csharp mainGui, RepaintRequest repaintRequest)
+        public static void ClearKifu(ServersideGui_Csharp mainGui, RepaintRequest repaintRequest)
         {
             KwLogger logger = Util_Loggers.ProcessNone_ERROR;
 

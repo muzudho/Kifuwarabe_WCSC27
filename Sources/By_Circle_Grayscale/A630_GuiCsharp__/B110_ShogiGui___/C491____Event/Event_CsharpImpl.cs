@@ -50,10 +50,12 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     ) =>
                 {
                     Shape_BtnKoma btnKoma_Selected = (Shape_BtnKoma)btnKoma_Selected2;
-                    MainGui_Csharp shogibanGui2 = (MainGui_Csharp)obj_shogiGui2;
+                    ServersideGui_Csharp shogibanGui2 = (ServersideGui_Csharp)obj_shogiGui2;
 
                     shogibanGui2.SetNaruFlag(true);
+                    int clientIndex = 2;
                     ins.After_NaruNaranai_ButtonPushed(
+                        clientIndex,
                         shogibanGui2
                         , btnKoma_Selected
                         , errH2
@@ -71,10 +73,12 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     ) =>
                 {
                     Shape_BtnKoma btnKoma_Selected = (Shape_BtnKoma)btnKoma_Selected2;
-                    MainGui_Csharp shogibanGui2 = (MainGui_Csharp)obj_shogiGui2;
+                    ServersideGui_Csharp shogibanGui2 = (ServersideGui_Csharp)obj_shogiGui2;
 
                     shogibanGui2.SetNaruFlag(false);
+                    int clientIndex = 2;
                     ins.After_NaruNaranai_ButtonPushed(
+                        clientIndex,
                         shogibanGui2
                         , btnKoma_Selected
                         , errH
@@ -92,7 +96,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     ) =>
                 {
                     Shape_BtnKoma btnKoma_Selected = (Shape_BtnKoma)btnKoma_Selected2;
-                    MainGui_Csharp shogibanGui2 = (MainGui_Csharp)obj_shogiGui2;
+                    ServersideGui_Csharp shogibanGui2 = (ServersideGui_Csharp)obj_shogiGui2;
 
                     Util_Lua_Csharp.ShogiGui = shogibanGui2;
                     Util_Lua_Csharp.ErrH = errH;
@@ -110,7 +114,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     ) =>
                 {
                     Shape_BtnKoma btnKoma_Selected = (Shape_BtnKoma)btnKoma_Selected2;
-                    MainGui_Csharp shogibanGui2 = (MainGui_Csharp)obj_shogiGui2;
+                    ServersideGui_Csharp shogibanGui2 = (ServersideGui_Csharp)obj_shogiGui2;
 
                     Util_Lua_Csharp.ShogiGui = shogibanGui2;
                     Util_Lua_Csharp.ErrH = errH;
@@ -128,7 +132,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     ) =>
                 {
                     Shape_BtnKoma btnKoma_Selected = (Shape_BtnKoma)btnKoma_Selected2;
-                    MainGui_Csharp mainGui3 = (MainGui_Csharp)obj_shogiGui2;
+                    ServersideGui_Csharp mainGui3 = (ServersideGui_Csharp)obj_shogiGui2;
 
                     string restText = Util_Function_Csharp.ReadLine_FromTextbox();
                     Util_Server.Komaokuri_Srv(
@@ -160,7 +164,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     ) =>
                 {
                     Shape_BtnKoma btnKoma_Selected = (Shape_BtnKoma)btnKoma_Selected2;
-                    MainGui_Csharp mainGui2 = (MainGui_Csharp)obj_shogiGui2;
+                    ServersideGui_Csharp mainGui2 = (ServersideGui_Csharp)obj_shogiGui2;
 
                     Finger movedKoma;
                     Finger foodKoma;//取られた駒
@@ -197,10 +201,11 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     , KwLogger errH
                     ) =>
                 {
-                    MainGui_Csharp shogibanGui2 = (MainGui_Csharp)obj_shogiGui2;
+                    ServersideGui_Csharp shogibanGui2 = (ServersideGui_Csharp)obj_shogiGui2;
                     Shape_BtnKoma btnKoma_Selected = (Shape_BtnKoma)btnKoma_Selected2;
 
-                    shogibanGui2.Logdase(errH);
+                    int clientIndex = 2;
+                    shogibanGui2.Logdase( clientIndex, errH);
                 };
 
                 //
@@ -213,7 +218,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     , KwLogger errH
                     ) =>
                 {
-                    MainGui_Csharp shogibanGui2 = (MainGui_Csharp)obj_shogiGui2;
+                    ServersideGui_Csharp shogibanGui2 = (ServersideGui_Csharp)obj_shogiGui2;
                     Shape_BtnKoma btnKoma_Selected = (Shape_BtnKoma)btnKoma_Selected2;
                     UserWidget widget = shogibanGui2.GetWidget("BtnKabeOku");
 
@@ -242,7 +247,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     ) =>
                 {
                     Shape_BtnKoma btnKoma_Selected = (Shape_BtnKoma)btnKoma_Selected2;
-                    MainGui_Csharp shogibanGui2 = (MainGui_Csharp)obj_shogiGui2;
+                    ServersideGui_Csharp shogibanGui2 = (ServersideGui_Csharp)obj_shogiGui2;
 
                     switch (shogibanGui2.SyuturyokuKirikae)
                     {
@@ -272,7 +277,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                 {
                     Shape_BtnKoma btnKoma_Selected = (Shape_BtnKoma)btnKoma_Selected2;
                     UserWidget userWidget = (UserWidget)userWidget2;
-                    MainGui_Csharp shogibanGui2 = (MainGui_Csharp)obj_shogiGui2;
+                    ServersideGui_Csharp shogibanGui2 = (ServersideGui_Csharp)obj_shogiGui2;
                     UserWidget widget = shogibanGui2.GetWidget(userWidget.Name);
 
                     shogibanGui2.RepaintRequest.SetNyuryokuTextTail(widget.Fugo);
@@ -289,7 +294,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     ) =>
                 {
                     Shape_BtnKoma btnKoma_Selected = (Shape_BtnKoma)btnKoma_Selected2;
-                    MainGui_Csharp shogibanGui2 = (MainGui_Csharp)obj_shogiGui2;
+                    ServersideGui_Csharp shogibanGui2 = (ServersideGui_Csharp)obj_shogiGui2;
 
                     shogibanGui2.RepaintRequest.NyuryokuText = "";
                 };
@@ -305,7 +310,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     ) =>
                 {
                     Shape_BtnKoma btnKoma_Selected = (Shape_BtnKoma)btnKoma_Selected2;
-                    MainGui_Csharp shogibanGui2 = (MainGui_Csharp)obj_shogiGui2;
+                    ServersideGui_Csharp shogibanGui2 = (ServersideGui_Csharp)obj_shogiGui2;
 
                     
                     Util_KifuTree282.Clear_SetStartpos_KokokaraSaifu(
@@ -331,7 +336,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     ) =>
                 {
                     Shape_BtnKoma btnKoma_Selected = (Shape_BtnKoma)btnKoma_Selected2;
-                    MainGui_Csharp shogibanGui2 = (MainGui_Csharp)obj_shogiGui2;
+                    ServersideGui_Csharp shogibanGui2 = (ServersideGui_Csharp)obj_shogiGui2;
 
                     Util_Function_Csharp.Perform_SyokiHaichi_CurrentMutable(shogibanGui2, errH2);
                 };
@@ -347,7 +352,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     ) =>
                 {
                     Shape_BtnKoma btnKoma_Selected = (Shape_BtnKoma)btnKoma_Selected2;
-                    MainGui_Csharp mainGui3 = (MainGui_Csharp)obj_shogiGui2;
+                    ServersideGui_Csharp mainGui3 = (ServersideGui_Csharp)obj_shogiGui2;
 
                     Shape_BtnKoma movedKoma = mainGui3.Shape_PnlTaikyoku.Btn_MovedKoma();
 
@@ -503,12 +508,12 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
         /// <param name="btnTumandeiruKoma"></param>
         /// <param name="logger"></param>
         private void After_NaruNaranai_ButtonPushed(
-            MainGui_Csharp mainGui
-            , Shape_BtnKoma btnTumandeiruKoma
-            , KwLogger logger
+            int clientIndex,
+            ServersideGui_Csharp mainGui,
+            Shape_BtnKoma btnTumandeiruKoma,
+            KwLogger logger
         )
         {
-
             // 駒を動かします。
             {
                 // GuiからServerへ渡す情報
@@ -602,6 +607,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                 {
                     //System.C onsole.WriteLine("マウス左ボタンを押したのでチェンジターンします。");
                     mainGui.ChangedTurn(
+                        clientIndex,
                         mainGui.Link_Server.Storage.KifuTree,//.CurrentNode,
                         mainGui.Link_Server.Storage.KifuTree.PositionA.GetKaisiPside(),
                         logger);
@@ -620,6 +626,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
             mainGui.RepaintRequest.SetFlag_RefreshRequest();
 
             mainGui.ChangedTurn(
+                clientIndex,
                 mainGui.Link_Server.Storage.KifuTree,
                 mainGui.Link_Server.Storage.KifuTree.PositionA.GetKaisiPside(),
                 logger);//マウス左ボタンを押したのでチェンジターンします。

@@ -153,7 +153,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C080____Shape
         /// <param name="y"></param>
         public bool DeselectByMouse(int x, int y, object obj_shogiGui)
         {
-            return this.this_object.DeselectByMouse(x, y, (MainGui_Csharp)obj_shogiGui);
+            return this.this_object.DeselectByMouse(x, y, (ServersideGui_Csharp)obj_shogiGui);
         }
 
         public bool Visible

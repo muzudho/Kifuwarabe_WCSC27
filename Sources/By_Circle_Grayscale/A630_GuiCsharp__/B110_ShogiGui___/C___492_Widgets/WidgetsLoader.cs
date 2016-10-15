@@ -8,7 +8,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C___492_Widgets
     public interface WidgetsLoader
     {
         string FileName { get; set; }
-        MainGui_Csharp ShogibanGui { get; set; }
+        ServersideGui_Csharp ShogibanGui { get; set; }
 
         void Step1_ReadFile();
         void Step2_Compile_AllWidget(object obj_shogiGui);

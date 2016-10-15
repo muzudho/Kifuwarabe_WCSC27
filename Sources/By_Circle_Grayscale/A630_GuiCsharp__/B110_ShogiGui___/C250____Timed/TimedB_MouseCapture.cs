@@ -41,7 +41,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
     public class TimedB_MouseCapture : Timed_Abstract
     {
 
-        private MainGui_Csharp mainGui;
+        private ServersideGui_Csharp mainGui;
 
         /// <summary>
         /// マウス操作の状態です。
@@ -51,7 +51,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
 
         public static void Check_MouseoverKomaKiki(object obj_shogiGui, Finger finger, KwLogger logger)
         {
-            MainGui_Csharp shogiGui = (MainGui_Csharp)obj_shogiGui;
+            ServersideGui_Csharp shogiGui = (ServersideGui_Csharp)obj_shogiGui;
 
             shogiGui.SkyWrapper_Gui.GuiSky.AssertFinger(finger);
             Busstop busstop = shogiGui.SkyWrapper_Gui.GuiSky.BusstopIndexOf(finger);
@@ -82,7 +82,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
 
 
 
-        public TimedB_MouseCapture(MainGui_Csharp shogibanGui)
+        public TimedB_MouseCapture(ServersideGui_Csharp shogibanGui)
         {
             this.mainGui = shogibanGui;
             this.MouseEventQueue = new Queue<MouseEventState>();
@@ -433,7 +433,9 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                                     //------------------------------
                                                     if (!mainGui.Shape_PnlTaikyoku.Requested_NaruDialogToShow)
                                                     {
+                                                        int clientIndex = 2;
                                                         mainGui.ChangedTurn(
+                                                            clientIndex,
                                                             mainGui.Link_Server.Storage.KifuTree,
                                                             mainGui.Link_Server.Storage.KifuTree.PositionA.GetKaisiPside(),
                                                             eventState.Flg_logTag);//マウス左ボタンを放したのでチェンジターンします。
@@ -583,7 +585,9 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                                         if (!mainGui.Shape_PnlTaikyoku.Requested_NaruDialogToShow)
                                                         {
                                                             //System.C onsole.WriteLine("マウス左ボタンを放したのでチェンジターンします。");
+                                                            int clientIndex = 2;
                                                             mainGui.ChangedTurn(
+                                                                clientIndex,
                                                                 mainGui.Link_Server.Storage.KifuTree,
                                                                 mainGui.Link_Server.Storage.KifuTree.PositionA.GetKaisiPside(),
                                                                 eventState.Flg_logTag);//マウス左ボタンを放したのでチェンジターンします。

@@ -235,7 +235,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C081____Canvas
         /// コンストラクターです。
         /// ************************************************************************************************************************
         /// </summary>
-        public Shape_PnlTaikyokuImpl(string widgetName, MainGui_Csharp shogibanGui)
+        public Shape_PnlTaikyokuImpl(string widgetName, ServersideGui_Csharp shogibanGui)
             : base(widgetName, 0, 0, 0, 0)
         {
 
@@ -340,7 +340,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C081____Canvas
             PaintEventArgs e,
             Playerside psideA,
             Sky positionA,
-            MainGui_Csharp shogiGui,
+            ServersideGui_Csharp shogiGui,
             string windowName,
             KwLogger errH
             )
@@ -418,7 +418,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C081____Canvas
         /// <returns>つまんでいる駒。なければヌル</returns>
         public Shape_BtnKoma Btn_TumandeiruKoma(object obj_shogiGui)
         {
-            MainGui_Csharp shogiGui = (MainGui_Csharp)obj_shogiGui;
+            ServersideGui_Csharp shogiGui = (ServersideGui_Csharp)obj_shogiGui;
             Shape_BtnKoma found = null;
 
             if (-1 != shogiGui.FigTumandeiruKoma)
