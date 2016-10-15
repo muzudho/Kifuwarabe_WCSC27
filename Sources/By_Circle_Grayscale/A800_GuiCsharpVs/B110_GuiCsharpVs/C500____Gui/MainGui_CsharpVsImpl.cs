@@ -1,11 +1,12 @@
 ﻿using Grayscale.A060_Application.B110_Log________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
+using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B690_Ittesasu___.C250____OperationA;
+using Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient;
 using Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C___500_Gui;
 using Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI;
 using Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C492____Widget;
 using System.Text;
-using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 
 namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C500____Gui
 {
@@ -64,20 +65,25 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C500____Gui
         public override void Start_ShogiEngine(string shogiEngineFilePath, KwLogger errH)
         {
             this.Link_Server.EngineClient.Start(shogiEngineFilePath);
-            this.Link_Server.EngineClient.ShogiEngineProcessWrapper.Send_Usi(errH);
+
+            // 将棋エンジンの標準入力へ、メッセージを送ります。
+            this.Link_Server.EngineClient.Download(EngineClient_Impl.COMMAND_USI, errH);
         }
 
         /// <summary>
         /// コンピューターの先手
         /// </summary>
-        public override void Do_ComputerSente(KwLogger errH)
+        public override void Do_ComputerSente(KwLogger logger)
         {
-            this.Link_Server.EngineClient.ShogiEngineProcessWrapper.Send_Position(
+            this.Link_Server.EngineClient.Download(
                 Util_KirokuGakari.ToSfen_PositionCommand(
                     this.Link_Server.Earth,
                     this.Link_Server.KifuTree//.CurrentNode//エンドノード
-                    ), errH);
-            this.Link_Server.EngineClient.ShogiEngineProcessWrapper.Send_Go(errH);
+                    ),
+                logger);
+
+            // 将棋エンジンの標準入力へ、メッセージを送ります。
+            this.Link_Server.EngineClient.Download(EngineClient_Impl.COMMAND_GO, logger);
         }
 
 

@@ -3,7 +3,7 @@ using Grayscale.A480_ServerAims_.B110_AimsServer_.C___070_ServerBase;
 
 namespace Grayscale.A480_ServerAims_.B110_AimsServer_.C___125_Receiver
 {
-    public interface Receiver_ForAims : Receiver
+    public interface Receiver_ForAims : ServersideClientReceiver
     {
 
         /// <summary>

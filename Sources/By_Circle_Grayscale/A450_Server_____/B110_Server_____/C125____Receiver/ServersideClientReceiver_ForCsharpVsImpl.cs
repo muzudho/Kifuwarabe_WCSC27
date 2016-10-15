@@ -14,7 +14,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
     /// <summary>
     /// C# GUI のコンピューター対戦用。受信機能。
     /// </summary>
-    public class Receiver_ForCsharpVsImpl : Receiver
+    public class ServersideClientReceiver_ForCsharpVsImpl : ServersideClientReceiver
     {
 
         #region プロパティー
@@ -22,12 +22,12 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
         /// <summary>
         /// 将棋エンジンを掴んでいるオブジェクトです。
         /// </summary>
-        public object Owner_EngineClient { get { return this.owner_EngineClient; } }//EngineClient型
-        public void SetOwner_EngineClient(object owner_EngineClient)//EngineClient型
+        public EngineClient Owner_EngineClient { get { return this.owner_EngineClient; } }//EngineClient型
+        public void SetOwner_EngineClient(EngineClient owner_EngineClient)//EngineClient型
         {
             this.owner_EngineClient = owner_EngineClient;
         }
-        private object owner_EngineClient;//EngineClient型
+        private EngineClient owner_EngineClient;//EngineClient型
 
         #endregion
 
@@ -36,7 +36,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
         /// </summary>
         /// <param name="ownerServer"></param>
         /// <param name="shogiEngineProcessWrapper"></param>
-        public Receiver_ForCsharpVsImpl()
+        public ServersideClientReceiver_ForCsharpVsImpl()
         {
             // 生成後に、SetOwner_EngineClient( ) を使って設定してください。
         }
@@ -53,7 +53,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
         /// <param name="e"></param>
         public virtual void OnListenUpload_Async(object sender, DataReceivedEventArgs e)
         {
-            KwLogger errH = Util_Loggers.ProcessServer_NETWORK_ASYNC;
+            KwLogger logger = Util_Loggers.ProcessServer_NETWORK_ASYNC;
 
             string line = e.Data;
 
@@ -80,7 +80,8 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
                     // すぐに返すと受け取れないので、数秒開けます。
                     System.Threading.Thread.Sleep(3000);
 
-                    ((EngineClient)this.Owner_EngineClient).ShogiEngineProcessWrapper.Send_Noop_from_server(errH);
+                    // 将棋エンジンの標準入力へ、メッセージを送ります。
+                    this.Owner_EngineClient.Download(EngineClient_Impl.COMMAND_NOOP_FROM_SERVER, logger);
                 }
                 else if (line.StartsWith("option"))
                 {
@@ -93,24 +94,25 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
                     //------------------------------------------------------------
 
                     // 「私は将棋サーバーですが、USIプロトコルのponderコマンドには対応していませんので、送ってこないでください」
-                    ((EngineClient)this.Owner_EngineClient).ShogiEngineProcessWrapper.Send_Setoption("setoption name USI_Ponder value false", errH);
+                    // 将棋エンジンの標準入力へ、メッセージを送ります。
+                    this.Owner_EngineClient.Download(EngineClient_Impl.COMMAND_SETOPTION + " name USI_Ponder value false", logger);
 
                     // 将棋エンジンへ：　「私は将棋サーバーです。noop コマンドを送ってくれば、すぐに ok コマンドを返します。1分間を空けてください」
-                    ((EngineClient)this.Owner_EngineClient).ShogiEngineProcessWrapper.Send_Setoption("setoption name noopable value true", errH);
+                    // 将棋エンジンの標準入力へ、メッセージを送ります。
+                    this.Owner_EngineClient.Download(EngineClient_Impl.COMMAND_SETOPTION + " name noopable value true", logger);
 
                     //------------------------------------------------------------
                     // 「準備はいいですか？」
                     //------------------------------------------------------------
-                    ((EngineClient)this.Owner_EngineClient).ShogiEngineProcessWrapper.Send_Isready(errH);
+                    this.Owner_EngineClient.Download(EngineClient_Impl.COMMAND_ISREADY, logger);
                 }
                 else if ("readyok" == line)
                 {
-
                     //------------------------------------------------------------
                     // 対局開始！
                     //------------------------------------------------------------
-                    ((EngineClient)this.Owner_EngineClient).ShogiEngineProcessWrapper.Send_Usinewgame(errH);
-
+                    // 将棋エンジンの標準入力へ、メッセージを送ります。
+                    this.Owner_EngineClient.Download(EngineClient_Impl.COMMAND_USINEWGAME, logger);
                 }
                 else if (line.StartsWith("info"))
                 {
@@ -118,24 +120,25 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
                 else if (line.StartsWith("bestmove resign"))
                 {
                     // 将棋エンジンが、投了されました。
-                    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
                     //------------------------------------------------------------
                     // あなたの負けです☆
                     //------------------------------------------------------------
-                    ((EngineClient)this.Owner_EngineClient).ShogiEngineProcessWrapper.Send_Gameover_lose(errH);
+                    // 将棋エンジンの標準入力へ、メッセージを送ります。
+                    this.Owner_EngineClient.Download(EngineClient_Impl.COMMAND_GAMEOVER_LOSE, logger);
 
                     //------------------------------------------------------------
                     // 将棋エンジンを終了してください☆
                     //------------------------------------------------------------
-                    ((EngineClient)this.Owner_EngineClient).ShogiEngineProcessWrapper.Send_Quit(errH);
+                    // 将棋エンジンの標準入力へ、メッセージを送ります。
+                    this.Owner_EngineClient.Download(EngineClient_Impl.COMMAND_QUIT, logger);
                 }
                 else if (line.StartsWith("bestmove"))
                 {
                     // 将棋エンジンが、手を指されました。
                     //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-                    ((Server)((EngineClient)this.Owner_EngineClient).Owner_Server).AddInputString99(
+                    ((Server)this.Owner_EngineClient.Owner_Server).AddInputString99(
                         line.Substring("bestmove".Length + "".Length)
                         );
 

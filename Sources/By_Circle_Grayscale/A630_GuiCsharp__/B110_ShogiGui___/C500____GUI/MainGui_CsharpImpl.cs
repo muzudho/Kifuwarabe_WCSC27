@@ -1,10 +1,10 @@
 ﻿using Codeplex.Data;//DynamicJson
 using Grayscale.A060_Application.B110_Log________.C___500_Struct;
 using Grayscale.A060_Application.B310_Settei_____.C500____Struct;
-using Grayscale.A000_Platform___.B021_Random_____.C500____Struct;
+using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
+using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B300_KomahaiyaTr.C500____Table;
-using Grayscale.A210_KnowNingen_.B310_Shogiban___.C250____Struct;
-using Grayscale.A210_KnowNingen_.B310_Shogiban___.C500____Util;
 using Grayscale.A210_KnowNingen_.B380_Michi______.C500____Word;
 using Grayscale.A210_KnowNingen_.B390_KomahaiyaEx.C500____Util;
 using Grayscale.A210_KnowNingen_.B490_ForcePromot.C250____Struct;
@@ -33,10 +33,6 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using Finger = ProjectDark.NamedInt.StrictNamedInt0; //スプライト番号
-using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter;
-using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 
 #if DEBUG
 using Grayscale.A060_Application.B110_Log________.C___500_Struct;
@@ -190,7 +186,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
         public MainGui_CsharpImpl()
         {
             this.m_skyWrapper_Gui_ = new SkyWrapper_GuiImpl();
-            this.server = new Server_Impl(this.m_skyWrapper_Gui_.GuiSky, new Receiver_ForCsharpVsImpl());
+            this.server = new Server_Impl(this.m_skyWrapper_Gui_.GuiSky, new ServersideClientReceiver_ForCsharpVsImpl());
 
             this.Widgets = new Dictionary<string, UserWidget>();
 
@@ -273,13 +269,15 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
         private int noopSend_counter;
         public void Timer_Tick( KwLogger errH)
         {
-            if (this.server.EngineClient.ShogiEngineProcessWrapper.IsLive_ShogiEngine())
+            if (this.server.EngineClient.IsLive_ShogiEngine())
             {
                 // だいたい 1tick 50ms と考えて、20倍で 1秒。
                 if ( 20 * 3 < this.noopSend_counter) // 3秒に 1 回ぐらい ok を送れば？
                 {
                     // noop
-                    this.server.EngineClient.ShogiEngineProcessWrapper.Send_Noop_from_server(errH);
+                    // 将棋エンジンの標準入力へ、メッセージを送ります。
+                    this.server.EngineClient.Download(EngineClient_Impl.COMMAND_NOOP_FROM_SERVER, errH);
+
                     this.noopSend_counter = 0;
                 }
                 else

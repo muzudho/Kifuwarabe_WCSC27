@@ -1,27 +1,22 @@
 ﻿using Grayscale.A060_Application.B110_Log________.C___500_Struct;
 using Grayscale.A060_Application.B110_Log________.C500____Struct;
-using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct;
-
+using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct;
 using Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky;
 using Grayscale.A210_KnowNingen_.B640_KifuTree___.C250____Struct;
-using Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter;
 using Grayscale.A210_KnowNingen_.B690_Ittesasu___.C250____OperationA;
 using Grayscale.A450_Server_____.B110_Server_____.C___497_EngineClient;
 using Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient;
-using Grayscale.A480_ServerAims_.B110_AimsServer_.C___125_Receiver;
 using Grayscale.A480_ServerAims_.B110_AimsServer_.C___060_Phase;
 using Grayscale.A480_ServerAims_.B110_AimsServer_.C___070_ServerBase;
+using Grayscale.A480_ServerAims_.B110_AimsServer_.C___125_Receiver;
 using System;
 using System.Diagnostics;
 using System.Windows.Forms;
-using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
 
 namespace Grayscale.A480_ServerAims_.B110_AimsServer_.C125____Receiver
 {
-    public class Receiver_ForAimsImpl : Receiver_ForCsharpVsImpl, Receiver_ForAims
+    public class Receiver_ForAimsImpl : ServersideClientReceiver_ForCsharpVsImpl, Receiver_ForAims
     {
 
         /// <summary>
@@ -46,7 +41,7 @@ namespace Grayscale.A480_ServerAims_.B110_AimsServer_.C125____Receiver
         /// <param name="e"></param>
         public override void OnListenUpload_Async(object sender, DataReceivedEventArgs e)
         {
-            KwLogger errH = Util_Loggers.ProcessAims_DEFAULT;
+            KwLogger logger = Util_Loggers.ProcessAims_DEFAULT;
 
             string line = e.Data;
 
@@ -104,7 +99,9 @@ namespace Grayscale.A480_ServerAims_.B110_AimsServer_.C125____Receiver
                                 // 対局開始！
                                 //------------------------------------------------------------
                                 Console.Out.WriteLine("usinewgame");
-                                ((EngineClient)this.Owner_EngineClient).ShogiEngineProcessWrapper.Send_Usinewgame(errH);
+                                // 将棋エンジンの標準入力へ、メッセージを送ります。
+                                this.Owner_EngineClient.Download(EngineClient_Impl.COMMAND_USINEWGAME, logger);
+
 
                                 // FIXME:平手とは限らないが、平手という前提で、毎回一から作りなおします。
                                 Sky positionInit = Util_SkyCreator.New_Hirate();
@@ -124,11 +121,11 @@ namespace Grayscale.A480_ServerAims_.B110_AimsServer_.C125____Receiver
 
                                 // 将棋エンジンに対して
                                 // 例：「position startpos moves 7g7f」
-                                ((EngineClient)this.Owner_EngineClient).ShogiEngineProcessWrapper.Send_Position(
+                                this.Owner_EngineClient.Download(
                                     Util_KirokuGakari.ToSfen_PositionCommand(
                                         this.Owner_AimsServer.Earth,
                                         this.Owner_AimsServer.KifuTree//.CurrentNode//エンドノード
-                                        ), errH
+                                        ), logger
                                 );
 
                                 // AIMS GUIに対して

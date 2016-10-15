@@ -2,10 +2,12 @@
 using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
 using Grayscale.A450_Server_____.B110_Server_____.C___125_Receiver;
-using Grayscale.A450_Server_____.B110_Server_____.C___496_EngineWrapper;
+using Grayscale.A450_Server_____.B110_Server_____.C___498_Server;
+using System.Diagnostics;
 
 namespace Grayscale.A450_Server_____.B110_Server_____.C___497_EngineClient
 {
+    public delegate void DELEGATE_ShogiServer_ToEngine(string line, KwLogger errH);
 
     /// <summary>
     /// 将棋エンジン クライアント。
@@ -13,21 +15,30 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C___497_EngineClient
     /// </summary>
     public interface EngineClient
     {
-        object Owner_Server { get; }//Server型
-        void SetOwner_Server(object owner_Server);//Server型
+        DELEGATE_ShogiServer_ToEngine Delegate_ShogiServer_ToEngine { get; }
+        void SetDelegate_ShogiServer_ToEngine(DELEGATE_ShogiServer_ToEngine delegateMethod);
+
+        /// <summary>
+        /// ------------------------------------------------------------------------------------------------------------------------
+        /// これが、将棋エンジン（プロセス）です。
+        /// ------------------------------------------------------------------------------------------------------------------------
+        /// </summary>
+        Process ShogiEngine { get; }
+        void SetShogiEngine(Process shogiEngine);
+
+
+
+        Server Owner_Server { get; }
+        void SetOwner_Server(Server owner_Server);
 
         /// <summary>
         /// レシーバー
         /// </summary>
-        Receiver Receiver { get; }
+        ServersideClientReceiver Receiver { get; }
 
 
         void Start(string shogiEngineFilePath);
 
-        /// <summary>
-        /// 将棋エンジンのプロセスです。
-        /// </summary>
-        EngineProcessWrapper ShogiEngineProcessWrapper { get; set; }
 
         /// <summary>
         /// 手番が変わったときに、実行する処理をここに書いてください。
@@ -36,10 +47,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C___497_EngineClient
         /// <param name="errH"></param>
         void OnChangedTurn(
             Earth earth,
-
-            //MoveEx curNode,
             Tree kifu1,
-
             Playerside kaisiPside,
             KwLogger errH);
 
@@ -53,5 +61,17 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C___497_EngineClient
         /// </summary>
         void Send_Logdase(KwLogger errH);
 
+        /// <summary>
+        /// 将棋エンジンが起動しているか否かです。
+        /// </summary>
+        /// <returns></returns>
+        bool IsLive_ShogiEngine();
+
+        /// <summary>
+        /// 将棋エンジンの標準入力へ、メッセージを送ります。
+        /// 
+        /// 二度手間なんだが、メソッドを１箇所に集約するためにこれを使う☆
+        /// </summary>
+        void Download(string message, KwLogger logger);
     }
 }

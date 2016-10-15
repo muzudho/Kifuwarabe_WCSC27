@@ -5,10 +5,11 @@ using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B690_Ittesasu___.C250____OperationA;
 using Grayscale.A450_Server_____.B110_Server_____.C___125_Receiver;
-using Grayscale.A450_Server_____.B110_Server_____.C___496_EngineWrapper;
 using Grayscale.A450_Server_____.B110_Server_____.C___497_EngineClient;
-using Grayscale.A450_Server_____.B110_Server_____.C496____EngineWrapper;
 using System;
+using System.Diagnostics;
+using Grayscale.A450_Server_____.B110_Server_____.C___498_Server;
+using Grayscale.A060_Application.B110_Log________.C___500_Struct;
 using System.Diagnostics;
 
 namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
@@ -23,41 +24,17 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
     /// </summary>
     public class EngineClient_Impl : EngineClient
     {
-
-
-        #region プロパティ類
-
         /// <summary>
-        /// オーナー・サーバー
+        /// 生成後、Pr_ofShogiEngine をセットしてください。
         /// </summary>
-        public object Owner_Server { get { return this.ownerServer; } }//Server型
-        public void SetOwner_Server(object owner)//Server型
+        public EngineClient_Impl(ServersideClientReceiver receiver)
         {
-            this.ownerServer = owner;
-        }
-        private object ownerServer;//Server型
+            this.SetDelegate_ShogiServer_ToEngine((string line, KwLogger logger) =>
+            {
+                // デフォルトでは何もしません。
+            });
 
-        /// <summary>
-        /// レシーバー
-        /// </summary>
-        public Receiver Receiver { get { return this.receiver; } }
-        private Receiver receiver;
-
-        /// <summary>
-        /// ------------------------------------------------------------------------------------------------------------------------
-        /// 将棋エンジンと会話できるオブジェクトです。
-        /// ------------------------------------------------------------------------------------------------------------------------
-        /// </summary>
-        public EngineProcessWrapper ShogiEngineProcessWrapper { get; set; }
-
-        #endregion
-
-        public EngineClient_Impl(Receiver receiver)
-        {
             this.receiver = receiver;
-            this.receiver.SetOwner_EngineClient(this);
-
-            this.ShogiEngineProcessWrapper = new EngineProcessWrapperImpl();
 
 #if DEBUG
             this.ShogiEngineProcessWrapper.SetDelegate_ShogiServer_ToEngine( (string line, KwLogger errH) =>
@@ -72,6 +49,102 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
 #endif
         }
 
+
+
+        public DELEGATE_ShogiServer_ToEngine Delegate_ShogiServer_ToEngine { get { return this.delegate_ShogiServer_ToEngine; } }
+        public void SetDelegate_ShogiServer_ToEngine(DELEGATE_ShogiServer_ToEngine delegateMethod)
+        {
+            this.delegate_ShogiServer_ToEngine = delegateMethod;
+        }
+        private DELEGATE_ShogiServer_ToEngine delegate_ShogiServer_ToEngine;
+
+        /// <summary>
+        /// これが、将棋エンジン（プロセス）です。
+        /// </summary>
+        public Process ShogiEngine { get { return this.shogiEngine; } }
+        public void SetShogiEngine(Process shogiEngine)
+        {
+            this.shogiEngine = shogiEngine;
+        }
+        private Process shogiEngine;
+
+        /// <summary>
+        /// 将棋エンジンに向かって、ok コマンドを送信する要求。
+        /// </summary>
+        public bool Requested_SendOk { get { return this.requested_SendOk; } }
+        public void SetRequested_SendOk(bool requested)
+        {
+            requested_SendOk = requested;
+        }
+        private bool requested_SendOk;
+
+
+
+        /// <summary>
+        /// 将棋エンジンに、"setoption ～略～"を送信します。
+        /// </summary>
+        public const string COMMAND_SETOPTION = "setoption";
+
+        /// <summary>
+        /// 将棋エンジンに、"usi"を送信します。
+        /// </summary>
+        public const string COMMAND_USI = "usi";
+
+        /// <summary>
+        /// 将棋エンジンに、"isready"を送信します。
+        /// </summary>
+        public const string COMMAND_ISREADY = "isready";
+
+        /// <summary>
+        /// 将棋エンジンに、"usinewgame"を送信します。
+        /// </summary>
+        public const string COMMAND_USINEWGAME = "usinewgame";
+
+        /// <summary>
+        /// 将棋エンジンに、"gameover lose"を送信します。
+        /// </summary>
+        public const string COMMAND_GAMEOVER_LOSE = "gameover lose";
+
+        /// <summary>
+        /// 将棋エンジンに、"quit"を送信します。
+        /// </summary>
+        public const string COMMAND_QUIT = "quit";
+
+        /// <summary>
+        /// 将棋エンジンに、"ok"を送信します。"noop"への返事です。
+        /// </summary>
+        public const string COMMAND_NOOP_FROM_SERVER = "noop from server";
+
+        /// <summary>
+        /// 将棋エンジンに、"go"を送信します。
+        /// </summary>
+        public const string COMMAND_GO = "go";
+
+        /// <summary>
+        /// 将棋エンジンに、ログを出すように促します。
+        /// </summary>
+        public const string COMMAND_LOGDASE = "logdase";
+
+
+        /// <summary>
+        /// オーナー・サーバー
+        /// </summary>
+        public Server Owner_Server { get { return this.ownerServer; } }
+        public void SetOwner_Server(Server owner)
+        {
+            this.ownerServer = owner;
+        }
+        private Server ownerServer;
+
+        /// <summary>
+        /// レシーバー
+        /// </summary>
+        public ServersideClientReceiver Receiver { get { return this.receiver; } }
+        private ServersideClientReceiver receiver;
+
+
+
+
         /// <summary>
         /// 将棋エンジンを起動します。
         /// </summary>
@@ -79,7 +152,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
         {
             try
             {
-                if (this.ShogiEngineProcessWrapper.IsLive_ShogiEngine())
+                if (this.IsLive_ShogiEngine())
                 {
                     Util_Message.Show("将棋エンジンサービスは終了していません。");
                     goto gt_EndMethod;
@@ -99,14 +172,14 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
                 startInfo.RedirectStandardInput = true;//標準入力をリダイレクト
                 startInfo.RedirectStandardOutput = true; // 標準出力をリダイレクト
 
-                this.ShogiEngineProcessWrapper.SetShogiEngine(Process.Start(startInfo)); // アプリの実行開始
+                this.SetShogiEngine(Process.Start(startInfo)); // アプリの実行開始
 
                 //  OutputDataReceivedイベントハンドラを追加
-                this.ShogiEngineProcessWrapper.ShogiEngine.OutputDataReceived += this.Receiver.OnListenUpload_Async;
-                this.ShogiEngineProcessWrapper.ShogiEngine.Exited += this.OnExited;
+                this.ShogiEngine.OutputDataReceived += this.Receiver.OnListenUpload_Async;
+                this.ShogiEngine.Exited += this.OnExited;
 
                 // 非同期受信スタート☆！
-                this.ShogiEngineProcessWrapper.ShogiEngine.BeginOutputReadLine();
+                this.ShogiEngine.BeginOutputReadLine();
             }
             catch (Exception ex)
             {
@@ -127,10 +200,10 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
         {
             KwLogger logger = Util_Loggers.ProcessEngine_DEFAULT;
 
-            if (this.ShogiEngineProcessWrapper.IsLive_ShogiEngine())
+            if (this.IsLive_ShogiEngine())
             {
                 // 将棋エンジンの標準入力へ、メッセージを送ります。
-                this.ShogiEngineProcessWrapper.Download(EngineProcessWrapperImpl.COMMAND_QUIT, logger);
+                this.Download(EngineClient_Impl.COMMAND_QUIT, logger);
             }
         }
 
@@ -143,7 +216,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
             Playerside kaisiPside,
             KwLogger logger)
         {
-            if (!this.ShogiEngineProcessWrapper.IsLive_ShogiEngine())
+            if (!this.IsLive_ShogiEngine())
             {
                 goto gt_EndMethod;
             }
@@ -159,13 +232,16 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
                     //------------------------------------------------------------
 
                     // 例：「position startpos moves 7g7f」
-                    this.ShogiEngineProcessWrapper.Send_Position(
+                    // 将棋エンジンの標準入力へ、メッセージを送ります。
+                    this.Download(
                         Util_KirokuGakari.ToSfen_PositionCommand(
                             earth1,
                             kifu1//endNode1//エンドノード
-                            ), logger);
+                        ),
+                        logger);
 
-                    this.ShogiEngineProcessWrapper.Send_Go(logger);
+                    // 将棋エンジンの標準入力へ、メッセージを送ります。
+                    this.Download(EngineClient_Impl.COMMAND_GO, logger);
 
                     break;
                 default:
@@ -181,10 +257,10 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
         /// </summary>
         public void Send_Shutdown(KwLogger logger)
         {
-            if (this.ShogiEngineProcessWrapper.IsLive_ShogiEngine())
+            if (this.IsLive_ShogiEngine())
             {
                 // 将棋エンジンの標準入力へ、メッセージを送ります。
-                this.ShogiEngineProcessWrapper.Download(EngineProcessWrapperImpl.COMMAND_QUIT, logger);
+                this.Download(EngineClient_Impl.COMMAND_QUIT, logger);
             }
         }
 
@@ -193,11 +269,36 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
         /// </summary>
         public void Send_Logdase(KwLogger logger)
         {
-            if (this.ShogiEngineProcessWrapper.IsLive_ShogiEngine())
+            if (this.IsLive_ShogiEngine())
             {
                 // 将棋エンジンの標準入力へ、メッセージを送ります。
-                this.ShogiEngineProcessWrapper.Download(EngineProcessWrapperImpl.COMMAND_LOGDASE, logger);
+                this.Download(EngineClient_Impl.COMMAND_LOGDASE, logger);
             }
         }
+
+        /// <summary>
+        /// 将棋エンジンが起動しているか否かです。
+        /// </summary>
+        /// <returns></returns>
+        public bool IsLive_ShogiEngine()
+        {
+            return null != this.ShogiEngine && !this.ShogiEngine.HasExited;
+        }
+
+        /// <summary>
+        /// 将棋エンジンの標準入力へ、メッセージを送ります。
+        /// 
+        /// 二度手間なんだが、メソッドを１箇所に集約するためにこれを使う☆
+        /// </summary>
+        public void Download(string message, KwLogger logger)
+        {
+            this.ShogiEngine.StandardInput.WriteLine(message);
+
+            if (null != this.Delegate_ShogiServer_ToEngine)
+            {
+                this.Delegate_ShogiServer_ToEngine(message, logger);
+            }
+        }
+
     }
 }
