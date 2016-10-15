@@ -16,7 +16,7 @@ using System.Windows.Forms;
 
 namespace Grayscale.A480_ServerAims_.B110_AimsServer_.C125____Receiver
 {
-    public class Receiver_ForAimsImpl : ServersideClientReceiver_ForCsharpVsImpl, Receiver_ForAims
+    public class EngineClient_ForAimsImpl : EngineClient_Impl, EngineClient_ForAims
     {
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace Grayscale.A480_ServerAims_.B110_AimsServer_.C125____Receiver
                                 //------------------------------------------------------------
                                 Console.Out.WriteLine("usinewgame");
                                 // 将棋エンジンの標準入力へ、メッセージを送ります。
-                                this.Owner_EngineClient.Download(EngineClient_Impl.COMMAND_USINEWGAME, logger);
+                                this.Download(EngineClient_Impl.COMMAND_USINEWGAME, logger);
 
 
                                 // FIXME:平手とは限らないが、平手という前提で、毎回一から作りなおします。
@@ -121,7 +121,7 @@ namespace Grayscale.A480_ServerAims_.B110_AimsServer_.C125____Receiver
 
                                 // 将棋エンジンに対して
                                 // 例：「position startpos moves 7g7f」
-                                this.Owner_EngineClient.Download(
+                                this.Download(
                                     Util_KirokuGakari.ToSfen_PositionCommand(
                                         this.Owner_AimsServer.Earth,
                                         this.Owner_AimsServer.KifuTree//.CurrentNode//エンドノード

@@ -131,7 +131,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     MainGui_Csharp mainGui3 = (MainGui_Csharp)obj_shogiGui2;
 
                     string restText = Util_Function_Csharp.ReadLine_FromTextbox();
-                    Util_Functions_Server.Komaokuri_Srv(
+                    Util_Server.Komaokuri_Srv(
                         ref restText,
 
                         mainGui3.Link_Server.Earth,
@@ -166,7 +166,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     Finger foodKoma;//取られた駒
                     string fugoJStr;
 
-                    if (!Util_Functions_Server.Makimodosi_Srv(
+                    if (!Util_Server.Makimodosi_Srv(
                         out movedKoma, out foodKoma,
                         out fugoJStr,
                         mainGui2.Link_Server.KifuTree.MoveEx_Current,
@@ -392,7 +392,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                         // ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
                         string jsaFugoStr;
                         mainGui3.Link_Server.KifuTree.MoveEx_OnEditCurrent(modifyNode, positionA);
-                        Util_Functions_Server.AfterSetCurNode_Srv(
+                        Util_Server.AfterSetCurNode_Srv(
                             mainGui3.SkyWrapper_Gui,
                             modifyNode,
                             modifyNode.Move,
@@ -519,7 +519,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                 // ServerからGuiへ渡す情報
                 bool torareruKomaAri;
                 Busstop koma_Food_after;
-                Util_Functions_Server.Komamove1a_50Srv(out torareruKomaAri, out koma_Food_after, dst, btnTumandeiruKoma.Koma, dst, mainGui.SkyWrapper_Gui, logger);
+                Util_Server.Komamove1a_50Srv(out torareruKomaAri, out koma_Food_after, dst, btnTumandeiruKoma.Koma, dst, mainGui.SkyWrapper_Gui, logger);
 
                 Util_Function_Csharp.Komamove1a_51Gui(torareruKomaAri, koma_Food_after, mainGui);
             }
@@ -575,7 +575,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     mainGui.Link_Server.KifuTree.MoveEx_OnEditCurrent(newNode, positionA);
 
                     string jsaFugoStr;
-                    Util_Functions_Server.AfterSetCurNode_Srv(
+                    Util_Server.AfterSetCurNode_Srv(
                         mainGui.SkyWrapper_Gui,
                         mainGui.Link_Server.KifuTree.MoveEx_Current,
                         mainGui.Link_Server.KifuTree.MoveEx_Current.Move,

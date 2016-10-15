@@ -53,12 +53,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="B110_AimsServer_\C125____Receiver\Receiver_ForAimsImpl.cs" />
+    <Compile Include="B110_AimsServer_\C125____EngineClient\EngineClient_ForAimsImpl.cs" />
     <Compile Include="B110_AimsServer_\C060____Phase\PhaseResult_AimsServer.cs" />
     <Compile Include="B110_AimsServer_\C___070_ServerBase\AimsServerBase.cs" />
     <Compile Include="B110_AimsServer_\C___060_Phase\Phase_AimsServer.cs" />
     <Compile Include="B110_AimsServer_\C500____Server\AimsServerImpl.cs" />
-    <Compile Include="B110_AimsServer_\C___125_Receiver\Receiver_ForAims.cs" />
+    <Compile Include="B110_AimsServer_\C___125_EngineClient\EngineClient_ForAims.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

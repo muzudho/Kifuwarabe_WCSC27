@@ -409,7 +409,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                                     mainGui.Link_Server.KifuTree.MoveEx_SetCurrent(TreeImpl.OnDoCurrentMove(newNode, mainGui.Link_Server.KifuTree, sky_newChild,logger));
 
                                                     string jsaFugoStr;
-                                                    Util_Functions_Server.AfterSetCurNode_Srv(
+                                                    Util_Server.AfterSetCurNode_Srv(
                                                         mainGui.SkyWrapper_Gui,
                                                         mainGui.Link_Server.KifuTree.MoveEx_Current,
                                                         mainGui.Link_Server.KifuTree.MoveEx_Current.Move,
@@ -554,7 +554,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
 
                                                         string jsaFugoStr;
 
-                                                        Util_Functions_Server.AfterSetCurNode_Srv(
+                                                        Util_Server.AfterSetCurNode_Srv(
                                                             mainGui.SkyWrapper_Gui,
                                                             mainGui.Link_Server.KifuTree.MoveEx_Current,
                                                             mainGui.Link_Server.KifuTree.MoveEx_Current.Move,
@@ -756,7 +756,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                                     // ServerからGuiへ渡す情報
                                                     bool torareruKomaAri;
                                                     Busstop koma_Food_after;
-                                                    Util_Functions_Server.Komamove1a_50Srv(out torareruKomaAri, out koma_Food_after, dst, btnTumandeiruKoma.Koma, dst, mainGui.SkyWrapper_Gui, eventState.Flg_logTag);
+                                                    Util_Server.Komamove1a_50Srv(out torareruKomaAri, out koma_Food_after, dst, btnTumandeiruKoma.Koma, dst, mainGui.SkyWrapper_Gui, eventState.Flg_logTag);
 
                                                     Util_Function_Csharp.Komamove1a_51Gui(torareruKomaAri, koma_Food_after, mainGui);
                                                 }

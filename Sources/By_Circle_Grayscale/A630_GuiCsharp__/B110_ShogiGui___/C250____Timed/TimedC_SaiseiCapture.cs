@@ -69,7 +69,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                             else
                             {
                                 // [コマ送り]に成功している間、コマ送りし続けます。
-                                Util_Functions_Server.ReadLine_TuginoItteSusumu_Srv_CurrentMutable(
+                                Util_Server.ReadLine_TuginoItteSusumu_Srv_CurrentMutable(
                                     ref restText,
 
                                     this.mainGui.Link_Server.Earth,

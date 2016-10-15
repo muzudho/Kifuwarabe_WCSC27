@@ -186,7 +186,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
         public MainGui_CsharpImpl()
         {
             this.m_skyWrapper_Gui_ = new SkyWrapper_GuiImpl();
-            this.server = new Server_Impl(this.m_skyWrapper_Gui_.GuiSky, new ServersideClientReceiver_ForCsharpVsImpl());
+            this.server = new Server_Impl(this.m_skyWrapper_Gui_.GuiSky);
 
             this.Widgets = new Dictionary<string, UserWidget>();
 

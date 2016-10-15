@@ -1,7 +1,6 @@
 ﻿using Grayscale.A060_Application.B110_Log________.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
-using Grayscale.A450_Server_____.B110_Server_____.C___125_Receiver;
 using Grayscale.A450_Server_____.B110_Server_____.C___498_Server;
 using System.Diagnostics;
 
@@ -15,6 +14,9 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C___497_EngineClient
     /// </summary>
     public interface EngineClient
     {
+        void OnListenUpload_Async(object sender, DataReceivedEventArgs e);
+
+
         DELEGATE_ShogiServer_ToEngine Delegate_ShogiServer_ToEngine { get; }
         void SetDelegate_ShogiServer_ToEngine(DELEGATE_ShogiServer_ToEngine delegateMethod);
 
@@ -23,18 +25,13 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C___497_EngineClient
         /// これが、将棋エンジン（プロセス）です。
         /// ------------------------------------------------------------------------------------------------------------------------
         /// </summary>
-        Process ShogiEngine { get; }
-        void SetShogiEngine(Process shogiEngine);
+        Process Process { get; }
+        void SetProcess(Process shogiEngine);
 
 
 
         Server Owner_Server { get; }
         void SetOwner_Server(Server owner_Server);
-
-        /// <summary>
-        /// レシーバー
-        /// </summary>
-        ServersideClientReceiver Receiver { get; }
 
 
         void Start(string shogiEngineFilePath);

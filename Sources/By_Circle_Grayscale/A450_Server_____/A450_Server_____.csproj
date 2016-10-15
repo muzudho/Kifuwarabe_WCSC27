@@ -58,11 +58,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="B110_Server_____\C250____Util\Util_Functions_Server.cs" />
-    <Compile Include="B110_Server_____\C125____Receiver\ServersideClientReceiver_ForCsharpVsImpl.cs" />
+    <Compile Include="B110_Server_____\C250____Util\Util_Server.cs" />
     <Compile Include="B110_Server_____\C498____Server\Server_Impl.cs" />
     <Compile Include="B110_Server_____\C497____EngineClient\EngineClient_Impl.cs" />
-    <Compile Include="B110_Server_____\C___125_Receiver\ServersideClientReceiver.cs" />
     <Compile Include="B110_Server_____\C___497_EngineClient\EngineClient.cs" />
     <Compile Include="B110_Server_____\C___498_Server\Server.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

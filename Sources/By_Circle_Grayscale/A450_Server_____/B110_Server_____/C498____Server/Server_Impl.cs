@@ -3,7 +3,6 @@ using Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct;
 using Grayscale.A210_KnowNingen_.B640_KifuTree___.C250____Struct;
-using Grayscale.A450_Server_____.B110_Server_____.C___125_Receiver;
 using Grayscale.A450_Server_____.B110_Server_____.C___497_EngineClient;
 using Grayscale.A450_Server_____.B110_Server_____.C___498_Server;
 using Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient;
@@ -15,10 +14,9 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C498____Server
     /// </summary>
     public class Server_Impl : Server
     {
-        public Server_Impl(Sky positionA, ServersideClientReceiver receiver)
+        public Server_Impl(Sky positionA)
         {
-            this.engineClient = new EngineClient_Impl(receiver);
-            receiver.SetOwner_EngineClient(this.engineClient);
+            this.engineClient = new EngineClient_Impl();
             this.engineClient.SetOwner_Server(this);
 
             //----------

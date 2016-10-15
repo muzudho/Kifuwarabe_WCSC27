@@ -4,13 +4,14 @@ using Grayscale.A060_Application.B210_Tushin_____.C500____Util;
 using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B690_Ittesasu___.C250____OperationA;
-using Grayscale.A450_Server_____.B110_Server_____.C___125_Receiver;
 using Grayscale.A450_Server_____.B110_Server_____.C___497_EngineClient;
+using Grayscale.A450_Server_____.B110_Server_____.C___498_Server;
 using System;
 using System.Diagnostics;
-using Grayscale.A450_Server_____.B110_Server_____.C___498_Server;
+
+#if DEBUG
 using Grayscale.A060_Application.B110_Log________.C___500_Struct;
-using System.Diagnostics;
+#endif
 
 namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
 {
@@ -27,14 +28,12 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
         /// <summary>
         /// 生成後、Pr_ofShogiEngine をセットしてください。
         /// </summary>
-        public EngineClient_Impl(ServersideClientReceiver receiver)
+        public EngineClient_Impl()
         {
             this.SetDelegate_ShogiServer_ToEngine((string line, KwLogger logger) =>
             {
                 // デフォルトでは何もしません。
             });
-
-            this.receiver = receiver;
 
 #if DEBUG
             this.ShogiEngineProcessWrapper.SetDelegate_ShogiServer_ToEngine( (string line, KwLogger errH) =>
@@ -51,6 +50,120 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
 
 
 
+        /// <summary>
+        /// ************************************************************************************************************************
+        /// 将棋エンジンから、データを非同期受信(*1)します。
+        /// ************************************************************************************************************************
+        /// 
+        ///         *1…こっちの都合に合わせず、データが飛んできます。
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public virtual void OnListenUpload_Async(object sender, DataReceivedEventArgs e)
+        {
+            KwLogger logger = Util_Loggers.ProcessServer_NETWORK_ASYNC;
+
+            string line = e.Data;
+
+            if (null == line)
+            {
+                // 無視
+            }
+            else
+            {
+                //>>>>>>>>>> メッセージを受け取りました。
+#if DEBUG
+                errH.AppendLine(line);
+                errH.Flush(LogTypes.ToServer);
+#endif
+
+                if ("noop" == line)
+                {
+                    //------------------------------------------------------------
+                    // この部分は成功してないので、役に立っていないはず。
+                    //------------------------------------------------------------
+
+                    // noop を受け取ったぜ☆！
+
+                    // すぐに返すと受け取れないので、数秒開けます。
+                    System.Threading.Thread.Sleep(3000);
+
+                    // 将棋エンジンの標準入力へ、メッセージを送ります。
+                    this.Download(EngineClient_Impl.COMMAND_NOOP_FROM_SERVER, logger);
+                }
+                else if (line.StartsWith("option"))
+                {
+
+                }
+                else if ("usiok" == line)
+                {
+                    //------------------------------------------------------------
+                    // 将棋サーバーへ： setoption
+                    //------------------------------------------------------------
+
+                    // 「私は将棋サーバーですが、USIプロトコルのponderコマンドには対応していませんので、送ってこないでください」
+                    // 将棋エンジンの標準入力へ、メッセージを送ります。
+                    this.Download(EngineClient_Impl.COMMAND_SETOPTION + " name USI_Ponder value false", logger);
+
+                    // 将棋エンジンへ：　「私は将棋サーバーです。noop コマンドを送ってくれば、すぐに ok コマンドを返します。1分間を空けてください」
+                    // 将棋エンジンの標準入力へ、メッセージを送ります。
+                    this.Download(EngineClient_Impl.COMMAND_SETOPTION + " name noopable value true", logger);
+
+                    //------------------------------------------------------------
+                    // 「準備はいいですか？」
+                    //------------------------------------------------------------
+                    this.Download(EngineClient_Impl.COMMAND_ISREADY, logger);
+                }
+                else if ("readyok" == line)
+                {
+                    //------------------------------------------------------------
+                    // 対局開始！
+                    //------------------------------------------------------------
+                    // 将棋エンジンの標準入力へ、メッセージを送ります。
+                    this.Download(EngineClient_Impl.COMMAND_USINEWGAME, logger);
+                }
+                else if (line.StartsWith("info"))
+                {
+                }
+                else if (line.StartsWith("bestmove resign"))
+                {
+                    // 将棋エンジンが、投了されました。
+
+                    //------------------------------------------------------------
+                    // あなたの負けです☆
+                    //------------------------------------------------------------
+                    // 将棋エンジンの標準入力へ、メッセージを送ります。
+                    this.Download(EngineClient_Impl.COMMAND_GAMEOVER_LOSE, logger);
+
+                    //------------------------------------------------------------
+                    // 将棋エンジンを終了してください☆
+                    //------------------------------------------------------------
+                    // 将棋エンジンの標準入力へ、メッセージを送ります。
+                    this.Download(EngineClient_Impl.COMMAND_QUIT, logger);
+                }
+                else if (line.StartsWith("bestmove"))
+                {
+                    // 将棋エンジンが、手を指されました。
+                    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+                    ((Server)this.Owner_Server).AddInputString99(
+                        line.Substring("bestmove".Length + "".Length)
+                        );
+
+#if DEBUG
+                    errH.AppendLine("USI受信：bestmove input99=[" + ((Server)((EngineClient)this.Owner_EngineClient).Owner_Server).InputString99 + "]");
+                    errH.Flush(LogTypes.Plain);
+#endif
+                }
+                else
+                {
+                }
+            }
+        }
+
+
+
         public DELEGATE_ShogiServer_ToEngine Delegate_ShogiServer_ToEngine { get { return this.delegate_ShogiServer_ToEngine; } }
         public void SetDelegate_ShogiServer_ToEngine(DELEGATE_ShogiServer_ToEngine delegateMethod)
         {
@@ -61,12 +174,12 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
         /// <summary>
         /// これが、将棋エンジン（プロセス）です。
         /// </summary>
-        public Process ShogiEngine { get { return this.shogiEngine; } }
-        public void SetShogiEngine(Process shogiEngine)
+        public Process Process { get { return this.process; } }
+        public void SetProcess(Process process)
         {
-            this.shogiEngine = shogiEngine;
+            this.process = process;
         }
-        private Process shogiEngine;
+        private Process process;
 
         /// <summary>
         /// 将棋エンジンに向かって、ok コマンドを送信する要求。
@@ -136,12 +249,6 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
         }
         private Server ownerServer;
 
-        /// <summary>
-        /// レシーバー
-        /// </summary>
-        public ServersideClientReceiver Receiver { get { return this.receiver; } }
-        private ServersideClientReceiver receiver;
-
 
 
 
@@ -172,14 +279,14 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
                 startInfo.RedirectStandardInput = true;//標準入力をリダイレクト
                 startInfo.RedirectStandardOutput = true; // 標準出力をリダイレクト
 
-                this.SetShogiEngine(Process.Start(startInfo)); // アプリの実行開始
+                this.SetProcess(Process.Start(startInfo)); // アプリの実行開始
 
                 //  OutputDataReceivedイベントハンドラを追加
-                this.ShogiEngine.OutputDataReceived += this.Receiver.OnListenUpload_Async;
-                this.ShogiEngine.Exited += this.OnExited;
+                this.Process.OutputDataReceived += this.OnListenUpload_Async;
+                this.Process.Exited += this.OnExited;
 
                 // 非同期受信スタート☆！
-                this.ShogiEngine.BeginOutputReadLine();
+                this.Process.BeginOutputReadLine();
             }
             catch (Exception ex)
             {
@@ -282,7 +389,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
         /// <returns></returns>
         public bool IsLive_ShogiEngine()
         {
-            return null != this.ShogiEngine && !this.ShogiEngine.HasExited;
+            return null != this.Process && !this.Process.HasExited;
         }
 
         /// <summary>
@@ -292,7 +399,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
         /// </summary>
         public void Download(string message, KwLogger logger)
         {
-            this.ShogiEngine.StandardInput.WriteLine(message);
+            this.Process.StandardInput.WriteLine(message);
 
             if (null != this.Delegate_ShogiServer_ToEngine)
             {

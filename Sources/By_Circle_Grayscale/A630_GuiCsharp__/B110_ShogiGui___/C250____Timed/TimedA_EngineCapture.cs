@@ -60,7 +60,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                     //    restText = "";
                     //}
 
-                    Util_Functions_Server.Komaokuri_Srv(
+                    Util_Server.Komaokuri_Srv(
                         ref restText,
 
                         this.mainGui.Link_Server.Earth,

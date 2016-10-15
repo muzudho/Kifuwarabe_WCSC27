@@ -49,7 +49,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
             // ここで棋譜の変更をします。
             // ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
             string jsaFugoStr;
-            Util_Functions_Server.AfterSetCurNode_Srv(
+            Util_Server.AfterSetCurNode_Srv(
                 mainGui.SkyWrapper_Gui,
                 newNode,
                 newNode.Move,

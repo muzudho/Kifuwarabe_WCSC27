@@ -40,11 +40,11 @@ namespace Grayscale.A480_ServerAims_.B110_AimsServer_.C500____Server
         #endregion
 
 
-        public AimsServerImpl(Sky src_Sky)
-            : base(src_Sky, new Receiver_ForAimsImpl())
+        public AimsServerImpl(Sky positionA)
+            : base(positionA)
         {
             // AIMSサーバー用の特別処理。
-            ((Receiver_ForAimsImpl)this.EngineClient.Receiver).SetOwner_AimsServer(this);
+            ((EngineClient_ForAimsImpl)this.EngineClient).SetOwner_AimsServer(this);
 
             // 最初の状態。
             this.phase_AimsServer = Phase_AimsServer._01_Server_Booted;

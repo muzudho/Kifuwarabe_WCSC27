@@ -244,7 +244,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C480____Util
                 Playerside rootPside = TreeImpl.MoveEx_ClearAllCurrent(mainGui.Link_Server.KifuTree, newSky,logger);
 
 
-                Util_Functions_Server.AfterSetCurNode_Srv(
+                Util_Server.AfterSetCurNode_Srv(
                     mainGui.SkyWrapper_Gui,
                     newNode,
                     newNode.Move,

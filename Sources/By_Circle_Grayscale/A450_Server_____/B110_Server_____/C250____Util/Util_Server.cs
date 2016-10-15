@@ -35,7 +35,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
 {
 
 
-    public class Util_Functions_Server
+    public class Util_Server
     {
         /// <summary>
         /// 「棋譜ツリーのカレントノード」の差替え、
@@ -221,7 +221,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
                         //kifu1.MoveEx_SetCurrent(TreeImpl.DoCurrentMove(result.Out_newNode_OrNull, kifu1, result.NewSky,logger));
                         //kifu1.OnDoCurrentMove(result.Out_newNode_OrNull, result.NewSky);
 
-                        Util_Functions_Server.AfterSetCurNode_Srv(
+                        Util_Server.AfterSetCurNode_Srv(
                             model_Manual,
                             result.Out_newNode_OrNull,
                             result.Out_newNode_OrNull.Move,
@@ -267,7 +267,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
                     Playerside rootPside = TreeImpl.MoveEx_ClearAllCurrent(kifu1, parsedKyokumen.NewSky,logger);
                     curNode1 = kifu1.MoveEx_Current;
 
-                    Util_Functions_Server.AfterSetCurNode_Srv(
+                    Util_Server.AfterSetCurNode_Srv(
                         model_Manual,
                         curNode1,
                         parsedKyokumen.NewMove,
@@ -401,7 +401,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
             }
 
             bool toBreak = false;
-            Util_Functions_Server.ReadLine_TuginoItteSusumu_Srv_CurrentMutable(
+            Util_Server.ReadLine_TuginoItteSusumu_Srv_CurrentMutable(
                 ref inputLine,
                 earth1,
                 kifu1,//SetCurNodeがある。
