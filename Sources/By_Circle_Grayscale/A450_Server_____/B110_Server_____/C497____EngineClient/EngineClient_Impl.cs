@@ -16,13 +16,10 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
 
 
     /// <summary>
-    /// ************************************************************************************************************************
     ///  プロセスラッパー
-    /// ************************************************************************************************************************
     /// 
     ///     １つの将棋エンジンと通信します。１対１の関係になります。
     ///     このクラスを、将棋エンジンのコンソールだ、と想像して使います。
-    /// 
     /// </summary>
     public class EngineClient_Impl : EngineClient
     {
@@ -76,9 +73,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
         }
 
         /// <summary>
-        /// ************************************************************************************************************************
         /// 将棋エンジンを起動します。
-        /// ************************************************************************************************************************
         /// </summary>
         public void Start(string shogiEngineFilePath)
         {
@@ -124,31 +119,29 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
 
 
         /// <summary>
-        /// ************************************************************************************************************************
         /// この将棋サーバーを終了したときにする挙動を、ここに書きます。
-        /// ************************************************************************************************************************
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void OnExited(object sender, System.EventArgs e)
         {
-            KwLogger errH = Util_Loggers.ProcessEngine_DEFAULT;
-            this.ShogiEngineProcessWrapper.Send_Shutdown(errH);
+            KwLogger logger = Util_Loggers.ProcessEngine_DEFAULT;
+
+            if (this.ShogiEngineProcessWrapper.IsLive_ShogiEngine())
+            {
+                // 将棋エンジンの標準入力へ、メッセージを送ります。
+                this.ShogiEngineProcessWrapper.Download(EngineProcessWrapperImpl.COMMAND_QUIT, logger);
+            }
         }
 
         /// <summary>
-        /// ************************************************************************************************************************
         /// 手番が替わったときの挙動を、ここに書きます。
-        /// ************************************************************************************************************************
         /// </summary>
         public void OnChangedTurn(
             Earth earth1,
-
-            //MoveEx endNode1,
             Tree kifu1,
-
             Playerside kaisiPside,
-            KwLogger errH)
+            KwLogger logger)
         {
             if (!this.ShogiEngineProcessWrapper.IsLive_ShogiEngine())
             {
@@ -169,12 +162,10 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
                     this.ShogiEngineProcessWrapper.Send_Position(
                         Util_KirokuGakari.ToSfen_PositionCommand(
                             earth1,
-
                             kifu1//endNode1//エンドノード
+                            ), logger);
 
-                            ), errH);
-
-                    this.ShogiEngineProcessWrapper.Send_Go(errH);
+                    this.ShogiEngineProcessWrapper.Send_Go(logger);
 
                     break;
                 default:
@@ -185,32 +176,28 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
             ;
         }
 
-
         /// <summary>
         /// 将棋エンジンに、終了するように促します。
         /// </summary>
-        public void Send_Shutdown(KwLogger errH)
+        public void Send_Shutdown(KwLogger logger)
         {
-            this.ShogiEngineProcessWrapper.Send_Shutdown(errH);
+            if (this.ShogiEngineProcessWrapper.IsLive_ShogiEngine())
+            {
+                // 将棋エンジンの標準入力へ、メッセージを送ります。
+                this.ShogiEngineProcessWrapper.Download(EngineProcessWrapperImpl.COMMAND_QUIT, logger);
+            }
         }
 
         /// <summary>
         /// 将棋エンジンに、ログを出すように促します。
         /// </summary>
-        public void Send_Logdase(KwLogger errH)
+        public void Send_Logdase(KwLogger logger)
         {
-            this.ShogiEngineProcessWrapper.Send_Logdase(errH);
+            if (this.ShogiEngineProcessWrapper.IsLive_ShogiEngine())
+            {
+                // 将棋エンジンの標準入力へ、メッセージを送ります。
+                this.ShogiEngineProcessWrapper.Download(EngineProcessWrapperImpl.COMMAND_LOGDASE, logger);
+            }
         }
-
-        ///// <summary>
-        ///// 将棋エンジンを先手にするために、go を出します。
-        ///// </summary>
-        //public void Send_Go(KwLogger errH)
-        //{
-        //    this.ShogiEngineProcessWrapper.Send_Go(errH);
-        //}
-
     }
-
-
 }

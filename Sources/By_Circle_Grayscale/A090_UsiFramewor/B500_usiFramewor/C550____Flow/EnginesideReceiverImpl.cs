@@ -35,210 +35,125 @@ namespace Grayscale.A090_UsiFramewor.B500_usiFramewor.C550____Flow
         /// </summary>
         private FuncV m_noneV_ = delegate () { };
         private FuncS m_noneS_ = delegate () { return ""; };
-        private FuncL m_noneL_ = delegate (string line) { return Result_LoopL.None; };
-        private FuncM m_noneM_ = delegate (string line) { return Result_LoopM.None; };
+        private FuncL m_noneL_ = delegate (string line) { return Result_LoopL.Continue; };
+        private FuncM m_noneM_ = delegate (string line) { return Result_LoopM.Continue; };
 
 
         /// <summary>
         /// 実行します。
+        /// 
+        /// ループＡ
+        /// ├──ループＬ
+        /// └──ループＭ
+        /// 
         /// </summary>
         /// <param name="yourShogiEngine"></param>
         public void Execute()
         {
+            // ループＡ事前ポイント
             this.OnA1();
 
-            #region ↑詳説
-            // 
-            // 図.
-            // 
-            //     プログラムの開始：  ここの先頭行から始まります。
-            //     プログラムの実行：  この中で、ずっと無限ループし続けています。
-            //     プログラムの終了：  この中の最終行を終えたとき、
-            //                         または途中で Environment.Exit(0); が呼ばれたときに終わります。
-            //                         また、コンソールウィンドウの[×]ボタンを押して強制終了されたときも  ぶつ切り  で突然終わります。
-            #endregion
-
-            //************************************************************************************************************************
-            // ループ（全体）
-            //************************************************************************************************************************
-            #region ↓詳説
-            //
-            // 図.
-            //
-            //      無限ループ（全体）
-            //          │
-            //          ├─無限ループ（１）
-            //          │                      将棋エンジンであることが認知されるまで、目で訴え続けます(^▽^)
-            //          │                      認知されると、無限ループ（２）に進みます。
-            //          │
-            //          └─無限ループ（２）
-            //                                  対局中、ずっとです。
-            //                                  対局が終わると、無限ループ（１）に戻ります。
-            //
-            // 無限ループの中に、２つの無限ループが入っています。
-            //
-            #endregion
-
-            this.executeA2();
-
-
-            this.OnA3();
-        }
-
-        private void executeA2()
-        {
-
-
-            while (true)//全体ループ
+            while (true)//ループＡ
             {
-#if DEBUG_STOPPABLE
-    MessageBox.Show("きふわらべのMainの無限ループでブレイク☆！", "デバッグ");
-    System.Diagnostics.Debugger.Break();
-#endif
-                // 将棋サーバーからのメッセージの受信や、
-                // 思考は、ここで行っています。
-
-                //************************************************************************************************************************
-                // ループ（１つ目）
-                //************************************************************************************************************************
+                // ループＬ事前ポイント
                 this.OnL1();
-                Result_LoopL resultL = this.executeL2();
+                Result_LoopL resultL = Result_LoopL.Continue;
+
+#if NOOPABLE
+                // サーバーに noop を送ってもよいかどうかは setoption コマンドがくるまで分からないので、
+                // 作ってしまっておきます。
+                // 1回も役に立たずに Loop2 に行くようなら、正常です。
+                NoopTimerImpl noopTimer = new NoopTimerImpl();
+                noopTimer._01_BeforeLoop();
+#endif
+
+                while (true)
+                {
+                    string line = this.OnL2_CommandlineRead();
+
+                    if (null == line)//次の行が無ければヌル。
+                    {
+                        // メッセージは届いていませんでした。
+#if NOOPABLE
+                        bool isTimeoutShutdown_temp;
+                        noopTimer._03_AtEmptyMessage(this.Owner, out isTimeoutShutdown_temp);
+                        if (isTimeoutShutdown_temp)
+                        {
+                            //MessageBox.Show("ループ１でタイムアウトだぜ☆！");
+                            out_isTimeoutShutdown = isTimeoutShutdown_temp;
+                            result_Usi_Loop1 = PhaseResult_Usi_Loop1.TimeoutShutdown;
+                            goto end_loop1;
+                        }
+#endif
+                        goto gt_NextTime1;
+                    }
+
+#if NOOPABLE
+                    noopTimer._04_AtResponsed(this.Owner, line);
+#endif
+                    if ("usi" == line) { resultL = this.OnL2_Usi(line); }
+                    else if (line.StartsWith("setoption")) { resultL = this.OnL2_Setoption(line); }
+                    else if ("isready" == line) { resultL = this.OnL2_Isready(line); }
+                    else if ("usinewgame" == line) { resultL = this.OnL2_Usinewgame(line); }
+                    else if ("quit" == line) { resultL = this.OnL2_Quit(line); }
+                    else
+                    {
+                        // 未対応のコマンドだぜ☆　スルーするぜ☆／(＾×＾)＼
+                    }
+
+                    switch (resultL)
+                    {
+                        case Result_LoopL.Break:// ループＬを抜ける
+                            goto gt_LoopLEnd;
+
+                        case Result_LoopL.Quit:// 強制終了
+                            goto gt_LoopLEnd;
+
+                        default:
+                            break;
+                    }
+
+                    gt_NextTime1:
+                    ;
+                }
+                gt_LoopLEnd:
+
+                // ループＬ事後ポイント
                 this.OnL3();
 
                 if (resultL == Result_LoopL.TimeoutShutdown)
                 {
                     // サーバーからのタイムアウトで終了
-                    return;//全体ループを抜けます。
+                    goto gt_LoopAEnd;//ループＡを抜けます。
                 }
                 else if (resultL == Result_LoopL.Quit)
                 {
-                    return;//全体ループを抜けます。
+                    goto gt_LoopAEnd;//ループＡを抜けます。
                 }
 
-                //************************************************************************************************************************
-                // ループ（２つ目）
-                //************************************************************************************************************************
+                // ループＭ事前ポイント
                 this.OnM1();
-                this.executeM2();
-                this.OnM3();
 
-                if (resultL == Result_LoopL.TimeoutShutdown)
+                while (true)
                 {
-                    // サーバーからのタイムアウトで終了
-                    return;//全体ループを抜けます。
-                }
-            }//全体ループ
-        }
 
-        public Result_LoopL executeL2()
-        {
-            //
-            // サーバーに noop を送ってもよいかどうかは setoption コマンドがくるまで分からないので、
-            // 作ってしまっておきます。
-            // 1回も役に立たずに Loop2 に行くようなら、正常です。
 #if NOOPABLE
-            NoopTimerImpl noopTimer = new NoopTimerImpl();
-            noopTimer._01_BeforeLoop();
-#endif
-
-            Result_LoopL resultL = Result_LoopL.None;
-
-            while (true)
-            {
-                string line = this.OnL2_CommandlineRead();
-
-                if (null == line)//次の行が無ければヌル。
-                {
-                    // メッセージは届いていませんでした。
-                    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-#if NOOPABLE
-                    bool isTimeoutShutdown_temp;
-                    noopTimer._03_AtEmptyMessage(this.Owner, out isTimeoutShutdown_temp);
-                    if (isTimeoutShutdown_temp)
+                    // サーバーに noop を送ってもよい場合だけ有効にします。
+                    NoopTimerImpl noopTimer = null;
+                    if(this.owner.Option_enable_serverNoopable)
                     {
-                        //MessageBox.Show("ループ１でタイムアウトだぜ☆！");
-                        out_isTimeoutShutdown = isTimeoutShutdown_temp;
-                        result_Usi_Loop1 = PhaseResult_Usi_Loop1.TimeoutShutdown;
-                        goto end_loop1;
+                        noopTimer = new NoopTimerImpl();
+                        noopTimer._01_BeforeLoop();
                     }
 #endif
-                    goto gt_NextTime1;
-                }
 
-#if NOOPABLE
-                noopTimer._04_AtResponsed(this.Owner, line);
-#endif
-
-                if ("usi" == line) { resultL = this.OnL2_Usi(line); }
-                else if (line.StartsWith("setoption")) { resultL = this.OnL2_Setoption(line); }
-                else if ("isready" == line) { resultL = this.OnL2_Isready(line); }
-                else if ("usinewgame" == line) { resultL = this.OnL2_Usinewgame(line); }
-                else if ("quit" == line) { resultL = this.OnL2_Quit(line); }
-                else
-                {
-                    //------------------------------------------------------------
-                    // ○△□×！？
-                    //------------------------------------------------------------
-                    #region ↓詳説
-                    //
-                    // ／(＾×＾)＼
-                    //
-
-                    // 通信が届いていますが、このプログラムでは  聞かなかったことにします。
-                    // USIプロトコルの独習を進め、対応／未対応を選んでください。
-                    //
-                    // ログだけ取って、スルーします。
-                    #endregion
-                }
-
-                switch (resultL)
-                {
-                    case Result_LoopL.Break:
-                        goto end_loop1;
-
-                    case Result_LoopL.Quit:
-                        goto end_loop1;
-
-                    default:
-                        break;
-                }
-
-                gt_NextTime1:
-                ;
-            }
-
-            end_loop1:
-            return resultL;
-        }
-
-        public void executeM2()
-        {
-            while (true)
-            {
-
-                //PerformanceMetrics performanceMetrics = new PerformanceMetrics();//使ってない？
-
-#if NOOPABLE
-                // サーバーに noop を送ってもよい場合だけ有効にします。
-                NoopTimerImpl noopTimer = null;
-                if(this.owner.Option_enable_serverNoopable)
-                {
-                    noopTimer = new NoopTimerImpl();
-                    noopTimer._01_BeforeLoop();
-                }
-#endif
-
-                Result_LoopM resultM;
-                {
-                    resultM = Result_LoopM.None;
+                    Result_LoopM resultM = Result_LoopM.Continue;
 
                     string line = this.OnM2_CommandlineRead();
 
                     if (null == line)//次の行が無ければヌル。
                     {
                         // メッセージは届いていませんでした。
-                        //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
 #if NOOPABLE
                         if (this.owner.Option_enable_serverNoopable)
                         {
@@ -252,7 +167,6 @@ namespace Grayscale.A090_UsiFramewor.B500_usiFramewor.C550____Flow
                             }
                         }
 #endif
-
                         goto gt_NextLine_loop2;
                     }
 
@@ -264,37 +178,36 @@ namespace Grayscale.A090_UsiFramewor.B500_usiFramewor.C550____Flow
                     else if ("logdase" == line) { resultM = this.OnM2_Logdase(line); }//独自拡張
                     else
                     {
-                        //------------------------------------------------------------
-                        // ○△□×！？
-                        //------------------------------------------------------------
-                        #region ↓詳説
-                        //
-                        // ／(＾×＾)＼
-                        //
-
-                        // 通信が届いていますが、このプログラムでは  聞かなかったことにします。
-                        // USIプロトコルの独習を進め、対応／未対応を選んでください。
-                        //
-                        // ログだけ取って、スルーします。
-                        #endregion
+                        // 未対応のコマンドだぜ☆　スルーするぜ☆／(＾×＾)＼
                     }
 
                     gt_NextLine_loop2:
-                    ;
-                }
 
-                switch (resultM)
+                    switch (resultM)
+                    {
+                        case Result_LoopM.Break:
+                            goto gt_LoopMEnd;
+
+                        default:
+                            break;
+                    }
+                }
+                gt_LoopMEnd:
+
+                // ループＭ事後ポイント
+                this.OnM3();
+
+                if (resultL == Result_LoopL.TimeoutShutdown)
                 {
-                    case Result_LoopM.Break:
-                        goto end_loop2;
-
-                    default:
-                        break;
+                    // サーバーからのタイムアウトで終了
+                    goto gt_LoopAEnd;//ループＡを抜けます。
                 }
-            }
+            }//全体ループ
 
-            end_loop2:
-            ;
+            // ループＡ事後ポイント
+            gt_LoopAEnd:
+
+            this.OnA3();
         }
 
 

@@ -246,9 +246,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
         /// ************************************************************************************************************************
         /// </summary>
         public virtual void ChangedTurn(
-            //MoveEx endNode,
             Tree kifu1,
-
             Playerside pside,
             KwLogger errH)
         {
@@ -350,9 +348,6 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
                         MessageBox.Show("JSONのパース時にエラーか？：" + ex.GetType().Name + "：" + ex.Message);
                         throw ex;
                     }
-
-
-
                 }
             }
             catch (Exception ex)
@@ -367,61 +362,51 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
         /// </summary>
         public virtual void Load_AsStart(KwLogger errH)
         {
-            //
-            // 既存のログファイルを削除したい。
-            //
-            {
-
-            }
-
-            {
 #if DEBUG
-                errH.AppendLine("(^o^)乱数のたね＝[" + KwRandom.Seed + "]");
-                errH.Flush(LogTypes.Plain);
+            errH.AppendLine("(^o^)乱数のたね＝[" + KwRandom.Seed + "]");
+            errH.Flush(LogTypes.Plain);
 #endif
 
-                this.Data_Settei_Csv.Read_Add(Const_Filepath.m_EXE_TO_CONFIG + "data_settei.csv", Encoding.UTF8);
-                this.Data_Settei_Csv.DebugOut();
+            this.Data_Settei_Csv.Read_Add(Const_Filepath.m_EXE_TO_CONFIG + "data_settei.csv", Encoding.UTF8);
+            this.Data_Settei_Csv.DebugOut();
 
-                //----------
-                // 道１８７
-                //----------
-                string filepath_Michi = Path.Combine(Application.StartupPath, this.Data_Settei_Csv.Get("data_michi187"));
-                if (Michi187Array.Load(filepath_Michi))
-                {
-                }
-
-#if DEBUG
-                {
-                    string filepath_LogMichi = Path.Combine(Application.StartupPath, this.Data_Settei_Csv.Get("_log_道表"));
-                    File.WriteAllText(filepath_LogMichi, Michi187Array.LogHtml());
-                }
-#endif
-
-                //----------
-                // 駒の配役１８１
-                //----------
-                string filepath_Haiyaku = Path.Combine(Application.StartupPath, this.Data_Settei_Csv.Get("data_haiyaku185_UTF-8"));
-                Util_Array_KomahaiyakuEx184.Load(filepath_Haiyaku, Encoding.UTF8);
-
-                {
-                    string filepath_ForcePromotion = Path.Combine(Application.StartupPath, this.Data_Settei_Csv.Get("data_forcePromotion_UTF-8"));
-                    List<List<string>> rows = Array_ForcePromotion.Load(filepath_ForcePromotion, Encoding.UTF8);
-                    File.WriteAllText(this.Data_Settei_Csv.Get("_log_強制転成表"), Array_ForcePromotion.LogHtml());
-                }
-
-                //----------
-                // 配役転換表
-                //----------
-                {
-                    string filepath_syuruiToHaiyaku = Path.Combine(Application.StartupPath, this.Data_Settei_Csv.Get("data_syuruiToHaiyaku"));
-                    List<List<string>> rows = Data_KomahaiyakuTransition.Load(filepath_syuruiToHaiyaku, Encoding.UTF8);
-
-                    string filepath_LogHaiyakuTenkan = Path.Combine(Application.StartupPath, this.Data_Settei_Csv.Get("_log_配役転換表"));
-                    File.WriteAllText(filepath_LogHaiyakuTenkan, Data_KomahaiyakuTransition.Format_LogHtml());
-                }
+            //----------
+            // 道１８７
+            //----------
+            string filepath_Michi = Path.Combine(Application.StartupPath, this.Data_Settei_Csv.Get("data_michi187"));
+            if (Michi187Array.Load(filepath_Michi))
+            {
             }
 
+#if DEBUG
+            {
+                string filepath_LogMichi = Path.Combine(Application.StartupPath, this.Data_Settei_Csv.Get("_log_道表"));
+                File.WriteAllText(filepath_LogMichi, Michi187Array.LogHtml());
+            }
+#endif
+
+            //----------
+            // 駒の配役１８１
+            //----------
+            string filepath_Haiyaku = Path.Combine(Application.StartupPath, this.Data_Settei_Csv.Get("data_haiyaku185_UTF-8"));
+            Util_Array_KomahaiyakuEx184.Load(filepath_Haiyaku, Encoding.UTF8);
+
+            {
+                string filepath_ForcePromotion = Path.Combine(Application.StartupPath, this.Data_Settei_Csv.Get("data_forcePromotion_UTF-8"));
+                List<List<string>> rows = Array_ForcePromotion.Load(filepath_ForcePromotion, Encoding.UTF8);
+                File.WriteAllText(this.Data_Settei_Csv.Get("_log_強制転成表"), Array_ForcePromotion.LogHtml());
+            }
+
+            //----------
+            // 配役転換表
+            //----------
+            {
+                string filepath_syuruiToHaiyaku = Path.Combine(Application.StartupPath, this.Data_Settei_Csv.Get("data_syuruiToHaiyaku"));
+                List<List<string>> rows = Data_KomahaiyakuTransition.Load(filepath_syuruiToHaiyaku, Encoding.UTF8);
+
+                string filepath_LogHaiyakuTenkan = Path.Combine(Application.StartupPath, this.Data_Settei_Csv.Get("_log_配役転換表"));
+                File.WriteAllText(filepath_LogHaiyakuTenkan, Data_KomahaiyakuTransition.Format_LogHtml());
+            }
 
             string filepath_widgets01 = Path.Combine(Application.StartupPath, this.Data_Settei_Csv.Get("data_widgets_01_shogiban"));
             this.WidgetLoaders.Add(new WidgetsLoader_CsharpImpl(filepath_widgets01, this));
@@ -456,16 +441,13 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
 
             this.ReadStyle_ToForm((Form1_Shogiable)this.OwnerForm);
 
-            //
             // FIXME: [初期配置]を１回やっておかないと、[コマ送り]ボタン等で不具合が出てしまう。
-            //
             {
                 Util_Function_Csharp.Perform_SyokiHaichi_CurrentMutable(
                     ((Form1_Shogiable)this.OwnerForm).Uc_Form1Main.MainGui,
                     errH
                 );
             }
-
 
             Application.Run(this.OwnerForm);
         }
@@ -520,9 +502,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
 
 
         /// <summary>
-        /// ------------------------------------------------------------------------------------------------------------------------
         /// [出力切替]
-        /// ------------------------------------------------------------------------------------------------------------------------
         /// </summary>
         public SyuturyokuKirikae SyuturyokuKirikae
         {
@@ -542,9 +522,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
 
 
         /// <summary>
-        /// ------------------------------------------------------------------------------------------------------------------------
         /// つまんでいる駒
-        /// ------------------------------------------------------------------------------------------------------------------------
         /// </summary>
         public virtual int FigTumandeiruKoma
         {
@@ -561,9 +539,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
 
 
         /// <summary>
-        /// ------------------------------------------------------------------------------------------------------------------------
         /// 成るフラグ
-        /// ------------------------------------------------------------------------------------------------------------------------
         /// 
         ///         マウスボタン押下時にセットされ、
         ///         マウスボタンを放したときに読み取られます。

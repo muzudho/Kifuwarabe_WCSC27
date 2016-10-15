@@ -368,7 +368,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
             this.Send("id author " + this.AuthorName);
             this.Send("usiok");
 
-            return Result_LoopL.None;
+            return Result_LoopL.Continue;
         }
 
 
@@ -455,7 +455,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
                 */
             }
 
-            return Result_LoopL.None;
+            return Result_LoopL.Continue;
         }
 
 
@@ -506,7 +506,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
             #endregion
             this.Send("readyok");
 
-            return Result_LoopL.None;
+            return Result_LoopL.Continue;
         }
 
         private Result_LoopL OnUsinewgameReceived_AtLoop1Body(string line)
@@ -781,7 +781,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
                 throw ex;
             }
 
-            return Result_LoopM.None;
+            return Result_LoopM.Continue;
         }
 
         private Result_LoopM OnGoponderReceived_AtLoop2Body(string line)
@@ -833,7 +833,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
                 throw ex;
             }
 
-            return Result_LoopM.None;
+            return Result_LoopM.Continue;
         }
 
         private Result_LoopM OnGoReceived_AtLoop2Body(string line)
@@ -1200,7 +1200,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
             //System.C onsole.WriteLine();
 
             //throw new Exception("デバッグだぜ☆！　エラーはキャッチできたかな～☆？（＾▽＾）");
-            return Result_LoopM.None;
+            return Result_LoopM.Continue;
         }
 
 
@@ -1303,7 +1303,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
                 throw ex;//追加
             }
 
-            return Result_LoopM.None;
+            return Result_LoopM.Continue;
         }
 
 
@@ -1366,7 +1366,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
             {
                 // エラー続行
                 Util_Loggers.ProcessEngine_DEFAULT.DonimoNaranAkirameta(ex, "Program「gameover」：" + ex.GetType().Name + " " + ex.Message);
-                return Result_LoopM.None;
+                return Result_LoopM.Continue;
             }
         }
 
@@ -1376,7 +1376,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
             sb.Append("ログ出せ機能は廃止だぜ～☆（＾▽＾）");
             File.WriteAllText(Path.Combine(Const_Filepath.m_EXE_TO_LOGGINGS, "_log_ログ出せ命令.txt"), sb.ToString());
 
-            return Result_LoopM.None;
+            return Result_LoopM.Continue;
         }
 
         private void OnLoop2End()

@@ -3,24 +3,23 @@ namespace Grayscale.A090_UsiFramewor.B500_usiFramewor.C___540_Result
 {
     public enum Result_LoopL
     {
-
         /// <summary>
-        /// 何もしません。
+        /// ループを続行するぜ☆
         /// </summary>
-        None,
+        Continue,
 
         /// <summary>
-        /// ループを抜けます。
+        /// ループを抜けるぜ☆
         /// </summary>
         Break,
 
         /// <summary>
-        /// アプリケーションを終了します。
+        /// アプリケーションを終了するぜ☆
         /// </summary>
         Quit,
 
         /// <summary>
-        /// タイムアウトによる強制終了。
+        /// タイムアウトによる強制終了だぜ☆
         /// </summary>
         TimeoutShutdown,
     }

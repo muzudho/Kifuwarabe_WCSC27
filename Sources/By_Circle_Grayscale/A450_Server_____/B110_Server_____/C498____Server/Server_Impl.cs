@@ -15,7 +15,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C498____Server
     /// </summary>
     public class Server_Impl : Server
     {
-        public Server_Impl(Sky src_Sky, Receiver receiver)
+        public Server_Impl(Sky positionA, Receiver receiver)
         {
             this.engineClient = new EngineClient_Impl(receiver);
             this.engineClient.SetOwner_Server(this);
@@ -24,7 +24,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C498____Server
             // モデル
             //----------
             this.m_earth_ = new EarthImpl();
-            Sky positionInit = new SkyImpl(src_Sky);
+            Sky positionInit = new SkyImpl(positionA);
             this.m_kifuTree_ = new TreeImpl(positionInit);
             this.Earth.SetProperty(Word_KifuTree.PropName_Startpos, "9/9/9/9/9/9/9/9/9");
 
@@ -70,8 +70,5 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C498____Server
         private string inputString99;
 
         #endregion
-
-
-
     }
 }

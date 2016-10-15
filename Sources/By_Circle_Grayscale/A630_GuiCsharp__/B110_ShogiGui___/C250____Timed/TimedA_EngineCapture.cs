@@ -28,7 +28,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
         }
 
 
-        public override void Step(KwLogger errH)
+        public override void Step(KwLogger logger)
         {
             // 将棋エンジンからの入力が、input99 に溜まるものとします。
             if (0 < this.mainGui.ConsoleWindowGui.InputString99.Length)
@@ -46,13 +46,11 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                 {
                     this.mainGui.RepaintRequest = new RepaintRequestImpl();
                     this.mainGui.RepaintRequest.SetNyuryokuTextTail(this.mainGui.ConsoleWindowGui.InputString99);// 受信文字列を、上部テキストボックスに入れるよう、依頼します。
-                    this.mainGui.Response("Timer", errH);// テキストボックスに、受信文字列を入れます。
+                    this.mainGui.Response("Timer", logger);// テキストボックスに、受信文字列を入れます。
                     this.mainGui.ConsoleWindowGui.ClearInputString99();// 受信文字列の要求を空っぽにします。
                 }
 
-                //
                 // コマ送り
-                //
                 {
                     string restText = Util_Function_Csharp.ReadLine_FromTextbox();
 
@@ -69,7 +67,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                         this.mainGui.Link_Server.KifuTree,
 
                         this.mainGui.SkyWrapper_Gui,
-                        errH
+                        logger
                         );// 棋譜の[コマ送り]を実行します。
                     Util_Function_Csharp.Komaokuri_Gui(
                         restText,
@@ -77,25 +75,18 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                         this.mainGui.Link_Server.KifuTree.PositionA,//.CurNode2ok.GetNodeValue()
                         this.mainGui,
                         this.mainGui.Link_Server.KifuTree,
-                        errH);//追加
+                        logger);//追加
                     // ↑チェンジターン済み
-                    Util_Menace.Menace((MainGui_Csharp)this.mainGui, errH);// メナス
+                    Util_Menace.Menace((MainGui_Csharp)this.mainGui, logger);// メナス
                 }
 
-                //
                 // ここで、テキストボックスには「（例）6a6b」が入っています。
-                //
 
-                //
                 // 駒を動かす一連の流れです。
-                //
                 {
-                    //this.ShogiGui.ResponseData.InputTextString = "";//空っぽにすることを要求する。
-                    this.mainGui.Response("Timer", errH);// GUIに反映させます。
+                    this.mainGui.Response("Timer", logger);// GUIに反映させます。
                 }
-
             }
         }
-
     }
 }

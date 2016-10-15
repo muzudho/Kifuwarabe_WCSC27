@@ -19,9 +19,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C496____EngineWrapper
         private DELEGATE_ShogiServer_ToEngine delegate_ShogiServer_ToEngine;
 
         /// <summary>
-        /// ------------------------------------------------------------------------------------------------------------------------
         /// これが、将棋エンジン（プロセス）です。
-        /// ------------------------------------------------------------------------------------------------------------------------
         /// </summary>
         public Process ShogiEngine { get { return this.shogiEngine; } }
         public void SetShogiEngine(Process shogiEngine)
@@ -29,7 +27,6 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C496____EngineWrapper
             this.shogiEngine = shogiEngine;
         }
         private Process shogiEngine;
-
 
         /// <summary>
         /// 将棋エンジンに向かって、ok コマンドを送信する要求。
@@ -41,7 +38,6 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C496____EngineWrapper
         }
         private bool requested_SendOk;
 
-
         /// <summary>
         /// 将棋エンジンが起動しているか否かです。
         /// </summary>
@@ -50,7 +46,6 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C496____EngineWrapper
         {
             return null != this.ShogiEngine && !this.ShogiEngine.HasExited;
         }
-
 
         /// <summary>
         /// 生成後、Pr_ofShogiEngine をセットしてください。
@@ -63,21 +58,18 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C496____EngineWrapper
             });
         }
 
-
         /// <summary>
         /// 将棋エンジンの標準入力へ、メッセージを送ります。
         /// 
         /// 二度手間なんだが、メソッドを１箇所に集約するためにこれを使う☆
         /// </summary>
-        private void Download(string message, KwLogger errH)
+        public void Download(string message, KwLogger logger)
         {
-            //KwLogger errH = OwataMinister.SERVER_NETWORK;
-
             this.ShogiEngine.StandardInput.WriteLine(message);
 
             if (null != this.Delegate_ShogiServer_ToEngine)
             {
-                this.Delegate_ShogiServer_ToEngine(message, errH);
+                this.Delegate_ShogiServer_ToEngine(message, logger);
             }
         }
 
@@ -99,91 +91,79 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C496____EngineWrapper
             this.Download(setoption, errH);
         }
 
+        public const string COMMAND_USI = "usi";
         /// <summary>
         /// 将棋エンジンに、"usi"を送信します。
         /// </summary>
         public void Send_Usi( KwLogger errH)
         {
             // 将棋エンジンの標準入力へ、メッセージを送ります。
-            this.Download("usi", errH);
+            this.Download(EngineProcessWrapperImpl.COMMAND_USI, errH);
         }
 
+        public const string COMMAND_ISREADY = "isready";
         /// <summary>
         /// 将棋エンジンに、"isready"を送信します。
         /// </summary>
         public void Send_Isready( KwLogger errH)
         {
-            this.Download("isready", errH);
+            this.Download(EngineProcessWrapperImpl.COMMAND_ISREADY, errH);
         }
 
+        public const string COMMAND_USINEWGAME = "usinewgame";
         /// <summary>
         /// 将棋エンジンに、"usinewgame"を送信します。
         /// </summary>
         public void Send_Usinewgame( KwLogger errH)
         {
             // 将棋エンジンの標準入力へ、メッセージを送ります。
-            this.Download("usinewgame", errH);
+            this.Download(EngineProcessWrapperImpl.COMMAND_USINEWGAME, errH);
         }
 
+        public const string COMMAND_GAMEOVER_LOSE = "gameover lose";
         /// <summary>
         /// 将棋エンジンに、"gameover lose"を送信します。
         /// </summary>
         public void Send_Gameover_lose( KwLogger errH)
         {
             // 将棋エンジンの標準入力へ、メッセージを送ります。
-            this.Download("gameover lose",errH);
+            this.Download(EngineProcessWrapperImpl.COMMAND_GAMEOVER_LOSE,errH);
         }
 
+        public const string COMMAND_QUIT = "quit";
         /// <summary>
         /// 将棋エンジンに、"quit"を送信します。
         /// </summary>
         public void Send_Quit( KwLogger errH)
         {
             // 将棋エンジンの標準入力へ、メッセージを送ります。
-            this.Download("quit",errH);
+            this.Download(EngineProcessWrapperImpl.COMMAND_QUIT,errH);
         }
 
+        public const string COMMAND_NOOP_FROM_SERVER = "noop from server";
         /// <summary>
         /// 将棋エンジンに、"ok"を送信します。"noop"への返事です。
         /// </summary>
         public void Send_Noop_from_server( KwLogger errH)
         {
             // 将棋エンジンの標準入力へ、メッセージを送ります。
-            this.Download("noop from server",errH);
+            this.Download(EngineProcessWrapperImpl.COMMAND_NOOP_FROM_SERVER,errH);
         }
 
+        public const string COMMAND_GO = "go";
         /// <summary>
         /// 将棋エンジンに、"go"を送信します。
         /// </summary>
         public void Send_Go( KwLogger errH)
         {
             // 将棋エンジンの標準入力へ、メッセージを送ります。
-            this.Download("go",errH);
-        }
-
-        /// <summary>
-        /// 将棋エンジンに、終了するように促します。
-        /// </summary>
-        public void Send_Shutdown( KwLogger errH)
-        {
-            if (this.IsLive_ShogiEngine())
-            {
-                // 将棋エンジンの標準入力へ、メッセージを送ります。
-                this.Download("quit",errH);
-            }
+            this.Download(EngineProcessWrapperImpl.COMMAND_GO,errH);
         }
 
         /// <summary>
         /// 将棋エンジンに、ログを出すように促します。
         /// </summary>
-        public void Send_Logdase( KwLogger errH)
-        {
-            if (this.IsLive_ShogiEngine())
-            {
-                // 将棋エンジンの標準入力へ、メッセージを送ります。
-                this.Download("logdase",errH);
-            }
-        }
+        public const string COMMAND_LOGDASE = "logdase";
 
     }
 }

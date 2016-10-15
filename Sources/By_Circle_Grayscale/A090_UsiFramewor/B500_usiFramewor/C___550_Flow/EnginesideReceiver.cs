@@ -20,19 +20,17 @@ namespace Grayscale.A090_UsiFramewor.B500_usiFramewor.C___550_Flow
     /// </summary>
     public interface EnginesideReceiver
     {
-        #region 実行
         /// <summary>
         /// 実行します。
         /// </summary>
         void Execute();
-        #endregion
 
-        #region アプリケーション・フェーズ
+        #region ループＡ
         FuncV OnA1 { get; set; }
         FuncV OnA3 { get; set; }
         #endregion
 
-        #region ループＬ（コマンド受信イベントハンドラ）
+        #region ループＬ
         FuncV OnL1 { get; set; }
         FuncS OnL2_CommandlineRead { get; set; }
         FuncL OnL2_Usi { get; set; }
@@ -43,7 +41,7 @@ namespace Grayscale.A090_UsiFramewor.B500_usiFramewor.C___550_Flow
         FuncV OnL3 { get; set; }
         #endregion
 
-        #region ループＭ（コマンド受信イベントハンドラ）
+        #region ループＭ
         FuncV OnM1 { get; set; }
         FuncS OnM2_CommandlineRead { get; set; }
         FuncM OnM2_Position { get; set; }

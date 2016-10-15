@@ -23,6 +23,14 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C___496_EngineWrapper
 
 
         /// <summary>
+        /// 将棋エンジンの標準入力へ、メッセージを送ります。
+        /// 
+        /// 二度手間なんだが、メソッドを１箇所に集約するためにこれを使う☆
+        /// </summary>
+        void Download(string message, KwLogger logger);
+
+
+        /// <summary>
         /// 将棋エンジンに、"noop from server"を送信します。
         /// </summary>
         void Send_Noop_from_server( KwLogger errH);
@@ -40,14 +48,6 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C___496_EngineWrapper
         void Send_Usi( KwLogger errH);
 
 
-                
-        /// <summary>
-        /// 将棋エンジンに、終了するように促します。
-        /// </summary>
-        void Send_Shutdown( KwLogger errH);
-
-
-        
         /// <summary>
         /// 将棋エンジンに、"setoption ～略～"を送信します。
         /// </summary>
@@ -69,13 +69,6 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C___496_EngineWrapper
 
 
         
-        /// <summary>
-        /// 将棋エンジンに、ログを出すように促します。
-        /// </summary>
-        void Send_Logdase( KwLogger errH);
-
-
-                
         /// <summary>
         /// 将棋エンジンに、"isready"を送信します。
         /// </summary>
