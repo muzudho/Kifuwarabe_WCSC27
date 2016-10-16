@@ -127,14 +127,14 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C100____Shogisasi
 
 
 #if DEBUG
-            //
-            // 評価明細ログの書出し
-            //
-            Util_KifuTreeLogWriter.A_Write_KifuTreeLog(
-                logF_kiki,
-                kifu1,
-                errH
-                );
+            ////
+            //// 評価明細ログの書出し
+            ////
+            //Util_KifuTreeLogWriter.A_Write_KifuTreeLog(
+            //    logF_kiki,
+            //    kifu1,
+            //    errH
+            //    );
             //Util_LogWriter500_HyokaMeisai.Log_Html5(
             //    this,
             //    logF_kiki,

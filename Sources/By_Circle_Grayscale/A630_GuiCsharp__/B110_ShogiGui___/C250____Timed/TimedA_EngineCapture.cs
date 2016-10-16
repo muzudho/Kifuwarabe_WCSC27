@@ -36,8 +36,8 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
 
 #if DEBUG
                 string message = "(^o^)timer入力 input99=[" + this.mainGui.ConsoleWindowGui.InputString99 + "]";
-                errH.AppendLine(message);
-                errH.Flush(LogTypes.Plain);
+                logger.AppendLine(message);
+                logger.Flush(LogTypes.Plain);
 #endif
 
                 //

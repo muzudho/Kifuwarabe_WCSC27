@@ -48,7 +48,7 @@ namespace Grayscale.A240_KifuTreeLog.B110_KifuTreeLog.C500____Struct
                         );
         }
 
-
+        /*
         /// <summary>
         /// 棋譜ツリー・ログの書出し
         /// 
@@ -100,18 +100,16 @@ namespace Grayscale.A240_KifuTreeLog.B110_KifuTreeLog.C500____Struct
                 string sasiteText1 = Conv_Move.ToSfen(kifu.CurNode.Key);
                 MoveEx kifuNode1 = kifu.CurNode;
 
-                /*
-                // 評価明細のログ出力。
-                Util_KifuTreeLogWriter.AA_Write_ForeachLeafs_ForDebug(
-                    ref logFileCounter,
-                    sasiteText1,
-                    kifuNode1,
-                    kifu,
-                    sb_folder.ToString(),
-                    Util_KifuTreeLogWriter.REPORT_ENVIRONMENT,
-                    errH
-                    );
-                */
+                //// 評価明細のログ出力。
+                //Util_KifuTreeLogWriter.AA_Write_ForeachLeafs_ForDebug(
+                //    ref logFileCounter,
+                //    sasiteText1,
+                //    kifuNode1,
+                //    kifu,
+                //    sb_folder.ToString(),
+                //    Util_KifuTreeLogWriter.REPORT_ENVIRONMENT,
+                //    errH
+                //    );
             }
             catch (Exception ex)
             {
@@ -149,6 +147,7 @@ namespace Grayscale.A240_KifuTreeLog.B110_KifuTreeLog.C500____Struct
             }
 #endif
         }
+        */
 
         /// <summary>
         /// 盤１個分のログ。

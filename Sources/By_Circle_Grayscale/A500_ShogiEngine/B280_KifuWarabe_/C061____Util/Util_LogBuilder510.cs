@@ -14,7 +14,7 @@ namespace Grayscale.A500_ShogiEngine.B200_Scoreing___.C061____Util
 {
     public abstract class Util_LogBuilder510
     {
-
+        /*
         /// <summary>
         /// 盤１個分のログ。
         /// </summary>
@@ -36,7 +36,7 @@ namespace Grayscale.A500_ShogiEngine.B200_Scoreing___.C061____Util
                 KaisetuBoard logBrd_move1 = new KaisetuBoard();
 
                 List_OneAndMulti<Finger, SySet<SyElement>> komaBETUSusumeruMasus;
-                Playerside pside = kifu1.PositionA.KaisiPside;
+                Playerside pside = kifu1.PositionA.GetKaisiPside();
                 Util_KyokumenMoves.LA_Split_KomaBETUSusumeruMasus(
                     2,
                     //node_forLog,
@@ -66,8 +66,7 @@ namespace Grayscale.A500_ShogiEngine.B200_Scoreing___.C061____Util
                 logF_kiki.boards.Add(logBrd_move1);
             }
         }
-
-
+        */
     }
 }
 #endif

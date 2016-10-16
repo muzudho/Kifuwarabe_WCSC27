@@ -35,6 +35,7 @@ using System.Windows.Forms;
 using Finger = ProjectDark.NamedInt.StrictNamedInt0; //スプライト番号
 
 #if DEBUG
+using Grayscale.A000_Platform___.B021_Random_____.C500____Struct;
 using Grayscale.A060_Application.B110_Log________.C___500_Struct;
 #endif
 

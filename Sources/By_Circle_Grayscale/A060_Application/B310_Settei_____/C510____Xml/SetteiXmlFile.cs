@@ -45,7 +45,8 @@ namespace Grayscale.A060_Application.B310_Settei_____.C510____Xml
         }
         private string setteiFileVer;
 
-        public ShogiEngineImpl ShogiEngine { get; set; }
+        public ShogiEngineImpl Player1 { get; set; }
+        public ShogiEngineImpl Player2 { get; set; }
 
         #endregion
 
@@ -58,7 +59,8 @@ namespace Grayscale.A060_Application.B310_Settei_____.C510____Xml
         {
             this.fileName = fileName;
             this.setteiFileVer = "0.00.0";
-            this.ShogiEngine = new ShogiEngineImpl("The将棋エンジン", "shogiEngine.exe");
+            this.Player1 = new ShogiEngineImpl("P1未使用", "misiyou_shogiEngine.exe");
+            this.Player2 = new ShogiEngineImpl("P2未使用", "misiyou_shogiEngine.exe");
         }
 
         public void DebugWrite()
@@ -66,12 +68,14 @@ namespace Grayscale.A060_Application.B310_Settei_____.C510____Xml
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("設定ファイル          : " + this.FileName);
             sb.AppendLine("設定ファイルVer       : " + this.SetteiFileVer);
-            sb.AppendLine("将棋エンジン          : " + this.ShogiEngine.Name);
-            sb.AppendLine("将棋エンジン・ファイル: " + this.ShogiEngine.Filepath);
-            sb.AppendLine();
-            sb.AppendLine();
-            sb.AppendLine();
-            sb.AppendLine();
+
+            sb.AppendLine("----");
+            sb.AppendLine("(1P)将棋エンジン         : " + this.Player1.Name);
+            sb.AppendLine("    将棋エンジン・ファイル: " + this.Player1.Filepath);
+            sb.AppendLine("----");
+            sb.AppendLine("(2P)将棋エンジン         : " + this.Player2.Name);
+            sb.AppendLine("    将棋エンジン・ファイル: " + this.Player2.Filepath);
+            sb.AppendLine("----");
 
             Util_Message.Whisper(sb.ToString());
         }
@@ -94,17 +98,29 @@ namespace Grayscale.A060_Application.B310_Settei_____.C510____Xml
                 XmlElement xKifunarabe = xDoc.DocumentElement;
                 this.setteiFileVer = xKifunarabe.GetAttribute("setteiFileVer");
 
-                XmlNodeList xShogiEngineNodeList = xKifunarabe.GetElementsByTagName("shogiEngine");
-                foreach (XmlNode xShogiEngineNode in xShogiEngineNodeList)
+                XmlNodeList xPlayer1Nodelist = xKifunarabe.GetElementsByTagName("player1");
+                foreach (XmlNode xPlayer1Node in xPlayer1Nodelist)
                 {
-                    XmlElement xShogiEngine = (XmlElement)xShogiEngineNode;
+                    XmlElement xPlayer1 = (XmlElement)xPlayer1Node;
+                    this.Player1 = new ShogiEngineImpl(
+                        xPlayer1.GetAttribute("name"),
+                        xPlayer1.GetAttribute("file")
+                        );
+                    break;
+                }
 
-                    this.ShogiEngine.Name = xShogiEngine.GetAttribute("name");
-                    this.ShogiEngine.Filepath = xShogiEngine.GetAttribute("file");
+                XmlNodeList xPlayer2Nodelist = xKifunarabe.GetElementsByTagName("player2");
+                foreach (XmlNode xPlayer2Node in xPlayer2Nodelist)
+                {
+                    XmlElement xPlayer2 = (XmlElement)xPlayer2Node;
+                    this.Player2 = new ShogiEngineImpl(
+                        xPlayer2.GetAttribute("name"),
+                        xPlayer2.GetAttribute("file")
+                        );
                     break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 // エラー
                 successfule = false;
@@ -138,16 +154,17 @@ namespace Grayscale.A060_Application.B310_Settei_____.C510____Xml
                 // コメント
                 xKifunarabe.AppendChild(xDoc.CreateComment("v(^-^)vｲｪｰｲ☆ 『将棋ＧＵＩ きふならべ』の設定ファイルなんだぜ☆！ 今は一番上に書いてある ＜shogiEngine＞ を見に行くぜ☆"));
 
-                // <shogiEngine>
-                XmlElement xShogiEngine = xDoc.CreateElement("shogiEngine");
+                // <player1>
+                XmlElement xPlayer1 = xDoc.CreateElement("player1");
+                xPlayer1.SetAttribute("name", this.Player1.Name);
+                xPlayer1.SetAttribute("file", this.Player1.Filepath);
+                xKifunarabe.AppendChild(xPlayer1);
 
-                // name="The将棋エンジン"
-                xShogiEngine.SetAttribute("name", this.ShogiEngine.Name);
-
-                // file="shogiEngine.exe"
-                xShogiEngine.SetAttribute("file", this.ShogiEngine.Filepath);
-
-                xKifunarabe.AppendChild(xShogiEngine);
+                // <player2>
+                XmlElement xPlayer2 = xDoc.CreateElement("player2");
+                xPlayer2.SetAttribute("name", this.Player2.Name);
+                xPlayer2.SetAttribute("file", this.Player2.Filepath);
+                xKifunarabe.AppendChild(xPlayer2);
 
                 // .xmlファイルを保存
                 xDoc.Save(this.FileName);

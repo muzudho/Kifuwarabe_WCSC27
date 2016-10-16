@@ -727,6 +727,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                 throw ex;
             }
         }
+        /*
         private static void Log2(
             Tansaku_Genjo genjo,
             MoveEx node_yomi,
@@ -752,6 +753,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                 throw ex;
             }
         }
+        */
 #endif
     }
 

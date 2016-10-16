@@ -53,8 +53,8 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C600____Operation
                 Move move1 = item.Move;
 #if DEBUG
                 string sfen = Conv_Move.ToSfen(item.Move);
-                errH.AppendLine("sfen=" + sfen);
-                errH.Flush(LogTypes.Plain);
+                logger.AppendLine("sfen=" + sfen);
+                logger.Flush(LogTypes.Plain);
 #endif
                 /*
                 if (uc_Main.LearningData.ContainsKeyCurChildNode(move1, uc_Main.LearningData.KifuA, logger))

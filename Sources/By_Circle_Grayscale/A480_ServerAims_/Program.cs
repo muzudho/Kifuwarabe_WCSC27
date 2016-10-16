@@ -16,7 +16,7 @@ namespace Grayscale.P489_Form_______
 
         static void Main(string[] args)
         {
-            KwLogger errH = Util_Loggers.ProcessAims_DEFAULT;
+            KwLogger logger = Util_Loggers.ProcessAims_DEFAULT;
             MessageBox.Show("AIMSサーバー");
 
 
@@ -46,16 +46,18 @@ namespace Grayscale.P489_Form_______
                 //setteiXmlFile.DebugWrite();
             }
 
+            MessageBox.Show("AIMSサーバー\n"+
+                "(1P)将棋エンジン・ファイルパス＝[" + setteiXmlFile.Player1.Filepath + "]\n"+
+                "(2P)将棋エンジン・ファイルパス＝[" + setteiXmlFile.Player2.Filepath + "]\n"
+                );
 
-            MessageBox.Show("AIMSサーバー\n将棋エンジン・ファイルパス＝[" + setteiXmlFile.ShogiEngine.Filepath + "]");
+            Sky positionA = Util_SkyCreator.New_Hirate();
 
-            Sky src_Sky = Util_SkyCreator.New_Hirate();
-
-            AimsServerImpl aimsServer = new AimsServerImpl(src_Sky);
-            aimsServer.ShogiEngineFilePath = setteiXmlFile.ShogiEngine.Filepath;
+            AimsServerImpl aimsServer = new AimsServerImpl(positionA);
+            aimsServer.ShogiEngine2PFilepath = setteiXmlFile.Player2.Filepath;
 
             aimsServer.AtBegin();
-            aimsServer.AtBody(errH);
+            aimsServer.AtBody(logger);
             aimsServer.AtEnd();
         }
     }

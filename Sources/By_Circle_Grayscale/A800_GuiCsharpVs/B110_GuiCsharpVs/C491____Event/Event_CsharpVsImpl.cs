@@ -37,7 +37,7 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C491____Event
                     Uc_Form1Mainable ui_PnlMain = ((Form1_Shogi)shogiGui.OwnerForm).Uc_Form1Main;
 
                     int clientIndex = 1;
-                    ui_PnlMain.MainGui.Do_BootComputer_Button1(clientIndex, ui_PnlMain.SetteiXmlFile.ShogiEngine.Filepath, logger2);
+                    ui_PnlMain.MainGui.Do_BootComputer_Button1(clientIndex, ui_PnlMain.SetteiXmlFile.Player1.Filepath, logger2);
                 };
 
                 //
@@ -54,7 +54,7 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C491____Event
                     Uc_Form1Mainable ui_PnlMain = ((Form1_Shogi)shogiGui.OwnerForm).Uc_Form1Main;
 
                     int clientIndex = 2;
-                    ui_PnlMain.MainGui.Do_BootComputer_Button1(clientIndex, ui_PnlMain.SetteiXmlFile.ShogiEngine.Filepath, logger2);
+                    ui_PnlMain.MainGui.Do_BootComputer_Button1(clientIndex, ui_PnlMain.SetteiXmlFile.Player2.Filepath, logger2);
                 };
 
                 //

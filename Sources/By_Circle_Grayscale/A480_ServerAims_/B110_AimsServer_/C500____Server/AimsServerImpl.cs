@@ -25,7 +25,7 @@ namespace Grayscale.A480_ServerAims_.B110_AimsServer_.C500____Server
         /// <summary>
         /// 将棋エンジンへのファイルパス。
         /// </summary>
-        public string ShogiEngineFilePath { get; set; }
+        public string ShogiEngine2PFilepath { get; set; }
 
         /// <summary>
         /// フェーズ。
@@ -105,7 +105,7 @@ namespace Grayscale.A480_ServerAims_.B110_AimsServer_.C500____Server
                                 this.SetPhase_AimsServer(Phase_AimsServer._03_WaitEngineLive);
 
                                 // 将棋エンジンを起動するぜ☆
-                                this.SetClient(2,this.ShogiEngineFilePath);
+                                this.SetClient(2,this.ShogiEngine2PFilepath);
                             }
                         }
                         break;

@@ -36,7 +36,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
             });
 
 #if DEBUG
-            this.ShogiEngineProcessWrapper.SetDelegate_ShogiServer_ToEngine( (string line, KwLogger errH) =>
+            this.SetDelegate_ShogiServer_ToEngine( (string line, KwLogger errH) =>
             {
                 //
                 // USIコマンドを将棋エンジンに送ったタイミングで、なにかすることがあれば、
@@ -74,8 +74,8 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
             {
                 //>>>>>>>>>> メッセージを受け取りました。
 #if DEBUG
-                errH.AppendLine(line);
-                errH.Flush(LogTypes.ToServer);
+                logger.AppendLine(line);
+                logger.Flush(LogTypes.ToServer);
 #endif
 
                 if ("noop" == line)
@@ -152,8 +152,8 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
                         );
 
 #if DEBUG
-                    errH.AppendLine("USI受信：bestmove input99=[" + ((Server)((EngineClient)this.Owner_EngineClient).Owner_Server).InputString99 + "]");
-                    errH.Flush(LogTypes.Plain);
+                    logger.AppendLine("USI受信：bestmove input99=[" + this.Owner_Server.Storage.InputString99 + "]");
+                    logger.Flush(LogTypes.Plain);
 #endif
                 }
                 else
