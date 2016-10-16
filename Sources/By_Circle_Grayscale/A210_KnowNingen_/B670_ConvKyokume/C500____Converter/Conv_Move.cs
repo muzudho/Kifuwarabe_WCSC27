@@ -13,6 +13,7 @@ using Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky;
 using System;
 using System.Diagnostics;
 using System.Text;
+using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
 
 namespace Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter
 {
@@ -843,6 +844,11 @@ namespace Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter
         public static Move GetErrorMove()
         {
             return (Move)(1 << (int)MoveShift.ErrorCheck);//エラー
+        }
+
+        public static string ToLog(MoveEx moveEx)
+        {
+            return Conv_Move.ToLog(moveEx.Move) + " " + moveEx.Score + "点";
         }
 
         public static string ToLog(Move move)

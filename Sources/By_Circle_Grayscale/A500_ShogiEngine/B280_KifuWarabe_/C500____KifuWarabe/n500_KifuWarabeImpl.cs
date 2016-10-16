@@ -1038,10 +1038,10 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
                                         this.Logger);
                                     multiPvNodeExList.Add(bestmove2);
 
-                                    //this.Kifu_AtLoop2.MoveEx_SetCurrent(
-                                    TreeImpl.OnDoCurrentMove("マルチPV", this.Kifu_AtLoop2.Pv_GetLatest(), this.Kifu_AtLoop2, this.Kifu_AtLoop2.PositionA, this.Logger);
-                                        //);
+                                    this.Logger.AppendLine("マルチPV["+ iMultiPV + "]: "+Conv_Move.ToLog(bestmove2.Move));
+                                    //TreeImpl.OnDoCurrentMove("マルチPV", this.Kifu_AtLoop2.Pv_GetLatest(), this.Kifu_AtLoop2, this.Kifu_AtLoop2.PositionA, this.Logger);
                                 }
+                                this.Logger.Flush(LogTypes.Plain);
 
 
 #if DEBUG
