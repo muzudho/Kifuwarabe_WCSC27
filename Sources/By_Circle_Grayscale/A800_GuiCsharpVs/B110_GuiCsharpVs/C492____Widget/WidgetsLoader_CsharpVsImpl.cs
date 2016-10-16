@@ -8,14 +8,14 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C492____Widget
     public class WidgetsLoader_CsharpVsImpl : WidgetsLoader_CsharpImpl
     {
 
-        public WidgetsLoader_CsharpVsImpl(string fileName, ServersideGui_Csharp shogibanGui)
+        public WidgetsLoader_CsharpVsImpl(string fileName, ServersideShogibanGui_Csharp shogibanGui)
             : base(fileName, shogibanGui)
         {
         }
 
         public override void Step3_SetEvent(object obj_shogiGui)
         {
-            ServersideGui_Csharp shogibanGui1 = (ServersideGui_Csharp)obj_shogiGui;
+            ServersideShogibanGui_Csharp shogibanGui1 = (ServersideShogibanGui_Csharp)obj_shogiGui;
 
             //----------
             // 将棋エンジン起動ボタン_学習

@@ -22,22 +22,22 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
         /// <summary>
         /// v(^▽^)v超能力『メナス』だぜ☆ 未来の脅威を予測し、可視化するぜ☆ｗｗｗ
         /// </summary>
-        public static void Menace( ServersideGui_Csharp mainGui, KwLogger logger)
+        public static void Menace( ServersideShogibanGui_Csharp shogibanGui, KwLogger logger)
         {
-            if (0 < mainGui.Link_Server.Storage.PositionServerside.Temezumi)
+            if (0 < shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside.Temezumi)
             {
                 // 処理の順序が悪く、初回はうまく判定できない。
-                Sky positionA = mainGui.Link_Server.Storage.PositionServerside;
-                Playerside psideA = mainGui.Link_Server.Storage.PositionServerside.GetKaisiPside();
+                Sky positionA = shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside;
+                Playerside psideA = shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside.GetKaisiPside();
 
 
                 //----------
                 // 将棋盤上の駒
                 //----------
-                mainGui.RepaintRequest.SetFlag_RefreshRequest();
+                shogibanGui.RepaintRequest.SetFlag_RefreshRequest();
 
                 // [クリアー]
-                mainGui.Shape_PnlTaikyoku.Shogiban.ClearHMasu_KikiKomaList();
+                shogibanGui.Shape_PnlTaikyoku.Shogiban.ClearHMasu_KikiKomaList();
 
                 // 全駒
                 foreach (Finger figKoma in Finger_Honshogi.Items_KomaOnly)
@@ -61,7 +61,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
                             // その枡に利いている駒のハンドルを追加
                             if (!Masu_Honshogi.IsErrorBasho(masu))
                             {
-                                mainGui.Shape_PnlTaikyoku.Shogiban.HMasu_KikiKomaList[Conv_Masu.ToMasuHandle(masu)].Add((int)figKoma);
+                                shogibanGui.Shape_PnlTaikyoku.Shogiban.HMasu_KikiKomaList[Conv_Masu.ToMasuHandle(masu)].Add((int)figKoma);
                             }
                         }
                     }

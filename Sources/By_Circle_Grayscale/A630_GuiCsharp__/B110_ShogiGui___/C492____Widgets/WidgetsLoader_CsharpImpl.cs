@@ -23,9 +23,9 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C492____Widgets
         /// <summary>
         /// ウィジェットを置く土台。
         /// </summary>
-        public ServersideGui_Csharp ShogibanGui { get; set; }
+        public ServersideShogibanGui_Csharp ShogibanGui { get; set; }
 
-        public WidgetsLoader_CsharpImpl(string fileName, ServersideGui_Csharp shogibanGui)
+        public WidgetsLoader_CsharpImpl(string fileName, ServersideShogibanGui_Csharp shogibanGui)
         {
             this.FileName = fileName;
             this.ShogibanGui = shogibanGui;
@@ -306,7 +306,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C492____Widgets
         /// <param name="obj_shogiGui"></param>
         public virtual void Step2_Compile_AllWidget(object obj_shogiGui)
         {
-            ServersideGui_Csharp shogibanGui = (ServersideGui_Csharp)obj_shogiGui;
+            ServersideShogibanGui_Csharp shogibanGui = (ServersideShogibanGui_Csharp)obj_shogiGui;
 
             foreach (UserWidget widget in shogibanGui.Widgets.Values)
             {
@@ -320,7 +320,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C492____Widgets
         /// <param name="obj_shogiGui"></param>
         public virtual void Step3_SetEvent(object obj_shogiGui)
         {
-            ServersideGui_Csharp shogibanGui1 = (ServersideGui_Csharp)obj_shogiGui;
+            ServersideShogibanGui_Csharp shogibanGui1 = (ServersideShogibanGui_Csharp)obj_shogiGui;
 
             //----------
             // [成る]ボタン

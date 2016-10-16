@@ -50,7 +50,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     ) =>
                 {
                     Shape_BtnKoma btnKoma_Selected = (Shape_BtnKoma)btnKoma_Selected2;
-                    ServersideGui_Csharp shogibanGui2 = (ServersideGui_Csharp)obj_shogiGui2;
+                    ServersideShogibanGui_Csharp shogibanGui2 = (ServersideShogibanGui_Csharp)obj_shogiGui2;
 
                     shogibanGui2.SetNaruFlag(true);
                     int clientIndex = 2;
@@ -73,7 +73,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     ) =>
                 {
                     Shape_BtnKoma btnKoma_Selected = (Shape_BtnKoma)btnKoma_Selected2;
-                    ServersideGui_Csharp shogibanGui2 = (ServersideGui_Csharp)obj_shogiGui2;
+                    ServersideShogibanGui_Csharp shogibanGui2 = (ServersideShogibanGui_Csharp)obj_shogiGui2;
 
                     shogibanGui2.SetNaruFlag(false);
                     int clientIndex = 2;
@@ -96,7 +96,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     ) =>
                 {
                     Shape_BtnKoma btnKoma_Selected = (Shape_BtnKoma)btnKoma_Selected2;
-                    ServersideGui_Csharp shogibanGui2 = (ServersideGui_Csharp)obj_shogiGui2;
+                    ServersideShogibanGui_Csharp shogibanGui2 = (ServersideShogibanGui_Csharp)obj_shogiGui2;
 
                     Util_Lua_Csharp.ShogiGui = shogibanGui2;
                     Util_Lua_Csharp.ErrH = errH;
@@ -114,7 +114,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     ) =>
                 {
                     Shape_BtnKoma btnKoma_Selected = (Shape_BtnKoma)btnKoma_Selected2;
-                    ServersideGui_Csharp shogibanGui2 = (ServersideGui_Csharp)obj_shogiGui2;
+                    ServersideShogibanGui_Csharp shogibanGui2 = (ServersideShogibanGui_Csharp)obj_shogiGui2;
 
                     Util_Lua_Csharp.ShogiGui = shogibanGui2;
                     Util_Lua_Csharp.ErrH = errH;
@@ -132,25 +132,21 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     ) =>
                 {
                     Shape_BtnKoma btnKoma_Selected = (Shape_BtnKoma)btnKoma_Selected2;
-                    ServersideGui_Csharp mainGui3 = (ServersideGui_Csharp)obj_shogiGui2;
+                    ServersideShogibanGui_Csharp shogibanGui3 = (ServersideShogibanGui_Csharp)obj_shogiGui2;
 
                     string restText = Util_Function_Csharp.ReadLine_FromTextbox();
                     Util_Server.Komaokuri_Srv(
                         ref restText,
-
-                        mainGui3.Link_Server.Storage.Earth,
-                        mainGui3.Link_Server.Storage.KifuTree,
-
-                        mainGui3.Link_Server.Storage,
+                        shogibanGui3.OwnerConsole.Link_Server.Storage,
                         logger
                         );
                     Util_Function_Csharp.Komaokuri_Gui(restText,
-                        mainGui3.Link_Server.Storage.KifuTree.MoveEx_Current,
-                        mainGui3.Link_Server.Storage.KifuTree.PositionA,//.CurNode2ok.GetNodeValue()
-                        mainGui3,
-                        mainGui3.Link_Server.Storage.KifuTree,
+                        shogibanGui3.OwnerConsole.Link_Server.Storage.KifuTree.MoveEx_Current,
+                        shogibanGui3.OwnerConsole.Link_Server.Storage.KifuTree.PositionA,//.CurNode2ok.GetNodeValue()
+                        shogibanGui3,
+                        shogibanGui3.OwnerConsole.Link_Server.Storage.KifuTree,
                         logger);
-                    Util_Menace.Menace(mainGui3, logger);// メナス
+                    Util_Menace.Menace(shogibanGui3, logger);// メナス
                 };
 
                 //
@@ -164,7 +160,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     ) =>
                 {
                     Shape_BtnKoma btnKoma_Selected = (Shape_BtnKoma)btnKoma_Selected2;
-                    ServersideGui_Csharp mainGui2 = (ServersideGui_Csharp)obj_shogiGui2;
+                    ServersideShogibanGui_Csharp shogibanGui2 = (ServersideShogibanGui_Csharp)obj_shogiGui2;
 
                     Finger movedKoma;
                     Finger foodKoma;//取られた駒
@@ -173,19 +169,19 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     if (!Util_Server.Makimodosi_Srv(
                         out movedKoma, out foodKoma,
                         out fugoJStr,
-                        mainGui2.Link_Server.Storage.KifuTree.MoveEx_Current,
-                        mainGui2.Link_Server.Storage.KifuTree,
+                        shogibanGui2.OwnerConsole.Link_Server.Storage.KifuTree.MoveEx_Current,
+                        shogibanGui2.OwnerConsole.Link_Server.Storage.KifuTree,
                         logger))
                     {
                         goto gt_EndBlock;
                     }
 
                     Util_Function_Csharp.Makimodosi_Gui(
-                        mainGui2.Link_Server.Storage.KifuTree,//.CurrentNode,
-                        mainGui2.Link_Server.Storage.KifuTree.PositionA.GetKaisiPside(),
-                        mainGui2,
+                        shogibanGui2.OwnerConsole.Link_Server.Storage.KifuTree,//.CurrentNode,
+                        shogibanGui2.OwnerConsole.Link_Server.Storage.KifuTree.PositionA.GetKaisiPside(),
+                        shogibanGui2,
                         movedKoma, foodKoma, fugoJStr, Util_Function_Csharp.ReadLine_FromTextbox(), logger);
-                    Util_Menace.Menace(mainGui2, logger);//メナス
+                    Util_Menace.Menace(shogibanGui2, logger);//メナス
 
                 gt_EndBlock:
                     ;
@@ -201,7 +197,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     , KwLogger errH
                     ) =>
                 {
-                    ServersideGui_Csharp shogibanGui2 = (ServersideGui_Csharp)obj_shogiGui2;
+                    ServersideShogibanGui_Csharp shogibanGui2 = (ServersideShogibanGui_Csharp)obj_shogiGui2;
                     Shape_BtnKoma btnKoma_Selected = (Shape_BtnKoma)btnKoma_Selected2;
 
                     int clientIndex = 2;
@@ -218,7 +214,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     , KwLogger errH
                     ) =>
                 {
-                    ServersideGui_Csharp shogibanGui2 = (ServersideGui_Csharp)obj_shogiGui2;
+                    ServersideShogibanGui_Csharp shogibanGui2 = (ServersideShogibanGui_Csharp)obj_shogiGui2;
                     Shape_BtnKoma btnKoma_Selected = (Shape_BtnKoma)btnKoma_Selected2;
                     UserWidget widget = shogibanGui2.GetWidget("BtnKabeOku");
 
@@ -247,7 +243,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     ) =>
                 {
                     Shape_BtnKoma btnKoma_Selected = (Shape_BtnKoma)btnKoma_Selected2;
-                    ServersideGui_Csharp shogibanGui2 = (ServersideGui_Csharp)obj_shogiGui2;
+                    ServersideShogibanGui_Csharp shogibanGui2 = (ServersideShogibanGui_Csharp)obj_shogiGui2;
 
                     switch (shogibanGui2.SyuturyokuKirikae)
                     {
@@ -277,7 +273,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                 {
                     Shape_BtnKoma btnKoma_Selected = (Shape_BtnKoma)btnKoma_Selected2;
                     UserWidget userWidget = (UserWidget)userWidget2;
-                    ServersideGui_Csharp shogibanGui2 = (ServersideGui_Csharp)obj_shogiGui2;
+                    ServersideShogibanGui_Csharp shogibanGui2 = (ServersideShogibanGui_Csharp)obj_shogiGui2;
                     UserWidget widget = shogibanGui2.GetWidget(userWidget.Name);
 
                     shogibanGui2.RepaintRequest.SetNyuryokuTextTail(widget.Fugo);
@@ -294,7 +290,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     ) =>
                 {
                     Shape_BtnKoma btnKoma_Selected = (Shape_BtnKoma)btnKoma_Selected2;
-                    ServersideGui_Csharp shogibanGui2 = (ServersideGui_Csharp)obj_shogiGui2;
+                    ServersideShogibanGui_Csharp shogibanGui2 = (ServersideShogibanGui_Csharp)obj_shogiGui2;
 
                     shogibanGui2.RepaintRequest.NyuryokuText = "";
                 };
@@ -310,16 +306,16 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     ) =>
                 {
                     Shape_BtnKoma btnKoma_Selected = (Shape_BtnKoma)btnKoma_Selected2;
-                    ServersideGui_Csharp shogibanGui2 = (ServersideGui_Csharp)obj_shogiGui2;
+                    ServersideShogibanGui_Csharp shogibanGui2 = (ServersideShogibanGui_Csharp)obj_shogiGui2;
 
                     
                     Util_KifuTree282.Clear_SetStartpos_KokokaraSaifu(
 
-                        shogibanGui2.Link_Server.Storage.Earth,
-                        shogibanGui2.Link_Server.Storage.KifuTree.PositionA,
-                        shogibanGui2.Link_Server.Storage.KifuTree,
+                        shogibanGui2.OwnerConsole.Link_Server.Storage.Earth,
+                        shogibanGui2.OwnerConsole.Link_Server.Storage.KifuTree.PositionA,
+                        shogibanGui2.OwnerConsole.Link_Server.Storage.KifuTree,
                         
-                        shogibanGui2.Link_Server.Storage.KifuTree.PositionA.GetKaisiPside(),
+                        shogibanGui2.OwnerConsole.Link_Server.Storage.KifuTree.PositionA.GetKaisiPside(),
                         logger
                         );
                     shogibanGui2.RepaintRequest.SyuturyokuRequest = RepaintRequestGedanTxt.Kifu;
@@ -336,7 +332,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     ) =>
                 {
                     Shape_BtnKoma btnKoma_Selected = (Shape_BtnKoma)btnKoma_Selected2;
-                    ServersideGui_Csharp shogibanGui2 = (ServersideGui_Csharp)obj_shogiGui2;
+                    ServersideShogibanGui_Csharp shogibanGui2 = (ServersideShogibanGui_Csharp)obj_shogiGui2;
 
                     Util_Function_Csharp.Perform_SyokiHaichi_CurrentMutable(shogibanGui2, errH2);
                 };
@@ -352,9 +348,9 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     ) =>
                 {
                     Shape_BtnKoma btnKoma_Selected = (Shape_BtnKoma)btnKoma_Selected2;
-                    ServersideGui_Csharp mainGui3 = (ServersideGui_Csharp)obj_shogiGui2;
+                    ServersideShogibanGui_Csharp shogibanGui3 = (ServersideShogibanGui_Csharp)obj_shogiGui2;
 
-                    Shape_BtnKoma movedKoma = mainGui3.Shape_PnlTaikyoku.Btn_MovedKoma();
+                    Shape_BtnKoma movedKoma = shogibanGui3.Shape_PnlTaikyoku.Btn_MovedKoma();
 
                     Busstop koma;
                     Finger figKoma = Fingers.Error_1;
@@ -362,15 +358,15 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     if (null != movedKoma)
                     {
                         //>>>>> 移動直後の駒があるとき
-                        mainGui3.Link_Server.Storage.PositionServerside.AssertFinger(movedKoma.Finger);
-                        koma = mainGui3.Link_Server.Storage.PositionServerside.BusstopIndexOf(movedKoma.Finger);
+                        shogibanGui3.OwnerConsole.Link_Server.Storage.PositionServerside.AssertFinger(movedKoma.Finger);
+                        koma = shogibanGui3.OwnerConsole.Link_Server.Storage.PositionServerside.BusstopIndexOf(movedKoma.Finger);
                         figKoma = movedKoma.Finger;
                     }
                     else if (null != btnKoma_Selected)
                     {
                         //>>>>> 選択されている駒があるとき
-                        mainGui3.Link_Server.Storage.PositionServerside.AssertFinger(btnKoma_Selected.Koma);
-                        koma = mainGui3.Link_Server.Storage.PositionServerside.BusstopIndexOf(btnKoma_Selected.Koma);
+                        shogibanGui3.OwnerConsole.Link_Server.Storage.PositionServerside.AssertFinger(btnKoma_Selected.Koma);
+                        koma = shogibanGui3.OwnerConsole.Link_Server.Storage.PositionServerside.BusstopIndexOf(btnKoma_Selected.Koma);
                         figKoma = btnKoma_Selected.Koma;
                     }
                     else
@@ -380,8 +376,8 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
 
                     if (Busstop.Empty != koma)
                     {
-                        Sky positionA = new SkyImpl(mainGui3.Link_Server.Storage.PositionServerside);
-                        MoveEx modifyNode = new MoveExImpl(mainGui3.Link_Server.Storage.KifuTree.MoveEx_Current.Move);
+                        Sky positionA = new SkyImpl(shogibanGui3.OwnerConsole.Link_Server.Storage.PositionServerside);
+                        MoveEx modifyNode = new MoveExImpl(shogibanGui3.OwnerConsole.Link_Server.Storage.KifuTree.MoveEx_Current.Move);
                         positionA.AddObjects(
                                 new Finger[] { figKoma }, new Busstop[] {
                                     Conv_Busstop.ToBusstop(
@@ -395,17 +391,14 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                         // ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
                         // ここで局面データを変更します。
                         // ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        string jsaFugoStr;
-                        mainGui3.Link_Server.Storage.KifuTree.MoveEx_OnEditCurrent(modifyNode, positionA);
-                        Util_Server.AfterSetCurNode_Srv(
-                            mainGui3.Link_Server.Storage,
-                            modifyNode,
+                        shogibanGui3.OwnerConsole.Link_Server.Storage.KifuTree.MoveEx_OnEditCurrent(modifyNode, positionA);
+                        string jsaFugoStr_notUse;
+                        shogibanGui3.OwnerConsole.Link_Server.Storage.AfterSetCurNode_Srv(
                             modifyNode.Move,
                             positionA,
-                            out jsaFugoStr,
-                            mainGui3.Link_Server.Storage.KifuTree,
+                            out jsaFugoStr_notUse,
                             logger2);
-                        mainGui3.RepaintRequest.SetFlag_RefreshRequest();
+                        shogibanGui3.RepaintRequest.SetFlag_RefreshRequest();
                     }
                 };
 
@@ -504,12 +497,12 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
         /// <summary>
         /// 成る／成らない
         /// </summary>
-        /// <param name="mainGui"></param>
+        /// <param name="shogibanGui"></param>
         /// <param name="btnTumandeiruKoma"></param>
         /// <param name="logger"></param>
         private void After_NaruNaranai_ButtonPushed(
             int clientIndex,
-            ServersideGui_Csharp mainGui,
+            ServersideShogibanGui_Csharp shogibanGui,
             Shape_BtnKoma btnTumandeiruKoma,
             KwLogger logger
         )
@@ -519,43 +512,43 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                 // GuiからServerへ渡す情報
                 Komasyurui14 syurui;
                 Busstop dst;
-                Util_Function_Csharp.Komamove1a_49Gui(out syurui, out dst, btnTumandeiruKoma, mainGui.Shape_PnlTaikyoku.NaruBtnMasu, mainGui);
+                Util_Function_Csharp.Komamove1a_49Gui(out syurui, out dst, btnTumandeiruKoma, shogibanGui.Shape_PnlTaikyoku.NaruBtnMasu, shogibanGui);
 
                 // ServerからGuiへ渡す情報
                 bool torareruKomaAri;
                 Busstop koma_Food_after;
                 {
-                    Sky temp = mainGui.Link_Server.Storage.PositionServerside;
+                    Sky temp = shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside;
                     Util_Server.Komamove1a_50Srv(
                         out torareruKomaAri, out koma_Food_after, dst, btnTumandeiruKoma.Koma, dst,
                         ref temp,
                         logger);
-                    mainGui.Link_Server.Storage.SetPositionServerside(temp);
+                    shogibanGui.OwnerConsole.Link_Server.Storage.SetPositionServerside(temp);
                 }
 
-                Util_Function_Csharp.Komamove1a_51Gui(torareruKomaAri, koma_Food_after, mainGui);
+                Util_Function_Csharp.Komamove1a_51Gui(torareruKomaAri, koma_Food_after, shogibanGui);
             }
 
             {
                 //----------
                 // 移動済表示
                 //----------
-                mainGui.Shape_PnlTaikyoku.SetHMovedKoma(btnTumandeiruKoma.Finger);
+                shogibanGui.Shape_PnlTaikyoku.SetHMovedKoma(btnTumandeiruKoma.Finger);
 
                 //------------------------------
                 // 棋譜に符号を追加（マウスボタンが放されたとき）TODO:まだ早い。駒が成るかもしれない。
                 //------------------------------
                 // 棋譜
 
-                mainGui.Link_Server.Storage.PositionServerside.AssertFinger(btnTumandeiruKoma.Finger);
+                shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside.AssertFinger(btnTumandeiruKoma.Finger);
 
                 Move move = Conv_Move.ToMove(
-                    Conv_Busstop.ToMasu(mainGui.Shape_PnlTaikyoku.MouseBusstopOrNull2),
-                    Conv_Busstop.ToMasu(mainGui.Link_Server.Storage.PositionServerside.BusstopIndexOf(btnTumandeiruKoma.Finger)),
-                    Conv_Busstop.ToKomasyurui(mainGui.Shape_PnlTaikyoku.MouseBusstopOrNull2),
-                    Conv_Busstop.ToKomasyurui(mainGui.Link_Server.Storage.PositionServerside.BusstopIndexOf(btnTumandeiruKoma.Finger)),//これで成りかどうか判定
-                    mainGui.Shape_PnlTaikyoku.MousePos_FoodKoma != Busstop.Empty ? Conv_Busstop.ToKomasyurui( mainGui.Shape_PnlTaikyoku.MousePos_FoodKoma) : Komasyurui14.H00_Null___,
-                    Conv_Busstop.ToPlayerside(mainGui.Shape_PnlTaikyoku.MouseBusstopOrNull2),
+                    Conv_Busstop.ToMasu(shogibanGui.Shape_PnlTaikyoku.MouseBusstopOrNull2),
+                    Conv_Busstop.ToMasu(shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside.BusstopIndexOf(btnTumandeiruKoma.Finger)),
+                    Conv_Busstop.ToKomasyurui(shogibanGui.Shape_PnlTaikyoku.MouseBusstopOrNull2),
+                    Conv_Busstop.ToKomasyurui(shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside.BusstopIndexOf(btnTumandeiruKoma.Finger)),//これで成りかどうか判定
+                    shogibanGui.Shape_PnlTaikyoku.MousePos_FoodKoma != Busstop.Empty ? Conv_Busstop.ToKomasyurui( shogibanGui.Shape_PnlTaikyoku.MousePos_FoodKoma) : Komasyurui14.H00_Null___,
+                    Conv_Busstop.ToPlayerside(shogibanGui.Shape_PnlTaikyoku.MouseBusstopOrNull2),
                     false
                     );// 選択している駒の元の場所と、移動先
 
@@ -565,11 +558,11 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     //
                     // 成ったので、指し手データ差替え。
                     //
-                    positionA = new SkyImpl(mainGui.Link_Server.Storage.PositionServerside);
+                    positionA = new SkyImpl(shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside);
                     // 先後を逆転させて、1手進めます。
                     //newNode.GetValue().IncreasePsideTemezumi();
                     positionA.ReversePlayerside();// 先後を反転させます。
-                    positionA.SetTemezumi(mainGui.Link_Server.Storage.PositionServerside.Temezumi + 1);//１手進める
+                    positionA.SetTemezumi(shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside.Temezumi + 1);//１手進める
 
                     newNode = new MoveExImpl(move);
 
@@ -578,30 +571,27 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     //----------------------------------------
                     // 次ノード追加
                     //----------------------------------------
-                    mainGui.Link_Server.Storage.Earth.GetSennititeCounter().CountUp_New(Conv_Sky.ToKyokumenHash(positionA), "After_NaruNaranai");
+                    shogibanGui.OwnerConsole.Link_Server.Storage.Earth.GetSennititeCounter().CountUp_New(Conv_Sky.ToKyokumenHash(positionA), "After_NaruNaranai");
 
                     // ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
                     // ここで棋譜の変更をします。
                     // ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                    mainGui.Link_Server.Storage.KifuTree.Pv_Append(newNode.Move, logger);
-                    mainGui.Link_Server.Storage.KifuTree.MoveEx_OnEditCurrent(newNode, positionA);
+                    shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.Pv_Append(newNode.Move, logger);
+                    shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.MoveEx_OnEditCurrent(newNode, positionA);
 
-                    string jsaFugoStr;
-                    Util_Server.AfterSetCurNode_Srv(
-                        mainGui.Link_Server.Storage,
-                        mainGui.Link_Server.Storage.KifuTree.MoveEx_Current,
-                        mainGui.Link_Server.Storage.KifuTree.MoveEx_Current.Move,
+                    string jsaFugoStr_use;
+                    shogibanGui.OwnerConsole.Link_Server.Storage.AfterSetCurNode_Srv(
+                        shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.MoveEx_Current.Move,
                         positionA,
-                        out jsaFugoStr,
-                        mainGui.Link_Server.Storage.KifuTree,
+                        out jsaFugoStr_use,
                         logger);
-                    mainGui.RepaintRequest.SetFlag_RefreshRequest();
+                    shogibanGui.RepaintRequest.SetFlag_RefreshRequest();
 
                     //------------------------------
                     // 符号表示
                     //------------------------------
                     // 成る／成らないボタンを押したとき。
-                    mainGui.Shape_PnlTaikyoku.SetFugo(jsaFugoStr);
+                    shogibanGui.Shape_PnlTaikyoku.SetFugo(jsaFugoStr_use);
                 }
 
 
@@ -610,38 +600,38 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                 //------------------------------
                 // チェンジターン
                 //------------------------------
-                if (!mainGui.Shape_PnlTaikyoku.Requested_NaruDialogToShow)
+                if (!shogibanGui.Shape_PnlTaikyoku.Requested_NaruDialogToShow)
                 {
                     //System.C onsole.WriteLine("マウス左ボタンを押したのでチェンジターンします。");
-                    mainGui.ChangedTurn(
+                    shogibanGui.ChangedTurn(
                         clientIndex,
-                        mainGui.Link_Server.Storage.KifuTree,//.CurrentNode,
-                        mainGui.Link_Server.Storage.KifuTree.PositionA.GetKaisiPside(),
+                        shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree,//.CurrentNode,
+                        shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.PositionA.GetKaisiPside(),
                         logger);
                 }
             }
 
 
-            mainGui.RepaintRequest.SetFlag_RecalculateRequested();// 駒の再描画要求
+            shogibanGui.RepaintRequest.SetFlag_RecalculateRequested();// 駒の再描画要求
 
             //System.C onsole.WriteLine("つまんでいる駒を放します。(6)");
-            mainGui.SetFigTumandeiruKoma(-1);//駒を放した扱いです。
+            shogibanGui.SetFigTumandeiruKoma(-1);//駒を放した扱いです。
 
-            mainGui.Shape_PnlTaikyoku.SetNaruMasu(null);
+            shogibanGui.Shape_PnlTaikyoku.SetNaruMasu(null);
 
-            mainGui.RepaintRequest.SyuturyokuRequest = RepaintRequestGedanTxt.Kifu;
-            mainGui.RepaintRequest.SetFlag_RefreshRequest();
+            shogibanGui.RepaintRequest.SyuturyokuRequest = RepaintRequestGedanTxt.Kifu;
+            shogibanGui.RepaintRequest.SetFlag_RefreshRequest();
 
-            mainGui.ChangedTurn(
+            shogibanGui.ChangedTurn(
                 clientIndex,
-                mainGui.Link_Server.Storage.KifuTree,
-                mainGui.Link_Server.Storage.KifuTree.PositionA.GetKaisiPside(),
+                shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree,
+                shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.PositionA.GetKaisiPside(),
                 logger);//マウス左ボタンを押したのでチェンジターンします。
 
-            mainGui.Shape_PnlTaikyoku.Request_NaruDialogToShow(false);
-            mainGui.GetWidget("BtnNaru").Visible = false;
-            mainGui.GetWidget("BtnNaranai").Visible = false;
-            mainGui.SetScene(SceneName.SceneB_1TumamitaiKoma);
+            shogibanGui.Shape_PnlTaikyoku.Request_NaruDialogToShow(false);
+            shogibanGui.GetWidget("BtnNaru").Visible = false;
+            shogibanGui.GetWidget("BtnNaranai").Visible = false;
+            shogibanGui.SetScene(SceneName.SceneB_1TumamitaiKoma);
         }
     }
 }

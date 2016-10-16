@@ -13,11 +13,11 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C500____Gui
     /// <summary>
     /// 将棋盤ＧＵＩ VS（C#）用
     /// </summary>
-    public class MainGui_CsharpVsImpl : ServersideGui_CsharpImpl, ServersideGui_Csharp
+    public class ServersideShogibanGui_CsharpVsImpl : ServersideShogibanGui_CsharpImpl, ServersideShogibanGui_Csharp
     {
 
 
-        public MainGui_CsharpVsImpl()
+        public ServersideShogibanGui_CsharpVsImpl()
         {
         }
 
@@ -32,8 +32,8 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C500____Gui
             Playerside pside,
             KwLogger logger)
         {
-            this.Link_Server.Clients[clientIndex].OnChangedTurn(
-                this.Link_Server.Storage.Earth,
+            this.OwnerConsole.Link_Server.Clients[clientIndex].OnChangedTurn(
+                this.OwnerConsole.Link_Server.Storage.Earth,
                 kifu1,//エンドノード
                 pside,
                 logger);
@@ -44,7 +44,7 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C500____Gui
         /// </summary>
         public override void Shutdown(int clientIndex, KwLogger logger)
         {
-            this.Link_Server.Clients[clientIndex].Send_Shutdown(logger);
+            this.OwnerConsole.Link_Server.Clients[clientIndex].Send_Shutdown(logger);
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C500____Gui
         /// </summary>
         public override void Logdase(int clientIndex, KwLogger logger)
         {
-            this.Link_Server.Clients[clientIndex].Send_Logdase(logger);
+            this.OwnerConsole.Link_Server.Clients[clientIndex].Send_Logdase(logger);
         }
 
         /// <summary>
@@ -62,10 +62,10 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C500____Gui
         /// </summary>
         public override void Do_BootComputer_Button1(int clientIndex, string shogiEngineFilePath, KwLogger logger)
         {
-            this.Link_Server.SetClient(clientIndex, shogiEngineFilePath);
+            this.OwnerConsole.Link_Server.SetClient(clientIndex, shogiEngineFilePath);
 
             // 将棋エンジンの標準入力へ、メッセージを送ります。
-            this.Link_Server.Clients[clientIndex].Download(EngineClient_Impl.COMMAND_USI, logger);
+            this.OwnerConsole.Link_Server.Clients[clientIndex].Download(EngineClient_Impl.COMMAND_USI, logger);
         }
 
         /// <summary>
@@ -73,15 +73,15 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C500____Gui
         /// </summary>
         public override void Do_SenteComputer_Button2(int clientIndex, KwLogger logger)
         {
-            this.Link_Server.Clients[clientIndex].Download(
+            this.OwnerConsole.Link_Server.Clients[clientIndex].Download(
                 Util_KirokuGakari.ToSfen_PositionCommand(
-                    this.Link_Server.Storage.Earth,
-                    this.Link_Server.Storage.KifuTree
+                    this.OwnerConsole.Link_Server.Storage.Earth,
+                    this.OwnerConsole.Link_Server.Storage.KifuTree
                     ),
                 logger);
 
             // 将棋エンジンの標準入力へ、メッセージを送ります。
-            this.Link_Server.Clients[clientIndex].Download(EngineClient_Impl.COMMAND_GO, logger);
+            this.OwnerConsole.Link_Server.Clients[clientIndex].Download(EngineClient_Impl.COMMAND_GO, logger);
         }
 
 

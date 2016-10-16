@@ -1,4 +1,6 @@
-﻿using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+﻿using Grayscale.A060_Application.B110_Log________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
 
 namespace Grayscale.A450_Server_____.B110_Server_____.C___498_Server
@@ -30,6 +32,28 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C___498_Server
 
         Sky PositionServerside { get; }
         void SetPositionServerside(Sky sky);
+
+
+
+
+
+        /// <summary>
+        /// 「棋譜ツリーのカレントノード」の差替え、
+        /// および
+        /// 「ＧＵＩ用局面データ」との同期。
+        /// 
+        /// (1) 駒をつまんでいるときに、マウスの左ボタンを放したとき。
+        /// (2) 駒の移動先の升の上で、マウスの左ボタンを放したとき。
+        /// (3) 成る／成らないダイアログボックスが出たときに、マウスの左ボタンを押下したとき。
+        /// </summary>
+        /// <param name="kifu"></param>
+        /// <param name="newNode"></param>
+        void AfterSetCurNode_Srv(
+            Move move,
+            Sky positionA,
+            out string out_jsaFugoStr,
+            KwLogger logger
+            );
 
     }
 }

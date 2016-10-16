@@ -1,11 +1,12 @@
-﻿using Grayscale.A450_Server_____.B110_Server_____.C___498_Server;
+﻿using Grayscale.A060_Application.B110_Log________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct;
+using Grayscale.A210_KnowNingen_.B570_ConvJsa____.C500____Converter;
 using Grayscale.A210_KnowNingen_.B640_KifuTree___.C250____Struct;
-using Grayscale.A450_Server_____.B110_Server_____.C___497_EngineClient;
-using Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient;
+using Grayscale.A450_Server_____.B110_Server_____.C___498_Server;
 
 namespace Grayscale.A450_Server_____.B110_Server_____.C498____Server
 {
@@ -72,6 +73,37 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C498____Server
             this.m_positionServerside_ = positionServerside;
         }
         private Sky m_positionServerside_;
+
+
+
+
+        /// <summary>
+        /// 「棋譜ツリーのカレントノード」の差替え、
+        /// および
+        /// 「ＧＵＩ用局面データ」との同期。
+        /// 
+        /// (1) 駒をつまんでいるときに、マウスの左ボタンを放したとき。
+        /// (2) 駒の移動先の升の上で、マウスの左ボタンを放したとき。
+        /// (3) 成る／成らないダイアログボックスが出たときに、マウスの左ボタンを押下したとき。
+        /// </summary>
+        /// <param name="kifu"></param>
+        /// <param name="newNode"></param>
+        public void AfterSetCurNode_Srv(
+            Move move,
+            Sky positionA,
+            out string out_jsaFugoStr,
+            KwLogger logger
+            )
+        {
+            this.SetPositionServerside(positionA);
+
+            out_jsaFugoStr = Conv_SasiteStr_Jsa.ToSasiteStr_Jsa(
+                move,
+                this.KifuTree.Pv_ToList(),
+                positionA,
+                logger
+                );
+        }
 
     }
 }

@@ -49,12 +49,12 @@ namespace Grayscale.P699_Form_______
 
         #region プロパティー類
 
-        public ServersideGui_Csharp MainGui { get { return this.mainGui; } }
-        public void SetMainGui(ServersideGui_Csharp mainGui)
+        public ServersideShogibanGui_Csharp ShogibanGui { get { return this.mainGui; } }
+        public void SetMainGui(ServersideShogibanGui_Csharp mainGui)
         {
             this.mainGui = mainGui;
         }
-        private ServersideGui_Csharp mainGui;
+        private ServersideShogibanGui_Csharp mainGui;
 
         /// <summary>
         /// 設定XMLファイル
@@ -89,7 +89,7 @@ namespace Grayscale.P699_Form_______
         {
             KwLogger errH = Util_Loggers.ProcessGui_DEFAULT;
 
-            this.MainGui.Timer_Tick(errH);
+            this.ShogibanGui.Timer_Tick(errH);
         }
 
 
@@ -145,26 +145,26 @@ namespace Grayscale.P699_Form_______
             //
             {
                 Sky positionInit = Util_SkyCreator.New_Hirate();//起動直後
-                this.MainGui.Link_Server.Storage.Earth.Clear();
+                this.ShogibanGui.OwnerConsole.Link_Server.Storage.Earth.Clear();
 
                 // 棋譜を空っぽにします。
-                Playerside rootPside = TreeImpl.MoveEx_ClearAllCurrent(this.MainGui.Link_Server.Storage.KifuTree, positionInit,logger);
+                Playerside rootPside = TreeImpl.MoveEx_ClearAllCurrent(this.ShogibanGui.OwnerConsole.Link_Server.Storage.KifuTree, positionInit,logger);
 
-                this.MainGui.Link_Server.Storage.Earth.SetProperty(Word_KifuTree.PropName_Startpos, "startpos");//平手の初期局面
+                this.ShogibanGui.OwnerConsole.Link_Server.Storage.Earth.SetProperty(Word_KifuTree.PropName_Startpos, "startpos");//平手の初期局面
 
-                this.MainGui.Link_Server.Storage.SetPositionServerside( positionInit);
+                this.ShogibanGui.OwnerConsole.Link_Server.Storage.SetPositionServerside( positionInit);
             }
 
 
 
             // 全駒の再描画
-            this.MainGui.RepaintRequest = new RepaintRequestImpl();
-            this.MainGui.RepaintRequest.SetFlag_RecalculateRequested();
+            this.ShogibanGui.RepaintRequest = new RepaintRequestImpl();
+            this.ShogibanGui.RepaintRequest.SetFlag_RecalculateRequested();
 
             //----------
             // フェーズ
             //----------
-            this.MainGui.SetScene(SceneName.SceneB_1TumamitaiKoma);
+            this.ShogibanGui.SetScene(SceneName.SceneB_1TumamitaiKoma);
 
             //----------
             // 監視
@@ -192,7 +192,7 @@ namespace Grayscale.P699_Form_______
 
 
 
-            this.MainGui.Response("Launch", logger);
+            this.ShogibanGui.Response("Launch", logger);
 
             // これで、最初に見える画面の準備は終えました。
             // あとは、操作者の入力を待ちます。
@@ -208,7 +208,7 @@ namespace Grayscale.P699_Form_______
         /// <param name="e"></param>
         private void Uc_Form1Main_Paint(object sender, PaintEventArgs e)
         {
-            if (null == this.MainGui.Shape_PnlTaikyoku)
+            if (null == this.ShogibanGui.Shape_PnlTaikyoku)
             {
                 goto gt_EndMethod;
             }
@@ -216,12 +216,12 @@ namespace Grayscale.P699_Form_______
             //------------------------------
             // 画面の描画です。
             //------------------------------
-            this.MainGui.Shape_PnlTaikyoku.Paint(
+            this.ShogibanGui.Shape_PnlTaikyoku.Paint(
                 sender,
                 e,
-                this.MainGui.Link_Server.Storage.KifuTree.PositionA.GetKaisiPside(),
-                this.MainGui.Link_Server.Storage.KifuTree.PositionA,
-                this.MainGui, Shape_CanvasImpl.WINDOW_NAME_SHOGIBAN, Util_Loggers.ProcessGui_PAINT);
+                this.ShogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.PositionA.GetKaisiPside(),
+                this.ShogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.PositionA,
+                this.ShogibanGui, Shape_CanvasImpl.WINDOW_NAME_SHOGIBAN, Util_Loggers.ProcessGui_PAINT);
 
         gt_EndMethod:
             ;
@@ -241,22 +241,22 @@ namespace Grayscale.P699_Form_______
         {
             KwLogger errH = Util_Loggers.ProcessGui_DEFAULT;
 
-            if (null != this.MainGui.Shape_PnlTaikyoku)
+            if (null != this.ShogibanGui.Shape_PnlTaikyoku)
             {
                 // このメインパネルに、何かして欲しいという要求は、ここに入れられます。
-                this.MainGui.RepaintRequest = new RepaintRequestImpl();
+                this.ShogibanGui.RepaintRequest = new RepaintRequestImpl();
 
                 // マウスムーブ
                 {
-                    TimedB_MouseCapture timeB = ((TimedB_MouseCapture)this.MainGui.TimedB_MouseCapture);
+                    TimedB_MouseCapture timeB = ((TimedB_MouseCapture)this.ShogibanGui.TimedB_MouseCapture);
                     timeB.MouseEventQueue.Enqueue(
-                        new MouseEventState(this.MainGui.Scene, Shape_CanvasImpl.WINDOW_NAME_SHOGIBAN, MouseEventStateName.MouseMove, e.Location, errH));
+                        new MouseEventState(this.ShogibanGui.Scene, Shape_CanvasImpl.WINDOW_NAME_SHOGIBAN, MouseEventStateName.MouseMove, e.Location, errH));
                 }
 
                 //------------------------------
                 // このメインパネルの反応
                 //------------------------------
-                this.MainGui.Response("MouseOperation", errH);
+                this.ShogibanGui.Response("MouseOperation", errH);
             }
         }
 
@@ -274,13 +274,13 @@ namespace Grayscale.P699_Form_______
         {
             KwLogger errH = Util_Loggers.ProcessGui_DEFAULT;
 
-            if (null == this.MainGui.Shape_PnlTaikyoku)
+            if (null == this.ShogibanGui.Shape_PnlTaikyoku)
             {
                 goto gt_EndMethod;
             }
 
             // このメインパネルに、何かして欲しいという要求は、ここに入れられます。
-            this.MainGui.RepaintRequest = new RepaintRequestImpl();
+            this.ShogibanGui.RepaintRequest = new RepaintRequestImpl();
 
 
             if (e.Button == MouseButtons.Left)
@@ -288,24 +288,24 @@ namespace Grayscale.P699_Form_______
                 //------------------------------------------------------------
                 // 左ボタン
                 //------------------------------------------------------------
-                TimedB_MouseCapture timeB = ((TimedB_MouseCapture)this.MainGui.TimedB_MouseCapture);
+                TimedB_MouseCapture timeB = ((TimedB_MouseCapture)this.ShogibanGui.TimedB_MouseCapture);
                 timeB.MouseEventQueue.Enqueue(
-                    new MouseEventState(this.MainGui.Scene, Shape_CanvasImpl.WINDOW_NAME_SHOGIBAN, MouseEventStateName.MouseLeftButtonDown, e.Location, errH));
+                    new MouseEventState(this.ShogibanGui.Scene, Shape_CanvasImpl.WINDOW_NAME_SHOGIBAN, MouseEventStateName.MouseLeftButtonDown, e.Location, errH));
             }
             else if (e.Button == MouseButtons.Right)
             {
                 //------------------------------------------------------------
                 // 右ボタン
                 //------------------------------------------------------------
-                TimedB_MouseCapture timeB = ((TimedB_MouseCapture)this.MainGui.TimedB_MouseCapture);
+                TimedB_MouseCapture timeB = ((TimedB_MouseCapture)this.ShogibanGui.TimedB_MouseCapture);
                 timeB.MouseEventQueue.Enqueue(
-                    new MouseEventState(this.MainGui.Scene, Shape_CanvasImpl.WINDOW_NAME_SHOGIBAN, MouseEventStateName.MouseRightButtonDown, e.Location, errH));
+                    new MouseEventState(this.ShogibanGui.Scene, Shape_CanvasImpl.WINDOW_NAME_SHOGIBAN, MouseEventStateName.MouseRightButtonDown, e.Location, errH));
 
 
                 //------------------------------
                 // このメインパネルの反応
                 //------------------------------
-                this.MainGui.Response("MouseOperation", errH);
+                this.ShogibanGui.Response("MouseOperation", errH);
 
             }
             else
@@ -313,7 +313,7 @@ namespace Grayscale.P699_Form_______
                 //------------------------------
                 // このメインパネルの反応
                 //------------------------------
-                this.MainGui.Response("MouseOperation", errH);
+                this.ShogibanGui.Response("MouseOperation", errH);
             }
 
         gt_EndMethod:
@@ -332,7 +332,7 @@ namespace Grayscale.P699_Form_______
             KwLogger errH = Util_Loggers.ProcessGui_DEFAULT;
 
             // このメインパネルに、何かして欲しいという要求は、ここに入れられます。
-            this.MainGui.RepaintRequest = new RepaintRequestImpl();
+            this.ShogibanGui.RepaintRequest = new RepaintRequestImpl();
 
             //------------------------------
             // マウスボタンが放されたときの、表示物の反応や、将棋データの変更がこの中に書かれています。
@@ -342,18 +342,18 @@ namespace Grayscale.P699_Form_______
                 //------------------------------------------------------------
                 // 左ボタン
                 //------------------------------------------------------------
-                TimedB_MouseCapture timeB = ((TimedB_MouseCapture)this.MainGui.TimedB_MouseCapture);
+                TimedB_MouseCapture timeB = ((TimedB_MouseCapture)this.ShogibanGui.TimedB_MouseCapture);
                 timeB.MouseEventQueue.Enqueue(
-                    new MouseEventState(this.MainGui.Scene, Shape_CanvasImpl.WINDOW_NAME_SHOGIBAN, MouseEventStateName.MouseLeftButtonUp, e.Location, errH));
+                    new MouseEventState(this.ShogibanGui.Scene, Shape_CanvasImpl.WINDOW_NAME_SHOGIBAN, MouseEventStateName.MouseLeftButtonUp, e.Location, errH));
             }
             else if (e.Button == MouseButtons.Right)
             {
                 //------------------------------------------------------------
                 // 右ボタン
                 //------------------------------------------------------------
-                TimedB_MouseCapture timeB = ((TimedB_MouseCapture)this.MainGui.TimedB_MouseCapture);
+                TimedB_MouseCapture timeB = ((TimedB_MouseCapture)this.ShogibanGui.TimedB_MouseCapture);
                 timeB.MouseEventQueue.Enqueue(
-                    new MouseEventState(this.MainGui.Scene, Shape_CanvasImpl.WINDOW_NAME_SHOGIBAN, MouseEventStateName.MouseRightButtonUp, e.Location, errH));
+                    new MouseEventState(this.ShogibanGui.Scene, Shape_CanvasImpl.WINDOW_NAME_SHOGIBAN, MouseEventStateName.MouseRightButtonUp, e.Location, errH));
             }
         }
 
@@ -372,7 +372,7 @@ namespace Grayscale.P699_Form_______
         /// </summary>
         /// <param name="response"></param>
         public void Solute_RepaintRequest(
-            Form1_Mutex mutex, ServersideGui_Csharp mainGui, KwLogger errH)
+            Form1_Mutex mutex, ServersideShogibanGui_Csharp mainGui, KwLogger errH)
         {
             Uc_Form2Main form2 = ((Form1_Shogi)this.ParentForm).Form2_Console.Uc_Form2Main;
 
@@ -381,9 +381,9 @@ namespace Grayscale.P699_Form_______
             //------------------------------------------------------------
             if (mainGui.RepaintRequest.Is_KomasRecalculateRequested())
             {
-                this.MainGui.Link_Server.Storage.PositionServerside.Foreach_Busstops((Finger finger, Busstop busstop, ref bool toBreak) =>
+                this.ShogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside.Foreach_Busstops((Finger finger, Busstop busstop, ref bool toBreak) =>
                 {
-                    Util_Function_Csharp.Redraw_KomaLocation(finger, this.MainGui, errH);
+                    Util_Function_Csharp.Redraw_KomaLocation(finger, this.ShogibanGui, errH);
                 });
             }
             mainGui.RepaintRequest.Clear_KomasRecalculateRequested();
@@ -423,23 +423,23 @@ namespace Grayscale.P699_Form_______
                 case RepaintRequestGedanTxt.Kifu:
                     {
                         // 出力欄（上下段）に、棋譜を出力します。
-                        switch (this.MainGui.SyuturyokuKirikae)
+                        switch (this.ShogibanGui.SyuturyokuKirikae)
                         {
                             case SyuturyokuKirikae.Japanese:
                                 form2.WriteLine_Syuturyoku(Util_KirokuGakari.ToJsaFugoListString(
-                                    this.MainGui.Link_Server.Storage.Earth,
-                                    this.MainGui.Link_Server.Storage.KifuTree,//.CurrentNode,
+                                    this.ShogibanGui.OwnerConsole.Link_Server.Storage.Earth,
+                                    this.ShogibanGui.OwnerConsole.Link_Server.Storage.KifuTree,//.CurrentNode,
                                     "Ui_PnlMain.Response", errH));
                                 break;
                             case SyuturyokuKirikae.Sfen:
                                 form2.WriteLine_Syuturyoku(
                                     Util_KirokuGakari.ToSfen_PositionCommand(
-                                        this.MainGui.Link_Server.Storage.Earth,
-                                        this.MainGui.Link_Server.Storage.KifuTree//.CurrentNode//エンドノード
+                                        this.ShogibanGui.OwnerConsole.Link_Server.Storage.Earth,
+                                        this.ShogibanGui.OwnerConsole.Link_Server.Storage.KifuTree//.CurrentNode//エンドノード
                                         ));
                                 break;
                             case SyuturyokuKirikae.Html:
-                                form2.WriteLine_Syuturyoku(Uc_Form1Main.CreateHtml(this.MainGui));
+                                form2.WriteLine_Syuturyoku(Uc_Form1Main.CreateHtml(this.ShogibanGui));
                                 break;
                         }
 
@@ -513,7 +513,7 @@ namespace Grayscale.P699_Form_______
         /// HTML出力。（これは作者のホームページ用に書かれています）
         /// ************************************************************************************************************************
         /// </summary>
-        public static string CreateHtml(ServersideGui_Csharp mainGui)
+        public static string CreateHtml(ServersideShogibanGui_Csharp shogibanGui)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -525,7 +525,7 @@ namespace Grayscale.P699_Form_______
             sb.AppendLine("        <div style=\"margin-top:10px; width:30px;\">");
             sb.Append("            ");
 
-            Sky siteiSky = mainGui.Link_Server.Storage.PositionServerside;
+            Sky siteiSky = shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside;
 
             //────────────────────────────────────────
             // 持ち駒（後手）

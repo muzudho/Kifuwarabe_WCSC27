@@ -38,7 +38,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C081____Canvas
             PaintEventArgs e,
             Playerside psideA,
             Sky positionA,//shogiGui.Link_Server.KifuTree.CurNode.GetNodeValue()
-            ServersideGui_Csharp shogibanGui,
+            ServersideShogibanGui_Csharp shogibanGui,
             string windowName,
             KwLogger errH
             )

@@ -47,23 +47,18 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
     /// 
     /// コンソール・ウィンドウを持っている。
     /// </summary>
-    public class ServersideGui_CsharpImpl : ServersideGui_Csharp
+    public class ServersideShogibanGui_CsharpImpl : ServersideShogibanGui_Csharp
     {
         #region コンストラクター
 
         /// <summary>
         /// 生成後、OwnerFormをセットしてください。
         /// </summary>
-        public ServersideGui_CsharpImpl()
+        public ServersideShogibanGui_CsharpImpl()
         {
-            //
-            // 駒なし
-            //
-            this.m_server_ = new Server_Impl(Util_SkyCreator.New_Komabukuro());
-
             this.Widgets = new Dictionary<string, UserWidget>();
 
-            this.consoleWindowGui = new SubGuiImpl(this);
+            this.m_ownerConsole_ = new ServersideConsoleImpl(this);
 
             this.TimedA = new TimedA_EngineCapture(this);
             this.TimedB_MouseCapture = new TimedB_MouseCapture(this);
@@ -95,21 +90,15 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
 
         #region プロパティー
 
-        /// <summary>
-        /// 将棋サーバー。
-        /// </summary>
-        public Server Link_Server { get { return this.m_server_; } }
-        protected Server m_server_;
-
 
         /// <summary>
         /// コンソール・ウィンドウ。
         /// </summary>
-        public SubGui ConsoleWindowGui { get { return this.consoleWindowGui; } }
-        private SubGui consoleWindowGui;
+        public ServersideConsole OwnerConsole { get { return this.m_ownerConsole_; } }
+        private ServersideConsole m_ownerConsole_;
 
         /// <summary>
-        /// 
+        /// ウィジェット
         /// </summary>
         public Dictionary<string, UserWidget> Widgets { get; set; }
         public void SetWidget(string name, UserWidget widget)
@@ -272,14 +261,14 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
         private int noopSend_counter;
         public void Timer_Tick( KwLogger logger)
         {
-            if (this.m_server_.IsLive_Client(2))
+            if (this.OwnerConsole.Link_Server.IsLive_Client(2))
             {
                 // だいたい 1tick 50ms と考えて、20倍で 1秒。
                 if ( 20 * 3 < this.noopSend_counter) // 3秒に 1 回ぐらい ok を送れば？
                 {
                     // noop
                     // 将棋エンジンの標準入力へ、メッセージを送ります。
-                    this.m_server_.Clients[2].Download(EngineClient_Impl.COMMAND_NOOP_FROM_SERVER, logger);
+                    this.OwnerConsole.Link_Server.Clients[2].Download(EngineClient_Impl.COMMAND_NOOP_FROM_SERVER, logger);
 
                     this.noopSend_counter = 0;
                 }
@@ -417,7 +406,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
 
         public void LaunchForm_AsBody(KwLogger errH)
         {
-            ((Form1_Shogiable)this.OwnerForm).Delegate_Form1_Load = (ServersideGui_Csharp shogiGui, object sender, EventArgs e) =>
+            ((Form1_Shogiable)this.OwnerForm).Delegate_Form1_Load = (ServersideShogibanGui_Csharp shogiGui, object sender, EventArgs e) =>
             {
 
                 //
@@ -445,7 +434,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
             // FIXME: [初期配置]を１回やっておかないと、[コマ送り]ボタン等で不具合が出てしまう。
             {
                 Util_Function_Csharp.Perform_SyokiHaichi_CurrentMutable(
-                    ((Form1_Shogiable)this.OwnerForm).Uc_Form1Main.MainGui,
+                    ((Form1_Shogiable)this.OwnerForm).Uc_Form1Main.ShogibanGui,
                     errH
                 );
             }
@@ -563,8 +552,8 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
 
         public virtual Busstop GetKoma(Finger finger)
         {
-            this.Link_Server.Storage.PositionServerside.AssertFinger(finger);
-            return this.Link_Server.Storage.PositionServerside.BusstopIndexOf(finger);
+            this.OwnerConsole.Link_Server.Storage.PositionServerside.AssertFinger(finger);
+            return this.OwnerConsole.Link_Server.Storage.PositionServerside.BusstopIndexOf(finger);
         }
 
     }

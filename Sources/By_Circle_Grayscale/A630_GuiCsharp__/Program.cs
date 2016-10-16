@@ -18,7 +18,7 @@ namespace Grayscale.P699_Form_______
         static void Main()
         {
             KwLogger errH = Util_Loggers.ProcessGui_DEFAULT;
-            ServersideGui_CsharpImpl mainGui = new ServersideGui_CsharpImpl();//new ShogiEngineVsClientImpl(this)
+            ServersideShogibanGui_CsharpImpl mainGui = new ServersideShogibanGui_CsharpImpl();//new ShogiEngineVsClientImpl(this)
 
             //↓ [STAThread]指定のあるメソッドで フォームを作成してください。
             Application.EnableVisualStyles();

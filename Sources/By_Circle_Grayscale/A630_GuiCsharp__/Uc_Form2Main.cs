@@ -79,9 +79,9 @@ namespace Grayscale.P699_Form_______
 
         private void Uc_Form2Main_Paint(object sender, PaintEventArgs e)
         {
-            ServersideGui_Csharp shogibanGui = ((Form2_Console)this.ParentForm).Form1_Shogi.Uc_Form1Main.MainGui;
+            ServersideShogibanGui_Csharp shogibanGui = ((Form2_Console)this.ParentForm).Form1_Shogi.Uc_Form1Main.ShogibanGui;
 
-            if (null == shogibanGui.ConsoleWindowGui.Shape_Canvas)
+            if (null == shogibanGui.OwnerConsole.Shape_Canvas)
             {
                 goto gt_EndMethod;
             }
@@ -89,10 +89,10 @@ namespace Grayscale.P699_Form_______
             //------------------------------
             // 画面の描画です。
             //------------------------------
-            shogibanGui.ConsoleWindowGui.Shape_Canvas.Paint(
+            shogibanGui.OwnerConsole.Shape_Canvas.Paint(
                 sender, e,
-                shogibanGui.Link_Server.Storage.KifuTree.PositionA.GetKaisiPside(),
-                shogibanGui.Link_Server.Storage.KifuTree.PositionA,
+                shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.PositionA.GetKaisiPside(),
+                shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.PositionA,
                 shogibanGui, Shape_CanvasImpl.WINDOW_NAME_CONSOLE, Util_Loggers.ProcessGui_PAINT);
 
         gt_EndMethod:
@@ -103,7 +103,7 @@ namespace Grayscale.P699_Form_______
         private void Uc_Form2Main_MouseDown(object sender, MouseEventArgs e)
         {
             KwLogger errH = Util_Loggers.ProcessGui_DEFAULT;
-            ServersideGui_Csharp shogibanGui = ((Form2_Console)this.ParentForm).Form1_Shogi.Uc_Form1Main.MainGui;
+            ServersideShogibanGui_Csharp shogibanGui = ((Form2_Console)this.ParentForm).Form1_Shogi.Uc_Form1Main.ShogibanGui;
 
             if (null == shogibanGui.Shape_PnlTaikyoku)
             {
@@ -155,7 +155,7 @@ namespace Grayscale.P699_Form_______
         private void Uc_Form2Main_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             KwLogger errH = Util_Loggers.ProcessGui_DEFAULT;
-            ServersideGui_Csharp mainGui = ((Form2_Console)this.ParentForm).Form1_Shogi.Uc_Form1Main.MainGui;
+            ServersideShogibanGui_Csharp mainGui = ((Form2_Console)this.ParentForm).Form1_Shogi.Uc_Form1Main.ShogibanGui;
 
             // このメインパネルに、何かして欲しいという要求は、ここに入れられます。
             mainGui.RepaintRequest = new RepaintRequestImpl();

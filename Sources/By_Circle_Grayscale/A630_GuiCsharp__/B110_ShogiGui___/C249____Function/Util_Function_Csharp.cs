@@ -30,32 +30,29 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
         /// [初期配置]ボタン
         /// </summary>
         public static void Perform_SyokiHaichi_CurrentMutable(
-            ServersideGui_Csharp mainGui,
+            ServersideShogibanGui_Csharp mainGui,
             KwLogger logger
             )
         {
             MoveEx newNode = new MoveExImpl();
 
             Sky positionA = Util_SkyCreator.New_Hirate();//[初期配置]ボタン押下時
-            mainGui.Link_Server.Storage.Earth.Clear();
+            mainGui.OwnerConsole.Link_Server.Storage.Earth.Clear();
 
             // 棋譜を空っぽにします。
-            Playerside rootPside = TreeImpl.MoveEx_ClearAllCurrent(mainGui.Link_Server.Storage.KifuTree, positionA,logger);
+            Playerside rootPside = TreeImpl.MoveEx_ClearAllCurrent(mainGui.OwnerConsole.Link_Server.Storage.KifuTree, positionA,logger);
 
-            mainGui.Link_Server.Storage.Earth.SetProperty(Word_KifuTree.PropName_Startpos, "startpos");//平手の初期局面
+            mainGui.OwnerConsole.Link_Server.Storage.Earth.SetProperty(Word_KifuTree.PropName_Startpos, "startpos");//平手の初期局面
 
 
             // ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
             // ここで棋譜の変更をします。
             // ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-            string jsaFugoStr;
-            Util_Server.AfterSetCurNode_Srv(
-                mainGui.Link_Server.Storage,
-                newNode,
+            string jsaFugoStr_notUse;
+            mainGui.OwnerConsole.Link_Server.Storage.AfterSetCurNode_Srv(
                 newNode.Move,
                 positionA,
-                out jsaFugoStr,
-                mainGui.Link_Server.Storage.KifuTree,
+                out jsaFugoStr_notUse,
                 logger);
             mainGui.RepaintRequest.SetFlag_RefreshRequest();
 
@@ -75,7 +72,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
             Tree kifu1,
 
             Playerside pside,
-            ServersideGui_Csharp mainGui,
+            ServersideShogibanGui_Csharp mainGui,
             Finger movedKoma,
             Finger foodKoma,
             string fugoJStr,
@@ -128,7 +125,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
             string restText,
             MoveEx node6,// = shogiGui.Link_Server.KifuTree.CurNode;
             Sky positionA,// = shogiGui.Link_Server.KifuTree.CurNode.GetNodeValue();
-            ServersideGui_Csharp shogiGui,
+            ServersideShogibanGui_Csharp shogiGui,
             Tree kifu1,
             KwLogger logger
             )
@@ -172,7 +169,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
             out Busstop dst,
             Shape_BtnKoma btnKoma_Selected,
             Shape_BtnMasu btnMasu,
-            ServersideGui_Csharp mainGui
+            ServersideShogibanGui_Csharp mainGui
         )
         {
             // 駒の種類
@@ -192,9 +189,9 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
 
             // 置く駒
             {
-                mainGui.Link_Server.Storage.PositionServerside.AssertFinger(btnKoma_Selected.Finger);
+                mainGui.OwnerConsole.Link_Server.Storage.PositionServerside.AssertFinger(btnKoma_Selected.Finger);
                 dst = Conv_Busstop.ToBusstop(
-                        Conv_Busstop.ToPlayerside(mainGui.Link_Server.Storage.PositionServerside.BusstopIndexOf(btnKoma_Selected.Finger)),
+                        Conv_Busstop.ToPlayerside(mainGui.OwnerConsole.Link_Server.Storage.PositionServerside.BusstopIndexOf(btnKoma_Selected.Finger)),
                         btnMasu.Zahyo,
                         toSyurui
                         );
@@ -216,7 +213,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
         public static void Komamove1a_51Gui(
             bool torareruKomaAri,
             Busstop koma_Food_after,
-            ServersideGui_Csharp shogiGui
+            ServersideShogibanGui_Csharp shogiGui
         )
         {
             if (torareruKomaAri)
@@ -239,12 +236,12 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
         /// <param name="btnKoma">駒</param>
         public static void Redraw_KomaLocation(
             Finger figKoma,
-            ServersideGui_Csharp mainGui,
+            ServersideShogibanGui_Csharp mainGui,
             KwLogger errH
             )
         {
-            mainGui.Link_Server.Storage.PositionServerside.AssertFinger(figKoma);
-            Busstop koma = mainGui.Link_Server.Storage.PositionServerside.BusstopIndexOf(figKoma);
+            mainGui.OwnerConsole.Link_Server.Storage.PositionServerside.AssertFinger(figKoma);
+            Busstop koma = mainGui.OwnerConsole.Link_Server.Storage.PositionServerside.BusstopIndexOf(figKoma);
 
             Shape_BtnKoma btnKoma = Conv_Koma_InGui.FingerToKomaBtn(figKoma, mainGui);
 

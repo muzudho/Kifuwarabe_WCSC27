@@ -1,12 +1,20 @@
-﻿using Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C___081_Canvas;
+﻿using Grayscale.A450_Server_____.B110_Server_____.C___498_Server;
+using Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C___081_Canvas;
 
 namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C___500_Gui
 {
     /// <summary>
     /// コンソール・ウィンドウに対応。
     /// </summary>
-    public interface SubGui
+    public interface ServersideConsole
     {
+        /// <summary>
+        /// 将棋サーバー。
+        /// </summary>
+        Server Link_Server { get; }
+
+
+
 
         /// <summary>
         /// ------------------------------------------------------------------------------------------------------------------------

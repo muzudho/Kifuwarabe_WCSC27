@@ -23,7 +23,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C080____Shape
         /// <summary>
         /// ウィジェットの一覧にアクセスするために利用。
         /// </summary>
-        private ServersideGui_Csharp ShogibanGui { get; set; }
+        private ServersideShogibanGui_Csharp ShogibanGui { get; set; }
 
         public Okiba Okiba { get; set; }
 
@@ -67,7 +67,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C080____Shape
         /// <param name="okiba"></param>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        public Shape_PnlKomadaiImpl(string widgetName, Okiba okiba, int x, int y, int firstMasuHandle, ServersideGui_Csharp shogibanGui)
+        public Shape_PnlKomadaiImpl(string widgetName, Okiba okiba, int x, int y, int firstMasuHandle, ServersideShogibanGui_Csharp shogibanGui)
             : base(widgetName, x, y, 1, 1)
         {
             this.ShogibanGui = shogibanGui;

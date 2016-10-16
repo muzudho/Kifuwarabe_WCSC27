@@ -21,7 +21,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C___081_Canvas
             PaintEventArgs e,
             Playerside psideA,
             Sky positionA,
-            ServersideGui_Csharp shogiGui,
+            ServersideShogibanGui_Csharp shogiGui,
             string windowName,
             KwLogger errH
         );

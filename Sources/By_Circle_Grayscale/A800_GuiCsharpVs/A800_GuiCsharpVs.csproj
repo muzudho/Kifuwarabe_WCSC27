@@ -56,7 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="B110_GuiCsharpVs\C500____Gui\MainGui_CsharpVsImpl.cs" />
+    <Compile Include="B110_GuiCsharpVs\C500____Gui\ServersideShogibanGui_CsharpVsImpl.cs" />
     <Compile Include="B110_GuiCsharpVs\C491____Event\Event_CsharpVsImpl.cs" />
     <Compile Include="B110_GuiCsharpVs\C492____Widget\WidgetsLoader_CsharpVsImpl.cs" />
     <Compile Include="Program.cs" />

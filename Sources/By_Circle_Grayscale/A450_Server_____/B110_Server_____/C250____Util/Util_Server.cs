@@ -37,37 +37,6 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
 
     public class Util_Server
     {
-        /// <summary>
-        /// 「棋譜ツリーのカレントノード」の差替え、
-        /// および
-        /// 「ＧＵＩ用局面データ」との同期。
-        /// 
-        /// (1) 駒をつまんでいるときに、マウスの左ボタンを放したとき。
-        /// (2) 駒の移動先の升の上で、マウスの左ボタンを放したとき。
-        /// (3) 成る／成らないダイアログボックスが出たときに、マウスの左ボタンを押下したとき。
-        /// </summary>
-        /// <param name="kifu"></param>
-        /// <param name="newNode"></param>
-        public static void AfterSetCurNode_Srv(
-            ServersideStorage serversideStorage,
-            //ref Sky ref_positionServerside,
-            MoveEx newNodeA,
-            Move move,
-            Sky positionA,
-            out string jsaFugoStr,
-            Tree kifu1,
-            KwLogger logger
-            )
-        {
-            serversideStorage.SetPositionServerside(positionA);
-
-            jsaFugoStr = Conv_SasiteStr_Jsa.ToSasiteStr_Jsa(
-                move,
-                kifu1.Pv_ToList(),
-                positionA,
-                logger
-                );
-        }
 
         /// <summary>
         /// ************************************************************************************************************************
@@ -85,12 +54,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
         /// </summary>
         public static bool ReadLine_TuginoItteSusumu_Srv_CurrentMutable(
             ref string inputLine,
-
-            Earth earth1,
-            Tree kifu1,//SetCurNodeがある。[コマ送り][再生]などで使用。
-
             ServersideStorage serversideStorage,
-            //ref Sky ref_positionServerside,
             out bool toBreak,
             string hint,
             KwLogger logger,
@@ -120,8 +84,8 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
 #endif
                     inputLine = kifuParserA_Impl.Execute_Step_CurrentMutable(
                         ref result,
-                        earth1,
-                        kifu1,
+                        serversideStorage.Earth,
+                        serversideStorage.KifuTree,
                         genjo,
                         logger
                         );
@@ -154,8 +118,8 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
 
                         inputLine = kifuParserA_Impl.Execute_Step_CurrentMutable(
                             ref result,
-                            earth1,
-                            kifu1,
+                            serversideStorage.Earth,
+                            serversideStorage.KifuTree,
                             genjo,
                             logger
                             );
@@ -177,8 +141,8 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
 
                         inputLine = kifuParserA_Impl.Execute_Step_CurrentMutable(
                             ref result,
-                            earth1,
-                            kifu1,
+                            serversideStorage.Earth,
+                            serversideStorage.KifuTree,
                             genjo,
                             logger
                             );
@@ -209,27 +173,24 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
 
                     inputLine = kifuParserA_Impl.Execute_Step_CurrentMutable(
                         ref result,
-                        earth1,
-                        kifu1,
+                        serversideStorage.Earth,
+                        serversideStorage.KifuTree,
                         genjo,
                         logger
                         );
 
                     if (null != result.Out_newNode_OrNull)
                     {
-                        string jsaFugoStr;
 
                         //× kifu1.Pv_Append(result.Out_newNode_OrNull.Move, logger);
                         //kifu1.MoveEx_SetCurrent(TreeImpl.DoCurrentMove(result.Out_newNode_OrNull, kifu1, result.NewSky,logger));
                         //kifu1.OnDoCurrentMove(result.Out_newNode_OrNull, result.NewSky);
 
-                        Util_Server.AfterSetCurNode_Srv(
-                            serversideStorage,//ref ref_positionServerside,
-                            result.Out_newNode_OrNull,
+                        string jsaFugoStr_notUse;
+                        serversideStorage.AfterSetCurNode_Srv(
                             result.Out_newNode_OrNull.Move,
                             result.NewSky,
-                            out jsaFugoStr,
-                            kifu1,
+                            out jsaFugoStr_notUse,
                             logger);
                     }
 
@@ -262,20 +223,17 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
                     //------------------------------
                     // 駒の配置
                     //------------------------------
-                    string jsaFugoStr;
 
                     MoveEx curNode1 = new MoveExImpl(parsedKyokumen.NewMove);
 
-                    Playerside rootPside = TreeImpl.MoveEx_ClearAllCurrent(kifu1, parsedKyokumen.NewSky,logger);
-                    curNode1 = kifu1.MoveEx_Current;
+                    Playerside rootPside = TreeImpl.MoveEx_ClearAllCurrent(serversideStorage.KifuTree, parsedKyokumen.NewSky,logger);
+                    curNode1 = serversideStorage.KifuTree.MoveEx_Current;
 
-                    Util_Server.AfterSetCurNode_Srv(
-                        serversideStorage,
-                        curNode1,
+                    string jsaFugoStr_notUse;
+                    serversideStorage.AfterSetCurNode_Srv(
                         parsedKyokumen.NewMove,
                         parsedKyokumen.NewSky,
-                        out jsaFugoStr,
-                        kifu1,
+                        out jsaFugoStr_notUse,
                         logger);// GUIに通知するだけ。
                 }
 
@@ -386,10 +344,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
         public static bool Komaokuri_Srv(
             ref string inputLine,
 
-            Earth earth1,
-            Tree kifu1,
-
-            ServersideStorage serversideStorage,//ref Sky ref_positionServerside,
+            ServersideStorage serversideStorage,
 
             KwLogger logger,
             [CallerMemberName] string memberName = "",
@@ -406,8 +361,6 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
             bool toBreak = false;
             Util_Server.ReadLine_TuginoItteSusumu_Srv_CurrentMutable(
                 ref inputLine,
-                earth1,
-                kifu1,//SetCurNodeがある。
                 serversideStorage,
                 out toBreak,
                 "hint",

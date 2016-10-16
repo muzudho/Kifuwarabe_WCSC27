@@ -1,9 +1,7 @@
 ﻿using Grayscale.A060_Application.B110_Log________.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
-using Grayscale.A450_Server_____.B110_Server_____.C___498_Server;
 using Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C___080_Shape;
 using Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C___081_Canvas;
 using Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C___125_Scene;
@@ -19,15 +17,11 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C___500_Gui
     /// <summary>
     /// 将棋盤ウィンドウ（Ｃ＃用）に対応。
     /// </summary>
-    public interface ServersideGui_Csharp
+    public interface ServersideShogibanGui_Csharp
     {
         #region プロパティー
 
 
-        /// <summary>
-        /// 将棋サーバー。
-        /// </summary>
-        Server Link_Server { get; }
 
 
 
@@ -92,7 +86,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C___500_Gui
         /// <summary>
         /// コンソール・ウィンドウ。
         /// </summary>
-        SubGui ConsoleWindowGui { get; }
+        ServersideConsole OwnerConsole { get; }
 
         /// <summary>
         /// ------------------------------------------------------------------------------------------------------------------------

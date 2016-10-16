@@ -25,7 +25,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C080____Shape
         /// <summary>
         /// ウィジェットにアクセスするために利用。
         /// </summary>
-        private ServersideGui_Csharp ShogibanGui { get; set; }
+        private ServersideShogibanGui_Csharp ShogibanGui { get; set; }
 
         /// <summary>
         /// ------------------------------------------------------------------------------------------------------------------------
@@ -82,7 +82,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C080____Shape
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        public Shape_PnlShogibanImpl(string widgetName, int x, int y, ServersideGui_Csharp shogibanGui)
+        public Shape_PnlShogibanImpl(string widgetName, int x, int y, ServersideShogibanGui_Csharp shogibanGui)
             : base(widgetName, x, y, 1, 1)
         {
             this.ShogibanGui = shogibanGui;

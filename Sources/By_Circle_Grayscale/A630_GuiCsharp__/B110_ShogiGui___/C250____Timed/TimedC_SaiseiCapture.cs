@@ -18,7 +18,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
     {
 
 
-        private ServersideGui_Csharp m_mainGui_;
+        private ServersideShogibanGui_Csharp m_mainGui_;
 
         /// <summary>
         /// [再生]の状態です。
@@ -29,7 +29,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
         private string restText;
 
 
-        public TimedC_SaiseiCapture(ServersideGui_Csharp shogiGui)
+        public TimedC_SaiseiCapture(ServersideShogibanGui_Csharp shogiGui)
         {
             this.m_mainGui_ = shogiGui;
             this.SaiseiEventQueue = new Queue<SaiseiEventState>();
@@ -72,11 +72,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                 // [コマ送り]に成功している間、コマ送りし続けます。
                                 Util_Server.ReadLine_TuginoItteSusumu_Srv_CurrentMutable(
                                     ref restText,
-
-                                    this.m_mainGui_.Link_Server.Storage.Earth,
-                                    this.m_mainGui_.Link_Server.Storage.KifuTree,
-
-                                    this.m_mainGui_.Link_Server.Storage,
+                                    this.m_mainGui_.OwnerConsole.Link_Server.Storage,
                                     out toBreak,
                                     "再生ボタン",
                                     logger
@@ -95,10 +91,10 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                 //------------------------------
                                 Util_Function_Csharp.Komaokuri_Gui(
                                     restText,
-                                    m_mainGui_.Link_Server.Storage.KifuTree.MoveEx_Current,
-                                    m_mainGui_.Link_Server.Storage.KifuTree.PositionA,//.CurNode2ok.GetNodeValue()
+                                    m_mainGui_.OwnerConsole.Link_Server.Storage.KifuTree.MoveEx_Current,
+                                    m_mainGui_.OwnerConsole.Link_Server.Storage.KifuTree.PositionA,//.CurNode2ok.GetNodeValue()
                                     m_mainGui_,
-                                    m_mainGui_.Link_Server.Storage.KifuTree,
+                                    m_mainGui_.OwnerConsole.Link_Server.Storage.KifuTree,
                                     eventState.Flg_logTag);//追加
 
                                 //------------------------------

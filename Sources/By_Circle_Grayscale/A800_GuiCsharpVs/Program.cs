@@ -16,7 +16,7 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C500____Gui
         static void Main()
         {
             KwLogger errH = Util_Loggers.ProcessGui_DEFAULT;
-            MainGui_CsharpVsImpl mainGuiVs = new MainGui_CsharpVsImpl();
+            ServersideShogibanGui_CsharpVsImpl mainGuiVs = new ServersideShogibanGui_CsharpVsImpl();
 
             //↓ [STAThread]指定のあるメソッドで フォームを作成してください。
             Application.EnableVisualStyles();

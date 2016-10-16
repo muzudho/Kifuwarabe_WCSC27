@@ -25,7 +25,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C480____Util
     {
         private static Lua lua;
 
-        public static ServersideGui_Csharp ShogiGui { get; set; }
+        public static ServersideShogibanGui_Csharp ShogiGui { get; set; }
         public static KwLogger ErrH { get; set; }
 
         /// <summary>
@@ -131,16 +131,16 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C480____Util
         /// 将棋盤の上の駒を、全て駒袋に移動します。 [クリアー]
         /// ************************************************************************************************************************
         /// </summary>
-        public static void ClearKifu(ServersideGui_Csharp mainGui, RepaintRequest repaintRequest)
+        public static void ClearKifu(ServersideShogibanGui_Csharp shogibanGui, RepaintRequest repaintRequest)
         {
             KwLogger logger = Util_Loggers.ProcessNone_ERROR;
 
-            mainGui.Link_Server.Storage.Earth.Clear();
+            shogibanGui.OwnerConsole.Link_Server.Storage.Earth.Clear();
 
             // 棋譜を空っぽにします。
             //Playerside rootPside = TreeImpl.MoveEx_ClearAllCurrent(mainGui.Link_Server.KifuTree, null,logger);
 
-            Sky newSky = new SkyImpl(mainGui.Link_Server.Storage.PositionServerside);
+            Sky newSky = new SkyImpl(shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside);
 
             int figKoma;
 
@@ -239,21 +239,18 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C480____Util
                 newSky.SetTemezumi(0);//空っぽに戻すので、 0手済みに変更。
                 MoveEx newNode = new MoveExImpl();
 
-                string jsaFugoStr;
 
-                Playerside rootPside = TreeImpl.MoveEx_ClearAllCurrent(mainGui.Link_Server.Storage.KifuTree, newSky,logger);
+                Playerside rootPside = TreeImpl.MoveEx_ClearAllCurrent(shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree, newSky,logger);
 
-                Util_Server.AfterSetCurNode_Srv(
-                    mainGui.Link_Server.Storage,
-                    newNode,
+                string jsaFugoStr_notUse;
+                shogibanGui.OwnerConsole.Link_Server.Storage.AfterSetCurNode_Srv(
                     newNode.Move,
                     newSky,
-                    out jsaFugoStr,
-                    mainGui.Link_Server.Storage.KifuTree,
+                    out jsaFugoStr_notUse,
                     logger);
                 repaintRequest.SetFlag_RefreshRequest();
 
-                mainGui.Link_Server.Storage.Earth.SetProperty(Word_KifuTree.PropName_Startpos, "9/9/9/9/9/9/9/9/9 b K1R1B1G2S2N2L2P9 k1r1b1g2s2n2l2p9 1");
+                shogibanGui.OwnerConsole.Link_Server.Storage.Earth.SetProperty(Word_KifuTree.PropName_Startpos, "9/9/9/9/9/9/9/9/9 b K1R1B1G2S2N2L2P9 k1r1b1g2s2n2l2p9 1");
             }
         }
 

@@ -11,7 +11,7 @@ namespace Grayscale.P699_Form_______
     [Serializable]
     public partial class Form1_Shogi : Form, Form1_Shogiable
     {
-        private ServersideGui_Csharp owner;
+        private ServersideShogibanGui_Csharp owner;
 
         /// <summary>
         /// 別窓。コンソール・ウィンドウ。
@@ -38,7 +38,7 @@ namespace Grayscale.P699_Form_______
         /// コンストラクターです。
         /// ************************************************************************************************************************
         /// </summary>
-        public Form1_Shogi(ServersideGui_Csharp owner)
+        public Form1_Shogi(ServersideShogibanGui_Csharp owner)
         {
             this.owner = owner;
             InitializeComponent();
@@ -72,7 +72,7 @@ namespace Grayscale.P699_Form_______
 
             if(null!=this.Delegate_Form1_Load)
             {
-                this.Delegate_Form1_Load(this.Uc_Form1Main.MainGui, sender, e);
+                this.Delegate_Form1_Load(this.Uc_Form1Main.ShogibanGui, sender, e);
             }
         }
 
