@@ -40,7 +40,7 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct
         /// </summary>
         /// <param name="sky"></param>
         /// <returns></returns>
-        MoveEx MoveEx_OnEditCurrent(MoveEx node, Sky sky);
+        void MoveEx_OnEditCurrent(MoveEx node, Sky sky);
         Sky PositionA { get; }
         void SetPositionA(Sky positionA);
 
