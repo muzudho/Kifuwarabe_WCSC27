@@ -430,12 +430,11 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                                     //------------------------------
                                                     if (!shogibanGui.Shape_PnlTaikyoku.Requested_NaruDialogToShow)
                                                     {
-                                                        int clientIndex = 2;
-                                                        shogibanGui.ChangedTurn(
-                                                            clientIndex,
+                                                        shogibanGui.ComputerPlay_OnChangedTurn(
                                                             shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree,
                                                             shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.PositionA.GetKaisiPside(),
-                                                            eventState.Flg_logTag);//マウス左ボタンを放したのでチェンジターンします。
+                                                            eventState.Flg_logTag
+                                                            );//マウス左ボタンを放したのでチェンジターンします。
                                                     }
 
                                                     shogibanGui.RepaintRequest.SyuturyokuRequest = RepaintRequestGedanTxt.Kifu;
@@ -578,12 +577,11 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                                         if (!shogibanGui.Shape_PnlTaikyoku.Requested_NaruDialogToShow)
                                                         {
                                                             //System.C onsole.WriteLine("マウス左ボタンを放したのでチェンジターンします。");
-                                                            int clientIndex = 2;
-                                                            shogibanGui.ChangedTurn(
-                                                                clientIndex,
+                                                            shogibanGui.ComputerPlay_OnChangedTurn(
                                                                 shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree,
                                                                 shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.PositionA.GetKaisiPside(),
-                                                                eventState.Flg_logTag);//マウス左ボタンを放したのでチェンジターンします。
+                                                                eventState.Flg_logTag
+                                                                );
                                                         }
 
                                                         shogibanGui.RepaintRequest.SyuturyokuRequest = RepaintRequestGedanTxt.Kifu;

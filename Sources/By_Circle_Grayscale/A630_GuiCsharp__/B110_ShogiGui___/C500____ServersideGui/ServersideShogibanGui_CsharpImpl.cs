@@ -234,8 +234,8 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
         /// 手番が替わったときの挙動を、ここに書きます。
         /// ************************************************************************************************************************
         /// </summary>
-        public virtual void ChangedTurn(
-            int clientIndex,
+        public virtual void ComputerPlay_OnChangedTurn(
+            //int clientIndex,
             Tree kifu1,
             Playerside pside,
             KwLogger logger)

@@ -20,5 +20,6 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C___498_Server
         /// </summary>
         /// <returns></returns>
         bool IsLive_Client(int index);
+        bool IsComputerPlayer(int clientIndex);
     }
 }

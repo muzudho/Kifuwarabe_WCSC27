@@ -30,8 +30,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C___500_Gui
         /// 手番が替わったときの挙動を、ここに書きます。
         /// ************************************************************************************************************************
         /// </summary>
-        void ChangedTurn(
-            int clientIndex,
+        void ComputerPlay_OnChangedTurn(
             Tree kifu1,
             Playerside pside,
             KwLogger logger);

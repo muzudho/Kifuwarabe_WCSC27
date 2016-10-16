@@ -14,6 +14,8 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C498____Server
     {
         public ServersideStorage_Impl(Sky positionA)
         {
+            this.PlayerTypes = new PlayerType[3];
+
             this.m_kifuTree_ = new TreeImpl(new SkyImpl(positionA));
 
             this.m_earth_ = new EarthImpl();
@@ -21,6 +23,12 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C498____Server
 
             this.inputString99 = "";
         }
+
+
+
+        public PlayerType[] PlayerTypes { get; set; }
+
+
 
         public Tree KifuTree { get { return this.m_kifuTree_; } }
         public void SetKifuTree(Tree kifu1)

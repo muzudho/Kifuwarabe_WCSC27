@@ -603,9 +603,8 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                 if (!shogibanGui.Shape_PnlTaikyoku.Requested_NaruDialogToShow)
                 {
                     //System.C onsole.WriteLine("マウス左ボタンを押したのでチェンジターンします。");
-                    shogibanGui.ChangedTurn(
-                        clientIndex,
-                        shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree,//.CurrentNode,
+                    shogibanGui.ComputerPlay_OnChangedTurn(
+                        shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree,
                         shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.PositionA.GetKaisiPside(),
                         logger);
                 }
@@ -622,11 +621,11 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
             shogibanGui.RepaintRequest.SyuturyokuRequest = RepaintRequestGedanTxt.Kifu;
             shogibanGui.RepaintRequest.SetFlag_RefreshRequest();
 
-            shogibanGui.ChangedTurn(
-                clientIndex,
+            shogibanGui.ComputerPlay_OnChangedTurn(
                 shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree,
                 shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.PositionA.GetKaisiPside(),
-                logger);//マウス左ボタンを押したのでチェンジターンします。
+                logger
+                );//マウス左ボタンを押したのでチェンジターンします。
 
             shogibanGui.Shape_PnlTaikyoku.Request_NaruDialogToShow(false);
             shogibanGui.GetWidget("BtnNaru").Visible = false;

@@ -34,6 +34,8 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C498____Server
             this.m_clients[index] = new EngineClient_Impl();
             this.m_clients[index].SetOwner_Server(this);
             this.m_clients[index].Start(filepath);
+
+            this.Storage.PlayerTypes[index] = PlayerType.Computer;
         }
         protected EngineClient[] m_clients;
 
@@ -44,10 +46,13 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C498____Server
         /// クライアントが起動しているか否かです。
         /// </summary>
         /// <returns></returns>
-        public bool IsLive_Client(int index)
+        public bool IsLive_Client(int clientIndex)
         {
-            return null != this.m_clients[index] && !this.m_clients[index].Process.HasExited;
+            return null != this.m_clients[clientIndex] && !this.m_clients[clientIndex].Process.HasExited;
         }
-
+        public bool IsComputerPlayer(int clientIndex)
+        {
+            return PlayerType.Computer == this.Storage.PlayerTypes[clientIndex];
+        }
     }
 }

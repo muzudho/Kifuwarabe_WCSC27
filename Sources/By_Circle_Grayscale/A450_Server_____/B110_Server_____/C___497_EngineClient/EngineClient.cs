@@ -48,7 +48,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C___497_EngineClient
         /// </summary>
         /// <param name="kifu"></param>
         /// <param name="errH"></param>
-        void OnChangedTurn(
+        void ComputerPlay_OnChangedTurn(
             Earth earth,
             Tree kifu1,
             Playerside kaisiPside,

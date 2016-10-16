@@ -322,7 +322,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
         /// <summary>
         /// 手番が替わったときの挙動を、ここに書きます。
         /// </summary>
-        public void OnChangedTurn(
+        public void ComputerPlay_OnChangedTurn(
             Earth earth1,
             Tree kifu1,
             Playerside kaisiPside,
@@ -333,31 +333,34 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
                 goto gt_EndMethod;
             }
 
-            // FIXME:
+            int clientIndex = 0;
             switch (kaisiPside)
             {
+                case Playerside.P1:
+                    clientIndex = 1;
+                    break;
                 case Playerside.P2:
-                    // 仮に、コンピューターが後手番とします。
-
-                    //------------------------------------------------------------
-                    // とりあえず、コンピューターが後手ということにしておきます。
-                    //------------------------------------------------------------
-
-                    // 例：「position startpos moves 7g7f」
-                    // 将棋エンジンの標準入力へ、メッセージを送ります。
-                    this.Download(
-                        Util_KirokuGakari.ToSfen_PositionCommand(
-                            earth1,
-                            kifu1//endNode1//エンドノード
-                        ),
-                        logger);
-
-                    // 将棋エンジンの標準入力へ、メッセージを送ります。
-                    this.Download(EngineClient_Impl.COMMAND_GO, logger);
-
+                    clientIndex = 2;
                     break;
-                default:
-                    break;
+            }
+
+            if (this.ownerServer.IsComputerPlayer(clientIndex))
+            {
+                //------------------------------------------------------------
+                // この手番が、コンピューター選手の場合
+                //------------------------------------------------------------
+
+                // 例：「position startpos moves 7g7f」
+                // 将棋エンジンの標準入力へ、メッセージを送ります。
+                this.Download(
+                    Util_KirokuGakari.ToSfen_PositionCommand(
+                        earth1,
+                        kifu1//エンドノード
+                    ),
+                    logger);
+
+                // 将棋エンジンの標準入力へ、メッセージを送ります。
+                this.Download(EngineClient_Impl.COMMAND_GO, logger);
             }
 
         gt_EndMethod:

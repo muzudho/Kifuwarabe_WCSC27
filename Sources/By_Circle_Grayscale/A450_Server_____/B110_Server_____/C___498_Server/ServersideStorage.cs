@@ -7,6 +7,11 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C___498_Server
 {
     public interface ServersideStorage
     {
+        PlayerType[] PlayerTypes { get; set; }
+
+
+
+
         Tree KifuTree { get; }
         void SetKifuTree(Tree kifu1);
 

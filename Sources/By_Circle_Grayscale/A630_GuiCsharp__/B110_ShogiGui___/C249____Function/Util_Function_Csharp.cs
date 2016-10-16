@@ -67,28 +67,24 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
         /// ************************************************************************************************************************
         /// </summary>
         public static bool Makimodosi_Gui(
-
-            //MoveEx curNode1,
             Tree kifu1,
-
             Playerside pside,
             ServersideShogibanGui_Csharp mainGui,
             Finger movedKoma,
             Finger foodKoma,
             string fugoJStr,
             string backedInputText,
-            KwLogger errH)
+            KwLogger logger)
         {
-            int clientIndex = 2;
+            //[巻戻し]ボタンを押したあと
 
             //------------------------------
             // チェンジターン
             //------------------------------
-            mainGui.ChangedTurn(
-                clientIndex,
+            mainGui.ComputerPlay_OnChangedTurn(
                 kifu1,
                 pside,
-                errH);//[巻戻し]ボタンを押したあと
+                logger);
 
 
             //------------------------------

@@ -26,17 +26,31 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C500____Gui
         /// 手番が替わったときの挙動を、ここに書きます。
         /// ************************************************************************************************************************
         /// </summary>
-        public override void ChangedTurn(
-            int clientIndex,
+        public override void ComputerPlay_OnChangedTurn(
             Tree kifu1,
             Playerside pside,
             KwLogger logger)
         {
-            this.OwnerConsole.Link_Server.Clients[clientIndex].OnChangedTurn(
-                this.OwnerConsole.Link_Server.Storage.Earth,
-                kifu1,//エンドノード
-                pside,
-                logger);
+            int clientIndex;
+            if (Playerside.P1 == pside)
+            {
+                clientIndex = 1;
+            }
+            else
+            {
+                clientIndex = 2;
+            }
+
+
+            if(this.OwnerConsole.Link_Server.IsComputerPlayer(clientIndex))
+            {
+                // コンピューター・プレイヤーの場合
+                this.OwnerConsole.Link_Server.Clients[clientIndex].ComputerPlay_OnChangedTurn(
+                    this.OwnerConsole.Link_Server.Storage.Earth,
+                    kifu1,//エンドノード
+                    pside,
+                    logger);
+            }
         }
 
         /// <summary>
@@ -44,7 +58,10 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C500____Gui
         /// </summary>
         public override void Shutdown(int clientIndex, KwLogger logger)
         {
-            this.OwnerConsole.Link_Server.Clients[clientIndex].Send_Shutdown(logger);
+            if (this.OwnerConsole.Link_Server.IsComputerPlayer(clientIndex))
+            {
+                this.OwnerConsole.Link_Server.Clients[clientIndex].Send_Shutdown(logger);
+            }
         }
 
         /// <summary>
@@ -52,7 +69,10 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C500____Gui
         /// </summary>
         public override void Logdase(int clientIndex, KwLogger logger)
         {
-            this.OwnerConsole.Link_Server.Clients[clientIndex].Send_Logdase(logger);
+            if (this.OwnerConsole.Link_Server.IsComputerPlayer(clientIndex))
+            {
+                this.OwnerConsole.Link_Server.Clients[clientIndex].Send_Logdase(logger);
+            }
         }
 
         /// <summary>
@@ -73,15 +93,18 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C500____Gui
         /// </summary>
         public override void Do_SenteComputer_Button2(int clientIndex, KwLogger logger)
         {
-            this.OwnerConsole.Link_Server.Clients[clientIndex].Download(
+            if (this.OwnerConsole.Link_Server.IsComputerPlayer(clientIndex))
+            {
+                this.OwnerConsole.Link_Server.Clients[clientIndex].Download(
                 Util_KirokuGakari.ToSfen_PositionCommand(
                     this.OwnerConsole.Link_Server.Storage.Earth,
                     this.OwnerConsole.Link_Server.Storage.KifuTree
                     ),
                 logger);
 
-            // 将棋エンジンの標準入力へ、メッセージを送ります。
-            this.OwnerConsole.Link_Server.Clients[clientIndex].Download(EngineClient_Impl.COMMAND_GO, logger);
+                // 将棋エンジンの標準入力へ、メッセージを送ります。
+                this.OwnerConsole.Link_Server.Clients[clientIndex].Download(EngineClient_Impl.COMMAND_GO, logger);
+            }
         }
 
 

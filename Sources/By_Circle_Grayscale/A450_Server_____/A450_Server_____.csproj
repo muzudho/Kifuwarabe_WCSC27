@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="B110_Server_____\C250____Util\Util_Server.cs" />
+    <Compile Include="B110_Server_____\C___498_Server\PlayerType.cs" />
     <Compile Include="B110_Server_____\C498____Server\ServersideStorage_Impl.cs" />
     <Compile Include="B110_Server_____\C498____Server\Server_Impl.cs" />
     <Compile Include="B110_Server_____\C497____EngineClient\EngineClient_Impl.cs" />
