@@ -152,7 +152,7 @@ namespace Grayscale.P699_Form_______
 
                 this.MainGui.Link_Server.Storage.Earth.SetProperty(Word_KifuTree.PropName_Startpos, "startpos");//平手の初期局面
 
-                this.MainGui.SetPositionServerside( positionInit);
+                this.MainGui.Link_Server.Storage.SetPositionServerside( positionInit);
             }
 
 
@@ -381,7 +381,7 @@ namespace Grayscale.P699_Form_______
             //------------------------------------------------------------
             if (mainGui.RepaintRequest.Is_KomasRecalculateRequested())
             {
-                this.MainGui.PositionServerside.Foreach_Busstops((Finger finger, Busstop busstop, ref bool toBreak) =>
+                this.MainGui.Link_Server.Storage.PositionServerside.Foreach_Busstops((Finger finger, Busstop busstop, ref bool toBreak) =>
                 {
                     Util_Function_Csharp.Redraw_KomaLocation(finger, this.MainGui, errH);
                 });
@@ -525,7 +525,7 @@ namespace Grayscale.P699_Form_______
             sb.AppendLine("        <div style=\"margin-top:10px; width:30px;\">");
             sb.Append("            ");
 
-            Sky siteiSky = mainGui.PositionServerside;
+            Sky siteiSky = mainGui.Link_Server.Storage.PositionServerside;
 
             //────────────────────────────────────────
             // 持ち駒（後手）

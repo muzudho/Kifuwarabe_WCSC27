@@ -61,19 +61,15 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                     //    restText = "";
                     //}
 
-                    {
-                        Sky temp = this.m_mainGui_.PositionServerside;
-                        Util_Server.Komaokuri_Srv(
-                            ref restText,
+                    Util_Server.Komaokuri_Srv(
+                        ref restText,
 
-                            this.m_mainGui_.Link_Server.Storage.Earth,
-                            this.m_mainGui_.Link_Server.Storage.KifuTree,
+                        this.m_mainGui_.Link_Server.Storage.Earth,
+                        this.m_mainGui_.Link_Server.Storage.KifuTree,
 
-                            ref temp,
-                            logger
-                            );// 棋譜の[コマ送り]を実行します。
-                        this.m_mainGui_.SetPositionServerside(temp);
-                    }
+                        this.m_mainGui_.Link_Server.Storage,
+                        logger
+                        );// 棋譜の[コマ送り]を実行します。
                     Util_Function_Csharp.Komaokuri_Gui(
                         restText,
                         this.m_mainGui_.Link_Server.Storage.KifuTree.MoveEx_Current,

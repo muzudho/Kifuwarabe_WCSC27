@@ -54,5 +54,24 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C498____Server
         }
         private string inputString99;
 
+
+
+
+
+        /// <summary>
+        /// ------------------------------------------------------------------------------------------------------------------------
+        /// GUI用局面データ。
+        /// ------------------------------------------------------------------------------------------------------------------------
+        /// 
+        /// 局面が進むごとに更新されていきます。
+        /// 
+        /// </summary>
+        public Sky PositionServerside { get { return this.m_positionServerside_; } }
+        public void SetPositionServerside(Sky positionServerside)
+        {
+            this.m_positionServerside_ = positionServerside;
+        }
+        private Sky m_positionServerside_;
+
     }
 }

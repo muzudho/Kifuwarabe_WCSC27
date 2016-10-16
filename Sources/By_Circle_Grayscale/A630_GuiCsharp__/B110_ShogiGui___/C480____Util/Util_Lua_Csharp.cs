@@ -140,7 +140,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C480____Util
             // 棋譜を空っぽにします。
             //Playerside rootPside = TreeImpl.MoveEx_ClearAllCurrent(mainGui.Link_Server.KifuTree, null,logger);
 
-            Sky newSky = new SkyImpl(mainGui.PositionServerside);
+            Sky newSky = new SkyImpl(mainGui.Link_Server.Storage.PositionServerside);
 
             int figKoma;
 
@@ -243,18 +243,14 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C480____Util
 
                 Playerside rootPside = TreeImpl.MoveEx_ClearAllCurrent(mainGui.Link_Server.Storage.KifuTree, newSky,logger);
 
-                {
-                    Sky temp = mainGui.PositionServerside;
-                    Util_Server.AfterSetCurNode_Srv(
-                        ref temp,
-                        newNode,
-                        newNode.Move,
-                        newSky,
-                        out jsaFugoStr,
-                        mainGui.Link_Server.Storage.KifuTree,
-                        logger);
-                    mainGui.SetPositionServerside(temp);
-                }
+                Util_Server.AfterSetCurNode_Srv(
+                    mainGui.Link_Server.Storage,
+                    newNode,
+                    newNode.Move,
+                    newSky,
+                    out jsaFugoStr,
+                    mainGui.Link_Server.Storage.KifuTree,
+                    logger);
                 repaintRequest.SetFlag_RefreshRequest();
 
                 mainGui.Link_Server.Storage.Earth.SetProperty(Word_KifuTree.PropName_Startpos, "9/9/9/9/9/9/9/9/9 b K1R1B1G2S2N2L2P9 k1r1b1g2s2n2l2p9 1");

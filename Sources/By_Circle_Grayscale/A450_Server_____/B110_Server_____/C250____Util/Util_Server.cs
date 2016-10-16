@@ -25,6 +25,7 @@ using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using Finger = ProjectDark.NamedInt.StrictNamedInt0; //スプライト番号
+using Grayscale.A450_Server_____.B110_Server_____.C___498_Server;
 
 #if DEBUG
 using Grayscale.A060_Application.B110_Log________.C___500_Struct;
@@ -48,7 +49,8 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
         /// <param name="kifu"></param>
         /// <param name="newNode"></param>
         public static void AfterSetCurNode_Srv(
-            ref Sky ref_positionServerside,
+            ServersideStorage serversideStorage,
+            //ref Sky ref_positionServerside,
             MoveEx newNodeA,
             Move move,
             Sky positionA,
@@ -57,7 +59,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
             KwLogger logger
             )
         {
-            ref_positionServerside = positionA;
+            serversideStorage.SetPositionServerside(positionA);
 
             jsaFugoStr = Conv_SasiteStr_Jsa.ToSasiteStr_Jsa(
                 move,
@@ -87,7 +89,8 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
             Earth earth1,
             Tree kifu1,//SetCurNodeがある。[コマ送り][再生]などで使用。
 
-            ref Sky ref_positionServerside,
+            ServersideStorage serversideStorage,
+            //ref Sky ref_positionServerside,
             out bool toBreak,
             string hint,
             KwLogger logger,
@@ -221,7 +224,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
                         //kifu1.OnDoCurrentMove(result.Out_newNode_OrNull, result.NewSky);
 
                         Util_Server.AfterSetCurNode_Srv(
-                            ref ref_positionServerside,
+                            serversideStorage,//ref ref_positionServerside,
                             result.Out_newNode_OrNull,
                             result.Out_newNode_OrNull.Move,
                             result.NewSky,
@@ -250,7 +253,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
                     //     *1…「position startpos moves 7g7f 3c3d 2g2f」といった書き方。
                     //     
                     ParsedKyokumen parsedKyokumen = Conv_StartposImporter.ToParsedKyokumen(
-                        ref_positionServerside,
+                        serversideStorage.PositionServerside,
                         genjo.StartposImporter_OrNull,//指定されているはず。
                         genjo,
                         logger
@@ -267,7 +270,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
                     curNode1 = kifu1.MoveEx_Current;
 
                     Util_Server.AfterSetCurNode_Srv(
-                        ref ref_positionServerside,
+                        serversideStorage,
                         curNode1,
                         parsedKyokumen.NewMove,
                         parsedKyokumen.NewSky,
@@ -386,7 +389,8 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
             Earth earth1,
             Tree kifu1,
 
-            ref Sky ref_positionServerside,
+            ServersideStorage serversideStorage,//ref Sky ref_positionServerside,
+
             KwLogger logger,
             [CallerMemberName] string memberName = "",
             [CallerFilePath] string sourceFilePath = "",
@@ -404,7 +408,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
                 ref inputLine,
                 earth1,
                 kifu1,//SetCurNodeがある。
-                ref ref_positionServerside,
+                serversideStorage,
                 out toBreak,
                 "hint",
                 logger

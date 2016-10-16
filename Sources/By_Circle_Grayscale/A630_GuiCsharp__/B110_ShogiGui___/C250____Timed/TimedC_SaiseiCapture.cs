@@ -35,7 +35,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
             this.SaiseiEventQueue = new Queue<SaiseiEventState>();
         }
 
-        public override void Step(KwLogger errH)
+        public override void Step(KwLogger logger)
         {
 
             // 入っているマウス操作イベントは、全部捨てていきます。
@@ -70,21 +70,17 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                             else
                             {
                                 // [コマ送り]に成功している間、コマ送りし続けます。
-                                {
-                                    Sky temp = this.m_mainGui_.PositionServerside;
-                                    Util_Server.ReadLine_TuginoItteSusumu_Srv_CurrentMutable(
-                                        ref restText,
+                                Util_Server.ReadLine_TuginoItteSusumu_Srv_CurrentMutable(
+                                    ref restText,
 
-                                        this.m_mainGui_.Link_Server.Storage.Earth,
-                                        this.m_mainGui_.Link_Server.Storage.KifuTree,
+                                    this.m_mainGui_.Link_Server.Storage.Earth,
+                                    this.m_mainGui_.Link_Server.Storage.KifuTree,
 
-                                        ref temp,
-                                        out toBreak,
-                                        "再生ボタン",
-                                        errH
-                                        );
-                                    this.m_mainGui_.SetPositionServerside(temp);
-                                }
+                                    this.m_mainGui_.Link_Server.Storage,
+                                    out toBreak,
+                                    "再生ボタン",
+                                    logger
+                                    );
 
                                 //TimedC.Saisei_Step(restText, shogiGui, eventState.Flg_logTag);// 再描画（ループが１回も実行されなかったとき用）
                                 // 他のアプリが固まらないようにします。

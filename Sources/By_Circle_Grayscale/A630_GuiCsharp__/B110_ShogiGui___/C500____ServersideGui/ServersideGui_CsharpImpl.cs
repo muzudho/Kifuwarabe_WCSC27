@@ -59,9 +59,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
             //
             // 駒なし
             //
-            this.m_positionServerside_ = Util_SkyCreator.New_Komabukuro();// 描画モデル作成時
-
-            this.server = new Server_Impl(this.PositionServerside);
+            this.m_server_ = new Server_Impl(Util_SkyCreator.New_Komabukuro());
 
             this.Widgets = new Dictionary<string, UserWidget>();
 
@@ -100,23 +98,9 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
         /// <summary>
         /// 将棋サーバー。
         /// </summary>
-        public Server Link_Server { get { return this.server; } }
-        protected Server server;
+        public Server Link_Server { get { return this.m_server_; } }
+        protected Server m_server_;
 
-        /// <summary>
-        /// ------------------------------------------------------------------------------------------------------------------------
-        /// GUI用局面データ。
-        /// ------------------------------------------------------------------------------------------------------------------------
-        /// 
-        /// 局面が進むごとに更新されていきます。
-        /// 
-        /// </summary>
-        public Sky PositionServerside { get { return this.m_positionServerside_; } }
-        public void SetPositionServerside(Sky positionServerside)
-        {
-            this.m_positionServerside_ = positionServerside;
-        }
-        private Sky m_positionServerside_;
 
         /// <summary>
         /// コンソール・ウィンドウ。
@@ -288,14 +272,14 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
         private int noopSend_counter;
         public void Timer_Tick( KwLogger logger)
         {
-            if (this.server.IsLive_Client(2))
+            if (this.m_server_.IsLive_Client(2))
             {
                 // だいたい 1tick 50ms と考えて、20倍で 1秒。
                 if ( 20 * 3 < this.noopSend_counter) // 3秒に 1 回ぐらい ok を送れば？
                 {
                     // noop
                     // 将棋エンジンの標準入力へ、メッセージを送ります。
-                    this.server.Clients[2].Download(EngineClient_Impl.COMMAND_NOOP_FROM_SERVER, logger);
+                    this.m_server_.Clients[2].Download(EngineClient_Impl.COMMAND_NOOP_FROM_SERVER, logger);
 
                     this.noopSend_counter = 0;
                 }
@@ -579,8 +563,8 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
 
         public virtual Busstop GetKoma(Finger finger)
         {
-            this.PositionServerside.AssertFinger(finger);
-            return this.PositionServerside.BusstopIndexOf(finger);
+            this.Link_Server.Storage.PositionServerside.AssertFinger(finger);
+            return this.Link_Server.Storage.PositionServerside.BusstopIndexOf(finger);
         }
 
     }

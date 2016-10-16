@@ -53,13 +53,13 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
         {
             ServersideGui_Csharp shogiGui = (ServersideGui_Csharp)obj_shogiGui;
 
-            shogiGui.PositionServerside.AssertFinger(finger);
-            Busstop busstop = shogiGui.PositionServerside.BusstopIndexOf(finger);
+            shogiGui.Link_Server.Storage.PositionServerside.AssertFinger(finger);
+            Busstop busstop = shogiGui.Link_Server.Storage.PositionServerside.BusstopIndexOf(finger);
 
             shogiGui.Shape_PnlTaikyoku.Shogiban.KikiBan = new SySet_Default<SyElement>("利き盤");// .Clear();
 
             // 駒の利き
-            SySet<SyElement> kikiZukei = Util_Sky_SyugoQuery.KomaKidou_Potential(finger, shogiGui.PositionServerside);
+            SySet<SyElement> kikiZukei = Util_Sky_SyugoQuery.KomaKidou_Potential(finger, shogiGui.Link_Server.Storage.PositionServerside);
             //kikiZukei.DebugWrite("駒の利きLv1");
 
             // 味方の駒
@@ -128,7 +128,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                         }
                                         bMouseMove_SceneB_1TumamitaiKoma = true;
 
-                                        Sky src_Sky = mainGui.PositionServerside;
+                                        Sky src_Sky = mainGui.Link_Server.Storage.PositionServerside;
 
                                         Point mouse = eventState.MouseLocation;
 
@@ -216,7 +216,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                     {
                                         #region マウス左ボタンダウン
                                         SceneName nextPhaseB = SceneName.Ignore;
-                                        Sky src_Sky = mainGui.PositionServerside;
+                                        Sky src_Sky = mainGui.Link_Server.Storage.PositionServerside;
 
                                         //----------
                                         // 駒
@@ -308,7 +308,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                 case MouseEventStateName.MouseLeftButtonUp:
                                     {
                                         #region マウス左ボタンアップ
-                                        Sky src_GuiSky = mainGui.PositionServerside;
+                                        Sky src_GuiSky = mainGui.Link_Server.Storage.PositionServerside;
 
                                         //----------
                                         // 将棋盤：升目
@@ -393,7 +393,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                                     //
                                                     Sky sky_newChild = new SkyImpl(src_GuiSky);
                                                     sky_newChild.SetKaisiPside(Playerside.P2);//FIXME:人間が先手でハードコーディング中
-                                                    sky_newChild.SetTemezumi(mainGui.PositionServerside.Temezumi + 1);//1手進ませる。
+                                                    sky_newChild.SetTemezumi(mainGui.Link_Server.Storage.PositionServerside.Temezumi + 1);//1手進ませる。
                                                     MoveEx newNode = new MoveExImpl(move);
                                                     //MessageBox.Show(
                                                     //    "追加前\n"+
@@ -409,18 +409,14 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                                     mainGui.Link_Server.Storage.KifuTree.MoveEx_SetCurrent(TreeImpl.OnDoCurrentMove(newNode, mainGui.Link_Server.Storage.KifuTree, sky_newChild,logger));
 
                                                     string jsaFugoStr;
-                                                    {
-                                                        Sky temp = mainGui.PositionServerside;
-                                                        Util_Server.AfterSetCurNode_Srv(
-                                                            ref temp,
-                                                            mainGui.Link_Server.Storage.KifuTree.MoveEx_Current,
-                                                            mainGui.Link_Server.Storage.KifuTree.MoveEx_Current.Move,
-                                                            sky_newChild,
-                                                            out jsaFugoStr,
-                                                            mainGui.Link_Server.Storage.KifuTree,
-                                                            logger);
-                                                        mainGui.SetPositionServerside(temp);
-                                                    }
+                                                    Util_Server.AfterSetCurNode_Srv(
+                                                        mainGui.Link_Server.Storage,
+                                                        mainGui.Link_Server.Storage.KifuTree.MoveEx_Current,
+                                                        mainGui.Link_Server.Storage.KifuTree.MoveEx_Current.Move,
+                                                        sky_newChild,
+                                                        out jsaFugoStr,
+                                                        mainGui.Link_Server.Storage.KifuTree,
+                                                        logger);
                                                     mainGui.RepaintRequest.SetFlag_RefreshRequest();
 
 
@@ -492,7 +488,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                 case MouseEventStateName.MouseLeftButtonUp:
                                     {
                                         #region マウス左ボタンアップ
-                                        Sky src_GuiSky = mainGui.PositionServerside;
+                                        Sky src_GuiSky = mainGui.Link_Server.Storage.PositionServerside;
 
 
                                         //----------
@@ -547,7 +543,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                                         Sky sky_newChild = new SkyImpl(src_GuiSky);
                                                         MoveEx newNode =
                                                             new MoveExImpl(move);
-                                                        sky_newChild.SetTemezumi( mainGui.PositionServerside.Temezumi + 1);//1手進ませる。
+                                                        sky_newChild.SetTemezumi( mainGui.Link_Server.Storage.PositionServerside.Temezumi + 1);//1手進ませる。
 
 
                                                         //マウスの左ボタンを放したときです。
@@ -560,18 +556,14 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
 
                                                         string jsaFugoStr;
 
-                                                        {
-                                                            Sky temp = mainGui.PositionServerside;
-                                                            Util_Server.AfterSetCurNode_Srv(
-                                                                ref temp,
-                                                                mainGui.Link_Server.Storage.KifuTree.MoveEx_Current,
-                                                                mainGui.Link_Server.Storage.KifuTree.MoveEx_Current.Move,
-                                                                sky_newChild,
-                                                                out jsaFugoStr,
-                                                                mainGui.Link_Server.Storage.KifuTree,
-                                                                logger);
-                                                            mainGui.SetPositionServerside(temp);
-                                                        }
+                                                        Util_Server.AfterSetCurNode_Srv(
+                                                            mainGui.Link_Server.Storage,
+                                                            mainGui.Link_Server.Storage.KifuTree.MoveEx_Current,
+                                                            mainGui.Link_Server.Storage.KifuTree.MoveEx_Current.Move,
+                                                            sky_newChild,
+                                                            out jsaFugoStr,
+                                                            mainGui.Link_Server.Storage.KifuTree,
+                                                            logger);
                                                         mainGui.RepaintRequest.SetFlag_RefreshRequest();
 
 
@@ -638,8 +630,8 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
 
                                         //>>>>> 選択されている駒があるとき
 
-                                        mainGui.PositionServerside.AssertFinger(btnTumandeiruKoma.Finger);
-                                        Busstop tumandeiruLight = mainGui.PositionServerside.BusstopIndexOf(btnTumandeiruKoma.Finger);
+                                        mainGui.Link_Server.Storage.PositionServerside.AssertFinger(btnTumandeiruKoma.Finger);
+                                        Busstop tumandeiruLight = mainGui.Link_Server.Storage.PositionServerside.BusstopIndexOf(btnTumandeiruKoma.Finger);
 
 
                                         //----------
@@ -679,7 +671,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                                 {
                                                     bool match = false;
 
-                                                    mainGui.PositionServerside.Foreach_Busstops((Finger finger, Busstop koma, ref bool toBreak) =>
+                                                    mainGui.Link_Server.Storage.PositionServerside.Foreach_Busstops((Finger finger, Busstop koma, ref bool toBreak) =>
                                                     {
                                                         if (Conv_Busstop.ToMasu( koma) == btnSasitaiMasu2.Zahyo)
                                                         {
@@ -769,7 +761,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                                     bool torareruKomaAri;
                                                     Busstop koma_Food_after;
                                                     {
-                                                        Sky temp = mainGui.PositionServerside;
+                                                        Sky temp = mainGui.Link_Server.Storage.PositionServerside;
                                                         Util_Server.Komamove1a_50Srv(
                                                             out torareruKomaAri,
                                                             out koma_Food_after,
@@ -779,7 +771,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                                             ref temp,
                                                             eventState.Flg_logTag
                                                             );
-                                                        mainGui.SetPositionServerside(temp);
+                                                        mainGui.Link_Server.Storage.SetPositionServerside(temp);
                                                     }
 
                                                     Util_Function_Csharp.Komamove1a_51Gui(torareruKomaAri, koma_Food_after, mainGui);
@@ -795,11 +787,11 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                         {
                                             //System.C onsole.WriteLine("駒台上");
 
-                                            mainGui.PositionServerside.AssertFinger(btnTumandeiruKoma.Koma);
-                                            Busstop koma = mainGui.PositionServerside.BusstopIndexOf(btnTumandeiruKoma.Koma);
+                                            mainGui.Link_Server.Storage.PositionServerside.AssertFinger(btnTumandeiruKoma.Koma);
+                                            Busstop koma = mainGui.Link_Server.Storage.PositionServerside.BusstopIndexOf(btnTumandeiruKoma.Koma);
 
-                                            mainGui.PositionServerside.SetTemezumi(mainGui.PositionServerside.Temezumi + 1);//1手進める。
-                                            mainGui.PositionServerside.AddObjects(
+                                            mainGui.Link_Server.Storage.PositionServerside.SetTemezumi(mainGui.Link_Server.Storage.PositionServerside.Temezumi + 1);//1手進める。
+                                            mainGui.Link_Server.Storage.PositionServerside.AddObjects(
                                                 new Finger[] { btnTumandeiruKoma.Koma },
                                                 new Busstop[] {
                                                     Conv_Busstop.ToBusstop(

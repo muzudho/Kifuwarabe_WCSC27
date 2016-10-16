@@ -24,11 +24,11 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
         /// </summary>
         public static void Menace( ServersideGui_Csharp mainGui, KwLogger logger)
         {
-            if (0 < mainGui.PositionServerside.Temezumi)
+            if (0 < mainGui.Link_Server.Storage.PositionServerside.Temezumi)
             {
                 // 処理の順序が悪く、初回はうまく判定できない。
-                Sky positionA = mainGui.PositionServerside;
-                Playerside psideA = mainGui.PositionServerside.GetKaisiPside();
+                Sky positionA = mainGui.Link_Server.Storage.PositionServerside;
+                Playerside psideA = mainGui.Link_Server.Storage.PositionServerside.GetKaisiPside();
 
 
                 //----------

@@ -1,6 +1,5 @@
 ﻿using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
-using Grayscale.A450_Server_____.B110_Server_____.C___497_EngineClient;
 
 namespace Grayscale.A450_Server_____.B110_Server_____.C___498_Server
 {
@@ -24,6 +23,13 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C___498_Server
         void AddInputString99(string inputString99);
         void SetInputString99(string inputString99);
         void ClearInputString99();
+
+
+
+
+
+        Sky PositionServerside { get; }
+        void SetPositionServerside(Sky sky);
 
     }
 }
