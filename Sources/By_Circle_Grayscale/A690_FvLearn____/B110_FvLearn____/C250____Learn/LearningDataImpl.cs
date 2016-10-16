@@ -194,7 +194,7 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C250____Learn
             Tree kifu1,
             Sky positionA,
             string[] searchedPv,
-            KwLogger errH)
+            KwLogger logger)
         {
             //----------------------------------------
             // 合法手のNextNodesを作成します。
@@ -223,10 +223,10 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C250____Learn
                 ref searchedMaxDepth,
                 ref searchedNodes,
                 kifu1,
-                positionA.GetKaisiPside(),
+                kifu1.GetNextPside(),// positionA.GetKaisiPside(),
                 positionA,
                 searchedPv,
-                args, errH);
+                args, logger);
 #if DEBUG
             sw2.Stop();
             Console.WriteLine("合法手作成　　　 　= {0}", sw2.Elapsed);
@@ -364,7 +364,7 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C250____Learn
                     searchedPv,
 
                     kifu1,
-                    psideA,//positionA.GetKaisiPside(),
+                    psideA,
                     positionA,
 
 

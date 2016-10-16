@@ -278,7 +278,7 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C460____Scoreing
             // 持ち駒の BAD値を矯正 FIXME: 持ち駒を打つのが悪手なのは、だいたい合っているのでは？
             //if(false)
             //{
-            //    float sum_bad = Util_FvScoreing.Spoil_MotiBad(src_Sky.KaisiPside, fv_mutable, n54List, errH);
+            //    float sum_bad = Util_FvScoreing.Spoil_MotiBad(src_Sky.Pside, fv_mutable, n54List, errH);
 
             //    // 盤上の三駒関係に、均等に BAD値 を配分。
             //    Util_FvScoreing.Fill54x54_Add_ToBanjo(

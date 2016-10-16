@@ -64,7 +64,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
 
             // 味方の駒
             Sky positionA = shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.PositionA;
-            Playerside psideA = shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.GetNextPside();// positionA.GetKaisiPside();
+            Playerside psideA = shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.GetNextPside();
 
             SySet<SyElement> mikataZukei = Util_Sky_SyugoQuery.Masus_Now(
                 positionA, psideA

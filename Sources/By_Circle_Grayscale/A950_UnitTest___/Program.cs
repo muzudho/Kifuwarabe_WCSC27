@@ -12,6 +12,7 @@ using Grayscale.A210_KnowNingen_.B740_KifuParserA.C400____Conv;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
+using Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter;
 
 namespace Grayscale.A950_UnitTest___
 {
@@ -59,7 +60,7 @@ namespace Grayscale.A950_UnitTest___
                     string rest;
                     Move moveA = Conv_StringMove.ToMove(
                         out rest, commandLine, pv[pv.Count - 1],
-                        positionA.GetKaisiPside(),
+                        Program.GetNextPside(pv),// positionA.GetKaisiPside(),
                         positionA, logger);
                     Move moveB;
                     commandLine = rest.Trim();
@@ -160,5 +161,18 @@ namespace Grayscale.A950_UnitTest___
                 }
             }
         }
+
+        private static Playerside GetNextPside(List<Move> pv)
+        {
+            if (pv.Count == 1)
+            {
+                // 初期局面ならＰ１側。
+                return Playerside.P1;
+            }
+
+            // 最後の指し手の逆側。
+            return Conv_Playerside.Reverse(Conv_Move.ToPlayerside(pv[pv.Count - 1]));
+        }
+
     }
 }
