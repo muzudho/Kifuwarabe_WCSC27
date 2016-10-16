@@ -28,11 +28,11 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C500____Gui
         /// </summary>
         public override void ComputerPlay_OnChangedTurn(
             Tree kifu1,
-            Playerside pside,
+            //Playerside pside,
             KwLogger logger)
         {
             int clientIndex;
-            if (Playerside.P1 == pside)
+            if (Playerside.P1 == kifu1.GetNextPside())// pside
             {
                 clientIndex = 1;
             }
@@ -48,7 +48,7 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C500____Gui
                 this.OwnerConsole.Link_Server.Clients[clientIndex].ComputerPlay_OnChangedTurn(
                     this.OwnerConsole.Link_Server.Storage.Earth,
                     kifu1,//エンドノード
-                    pside,
+                    //pside,
                     logger);
             }
         }

@@ -43,7 +43,7 @@ namespace Grayscale.A210_KnowNingen_.B770_Conv_Sasu__.C500____Converter
                         Komasyurui14.H00_Null___,
                         false,//成らない
                         false,//ドロップしない
-                        psideA,// positionA.GetKaisiPside(),
+                        psideA,
                         false
                         );
 
@@ -85,7 +85,7 @@ namespace Grayscale.A210_KnowNingen_.B770_Conv_Sasu__.C500____Converter
                         Komasyurui14.H00_Null___,
                         false,//成らない
                         false,//多分打たない
-                        psideA,// positionA.GetKaisiPside(),
+                        psideA,
                         false
                         );
 

@@ -219,7 +219,7 @@ namespace Grayscale.A630_GuiCsharp__
             this.ShogibanGui.Shape_PnlTaikyoku.Paint(
                 sender,
                 e,
-                this.ShogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.PositionA.GetKaisiPside(),
+                this.ShogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.GetNextPside(),//.PositionA.GetKaisiPside(),
                 this.ShogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.PositionA,
                 this.ShogibanGui, Shape_CanvasImpl.WINDOW_NAME_SHOGIBAN, Util_Loggers.ProcessGui_PAINT);
 

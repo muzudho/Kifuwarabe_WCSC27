@@ -51,7 +51,6 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C___497_EngineClient
         void ComputerPlay_OnChangedTurn(
             Earth earth,
             Tree kifu1,
-            Playerside kaisiPside,
             KwLogger errH);
 
         /// <summary>

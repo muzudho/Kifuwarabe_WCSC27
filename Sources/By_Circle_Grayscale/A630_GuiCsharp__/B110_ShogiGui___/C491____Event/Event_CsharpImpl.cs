@@ -177,8 +177,8 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     }
 
                     Util_Function_Csharp.Makimodosi_Gui(
-                        shogibanGui2.OwnerConsole.Link_Server.Storage.KifuTree,//.CurrentNode,
-                        shogibanGui2.OwnerConsole.Link_Server.Storage.KifuTree.PositionA.GetKaisiPside(),
+                        shogibanGui2.OwnerConsole.Link_Server.Storage.KifuTree,
+                        shogibanGui2.OwnerConsole.Link_Server.Storage.KifuTree.GetNextPside(),
                         shogibanGui2,
                         movedKoma, foodKoma, fugoJStr, Util_Function_Csharp.ReadLine_FromTextbox(), logger);
                     Util_Menace.Menace(shogibanGui2, logger);//メナス
@@ -315,7 +315,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                         shogibanGui2.OwnerConsole.Link_Server.Storage.KifuTree.PositionA,
                         shogibanGui2.OwnerConsole.Link_Server.Storage.KifuTree,
                         
-                        shogibanGui2.OwnerConsole.Link_Server.Storage.KifuTree.PositionA.GetKaisiPside(),
+                        shogibanGui2.OwnerConsole.Link_Server.Storage.KifuTree.GetNextPside(),
                         logger
                         );
                     shogibanGui2.RepaintRequest.SyuturyokuRequest = RepaintRequestGedanTxt.Kifu;
@@ -605,7 +605,6 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     //System.C onsole.WriteLine("マウス左ボタンを押したのでチェンジターンします。");
                     shogibanGui.ComputerPlay_OnChangedTurn(
                         shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree,
-                        shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.PositionA.GetKaisiPside(),
                         logger);
                 }
             }
@@ -623,7 +622,6 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
 
             shogibanGui.ComputerPlay_OnChangedTurn(
                 shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree,
-                shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.PositionA.GetKaisiPside(),
                 logger
                 );//マウス左ボタンを押したのでチェンジターンします。
 

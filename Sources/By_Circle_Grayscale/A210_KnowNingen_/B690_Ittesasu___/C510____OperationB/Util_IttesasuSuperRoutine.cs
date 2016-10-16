@@ -105,7 +105,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C510____OperationB
                 // 駒台の空いているマス１つ。
                 SyElement akiMasu;
                 if (
-                    kifu1.GetNextPside()// positionA.GetKaisiPside(moveA)
+                    kifu1.GetNextPside()
                     == Playerside.P1)
                 {
                     akiMasu = Util_IttesasuRoutine.GetKomadaiKomabukuroSpace(Okiba.Sente_Komadai, positionA);
@@ -120,7 +120,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C510____OperationB
 
                 // 駒台の空いているマスへ移動☆
                 positionA.PutOverwriteOrAdd_Busstop(tottaKomaFig,
-                    Conv_Busstop.ToBusstop(positionA.GetKaisiPside(moveA), akiMasu, Conv_Busstop.ToKomasyurui(tottaKomaBus))
+                    Conv_Busstop.ToBusstop(kifu1.GetNextPside(), akiMasu, Conv_Busstop.ToKomasyurui(tottaKomaBus))
                     );
 
                 if (Conv_Busstop.ToKomasyurui(tottaKomaBus) != Komasyurui14.H00_Null___)
@@ -144,7 +144,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C510____OperationB
                 }
 
                 positionA.PutOverwriteOrAdd_Busstop(figKoma,
-                    Conv_Busstop.ToBusstop(positionA.GetKaisiPside(moveA), dstMasu, komaSyurui)
+                    Conv_Busstop.ToBusstop(kifu1.GetNextPside(), dstMasu, komaSyurui)
                     );
             }
 

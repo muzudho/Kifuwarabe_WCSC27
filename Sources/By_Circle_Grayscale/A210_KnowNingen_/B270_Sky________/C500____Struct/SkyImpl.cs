@@ -108,22 +108,22 @@ namespace Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct
         /// </summary>
         public Playerside GetKaisiPside()//TODO: PositionからPsideを廃止したいぜ☆（＞＿＜）
         {
-            return this.m_kaisiPside_;
+            return this.m_kaisiPside_;//TODO: PositionからPsideを廃止したいぜ☆（＞＿＜）
         }
-        public Playerside GetKaisiPside(Move move) {
-            return this.m_kaisiPside_;
+        public Playerside GetKaisiPside(Move move) {//TODO: PositionからPsideを廃止したいぜ☆（＞＿＜）
+            return this.m_kaisiPside_;//TODO: PositionからPsideを廃止したいぜ☆（＞＿＜）
         }
-        private Playerside m_kaisiPside_;
-        public void SetKaisiPside(Playerside pside)
+        private Playerside m_kaisiPside_;//TODO: PositionからPsideを廃止したいぜ☆（＞＿＜）
+        public void SetKaisiPside(Playerside pside)//TODO: PositionからPsideを廃止したいぜ☆（＞＿＜）
         {
-            this.m_kaisiPside_ = pside;
+            this.m_kaisiPside_ = pside;//TODO: PositionからPsideを廃止したいぜ☆（＞＿＜）
         }
         /// <summary>
         /// 先後を逆転させます。
         /// </summary>
         public void ReversePside()
         {
-            this.m_kaisiPside_ = Conv_Playerside.Reverse(this.m_kaisiPside_);
+            this.m_kaisiPside_ = Conv_Playerside.Reverse(this.m_kaisiPside_);//TODO: PositionからPsideを廃止したいぜ☆（＞＿＜）
         }
 
         /// <summary>

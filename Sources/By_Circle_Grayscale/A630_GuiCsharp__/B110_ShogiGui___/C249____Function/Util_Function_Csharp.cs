@@ -83,7 +83,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
             //------------------------------
             mainGui.ComputerPlay_OnChangedTurn(
                 kifu1,
-                pside,
+                //pside,
                 logger);
 
 

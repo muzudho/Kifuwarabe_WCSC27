@@ -18,7 +18,7 @@ namespace Grayscale.A210_KnowNingen_.B320_ConvWords__.C500____Converter
         {
             ShogibanImpl shogiban = new ShogibanImpl();
 
-            shogiban.KaisiPside = pside;// 表示データ
+            shogiban.Playerside = pside;// 表示データ
 
 
             // 将棋の駒４０個の場所を確認します。

@@ -83,7 +83,7 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
                         yomikaisiTemezumi,
                         inputMovelist,
                         positionA.Temezumi,
-                        psideA,//positionA.GetKaisiPside(),
+                        psideA,
                         positionA,
                         kifu1,
 #if DEBUG

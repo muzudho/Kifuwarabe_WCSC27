@@ -39,7 +39,7 @@ namespace Grayscale.A210_KnowNingen_.B440_Utifudume__.C500____Util
         /// TODO:打ち歩詰めチェック
         /// </summary>
         public static void Utifudume(
-            Playerside psideA,// = positionA.GetKaisiPside();
+            Playerside psideA,
             Sky positionA,
             SySet<SyElement> masus_mikata_onBanjo,//打ち歩詰めチェック用
             SySet<SyElement> masus_aite_onBanjo,//打ち歩詰めチェック用

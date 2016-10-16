@@ -1033,8 +1033,8 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
 
                                         this.Earth_AtLoop2,
                                         this.Kifu_AtLoop2,// ツリーを伸ばしているぜ☆（＾～＾）
-                                        this.Kifu_AtLoop2.PositionA.GetKaisiPside(),
-                                        this.Kifu_AtLoop2.PositionA,//.CurNode1.GetNodeValue(),
+                                        this.Kifu_AtLoop2.GetNextPside(),//.PositionA.GetKaisiPside(),
+                                        this.Kifu_AtLoop2.PositionA,
 
                                         this.Logger)
                                         );
@@ -1097,7 +1097,9 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
                                 //----------------------------------------
                                 {
                                     int hyojiScore = (int)bestScore;
-                                    if (this.Kifu_AtLoop2.PositionA.GetKaisiPside() == Playerside.P2)
+                                    if (
+                                        this.Kifu_AtLoop2.GetNextPside()//this.Kifu_AtLoop2.PositionA.GetKaisiPside()
+                                        == Playerside.P2)
                                     {
                                         // 符号を逆転
                                         hyojiScore = -hyojiScore;

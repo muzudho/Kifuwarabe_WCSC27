@@ -32,7 +32,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C___500_Gui
         /// </summary>
         void ComputerPlay_OnChangedTurn(
             Tree kifu1,
-            Playerside pside,
+            //Playerside pside,
             KwLogger logger);
 
         /// <summary>

@@ -58,6 +58,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
             Earth earth1,
             Move moveA,
             Sky positionA,
+            
 
             out KifuParserA_State nextState,
             KifuParserA owner,
@@ -83,8 +84,8 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
                         genjo.InputLine,
                         moveA,
 
-                        //Conv_Move.ToPlayerside(move1),
-                        positionA.GetKaisiPside(),
+                        
+                        positionA.GetKaisiPside(),//Conv_Move.ToPlayerside(move1),
 
                         positionA,
                         logger

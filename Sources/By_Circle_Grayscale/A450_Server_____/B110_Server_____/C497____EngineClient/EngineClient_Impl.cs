@@ -325,7 +325,6 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
         public void ComputerPlay_OnChangedTurn(
             Earth earth1,
             Tree kifu1,
-            Playerside kaisiPside,
             KwLogger logger)
         {
             if (!this.IsLive_ShogiEngine())
@@ -334,7 +333,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
             }
 
             int clientIndex = 0;
-            switch (kaisiPside)
+            switch (kifu1.GetNextPside())
             {
                 case Playerside.P1:
                     clientIndex = 1;

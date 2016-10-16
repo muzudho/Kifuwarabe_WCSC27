@@ -16,7 +16,7 @@ namespace Grayscale.A210_KnowNingen_.B310_Shogiban___.C250____Struct
     {
         public ShogibanImpl()
         {
-            this.KaisiPside = Playerside.Empty;//表示データ
+            this.Playerside = Playerside.Empty;//表示データ
             this.BanjoKomas = new Dictionary<int, Busstop>();
             this.ErrorMessage = new Dictionary<int, string>();
             this.m_motiSu_ = new int[(int)Pieces.Num];
@@ -45,7 +45,7 @@ namespace Grayscale.A210_KnowNingen_.B310_Shogiban___.C250____Struct
         /// <summary>
         /// 先後。
         /// </summary>
-        public Playerside KaisiPside { get; set; }//表示データ
+        public Playerside Playerside { get; set; }
 
 
         public void AddKoma(SyElement masu, Busstop koma, KwLogger errH)

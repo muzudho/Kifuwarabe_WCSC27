@@ -237,7 +237,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
         public virtual void ComputerPlay_OnChangedTurn(
             //int clientIndex,
             Tree kifu1,
-            Playerside pside,
+            //Playerside pside,
             KwLogger logger)
         {
         }

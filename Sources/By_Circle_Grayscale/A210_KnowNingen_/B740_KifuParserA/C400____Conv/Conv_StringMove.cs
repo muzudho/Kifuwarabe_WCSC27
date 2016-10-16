@@ -58,8 +58,6 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C400____Conv
                             out nextMove,
 
                             pside,
-                            //Conv_Playerside.Reverse( Conv_Move.ToPlayerside(previous_Move)),
-                            //previous_Sky.KaisiPside,
 
                             previous_Sky,
                             "棋譜パーサーA_SFENパース1",

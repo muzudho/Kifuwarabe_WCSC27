@@ -64,9 +64,8 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
 
             // 味方の駒
             Sky positionA = shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.PositionA;
-            Playerside psideA = positionA.GetKaisiPside();
+            Playerside psideA = shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.GetNextPside();// positionA.GetKaisiPside();
 
-            //shogiGui.Model_PnlTaikyoku.Kifu.AssertPside(shogiGui.Model_PnlTaikyoku.Kifu.CurNode, "Check_MouseoverKomaKiki",errH);
             SySet<SyElement> mikataZukei = Util_Sky_SyugoQuery.Masus_Now(
                 positionA, psideA
                 );
@@ -395,10 +394,6 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                                     sky_newChild.SetKaisiPside(Playerside.P2);//FIXME:人間が先手でハードコーディング中
                                                     sky_newChild.SetTemezumi(shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside.Temezumi + 1);//1手進ませる。
                                                     MoveEx newNode = new MoveExImpl(move);
-                                                    //MessageBox.Show(
-                                                    //    "追加前\n"+
-                                                    //    "newNode=KaisiPside=" + newNode.Value.ToKyokumenConst.KaisiPside,
-                                                    //    "デバッグ");
 
                                                     //マウスの左ボタンを放したときです。
                                                     //----------------------------------------
@@ -432,7 +427,6 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                                     {
                                                         shogibanGui.ComputerPlay_OnChangedTurn(
                                                             shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree,
-                                                            shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.PositionA.GetKaisiPside(),
                                                             eventState.Flg_logTag
                                                             );//マウス左ボタンを放したのでチェンジターンします。
                                                     }
@@ -579,7 +573,6 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                                             //System.C onsole.WriteLine("マウス左ボタンを放したのでチェンジターンします。");
                                                             shogibanGui.ComputerPlay_OnChangedTurn(
                                                                 shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree,
-                                                                shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.PositionA.GetKaisiPside(),
                                                                 eventState.Flg_logTag
                                                                 );
                                                         }
@@ -715,7 +708,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                                     (
                                                         Conv_Masu.InBanjoAitejin(
                                                             btnSasitaiMasu.Zahyo,
-                                                            shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.PositionA.GetKaisiPside()
+                                                            shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.GetNextPside()
                                                             )
                                                         ||
                                                         Util_Sky_BoolQuery.InBanjoAitejin(Conv_Busstop.ToMasu( koma), Conv_Busstop.ToPlayerside( koma))
