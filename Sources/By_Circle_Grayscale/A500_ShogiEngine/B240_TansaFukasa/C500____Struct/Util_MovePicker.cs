@@ -41,9 +41,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
         /// <param name="logger"></param>
         public static List<Move> CreateMovelist_BeforeLoop(
             Tansaku_Genjo genjo,
-            
-            Playerside psideA,
-            Tree kifu1,
+                        Tree kifu1,
             Sky positionA,//この局面から合法手を作成☆（＾～＾）
 
             ref int searchedMaxDepth,
@@ -53,7 +51,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
         {
             List<Move> result_movelist = Util_MovePicker.WAAAA_Create_ChildNodes(
                 genjo,
-                psideA,//× Conv_Playerside.Reverse( psideA),
+                kifu1.GetNextPside(),//これから作る指し手の先後
                 kifu1,
                 positionA,
                 //move_ForLog,//ログ用
@@ -85,7 +83,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
         /// <returns>複数のノードを持つハブ・ノード</returns>
         private static List<Move> WAAAA_Create_ChildNodes(
             Tansaku_Genjo genjo,
-            Playerside psideA,
+            Playerside psideCreate,
             Tree kifu1,
             Sky positionA,
             //Move move_ForLog,
@@ -200,7 +198,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                         genjo.YomikaisiTemezumi,
                         genjo.Args.IsHonshogi,
                         komaBETUAllSasites,//駒別の全ての指し手
-                        psideA,
+                        psideCreate,
                         positionA,
                         kifu1,
 #if DEBUG
@@ -217,7 +215,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                     //成り以外の手
                     movelist = Conv_Movelist1.ToMovelist_NonPromotion(
                         starbetuSusumuMasus,
-                        psideA,
+                        psideCreate,
                         positionA,
                         logger
                     );
@@ -228,9 +226,11 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                     // 成りの指し手を作成します。（拡張）
                     //----------------------------------------
                     //成りの手
-                    List<Move> b_movelist = Util_SasuEx.CreateNariSasite(positionA,
+                    List<Move> b_movelist = Util_SasuEx.CreateNariSasite(
+                        positionA,
                         movelist,
-                        logger);
+                        logger
+                        );
 
                     exceptionArea = 44000;
 
@@ -258,7 +258,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                     //
                     movelist = Conv_Movelist1.ToMovelist_NonPromotion(
                         komaBETUSusumeruMasus,
-                        psideA,
+                        psideCreate,
                         positionA,
                         logger
                         );

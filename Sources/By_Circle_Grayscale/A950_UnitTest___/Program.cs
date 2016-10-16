@@ -129,7 +129,6 @@ namespace Grayscale.A950_UnitTest___
                     Util_IttemodosuRoutine.UndoMove(
                         out syuryoResult2,
                         move1,
-                        Conv_Move.ToPlayerside(move1),
                         positionA,
                         "G900",
                         logger

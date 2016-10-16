@@ -45,7 +45,6 @@ namespace Grayscale.A500_ShogiEngine.B200_Scoreing___.C___240_Shogisasi
 
             Earth earth1,
             Tree kifu1,
-            Playerside psideA,
             Sky positionA,
 
             KwLogger errH

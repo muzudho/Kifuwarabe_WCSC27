@@ -151,31 +151,31 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
 
 
             // アプリケーション開始時
-            usiFramework.OnA1 = this.OnApplicationBegin;
+            usiFramework.OnA1 = this.OnA1;
 
             // 準備時
-            usiFramework.OnL2_Usi = this.OnUsiReceived_AtLoop1Body;
-            usiFramework.OnL2_Setoption = this.OnSetoptionReceived_AtLoop1Body;
-            usiFramework.OnL2_Isready = this.OnIsreadyReceived_AtLoop1Body;
-            usiFramework.OnL2_Usinewgame = this.OnUsinewgameReceived_AtLoop1Body;
-            usiFramework.OnL2_Quit = this.OnQuitReceived_AtLoop1Body;
-            usiFramework.OnL2_CommandlineRead = this.OnCommandlineRead_AtLoop1Body;
+            usiFramework.OnL2_Usi = this.OnL2_Usi;
+            usiFramework.OnL2_Setoption = this.OnL2_Setoption;
+            usiFramework.OnL2_Isready = this.OnL2_Isready;
+            usiFramework.OnL2_Usinewgame = this.OnL2_Usinewgame;
+            usiFramework.OnL2_Quit = this.OnL2_Quit;
+            usiFramework.OnL2_CommandlineRead = this.OnL2_CommandlineRead;
 
             // 対局開始時
-            usiFramework.OnM1 = this.OnLoop2Begin;
+            usiFramework.OnM1 = this.OnM1;
             // 対局中
-            usiFramework.OnM2_CommandlineRead = this.OnCommandlineRead_AtLoop2Body;
+            usiFramework.OnM2_CommandlineRead = this.OnM2_CommandlineRead;
 
-            usiFramework.OnM2_Position = this.OnPositionReceived_AtLoop2Body;
-            usiFramework.OnM2_Goponder = this.OnGoponderReceived_AtLoop2Body;
-            usiFramework.OnM2_Go = this.OnGoReceived_AtLoop2Body;
-            usiFramework.OnM2_Stop = this.OnStopReceived_AtLoop2Body;
-            usiFramework.OnM2_Gameover = this.OnGameoverReceived_AtLoop2Body;
-            usiFramework.OnM2_Logdase = this.OnLogdaseReceived_AtLoop2Body;
+            usiFramework.OnM2_Position = this.OnM2_Position;
+            usiFramework.OnM2_Goponder = this.OnM2_Goponder;
+            usiFramework.OnM2_Go = this.OnM2_Go;
+            usiFramework.OnM2_Stop = this.OnM2_Stop;
+            usiFramework.OnM2_Gameover = this.OnM2_Gameover;
+            usiFramework.OnM2_Logdase = this.OnM2_Logdase;
             // 対局終了時
-            usiFramework.OnM3 = this.OnLoop2End;
+            usiFramework.OnM3 = this.OnM3;
             // アプリケーション終了時
-            usiFramework.OnA3 = this.OnApplicationEnd;
+            usiFramework.OnA3 = this.OnA3;
         }
         #endregion
 
@@ -287,7 +287,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
 
 
 
-        private Result_LoopL OnUsiReceived_AtLoop1Body (string line)
+        private Result_LoopL OnL2_Usi (string line)
         {
             //------------------------------------------------------------
             // あなたは USI ですか？
@@ -372,7 +372,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
         }
 
 
-        private Result_LoopL OnSetoptionReceived_AtLoop1Body(string line)
+        private Result_LoopL OnL2_Setoption(string line)
         {
             //------------------------------------------------------------
             // 設定してください
@@ -459,7 +459,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
         }
 
 
-        private Result_LoopL OnIsreadyReceived_AtLoop1Body(string line)
+        private Result_LoopL OnL2_Isready(string line)
         {
             //------------------------------------------------------------
             // それでは定刻になりましたので……
@@ -509,7 +509,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
             return Result_LoopL.Continue;
         }
 
-        private Result_LoopL OnUsinewgameReceived_AtLoop1Body(string line)
+        private Result_LoopL OnL2_Usinewgame(string line)
         {
             //------------------------------------------------------------
             // 対局時計が ポチッ とされました
@@ -533,7 +533,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
             return Result_LoopL.Break;
         }
 
-        private Result_LoopL OnQuitReceived_AtLoop1Body(string line)
+        private Result_LoopL OnL2_Quit(string line)
         {
             //------------------------------------------------------------
             // おつかれさまでした
@@ -579,7 +579,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
         }
 
 
-        private string OnCommandlineRead_AtLoop1Body()
+        private string OnL2_CommandlineRead()
         {
             // 将棋サーバーから何かメッセージが届いていないか、見てみます。
             string line = Util_Message.Download_Nonstop();
@@ -595,13 +595,13 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
         }
 
 
-        private void OnLoop2Begin()
+        private void OnM1()
         {
             this.Shogisasi.OnTaikyokuKaisi();//対局開始時の処理。
         }
 
 
-        private string OnCommandlineRead_AtLoop2Body()
+        private string OnM2_CommandlineRead()
         {
             //ノンストップ版
             //string line = TimeoutReader.ReadLine(1000);//指定ミリ秒だけブロック
@@ -626,7 +626,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
             return line;
         }
 
-        private Result_LoopM OnPositionReceived_AtLoop2Body(string line)
+        private Result_LoopM OnM2_Position(string line)
         {
             KwLogger logger = Util_Loggers.ProcessEngine_DEFAULT;
 
@@ -784,7 +784,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
             return Result_LoopM.Continue;
         }
 
-        private Result_LoopM OnGoponderReceived_AtLoop2Body(string line)
+        private Result_LoopM OnM2_Goponder(string line)
         {
             try
             {
@@ -836,7 +836,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
             return Result_LoopM.Continue;
         }
 
-        private Result_LoopM OnGoReceived_AtLoop2Body(string line)
+        private Result_LoopM OnM2_Go(string line)
         {
             int exceptionArea = 0;
 
@@ -911,7 +911,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
 
                 MoveEx curNode1 = this.Kifu_AtLoop2.MoveEx_Current;
                 Sky positionA = this.Kifu_AtLoop2.PositionA;
-                int latestTemezumi = positionA.Temezumi;//現・手目済// curNode1.GetNodeValue()
+                int latestTemezumi = positionA.Temezumi;//現・手目済
 
                 //#if DEBUG
                 // MessageBox.Show("["+latestTemezumi+"]手目済　["+this.owner.PlayerInfo.Playerside+"]の手番");
@@ -1025,7 +1025,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
                                 for (int iMultiPV = 0; iMultiPV < multiPV_Count; iMultiPV++)
                                 {
                                     // null を返すことがある？
-                                    multiPvNodeExList.Add(this.Shogisasi.WA_Bestmove(
+                                    MoveEx bestmove2 = this.Shogisasi.WA_Bestmove(
                                         ref searchedMaxDepth,
                                         ref searchedNodes,
                                         searchedPv,
@@ -1033,13 +1033,12 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
 
                                         this.Earth_AtLoop2,
                                         this.Kifu_AtLoop2,// ツリーを伸ばしているぜ☆（＾～＾）
-                                        this.Kifu_AtLoop2.GetNextPside(),
                                         this.Kifu_AtLoop2.PositionA,
 
-                                        this.Logger)
-                                        );
+                                        this.Logger);
+                                    multiPvNodeExList.Add(bestmove2);
 
-                                    this.Kifu_AtLoop2.MoveEx_SetCurrent(TreeImpl.OnDoCurrentMove(this.Kifu_AtLoop2.MoveEx_Current, this.Kifu_AtLoop2, this.Kifu_AtLoop2.PositionA,this.Logger));
+                                    this.Kifu_AtLoop2.MoveEx_SetCurrent(TreeImpl.OnDoCurrentMove("マルチPV",this.Kifu_AtLoop2.MoveEx_Current, this.Kifu_AtLoop2, this.Kifu_AtLoop2.PositionA,this.Logger));
                                 }
 
 
@@ -1206,7 +1205,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
         }
 
 
-        private Result_LoopM OnStopReceived_AtLoop2Body(string line)
+        private Result_LoopM OnM2_Stop(string line)
         {
             try
             {
@@ -1309,7 +1308,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
         }
 
 
-        private Result_LoopM OnGameoverReceived_AtLoop2Body(string line)
+        private Result_LoopM OnM2_Gameover(string line)
         {
             try
             {
@@ -1372,7 +1371,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
             }
         }
 
-        private Result_LoopM OnLogdaseReceived_AtLoop2Body(string line)
+        private Result_LoopM OnM2_Logdase(string line)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("ログ出せ機能は廃止だぜ～☆（＾▽＾）");
@@ -1381,7 +1380,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
             return Result_LoopM.Continue;
         }
 
-        private void OnLoop2End()
+        private void OnM3()
         {
             //-------------------+----------------------------------------------------------------------------------------------------
             // スナップショット  |
@@ -1526,7 +1525,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
 
 
         #region 処理の流れ
-        public void OnApplicationBegin()
+        public void OnA1()
         {
             int exception_area = 0;
             try
@@ -1650,7 +1649,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
         }
 
 
-        public void OnApplicationEnd()
+        public void OnA3()
         {
         }
         #endregion

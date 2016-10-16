@@ -50,7 +50,7 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
             int yomikaisiTemezumi,
             bool isHonshogi,
             Maps_OneAndMulti<Finger, Move> genTeban_komabetuAllMoves1,// 指定局面で、どの駒が、どんな手を指すことができるか
-            Playerside psideA,
+            Playerside psideCreate,
             Sky positionA,//指定局面。
             Tree kifu1,
 #if DEBUG
@@ -83,7 +83,7 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
                         yomikaisiTemezumi,
                         inputMovelist,
                         positionA.Temezumi,
-                        psideA,
+                        psideCreate,
                         positionA,
                         kifu1,
 #if DEBUG
@@ -166,7 +166,7 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
             int yomikaisiTemezumi,
             List<Move> inputMovelist,
             int temezumi_yomiGenTeban_forLog,//読み進めている現在の手目
-            Playerside pside_genTeban,
+            Playerside psideCreate,
             Sky positionA,
             Tree kifu1,
 #if DEBUG
@@ -205,7 +205,7 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
                         yomikaisiTemezumi,
                         positionA,
                         temezumi_yomiGenTeban_forLog,
-                        pside_genTeban,//現手番＝攻め手視点
+                        psideCreate,//現手番＝攻め手視点
 #if DEBUG
                     logF_kiki,
 #endif
@@ -227,7 +227,6 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
                     Util_IttemodosuRoutine.UndoMove(
                         out ittemodosuResult,
                         moveB,//この関数が呼び出されたときの指し手☆（＾～＾）
-                        Conv_Move.ToPlayerside(moveB),
                         positionA,
                         "A900_IfMate",
                         logger
@@ -259,7 +258,7 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
             int yomikaisiTemezumi,
             Sky src_Sky,//調べたい局面
             int temezumi_yomiCur_forLog,//読み進めている現在の手目
-            Playerside pside_genTeban,//現手番側
+            Playerside psideCreate,//現手番側
 
 #if DEBUG
             KaisetuBoards logF_kiki,
@@ -278,7 +277,7 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
                 yomikaisiTemezumi,
                 isHonshogi,
                 src_Sky,
-                pside_genTeban,
+                psideCreate,
                 true,// 相手盤の利きを調べます。
 #if DEBUG
                 logF_kiki,
@@ -292,7 +291,7 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
             // 現手番側が受け手に回ったとします。現手番の、王の座標
             int genTeban_kingMasuNumber;
 
-            if (Playerside.P2 == pside_genTeban)
+            if (Playerside.P2 == psideCreate)
             {
                 // 現手番は、後手
 
@@ -342,8 +341,8 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
         public static List_OneAndMulti<Finger, SySet<SyElement>> LAAAA_GetEffect(
             int yomikaisiTemezumi,
             bool isHonshogi,
-            Sky src_Sky,
-            Playerside pside_genTeban3,
+            Sky positionA,
+            Playerside psideCreate,
             bool isAiteban,
 #if DEBUG
             KaisetuBoards logF_kiki,
@@ -360,7 +359,7 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
             logBrd_kiki.Temezumi = temezumi_yomiCur_forLog;
             logBrd_kiki.YomikaisiTemezumi = yomikaisiTemezumi;
             //logBrd_kiki.Score = 0.0d;
-            logBrd_kiki.GenTeban = pside_genTeban3;// 現手番
+            logBrd_kiki.GenTeban = psideCreate;// 現手番
             logF_kiki.boards.Add(logBrd_kiki);
 #endif
 
@@ -373,13 +372,13 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
                 {
                     if (isAiteban)
                     {
-                        tebanSeme = Conv_Playerside.Reverse(pside_genTeban3);
-                        tebanKurau = pside_genTeban3;
+                        tebanSeme = Conv_Playerside.Reverse(psideCreate);//相手番
+                        tebanKurau = psideCreate;
                     }
                     else
                     {
-                        tebanSeme = pside_genTeban3;
-                        tebanKurau = Conv_Playerside.Reverse(pside_genTeban3);
+                        tebanSeme = psideCreate;
+                        tebanKurau = Conv_Playerside.Reverse(psideCreate);
                     }
 
 #if DEBUG
@@ -406,7 +405,7 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
                         out fingers_kurau_BANJO,
                         out dust1,
                         out dust2,
-                        src_Sky,
+                        positionA,
                         tebanSeme,
                         tebanKurau,
                         errH
@@ -418,7 +417,7 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
                 KaisetuBoard boardLog_clone = new KaisetuBoard(logBrd_kiki);
                 foreach (Finger finger in fingers_seme_BANJO.Items)
                 {
-                    Busstop koma = src_Sky.BusstopIndexOf(finger);
+                    Busstop koma = positionA.BusstopIndexOf(finger);
 
 
                         Gkl_KomaMasu km = new Gkl_KomaMasu(
@@ -429,7 +428,7 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
                 }
                 foreach (Finger finger in fingers_kurau_BANJO.Items)
                 {
-                    Busstop koma = src_Sky.BusstopIndexOf(finger);
+                    Busstop koma = positionA.BusstopIndexOf(finger);
 
 
                         logBrd_kiki.KomaMasu2.Add(new Gkl_KomaMasu(
@@ -444,8 +443,8 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
 
 
                 // 《１．３》
-                SySet<SyElement> masus_seme_BANJO = Conv_Fingers.ToMasus(fingers_seme_BANJO, src_Sky);// 盤上のマス（利きを調べる側の駒）
-                SySet<SyElement> masus_kurau_BANJO = Conv_Fingers.ToMasus(fingers_kurau_BANJO, src_Sky);// 盤上のマス（喰らう側の駒）
+                SySet<SyElement> masus_seme_BANJO = Conv_Fingers.ToMasus(fingers_seme_BANJO, positionA);// 盤上のマス（利きを調べる側の駒）
+                SySet<SyElement> masus_kurau_BANJO = Conv_Fingers.ToMasus(fingers_kurau_BANJO, positionA);// 盤上のマス（喰らう側の駒）
 
                 // 駒のマスの位置は、特にログに取らない。
 
@@ -454,7 +453,7 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
                     fingers_seme_BANJO,//この中身がおかしい。
                     masus_seme_BANJO,
                     masus_kurau_BANJO,
-                    src_Sky,
+                    positionA,
                     //Conv_Sasite.Sasite_To_KsString_ForLog(sasite_forLog, pside_genTeban3),
                     errH
                     );// 利きを調べる側の利き（戦駒）
@@ -464,7 +463,7 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
                 logBrd_kiki = new KaisetuBoard(logBrd_kiki);
                 kmEffect_seme_BANJO.Foreach_Entry((Finger key, SySet<SyElement> value, ref bool toBreak) =>
                 {
-                    Busstop koma = src_Sky.BusstopIndexOf(key);
+                    Busstop koma = positionA.BusstopIndexOf(key);
 
 
                     string komaImg = Util_Converter_LogGraphicEx.PsideKs14_ToString(tebanSeme, Conv_Busstop.ToKomasyurui(koma), "");
@@ -490,12 +489,7 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
                 }
 
             }
-
             return sMs_effect;
         }
-
-
-
-
     }
 }

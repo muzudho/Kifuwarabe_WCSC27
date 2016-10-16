@@ -22,7 +22,7 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct
 
         void Pv_RemoveLast(KwLogger logger);
         void Pv_ClearAll(KwLogger logger);
-        void Pv_Append(Move tail, KwLogger logger);
+        void Pv_Append(string hint, Move tail, KwLogger logger);
         Move Pv_GetLatest();
         Move Pv_Get(int index);
         int Pv_Count();
@@ -34,6 +34,7 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct
         /// 根を「startpos」等の初期局面コマンドとし、次の節からは棋譜の符号「2g2f」等が連なっている。
         /// </summary>
         MoveEx MoveEx_Current { get; }
+        void MoveEx_SetCurrent(MoveEx curNode);
         /// <summary>
         /// 局面編集中
         /// </summary>
@@ -42,7 +43,6 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct
         MoveEx MoveEx_OnEditCurrent(MoveEx node, Sky sky);
         Sky PositionA { get; }
         void SetPositionA(Sky positionA);
-        void MoveEx_SetCurrent(MoveEx curNode);
 
 
 

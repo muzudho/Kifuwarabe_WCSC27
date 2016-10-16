@@ -229,7 +229,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
                     Conv_Sky.ToKyokumenHash(positionA), "After3_ChangeCurrent(次の一手なし)");
 
             //次ノードを、これからのカレントとします。
-            kifu1.MoveEx_SetCurrent(TreeImpl.OnDoCurrentMove(newNodeB, kifu1, positionA,logger));
+            kifu1.MoveEx_SetCurrent(TreeImpl.OnDoCurrentMove("ツリー更新前",newNodeB, kifu1, positionA,logger));
         }
 
 

@@ -59,7 +59,7 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C___250_Learn
         void WritePng(
             Move move,
             Sky positionA,
-            KwLogger errH);
+            KwLogger logger);
 
 
         /// <summary>
@@ -70,11 +70,10 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C___250_Learn
             ref int searchedMaxDepth,
             ref ulong searchedNodes,
             Tree kifu1,
-            Playerside psideA,
             Sky positionA,
             string[] searchedPv,
             EvaluationArgs args,
-            KwLogger errH);
+            KwLogger logger);
 
         /// <summary>
         /// 全合法手をダンプ。デバッグ用途。

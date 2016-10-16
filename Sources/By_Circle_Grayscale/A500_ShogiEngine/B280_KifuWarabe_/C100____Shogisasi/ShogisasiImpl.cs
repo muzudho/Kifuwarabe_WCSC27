@@ -73,10 +73,9 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C100____Shogisasi
 
             Earth earth1,
             Tree kifu1,// ツリーを伸ばしているぜ☆（＾～＾）
-            Playerside psideA,
             Sky positionA,
 
-            KwLogger errH
+            KwLogger logger
             )
         {
             MoveEx bestNode = null;
@@ -114,14 +113,13 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C100____Shogisasi
                     searchedPv,
 
                     kifu1,// ツリーを伸ばしているぜ☆（＾～＾）
-                    psideA,
                     positionA,
 
                     isHonshogi, Mode_Tansaku.Shogi_ENgine,
-                    args, errH);
+                    args, logger);
             }
             catch (Exception ex) {
-                errH.DonimoNaranAkirameta(ex, "棋譜ツリーを作っていたときです。");
+                logger.DonimoNaranAkirameta(ex, "棋譜ツリーを作っていたときです。");
                 throw ex;
             }
 

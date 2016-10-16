@@ -142,7 +142,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                         );
                     Util_Function_Csharp.Komaokuri_Gui(restText,
                         shogibanGui3.OwnerConsole.Link_Server.Storage.KifuTree.MoveEx_Current,
-                        shogibanGui3.OwnerConsole.Link_Server.Storage.KifuTree.PositionA,//.CurNode2ok.GetNodeValue()
+                        shogibanGui3.OwnerConsole.Link_Server.Storage.KifuTree.PositionA,
                         shogibanGui3,
                         shogibanGui3.OwnerConsole.Link_Server.Storage.KifuTree,
                         logger);
@@ -576,7 +576,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     // ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
                     // ここで棋譜の変更をします。
                     // ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                    shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.Pv_Append(newNode.Move, logger);
+                    shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.Pv_Append("成る成らない", newNode.Move, logger);
                     shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.MoveEx_OnEditCurrent(newNode, positionA);
 
                     string jsaFugoStr_use;

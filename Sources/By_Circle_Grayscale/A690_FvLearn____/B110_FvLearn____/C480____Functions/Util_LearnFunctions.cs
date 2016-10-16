@@ -217,7 +217,6 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C480____Functions
                 Util_IttemodosuRoutine.UndoMove(
                     out ittemodosuResult,
                     moveB,//この関数が呼び出されたときの指し手☆（＾～＾）
-                    Conv_Move.ToPlayerside(moveB),
                     positionA,
                     "E900",
                     logger

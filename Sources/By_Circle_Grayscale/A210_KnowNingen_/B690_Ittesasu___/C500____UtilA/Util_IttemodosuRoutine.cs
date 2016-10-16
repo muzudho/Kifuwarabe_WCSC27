@@ -39,12 +39,13 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
         public static void UndoMove(
             out IttemodosuResult ittemodosuResult,
             Move moved,
-            Playerside psideA,
             Sky positionA,
             string hint,
             KwLogger logger
             )
         {
+            Playerside psideA = Conv_Move.ToPlayerside(moved);
+
             long exception_area = 1000140;
             try
             {
@@ -207,7 +208,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
             out Finger figMovedKoma,
             Move moved,
             Sky positionA,
-            KwLogger errH
+            KwLogger logger
             )
         {
             //------------------------------------------------------------
@@ -223,7 +224,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
                 positionA,
                 Conv_Move.ToPlayerside(moved),
                 Conv_Move.ToDstMasu(moved),//[巻戻し]のときは、先位置が　駒の居場所。
-                errH
+                logger
                 );
             Debug.Assert(figMovedKoma != Fingers.Error_1, "駒を動かせなかった？ Dst="+ Conv_Masu.ToLog_FromBanjo(Conv_Move.ToDstMasu(moved)));
         }

@@ -22,6 +22,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter;
 
 #if DEBUG
 using Grayscale.A210_KnowNingen_.B250_Log_Kaisetu.C250____Struct;
@@ -201,7 +202,6 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
             string[] searchedPv,
 
             Tree kifu1,// ツリーを伸ばしているぜ☆（＾～＾）
-            Playerside psideA,
             Sky positionA,
 
             bool isHonshogi,
@@ -225,7 +225,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                     Move.Empty,
                     //最悪点からスタートだぜ☆（＾～＾）
                     // プレイヤー1ならmax値、プレイヤー2ならmin値。
-                    Util_Scoreing.GetWorstScore(psideA)
+                    Util_Scoreing.GetWorstScore(kifu1.GetNextPside())
                     );
 
                 int wideCount2 = 0;
@@ -237,7 +237,6 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                 List<Move> movelist = Util_MovePicker.CreateMovelist_BeforeLoop(
                     genjo,
 
-                    psideA,//TODO:
                     kifu1,
                     positionA,
 
@@ -258,7 +257,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                     float score = Tansaku_FukasaYusen_Routine.Do_Leaf(
                         genjo,
 
-                        psideA,
+                        kifu1.GetNextPside(),
                         positionA,
 
                         args,
@@ -269,7 +268,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                         a_bestmoveEx_Children.Move,
                         score,
                         a_bestmoveEx_Children,
-                        psideA
+                        kifu1.GetNextPside()
                         );
                 }
                 else
@@ -282,7 +281,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                         genjo,
 
                         positionA.Temezumi,
-                        psideA,
+                        kifu1.GetNextPside(),
                         positionA,//この局面から合法手を作成☆（＾～＾）
                         a_bestmoveEx_Children.Score,
                         kifu1.MoveEx_Current,// ツリーを伸ばしているぜ☆（＾～＾）
@@ -332,7 +331,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
 #if DEBUG
                     case 20:
                         {
-                            errH.DonimoNaranAkirameta(ex, "棋譜ツリーの読みの後半９０です。");
+                            logger.DonimoNaranAkirameta(ex, "棋譜ツリーの読みの後半９０です。");
                             throw ex;
                         }
 #endif
@@ -473,7 +472,6 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                 List<Move> movelist2 = Util_MovePicker.CreateMovelist_BeforeLoop(
                     genjo,
 
-                    psideA,//TODO:
                     kifu1,
                     positionA,
 
@@ -572,7 +570,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
 
 
                         // 自分を親要素につなげたあとで、子を検索するぜ☆（＾～＾）
-                        kifu1.MoveEx_SetCurrent(TreeImpl.OnDoCurrentMove(iNod_child, kifu1, positionA,logger));
+                        kifu1.MoveEx_SetCurrent(TreeImpl.OnDoCurrentMove("親にドッキング", iNod_child, kifu1, positionA,logger));
 
                         exceptionArea = 44012;
 
@@ -586,7 +584,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                             genjo,
 
                             positionA.Temezumi,
-                            Conv_Move.ToPlayerside(iMov_child_variable),
+                            Conv_Playerside.Reverse( kifu1.GetNextPside()),//× kifu1.GetNextPside(),// Conv_Move.ToPlayerside(iMov_child_variable),
                             positionA,//この局面から合法手を作成☆（＾～＾）
                             result_thisDepth.Score,
                             kifu1.MoveEx_Current,// ツリーを伸ばしているぜ☆（＾～＾）
@@ -605,7 +603,6 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                         Util_IttemodosuRoutine.UndoMove(
                             out ittemodosuResult,
                             iMov_child_variable,//この関数が呼び出されたときの指し手☆（＾～＾）
-                            Conv_Move.ToPlayerside(iMov_child_variable),
                             positionA,
                             "C900",
                             logger
@@ -613,9 +610,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                         positionA = ittemodosuResult.SyuryoSky;
                         //*/
 
-                        kifu1.MoveEx_SetCurrent(
-                            TreeImpl.OnUndoCurrentMove(kifu1, ittemodosuResult.SyuryoSky,logger, "WAAA_Yomu_Loop20000")
-                        );
+                        kifu1.MoveEx_SetCurrent(TreeImpl.OnUndoCurrentMove(kifu1, ittemodosuResult.SyuryoSky,logger, "WAAA_Yomu_Loop20000"));
 
                         exceptionArea = 7000;
 

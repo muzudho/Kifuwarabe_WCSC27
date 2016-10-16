@@ -27,7 +27,7 @@ namespace P930_SampleGame
 
             // 将棋エンジン　きふわらべ
             KifuWarabeImpl kifuWarabe = new KifuWarabeImpl(new EnginesideReceiverImpl());
-            kifuWarabe.OnApplicationBegin();
+            kifuWarabe.OnA1();
 
 
             // 将棋指しオブジェクト
@@ -49,7 +49,6 @@ namespace P930_SampleGame
 
                 earth1,
                 kifu1,// ツリーを伸ばしているぜ☆（＾～＾）
-                kifu1.GetNextPside(),
                 positionA,
 
                 errH);
@@ -62,7 +61,7 @@ namespace P930_SampleGame
             //bool isTimeoutShutdown_temp;
             //kifuWarabe.AtBody(out isTimeoutShutdown_temp, errH);    // 将棋サーバーからのメッセージの受信や、
             // 思考は、ここで行っています。
-            kifuWarabe.OnApplicationEnd();
+            kifuWarabe.OnA3();
         }
     }
 }

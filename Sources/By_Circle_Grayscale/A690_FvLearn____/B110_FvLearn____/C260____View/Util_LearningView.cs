@@ -127,7 +127,7 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C260____View
                     );
                 }
 
-                MoveEx curNodeB;
+                //MoveEx curNodeB;
                 {
                     //----------------------------------------
                     // 一手指したい。
@@ -148,7 +148,7 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C260____View
                         ittesasuResult.SyuryoKyokumenW,
                         logger
                         );
-                    curNodeB = kifu1.MoveEx_Current;
+                    //curNodeB = kifu1.MoveEx_Current;
                     // これで、棋譜ツリーに、構造変更があったはず。
                     //↑↑一手指し
                 }
@@ -249,7 +249,6 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C260____View
                     Util_IttemodosuRoutine.UndoMove(
                         out ittemodosuResult,
                         moveB,
-                        Conv_Move.ToPlayerside(moveB),
                         positionA,
                         "D900",
                         logger

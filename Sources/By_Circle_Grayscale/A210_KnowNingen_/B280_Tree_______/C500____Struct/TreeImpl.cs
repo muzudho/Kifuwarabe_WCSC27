@@ -39,6 +39,7 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct
 
         public void LogPv(string message, KwLogger logger)
         {
+//#if DEBUG
             int index = 0;
             logger.AppendLine("┌──────────┐"+message);
             foreach(Move move in this.m_pv_)
@@ -49,6 +50,7 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct
             logger.AppendLine("└──────────┘");
 
             //this.LogPvList(this, logger);
+//#endif
         }
         /*
         public void LogPvList(Tree kifu1, KwLogger logger)
@@ -83,10 +85,10 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct
             this.m_pv_.Add(Move.Empty);
             this.LogPv("ClearAll後", logger);
         }
-        public void Pv_Append(Move tail,KwLogger logger)
+        public void Pv_Append(string hint, Move tail,KwLogger logger)
         {
             this.m_pv_.Add(tail);
-            this.LogPv("Append後", logger);
+            this.LogPv("Append後 "+hint, logger);
         }
         public Move Pv_GetLatest()
         {
@@ -118,11 +120,11 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct
         }
         private List<Move> m_pv_;
 
-        #endregion
+#endregion
 
 
 
-        #region MoveEx関連
+#region MoveEx関連
 
         /// <summary>
         /// ツリー構造になっている本譜の葉ノード。
@@ -164,13 +166,13 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct
             return this.m_moveEx_;
         }
 
-        #endregion
+#endregion
 
 
-        public static MoveEx OnDoCurrentMove(MoveEx curNode, Tree kifu1, Sky positionA, KwLogger logger)
+        public static MoveEx OnDoCurrentMove(string hint, MoveEx curNode, Tree kifu1, Sky positionA, KwLogger logger)
         {
             kifu1.MoveEx_SetCurrent(curNode);
-            kifu1.Pv_Append(curNode.Move, logger);
+            kifu1.Pv_Append("オンDoCurrentMove "+ hint, curNode.Move, logger);
 
             kifu1.SetPositionA(positionA);
             return kifu1.MoveEx_Current;

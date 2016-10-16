@@ -18,13 +18,13 @@ namespace Grayscale.A210_KnowNingen_.B770_Conv_Sasu__.C500____Converter
         /// </summary>
         /// <param name="komabetuSusumuMasus"></param>
         /// <param name="positionA"></param>
-        /// <param name="errH"></param>
+        /// <param name="logger"></param>
         /// <returns></returns>
         public static List<Move> ToMovelist_NonPromotion(
             Maps_OneAndOne<Finger, SySet<SyElement>> komabetuSusumuMasus,
-            Playerside psideA,
+            Playerside psideCreate,
             Sky positionA,
-            KwLogger errH
+            KwLogger logger
         )
         {
             List<Move> result_movelist = new List<Move>();
@@ -43,7 +43,7 @@ namespace Grayscale.A210_KnowNingen_.B770_Conv_Sasu__.C500____Converter
                         Komasyurui14.H00_Null___,
                         false,//成らない
                         false,//ドロップしない
-                        psideA,
+                        psideCreate,
                         false
                         );
 

@@ -92,7 +92,7 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C250____Learn
         }
         public Move ToCurChildItem()
         {
-            return this.KifuA.MoveEx_Current.Move;//.Child_GetItem(this.KifuA);
+            return this.KifuA.MoveEx_Current.Move;
         }
 
         /// <summary>
@@ -223,7 +223,6 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C250____Learn
                 ref searchedMaxDepth,
                 ref searchedNodes,
                 kifu1,
-                kifu1.GetNextPside(),
                 positionA,
                 searchedPv,
                 args, logger);
@@ -346,7 +345,6 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C250____Learn
             ref int searchedMaxDepth,
             ref ulong searchedNodes,
             Tree kifu1,
-            Playerside psideA,
             Sky positionA,
             string[] searchedPv,
             EvaluationArgs args,
@@ -364,7 +362,6 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C250____Learn
                     searchedPv,
 
                     kifu1,
-                    psideA,
                     positionA,
 
 

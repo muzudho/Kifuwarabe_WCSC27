@@ -68,7 +68,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                     Util_Function_Csharp.Komaokuri_Gui(
                         restText,
                         this.m_shogibanGui_.OwnerConsole.Link_Server.Storage.KifuTree.MoveEx_Current,
-                        this.m_shogibanGui_.OwnerConsole.Link_Server.Storage.KifuTree.PositionA,//.CurNode2ok.GetNodeValue()
+                        this.m_shogibanGui_.OwnerConsole.Link_Server.Storage.KifuTree.PositionA,
                         this.m_shogibanGui_,
                         this.m_shogibanGui_.OwnerConsole.Link_Server.Storage.KifuTree,
                         logger);//追加
