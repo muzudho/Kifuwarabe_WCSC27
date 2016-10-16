@@ -284,7 +284,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                         kifu1.GetNextPside(),
                         positionA,//この局面から合法手を作成☆（＾～＾）
                         a_bestmoveEx_Children.Score,
-                        kifu1.MoveEx_Current,// ツリーを伸ばしているぜ☆（＾～＾）
+                        kifu1.Pv_GetLatest(),// ツリーを伸ばしているぜ☆（＾～＾）
                         kifu1,
 
                         movelist.Count,
@@ -570,7 +570,9 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
 
 
                         // 自分を親要素につなげたあとで、子を検索するぜ☆（＾～＾）
-                        kifu1.MoveEx_SetCurrent(TreeImpl.OnDoCurrentMove("親にドッキング", iNod_child, kifu1, positionA,logger));
+                        //kifu1.MoveEx_SetCurrent(
+                        TreeImpl.OnDoCurrentMove("親にドッキング", iNod_child, kifu1, positionA, logger);
+                            //);
 
                         exceptionArea = 44012;
 
@@ -587,7 +589,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                             Conv_Playerside.Reverse( kifu1.GetNextPside()),//× kifu1.GetNextPside(),// Conv_Move.ToPlayerside(iMov_child_variable),
                             positionA,//この局面から合法手を作成☆（＾～＾）
                             result_thisDepth.Score,
-                            kifu1.MoveEx_Current,// ツリーを伸ばしているぜ☆（＾～＾）
+                            kifu1.Pv_GetLatest(),// ツリーを伸ばしているぜ☆（＾～＾）
                             kifu1,
 
                             movelist2.Count,
@@ -610,7 +612,9 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                         positionA = ittemodosuResult.SyuryoSky;
                         //*/
 
-                        kifu1.MoveEx_SetCurrent(TreeImpl.OnUndoCurrentMove(kifu1, ittemodosuResult.SyuryoSky,logger, "WAAA_Yomu_Loop20000"));
+                        //kifu1.MoveEx_SetCurrent(
+                        TreeImpl.OnUndoCurrentMove(kifu1, ittemodosuResult.SyuryoSky, logger, "WAAA_Yomu_Loop20000");
+                            //);
 
                         exceptionArea = 7000;
 

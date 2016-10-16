@@ -69,7 +69,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C250____OperationA
                     Word_KifuTree.PropName_Startpos, "startpos");//平手の初期局面 // FIXME:平手とは限らないのでは？
             }
 
-            MoveEx curNode = saifuKifu2.MoveEx_Current;
+            MoveEx curNode = saifuKifu2.Pv_GetLatest();
             Util_Tree.ForeachHonpu2(
                 kifu1,//curNode_base,
                 (int temezumi, Move move, ref bool toBreak) =>
@@ -101,7 +101,9 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C250____OperationA
                     Conv_Sky.ToKyokumenHash(saifu_PositionA),
                     hint + "/AppendChild_And_ChangeCurrentToChild");
 
-                saifuKifu2.MoveEx_SetCurrent(TreeImpl.OnDoCurrentMove("記録係",saifu_newChild, saifuKifu2, saifu_PositionA,logger));
+                //saifuKifu2.MoveEx_SetCurrent(
+                TreeImpl.OnDoCurrentMove("記録係", saifu_newChild, saifuKifu2, saifu_PositionA, logger);
+                    //);
 
                 // 後手の符号がまだ含まれていない。
                 string jsaFugoStr = Conv_SasiteStr_Jsa.ToSasiteStr_Jsa(

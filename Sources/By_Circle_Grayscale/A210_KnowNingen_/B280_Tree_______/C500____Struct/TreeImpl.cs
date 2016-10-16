@@ -22,17 +22,15 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct
     {
         public TreeImpl(Sky positionA)
         {
-            //this.m_moveEx_ = new MoveExImpl();
             this.m_positionA_ = positionA;
             this.m_pv_ = new List<MoveEx>();
-            this.m_pv_.Add(new MoveExImpl());//this.m_moveEx_
+            this.m_pv_.Add(new MoveExImpl());
         }
         public TreeImpl(MoveEx root, Sky sky)
         {
-            //this.m_moveEx_ = root;
             this.m_positionA_ = sky;
             this.m_pv_ = new List<MoveEx>();
-            this.m_pv_.Add(root);//this.m_moveEx_
+            this.m_pv_.Add(root);
         }
 
         #region PV関連
@@ -125,24 +123,8 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct
 
 
 #region MoveEx関連
-
-        /// <summary>
-        /// ツリー構造になっている本譜の葉ノード。
-        /// 根を「startpos」等の初期局面コマンドとし、次の節からは棋譜の符号「2g2f」等が連なっている。
-        /// </summary>
-        public MoveEx MoveEx_Current { get {
-                return this.Pv_GetLatest();
-            } }
-        public void MoveEx_SetCurrent(MoveEx curNode)
-        {
-        }
-        //private MoveEx m_moveEx_;
-
-
         public static Playerside MoveEx_ClearAllCurrent(Tree tree, Sky positionA, KwLogger logger)
         {
-            tree.MoveEx_SetCurrent(new MoveExImpl());
-
             Playerside rootPside = Playerside.P2;
             if (1<((TreeImpl)tree).m_pv_.Count)
             {
@@ -160,23 +142,20 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct
         /// <param name="node"></param>
         /// <param name="sky"></param>
         /// <returns></returns>
-        public void MoveEx_OnEditCurrent(MoveEx node, Sky sky)
+        public void MoveEx_OnEditCurrent( Sky sky)
         {
             this.m_positionA_ = sky;
         }
-
 #endregion
 
 
-        public static MoveEx OnDoCurrentMove(string hint, MoveEx moveEx, Tree kifu1, Sky positionA, KwLogger logger)
+        public static void OnDoCurrentMove(string hint, MoveEx moveEx, Tree kifu1, Sky positionA, KwLogger logger)
         {
-            kifu1.MoveEx_SetCurrent(moveEx);
             kifu1.Pv_Append("オンDoCurrentMove "+ hint, moveEx, logger);
 
             kifu1.SetPositionA(positionA);
-            return kifu1.MoveEx_Current;
         }
-        public static MoveEx OnUndoCurrentMove(Tree kifu1, Sky positionA, KwLogger logger, string hint)
+        public static void OnUndoCurrentMove(Tree kifu1, Sky positionA, KwLogger logger, string hint)
         {
             if (kifu1.Pv_IsRoot())
             {
@@ -187,7 +166,6 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct
 
             kifu1.Pv_RemoveLast(logger);
             kifu1.SetPositionA(positionA);
-            return kifu1.MoveEx_Current;
         }
 
 

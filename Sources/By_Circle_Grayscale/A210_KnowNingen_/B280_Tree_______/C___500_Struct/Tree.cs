@@ -30,17 +30,11 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct
         bool Pv_IsRoot();
 
         /// <summary>
-        /// ツリー構造になっている本譜の葉ノード。
-        /// 根を「startpos」等の初期局面コマンドとし、次の節からは棋譜の符号「2g2f」等が連なっている。
-        /// </summary>
-        MoveEx MoveEx_Current { get; }
-        void MoveEx_SetCurrent(MoveEx curNode);
-        /// <summary>
         /// 局面編集中
         /// </summary>
         /// <param name="sky"></param>
         /// <returns></returns>
-        void MoveEx_OnEditCurrent(MoveEx node, Sky sky);
+        void MoveEx_OnEditCurrent( Sky sky);
         Sky PositionA { get; }
         void SetPositionA(Sky positionA);
 

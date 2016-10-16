@@ -227,7 +227,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
                     MoveEx curNode1 = new MoveExImpl(parsedKyokumen.NewMove);
 
                     Playerside rootPside = TreeImpl.MoveEx_ClearAllCurrent(serversideStorage.KifuTree, parsedKyokumen.NewSky,logger);
-                    curNode1 = serversideStorage.KifuTree.MoveEx_Current;
+                    curNode1 = serversideStorage.KifuTree.Pv_GetLatest();
 
                     string jsaFugoStr_notUse;
                     serversideStorage.AfterSetCurNode_Srv(
@@ -314,7 +314,9 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
                 logger
                 );
 
-            kifu1_mutable.MoveEx_SetCurrent(TreeImpl.OnUndoCurrentMove(kifu1_mutable, ittemodosuResult.SyuryoSky, logger, "Makimodosi_Srv30000"));
+            //kifu1_mutable.MoveEx_SetCurrent(
+                TreeImpl.OnUndoCurrentMove(kifu1_mutable, ittemodosuResult.SyuryoSky, logger, "Makimodosi_Srv30000");
+                //);
 
             movedKoma = ittemodosuResult.FigMovedKoma;
             foodKoma = ittemodosuResult.FigFoodKoma;

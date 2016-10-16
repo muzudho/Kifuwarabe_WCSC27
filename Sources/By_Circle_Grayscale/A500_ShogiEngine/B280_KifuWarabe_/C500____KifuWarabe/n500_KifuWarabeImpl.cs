@@ -909,7 +909,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
 
                 // ┏━━━━プログラム━━━━┓
 
-                MoveEx curNode1 = this.Kifu_AtLoop2.MoveEx_Current;
+                MoveEx curNode1 = this.Kifu_AtLoop2.Pv_GetLatest();
                 Sky positionA = this.Kifu_AtLoop2.PositionA;
                 int latestTemezumi = positionA.Temezumi;//現・手目済
 
@@ -1038,7 +1038,9 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
                                         this.Logger);
                                     multiPvNodeExList.Add(bestmove2);
 
-                                    this.Kifu_AtLoop2.MoveEx_SetCurrent(TreeImpl.OnDoCurrentMove("マルチPV",this.Kifu_AtLoop2.MoveEx_Current, this.Kifu_AtLoop2, this.Kifu_AtLoop2.PositionA,this.Logger));
+                                    //this.Kifu_AtLoop2.MoveEx_SetCurrent(
+                                    TreeImpl.OnDoCurrentMove("マルチPV", this.Kifu_AtLoop2.Pv_GetLatest(), this.Kifu_AtLoop2, this.Kifu_AtLoop2.PositionA, this.Logger);
+                                        //);
                                 }
 
 

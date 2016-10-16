@@ -88,11 +88,11 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C250____Learn
         public Sky PositionA { get; set; }// FIXME: できればカレントノードの局面。
         public Move GetMove()
         {
-            return this.KifuA.MoveEx_Current.Move;
+            return this.KifuA.Pv_GetLatest().Move;
         }
         public MoveEx ToCurChildItem()
         {
-            return this.KifuA.MoveEx_Current;
+            return this.KifuA.Pv_GetLatest();
         }
 
         /// <summary>

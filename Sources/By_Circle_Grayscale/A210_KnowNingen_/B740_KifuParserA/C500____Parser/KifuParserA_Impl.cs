@@ -66,7 +66,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
                     out moveNodeType,
                     ref result,
                     earth1,
-                    kifu1_mutable.MoveEx_Current.Move,
+                    kifu1_mutable.Pv_GetLatest().Move,
                     kifu1_mutable.PositionA,
                     kifu1_mutable,
                     out nextState,
@@ -92,7 +92,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
                         logger
                         );
                     // ■■■■■■■■■■カレント・チェンジ■■■■■■■■■■
-                    result.SetNode(kifu1_mutable.MoveEx_Current, result.NewSky);
+                    result.SetNode(kifu1_mutable.Pv_GetLatest(), result.NewSky);
                 }
                 this.State = nextState;
             }
@@ -149,7 +149,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
                         out moveNodeType,
                         ref result,
                         earth1,
-                        kifu1_mutable.MoveEx_Current.Move,
+                        kifu1_mutable.Pv_GetLatest().Move,
                         kifu1_mutable.PositionA,
                         kifu1_mutable,
                         out nextState,
@@ -177,7 +177,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
                             logger
                             );
                         // ■■■■■■■■■■カレント・チェンジ■■■■■■■■■■
-                        result.SetNode(kifu1_mutable.MoveEx_Current, result.NewSky);
+                        result.SetNode(kifu1_mutable.Pv_GetLatest(), result.NewSky);
                     }
 
                     this.State = nextState;
