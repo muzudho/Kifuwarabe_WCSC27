@@ -9,13 +9,13 @@ using Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
-namespace Grayscale.P699_Form_______
+namespace Grayscale.A630_GuiCsharp__
 {
-    public partial class Uc_Form2Main : UserControl
+    public partial class A630Uc_ConsoleImpl : UserControl
     {
 
 
-        public Uc_Form2Main()
+        public A630Uc_ConsoleImpl()
         {
             InitializeComponent();
         }
@@ -79,7 +79,7 @@ namespace Grayscale.P699_Form_______
 
         private void Uc_Form2Main_Paint(object sender, PaintEventArgs e)
         {
-            ServersideShogibanGui_Csharp shogibanGui = ((Form2_Console)this.ParentForm).Form1_Shogi.Uc_Form1Main.ShogibanGui;
+            ServersideShogibanGui_Csharp shogibanGui = ((A630Form_ConsoleImpl)this.ParentForm).Form1_Shogi.Uc_Form_Shogiban.ShogibanGui;
 
             if (null == shogibanGui.OwnerConsole.Shape_Canvas)
             {
@@ -103,7 +103,7 @@ namespace Grayscale.P699_Form_______
         private void Uc_Form2Main_MouseDown(object sender, MouseEventArgs e)
         {
             KwLogger errH = Util_Loggers.ProcessGui_DEFAULT;
-            ServersideShogibanGui_Csharp shogibanGui = ((Form2_Console)this.ParentForm).Form1_Shogi.Uc_Form1Main.ShogibanGui;
+            ServersideShogibanGui_Csharp shogibanGui = ((A630Form_ConsoleImpl)this.ParentForm).Form1_Shogi.Uc_Form_Shogiban.ShogibanGui;
 
             if (null == shogibanGui.Shape_PnlTaikyoku)
             {
@@ -155,7 +155,7 @@ namespace Grayscale.P699_Form_______
         private void Uc_Form2Main_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             KwLogger errH = Util_Loggers.ProcessGui_DEFAULT;
-            ServersideShogibanGui_Csharp mainGui = ((Form2_Console)this.ParentForm).Form1_Shogi.Uc_Form1Main.ShogibanGui;
+            ServersideShogibanGui_Csharp mainGui = ((A630Form_ConsoleImpl)this.ParentForm).Form1_Shogi.Uc_Form_Shogiban.ShogibanGui;
 
             // このメインパネルに、何かして欲しいという要求は、ここに入れられます。
             mainGui.RepaintRequest = new RepaintRequestImpl();

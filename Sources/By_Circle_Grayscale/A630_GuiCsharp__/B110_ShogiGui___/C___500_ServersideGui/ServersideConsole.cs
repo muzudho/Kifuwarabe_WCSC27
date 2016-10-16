@@ -13,7 +13,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C___500_Gui
         /// </summary>
         Server Link_Server { get; }
 
-
+        void SetGuiWindow(ServersideShogibanGui_Csharp guiWindow);
 
 
         /// <summary>

@@ -35,7 +35,7 @@ using Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct;
 using Grayscale.A060_Application.B110_Log________.C___500_Struct;
 #endif
 
-namespace Grayscale.P699_Form_______
+namespace Grayscale.A630_GuiCsharp__
 {
 
     /// <summary>
@@ -44,17 +44,17 @@ namespace Grayscale.P699_Form_______
     /// ************************************************************************************************************************
     /// </summary>
     [Serializable]
-    public partial class Uc_Form1Main : UserControl, Uc_Form1Mainable
+    public partial class A630Uc_ShogibanImpl : UserControl, Uc_Form_Shogiban
     {
 
         #region プロパティー類
 
-        public ServersideShogibanGui_Csharp ShogibanGui { get { return this.mainGui; } }
-        public void SetMainGui(ServersideShogibanGui_Csharp mainGui)
+        public ServersideShogibanGui_Csharp ShogibanGui { get { return this.m_shogibanGui_; } }
+        public void SetMainGui(ServersideShogibanGui_Csharp shogibanGui)
         {
-            this.mainGui = mainGui;
+            this.m_shogibanGui_ = shogibanGui;
         }
-        private ServersideShogibanGui_Csharp mainGui;
+        private ServersideShogibanGui_Csharp m_shogibanGui_;
 
         /// <summary>
         /// 設定XMLファイル
@@ -79,7 +79,7 @@ namespace Grayscale.P699_Form_______
         /// コンストラクターです。
         /// ************************************************************************************************************************
         /// </summary>
-        public Uc_Form1Main()
+        public A630Uc_ShogibanImpl()
         {
             InitializeComponent();
         }
@@ -87,9 +87,9 @@ namespace Grayscale.P699_Form_______
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            KwLogger errH = Util_Loggers.ProcessGui_DEFAULT;
+            KwLogger logger = Util_Loggers.ProcessGui_DEFAULT;
 
-            this.ShogibanGui.Timer_Tick(errH);
+            this.ShogibanGui.Timer_Tick(logger);
         }
 
 
@@ -105,7 +105,7 @@ namespace Grayscale.P699_Form_______
         {
             KwLogger logger = Util_Loggers.ProcessGui_DEFAULT;
 
-            Uc_Form2Main uc_Form2Main = ((Form1_Shogi)this.ParentForm).Form2_Console.Uc_Form2Main;
+            A630Uc_ConsoleImpl uc_Form2Main = ((A630Form_ShogibanImpl)this.ParentForm).A630Form_Console.Uc_Form2Main;
 
             //
             // 設定XMLファイル
@@ -358,7 +358,7 @@ namespace Grayscale.P699_Form_______
         }
 
 
-        public Form1_Mutex MutexOwner { get; set; }
+        public A630Form_Shogiban_Mutex MutexOwner { get; set; }
 
         /// <summary>
         /// ************************************************************************************************************************
@@ -372,9 +372,9 @@ namespace Grayscale.P699_Form_______
         /// </summary>
         /// <param name="response"></param>
         public void Solute_RepaintRequest(
-            Form1_Mutex mutex, ServersideShogibanGui_Csharp mainGui, KwLogger errH)
+            A630Form_Shogiban_Mutex mutex, ServersideShogibanGui_Csharp mainGui, KwLogger errH)
         {
-            Uc_Form2Main form2 = ((Form1_Shogi)this.ParentForm).Form2_Console.Uc_Form2Main;
+            A630Uc_ConsoleImpl form2 = ((A630Form_ShogibanImpl)this.ParentForm).A630Form_Console.Uc_Form2Main;
 
             //------------------------------------------------------------
             // 駒の座標再計算
@@ -439,7 +439,7 @@ namespace Grayscale.P699_Form_______
                                         ));
                                 break;
                             case SyuturyokuKirikae.Html:
-                                form2.WriteLine_Syuturyoku(Uc_Form1Main.CreateHtml(this.ShogibanGui));
+                                form2.WriteLine_Syuturyoku(A630Uc_ShogibanImpl.CreateHtml(this.ShogibanGui));
                                 break;
                         }
 

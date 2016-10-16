@@ -3,7 +3,7 @@ using Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C___080_Shape;
 using Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C___491_Event;
 using Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C___500_Gui;
 using Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C___510_Form;
-using Grayscale.P699_Form_______;
+using Grayscale.A630_GuiCsharp__;
 
 namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C491____Event
 {
@@ -34,7 +34,7 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C491____Event
                 {
                     Shape_BtnKoma btnKoma_Selected = (Shape_BtnKoma)btnKoma_Selected2;
                     ServersideShogibanGui_Csharp shogiGui = (ServersideShogibanGui_Csharp)obj_shogiGui2;
-                    Uc_Form1Mainable ui_PnlMain = ((Form1_Shogi)shogiGui.OwnerForm).Uc_Form1Main;
+                    Uc_Form_Shogiban ui_PnlMain = ((A630Form_ShogibanImpl)shogiGui.OwnerForm).Uc_Form_Shogiban;
 
                     int clientIndex = 1;
                     ui_PnlMain.ShogibanGui.Do_BootComputer_Button1(clientIndex, ui_PnlMain.SetteiXmlFile.Player1.Filepath, logger2);
@@ -51,7 +51,7 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C491____Event
                 {
                     Shape_BtnKoma btnKoma_Selected = (Shape_BtnKoma)btnKoma_Selected2;
                     ServersideShogibanGui_Csharp shogiGui = (ServersideShogibanGui_Csharp)obj_shogiGui2;
-                    Uc_Form1Mainable ui_PnlMain = ((Form1_Shogi)shogiGui.OwnerForm).Uc_Form1Main;
+                    Uc_Form_Shogiban ui_PnlMain = ((A630Form_ShogibanImpl)shogiGui.OwnerForm).Uc_Form_Shogiban;
 
                     int clientIndex = 2;
                     ui_PnlMain.ShogibanGui.Do_BootComputer_Button1(clientIndex, ui_PnlMain.SetteiXmlFile.Player2.Filepath, logger2);
@@ -68,7 +68,7 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C491____Event
                 {
                     Shape_BtnKoma btnKoma_Selected = (Shape_BtnKoma)btnKoma_Selected2;
                     ServersideShogibanGui_Csharp shogiGui = (ServersideShogibanGui_Csharp)obj_shogiGui2;
-                    Uc_Form1Mainable ui_PnlMain = ((Form1_Shogi)shogiGui.OwnerForm).Uc_Form1Main;
+                    Uc_Form_Shogiban ui_PnlMain = ((A630Form_ShogibanImpl)shogiGui.OwnerForm).Uc_Form_Shogiban;
 
                     int clientIndex = 2;
                     ui_PnlMain.ShogibanGui.Do_SenteComputer_Button2(clientIndex, logger);

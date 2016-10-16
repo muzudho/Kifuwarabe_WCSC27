@@ -1,6 +1,6 @@
-﻿namespace Grayscale.P699_Form_______
+﻿namespace Grayscale.A630_GuiCsharp__
 {
-    partial class Form2_Console
+    partial class A630Form_ConsoleImpl
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.uc_Form2Main = new Grayscale.P699_Form_______.Uc_Form2Main();
+            this.uc_Form2Main = new Grayscale.A630_GuiCsharp__.A630Uc_ConsoleImpl();
             this.SuspendLayout();
             // 
             // uc_Form2Main
@@ -53,7 +53,7 @@
 
         #endregion
 
-        private Uc_Form2Main uc_Form2Main;
+        private A630Uc_ConsoleImpl uc_Form2Main;
 
     }
 }

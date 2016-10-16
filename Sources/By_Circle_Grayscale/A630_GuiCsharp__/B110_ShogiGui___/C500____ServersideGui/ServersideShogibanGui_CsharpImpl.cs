@@ -33,6 +33,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using Finger = ProjectDark.NamedInt.StrictNamedInt0; //スプライト番号
+using Grayscale.A450_Server_____.B110_Server_____.C___497_EngineClient;
 
 #if DEBUG
 using Grayscale.A000_Platform___.B021_Random_____.C500____Struct;
@@ -58,7 +59,8 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
         {
             this.Widgets = new Dictionary<string, UserWidget>();
 
-            this.m_ownerConsole_ = new ServersideConsoleImpl(this);
+            this.m_ownerConsole_ = new ServersideConsoleImpl();
+            this.m_ownerConsole_.SetGuiWindow(this);
 
             this.TimedA = new TimedA_EngineCapture(this);
             this.TimedB_MouseCapture = new TimedB_MouseCapture(this);
@@ -258,23 +260,28 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
 
 
 
-        private int noopSend_counter;
         public void Timer_Tick( KwLogger logger)
         {
-            if (this.OwnerConsole.Link_Server.IsLive_Client(2))
+            // クライアントにnoopを送る仕組み
+            for (int clientIndex = 1; clientIndex < 3; clientIndex++)
             {
-                // だいたい 1tick 50ms と考えて、20倍で 1秒。
-                if ( 20 * 3 < this.noopSend_counter) // 3秒に 1 回ぐらい ok を送れば？
+                if (this.OwnerConsole.Link_Server.IsLive_Client(clientIndex))
                 {
-                    // noop
-                    // 将棋エンジンの標準入力へ、メッセージを送ります。
-                    this.OwnerConsole.Link_Server.Clients[2].Download(EngineClient_Impl.COMMAND_NOOP_FROM_SERVER, logger);
+                    EngineClient client = this.OwnerConsole.Link_Server.Clients[clientIndex];
 
-                    this.noopSend_counter = 0;
-                }
-                else
-                {
-                    this.noopSend_counter++;
+                    // だいたい 1tick 50ms と考えて、20倍で 1秒。
+                    if (20 * 3 < client.NoopElapse) // 3秒に 1 回ぐらい ok を送れば？
+                    {
+                        // noop
+                        // 将棋エンジンの標準入力へ、メッセージを送ります。
+                        client.Download(EngineClient_Impl.COMMAND_NOOP_FROM_SERVER, logger);
+
+                        client.NoopElapse = 0;
+                    }
+                    else
+                    {
+                        client.NoopElapse++;
+                    }
                 }
             }
 
@@ -289,7 +296,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
         /// <summary>
         /// 見た目の設定を読み込みます。
         /// </summary>
-        public void ReadStyle_ToForm(Form1_Shogiable ui_Form1)
+        public void ReadStyle_ToForm(A630Form_Shogiban ui_Form1)
         {
             try
             {
@@ -324,11 +331,11 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
 
                                 if (null != var_alpha)
                                 {
-                                    ui_Form1.Uc_Form1Main.BackColor = Color.FromArgb((int)var_alpha, red, green, blue);
+                                    ui_Form1.Uc_Form_Shogiban.BackColor = Color.FromArgb((int)var_alpha, red, green, blue);
                                 }
                                 else
                                 {
-                                    ui_Form1.Uc_Form1Main.BackColor = Color.FromArgb(red, green, blue);
+                                    ui_Form1.Uc_Form_Shogiban.BackColor = Color.FromArgb(red, green, blue);
                                 }
                             }
                         }
@@ -406,7 +413,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
 
         public void LaunchForm_AsBody(KwLogger errH)
         {
-            ((Form1_Shogiable)this.OwnerForm).Delegate_Form1_Load = (ServersideShogibanGui_Csharp shogiGui, object sender, EventArgs e) =>
+            ((A630Form_Shogiban)this.OwnerForm).Delegate_Form1_Load = (ServersideShogibanGui_Csharp shogiGui, object sender, EventArgs e) =>
             {
 
                 //
@@ -429,12 +436,12 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
 
             };
 
-            this.ReadStyle_ToForm((Form1_Shogiable)this.OwnerForm);
+            this.ReadStyle_ToForm((A630Form_Shogiban)this.OwnerForm);
 
             // FIXME: [初期配置]を１回やっておかないと、[コマ送り]ボタン等で不具合が出てしまう。
             {
                 Util_Function_Csharp.Perform_SyokiHaichi_CurrentMutable(
-                    ((Form1_Shogiable)this.OwnerForm).Uc_Form1Main.ShogibanGui,
+                    ((A630Form_Shogiban)this.OwnerForm).Uc_Form_Shogiban.ShogibanGui,
                     errH
                 );
             }
@@ -445,37 +452,37 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
 
         public void Response( string mutexString, KwLogger errH)
         {
-            Uc_Form1Mainable uc_Form1Main = ((Form1_Shogiable)this.OwnerForm).Uc_Form1Main;
+            Uc_Form_Shogiban uc_Form1Main = ((A630Form_Shogiban)this.OwnerForm).Uc_Form_Shogiban;
 
             // enum型
-            Form1_Mutex mutex2;
+            A630Form_Shogiban_Mutex mutex2;
             switch (mutexString)
             {
-                case "Timer": mutex2 = Form1_Mutex.Timer; break;
-                case "MouseOperation": mutex2 = Form1_Mutex.MouseOperation; break;
-                case "Saisei": mutex2 = Form1_Mutex.Saisei; break;
-                case "Launch": mutex2 = Form1_Mutex.Launch; break;
-                default: mutex2 = Form1_Mutex.Empty; break;
+                case "Timer": mutex2 = A630Form_Shogiban_Mutex.Timer; break;
+                case "MouseOperation": mutex2 = A630Form_Shogiban_Mutex.MouseOperation; break;
+                case "Saisei": mutex2 = A630Form_Shogiban_Mutex.Saisei; break;
+                case "Launch": mutex2 = A630Form_Shogiban_Mutex.Launch; break;
+                default: mutex2 = A630Form_Shogiban_Mutex.Empty; break;
             }
 
 
             switch (uc_Form1Main.MutexOwner)
             {
-                case Form1_Mutex.Launch:   // 他全部無視
+                case A630Form_Shogiban_Mutex.Launch:   // 他全部無視
                     goto gt_EndMethod;
-                case Form1_Mutex.Saisei:   // マウスとタイマーは無視
+                case A630Form_Shogiban_Mutex.Saisei:   // マウスとタイマーは無視
                     switch (mutex2)
                     {
-                        case Form1_Mutex.MouseOperation:
-                        case Form1_Mutex.Timer:
+                        case A630Form_Shogiban_Mutex.MouseOperation:
+                        case A630Form_Shogiban_Mutex.Timer:
                             goto gt_EndMethod;
                     }
                     break;
-                case Form1_Mutex.MouseOperation:
-                case Form1_Mutex.Timer:   // タイマーは無視
+                case A630Form_Shogiban_Mutex.MouseOperation:
+                case A630Form_Shogiban_Mutex.Timer:   // タイマーは無視
                     switch (mutex2)
                     {
-                        case Form1_Mutex.Timer:
+                        case A630Form_Shogiban_Mutex.Timer:
                             goto gt_EndMethod;
                     }
                     break;

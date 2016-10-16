@@ -73,11 +73,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="B110_ShogiGui___\C___100_Widgets\AspectOriented_TextBox.cs" />
-    <Compile Include="Form2_Console.cs">
+    <Compile Include="A630Form_ConsoleImpl.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form2_Console.Designer.cs">
-      <DependentUpon>Form2_Console.cs</DependentUpon>
+    <Compile Include="A630Form_ConsoleImpl.Designer.cs">
+      <DependentUpon>A630Form_ConsoleImpl.cs</DependentUpon>
     </Compile>
     <Compile Include="B110_ShogiGui___\C081____Canvas\Shape_CanvasImpl.cs" />
     <Compile Include="B110_ShogiGui___\C101____Conv\Conv_Koma_InGui.cs" />
@@ -125,37 +125,37 @@
     <Compile Include="B110_ShogiGui___\C___492_Widgets\UserWidget.cs" />
     <Compile Include="B110_ShogiGui___\C___500_ServersideGui\ServersideShogibanGui_Csharp.cs" />
     <Compile Include="B110_ShogiGui___\C___492_Widgets\WidgetsLoader.cs" />
-    <Compile Include="B110_ShogiGui___\C___510_Form\Form1_Mutex.cs" />
-    <Compile Include="B110_ShogiGui___\C___510_Form\Form1_Shogiable.cs" />
-    <Compile Include="B110_ShogiGui___\C___510_Form\Uc_Form1Mainable.cs" />
+    <Compile Include="B110_ShogiGui___\C___510_Form\A630Form_Shogiban_Mutex.cs" />
+    <Compile Include="B110_ShogiGui___\C___510_Form\A630Form_Shogiban.cs" />
+    <Compile Include="B110_ShogiGui___\C___510_Form\A630Uc_Shogiban.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Uc_Form2Main.cs">
+    <Compile Include="A630Uc_ConsoleImpl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Uc_Form2Main.Designer.cs">
-      <DependentUpon>Uc_Form2Main.cs</DependentUpon>
+    <Compile Include="A630Uc_ConsoleImpl.Designer.cs">
+      <DependentUpon>A630Uc_ConsoleImpl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form1_Shogi.cs">
+    <Compile Include="A630Form_ShogibanImpl.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1_Shogi.Designer.cs">
-      <DependentUpon>Form1_Shogi.cs</DependentUpon>
+    <Compile Include="A630Form_ShogibanImpl.Designer.cs">
+      <DependentUpon>A630Form_ShogibanImpl.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Uc_Form1Main.cs">
+    <Compile Include="A630Uc_ShogibanImpl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Uc_Form1Main.Designer.cs">
-      <DependentUpon>Uc_Form1Main.cs</DependentUpon>
+    <Compile Include="A630Uc_ShogibanImpl.Designer.cs">
+      <DependentUpon>A630Uc_ShogibanImpl.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Form2_Console.resx">
-      <DependentUpon>Form2_Console.cs</DependentUpon>
+    <EmbeddedResource Include="A630Form_ConsoleImpl.resx">
+      <DependentUpon>A630Form_ConsoleImpl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Uc_Form2Main.resx">
-      <DependentUpon>Uc_Form2Main.cs</DependentUpon>
+    <EmbeddedResource Include="A630Uc_ConsoleImpl.resx">
+      <DependentUpon>A630Uc_ConsoleImpl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1_Shogi.resx">
-      <DependentUpon>Form1_Shogi.cs</DependentUpon>
+    <EmbeddedResource Include="A630Form_ShogibanImpl.resx">
+      <DependentUpon>A630Form_ShogibanImpl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -168,8 +168,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Uc_Form1Main.resx">
-      <DependentUpon>Uc_Form1Main.cs</DependentUpon>
+    <EmbeddedResource Include="A630Uc_ShogibanImpl.resx">
+      <DependentUpon>A630Uc_ShogibanImpl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">

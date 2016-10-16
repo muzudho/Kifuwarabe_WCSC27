@@ -5,14 +5,14 @@ using System.Drawing;
 
 namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C___510_Form
 {
-    public interface Uc_Form1Mainable
+    public interface Uc_Form_Shogiban
     {
         Color BackColor { get; set; }
 
-        Form1_Mutex MutexOwner { get; set; }
+        A630Form_Shogiban_Mutex MutexOwner { get; set; }
 
         void Solute_RepaintRequest(
-            Form1_Mutex mutex, ServersideShogibanGui_Csharp mainGui, KwLogger errH);
+            A630Form_Shogiban_Mutex mutex, ServersideShogibanGui_Csharp shogibanGui, KwLogger logger);
 
         ServersideShogibanGui_Csharp ShogibanGui { get; }
 

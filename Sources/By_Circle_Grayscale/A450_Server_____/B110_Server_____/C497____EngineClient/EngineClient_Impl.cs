@@ -49,6 +49,11 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
         }
 
 
+        /// <summary>
+        /// "noop" を送ってからの経過。
+        /// </summary>
+        public int NoopElapse { get; set; }
+
 
         /// <summary>
         /// ************************************************************************************************************************

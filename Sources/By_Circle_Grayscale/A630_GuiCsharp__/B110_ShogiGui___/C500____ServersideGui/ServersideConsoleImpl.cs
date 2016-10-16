@@ -15,9 +15,9 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
         /// <summary>
         /// コンストラクター。
         /// </summary>
-        public ServersideConsoleImpl(ServersideShogibanGui_CsharpImpl guiWindow)
+        public ServersideConsoleImpl()
         {
-            this.m_guiWindow_ = guiWindow;
+            //this.m_guiWindow_ = guiWindow;
 
             //
             // 駒なし
@@ -42,7 +42,10 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
 
 
 
-
+        public void SetGuiWindow(ServersideShogibanGui_Csharp guiWindow)
+        {
+            this.m_guiWindow_ = guiWindow;
+        }
         private ServersideShogibanGui_Csharp GuiWindow { get { return this.m_guiWindow_; } }
         private ServersideShogibanGui_Csharp m_guiWindow_;
 

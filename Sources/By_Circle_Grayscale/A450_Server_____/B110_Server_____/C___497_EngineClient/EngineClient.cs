@@ -14,6 +14,12 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C___497_EngineClient
     /// </summary>
     public interface EngineClient
     {
+        /// <summary>
+        /// "noop" を送ってからの経過。
+        /// </summary>
+        int NoopElapse { get; set; }
+
+
         void OnListenUpload_Async(object sender, DataReceivedEventArgs e);
 
 

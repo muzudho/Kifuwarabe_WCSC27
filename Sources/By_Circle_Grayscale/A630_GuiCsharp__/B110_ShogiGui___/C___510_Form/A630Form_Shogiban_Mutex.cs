@@ -1,6 +1,6 @@
 ﻿namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C___510_Form
 {
-    public enum Form1_Mutex
+    public enum A630Form_Shogiban_Mutex
     {
         /// <summary>
         /// ロックがかかっていない

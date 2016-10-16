@@ -1,7 +1,6 @@
 ﻿using Grayscale.A060_Application.B110_Log________.C___500_Struct;
 using Grayscale.A060_Application.B110_Log________.C500____Struct;
-using Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI;
-using Grayscale.P699_Form_______;
+using Grayscale.A630_GuiCsharp__;
 using System;
 using System.Windows.Forms;
 
@@ -15,17 +14,25 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C500____Gui
         [STAThread]
         static void Main()
         {
-            KwLogger errH = Util_Loggers.ProcessGui_DEFAULT;
-            ServersideShogibanGui_CsharpVsImpl mainGuiVs = new ServersideShogibanGui_CsharpVsImpl();
+            KwLogger logger = Util_Loggers.ProcessGui_DEFAULT;
+            ServersideShogibanGui_CsharpVsImpl shogibanGuiVs = new ServersideShogibanGui_CsharpVsImpl();
 
             //↓ [STAThread]指定のあるメソッドで フォームを作成してください。
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            mainGuiVs.OwnerForm = new Form1_Shogi(mainGuiVs);
+            {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                shogibanGuiVs.OwnerForm = new A630Form_ShogibanImpl(shogibanGuiVs);
+
+                //----------------------------------------
+                // 別窓を開きます。
+                //----------------------------------------
+                ((A630Form_ShogibanImpl)shogibanGuiVs.OwnerForm).SetA630Form_Console(new A630Form_ConsoleImpl(((A630Form_ShogibanImpl)shogibanGuiVs.OwnerForm)));
+                ((A630Form_ShogibanImpl)shogibanGuiVs.OwnerForm).A630Form_Console.Show(((A630Form_ShogibanImpl)shogibanGuiVs.OwnerForm));
+            }
             //↑ [STAThread]指定のあるメソッドで フォームを作成してください。
 
-            mainGuiVs.Load_AsStart(errH);
-            mainGuiVs.LaunchForm_AsBody(errH);
+            shogibanGuiVs.Load_AsStart(logger);
+            shogibanGuiVs.LaunchForm_AsBody(logger);
 
         }
     }

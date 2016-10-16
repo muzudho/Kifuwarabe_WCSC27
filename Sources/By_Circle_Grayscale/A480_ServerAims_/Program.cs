@@ -56,9 +56,7 @@ namespace Grayscale.P489_Form_______
             AimsServerImpl aimsServer = new AimsServerImpl(positionA);
             aimsServer.ShogiEngine2PFilepath = setteiXmlFile.Player2.Filepath;
 
-            aimsServer.AtBegin();
-            aimsServer.AtBody(logger);
-            aimsServer.AtEnd();
+            aimsServer.Execute(logger);
         }
     }
 }

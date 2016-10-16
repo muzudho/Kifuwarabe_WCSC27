@@ -6,49 +6,58 @@ using System;
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace Grayscale.P699_Form_______
+namespace Grayscale.A630_GuiCsharp__
 {
     [Serializable]
-    public partial class Form1_Shogi : Form, Form1_Shogiable
+    public partial class A630Form_ShogibanImpl : Form, A630Form_Shogiban
     {
-        private ServersideShogibanGui_Csharp owner;
+        /// <summary>
+        /// コンストラクターです。
+        /// </summary>
+        public A630Form_ShogibanImpl(ServersideShogibanGui_Csharp shogibanGui)
+        {
+            this.m_serversideShogibanGui_ = shogibanGui;
+            InitializeComponent();
+            this.uc_Form_Shogi.SetMainGui(this.m_serversideShogibanGui_);
+
+            /*
+            //----------------------------------------
+            // 別窓を開きます。
+            //----------------------------------------
+            this.SetA630Form_Console( new A630Form_ConsoleImpl(this));
+            this.A630Form_Console.Show(this);
+            */
+        }
+
+
+
+        /// <summary>
+        /// サーバー側の将棋盤ウィンドウ。
+        /// </summary>
+        private ServersideShogibanGui_Csharp m_serversideShogibanGui_;
 
         /// <summary>
         /// 別窓。コンソール・ウィンドウ。
         /// </summary>
-        public Form2_Console Form2_Console
+        public A630Form_ConsoleImpl A630Form_Console
         {
             get
             {
-                return this.form2_Console;
+                return this.m_A630Form_Console_;
             }
         }
-        private Form2_Console form2_Console;
+        public void SetA630Form_Console(A630Form_ConsoleImpl console)
+        {
+            this.m_A630Form_Console_ = console;
+        }
+        private A630Form_ConsoleImpl m_A630Form_Console_;
 
-        public Uc_Form1Mainable Uc_Form1Main
+        public Uc_Form_Shogiban Uc_Form_Shogiban
         {
             get
             {
-                return this.uc_Form1Main;
+                return this.uc_Form_Shogi;
             }
-        }
-
-        /// <summary>
-        /// ************************************************************************************************************************
-        /// コンストラクターです。
-        /// ************************************************************************************************************************
-        /// </summary>
-        public Form1_Shogi(ServersideShogibanGui_Csharp owner)
-        {
-            this.owner = owner;
-            InitializeComponent();
-            this.uc_Form1Main.SetMainGui( this.owner);
-
-            //----------------------------------------
-            // 別窓を開きます。
-            //----------------------------------------
-            this.form2_Console = new Form2_Console(this);
-            this.form2_Console.Show(this);
         }
 
 
@@ -72,7 +81,7 @@ namespace Grayscale.P699_Form_______
 
             if(null!=this.Delegate_Form1_Load)
             {
-                this.Delegate_Form1_Load(this.Uc_Form1Main.ShogibanGui, sender, e);
+                this.Delegate_Form1_Load(this.Uc_Form_Shogiban.ShogibanGui, sender, e);
             }
         }
 
@@ -88,7 +97,7 @@ namespace Grayscale.P699_Form_______
             KwLogger logger = Util_Loggers.ProcessGui_DEFAULT;
 
             int clientIndex = 2;
-            this.owner.Shutdown(clientIndex, logger);
+            this.m_serversideShogibanGui_.Shutdown(clientIndex, logger);
         }
 
         private void Ui_Form1_FormClosed(object sender, FormClosedEventArgs e)
@@ -96,7 +105,7 @@ namespace Grayscale.P699_Form_______
             KwLogger logger = Util_Loggers.ProcessGui_DEFAULT;
 
             int clientIndex = 2;
-            this.owner.Shutdown(clientIndex, logger);
+            this.m_serversideShogibanGui_.Shutdown(clientIndex, logger);
         }
     }
 }

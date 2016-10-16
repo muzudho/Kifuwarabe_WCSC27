@@ -43,18 +43,15 @@ namespace Grayscale.A480_ServerAims_.B110_AimsServer_.C500____Server
         public AimsServerImpl(Sky positionA)
             : base(positionA)
         {
+            int clientIndex = 2;
             // AIMSサーバー用の特別処理。
-            ((EngineClient_ForAimsImpl)this.Clients[2]).SetOwner_AimsServer(this);
+            ((EngineClient_ForAimsImpl)this.Clients[clientIndex]).SetOwner_AimsServer(this);
 
             // 最初の状態。
             this.phase_AimsServer = Phase_AimsServer._01_Server_Booted;
         }
 
-        public void AtBegin()
-        {
-        }
-
-        public void AtBody(KwLogger logger)
+        public void Execute(KwLogger logger)
         {
             PhaseResult_AimsServer phaseResult = PhaseResult_AimsServer.None;
 
@@ -105,7 +102,8 @@ namespace Grayscale.A480_ServerAims_.B110_AimsServer_.C500____Server
                                 this.SetPhase_AimsServer(Phase_AimsServer._03_WaitEngineLive);
 
                                 // 将棋エンジンを起動するぜ☆
-                                this.SetClient(2,this.ShogiEngine2PFilepath);
+                                int clientIndex = 2;
+                                this.SetClient(clientIndex,this.ShogiEngine2PFilepath);
                             }
                         }
                         break;
@@ -115,8 +113,8 @@ namespace Grayscale.A480_ServerAims_.B110_AimsServer_.C500____Server
                             //----------------------------------------
                             // 将棋サーバーが起ち上がっていることを確認したいぜ☆！
                             //----------------------------------------
-
-                            if (this.IsLive_Client(2))
+                            int clientIndex = 2;
+                            if (this.IsLive_Client(clientIndex))
                             {
 
                                 // コマンドを送る前に、先にフェーズ変更
@@ -127,7 +125,7 @@ namespace Grayscale.A480_ServerAims_.B110_AimsServer_.C500____Server
 
                                 // 将棋エンジンに usi コマンドを送るぜ☆
                                 // 将棋エンジンの標準入力へ、メッセージを送ります。
-                                this.Clients[2].Download(EngineClient_Impl.COMMAND_USI, logger);
+                                this.Clients[clientIndex].Download(EngineClient_Impl.COMMAND_USI, logger);
                             }
                             else
                             {
@@ -161,16 +159,17 @@ namespace Grayscale.A480_ServerAims_.B110_AimsServer_.C500____Server
 
                                 // 将棋エンジンへ：　「私は将棋サーバーですが、USIプロトコルのponderコマンドには対応していませんので、送ってこないでください」
                                 // 将棋エンジンの標準入力へ、メッセージを送ります。
-                                this.Clients[2].Download(EngineClient_Impl.COMMAND_SETOPTION + " name USI_Ponder value false", logger);
+                                int clientIndex = 2;
+                                this.Clients[clientIndex].Download(EngineClient_Impl.COMMAND_SETOPTION + " name USI_Ponder value false", logger);
 
                                 // 将棋エンジンへ：　「私は将棋サーバーです。noop コマンドを送ってくれば、すぐに ok コマンドを返します。1分間を空けてください」
                                 // 将棋エンジンの標準入力へ、メッセージを送ります。
-                                this.Clients[2].Download(EngineClient_Impl.COMMAND_SETOPTION + " name noopable value true", logger);
+                                this.Clients[clientIndex].Download(EngineClient_Impl.COMMAND_SETOPTION + " name noopable value true", logger);
 
                                 //------------------------------------------------------------
                                 // 将棋エンジンへ：　「準備はいいですか？」
                                 //------------------------------------------------------------
-                                this.Clients[2].Download(EngineClient_Impl.COMMAND_ISREADY, logger);
+                                this.Clients[clientIndex].Download(EngineClient_Impl.COMMAND_ISREADY, logger);
                             }
                         }
                         break;
@@ -191,10 +190,5 @@ namespace Grayscale.A480_ServerAims_.B110_AimsServer_.C500____Server
         gt_EndLoop:
             ;
         }
-
-        public void AtEnd()
-        {
-        }
-
     }
 }

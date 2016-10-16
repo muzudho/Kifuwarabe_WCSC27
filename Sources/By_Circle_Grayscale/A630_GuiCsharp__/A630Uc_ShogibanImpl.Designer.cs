@@ -1,6 +1,6 @@
-﻿namespace Grayscale.P699_Form_______
+﻿namespace Grayscale.A630_GuiCsharp__
 {
-    partial class Uc_Form1Main
+    partial class A630Uc_ShogibanImpl
     {
         /// <summary> 
         /// 必要なデザイナー変数です。
