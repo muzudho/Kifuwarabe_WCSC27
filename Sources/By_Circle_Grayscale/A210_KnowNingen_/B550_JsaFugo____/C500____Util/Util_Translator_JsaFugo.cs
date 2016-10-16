@@ -115,7 +115,7 @@ namespace Grayscale.A210_KnowNingen_.B550_JsaFugo____.C500____Util
         public static string ToString_UseDou(
             JsaFugoImpl jsaFugo,
             Move move,
-            List<Move> honpuList
+            List<MoveEx> honpuList
             )
         {
             StringBuilder sb = new StringBuilder();
@@ -134,7 +134,7 @@ namespace Grayscale.A210_KnowNingen_.B550_JsaFugo____.C500____Util
             if (0<index-1)
             {
                 index--;
-                SyElement preDstMasu = Conv_Move.ToDstMasu(honpuList[index]);
+                SyElement preDstMasu = Conv_Move.ToDstMasu(honpuList[index].Move);
                 if (Masu_Honshogi.Query_ErrorMasu() != preDstMasu)
                 {
                     if (Conv_Masu.ToMasuHandle(preDstMasu) == Conv_Masu.ToMasuHandle(dstMasu))

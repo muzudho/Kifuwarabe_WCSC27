@@ -90,9 +90,9 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C250____Learn
         {
             return this.KifuA.MoveEx_Current.Move;
         }
-        public Move ToCurChildItem()
+        public MoveEx ToCurChildItem()
         {
-            return this.KifuA.MoveEx_Current.Move;
+            return this.KifuA.MoveEx_Current;
         }
 
         /// <summary>

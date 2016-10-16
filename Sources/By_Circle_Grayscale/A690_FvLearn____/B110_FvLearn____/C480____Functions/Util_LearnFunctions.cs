@@ -181,7 +181,7 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C480____Functions
             // 合法手一覧
             //
             {
-                Move moveB = uc_Main.LearningData.ToCurChildItem();
+                Move moveB = uc_Main.LearningData.ToCurChildItem().Move;
                 // 本譜手はまだ計算しない。
                 if (moveB == move1)
                 {

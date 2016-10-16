@@ -20,19 +20,19 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct
     /// </summary>
     public class TreeImpl : Tree
     {
-        public TreeImpl(Sky sky)
+        public TreeImpl(Sky positionA)
         {
             this.m_moveEx_ = new MoveExImpl();
-            this.m_positionA_ = sky;
-            this.m_pv_ = new List<Move>();
-            this.m_pv_.Add(Move.Empty);
+            this.m_positionA_ = positionA;
+            this.m_pv_ = new List<MoveEx>();
+            this.m_pv_.Add(this.m_moveEx_);
         }
         public TreeImpl(MoveEx root, Sky sky)
         {
             this.m_moveEx_ = root;
             this.m_positionA_ = sky;
-            this.m_pv_ = new List<Move>();
-            this.m_pv_.Add(Move.Empty);
+            this.m_pv_ = new List<MoveEx>();
+            this.m_pv_.Add(this.m_moveEx_);
         }
 
         #region PV関連
@@ -42,9 +42,9 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct
 //#if DEBUG
             int index = 0;
             logger.AppendLine("┌──────────┐"+message);
-            foreach(Move move in this.m_pv_)
+            foreach(MoveEx moveEx in this.m_pv_)
             {
-                logger.AppendLine("("+ index+")" +Conv_Move.ToLog(move));
+                logger.AppendLine("("+ index+")" +Conv_Move.ToLog(moveEx.Move));
                 index++;
             }
             logger.AppendLine("└──────────┘");
@@ -82,43 +82,43 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct
         public void Pv_ClearAll( KwLogger logger)
         {
             this.m_pv_.Clear();
-            this.m_pv_.Add(Move.Empty);
+            this.m_pv_.Add(new MoveExImpl());
             this.LogPv("ClearAll後", logger);
         }
-        public void Pv_Append(string hint, Move tail,KwLogger logger)
+        public void Pv_Append(string hint, MoveEx tail,KwLogger logger)
         {
             this.m_pv_.Add(tail);
             this.LogPv("Append後 "+hint, logger);
         }
-        public Move Pv_GetLatest()
+        public MoveEx Pv_GetLatest()
         {
             if (0<this.m_pv_.Count)
             {
                 return this.m_pv_[this.m_pv_.Count - 1];
             }
-            return Move.Empty;
+            return new MoveExImpl();
         }
-        public Move Pv_Get(int index)
+        public MoveEx Pv_Get(int index)
         {
             if (index < this.m_pv_.Count)
             {
                 return this.m_pv_[index];
             }
-            return Move.Empty;
+            return new MoveExImpl();
         }
         public int Pv_Count()
         {
             return this.m_pv_.Count;
         }
-        public List<Move> Pv_ToList()
+        public List<MoveEx> Pv_ToList()
         {
-            return new List<Move>(this.m_pv_);
+            return new List<MoveEx>(this.m_pv_);
         }
         public bool Pv_IsRoot()
         {
             return this.m_pv_.Count == 1;
         }
-        private List<Move> m_pv_;
+        private List<MoveEx> m_pv_;
 
 #endregion
 
@@ -145,11 +145,11 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct
             Playerside rootPside = Playerside.P2;
             if (1<((TreeImpl)tree).m_pv_.Count)
             {
-                rootPside = Conv_Playerside.Reverse(Conv_Move.ToPlayerside(((TreeImpl)tree).m_pv_[1]));
+                rootPside = Conv_Playerside.Reverse(Conv_Move.ToPlayerside(((TreeImpl)tree).m_pv_[1].Move));
             }
 
             ((TreeImpl)tree).m_pv_.Clear();
-            ((TreeImpl)tree).m_pv_.Add(Move.Empty);
+            ((TreeImpl)tree).m_pv_.Add(new MoveExImpl());
             tree.SetPositionA(positionA);
             return rootPside;
         }
@@ -169,10 +169,10 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct
 #endregion
 
 
-        public static MoveEx OnDoCurrentMove(string hint, MoveEx curNode, Tree kifu1, Sky positionA, KwLogger logger)
+        public static MoveEx OnDoCurrentMove(string hint, MoveEx moveEx, Tree kifu1, Sky positionA, KwLogger logger)
         {
-            kifu1.MoveEx_SetCurrent(curNode);
-            kifu1.Pv_Append("オンDoCurrentMove "+ hint, curNode.Move, logger);
+            kifu1.MoveEx_SetCurrent(moveEx);
+            kifu1.Pv_Append("オンDoCurrentMove "+ hint, moveEx, logger);
 
             kifu1.SetPositionA(positionA);
             return kifu1.MoveEx_Current;
@@ -213,7 +213,7 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct
             }
 
             // 最後の指し手の逆側。
-            return Conv_Playerside.Reverse( Conv_Move.ToPlayerside(this.m_pv_[this.m_pv_.Count - 1]));
+            return Conv_Playerside.Reverse( Conv_Move.ToPlayerside(this.m_pv_[this.m_pv_.Count - 1].Move));
         }
     }
 }

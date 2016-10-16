@@ -212,32 +212,36 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C260____View
                 //uc_Main.LstGohosyu.Items.Clear();
                 int itemNumber = 0;
                 Sky positionA = learningData.PositionA;
-                List<Move> pvList = learningData.KifuA.Pv_ToList();
+                List<MoveEx> pvList = learningData.KifuA.Pv_ToList();
                 {
-                    Move moveB = learningData.ToCurChildItem();
-                    pvList.Add(moveB);
+                    MoveEx moveExB = learningData.ToCurChildItem();
+                    pvList.Add(moveExB);
 
-                    Util_IttesasuSuperRoutine.DoMove_Super1(
-                        Conv_Move.ToPlayerside(moveB),
-                        ref positionA,//指定局面
-                        ref moveB,
-                        learningData.KifuA,
-                        "D100",
-                        logger
-                    );
+                    {
+                        Move moveB = moveExB.Move;
+                        Util_IttesasuSuperRoutine.DoMove_Super1(
+                            Conv_Move.ToPlayerside(moveExB.Move),
+                            ref positionA,//指定局面
+                            ref moveB,//moveExB,
+                            learningData.KifuA,
+                            "D100",
+                            logger
+                        );
+                        moveExB.SetMove(moveB);
+                    }
 
 
 
                     learningData.DoScoreing_ForLearning(
-                        Conv_Move.ToPlayerside(moveB),
+                        Conv_Move.ToPlayerside(moveExB.Move),
                         positionA
                         );
 
                     GohosyuListItem item = new GohosyuListItem(
                         itemNumber,
-                        moveB,
+                        moveExB.Move,
                         Conv_SasiteStr_Jsa.ToSasiteStr_Jsa(
-                            moveB,
+                            moveExB.Move,
                             pvList,
                             positionA, logger)
                             );
@@ -248,7 +252,7 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C260____View
                     IttemodosuResult ittemodosuResult;
                     Util_IttemodosuRoutine.UndoMove(
                         out ittemodosuResult,
-                        moveB,
+                        moveExB.Move,
                         positionA,
                         "D900",
                         logger
