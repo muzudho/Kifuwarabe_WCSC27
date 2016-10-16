@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using Finger = ProjectDark.NamedInt.StrictNamedInt0; //スプライト番号
 using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 using Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter;
+using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
 
 #if DEBUG
 using Grayscale.A210_KnowNingen_.B250_Log_Kaisetu.C250____Struct;
@@ -37,24 +38,26 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
         /// <param name="out_movelist"></param>
         /// <param name="out_yomiDeep"></param>
         /// <param name="out_a_childrenBest"></param>
-        /// <param name="errH"></param>
+        /// <param name="logger"></param>
         public static List<Move> CreateMovelist_BeforeLoop(
             Tansaku_Genjo genjo,
             
             Playerside psideA,
+            Tree kifu1,
             Sky positionA,//この局面から合法手を作成☆（＾～＾）
 
             ref int searchedMaxDepth,
             out int out_yomiDeep,
-            KwLogger errH
+            KwLogger logger
             )
         {
             List<Move> result_movelist = Util_MovePicker.WAAAA_Create_ChildNodes(
                 genjo,
                 psideA,//× Conv_Playerside.Reverse( psideA),
+                kifu1,
                 positionA,
                 //move_ForLog,//ログ用
-                errH);
+                logger);
 
             out_yomiDeep = positionA.Temezumi - genjo.YomikaisiTemezumi + 1;
             if (searchedMaxDepth < out_yomiDeep - 1)//これから探索する分をマイナス1しているんだぜ☆（＾～＾）
@@ -83,6 +86,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
         private static List<Move> WAAAA_Create_ChildNodes(
             Tansaku_Genjo genjo,
             Playerside psideA,
+            Tree kifu1,
             Sky positionA,
             //Move move_ForLog,
             KwLogger logger
@@ -125,7 +129,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                     positionA,//現在の局面  // FIXME:Lockすると、ここでヌルになる☆
 
                     //手番
-                    positionA.GetKaisiPside(),// × psideA,
+                    kifu1.GetNextPside(),// × psideA,
 
                     false//相手番か
 #if DEBUG
@@ -198,6 +202,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                         komaBETUAllSasites,//駒別の全ての指し手
                         psideA,
                         positionA,
+                        kifu1,
 #if DEBUG
                         genjo.Args.LogF_moveKiki,//利き用
 #endif

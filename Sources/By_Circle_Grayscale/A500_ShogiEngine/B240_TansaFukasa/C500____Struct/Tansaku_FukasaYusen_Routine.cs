@@ -201,13 +201,13 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
             string[] searchedPv,
 
             Tree kifu1,// ツリーを伸ばしているぜ☆（＾～＾）
-            Playerside psideA,//Playerside psideA = positionA.GetKaisiPside();
+            Playerside psideA,
             Sky positionA,
 
             bool isHonshogi,
             Mode_Tansaku mode_Tansaku,
             EvaluationArgs args,
-            KwLogger errH
+            KwLogger logger
             )
         {
             int temezumi = positionA.Temezumi;
@@ -218,7 +218,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                 exceptionArea = 10;
                 Tansaku_Genjo genjo = Tansaku_FukasaYusen_Routine.CreateGenjo(
                     temezumi,
-                    isHonshogi, mode_Tansaku, errH);
+                    isHonshogi, mode_Tansaku, logger);
 
                 // 最初は投了からスタートだぜ☆（*＾～＾*）
                 MoveEx a_bestmoveEx_Children = new MoveExImpl(
@@ -238,11 +238,12 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                     genjo,
 
                     psideA,//TODO:
+                    kifu1,
                     positionA,
 
                     ref searchedMaxDepth,
                     out yomiDeep,
-                    errH
+                    logger
                     );
 
                 if (Tansaku_FukasaYusen_Routine.CanNotNextLoop(yomiDeep, wideCount2, movelist.Count, genjo, args.Shogisasi.TimeManager))
@@ -257,18 +258,18 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                     float score = Tansaku_FukasaYusen_Routine.Do_Leaf(
                         genjo,
 
-                        psideA,// positionA.GetKaisiPside(),
+                        psideA,
                         positionA,
 
                         args,
-                        errH
+                        logger
                         );
 
                     a_bestmoveEx_Children = Util_Scoreing.GetHighScore(
                         a_bestmoveEx_Children.Move,
                         score,
                         a_bestmoveEx_Children,
-                        psideA//positionA.GetKaisiPside()
+                        psideA
                         );
                 }
                 else
@@ -281,7 +282,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                         genjo,
 
                         positionA.Temezumi,
-                        psideA,//positionA.GetKaisiPside(),
+                        psideA,
                         positionA,//この局面から合法手を作成☆（＾～＾）
                         a_bestmoveEx_Children.Score,
                         kifu1.MoveEx_Current,// ツリーを伸ばしているぜ☆（＾～＾）
@@ -289,7 +290,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
 
                         movelist.Count,
                         args,
-                        errH
+                        logger
                         );
                 }
 
@@ -324,8 +325,8 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                             Debug.Fail(message);
 
                             // どうにもできないので  ログだけ取って、上に投げます。
-                            errH.AppendLine(message);
-                            errH.Flush(LogTypes.Error);
+                            logger.AppendLine(message);
+                            logger.Flush(LogTypes.Error);
                             throw ex;
                         }
 #if DEBUG
@@ -473,6 +474,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                     genjo,
 
                     psideA,//TODO:
+                    kifu1,
                     positionA,
 
                     ref searchedMaxDepth,
@@ -483,7 +485,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                 // 空っぽにして用意しておくぜ☆
                 result_thisDepth = new MoveExImpl(Move.Empty);
                 result_thisDepth.SetScore(Util_Scoreing.GetWorstScore(
-                    kifu1.GetNextPside()// positionA.GetKaisiPside() //× psideA//
+                    kifu1.GetNextPside()// × psideA
                     ));// プレイヤー1ならmax値、プレイヤー2ならmin値。
 
                 exceptionArea = 2000;
@@ -511,7 +513,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                         float baseDepth_score = Tansaku_FukasaYusen_Routine.Do_Leaf(
                             genjo,
 
-                            psideA,//positionA.GetKaisiPside(),
+                            psideA,
                             positionA,//改造前
 
                             args,
@@ -524,7 +526,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                             baseNod1.Move,
                             baseDepth_score,
                             result_thisDepth,
-                            positionA.GetKaisiPside()//× psideA//
+                            kifu1.GetNextPside()//× psideA
                             );
 
                         //*/
@@ -559,10 +561,11 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                             Conv_Move.ToPlayerside(iMov_child_variable),
                             ref positionA,//指定局面
                             ref iMov_child_variable,
+                            kifu1,
                             "C100",
                             logger
                         );
-                        //Playerside psideB = positionA.GetKaisiPside();//反転している☆（*＾～＾*）？
+                        //Playerside psideB = positionA.GetPside();//反転している☆（*＾～＾*）？
                         iNod_child.SetMove(iMov_child_variable);
 
                         exceptionArea = 44011;
@@ -583,7 +586,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                             genjo,
 
                             positionA.Temezumi,
-                            Conv_Move.ToPlayerside(iMov_child_variable),// positionA.GetKaisiPside(),
+                            Conv_Move.ToPlayerside(iMov_child_variable),
                             positionA,//この局面から合法手を作成☆（＾～＾）
                             result_thisDepth.Score,
                             kifu1.MoveEx_Current,// ツリーを伸ばしているぜ☆（＾～＾）
@@ -636,7 +639,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
 
                             yomiDeep2,
 
-                            psideA,// positionA.GetKaisiPside(),
+                            psideA,
 
                             parentsiblingBestScore,
                             iMovEx_child_temp,

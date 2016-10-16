@@ -192,6 +192,7 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C480____Functions
                     Conv_Move.ToPlayerside(moveB),
                     ref positionA,//指定局面
                     ref moveB,
+                    uc_Main.LearningData.KifuA,
                     "E100",
                     logger
                 );

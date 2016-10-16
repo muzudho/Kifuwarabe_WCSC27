@@ -48,7 +48,6 @@ namespace Grayscale.A210_KnowNingen_.B440_Utifudume__.C500____Util
             )
         {
             // 攻め側
-            //Playerside psideA = positionA.GetKaisiPside();
 
             // 相手の王の位置
             Busstop king_aite;

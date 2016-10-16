@@ -52,9 +52,6 @@ namespace Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter
         {
             move = Move.Empty;
             
-            //kifu.AssertPside(kifu.CurNode, "str1=" + str1, errH);
-            //Playerside pside1 = positionA.KaisiPside;
-
 #if DEBUG
             Debug.Assert(!Conv_Masu.OnKomabukuro(Conv_Masu.ToMasuHandle(Conv_Busstop.ToMasu(positionA.BusstopIndexOf((Finger)0)))), "[" + positionA.Temezumi + "]手目、駒が駒袋にあった。");
 #endif

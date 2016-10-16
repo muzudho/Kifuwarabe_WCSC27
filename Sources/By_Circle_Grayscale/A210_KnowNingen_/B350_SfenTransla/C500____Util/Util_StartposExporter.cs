@@ -73,7 +73,7 @@ namespace Grayscale.A210_KnowNingen_.B350_SfenTransla.C500____Util
             }
 
             // 先後
-            switch (shogiban.KaisiPside)
+            switch (shogiban.KaisiPside)//表示データ
             {
                 case Playerside.P1: sb.Append(" b"); break;
                 case Playerside.P2: sb.Append(" w"); break;

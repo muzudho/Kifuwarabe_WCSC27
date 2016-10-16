@@ -23,7 +23,7 @@ namespace Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct
         /// </summary>
         public SkyImpl()
         {
-            this.m_kaisiPside_ = Playerside.P1;// 初期局面では、Player 1 の手番とします。
+            this.m_kaisiPside_ = Playerside.P1;// 初期局面では、Player 1 の手番とします。//TODO: PositionからPsideを廃止したいぜ☆（＞＿＜）
             this.temezumi = 0;//初期局面は 0手目済み
             this.m_busstops_ = new List<Busstop>();
             this.MotiSu = new int[(int)Pieces.Num];
@@ -36,7 +36,7 @@ namespace Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct
         public SkyImpl(Sky src)
         {
             // 手番のクローン
-            this.m_kaisiPside_ = ((SkyImpl)src).m_kaisiPside_;
+            this.m_kaisiPside_ = ((SkyImpl)src).m_kaisiPside_;//TODO: PositionからPsideを廃止したいぜ☆（＞＿＜）
             this.temezumi = src.Temezumi;
 
             // 星々のクローン
@@ -87,7 +87,7 @@ namespace Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct
         /// </summary>
         public void ReversePlayerside()
         {
-            this.m_kaisiPside_ = Conv_Playerside.Reverse(this.m_kaisiPside_);
+            this.m_kaisiPside_ = Conv_Playerside.Reverse(this.m_kaisiPside_);//TODO: PositionからPsideを廃止したいぜ☆（＞＿＜）
         }
 
         public void IncreasePsideTemezumi()
@@ -106,7 +106,7 @@ namespace Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct
         /// <summary>
         /// TODO:
         /// </summary>
-        public Playerside GetKaisiPside()
+        public Playerside GetKaisiPside()//TODO: PositionからPsideを廃止したいぜ☆（＞＿＜）
         {
             return this.m_kaisiPside_;
         }
@@ -114,13 +114,6 @@ namespace Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct
             return this.m_kaisiPside_;
         }
         private Playerside m_kaisiPside_;
-        /*
-        public void SetKaisiPside( Move move)//Playerside pside,
-        {
-            //this.m_kaisiPside_ = pside;
-            this.m_kaisiPside_ = Conv_Move.ToPlayerside(move);
-        }
-        */
         public void SetKaisiPside(Playerside pside)
         {
             this.m_kaisiPside_ = pside;

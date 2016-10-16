@@ -24,8 +24,8 @@ namespace Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct
         /// これから指す側。
         /// </summary>
         Playerside GetKaisiPside();//TODO: PositionからPsideを廃止したいぜ☆（＞＿＜）
-        Playerside GetKaisiPside(Move move);
-        void SetKaisiPside(Playerside pside);
+        Playerside GetKaisiPside(Move move);//TODO: PositionからPsideを廃止したいぜ☆（＞＿＜）
+        void SetKaisiPside(Playerside pside);//TODO: PositionからPsideを廃止したいぜ☆（＞＿＜）
         /// <summary>
         /// 先後を逆転させます。
         /// </summary>

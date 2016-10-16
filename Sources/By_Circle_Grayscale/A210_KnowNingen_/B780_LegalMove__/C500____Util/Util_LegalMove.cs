@@ -21,6 +21,7 @@ using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B690_Ittesasu___.C510____OperationB;
 using Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA;
 using Grayscale.A210_KnowNingen_.B690_Ittesasu___.C___250_OperationA;
+using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
 
 #if DEBUG
 using Grayscale.A210_KnowNingen_.B250_Log_Kaisetu.C250____Struct;
@@ -51,11 +52,10 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
             Maps_OneAndMulti<Finger, Move> genTeban_komabetuAllMoves1,// 指定局面で、どの駒が、どんな手を指すことができるか
             Playerside psideA,
             Sky positionA,//指定局面。
-
+            Tree kifu1,
 #if DEBUG
             KaisetuBoards logF_kiki,
 #endif
-
             string hint,
             KwLogger logger)
         {
@@ -85,6 +85,7 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
                         positionA.Temezumi,
                         psideA,//positionA.GetKaisiPside(),
                         positionA,
+                        kifu1,
 #if DEBUG
                     logF_kiki,
 #endif
@@ -167,12 +168,11 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
             int temezumi_yomiGenTeban_forLog,//読み進めている現在の手目
             Playerside pside_genTeban,
             Sky positionA,
-
+            Tree kifu1,
 #if DEBUG
             KaisetuBoards logF_kiki,
 #endif
-
-            KwLogger errH
+            KwLogger logger
             )
         {
             // 残す指し手☆
@@ -188,8 +188,9 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
                         Conv_Move.ToPlayerside(moveB),
                         ref positionA,//指定局面
                         ref moveB,
+                        kifu1,
                         "A100_IfMate",
-                        errH
+                        logger
                     );
                     if (!successful)
                     {
@@ -209,7 +210,7 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
                     logF_kiki,
 #endif
                         moveB,
-                        errH
+                        logger
                         );
 
                     exception_area = 40000;
@@ -229,13 +230,13 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
                         Conv_Move.ToPlayerside(moveB),
                         positionA,
                         "A900_IfMate",
-                        errH
+                        logger
                         );
                     positionA = ittemodosuResult.SyuryoSky;
                 }
                 catch (Exception ex)
                 {
-                    errH.DonimoNaranAkirameta(ex,
+                    logger.DonimoNaranAkirameta(ex,
                         "ノードを削除しているときだぜ☆（＾▽＾） exception_area=" + exception_area +
                         "\nmove=" + Conv_Move.ToLog(moveB));
                     throw ex;

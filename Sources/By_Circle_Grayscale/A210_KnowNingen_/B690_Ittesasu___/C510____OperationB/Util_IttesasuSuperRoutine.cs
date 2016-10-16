@@ -13,6 +13,7 @@ using Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA;
 using Finger = ProjectDark.NamedInt.StrictNamedInt0; //スプライト番号
 using Grayscale.A210_KnowNingen_.B320_ConvWords__.C500____Converter;
 using System;
+using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
 
 namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C510____OperationB
 {
@@ -22,6 +23,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C510____OperationB
             Playerside psideA,
             ref Sky positionA,//指定局面
             ref Move move,//TODO:取った駒があると、上書きされる
+            Tree kifu1,
             string hint,
             KwLogger logger
             )
@@ -53,7 +55,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C510____OperationB
                 Util_IttesasuSuperRoutine.DoMove_Super2(
                         ref positionA,
                         ref move,
-
+                        kifu1,
                         // フィンガー
                         fingers.ToFirst(),// マス
 
@@ -81,15 +83,16 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C510____OperationB
         /// <param name="figKoma"></param>
         /// <param name="dstMasu"></param>
         /// <param name="pside_genTeban"></param>
-        /// <param name="errH"></param>
+        /// <param name="logger"></param>
         /// <returns></returns>
         public static void DoMove_Super2(
             ref Sky positionA,//指定局面
             ref Move moveA,
+            Tree kifu1,
             Finger figKoma,//動かす駒
             SyElement dstMasu,//移動先マス
             bool toNaru,//成るなら真
-            KwLogger errH
+            KwLogger logger
             )
         {
             // 移動先に相手の駒がないか、確認します。
@@ -101,7 +104,9 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C510____OperationB
 
                 // 駒台の空いているマス１つ。
                 SyElement akiMasu;
-                if (positionA.GetKaisiPside(moveA) == Playerside.P1)
+                if (
+                    kifu1.GetNextPside()// positionA.GetKaisiPside(moveA)
+                    == Playerside.P1)
                 {
                     akiMasu = Util_IttesasuRoutine.GetKomadaiKomabukuroSpace(Okiba.Sente_Komadai, positionA);
                 }
