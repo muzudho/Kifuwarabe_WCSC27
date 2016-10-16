@@ -58,7 +58,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
             Earth earth1,
             Move moveA,
             Sky positionA,
-            
+            Tree kifu1,
 
             out KifuParserA_State nextState,
             KifuParserA owner,
@@ -85,7 +85,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
                         moveA,
 
                         
-                        positionA.GetKaisiPside(),//Conv_Move.ToPlayerside(move1),
+                        kifu1.GetNextPside(),
 
                         positionA,
                         logger
@@ -102,15 +102,6 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
 
                         try
                         {
-                            exceptionArea = 1010;
-
-                            //
-                            //FIXME: これが悪さをしていないか☆？
-                            //FIXME: スピードが必要なので省略。
-                            //Application.DoEvents(); // 時間のかかる処理の間にはこれを挟みます。
-                            //
-
-                            exceptionArea = 1020;
                             //------------------------------
                             // ★棋譜読込専用  駒移動
                             //------------------------------

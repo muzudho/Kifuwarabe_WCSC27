@@ -26,7 +26,8 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C470____StartZero
         /// <summary>
         /// 平手初期局面
         /// </summary>
-        private static Sky src_Sky_hirateSyokikyokumen;
+        private static Sky positionA_hirateSyokikyokumen_;
+        private static Playerside positionA_NextPside_;
 
         /// <summary>
         /// 平手初期局面の54要素のリスト。
@@ -66,12 +67,14 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C470____StartZero
         /// </summary>
         public static void Adjust_HirateSyokiKyokumen_0ten_AndFvParamRange(
             ref bool ref_isRequestDoEvents,
-            FeatureVector fv, KwLogger errH)
+            FeatureVector fv,
+            KwLogger logger)
         {
-            if (null == Util_StartZero.src_Sky_hirateSyokikyokumen)
+            if (null == Util_StartZero.positionA_hirateSyokikyokumen_)
             {
                 // 平手初期局面
-                Util_StartZero.src_Sky_hirateSyokikyokumen = Util_SkyCreator.New_Hirate();
+                Util_StartZero.positionA_hirateSyokikyokumen_ = Util_SkyCreator.New_Hirate();
+                Util_StartZero.positionA_NextPside_ = Playerside.P1;// Ｐ１でいいのか☆
             }
 
             if (null == Util_StartZero.n54List_hirateSyokikyokumen)
@@ -79,7 +82,8 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C470____StartZero
                 //----------------------------------------
                 // ４０枚の駒、または１４種類の持駒。多くても５４要素。
                 //----------------------------------------
-                Util_StartZero.n54List_hirateSyokikyokumen = Util_54List.Calc_54List(Util_StartZero.src_Sky_hirateSyokikyokumen, errH);
+                Util_StartZero.n54List_hirateSyokikyokumen = Util_54List.Calc_54List(
+                    Util_StartZero.positionA_hirateSyokikyokumen_, logger);
             }
 
             Hyokakansu_NikomaKankeiPp kansu = new Hyokakansu_NikomaKankeiPp();
@@ -93,10 +97,10 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C470____StartZero
             // 平手初期局面の点数を調べます。
             //
             float score = kansu.Evaluate(
-                Util_StartZero.src_Sky_hirateSyokikyokumen.GetKaisiPside(),
-                Util_StartZero.src_Sky_hirateSyokikyokumen,
+                Util_StartZero.positionA_NextPside_,//Util_StartZero.positionA_hirateSyokikyokumen_.GetKaisiPside(),
+                Util_StartZero.positionA_hirateSyokikyokumen_,
                 fv,
-                errH
+                logger
                 );
 
             if (-100 <= score && score <= 100)
@@ -130,11 +134,13 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C470____StartZero
                 }
 
                 int changedCells;
-                Util_FvScoreing.Fill54x54_Add(out changedCells, chosei_offset, src_Sky_hirateSyokikyokumen, fv,
-                    Util_StartZero.n54List_hirateSyokikyokumen, errH);
+                Util_FvScoreing.Fill54x54_Add(out changedCells, chosei_offset,
+                    positionA_hirateSyokikyokumen_,
+                    fv,
+                    Util_StartZero.n54List_hirateSyokikyokumen, logger);
 
                 // 順位を、点数に変換します。
-                Util_Zooming.ZoomTo_FvParamRange(fv, errH);
+                Util_Zooming.ZoomTo_FvParamRange(fv, logger);
 
                 // フォームの更新を要求します。
                 ref_isRequestDoEvents = true;
@@ -146,10 +152,10 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C470____StartZero
                 // 平手初期局面の点数を調べます。
                 //
                 score = kansu.Evaluate(
-                    Util_StartZero.src_Sky_hirateSyokikyokumen.GetKaisiPside(),
-                    Util_StartZero.src_Sky_hirateSyokikyokumen,
+                    Util_StartZero.positionA_NextPside_,//.positionA_hirateSyokikyokumen_.GetKaisiPside(),
+                    Util_StartZero.positionA_hirateSyokikyokumen_,
                     fv,
-                    errH
+                    logger
                     );
 
                 if (-100 <= score && score <= 100)

@@ -62,13 +62,13 @@ namespace Grayscale.P910_SpeedKeisok
             InitializeComponent();
         }
 
-        private KeisokuResult Keisoku(Hyokakansu handan1, Sky positionA)
+        private KeisokuResult Keisoku(Hyokakansu handan1, Sky positionA, Tree kifu1)
         {
             Stopwatch watch = new Stopwatch();
             watch.Start();
 
             float score_notUse = handan1.Evaluate(
-                positionA.GetKaisiPside(),
+                kifu1.GetNextPside(),// positionA.GetKaisiPside(),
                 positionA,
                 this.FeatureVector,
                 Util_Loggers.ProcessSpeedTest_KEISOKU
@@ -92,8 +92,8 @@ namespace Grayscale.P910_SpeedKeisok
 
             List<KeisokuResult> list = new List<KeisokuResult>();
             Sky positionA = this.Kifu.PositionA;//.CurNode2ok.GetNodeValue()
-            list.Add(this.Keisoku(new Hyokakansu_Komawari(),positionA));
-            list.Add(this.Keisoku(new Hyokakansu_NikomaKankeiPp(), positionA));
+            list.Add(this.Keisoku(new Hyokakansu_Komawari(),positionA,this.Kifu));
+            list.Add(this.Keisoku(new Hyokakansu_NikomaKankeiPp(), positionA,this.Kifu));
 
             TimeSpan total = new TimeSpan();
 

@@ -223,7 +223,7 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C250____Learn
                 ref searchedMaxDepth,
                 ref searchedNodes,
                 kifu1,
-                kifu1.GetNextPside(),// positionA.GetKaisiPside(),
+                kifu1.GetNextPside(),
                 positionA,
                 searchedPv,
                 args, logger);

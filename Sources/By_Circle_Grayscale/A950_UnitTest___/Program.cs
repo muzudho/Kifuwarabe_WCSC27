@@ -60,7 +60,7 @@ namespace Grayscale.A950_UnitTest___
                     string rest;
                     Move moveA = Conv_StringMove.ToMove(
                         out rest, commandLine, pv[pv.Count - 1],
-                        Program.GetNextPside(pv),// positionA.GetKaisiPside(),
+                        Program.GetNextPside(pv),
                         positionA, logger);
                     Move moveB;
                     commandLine = rest.Trim();

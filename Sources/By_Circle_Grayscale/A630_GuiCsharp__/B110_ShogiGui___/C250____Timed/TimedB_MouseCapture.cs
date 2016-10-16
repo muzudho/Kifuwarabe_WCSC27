@@ -391,7 +391,6 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                                     // TODO: 一手[巻戻し]のときは追加したくない
                                                     //
                                                     Sky sky_newChild = new SkyImpl(src_GuiSky);
-                                                    sky_newChild.SetKaisiPside(Playerside.P2);//FIXME:人間が先手でハードコーディング中
                                                     sky_newChild.SetTemezumi(shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside.Temezumi + 1);//1手進ませる。
                                                     MoveEx newNode = new MoveExImpl(move);
 

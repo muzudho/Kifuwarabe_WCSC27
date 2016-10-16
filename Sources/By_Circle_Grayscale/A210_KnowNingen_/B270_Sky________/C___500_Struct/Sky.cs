@@ -20,16 +20,6 @@ namespace Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct
         void IncreasePsideTemezumi();
         void DecreasePsideTemezumi();
 
-        /// <summary>
-        /// これから指す側。
-        /// </summary>
-        Playerside GetKaisiPside();//TODO: PositionからPsideを廃止したいぜ☆（＞＿＜）
-        Playerside GetKaisiPside(Move move);//TODO: PositionからPsideを廃止したいぜ☆（＞＿＜）
-        void SetKaisiPside(Playerside pside);//TODO: PositionからPsideを廃止したいぜ☆（＞＿＜）
-        /// <summary>
-        /// 先後を逆転させます。
-        /// </summary>
-        void ReversePside();
 
         /// <summary>
         /// 何手目済みか。初期局面を 0 とする。

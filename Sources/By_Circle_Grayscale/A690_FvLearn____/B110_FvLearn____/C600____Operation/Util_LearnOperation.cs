@@ -161,8 +161,7 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C600____Operation
             float chosei_bairitu;
             float.TryParse(uc_Main.TxtChoseiBairituB.Text, out chosei_bairitu);
 
-            if (Playerside.P2 == uc_Main.LearningData.KifuA.GetNextPside()//.PositionA.GetKaisiPside()
-                )
+            if (Playerside.P2 == uc_Main.LearningData.KifuA.GetNextPside())
             {
                 chosei_bairitu *= -1; //後手はマイナスの方が有利。
             }
@@ -189,8 +188,7 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C600____Operation
             float.TryParse(uc_Main.TxtChoseiBairituB.Text, out badScore);
             badScore *= -1.0f;
 
-            if (Playerside.P2 == uc_Main.LearningData.KifuA.GetNextPside()//.PositionA.GetKaisiPside()
-                )
+            if (Playerside.P2 == uc_Main.LearningData.KifuA.GetNextPside())
             {
                 badScore *= -1; //後手はプラスの方が不利。
             }
@@ -211,7 +209,7 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C600____Operation
         public static void Do_ShowNikomaHyokati(Uc_Main uc_Main)
         {
             uc_Main.LearningData.DoScoreing_ForLearning(
-                uc_Main.LearningData.KifuA.GetNextPside(),//.PositionA.GetKaisiPside(),
+                uc_Main.LearningData.KifuA.GetNextPside(),
                 uc_Main.LearningData.PositionA
                 );
 
@@ -368,7 +366,7 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C600____Operation
                 ref searchedMaxDepth,
                 ref searchedNodes,
                 newKifu1_Hirate,
-                newKifu1_Hirate.GetNextPside(),// positionA.GetKaisiPside(),
+                newKifu1_Hirate.GetNextPside(),
                 positionA,
                 searchedPv,
                 args, errH);

@@ -23,7 +23,6 @@ namespace Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct
         /// </summary>
         public SkyImpl()
         {
-            this.m_kaisiPside_ = Playerside.P1;// 初期局面では、Player 1 の手番とします。//TODO: PositionからPsideを廃止したいぜ☆（＞＿＜）
             this.temezumi = 0;//初期局面は 0手目済み
             this.m_busstops_ = new List<Busstop>();
             this.MotiSu = new int[(int)Pieces.Num];
@@ -36,7 +35,6 @@ namespace Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct
         public SkyImpl(Sky src)
         {
             // 手番のクローン
-            this.m_kaisiPside_ = ((SkyImpl)src).m_kaisiPside_;//TODO: PositionからPsideを廃止したいぜ☆（＞＿＜）
             this.temezumi = src.Temezumi;
 
             // 星々のクローン
@@ -87,7 +85,6 @@ namespace Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct
         /// </summary>
         public void ReversePlayerside()
         {
-            this.m_kaisiPside_ = Conv_Playerside.Reverse(this.m_kaisiPside_);//TODO: PositionからPsideを廃止したいぜ☆（＞＿＜）
         }
 
         public void IncreasePsideTemezumi()
@@ -102,29 +99,6 @@ namespace Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct
         }
 
         #region プロパティー
-
-        /// <summary>
-        /// TODO:
-        /// </summary>
-        public Playerside GetKaisiPside()//TODO: PositionからPsideを廃止したいぜ☆（＞＿＜）
-        {
-            return this.m_kaisiPside_;//TODO: PositionからPsideを廃止したいぜ☆（＞＿＜）
-        }
-        public Playerside GetKaisiPside(Move move) {//TODO: PositionからPsideを廃止したいぜ☆（＞＿＜）
-            return this.m_kaisiPside_;//TODO: PositionからPsideを廃止したいぜ☆（＞＿＜）
-        }
-        private Playerside m_kaisiPside_;//TODO: PositionからPsideを廃止したいぜ☆（＞＿＜）
-        public void SetKaisiPside(Playerside pside)//TODO: PositionからPsideを廃止したいぜ☆（＞＿＜）
-        {
-            this.m_kaisiPside_ = pside;//TODO: PositionからPsideを廃止したいぜ☆（＞＿＜）
-        }
-        /// <summary>
-        /// 先後を逆転させます。
-        /// </summary>
-        public void ReversePside()
-        {
-            this.m_kaisiPside_ = Conv_Playerside.Reverse(this.m_kaisiPside_);//TODO: PositionからPsideを廃止したいぜ☆（＞＿＜）
-        }
 
         /// <summary>
         /// 何手目済みか。初期局面を 0 とする。

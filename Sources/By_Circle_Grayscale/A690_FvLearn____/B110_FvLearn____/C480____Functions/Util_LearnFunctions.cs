@@ -172,9 +172,7 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C480____Functions
 
             float badScore_temp = tyoseiryo_bad;
             Sky positionA = uc_Main.LearningData.PositionA;
-            if (
-                uc_Main.LearningData.KifuA.GetNextPside()//positionA.GetKaisiPside()
-                == Playerside.P2)
+            if (uc_Main.LearningData.KifuA.GetNextPside()== Playerside.P2)
             {
                 tyoseiryo_bad *= -1.0f;//2Pは、負数の方が高得点です。
             }

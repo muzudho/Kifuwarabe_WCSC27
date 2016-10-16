@@ -68,6 +68,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
                     earth1,
                     kifu1_mutable.MoveEx_Current.Move,
                     kifu1_mutable.PositionA,
+                    kifu1_mutable,
                     out nextState,
                     this,
                     genjo, logger);
@@ -150,6 +151,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
                         earth1,
                         kifu1_mutable.MoveEx_Current.Move,
                         kifu1_mutable.PositionA,
+                        kifu1_mutable,
                         out nextState,
                         this,
                         genjo, logger);

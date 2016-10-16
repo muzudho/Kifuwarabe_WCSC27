@@ -273,7 +273,7 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C260____View
 
                     int bScore = 0;
 
-                    switch (learningData.KifuA.GetNextPside())//.PositionA.GetKaisiPside()
+                    switch (learningData.KifuA.GetNextPside())
                     {
                         case Playerside.P1: result = bScore - aScore; break;
                         case Playerside.P2: result = aScore - bScore; break;
