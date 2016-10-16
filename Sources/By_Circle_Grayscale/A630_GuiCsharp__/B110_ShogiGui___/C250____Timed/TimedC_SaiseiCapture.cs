@@ -6,6 +6,7 @@ using Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C125____Scene;
 using Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
 
 namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
 {
@@ -17,7 +18,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
     {
 
 
-        private ServersideGui_Csharp mainGui;
+        private ServersideGui_Csharp m_mainGui_;
 
         /// <summary>
         /// [再生]の状態です。
@@ -30,7 +31,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
 
         public TimedC_SaiseiCapture(ServersideGui_Csharp shogiGui)
         {
-            this.mainGui = shogiGui;
+            this.m_mainGui_ = shogiGui;
             this.SaiseiEventQueue = new Queue<SaiseiEventState>();
         }
 
@@ -49,7 +50,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                             #region スタート
                             //MessageBox.Show("再生を実行します2。");
 
-                            mainGui.RepaintRequest = new RepaintRequestImpl();
+                            m_mainGui_.RepaintRequest = new RepaintRequestImpl();
 
                             this.restText = Util_Function_Csharp.ReadLine_FromTextbox();
                             this.SaiseiEventQueue.Enqueue(new SaiseiEventState(SaiseiEventStateName.Step, eventState.Flg_logTag));
@@ -69,17 +70,21 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                             else
                             {
                                 // [コマ送り]に成功している間、コマ送りし続けます。
-                                Util_Server.ReadLine_TuginoItteSusumu_Srv_CurrentMutable(
-                                    ref restText,
+                                {
+                                    Sky temp = this.m_mainGui_.PositionServerside;
+                                    Util_Server.ReadLine_TuginoItteSusumu_Srv_CurrentMutable(
+                                        ref restText,
 
-                                    this.mainGui.Link_Server.Storage.Earth,
-                                    this.mainGui.Link_Server.Storage.KifuTree,
+                                        this.m_mainGui_.Link_Server.Storage.Earth,
+                                        this.m_mainGui_.Link_Server.Storage.KifuTree,
 
-                                    this.mainGui.SkyWrapper_Gui,
-                                    out toBreak,
-                                    "再生ボタン",
-                                    errH
-                                    );
+                                        ref temp,
+                                        out toBreak,
+                                        "再生ボタン",
+                                        errH
+                                        );
+                                    this.m_mainGui_.SetPositionServerside(temp);
+                                }
 
                                 //TimedC.Saisei_Step(restText, shogiGui, eventState.Flg_logTag);// 再描画（ループが１回も実行されなかったとき用）
                                 // 他のアプリが固まらないようにします。
@@ -94,18 +99,18 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                 //------------------------------
                                 Util_Function_Csharp.Komaokuri_Gui(
                                     restText,
-                                    mainGui.Link_Server.Storage.KifuTree.MoveEx_Current,
-                                    mainGui.Link_Server.Storage.KifuTree.PositionA,//.CurNode2ok.GetNodeValue()
-                                    mainGui,
-                                    mainGui.Link_Server.Storage.KifuTree,
+                                    m_mainGui_.Link_Server.Storage.KifuTree.MoveEx_Current,
+                                    m_mainGui_.Link_Server.Storage.KifuTree.PositionA,//.CurNode2ok.GetNodeValue()
+                                    m_mainGui_,
+                                    m_mainGui_.Link_Server.Storage.KifuTree,
                                     eventState.Flg_logTag);//追加
 
                                 //------------------------------
                                 // メナス
                                 //------------------------------
-                                Util_Menace.Menace(mainGui, eventState.Flg_logTag);
+                                Util_Menace.Menace(m_mainGui_, eventState.Flg_logTag);
 
-                                mainGui.Response("Saisei", eventState.Flg_logTag);// 再描画
+                                m_mainGui_.Response("Saisei", eventState.Flg_logTag);// 再描画
                             }
 
 

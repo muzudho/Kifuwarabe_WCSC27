@@ -3,13 +3,13 @@ using Grayscale.A060_Application.B110_Log________.C___500_Struct;
 using Grayscale.A060_Application.B310_Settei_____.C500____Struct;
 using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B300_KomahaiyaTr.C500____Table;
 using Grayscale.A210_KnowNingen_.B380_Michi______.C500____Word;
 using Grayscale.A210_KnowNingen_.B390_KomahaiyaEx.C500____Util;
+using Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky;
 using Grayscale.A210_KnowNingen_.B490_ForcePromot.C250____Struct;
-using Grayscale.A210_KnowNingen_.B650_PnlTaikyoku.C___250_Struct;
-using Grayscale.A210_KnowNingen_.B650_PnlTaikyoku.C250____Struct;
 using Grayscale.A450_Server_____.B110_Server_____.C___498_Server;
 using Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient;
 using Grayscale.A450_Server_____.B110_Server_____.C498____Server;
@@ -49,6 +49,51 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
     /// </summary>
     public class ServersideGui_CsharpImpl : ServersideGui_Csharp
     {
+        #region コンストラクター
+
+        /// <summary>
+        /// 生成後、OwnerFormをセットしてください。
+        /// </summary>
+        public ServersideGui_CsharpImpl()
+        {
+            //
+            // 駒なし
+            //
+            this.m_positionServerside_ = Util_SkyCreator.New_Komabukuro();// 描画モデル作成時
+
+            this.server = new Server_Impl(this.PositionServerside);
+
+            this.Widgets = new Dictionary<string, UserWidget>();
+
+            this.consoleWindowGui = new SubGuiImpl(this);
+
+            this.TimedA = new TimedA_EngineCapture(this);
+            this.TimedB_MouseCapture = new TimedB_MouseCapture(this);
+            this.TimedC = new TimedC_SaiseiCapture(this);
+
+            this.Data_Settei_Csv = new Data_Settei_Csv();
+            this.WidgetLoaders = new List<WidgetsLoader>();
+            this.RepaintRequest = new RepaintRequestImpl();
+
+            //----------
+            // ビュー
+            //----------
+            //
+            //      ボタンや将棋盤などを描画するツールを、事前準備しておきます。
+            //
+            this.shape_PnlTaikyoku = new Shape_PnlTaikyokuImpl("#TaikyokuPanel", this);
+
+            //System.C onsole.WriteLine("つまんでいる駒を放します。(1)");
+            this.SetFigTumandeiruKoma(-1);
+
+            //----------
+            // [出力切替]初期値
+            //----------
+            this.syuturyokuKirikae = SyuturyokuKirikae.Japanese;
+        }
+
+        #endregion
+
 
         #region プロパティー
 
@@ -58,8 +103,20 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
         public Server Link_Server { get { return this.server; } }
         protected Server server;
 
-        public SkyWrapper_Gui SkyWrapper_Gui { get { return this.m_skyWrapper_Gui_; } }
-        private SkyWrapper_Gui m_skyWrapper_Gui_;
+        /// <summary>
+        /// ------------------------------------------------------------------------------------------------------------------------
+        /// GUI用局面データ。
+        /// ------------------------------------------------------------------------------------------------------------------------
+        /// 
+        /// 局面が進むごとに更新されていきます。
+        /// 
+        /// </summary>
+        public Sky PositionServerside { get { return this.m_positionServerside_; } }
+        public void SetPositionServerside(Sky positionServerside)
+        {
+            this.m_positionServerside_ = positionServerside;
+        }
+        private Sky m_positionServerside_;
 
         /// <summary>
         /// コンソール・ウィンドウ。
@@ -179,46 +236,6 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
 
 
 
-        #region コンストラクター
-
-        /// <summary>
-        /// 生成後、OwnerFormをセットしてください。
-        /// </summary>
-        public ServersideGui_CsharpImpl()
-        {
-            this.m_skyWrapper_Gui_ = new SkyWrapper_GuiImpl();
-            this.server = new Server_Impl(this.m_skyWrapper_Gui_.GuiSky);
-
-            this.Widgets = new Dictionary<string, UserWidget>();
-
-            this.consoleWindowGui = new SubGuiImpl(this);
-
-            this.TimedA = new TimedA_EngineCapture(this);
-            this.TimedB_MouseCapture = new TimedB_MouseCapture(this);
-            this.TimedC = new TimedC_SaiseiCapture(this);
-
-            this.Data_Settei_Csv = new Data_Settei_Csv();
-            this.WidgetLoaders = new List<WidgetsLoader>();
-            this.RepaintRequest = new RepaintRequestImpl();
-
-            //----------
-            // ビュー
-            //----------
-            //
-            //      ボタンや将棋盤などを描画するツールを、事前準備しておきます。
-            //
-            this.shape_PnlTaikyoku = new Shape_PnlTaikyokuImpl("#TaikyokuPanel", this);
-
-            //System.C onsole.WriteLine("つまんでいる駒を放します。(1)");
-            this.SetFigTumandeiruKoma(-1);
-
-            //----------
-            // [出力切替]初期値
-            //----------
-            this.syuturyokuKirikae = SyuturyokuKirikae.Japanese;
-        }
-
-        #endregion
 
 
         /// <summary>
@@ -562,8 +579,8 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
 
         public virtual Busstop GetKoma(Finger finger)
         {
-            this.SkyWrapper_Gui.GuiSky.AssertFinger(finger);
-            return this.SkyWrapper_Gui.GuiSky.BusstopIndexOf(finger);
+            this.PositionServerside.AssertFinger(finger);
+            return this.PositionServerside.BusstopIndexOf(finger);
         }
 
     }

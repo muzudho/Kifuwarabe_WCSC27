@@ -14,7 +14,6 @@ using Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct;
 using Grayscale.A210_KnowNingen_.B310_Shogiban___.C500____Util;
 using Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky;
 using Grayscale.A210_KnowNingen_.B570_ConvJsa____.C500____Converter;
-using Grayscale.A210_KnowNingen_.B650_PnlTaikyoku.C___250_Struct;
 using Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter;
 using Grayscale.A210_KnowNingen_.B690_Ittesasu___.C___250_OperationA;
 using Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA;
@@ -49,7 +48,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
         /// <param name="kifu"></param>
         /// <param name="newNode"></param>
         public static void AfterSetCurNode_Srv(
-            SkyWrapper_Gui model_Manual,
+            ref Sky ref_positionServerside,
             MoveEx newNodeA,
             Move move,
             Sky positionA,
@@ -58,7 +57,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
             KwLogger logger
             )
         {
-            model_Manual.SetGuiSky(positionA);
+            ref_positionServerside = positionA;
 
             jsaFugoStr = Conv_SasiteStr_Jsa.ToSasiteStr_Jsa(
                 move,
@@ -88,7 +87,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
             Earth earth1,
             Tree kifu1,//SetCurNodeがある。[コマ送り][再生]などで使用。
 
-            SkyWrapper_Gui model_Manual,
+            ref Sky ref_positionServerside,
             out bool toBreak,
             string hint,
             KwLogger logger,
@@ -222,7 +221,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
                         //kifu1.OnDoCurrentMove(result.Out_newNode_OrNull, result.NewSky);
 
                         Util_Server.AfterSetCurNode_Srv(
-                            model_Manual,
+                            ref ref_positionServerside,
                             result.Out_newNode_OrNull,
                             result.Out_newNode_OrNull.Move,
                             result.NewSky,
@@ -251,7 +250,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
                     //     *1…「position startpos moves 7g7f 3c3d 2g2f」といった書き方。
                     //     
                     ParsedKyokumen parsedKyokumen = Conv_StartposImporter.ToParsedKyokumen(
-                        model_Manual,
+                        ref_positionServerside,
                         genjo.StartposImporter_OrNull,//指定されているはず。
                         genjo,
                         logger
@@ -268,7 +267,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
                     curNode1 = kifu1.MoveEx_Current;
 
                     Util_Server.AfterSetCurNode_Srv(
-                        model_Manual,
+                        ref ref_positionServerside,
                         curNode1,
                         parsedKyokumen.NewMove,
                         parsedKyokumen.NewSky,
@@ -387,8 +386,8 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
             Earth earth1,
             Tree kifu1,
 
-            SkyWrapper_Gui model_Manual,
-            KwLogger errH,
+            ref Sky ref_positionServerside,
+            KwLogger logger,
             [CallerMemberName] string memberName = "",
             [CallerFilePath] string sourceFilePath = "",
             [CallerLineNumber] int sourceLineNumber = 0
@@ -405,10 +404,10 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
                 ref inputLine,
                 earth1,
                 kifu1,//SetCurNodeがある。
-                model_Manual,
+                ref ref_positionServerside,
                 out toBreak,
                 "hint",
-                errH
+                logger
                 );
 
         gt_EndMethod:
@@ -433,7 +432,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
             Busstop dst,
             Finger fig_btnTumandeiruKoma,
             Busstop foodee_koma,//取られる対象の駒
-            SkyWrapper_Gui model_Manual,
+            ref Sky ref_positionServerside,
             KwLogger errH
             )
         {
@@ -443,7 +442,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
 
 
             // 取られることになる駒のボタン
-            btnKoma_Food_Koma = Util_Sky_FingersQuery.InMasuNow_Old(model_Manual.GuiSky, Conv_Busstop.ToMasu( foodee_koma)).ToFirst();
+            btnKoma_Food_Koma = Util_Sky_FingersQuery.InMasuNow_Old(ref_positionServerside, Conv_Busstop.ToMasu( foodee_koma)).ToFirst();
             if (Fingers.Error_1 == btnKoma_Food_Koma)
             {
                 koma_Food_after = Busstop.Empty;
@@ -460,8 +459,8 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
 
 
 
-            model_Manual.GuiSky.AssertFinger(btnKoma_Food_Koma);
-            Komasyurui14 koma_Food_pre_Syurui = Conv_Busstop.ToKomasyurui(model_Manual.GuiSky.BusstopIndexOf(btnKoma_Food_Koma));
+            ref_positionServerside.AssertFinger(btnKoma_Food_Koma);
+            Komasyurui14 koma_Food_pre_Syurui = Conv_Busstop.ToKomasyurui(ref_positionServerside.BusstopIndexOf(btnKoma_Food_Koma));
 
 
             // その駒は、駒置き場に移動させます。
@@ -470,7 +469,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
             {
                 case Playerside.P2:
 
-                    akiMasu = Util_IttesasuRoutine.GetKomadaiKomabukuroSpace(Okiba.Gote_Komadai, model_Manual.GuiSky);
+                    akiMasu = Util_IttesasuRoutine.GetKomadaiKomabukuroSpace(Okiba.Gote_Komadai, ref_positionServerside);
                     if (!Masu_Honshogi.IsErrorBasho(akiMasu))
                     {
                         // 駒台に空きスペースがありました。
@@ -502,7 +501,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
                 case Playerside.P1://thru
                 default:
 
-                    akiMasu = Util_IttesasuRoutine.GetKomadaiKomabukuroSpace(Okiba.Sente_Komadai, model_Manual.GuiSky);
+                    akiMasu = Util_IttesasuRoutine.GetKomadaiKomabukuroSpace(Okiba.Sente_Komadai, ref_positionServerside);
                     if (!Masu_Honshogi.IsErrorBasho(akiMasu))
                     {
                         // 駒台に空きスペースがありました。
@@ -543,7 +542,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
                 //------------------------------
                 // 取られる駒があった場合
                 //------------------------------
-                model_Manual.GuiSky.AddObjects(
+                ref_positionServerside.AddObjects(
                     //
                     // 指した駒と、取られた駒
                     //
@@ -556,10 +555,10 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
                 //------------------------------
                 // 取られる駒がなかった場合
                 //------------------------------
-                model_Manual.GuiSky.AssertFinger(fig_btnTumandeiruKoma);
-                Busstop movedKoma = model_Manual.GuiSky.BusstopIndexOf(fig_btnTumandeiruKoma);
+                ref_positionServerside.AssertFinger(fig_btnTumandeiruKoma);
+                Busstop movedKoma = ref_positionServerside.BusstopIndexOf(fig_btnTumandeiruKoma);
 
-                model_Manual.GuiSky.AddObjects(
+                ref_positionServerside.AddObjects(
                     //
                     // 指した駒
                     //
@@ -567,7 +566,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
                     );
             }
 
-            model_Manual.SetGuiSky(model_Manual.GuiSky);
+            //model_Manual.SetPositionServerside(positionServerside);
             // ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
             // 棋譜は変更された。
             // ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■

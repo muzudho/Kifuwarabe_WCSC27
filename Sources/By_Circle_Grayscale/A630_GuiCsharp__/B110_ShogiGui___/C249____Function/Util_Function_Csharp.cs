@@ -49,14 +49,18 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
             // ここで棋譜の変更をします。
             // ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
             string jsaFugoStr;
-            Util_Server.AfterSetCurNode_Srv(
-                mainGui.SkyWrapper_Gui,
-                newNode,
-                newNode.Move,
-                positionA,
-                out jsaFugoStr,
-                mainGui.Link_Server.Storage.KifuTree,
-                logger);
+            {
+                Sky temp = mainGui.PositionServerside;
+                Util_Server.AfterSetCurNode_Srv(
+                    ref temp,
+                    newNode,
+                    newNode.Move,
+                    positionA,
+                    out jsaFugoStr,
+                    mainGui.Link_Server.Storage.KifuTree,
+                    logger);
+                mainGui.SetPositionServerside(temp);
+            }
             mainGui.RepaintRequest.SetFlag_RefreshRequest();
 
             mainGui.RepaintRequest.SetFlag_RecalculateRequested();// 駒の再描画要求
@@ -192,9 +196,9 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
 
             // 置く駒
             {
-                mainGui.SkyWrapper_Gui.GuiSky.AssertFinger(btnKoma_Selected.Finger);
+                mainGui.PositionServerside.AssertFinger(btnKoma_Selected.Finger);
                 dst = Conv_Busstop.ToBusstop(
-                        Conv_Busstop.ToPlayerside(mainGui.SkyWrapper_Gui.GuiSky.BusstopIndexOf(btnKoma_Selected.Finger)),
+                        Conv_Busstop.ToPlayerside(mainGui.PositionServerside.BusstopIndexOf(btnKoma_Selected.Finger)),
                         btnMasu.Zahyo,
                         toSyurui
                         );
@@ -243,8 +247,8 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
             KwLogger errH
             )
         {
-            mainGui.SkyWrapper_Gui.GuiSky.AssertFinger(figKoma);
-            Busstop koma = mainGui.SkyWrapper_Gui.GuiSky.BusstopIndexOf(figKoma);
+            mainGui.PositionServerside.AssertFinger(figKoma);
+            Busstop koma = mainGui.PositionServerside.BusstopIndexOf(figKoma);
 
             Shape_BtnKoma btnKoma = Conv_Koma_InGui.FingerToKomaBtn(figKoma, mainGui);
 
