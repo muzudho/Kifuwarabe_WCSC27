@@ -483,7 +483,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                 // 空っぽにして用意しておくぜ☆
                 result_thisDepth = new MoveExImpl(Move.Empty);
                 result_thisDepth.SetScore(Util_Scoreing.GetWorstScore(
-                    positionA.GetKaisiPside() //× psideA//
+                    kifu1.GetNextPside()// positionA.GetKaisiPside() //× psideA//
                     ));// プレイヤー1ならmax値、プレイヤー2ならmin値。
 
                 exceptionArea = 2000;

@@ -49,7 +49,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
         /// <param name="nextState"></param>
         /// <param name="owner"></param>
         /// <param name="genjo"></param>
-        /// <param name="errH"></param>
+        /// <param name="logger"></param>
         /// <returns></returns>
         public string Execute(
             out MoveNodeType out_moveNodeType,
@@ -62,7 +62,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
             out KifuParserA_State nextState,
             KifuParserA owner,
             KifuParserA_Genjo genjo,
-            KwLogger errH
+            KwLogger logger
             )
         {
             out_moveNodeType = MoveNodeType.None;
@@ -87,7 +87,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
                         positionA.GetKaisiPside(),
 
                         positionA,
-                        errH
+                        logger
                         );
                     genjo.InputLine = rest;
 
@@ -124,7 +124,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
                                 out ittesasuResult,
                                 ref nextMove,
                                 positionA,
-                                errH
+                                logger
                                 );
                             // 棋譜ツリーのカレントを変更します。
                             result.SetNode( new MoveExImpl(nextMove),
@@ -141,8 +141,8 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
 
                             // どうにもできないので  ログだけ取って無視します。
                             string message = this.GetType().Name + "#Execute（B）： exceptionArea=" + exceptionArea + "\n" + ex.GetType().Name + "：" + ex.Message;
-                            errH.AppendLine(message);
-                            errH.Flush(LogTypes.Error);
+                            logger.AppendLine(message);
+                            logger.Flush(LogTypes.Error);
                         }
 
                     }
@@ -150,8 +150,8 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
                     {
                         genjo.ToBreak_Abnormal();
                         string message = "＼（＾ｏ＾）／teSasiteオブジェクトがない☆！　inputLine=[" + genjo.InputLine + "]";
-                        errH.AppendLine(message);
-                        errH.Flush(LogTypes.Error);
+                        logger.AppendLine(message);
+                        logger.Flush(LogTypes.Error);
                         throw new Exception(message);
                     }
                 }
@@ -173,8 +173,8 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
 
                 // どうにもできないので  ログだけ取って無視します。
                 string message = this.GetType().Name + "#Execute：" + ex.GetType().Name + "：" + ex.Message;
-                errH.AppendLine(message);
-                errH.Flush(LogTypes.Error);
+                logger.AppendLine(message);
+                logger.Flush(LogTypes.Error);
 
                 // サーバーを止めるフラグ☆（＾▽＾）
                 genjo.ToBreak_Abnormal();

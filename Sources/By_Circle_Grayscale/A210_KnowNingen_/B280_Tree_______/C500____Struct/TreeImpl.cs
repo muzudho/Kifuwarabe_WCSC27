@@ -200,5 +200,18 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct
             this.m_positionA_ = positionA;
         }
         private Sky m_positionA_;
+
+
+        public Playerside GetNextPside()
+        {
+            if (this.m_pv_.Count == 1)
+            {
+                // 初期局面ならＰ１側。
+                return Playerside.P1;
+            }
+
+            // 最後の指し手の逆側。
+            return Conv_Playerside.Reverse( Conv_Move.ToPlayerside(this.m_pv_[this.m_pv_.Count - 1]));
+        }
     }
 }

@@ -2,6 +2,7 @@
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
 using System.Collections.Generic;
+using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 
 namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct
 {
@@ -42,5 +43,9 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct
         Sky PositionA { get; }
         void SetPositionA(Sky positionA);
         void MoveEx_SetCurrent(MoveEx curNode);
+
+
+
+        Playerside GetNextPside();
     }
 }
