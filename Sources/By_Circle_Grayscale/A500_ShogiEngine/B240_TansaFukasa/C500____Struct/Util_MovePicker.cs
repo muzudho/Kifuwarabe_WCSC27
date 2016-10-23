@@ -39,7 +39,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
         /// <param name="out_yomiDeep"></param>
         /// <param name="out_a_childrenBest"></param>
         /// <param name="logger"></param>
-        public static List<Move> CreateMovelist_BeforeLoop(
+        public static List<MoveEx> CreateMovelist_BeforeLoop(
             Tansaku_Genjo genjo,
                         Tree kifu1,
             Sky positionA,//この局面から合法手を作成☆（＾～＾）
@@ -49,7 +49,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
             KwLogger logger
             )
         {
-            List<Move> result_movelist = Util_MovePicker.WAAAA_Create_ChildNodes(
+            List<MoveEx> result_movelist = Util_MovePicker.WAAAA_Create_ChildNodes(
                 genjo,
                 kifu1.GetNextPside(),//これから作る指し手の先後
                 kifu1,
@@ -81,7 +81,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
         /// <param name="logF_moveKiki"></param>
         /// <param name="logTag"></param>
         /// <returns>複数のノードを持つハブ・ノード</returns>
-        private static List<Move> WAAAA_Create_ChildNodes(
+        private static List<MoveEx> WAAAA_Create_ChildNodes(
             Tansaku_Genjo genjo,
             Playerside psideCreate,
             Tree kifu1,
@@ -98,7 +98,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
             //
             // このハブ・ノード自身は空っぽで、ハブ・ノードの次ノードが、次局面のリストになっています。
             //
-            List<Move> movelist;
+            List<MoveEx> movelist;
 
             try
             {
@@ -173,7 +173,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                     //----------------------------------------
                     // 指定局面での全ての指し手。
                     //----------------------------------------
-                    Maps_OneAndMulti<Finger, Move> komaBETUAllSasites = Conv_KomabetuSusumeruMasus.ToKomaBETUAllSasites(
+                    Maps_OneAndMulti<Finger, MoveEx> komaBETUAllSasites = Conv_KomabetuSusumeruMasus.ToKomaBETUAllSasites(
                         komaBETUSusumeruMasus, positionA);
                     if(test){                        
                         foreach (Finger fig in komaBETUAllSasites.Items.Keys)
@@ -226,7 +226,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                     // 成りの指し手を作成します。（拡張）
                     //----------------------------------------
                     //成りの手
-                    List<Move> b_movelist = Util_SasuEx.CreateNariSasite(
+                    List<MoveEx> b_movelist = Util_SasuEx.CreateNariSasite(
                         positionA,
                         movelist,
                         logger
@@ -235,11 +235,11 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                     exceptionArea = 44000;
 
                     // マージ
-                    foreach (Move move in b_movelist)
+                    foreach (MoveEx moveEx in b_movelist)
                     {
-                        if (!movelist.Contains(move))
+                        if (!movelist.Contains(moveEx))
                         {
-                            movelist.Add(move);
+                            movelist.Add(moveEx);
                         }
                     }
                 }

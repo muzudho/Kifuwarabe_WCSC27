@@ -9,6 +9,8 @@ using Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct;
 
 namespace Grayscale.A210_KnowNingen_.B730_Util_SasuEx.C500____Util
 {
@@ -25,31 +27,31 @@ namespace Grayscale.A210_KnowNingen_.B730_Util_SasuEx.C500____Util
         /// これが通称【水際のいんちきプログラム】なんだぜ☆
         /// 必要により、【成り】の指し手を追加するぜ☆
         /// </summary>
-        public static List<Move> CreateNariSasite(
+        public static List<MoveEx> CreateNariSasite(
             Sky positionA,
-            List<Move> a_sasitebetuEntry,
+            List<MoveEx> a_sasitebetuEntry,
             KwLogger errH
             )
         {
             //----------------------------------------
             // 『進める駒』と、『移動先升』
             //----------------------------------------
-            List<Move> result_komabetuEntry = new List<Move>();
+            List<MoveEx> result_komabetuEntry = new List<MoveEx>();
 
             try
             {
                 Dictionary<string, Move> newSasiteList = new Dictionary<string, Move>();
 
-                foreach(Move move1 in a_sasitebetuEntry)
+                foreach(MoveEx moveEx1 in a_sasitebetuEntry)
                 {
                     // ・移動元の駒
-                    SyElement srcMasu = Conv_Move.ToSrcMasu(move1, positionA);
-                    Komasyurui14 srcKs = Conv_Move.ToSrcKomasyurui(move1);
+                    SyElement srcMasu = Conv_Move.ToSrcMasu(moveEx1.Move, positionA);
+                    Komasyurui14 srcKs = Conv_Move.ToSrcKomasyurui(moveEx1.Move);
 
                     // ・移動先の駒
-                    SyElement dstMasu = Conv_Move.ToDstMasu(move1);
-                    Komasyurui14 dstKs = Conv_Move.ToDstKomasyurui(move1);
-                    Playerside pside = Conv_Move.ToPlayerside(move1);
+                    SyElement dstMasu = Conv_Move.ToDstMasu(moveEx1.Move);
+                    Komasyurui14 dstKs = Conv_Move.ToDstKomasyurui(moveEx1.Move);
+                    Playerside pside = Conv_Move.ToPlayerside(moveEx1.Move);
 
                     // 成りができる動きなら真。
                     bool isPromotionable;
@@ -88,31 +90,31 @@ namespace Grayscale.A210_KnowNingen_.B730_Util_SasuEx.C500____Util
                 // 新しく作った【成り】の指し手を追加します。
                 foreach (Move newMove in newSasiteList.Values)
                 {
+                    MoveEx newMoveEx = new MoveExImpl(newMove);
                     // 指す前の駒
                     SyElement srcMasu = Conv_Move.ToSrcMasu(newMove, positionA);
 
                     try
                     {
-                        if (!result_komabetuEntry.Contains(newMove))
+                        if (!result_komabetuEntry.Contains(newMoveEx))
                         {
                             // 指し手が既存でない局面だけを追加します。
 
                             // 『進める駒』と、『移動先升』
-                            result_komabetuEntry.Add( 
-                                newMove//成りの手
+                            result_komabetuEntry.Add(
+                                newMoveEx//成りの手
                                 );
                         }
-
                     }
                     catch (Exception ex)
                     {
                         // 既存の指し手
                         StringBuilder sb = new StringBuilder();
                         {
-                            foreach (Move entry in a_sasitebetuEntry)
+                            foreach (MoveEx entry in a_sasitebetuEntry)
                             {
                                 sb.Append("「");
-                                sb.Append(Conv_Move.ToSfen(entry));
+                                sb.Append(Conv_Move.ToSfen(entry.Move));
                                 sb.Append("」");
                             }
                         }
