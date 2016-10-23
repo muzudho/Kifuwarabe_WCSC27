@@ -35,7 +35,7 @@ namespace Grayscale.A500_ShogiEngine.B200_Scoreing___.C___240_Shogisasi
         /// <param name="enableLog"></param>
         /// <param name="isHonshogi"></param>
         /// <param name="kifu1"></param>
-        /// <param name="errH"></param>
+        /// <param name="logger"></param>
         /// <returns></returns>
         MoveEx WA_Bestmove(
             ref int searchedMaxDepth,
@@ -45,9 +45,8 @@ namespace Grayscale.A500_ShogiEngine.B200_Scoreing___.C___240_Shogisasi
 
             Earth earth1,
             Tree kifu1,
-            Sky positionA,
 
-            KwLogger errH
+            KwLogger logger
             );
 
     }

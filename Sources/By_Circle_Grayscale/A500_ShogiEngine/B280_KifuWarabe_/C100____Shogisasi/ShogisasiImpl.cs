@@ -72,12 +72,11 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C100____Shogisasi
 
             Earth earth1,
             Tree kifu1,// ツリーを伸ばしているぜ☆（＾～＾）
-            Sky positionA,
 
             KwLogger logger
             )
         {
-            MoveEx bestmoveEx = null;
+            MoveEx bestChild = null;
 
             //────────────────────────────────────────
             // ストップウォッチ
@@ -105,13 +104,12 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C100____Shogisasi
                 //
                 // 指し手は１つに絞ること。
                 //
-                bestmoveEx = Tansaku_FukasaYusen_Routine.WAA_Yomu_Start(
+                bestChild = Tansaku_FukasaYusen_Routine.WAA_GetBestChild_Start(
                     ref searchedMaxDepth,
                     ref searchedNodes,
                     searchedPv,
 
                     kifu1,// ツリーを伸ばしているぜ☆（＾～＾）
-                    positionA,
 
                     isHonshogi, Mode_Tansaku.Shogi_ENgine,
                     args, logger);
@@ -141,7 +139,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C100____Shogisasi
 #endif
 
             this.TimeManager.Stopwatch.Stop();
-            return bestmoveEx;
+            return bestChild;
         }
 
     }

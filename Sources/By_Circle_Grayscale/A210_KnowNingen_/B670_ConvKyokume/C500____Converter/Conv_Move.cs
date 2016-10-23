@@ -846,12 +846,12 @@ namespace Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter
             return (Move)(1 << (int)MoveShift.ErrorCheck);//エラー
         }
 
-        public static string ToLog(MoveEx moveEx)
+        public static string ToLog2(MoveEx moveEx)
         {
-            return Conv_Move.ToLog(moveEx.Move) + " " + moveEx.Score.ToString("f3") + "点";
+            return Conv_Move.ToLog1(moveEx.Move) + " Score=" + ((int)(moveEx.Score*1000))/1000 + "点";
         }
 
-        public static string ToLog(Move move)
+        public static string ToLog1(Move move)
         {
             if (Move.Empty==move)
             {

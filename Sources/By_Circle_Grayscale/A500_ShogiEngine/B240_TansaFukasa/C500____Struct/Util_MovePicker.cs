@@ -41,15 +41,16 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
         /// <param name="logger"></param>
         public static List<MoveEx> CreateMovelist_BeforeLoop(
             Tansaku_Genjo genjo,
-                        Tree kifu1,
-            Sky positionA,//この局面から合法手を作成☆（＾～＾）
+            Tree kifu1,
 
             ref int searchedMaxDepth,
             out int out_yomiDeep,
             KwLogger logger
             )
         {
-            List<MoveEx> result_movelist = Util_MovePicker.WAAAA_Create_ChildNodes(
+            Sky positionA = kifu1.PositionA;//この局面から合法手を作成☆（＾～＾）
+
+            List< MoveEx> result_movelist = Util_MovePicker.WAAAA_Create_ChildNodes(
                 genjo,
                 kifu1.GetNextPside(),//これから作る指し手の先後
                 kifu1,
@@ -226,20 +227,18 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                     // 成りの指し手を作成します。（拡張）
                     //----------------------------------------
                     //成りの手
-                    List<MoveEx> b_movelist = Util_SasuEx.CreateNariSasite(
+                    List<MoveEx> nariMovelist = Util_SasuEx.CreateNariSasite(
                         positionA,
                         movelist,
                         logger
                         );
 
-                    exceptionArea = 44000;
-
                     // マージ
-                    foreach (MoveEx moveEx in b_movelist)
+                    foreach (MoveEx nariMoveEx in nariMovelist)
                     {
-                        if (!movelist.Contains(moveEx))
+                        if (!movelist.Contains(nariMoveEx))
                         {
-                            movelist.Add(moveEx);
+                            movelist.Add(nariMoveEx);
                         }
                     }
                 }

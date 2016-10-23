@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using Finger = ProjectDark.NamedInt.StrictNamedInt0; //スプライト番号
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct;
+using Grayscale.A210_KnowNingen_.B245_ConvScore__.C___500_ConvScore;
 
 namespace Grayscale.A210_KnowNingen_.B770_Conv_Sasu__.C500____Converter
 {
@@ -47,7 +48,9 @@ namespace Grayscale.A210_KnowNingen_.B770_Conv_Sasu__.C500____Converter
                         false,//ドロップしない
                         psideCreate,
                         false
-                        ));
+                        ),
+                        Conv_Score.GetWorstScore(psideCreate)
+                        );
 
                     if (!result_movelist.Contains(moveEx))
                     {

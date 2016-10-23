@@ -238,7 +238,7 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
                 {
                     logger.DonimoNaranAkirameta(ex,
                         "ノードを削除しているときだぜ☆（＾▽＾） exception_area=" + exception_area +
-                        "\nmove=" + Conv_Move.ToLog(moveExB));
+                        "\nmove=" + Conv_Move.ToLog2(moveExB));
                     throw ex;
                 }
 

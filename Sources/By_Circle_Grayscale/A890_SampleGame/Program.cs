@@ -49,7 +49,6 @@ namespace P930_SampleGame
 
                 earth1,
                 kifu1,// ツリーを伸ばしているぜ☆（＾～＾）
-                positionA,
 
                 errH);
 

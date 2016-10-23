@@ -25,7 +25,7 @@ namespace Grayscale.A210_KnowNingen_.B320_ConvWords__.C500____Converter
 
             sb.AppendLine(Conv_Playerside.ToLog_Kanji(shogiban.Playerside));
             sb.AppendLine(sky.Temezumi+"手目済");
-            sb.AppendLine(Conv_Move.ToLog(move));
+            sb.AppendLine(Conv_Move.ToLog1(move));
 
 
             sb.Append(Conv_Shogiban.ToLog(shogiban));
