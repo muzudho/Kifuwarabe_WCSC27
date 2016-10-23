@@ -5,7 +5,6 @@ using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
-using Grayscale.A240_KifuTreeLog.B110_KifuTreeLog.C500____Struct;
 using Grayscale.A500_ShogiEngine.B130_FeatureVect.C500____Struct;
 using Grayscale.A500_ShogiEngine.B200_Scoreing___.C___250_Args;
 using Grayscale.A500_ShogiEngine.B200_Scoreing___.C250____Args;
@@ -349,8 +348,7 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C600____Operation
                 args = new EvaluationArgsImpl(
                     uc_Main.LearningData.Earth.GetSennititeCounter(),
                     new FeatureVectorImpl(),
-                    new ShogisasiImpl(new KifuWarabeImpl(new EnginesideReceiverImpl())),
-                    Util_KifuTreeLogWriter.REPORT_ENVIRONMENT
+                    new ShogisasiImpl(new KifuWarabeImpl(new EnginesideReceiverImpl()))
 #if DEBUG
                     ,
                     logF_kiki

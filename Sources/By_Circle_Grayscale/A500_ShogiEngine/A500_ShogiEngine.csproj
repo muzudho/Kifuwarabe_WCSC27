@@ -68,7 +68,6 @@
     <Compile Include="B140_Conv_FvKoumoku\C500____Converter\Conv_FvKoumoku522.cs" />
     <Compile Include="B150_UtilFv_____\C480____UtilFvEdit\Util_FeatureVectorEdit.cs" />
     <Compile Include="B150_UtilFv_____\C490____UtilFvFormat\Format_FeatureVector_Scale.cs" />
-    <Compile Include="B180_Hyokakansu_\C500____Hyokakansu\Hyokakansu_Sennitite.cs" />
     <Compile Include="B180_Hyokakansu_\C510____HyokakansuColl\Util_HyokakansuCollection.cs" />
     <Compile Include="B200_Scoreing___\C250____Args\EvaluationArgsImpl.cs" />
     <Compile Include="B200_Scoreing___\C500____Util\Util_Scoreing.cs" />
@@ -142,10 +141,6 @@
     <ProjectReference Include="..\A210_KnowNingen_\A210_KnowNingen_.csproj">
       <Project>{2cfb37ae-2d9e-4478-abd8-1eaaaf98f223}</Project>
       <Name>A210_KnowNingen_</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\A240_KifuTreeLog\A240_KifuTreeLog.csproj">
-      <Project>{da78a967-e248-4fc3-a89c-11ebb03030b7}</Project>
-      <Name>A240_KifuTreeLog</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -20,8 +20,6 @@ namespace Grayscale.A500_ShogiEngine.B200_Scoreing___.C___250_Args
 
         Shogisasi Shogisasi { get; }
 
-        KyokumenPngEnvironment ReportEnvironment { get; }
-
 #if DEBUG
         /// <summary>
         /// デバッグ用。

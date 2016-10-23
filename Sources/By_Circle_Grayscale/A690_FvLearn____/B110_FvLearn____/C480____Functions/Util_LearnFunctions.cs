@@ -181,17 +181,17 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C480____Functions
             // 合法手一覧
             //
             {
-                Move moveB = uc_Main.LearningData.ToCurChildItem().Move;
+                MoveEx moveExB = uc_Main.LearningData.ToCurChildItem();//.Move;
                 // 本譜手はまだ計算しない。
-                if (moveB == move1)
+                if (moveExB.Move == move1)
                 {
                     goto gt_NextLoop1;
                 }
 
                 Util_IttesasuSuperRoutine.DoMove_Super1(
-                    Conv_Move.ToPlayerside(moveB),
+                    Conv_Move.ToPlayerside(moveExB.Move),
                     ref positionA,//指定局面
-                    ref moveB,
+                    moveExB,
                     uc_Main.LearningData.KifuA,
                     "E100",
                     logger
@@ -216,7 +216,7 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C480____Functions
                 IttemodosuResult ittemodosuResult;
                 Util_IttemodosuRoutine.UndoMove(
                     out ittemodosuResult,
-                    moveB,//この関数が呼び出されたときの指し手☆（＾～＾）
+                    moveExB.Move,//この関数が呼び出されたときの指し手☆（＾～＾）
                     positionA,
                     "E900",
                     logger

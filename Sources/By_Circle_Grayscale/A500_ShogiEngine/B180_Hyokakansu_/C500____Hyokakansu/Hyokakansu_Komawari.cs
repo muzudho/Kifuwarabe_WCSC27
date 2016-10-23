@@ -37,9 +37,8 @@ namespace Grayscale.A500_ShogiEngine.B180_Hyokakansu_.C500____Hyokakansu
             KwLogger errH
             )
         {
-            float score_p1 = 0.0f;
-            float score_p2 = 0.0f;//2Pは、負の数なほどグッドということに注意。
-
+            // 1P は正の数ほどグッド、2Pは、負の数なほどグッド。
+            float score = 0.0f;
 
 
             positionA.Foreach_Busstops((Finger finger, Busstop koma, ref bool toBreak) =>
@@ -60,35 +59,18 @@ namespace Grayscale.A500_ShogiEngine.B180_Hyokakansu_.C500____Hyokakansu
 
                 if (Conv_Busstop.ToPlayerside( koma) == Playerside.P1)
                 {
-                    score_p1 += komaScore_temp;
+                    score += komaScore_temp;
                 }
                 else
                 {
                     // 駒割は、他の評価値と違って、
                     // １プレイヤーも、２プレイヤーも正の数になっている。
                     // ２プレイヤーは　符号を反転させること。
-                    score_p2 += -komaScore_temp;
+                    score -= komaScore_temp;
                 }
             });
 
-            //----------------------------------------
-            // 明細項目
-            //----------------------------------------
-#if DEBUG || LEARN
-            string utiwake = "";
-            // 明細
-            {
-                StringBuilder sb = new StringBuilder();
-                sb.Append("駒割");
-                utiwake = sb.ToString();
-            }
-#endif
-
-            //
-            // ２プレイヤーは　負の数になっている（負の数が多いほど有利）ので、
-            // 足すだけでいい。
-            //
-            return score_p1 + score_p2;
+            return score;
         }
     }
 }

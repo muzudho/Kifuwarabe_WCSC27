@@ -22,7 +22,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C510____OperationB
         public static bool DoMove_Super1(
             Playerside psideA,
             ref Sky positionA,//指定局面
-            ref Move move,//TODO:取った駒があると、上書きされる
+            MoveEx mutable_moveEx,//TODO:取った駒があると、上書きされる
             Tree kifu1,
             string hint,
             KwLogger logger
@@ -34,19 +34,19 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C510____OperationB
             if (log)
             {
                 logger.AppendLine("進める前 "+ hint);
-                logger.Append(Conv_Shogiban.ToLog_Type2(Conv_Sky.ToShogiban(psideA, positionA, logger), positionA, move));
+                logger.Append(Conv_Shogiban.ToLog_Type2(Conv_Sky.ToShogiban(psideA, positionA, logger), positionA, mutable_moveEx.Move));
                 logger.Flush(LogTypes.Plain);
             }
             //*/
 
             // 動かす駒
-            Fingers fingers = Util_Sky_FingersQuery.InMasuNow_New(positionA, move, logger);
+            Fingers fingers = Util_Sky_FingersQuery.InMasuNow_New(positionA, mutable_moveEx.Move, logger);
 
             if (fingers.Count < 1)
             {
                 string message = "Util_IttesasuSuperRoutine#DoMove_Super:指し手に該当する駒が無かったぜ☆（＾～＾） hint=" +
                     hint +
-                    " move=" + Conv_Move.ToLog(move);
+                    " move=" + Conv_Move.ToLog(mutable_moveEx);
 
                 throw new Exception(message);
             }
@@ -54,20 +54,20 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C510____OperationB
             {
                 Util_IttesasuSuperRoutine.DoMove_Super2(
                         ref positionA,
-                        ref move,
+                        mutable_moveEx,
                         kifu1,
                         // フィンガー
                         fingers.ToFirst(),// マス
 
-                        Conv_Move.ToDstMasu(move),//移動先升
-                        Conv_Move.ToPromotion(move),//成るか。
+                        Conv_Move.ToDstMasu(mutable_moveEx.Move),//移動先升
+                        Conv_Move.ToPromotion(mutable_moveEx.Move),//成るか。
                         logger
                     );
 
                 if (log)
                 {
                     logger.AppendLine("進めた後 " + hint);
-                    logger.Append(Conv_Shogiban.ToLog_Type2(Conv_Sky.ToShogiban(psideA, positionA, logger), positionA, move));
+                    logger.Append(Conv_Shogiban.ToLog_Type2(Conv_Sky.ToShogiban(psideA, positionA, logger), positionA, mutable_moveEx.Move));
                     logger.Flush(LogTypes.Plain);
                 }
             }
@@ -87,7 +87,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C510____OperationB
         /// <returns></returns>
         public static void DoMove_Super2(
             ref Sky positionA,//指定局面
-            ref Move moveA,
+            MoveEx mutable_moveExA,
             Tree kifu1,
             Finger figKoma,//動かす駒
             SyElement dstMasu,//移動先マス
@@ -126,10 +126,10 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C510____OperationB
                 if (Conv_Busstop.ToKomasyurui(tottaKomaBus) != Komasyurui14.H00_Null___)
                 {
                     // 元のキーの、取った駒の種類だけを差替えます。
-                    moveA = Conv_Move.SetCaptured(
-                        moveA,
+                    mutable_moveExA.SetMove( Conv_Move.SetCaptured(
+                        mutable_moveExA.Move,
                         Conv_Busstop.ToKomasyurui(tottaKomaBus)
-                        );
+                        ));
                 }
             }
 

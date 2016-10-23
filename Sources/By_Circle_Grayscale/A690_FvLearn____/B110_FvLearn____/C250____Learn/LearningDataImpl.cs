@@ -211,8 +211,7 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C250____Learn
                 args = new EvaluationArgsImpl(
                     this.Earth.GetSennititeCounter(),
                     this.featureVector_ForYomi,
-                    this.shogisasi_ForYomi,
-                    LearningDataImpl.REPORT_ENVIRONMENT
+                    this.shogisasi_ForYomi
 #if DEBUG
                     ,
                     logF_kiki_orNull

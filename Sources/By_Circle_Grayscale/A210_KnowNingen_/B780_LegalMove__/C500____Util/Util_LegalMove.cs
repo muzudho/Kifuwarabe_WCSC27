@@ -22,6 +22,7 @@ using Grayscale.A210_KnowNingen_.B690_Ittesasu___.C510____OperationB;
 using Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA;
 using Grayscale.A210_KnowNingen_.B690_Ittesasu___.C___250_OperationA;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct;
 
 #if DEBUG
 using Grayscale.A210_KnowNingen_.B250_Log_Kaisetu.C250____Struct;
@@ -180,14 +181,14 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
 
             foreach (Move moveA in inputMovelist)
             {
-                Move moveB = moveA;
+                MoveEx moveExB = new MoveExImpl( moveA);
                 long exception_area = 1000120;
                 try
                 {
                     bool successful = Util_IttesasuSuperRoutine.DoMove_Super1(
-                        Conv_Move.ToPlayerside(moveB),
+                        Conv_Move.ToPlayerside(moveExB.Move),
                         ref positionA,//指定局面
-                        ref moveB,
+                        moveExB,
                         kifu1,
                         "A100_IfMate",
                         logger
@@ -209,7 +210,7 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
 #if DEBUG
                     logF_kiki,
 #endif
-                        moveB,
+                        moveExB.Move,
                         logger
                         );
 
@@ -218,7 +219,7 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
                     if (!kingSuicide)
                     {
                         // 王様が利きに飛び込んでいない局面だけ、残します。
-                        restMovelist.Add(moveB);
+                        restMovelist.Add(moveExB.Move);
                     }
 
                     exception_area = 5000110;
@@ -226,7 +227,7 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
                     IttemodosuResult ittemodosuResult;
                     Util_IttemodosuRoutine.UndoMove(
                         out ittemodosuResult,
-                        moveB,//この関数が呼び出されたときの指し手☆（＾～＾）
+                        moveExB.Move,//この関数が呼び出されたときの指し手☆（＾～＾）
                         positionA,
                         "A900_IfMate",
                         logger
@@ -237,7 +238,7 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
                 {
                     logger.DonimoNaranAkirameta(ex,
                         "ノードを削除しているときだぜ☆（＾▽＾） exception_area=" + exception_area +
-                        "\nmove=" + Conv_Move.ToLog(moveB));
+                        "\nmove=" + Conv_Move.ToLog(moveExB));
                     throw ex;
                 }
 

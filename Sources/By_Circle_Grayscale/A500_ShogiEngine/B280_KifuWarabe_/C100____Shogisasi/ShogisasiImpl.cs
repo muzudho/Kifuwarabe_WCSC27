@@ -2,7 +2,6 @@
 using Grayscale.A090_UsiFramewor.B500_usiFramewor.C___150_EngineOption;
 using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
-using Grayscale.A240_KifuTreeLog.B110_KifuTreeLog.C500____Struct;
 using Grayscale.A500_ShogiEngine.B130_FeatureVect.C___500_Struct;
 using Grayscale.A500_ShogiEngine.B130_FeatureVect.C500____Struct;
 using Grayscale.A500_ShogiEngine.B200_Scoreing___.C___005_Usi_Loop;
@@ -91,8 +90,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C100____Shogisasi
             EvaluationArgs args = new EvaluationArgsImpl(
                 earth1.GetSennititeCounter(),
                 this.FeatureVector,
-                this,
-                Util_KifuTreeLogWriter.REPORT_ENVIRONMENT
+                this
 #if DEBUG
                 ,
                 logF_kiki

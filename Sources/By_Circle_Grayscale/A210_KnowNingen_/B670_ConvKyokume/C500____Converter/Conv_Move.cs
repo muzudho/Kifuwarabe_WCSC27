@@ -848,7 +848,7 @@ namespace Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter
 
         public static string ToLog(MoveEx moveEx)
         {
-            return Conv_Move.ToLog(moveEx.Move) + " " + moveEx.Score + "点";
+            return Conv_Move.ToLog(moveEx.Move) + " " + moveEx.Score.ToString("f3") + "点";
         }
 
         public static string ToLog(Move move)

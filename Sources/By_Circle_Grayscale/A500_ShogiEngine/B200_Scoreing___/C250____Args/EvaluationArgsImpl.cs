@@ -25,9 +25,6 @@ namespace Grayscale.A500_ShogiEngine.B200_Scoreing___.C250____Args
         private Shogisasi shogisasi;
 
 
-        public KyokumenPngEnvironment ReportEnvironment { get { return this.reportEnvironment; } }
-        private KyokumenPngEnvironment reportEnvironment;
-
 #if DEBUG
         /// <summary>
         /// デバッグ用。
@@ -39,8 +36,7 @@ namespace Grayscale.A500_ShogiEngine.B200_Scoreing___.C250____Args
         public EvaluationArgsImpl(
             SennititeConfirmer sennititeConfirmer,
             FeatureVector featureVector,
-            Shogisasi shogisasi,
-            KyokumenPngEnvironment reportEnvironment
+            Shogisasi shogisasi
 #if DEBUG
             ,
             KaisetuBoards kaisetuBoards_orNull
@@ -50,7 +46,6 @@ namespace Grayscale.A500_ShogiEngine.B200_Scoreing___.C250____Args
             this.sennititeConfirmer = sennititeConfirmer;
             this.featureVector = featureVector;
             this.shogisasi = shogisasi;
-            this.reportEnvironment = reportEnvironment;
 #if DEBUG
             this.kaisetuBoards_orNull = kaisetuBoards_orNull;
 #endif

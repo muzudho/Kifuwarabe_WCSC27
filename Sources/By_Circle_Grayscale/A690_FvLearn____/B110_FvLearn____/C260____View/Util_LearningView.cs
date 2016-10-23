@@ -217,18 +217,14 @@ namespace Grayscale.A690_FvLearn____.B110_FvLearn____.C260____View
                     MoveEx moveExB = learningData.ToCurChildItem();
                     pvList.Add(moveExB);
 
-                    {
-                        Move moveB = moveExB.Move;
-                        Util_IttesasuSuperRoutine.DoMove_Super1(
-                            Conv_Move.ToPlayerside(moveExB.Move),
-                            ref positionA,//指定局面
-                            ref moveB,//moveExB,
-                            learningData.KifuA,
-                            "D100",
-                            logger
-                        );
-                        moveExB.SetMove(moveB);
-                    }
+                    Util_IttesasuSuperRoutine.DoMove_Super1(
+                        Conv_Move.ToPlayerside(moveExB.Move),
+                        ref positionA,//指定局面
+                        moveExB,
+                        learningData.KifuA,
+                        "D100",
+                        logger
+                    );
 
 
 

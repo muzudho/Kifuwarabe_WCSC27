@@ -101,57 +101,6 @@ namespace Grayscale.A500_ShogiEngine.B200_Scoreing___.C500____Util
                 default: throw new Exception("探索中、プレイヤーサイドのエラー");
             }
         }
-        public static int GetHighScore1Or2(
-            MoveEx moveEx1,
-            MoveEx moveEx2,
-            Playerside pside// このノードが、どちらの手番か。
-        )
-        {
-            switch (pside)
-            {
-                case Playerside.P1:
-                    // 大きい方を取るぜ☆
-                    if (moveEx1.Score < moveEx2.Score)
-                    {
-                        return 2;
-                    }
-                    else if (moveEx2.Score < moveEx1.Score)
-                    {
-                        return 1;
-                    }
-                    else if (0 < KwRandom.Random.Next(2))
-                    {
-                        return 1;
-                    }
-                    else
-                    {
-                        return 2;
-                    }
-
-                case Playerside.P2:
-                    // 小さい方を取るぜ☆
-                    if (moveEx1.Score < moveEx2.Score)
-                    {
-                        return 1;
-                    }
-                    else if (moveEx2.Score < moveEx1.Score)
-                    {
-                        return 2;
-                    }
-                    else if (0 < KwRandom.Random.Next(2))
-                    {
-                        return 1;
-                    }
-                    else
-                    {
-                        return 2;
-                    }
-
-                default: throw new Exception("探索中、プレイヤーサイドのエラー");
-            }
-        }
-
-
 
         /// <summary>
         /// ベスト・スコアを更新します。
@@ -159,35 +108,38 @@ namespace Grayscale.A500_ShogiEngine.B200_Scoreing___.C500____Util
         /// </summary>
         /// <param name="node_yomi"></param>
         /// <param name="parentsiblingBestmove"></param>
-        /// <param name="mov4"></param>
-        /// <param name="result_moveEx_best"></param>
+        /// <param name="b"></param>
+        /// <param name="a"></param>
         /// <param name="alpha_cut"></param>
         public static MoveEx Update_BestScore_And_Check_AlphaCut(
-            MoveEx result_moveEx_best,//自分
+            MoveEx a,//比較１
+            MoveEx b,//比較２
 
             int yomiDeep,//1start
             Playerside pside,// このノードが、どちらの手番か。
-
             float parentsiblingBestScore,//親の兄弟
-            MoveEx mov4,//子
-
             out bool alpha_cut
             )
         {
+            MoveEx c;
+
             alpha_cut = false;
             switch (pside)
             {
                 case Playerside.P1:
                     // 1プレイヤーは、大きな数を見つけたい。
-                    if (result_moveEx_best.Score < mov4.Score)
+                    if (a.Score < b.Score)
                     {
-                        result_moveEx_best.SetScore(mov4.Score);
-                        result_moveEx_best.SetMove( mov4.Move);
+                        c = b;
+                    }
+                    else
+                    {
+                        c = a;
                     }
                     //----------------------------------------
                     // アルファー・カット
                     //----------------------------------------
-                    if (1<yomiDeep && parentsiblingBestScore < result_moveEx_best.Score)
+                    if (1<yomiDeep && parentsiblingBestScore < c.Score)
                     {
                         // 親の兄が既に見つけている数字より　大きな数字を見つけた場合
                         alpha_cut = true;//探索を打ち切り
@@ -195,15 +147,18 @@ namespace Grayscale.A500_ShogiEngine.B200_Scoreing___.C500____Util
                     break;
                 case Playerside.P2:
                     // 2プレイヤーは、小さな数を見つけたい。
-                    if (mov4.Score < result_moveEx_best.Score)
+                    if (b.Score < a.Score)
                     {
-                        result_moveEx_best.SetScore(mov4.Score);
-                        result_moveEx_best.SetMove( mov4.Move);
+                        c = b;
+                    }
+                    else
+                    {
+                        c = a;
                     }
                     //----------------------------------------
                     // アルファー・カット
                     //----------------------------------------
-                    if (1 < yomiDeep && result_moveEx_best.Score < parentsiblingBestScore)
+                    if (1 < yomiDeep && c.Score < parentsiblingBestScore)
                     {
                         // 親の兄が既に見つけている数字より　小さな数字を見つけた場合
                         alpha_cut = true;//探索を打ち切り
@@ -212,7 +167,7 @@ namespace Grayscale.A500_ShogiEngine.B200_Scoreing___.C500____Util
                 default: throw new Exception("子要素探索中、プレイヤーサイドのエラー");
             }
 
-            return result_moveEx_best;
+            return c;
         }
 
         /// <summary>
@@ -248,14 +203,12 @@ namespace Grayscale.A500_ShogiEngine.B200_Scoreing___.C500____Util
             if (isSennitite)
             {
                 // 千日手用の評価をします。
-                Hyokakansu hyokakansu = Util_HyokakansuCollection.Hyokakansu_Sennichite;
-
-                score += hyokakansu.Evaluate(
-                    psideA,
-                    positionA,//node_yomi_mutable_KAIZOMAE.Value.Kyokumen,
-                    args.FeatureVector,
-                    errH
-                );
+                switch (psideA)
+                {
+                    case Playerside.P1: score = float.MinValue; break;
+                    case Playerside.P2: score = float.MaxValue; break;
+                    default: throw new Exception("千日手判定をしようとしましたが、プレイヤーの先後が分からず続行できませんでした。");
+                }
             }
             else
             {
