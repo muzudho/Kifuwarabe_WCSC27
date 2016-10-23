@@ -77,7 +77,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C100____Shogisasi
             KwLogger logger
             )
         {
-            MoveEx bestNode = null;
+            MoveEx bestmoveEx = null;
 
             //────────────────────────────────────────
             // ストップウォッチ
@@ -105,7 +105,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C100____Shogisasi
                 //
                 // 指し手は１つに絞ること。
                 //
-                bestNode = Tansaku_FukasaYusen_Routine.WAA_Yomu_Start(
+                bestmoveEx = Tansaku_FukasaYusen_Routine.WAA_Yomu_Start(
                     ref searchedMaxDepth,
                     ref searchedNodes,
                     searchedPv,
@@ -141,7 +141,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C100____Shogisasi
 #endif
 
             this.TimeManager.Stopwatch.Stop();
-            return bestNode;
+            return bestmoveEx;
         }
 
     }

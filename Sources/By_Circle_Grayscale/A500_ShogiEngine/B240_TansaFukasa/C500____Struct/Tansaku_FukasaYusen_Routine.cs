@@ -210,7 +210,6 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
             KwLogger logger
             )
         {
-            MoveEx result_bestmoveEx = null;
             int temezumi = positionA.Temezumi;
             int exceptionArea = 0;
 
@@ -222,19 +221,16 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                     isHonshogi, mode_Tansaku, logger);
 
                 // 最初は投了からスタートだぜ☆（*＾～＾*）
-                result_bestmoveEx = new MoveExImpl(
+                MoveEx result_bestmoveEx = new MoveExImpl(
                     Move.Empty,
                     //最悪点からスタートだぜ☆（＾～＾）
                     // プレイヤー1ならmax値、プレイヤー2ならmin値。
                     Util_Scoreing.GetWorstScore(kifu1.GetNextPside())
                     );
 
-                int wideCount2 = 0;
 
-                // 
-                // （１）合法手に一対一対応した子ノードを作成し、ハブ・ノードにぶら下げます。
-                //
                 int yomiDeep;
+
                 List<MoveEx> movelist = Util_MovePicker.CreateMovelist_BeforeLoop(
                     genjo,
 
@@ -246,62 +242,23 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                     logger
                     );
 
-                if (Tansaku_FukasaYusen_Routine.CanNotNextLoop(yomiDeep, wideCount2, movelist.Count, genjo, args.Shogisasi.TimeManager))
-                {
-                    // 1手も読まないのなら。
-                    // FIXME: エラー？
-                    //----------------------------------------
-                    // もう深くよまないなら
-                    //----------------------------------------
+                // ここが再帰のスタート地点☆（＾▽＾）
+                result_bestmoveEx = Tansaku_FukasaYusen_Routine.WAAA_Yomu_Loop(
+                    ref searchedMaxDepth,
+                    ref searchedNodes,
+                    searchedPv,
+                    genjo,
 
-                    // 局面に評価を付けます。
-                    Tansaku_FukasaYusen_Routine.Do_Leaf(
-                        result_bestmoveEx,
-                        kifu1.GetNextPside(),
-                        positionA,
-                        args,
-                        logger
-                        );
-                }
-                else
-                {
-                    // ここが再帰のスタート地点☆（＾▽＾）
-                    result_bestmoveEx = Tansaku_FukasaYusen_Routine.WAAA_Yomu_Loop(
-                        ref searchedMaxDepth,
-                        ref searchedNodes,
-                        searchedPv,
-                        genjo,
+                    positionA.Temezumi,
+                    kifu1.GetNextPside(),
+                    positionA,//この局面から合法手を作成☆（＾～＾）
+                    result_bestmoveEx.Score,
+                    kifu1,
 
-                        positionA.Temezumi,
-                        kifu1.GetNextPside(),
-                        positionA,//この局面から合法手を作成☆（＾～＾）
-                        result_bestmoveEx.Score,
-                        kifu1.Pv_GetLatest(),// ツリーを伸ばしているぜ☆（＾～＾）
-                        kifu1,
-
-                        movelist.Count,
-                        args,
-                        logger
-                        );
-                }
-
-#if DEBUG
-                exceptionArea = 20;
-                if (0 < genjo.Args.LogF_moveKiki.boards.Count)//ﾛｸﾞが残っているなら
-                {
-                    ////
-                    //// ログの書き出し
-                    ////
-                    //Util_GraphicalLog.WriteHtml5(
-                    //    true,//enableLog,
-                    //    "SasiteRoutine#Yomi_NextNodes(00)新ログ",
-                    //    "[" + Util_GraphicalLog.BoardFileLog_ToJsonStr(genjo.Args.LogF_moveKiki) + "]"
-                    //);
-
-                    // 書き出した分はクリアーします。
-                    genjo.Args.LogF_moveKiki.boards.Clear();
-                }
-#endif
+                    movelist.Count,
+                    args,
+                    logger
+                    );
 
                 return result_bestmoveEx;
             }
@@ -320,13 +277,6 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                             logger.Flush(LogTypes.Error);
                             throw ex;
                         }
-#if DEBUG
-                    case 20:
-                        {
-                            logger.DonimoNaranAkirameta(ex, "棋譜ツリーの読みの後半９０です。");
-                            throw ex;
-                        }
-#endif
                     default: throw ex;
                 }
             }
@@ -343,7 +293,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
         public static bool CanNotNextLoop(
             int yomiDeep,
             int wideCount2,
-            int movelist_count,
+            //int movelist_count,
             Tansaku_Genjo genjo,
             TimeManager timeManager
             )
@@ -354,8 +304,8 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                 (genjo.Args.YomuLimitter.Length <= yomiDeep + 1)//読みの深さ制限を超えているとき。
                 || //または、
                 (1 < yomiDeep && genjo.Args.YomuLimitter[yomiDeep] < wideCount2)//読みの１手目より後で、指定の横幅を超えているとき。
-                || //または、
-                (movelist_count < 1)//合法手がないとき
+                //|| //または、
+                //(movelist_count < 1)//合法手がないとき
                 ;
         }
 
@@ -403,7 +353,6 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
             Playerside psideA,
             Sky positionA,//この局面から、合法手を作成☆（＾～＾）
             float parentsiblingBestScore,
-            MoveEx moveEx_base,// ツリーを伸ばしているぜ☆（＾～＾）
             Tree kifu1,
 
             int movelist_count,
@@ -411,8 +360,13 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
             KwLogger logger
             )
         {
-            MoveEx result_bestmoveEx;
             int exceptionArea = 0;
+            // 見つからなかった場合、投了に設定しておくぜ☆
+            MoveEx result_bestmoveEx = new MoveExImpl(
+                Move.Empty,//これが３手読みのときに出てくるぜ☆
+                Util_Scoreing.GetWorstScore(kifu1.GetNextPside())// プレイヤー1ならmin値、プレイヤー2ならmax値。
+                );
+
 
             try
             {
@@ -424,10 +378,46 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                 //
 
 
-                // 
-                // （１）合法手に一対一対応した子ノードを作成し、ハブ・ノードにぶら下げます。
-                //
-                int yomiDeep2;
+                int wideCount1 = 0;
+                int yomiDeep2 = positionA.Temezumi - genjo.YomikaisiTemezumi + 1;
+
+
+                if (Tansaku_FukasaYusen_Routine.CanNotNextLoop(
+                    yomiDeep2,
+                    wideCount1,
+                    //movelist2.Count,
+                    genjo,
+                    args.Shogisasi.TimeManager
+                ))
+                {
+
+                    exceptionArea = 3000;
+
+                    //----------------------------------------
+                    // もう深くよまないなら
+                    //----------------------------------------
+                    Tansaku_FukasaYusen_Routine.Do_Leaf(
+                        kifu1.Pv_GetLatest(),
+                        kifu1.GetNextPside(),//psideA,
+                        positionA,//改造前
+                        args,
+                        logger
+                        );
+
+                    // 良い方を残すぜ☆（＾～＾）
+                    result_bestmoveEx = Util_Scoreing.GetHighScore(
+                        kifu1.Pv_GetLatest(),//親
+                        result_bestmoveEx,//これまでの子
+                        kifu1.GetNextPside()
+                        );
+
+                    wideCount1++;
+
+                    return result_bestmoveEx;
+                }
+
+
+                exceptionArea = 2000;
                 List<MoveEx> movelist2 = Util_MovePicker.CreateMovelist_BeforeLoop(
                     genjo,
 
@@ -439,50 +429,8 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                     logger
                     );
 
-                // 見つからなかった場合、投了に設定しておくぜ☆
-                result_bestmoveEx = new MoveExImpl(
-                    Move.Empty,//これが３手読みのときに出てくるぜ☆
-                    //Util_Scoreing.GetWorstScore(Conv_Playerside.Reverse( kifu1.GetNextPside()))// プレイヤー1ならmax値、プレイヤー2ならmin値。
-                    Util_Scoreing.GetWorstScore(kifu1.GetNextPside())// プレイヤー1ならmax値、プレイヤー2ならmin値。
-                    );
-
-                exceptionArea = 2000;
-
-                int wideCount1 = 0;
-                foreach (MoveEx iMoveEx_child in movelist2)//次に読む手
+                foreach (MoveEx iMoveEx in movelist2)//次に読む手
                 {
-                    if (Tansaku_FukasaYusen_Routine.CanNotNextLoop(
-                        yomiDeep2,
-                        wideCount1,
-                        movelist2.Count,
-                        genjo,
-                        args.Shogisasi.TimeManager
-                    ))
-                    {
-
-                        exceptionArea = 3000;
-
-                        //----------------------------------------
-                        // もう深くよまないなら
-                        //----------------------------------------
-                        Tansaku_FukasaYusen_Routine.Do_Leaf(
-                            moveEx_base,
-                            kifu1.GetNextPside(),//psideA,
-                            positionA,//改造前
-                            args,
-                            logger
-                            );
-
-                        // 良い方を残すぜ☆（＾～＾）
-                        result_bestmoveEx = Util_Scoreing.GetHighScore(
-                            moveEx_base,
-                            result_bestmoveEx,
-                            kifu1.GetNextPside()//× psideA
-                            );
-
-                        wideCount1++;
-                        break;
-                    }
 
                     //────────────────────────────────────────
                     // 葉以外の探索中なら
@@ -508,9 +456,9 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
 
                         // 局面
                         Util_IttesasuSuperRoutine.DoMove_Super1(
-                            Conv_Move.ToPlayerside(iMoveEx_child.Move),
+                            Conv_Move.ToPlayerside(iMoveEx.Move),
                             ref positionA,//指定局面
-                            iMoveEx_child,
+                            iMoveEx,
                             kifu1,
                             "C100",
                             logger
@@ -520,7 +468,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
 
 
                         // 自分を親要素につなげたあとで、子を検索するぜ☆（＾～＾）
-                        TreeImpl.OnDoCurrentMove("親にドッキング", iMoveEx_child, kifu1, positionA, logger);
+                        TreeImpl.OnDoCurrentMove("親にドッキング", iMoveEx, kifu1, positionA, logger);
 
                         exceptionArea = 44012;
 
@@ -538,7 +486,6 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                                 Conv_Playerside.Reverse(kifu1.GetNextPside()),//× kifu1.GetNextPside(),
                                 positionA,//この局面から合法手を作成☆（＾～＾）
                                 result_bestmoveEx.Score,
-                                kifu1.Pv_GetLatest(),// ツリーを伸ばしているぜ☆（＾～＾）
                                 kifu1,
 
                                 movelist2.Count,
@@ -546,7 +493,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                                 logger);
 
                             // 点数を、子から親へバックするぜ☆
-                            iMoveEx_child.SetScore(iMovEx_childChild.Score);
+                            iMoveEx.SetScore(iMovEx_childChild.Score);
                         }
 
                         exceptionArea = 6000;
@@ -557,7 +504,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                         IttemodosuResult ittemodosuResult;
                         Util_IttemodosuRoutine.UndoMove(
                             out ittemodosuResult,
-                            iMoveEx_child.Move,//この関数が呼び出されたときの指し手☆（＾～＾）
+                            iMoveEx.Move,//この関数が呼び出されたときの指し手☆（＾～＾）
                             positionA,
                             "C900",
                             logger
@@ -572,7 +519,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                         //----------------------------------------
                         // 子要素の検索が終わった時点で、読み筋を格納☆
                         //----------------------------------------
-                        searchedPv[yomiDeep2] = Conv_Move.ToSfen(iMoveEx_child.Move); //FIXME:
+                        searchedPv[yomiDeep2] = Conv_Move.ToSfen(iMoveEx.Move); //FIXME:
                         searchedPv[yomiDeep2 + 1] = "";//後ろの１手を消しておいて 終端子扱いにする。
 
 
@@ -586,7 +533,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                         bool alpha_cut;
                         result_bestmoveEx = Util_Scoreing.Update_BestScore_And_Check_AlphaCut(
                             result_bestmoveEx,
-                            iMoveEx_child,
+                            iMoveEx,
 
                             yomiDeep2,
                             psideA,
@@ -632,7 +579,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                         }
 
                         logger.DonimoNaranAkirameta(ex, "棋譜ツリーで例外です(A)。exceptionArea=" + exceptionArea
-                            + " entry.Key=" + Conv_Move.ToSfen(iMoveEx_child.Move)
+                            + " entry.Key=" + Conv_Move.ToSfen(iMoveEx.Move)
                             //+ " node_yomi.CountAllNodes=" + node_yomi_KAIZOMAE.CountAllNodes()
                             + " 指し手候補="+sb.ToString());
                         throw ex;
