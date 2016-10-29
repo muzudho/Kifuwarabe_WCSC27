@@ -216,7 +216,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                     positionA.Temezumi,
                     mode_Tansaku, logger);
 
-                /*
+                //*
                 int yomiDeep2 = positionA.Temezumi - genjo.YomikaisiTemezumi + 1;
                 List<MoveEx> movelist2 = Util_MovePicker.CreateMovelist_BeforeLoop(
                         genjo,
@@ -253,19 +253,22 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                         args,
                         logger
                     );
+                    logger.AppendLine(Conv_MoveEx.LogStr(move, "初手ムーブX4110"));
 
                     logger.AppendLine( Conv_MoveEx.LogStr_GetHighScore(
                         move,
                         bestmove,
-                        kifu1.GetNextPside(),
-                        "X4110"
+                        Conv_Playerside.Reverse(
+                            kifu1.GetNextPside()
+                        ),
+                        "ハイスコアX4110"
                         ));
                     bestmove = Conv_MoveEx.GetHighScore(
                         move,
                         bestmove,
-                        //Conv_Playerside.Reverse(
+                        Conv_Playerside.Reverse(
                             kifu1.GetNextPside()//一手先の局面からみた次の手番だぜ☆（＾～＾）
-                                                //)
+                        )
                     );
 
 
@@ -284,9 +287,10 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                 // 最善の、次の一手を返すぜ☆（＾▽＾）
                 logger.AppendLine(Conv_MoveEx.LogStr(bestmove,"ベストムーブX4000"));
                 return bestmove;
-                */
+                //*/
 
-                return Tansaku_FukasaYusen_Routine.WAAA_GetBestChild_Recursive(
+                /*
+                MoveEx bestmove = Tansaku_FukasaYusen_Routine.WAAA_GetBestChild_Recursive(
                     kifu1.Pv_GetLatest(),//スコアは更新されるぜ☆
                     0,//wideCount
                     ref yomisujiInfo,
@@ -297,6 +301,9 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                     args,
                     logger
                 );
+                logger.AppendLine(Conv_MoveEx.LogStr(bestmove, "ベストムーブX4000"));
+                return bestmove;
+                //*/
             }
             catch (Exception ex)
             {
@@ -372,7 +379,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                         logger
                         );
 
-                    return MoveExImpl.NULL_OBJECT;// iMe;//ヌルでも返したいところだぜ☆（＾～＾）newしたくないので、適当にiMeを返している☆
+                    return iParent;// MoveExImpl.NULL_OBJECT;// iMe;//ヌルでも返したいところだぜ☆（＾～＾）newしたくないので、適当にiMeを返している☆
                 }
 
 

@@ -57,6 +57,20 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct
             Playerside pside// このノードが、どちらの手番か。
             )
         {
+            // 投了は取らないぜ☆（＾▽＾）
+            if (a.Score == Conv_Score.Resign)
+            {
+                if (b.Score == Conv_Score.Resign)
+                {
+                    goto gt_p1random;
+                }
+                return b;
+            }
+            else if (b.Score == Conv_Score.Resign)
+            {
+                return a;
+            }
+
             switch (pside)
             {
                 case Playerside.P1:
@@ -69,14 +83,7 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct
                     {
                         return a;
                     }
-                    else if (0 < KwRandom.Random.Next(2))
-                    {
-                        return a;
-                    }
-                    else
-                    {
-                        return b;
-                    }
+                    break;
 
                 case Playerside.P2:
                     // 小さい方を取るぜ☆
@@ -88,16 +95,20 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct
                     {
                         return b;
                     }
-                    else if (0 < KwRandom.Random.Next(2))
-                    {
-                        return a;
-                    }
-                    else
-                    {
-                        return b;
-                    }
+                    break;
 
                 default: throw new Exception("探索中、プレイヤーサイドのエラー");
+            }
+
+        gt_p1random:
+            // 同着の場合はランダムだぜ☆（＾▽＾）
+            if (0 < KwRandom.Random.Next(2))
+            {
+                return a;
+            }
+            else
+            {
+                return b;
             }
         }
     }
