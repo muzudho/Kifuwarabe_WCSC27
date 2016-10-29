@@ -552,7 +552,6 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     false
                     );// 選択している駒の元の場所と、移動先
 
-                MoveEx newMoveEx;
                 Sky positionA;
                 {
                     //
@@ -564,8 +563,6 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     positionA.ReversePlayerside();// 先後を反転させます。
                     positionA.SetTemezumi(shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside.Temezumi + 1);//１手進める
 
-                    newMoveEx = new MoveExImpl(move);
-
 
                     //「成る／成らない」ボタンを押したときです。
                     //----------------------------------------
@@ -576,7 +573,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     // ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
                     // ここで棋譜の変更をします。
                     // ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                    shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.Pv_Append("成る成らない", newMoveEx, logger);
+                    shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.Pv_Append("成る成らない", move, logger);
                     shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.MoveEx_OnEditCurrent( positionA);//newMoveEx,
 
                     string jsaFugoStr_use;
