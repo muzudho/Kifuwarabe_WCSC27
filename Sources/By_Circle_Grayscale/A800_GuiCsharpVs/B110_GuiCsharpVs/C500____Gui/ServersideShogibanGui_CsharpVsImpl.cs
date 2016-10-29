@@ -80,7 +80,7 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C500____Gui
         /// 将棋エンジンを起動します。
         /// ************************************************************************************************************************
         /// </summary>
-        public override void Do_BootComputer_Button1(int clientIndex, string shogiEngineFilePath, KwLogger logger)
+        public override void Do_BootComputer_Button(int clientIndex, string shogiEngineFilePath, KwLogger logger)
         {
             this.OwnerConsole.Link_Server.SetClient(clientIndex, shogiEngineFilePath);
 
@@ -91,7 +91,7 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C500____Gui
         /// <summary>
         /// コンピューターの先手
         /// </summary>
-        public override void Do_SenteComputer_Button2(int clientIndex, KwLogger logger)
+        public override void Do_SenteComputer_Button(int clientIndex, KwLogger logger)
         {
             if (this.OwnerConsole.Link_Server.IsComputerPlayer(clientIndex))
             {

@@ -14,6 +14,7 @@ using System;
 using Grayscale.A500_ShogiEngine.B240_TansaFukasa.C___500_Struct;
 using Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct;
 using Grayscale.A210_KnowNingen_.B240_Move.C___600_Pv;
+using Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct;
 
 namespace P930_SampleGame
 {
@@ -50,6 +51,7 @@ namespace P930_SampleGame
                 earth1,
                 kifu1,// ツリーを伸ばしているぜ☆（＾～＾）
 
+                (int hyojiScore, PvList pvList2) => { },//infoを出力する関数☆
                 logger);
 
             Move move = bestmoveNode.Move;

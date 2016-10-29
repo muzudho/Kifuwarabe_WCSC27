@@ -4,6 +4,8 @@ using Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C___491_Event;
 using Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C___500_Gui;
 using Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C___510_Form;
 using Grayscale.A630_GuiCsharp__;
+using Grayscale.A210_KnowNingen_.B690_Ittesasu___.C250____OperationA;
+using Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient;
 
 namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C491____Event
 {
@@ -24,7 +26,7 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C491____Event
                 Event_CsharpVsImpl.instance = ins;
 
                 //
-                // [将棋エンジン起動ボタン_学習]ボタンのイベント。
+                // [起動１]ボタンのイベント。
                 //
                 ins.delegate_BtnKido1 = (
                     object obj_shogiGui2
@@ -37,11 +39,27 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C491____Event
                     Uc_Form_Shogiban ui_PnlMain = ((A630Form_ShogibanImpl)shogiGui.OwnerForm).Uc_Form_Shogiban;
 
                     int clientIndex = 1;
-                    ui_PnlMain.ShogibanGui.Do_BootComputer_Button1(clientIndex, ui_PnlMain.SetteiXmlFile.Player1.Filepath, logger2);
+                    ui_PnlMain.ShogibanGui.Do_BootComputer_Button(clientIndex, ui_PnlMain.SetteiXmlFile.Player1.Filepath, logger2);
+
+                    // コンピューターのターン
+                    {
+                        if (shogiGui.OwnerConsole.Link_Server.IsComputerPlayer(clientIndex))
+                        {
+                            shogiGui.OwnerConsole.Link_Server.Clients[clientIndex].Download(
+                            Util_KirokuGakari.ToSfen_PositionCommand(
+                                shogiGui.OwnerConsole.Link_Server.Storage.Earth,
+                                shogiGui.OwnerConsole.Link_Server.Storage.KifuTree
+                                ),
+                            logger2);
+
+                            // 将棋エンジンの標準入力へ、メッセージを送ります。
+                            shogiGui.OwnerConsole.Link_Server.Clients[clientIndex].Download(EngineClient_Impl.COMMAND_GO, logger2);
+                        }
+                    }
                 };
 
                 //
-                // [将棋エンジン起動ボタン_直観]ボタンのイベント。
+                // [起動２]ボタンのイベント。
                 //
                 ins.delegate_BtnKido2 = (
                     object obj_shogiGui2
@@ -54,11 +72,11 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C491____Event
                     Uc_Form_Shogiban ui_PnlMain = ((A630Form_ShogibanImpl)shogiGui.OwnerForm).Uc_Form_Shogiban;
 
                     int clientIndex = 2;
-                    ui_PnlMain.ShogibanGui.Do_BootComputer_Button1(clientIndex, ui_PnlMain.SetteiXmlFile.Player2.Filepath, logger2);
+                    ui_PnlMain.ShogibanGui.Do_BootComputer_Button(clientIndex, ui_PnlMain.SetteiXmlFile.Player2.Filepath, logger2);
                 };
 
                 //
-                // [将棋エンジン起動ボタン_思考]ボタンのイベント。
+                // [ＣＰ先]ボタンのイベント。
                 //
                 ins.delegate_BtnShogiEngineKidoT = (
                     object obj_shogiGui2
@@ -71,7 +89,7 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C491____Event
                     Uc_Form_Shogiban ui_PnlMain = ((A630Form_ShogibanImpl)shogiGui.OwnerForm).Uc_Form_Shogiban;
 
                     int clientIndex = 2;
-                    ui_PnlMain.ShogibanGui.Do_SenteComputer_Button2(clientIndex, logger);
+                    ui_PnlMain.ShogibanGui.Do_SenteComputer_Button(clientIndex, logger);
                 };
             }
             return Event_CsharpVsImpl.instance;

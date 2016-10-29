@@ -15,6 +15,11 @@ namespace Grayscale.A500_ShogiEngine.B210_timeMan____.C___500_struct__
         Stopwatch Stopwatch { get; set; }
 
         /// <summary>
+        /// 前回 info を出力した時間。
+        /// </summary>
+        long InfoMilliSeconds { get; set; }
+
+        /// <summary>
         /// 思考の時間切れ
         /// </summary>
         /// <returns></returns>

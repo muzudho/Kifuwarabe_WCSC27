@@ -52,12 +52,12 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C___500_Gui
         /// 将棋エンジンを起動します。
         /// ************************************************************************************************************************
         /// </summary>
-        void Do_BootComputer_Button1(int clientIndex, string shogiEngineFilePath, KwLogger errH);
+        void Do_BootComputer_Button(int clientIndex, string shogiEngineFilePath, KwLogger errH);
 
         /// <summary>
         /// コンピューターの先手
         /// </summary>
-        void Do_SenteComputer_Button2(int clientIndex, KwLogger errH);
+        void Do_SenteComputer_Button(int clientIndex, KwLogger errH);
 
 
         Busstop GetKoma(Finger finger);

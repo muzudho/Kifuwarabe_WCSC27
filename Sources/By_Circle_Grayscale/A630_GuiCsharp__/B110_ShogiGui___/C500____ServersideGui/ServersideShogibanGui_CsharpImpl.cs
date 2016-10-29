@@ -218,14 +218,14 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
         /// 将棋エンジンを起動します。
         /// ************************************************************************************************************************
         /// </summary>
-        public virtual void Do_BootComputer_Button1(int clientIndex, string shogiEngineFilePath, KwLogger errH)
+        public virtual void Do_BootComputer_Button(int clientIndex, string shogiEngineFilePath, KwLogger errH)
         {
         }
 
         /// <summary>
         /// コンピューターの先手
         /// </summary>
-        public virtual void Do_SenteComputer_Button2(int clientIndex, KwLogger errH)
+        public virtual void Do_SenteComputer_Button(int clientIndex, KwLogger errH)
         {
         }
 

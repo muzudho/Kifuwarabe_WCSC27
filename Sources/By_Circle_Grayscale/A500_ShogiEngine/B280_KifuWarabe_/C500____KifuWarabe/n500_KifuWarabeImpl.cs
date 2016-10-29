@@ -44,6 +44,7 @@ using Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct;
 using Grayscale.A500_ShogiEngine.B240_TansaFukasa.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B240_Move.C600____Pv;
 using Grayscale.A210_KnowNingen_.B240_Move.C___600_Pv;
+using Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct;
 
 #if DEBUG
 using Grayscale.A060_Application.B520_Syugoron___.C___250_Struct;
@@ -1004,6 +1005,39 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
                             YomisujiInfo yomisujiInfo = new YomisujiInfoImpl();
                             // null を返すことがある？
 
+                            DLGT_SendInfo dlgt_SendInfo = (int hyojiScore, PvList pvList2) => {
+                                if (
+                                    this.Kifu_AtLoop2.GetNextPside()
+                                    == Playerside.P2)
+                                {
+                                    // 符号を逆転
+                                    hyojiScore = -hyojiScore;
+                                }
+
+                                // infostring
+                                StringBuilder sb = new StringBuilder();
+                                sb.Append("info time ");
+                                sb.Append(this.Shogisasi.TimeManager.Stopwatch.ElapsedMilliseconds);
+                                sb.Append(" depth ");
+                                sb.Append(yomisujiInfo.SearchedMaxDepth);
+                                sb.Append(" nodes ");
+                                sb.Append(yomisujiInfo.SearchedNodes);
+                                sb.Append(" score cp ");
+                                sb.Append(hyojiScore.ToString());
+                                sb.Append(" pv ");//+ " pv 3a3b L*4h 4c4d"
+                                sb.Append(Conv_Pv.LogStr(pvList2));
+                                //foreach (string sfen in yomisujiInfo.SearchedPv)
+                                //{
+                                //    if ("" != sfen)
+                                //    {
+                                //        sb.Append(sfen);
+                                //        sb.Append(" ");
+                                //    }
+                                //}
+                                this.Send(sb.ToString());//FIXME:
+                            };
+
+
                             PvList pvList;
                             MoveEx bestmove2 = this.Shogisasi.WA_Bestmove(
                                 ref yomisujiInfo,
@@ -1012,7 +1046,11 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
                                 this.Earth_AtLoop2,
                                 this.Kifu_AtLoop2,// ツリーを伸ばしているぜ☆（＾～＾）
 
-                                this.Logger);
+                                //infoを出力する関数☆
+                                dlgt_SendInfo,
+
+                                this.Logger
+                                );
                             this.Logger.Flush(LogTypes.Plain);
 
 
@@ -1026,54 +1064,48 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
                                 //Util_Sky_BoolQuery.isEnableSfen(bestKifuNode.Key)
                                 )
                             {
-                                // Ｍｏｖｅを使っていきたい。
-                                string sfenText = Conv_Move.LogStr_Sfen(bestmove2.Move);
-
-                                // ログが重過ぎる☆！
-                                //OwataMinister.WARABE_ENGINE.Logger.WriteLine_AddMemo("(Warabe)指し手のチョイス： bestmove＝[" + sfenText + "]" +
-                                //    "　棋譜＝" + KirokuGakari.ToJsaKifuText(this.Kifu, errH2));
-
                                 //----------------------------------------
                                 // スコア 試し
                                 //----------------------------------------
-                                {
-                                    int hyojiScore = (int)bestmove2.Score;
-                                    if (
-                                        this.Kifu_AtLoop2.GetNextPside()
-                                        == Playerside.P2)
-                                    {
-                                        // 符号を逆転
-                                        hyojiScore = -hyojiScore;
-                                    }
+                                dlgt_SendInfo((int)bestmove2.Score, pvList);
+                                //{
+                                //    int hyojiScore = (int)bestmove2.Score;
+                                //    if (
+                                //        this.Kifu_AtLoop2.GetNextPside()
+                                //        == Playerside.P2)
+                                //    {
+                                //        // 符号を逆転
+                                //        hyojiScore = -hyojiScore;
+                                //    }
 
-                                    // infostring
-                                    StringBuilder sb = new StringBuilder();
-                                    sb.Append("info time ");
-                                    sb.Append(this.Shogisasi.TimeManager.Stopwatch.ElapsedMilliseconds);
-                                    sb.Append(" depth ");
-                                    sb.Append(yomisujiInfo.SearchedMaxDepth);
-                                    sb.Append(" nodes ");
-                                    sb.Append(yomisujiInfo.SearchedNodes);
-                                    sb.Append(" score cp ");
-                                    sb.Append(hyojiScore.ToString());
-                                    sb.Append(" pv ");//+ " pv 3a3b L*4h 4c4d"
-                                    sb.Append(Conv_Pv.LogStr(pvList));
-                                    //foreach (string sfen in yomisujiInfo.SearchedPv)
-                                    //{
-                                    //    if ("" != sfen)
-                                    //    {
-                                    //        sb.Append(sfen);
-                                    //        sb.Append(" ");
-                                    //    }
-                                    //}
-                                    this.Send(sb.ToString());//FIXME:                                                                                           
-                                }
+                                //    // infostring
+                                //    StringBuilder sb = new StringBuilder();
+                                //    sb.Append("info time ");
+                                //    sb.Append(this.Shogisasi.TimeManager.Stopwatch.ElapsedMilliseconds);
+                                //    sb.Append(" depth ");
+                                //    sb.Append(yomisujiInfo.SearchedMaxDepth);
+                                //    sb.Append(" nodes ");
+                                //    sb.Append(yomisujiInfo.SearchedNodes);
+                                //    sb.Append(" score cp ");
+                                //    sb.Append(hyojiScore.ToString());
+                                //    sb.Append(" pv ");//+ " pv 3a3b L*4h 4c4d"
+                                //    sb.Append(Conv_Pv.LogStr(pvList));
+                                //    //foreach (string sfen in yomisujiInfo.SearchedPv)
+                                //    //{
+                                //    //    if ("" != sfen)
+                                //    //    {
+                                //    //        sb.Append(sfen);
+                                //    //        sb.Append(" ");
+                                //    //    }
+                                //    //}
+                                //    this.Send(sb.ToString());//FIXME:                                                                                           
+                                //}
 
 
                                 //----------------------------------------
                                 // 指し手を送ります。
                                 //----------------------------------------
-                                this.Send("bestmove " + sfenText);
+                                this.Send("bestmove " + Conv_Move.LogStr_Sfen(bestmove2.Move));
                             }
                             else // 指し手がないときは、SFENが書けない☆　投了だぜ☆
                             {

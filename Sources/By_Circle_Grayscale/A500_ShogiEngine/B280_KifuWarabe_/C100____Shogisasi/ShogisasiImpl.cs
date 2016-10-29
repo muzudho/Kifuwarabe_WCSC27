@@ -72,6 +72,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C100____Shogisasi
             Earth earth1,
             Tree kifu1,// ツリーを伸ばしているぜ☆（＾～＾）
 
+            DLGT_SendInfo dlgt_SendInfo,
             KwLogger logger
             )
         {
@@ -110,7 +111,9 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C100____Shogisasi
                     kifu1,// ツリーを伸ばしているぜ☆（＾～＾）
 
                     Mode_Tansaku.Shogi_ENgine,
-                    args, logger);
+                    args,
+                    dlgt_SendInfo,
+                    logger);
             }
             catch (Exception ex) {
                 logger.DonimoNaranAkirameta(ex, "棋譜ツリーを作っていたときです。");

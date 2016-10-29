@@ -44,9 +44,6 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
         public static List<Move> CreateMovelist_BeforeLoop(
             Tansaku_Genjo genjo,
             Tree kifu1,
-
-            ref YomisujiInfo yomisujiInfo,
-            out int out_yomiDeep,
             KwLogger logger
             )
         {
@@ -59,12 +56,6 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                 positionA,
                 //move_ForLog,//ログ用
                 logger);
-
-            out_yomiDeep = positionA.Temezumi - genjo.YomikaisiTemezumi + 1;
-            if (yomisujiInfo.SearchedMaxDepth < out_yomiDeep - 1)//これから探索する分をマイナス1しているんだぜ☆（＾～＾）
-            {
-                yomisujiInfo.SearchedMaxDepth = out_yomiDeep - 1;
-            }
 
             return result_movelist;
         }
