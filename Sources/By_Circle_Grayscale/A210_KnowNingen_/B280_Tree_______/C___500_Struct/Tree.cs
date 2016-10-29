@@ -23,10 +23,13 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct
         void Pv_RemoveLast(KwLogger logger);
         void Pv_ClearAll(KwLogger logger);
         void Pv_Append(string hint, MoveEx tail, KwLogger logger);
-        MoveEx Pv_GetLatest();
-        MoveEx Pv_Get(int index);
+        Move Pv_GetLatest();
+        MoveEx Pv_GetLatest2();
+        Move Pv_Get(int index);
+        MoveEx Pv_Get2(int index);
         int Pv_Count();
-        List<MoveEx> Pv_ToList();
+        List<Move> Pv_ToList();
+        List<MoveEx> Pv_ToList2();
         bool Pv_IsRoot();
 
         /// <summary>

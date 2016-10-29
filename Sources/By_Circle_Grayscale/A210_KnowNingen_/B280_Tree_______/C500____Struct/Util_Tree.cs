@@ -21,7 +21,7 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct
         {
             bool toBreak = false;
 
-            List<MoveEx> pvList = kifu1.Pv_ToList();
+            List<MoveEx> pvList = kifu1.Pv_ToList2();
             /*
             // 本譜（ノードのリスト）
             List<MoveEx> honpu = new List<MoveEx>();

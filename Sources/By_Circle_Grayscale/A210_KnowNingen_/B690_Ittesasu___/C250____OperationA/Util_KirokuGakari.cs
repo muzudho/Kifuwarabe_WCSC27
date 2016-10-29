@@ -39,10 +39,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C250____OperationA
         /// <param name="fugoList"></param>
         public static string ToJsaFugoListString(
             Earth earth1,
-
-            //MoveEx curNode_base,
             Tree kifu1,
-
             string hint,
             KwLogger logger
             )
@@ -69,10 +66,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C250____OperationA
                     Word_KifuTree.PropName_Startpos, "startpos");//平手の初期局面 // FIXME:平手とは限らないのでは？
             }
 
-            MoveEx curNode = saifuKifu2.Pv_GetLatest();
-            Util_Tree.ForeachHonpu2(
-                kifu1,//curNode_base,
-                (int temezumi, Move move, ref bool toBreak) =>
+            Util_Tree.ForeachHonpu2(kifu1, (int temezumi, Move move, ref bool toBreak) =>
             {
                 if (0 == temezumi)
                 {
@@ -106,7 +100,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C250____OperationA
                 // 後手の符号がまだ含まれていない。
                 string jsaFugoStr = Conv_SasiteStr_Jsa.ToSasiteStr_Jsa(
                     saifu_newChild.Move,
-                    saifuKifu2.Pv_ToList(),
+                    saifuKifu2.Pv_ToList2(),
                     saifu_PositionA,
                     logger);
                 sb.Append(jsaFugoStr);

@@ -404,7 +404,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
 
                                                     string jsaFugoStr_use;
                                                     shogibanGui.OwnerConsole.Link_Server.Storage.AfterSetCurNode_Srv(
-                                                        shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.Pv_GetLatest().Move,
+                                                        shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.Pv_GetLatest2().Move,
                                                         sky_newChild,
                                                         out jsaFugoStr_use,
                                                         logger);
@@ -545,7 +545,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
 
                                                         string jsaFugoStr_use;
                                                         shogibanGui.OwnerConsole.Link_Server.Storage.AfterSetCurNode_Srv(
-                                                            shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.Pv_GetLatest().Move,
+                                                            shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.Pv_GetLatest2().Move,
                                                             sky_newChild,
                                                             out jsaFugoStr_use,
                                                             logger);

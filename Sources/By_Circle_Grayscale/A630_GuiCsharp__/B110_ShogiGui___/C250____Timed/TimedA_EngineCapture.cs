@@ -67,7 +67,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                         );// 棋譜の[コマ送り]を実行します。
                     Util_Function_Csharp.Komaokuri_Gui(
                         restText,
-                        this.m_shogibanGui_.OwnerConsole.Link_Server.Storage.KifuTree.Pv_GetLatest(),
+                        this.m_shogibanGui_.OwnerConsole.Link_Server.Storage.KifuTree.Pv_GetLatest2(),
                         this.m_shogibanGui_.OwnerConsole.Link_Server.Storage.KifuTree.PositionA,
                         this.m_shogibanGui_,
                         this.m_shogibanGui_.OwnerConsole.Link_Server.Storage.KifuTree,

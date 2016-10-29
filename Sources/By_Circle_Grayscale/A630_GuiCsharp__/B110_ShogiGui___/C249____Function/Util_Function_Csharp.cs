@@ -133,7 +133,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
                 // [コマ送り][再生]ボタン
                 string jsaFugoStr = Conv_SasiteStr_Jsa.ToSasiteStr_Jsa(
                     node6.Move,
-                    kifu1.Pv_ToList(),
+                    kifu1.Pv_ToList2(),
                     positionA, logger);
 
                 shogiGui.Shape_PnlTaikyoku.SetFugo(jsaFugoStr);

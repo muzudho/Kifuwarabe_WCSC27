@@ -911,7 +911,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
 
                 // ┏━━━━プログラム━━━━┓
 
-                MoveEx curNode1 = this.Kifu_AtLoop2.Pv_GetLatest();
+                MoveEx curNode1 = this.Kifu_AtLoop2.Pv_GetLatest2();
                 Sky positionA = this.Kifu_AtLoop2.PositionA;
                 int latestTemezumi = positionA.Temezumi;//現・手目済
 

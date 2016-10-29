@@ -107,7 +107,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C498____Server
 
             out_jsaFugoStr = Conv_SasiteStr_Jsa.ToSasiteStr_Jsa(
                 move,
-                this.KifuTree.Pv_ToList(),
+                this.KifuTree.Pv_ToList2(),
                 positionA,
                 logger
                 );

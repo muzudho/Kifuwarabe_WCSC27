@@ -74,21 +74,29 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct
             if (1 < this.m_pv_.Count)//[0]はルート☆（*＾～＾*）
             {
                 this.m_pv_.RemoveAt(this.m_pv_.Count - 1);
-                this.LogPv("RemoveLastPv後", logger);
+                //this.LogPv("RemoveLastPv後", logger);
             }
         }
         public void Pv_ClearAll( KwLogger logger)
         {
             this.m_pv_.Clear();
             this.m_pv_.Add(new MoveExImpl());
-            this.LogPv("ClearAll後", logger);
+            //this.LogPv("ClearAll後", logger);
         }
         public void Pv_Append(string hint, MoveEx tail,KwLogger logger)
         {
             this.m_pv_.Add(tail);
-            this.LogPv("Append後 "+hint, logger);
+            //this.LogPv("Append後 "+hint, logger);
         }
-        public MoveEx Pv_GetLatest()
+        public Move Pv_GetLatest()
+        {
+            if (0 < this.m_pv_.Count)
+            {
+                return this.m_pv_[this.m_pv_.Count - 1].Move;
+            }
+            return Move.Empty;
+        }
+        public MoveEx Pv_GetLatest2()
         {
             if (0<this.m_pv_.Count)
             {
@@ -96,7 +104,15 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct
             }
             return new MoveExImpl();
         }
-        public MoveEx Pv_Get(int index)
+        public Move Pv_Get(int index)
+        {
+            if (index < this.m_pv_.Count)
+            {
+                return this.m_pv_[index].Move;
+            }
+            return Move.Empty;
+        }
+        public MoveEx Pv_Get2(int index)
         {
             if (index < this.m_pv_.Count)
             {
@@ -108,7 +124,16 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct
         {
             return this.m_pv_.Count;
         }
-        public List<MoveEx> Pv_ToList()
+        public List<Move> Pv_ToList()
+        {
+            List<Move> movelist = new List<Move>();
+            foreach (MoveEx moveEx in this.m_pv_)
+            {
+                movelist.Add(moveEx.Move);
+            }
+            return movelist;
+        }
+        public List<MoveEx> Pv_ToList2()
         {
             return new List<MoveEx>(this.m_pv_);
         }
