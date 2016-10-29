@@ -100,7 +100,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C250____OperationA
                 // 後手の符号がまだ含まれていない。
                 string jsaFugoStr = Conv_SasiteStr_Jsa.ToSasiteStr_Jsa(
                     saifu_newChild.Move,
-                    saifuKifu2.Pv_ToList2(),
+                    saifuKifu2.Pv_ToList(),
                     saifu_PositionA,
                     logger);
                 sb.Append(jsaFugoStr);

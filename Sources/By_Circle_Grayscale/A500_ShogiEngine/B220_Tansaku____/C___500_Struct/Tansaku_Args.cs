@@ -10,9 +10,6 @@ namespace Grayscale.A500_ShogiEngine.B220_Tansaku____.C___500_Tansaku
     /// </summary>
     public interface Tansaku_Args
     {
-
-        int[] YomuLimitter { get; }
-
 #if DEBUG
         KaisetuBoards LogF_moveKiki { get; }
 #endif

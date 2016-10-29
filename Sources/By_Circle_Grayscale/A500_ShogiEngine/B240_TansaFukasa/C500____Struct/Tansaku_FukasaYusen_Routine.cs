@@ -47,137 +47,13 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
         public static Tansaku_Genjo CreateGenjo(
             int temezumi,
             Mode_Tansaku mode_Tansaku,
-            KwLogger errH
+            KwLogger logger
             )
         {
             // TODO:ここではログを出力せずに、ツリーの先端で出力したい。
             KaisetuBoards logF_moveKiki = new KaisetuBoards();
 
-            // TODO:「読む」と、ツリー構造が作成されます。
-            //int[] yomuLimitter = new int[]{
-            //    600, // 読みの1手目の横幅   // 王手回避漏れのために、合法手全読み(約600)は必要です。
-            //    100, // 読みの2手目の横幅
-            //    100, // 読みの3手目の横幅
-            //    //2, // 読みの4手目の横幅
-            //    //1 // 読みの5手目の横幅
-            //};
-
-            //// ↓これなら１手１秒で指せる☆
-            //int[] yomuLimitter = new int[]{
-            //    600, // 読みの1手目の横幅   // 王手回避漏れのために、合法手全読み(約600)は必要です。
-            //    150, // 読みの2手目の横幅
-            //    150, // 読みの3手目の横幅
-            //    //2 // 読みの4手目の横幅
-            //    //1 // 読みの5手目の横幅
-            //};
-
-            //int[] yomuLimitter = new int[]{
-            //    600, // 読みの1手目の横幅   // 王手回避漏れのために、合法手全読み(約600)は必要です。
-            //    600, // 読みの2手目の横幅
-            //    600, // 読みの3手目の横幅
-            //};
-
-            //ok
-            //int[] yomuLimitter = new int[]{
-            //    0,   // 現局面は無視します。
-            //    600, // 読みの1手目の横幅   // 王手回避漏れのために、合法手全読み(約600)は必要です。
-            //    600, // 読みの2手目の横幅
-            //};
-
-            int[] yomuLimitter;
-#if DEBUG
-            if (mode_Tansaku == Mode_Tansaku.Learning)
-            {
-                // 学習モードでは、スピード優先で、2手の読みとします。
-
-                // ２手の読み。
-                yomuLimitter = new int[]{
-                    0,   // 現局面は無視します。
-                    600, // 読みの1手目の横幅   // 王手回避漏れのために、１手目は、合法手全読み(約600)は必要です。
-                    600, // 読みの2手目の横幅
-                };
-            }
-            else
-            {
-                /*
-                // ２手の読み。
-                yomuLimitter = new int[]{
-                    0,   // 現局面は無視します。
-                    600, // 読みの1手目の横幅   // 王手回避漏れのために、１手目は、合法手全読み(約600)は必要です。
-                    600, // 読みの2手目の横幅
-                };
-                // */
-
-                //*
-                // ３手の読み。
-                yomuLimitter = new int[]{
-                    0,   // 現局面は無視します。
-                    600, // 読みの1手目の横幅   // 王手回避漏れのために、１手目は、合法手全読み(約600)は必要です。
-                    600, // 読みの2手目の横幅
-                    600, // 読みの3手目の横幅
-                };
-                // */
-            }
-#else
-            if (mode_Tansaku == Mode_Tansaku.Learning)
-            {
-                //System.Windows.Forms.MessageBox.Show("学習モード");
-                // 学習モードでは、スピード優先で、2手の読みとします。
-
-                //* ２手の読み。（学習）
-                yomuLimitter = new int[]{
-                    0,   // 現局面は無視します。
-                    600, // 読みの1手目の横幅   // 王手回避漏れのために、１手目は、合法手全読み(約600)は必要です。
-                    600, // 読みの2手目の横幅
-                };
-                // */
-
-                /* ３手の読み。（学習）
-                yomuLimitter = new int[]{
-                    0,   // 現局面は無視します。
-                    600, // 読みの1手目の横幅   // 王手回避漏れのために、１手目は、合法手全読み(約600)は必要です。
-                    600, // 読みの2手目の横幅
-                    600, // 読みの3手目の横幅
-                };
-                // */
-
-            }
-            else
-            {
-                //System.Windows.Forms.MessageBox.Show("本番モード");
-                //* ２手の読み。（対局）
-                yomuLimitter = new int[]{
-                    0,   // 現局面は無視します。
-                    600, // 読みの1手目の横幅   // 王手回避漏れのために、１手目は、合法手全読み(約600)は必要です。
-                    600, // 読みの2手目の横幅
-                };
-                // */
-
-                /* ３手の読み。（対局）
-                yomuLimitter = new int[]{
-                    0,   // 現局面は無視します。
-                    600, // 読みの1手目の横幅   // 王手回避漏れのために、１手目は、合法手全読み(約600)は必要です。
-                    600, // 読みの2手目の横幅
-                    600, // 読みの3手目の横幅
-                };
-                // */
-
-                // 読みを深くすると、玉の手しか読めなかった、ということがある。
-
-                /* ４手の読み。（対局）
-                yomuLimitter = new int[]{
-                    0,   // 現局面は無視します。
-                    600, // 読みの1手目の横幅   // 王手回避漏れのために、１手目は、合法手全読み(約600)は必要です。
-                    600, // 読みの2手目の横幅
-                    600, // 読みの3手目の横幅
-                    600, // 読みの4手目の横幅
-                };
-                // */
-            }
-#endif
-
-
-            Tansaku_Args args = new Tansaku_ArgsImpl( yomuLimitter, logF_moveKiki);
+            Tansaku_Args args = new Tansaku_ArgsImpl( logF_moveKiki);
             Tansaku_Genjo genjo = new Tansaku_GenjoImpl(
                 temezumi,
                 args
@@ -215,6 +91,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                 Tansaku_Genjo genjo = Tansaku_FukasaYusen_Routine.CreateGenjo(
                     positionA.Temezumi,
                     mode_Tansaku, logger);
+                int depth = 1;//カウントダウン式
 
                 int yomiDeep2 = positionA.Temezumi - genjo.YomikaisiTemezumi + 1;
                 List<Move> movelist2 = Util_MovePicker.CreateMovelist_BeforeLoop(
@@ -245,7 +122,6 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
 
 
                     float score = -Tansaku_FukasaYusen_Routine.WAAA_Search(
-                        0,//wideCount
                         ref yomisujiInfo,
                         genjo,
                         positionA.Temezumi,
@@ -254,6 +130,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
 
                         -beta,
                         -alpha,
+                        depth-1,
                         args,
                         logger
                     );
@@ -320,7 +197,6 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
         /// <param name="logger"></param>
         /// <returns>最善の子</returns>
         private static float WAAA_Search(
-            int iParent_wideCount,
             ref YomisujiInfo yomisujiInfo,
             Tansaku_Genjo genjo,
 
@@ -330,6 +206,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
 
             float alpha,
             float beta,
+            int depth,//カウントダウン式
             EvaluationArgs args,
             KwLogger logger
             )
@@ -351,12 +228,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                 int yomiDeep2 = positionA.Temezumi - genjo.YomikaisiTemezumi + 1;
 
 
-                if (Tansaku_FukasaYusen_Routine.IsLeaf(
-                    yomiDeep2,
-                    iParent_wideCount,
-                    genjo,
-                    args.Shogisasi.TimeManager
-                ))
+                if (Tansaku_FukasaYusen_Routine.IsLeaf(depth, args.Shogisasi.TimeManager))
                 {
                     //----------------------------------------
                     // 小さなカゴ☆（＾▽＾）
@@ -372,7 +244,6 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                         );
                 }
 
-                int iSibling_wideCount = 0;
                 exceptionArea = 2000;
                 List<Move> movelist2 = Util_MovePicker.CreateMovelist_BeforeLoop(
                     genjo,
@@ -431,7 +302,6 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                         // 枝か、葉か、確定させにいきます。
                         // （＾▽＾）再帰☆
                         float score = -Tansaku_FukasaYusen_Routine.WAAA_Search(
-                            iSibling_wideCount,
                             ref yomisujiInfo,
                             genjo,
 
@@ -441,6 +311,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
 
                             -beta,
                             -alpha,
+                            depth-1,
                             args,
                             logger);
 
@@ -476,7 +347,6 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
 #endif
                         exceptionArea = 9000;
 
-                        iSibling_wideCount++;
 
                         if (Conv_Score.IsBGreaterThanOrEqualA(alpha, beta))//beta <= alpha
                         {
@@ -524,9 +394,6 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                     }
                 }
 
-
-                // 親の点数も更新されるぜ☆
-                //iParent.SetScore(bestScore);
                 return bestScore;
             }
             catch (Exception ex)
@@ -546,21 +413,14 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
         /// <param name="genjo"></param>
         /// <returns></returns>
         public static bool IsLeaf(
-            int yomiDeep,
-            int wideCount2,
-            //int movelist_count,
-            Tansaku_Genjo genjo,
+            int depth,//カウントダウン式
             TimeManager timeManager
             )
         {
             return
                 timeManager.IsTimeOver()//思考の時間切れ
                 ||
-                (genjo.Args.YomuLimitter.Length <= yomiDeep + 1)//読みの深さ制限を超えているとき。
-                || //または、
-                (1 < yomiDeep && genjo.Args.YomuLimitter[yomiDeep] < wideCount2)//読みの１手目より後で、指定の横幅を超えているとき。
-                                                                                //|| //または、
-                                                                                //(movelist_count < 1)//合法手がないとき
+                depth==0//読みの深さ制限を超えているとき。
                 ;
         }
 

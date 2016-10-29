@@ -119,8 +119,8 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
 
         public static bool Komaokuri_Gui(
             string restText,
-            MoveEx node6,// = shogiGui.Link_Server.KifuTree.CurNode;
-            Sky positionA,// = shogiGui.Link_Server.KifuTree.CurNode.GetNodeValue();
+            Move curMoveA,
+            Sky positionA,
             ServersideShogibanGui_Csharp shogiGui,
             Tree kifu1,
             KwLogger logger
@@ -132,8 +132,8 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
             {
                 // [コマ送り][再生]ボタン
                 string jsaFugoStr = Conv_SasiteStr_Jsa.ToSasiteStr_Jsa(
-                    node6.Move,
-                    kifu1.Pv_ToList2(),
+                    curMoveA,
+                    kifu1.Pv_ToList(),
                     positionA, logger);
 
                 shogiGui.Shape_PnlTaikyoku.SetFugo(jsaFugoStr);

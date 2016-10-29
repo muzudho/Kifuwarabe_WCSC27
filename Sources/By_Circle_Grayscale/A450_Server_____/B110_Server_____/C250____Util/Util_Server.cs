@@ -263,7 +263,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
             out Finger movedKoma,
             out Finger foodKoma,
             out string jsaFugoStr,
-            MoveEx curNode1,//削るノード
+            Move curMove1,//削るノード
             Tree kifu1_mutable,
             KwLogger logger
             )
@@ -291,8 +291,8 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
             //------------------------------
             // [巻戻し]ボタン
             jsaFugoStr = Conv_SasiteStr_Jsa.ToSasiteStr_Jsa(
-                curNode1.Move,
-                kifu1_mutable.Pv_ToList2(),
+                curMove1,
+                kifu1_mutable.Pv_ToList(),
                 positionA,
                 logger);
 
@@ -306,7 +306,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
             Util_IttemodosuRoutine.UndoMove(
                 out ittemodosuResult,
                 ref positionA,
-                curNode1.Move,
+                curMove1,
                 "B",
                 logger
                 );

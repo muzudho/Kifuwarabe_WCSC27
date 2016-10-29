@@ -21,37 +21,16 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct
         {
             bool toBreak = false;
 
-            List<MoveEx> pvList = kifu1.Pv_ToList2();
-            /*
-            // 本譜（ノードのリスト）
-            List<MoveEx> honpu = new List<MoveEx>();
-
-            //
-            // ツリー型なので、１本のリストに変換するために工夫します。
-            //
-            // カレントからルートまで遡り、それを逆順にすれば、本譜になります。
-            //
-
-            while (null != endNode)//ルートを含むところまで遡ります。
-            {
-                honpu.Add(endNode); // リスト作成
-
-                endNode = ((MoveExImpl)endNode).m_parentNode_;
-            }
-            honpu.Reverse();
-            */
+            List<Move> honpuList = kifu1.Pv_ToList();
 
             //
             // 手済みを数えます。
             //
             int temezumi = 0;//初期局面が[0]
 
-            //foreach (MoveEx item in honpu)//正順になっています。
-            foreach (MoveEx moveEx in pvList)//正順になっています。
+            foreach (Move move in honpuList)//正順になっています。
             {
-                delegate_Foreach(temezumi,
-                    moveEx.Move,
-                    ref toBreak);
+                delegate_Foreach(temezumi, move, ref toBreak);
                 if (toBreak)
                 {
                     break;

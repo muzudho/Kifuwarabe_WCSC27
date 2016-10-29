@@ -10,23 +10,15 @@ namespace Grayscale.A500_ShogiEngine.B220_Tansaku____.C500____Struct
     public class Tansaku_ArgsImpl : Tansaku_Args
     {
         /// <summary>
-        /// 読みの上限の様々な設定☆（深さ優先探索で使用☆）
-        /// </summary>
-        public int[] YomuLimitter { get { return this.m_yomuLimitter_; } }
-        private int[] m_yomuLimitter_;
-
-        /// <summary>
         /// ログ用☆
         /// </summary>
         public KaisetuBoards LogF_moveKiki { get { return this.m_logF_moveKiki_; } }
         private KaisetuBoards m_logF_moveKiki_;
 
         public Tansaku_ArgsImpl(
-            int[] yomuLimitter,
             KaisetuBoards logF_moveKiki
             )
         {
-            this.m_yomuLimitter_ = yomuLimitter;
             this.m_logF_moveKiki_ = logF_moveKiki;
         }
     }

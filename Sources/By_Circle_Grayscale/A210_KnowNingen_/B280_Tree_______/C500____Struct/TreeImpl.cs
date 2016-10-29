@@ -104,22 +104,6 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct
             }
             return new MoveExImpl();
         }
-        public Move Pv_Get(int index)
-        {
-            if (index < this.m_pv_.Count)
-            {
-                return this.m_pv_[index].Move;
-            }
-            return Move.Empty;
-        }
-        public MoveEx Pv_Get2(int index)
-        {
-            if (index < this.m_pv_.Count)
-            {
-                return this.m_pv_[index];
-            }
-            return new MoveExImpl();
-        }
         public int Pv_Count()
         {
             return this.m_pv_.Count;
@@ -132,10 +116,6 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct
                 movelist.Add(moveEx.Move);
             }
             return movelist;
-        }
-        public List<MoveEx> Pv_ToList2()
-        {
-            return new List<MoveEx>(this.m_pv_);
         }
         public bool Pv_IsRoot()
         {
