@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct;
 using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
+using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
 
 namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
 {
@@ -51,6 +52,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
         {
             //shogiGui_Base.Model_PnlTaikyoku.Kifu.AssertPside(shogiGui_Base.Model_PnlTaikyoku.Kifu.CurNode, "Execute_Step",errH);
 
+            int exceptionArea = 0;
             try
             {
 #if DEBUG
@@ -82,22 +84,26 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
                     earth1.SetProperty(Word_KifuTree.PropName_Startpos, "startpos");//平手の初期局面
                 }
 
-                if (null!=result.Out_newNode_OrNull)
+                exceptionArea = 500;
+                if (Move.Empty!=result.Out_newMove_OrNull)
                 {
+                    exceptionArea = 510;
                     Util_IttesasuRoutine.BeforeUpdateKifuTree(
                         earth1,
                         kifu1_mutable,
-                        result.Out_newNode_OrNull.Move,
+                        result.Out_newMove_OrNull,
                         result.NewSky,
                         logger
                         );
+
+                    exceptionArea = 520;
                     // ■■■■■■■■■■カレント・チェンジ■■■■■■■■■■
-                    result.SetNode(kifu1_mutable.Pv_GetLatest2(), result.NewSky);
+                    result.SetNode(kifu1_mutable.Pv_GetLatest(), result.NewSky);
                 }
                 this.State = nextState;
             }
             catch (Exception ex) {
-                Util_Loggers.ProcessNone_ERROR.DonimoNaranAkirameta(ex, "棋譜解析中☆");
+                Util_Loggers.ProcessNone_ERROR.DonimoNaranAkirameta(ex, "棋譜解析中☆ exceptionArea=["+ exceptionArea + "]");
                 throw ex;
             }
 
@@ -122,6 +128,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
             [CallerLineNumber] int sourceLineNumber = 0
             )
         {
+            int exceptionArea = 0;
             try
             {
 #if DEBUG
@@ -167,17 +174,21 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
                     }
 
 
-                    if (null != result.Out_newNode_OrNull)
+                    exceptionArea = 600;
+                    if (Move.Empty != result.Out_newMove_OrNull)
                     {
+                        exceptionArea = 610;
                         Util_IttesasuRoutine.BeforeUpdateKifuTree(
                             earth1,
                             kifu1_mutable,
-                            result.Out_newNode_OrNull.Move,
+                            result.Out_newMove_OrNull,
                             result.NewSky,
                             logger
                             );
+
+                        exceptionArea = 620;
                         // ■■■■■■■■■■カレント・チェンジ■■■■■■■■■■
-                        result.SetNode(kifu1_mutable.Pv_GetLatest2(), result.NewSky);
+                        result.SetNode(kifu1_mutable.Pv_GetLatest(), result.NewSky);
                     }
 
                     this.State = nextState;
@@ -187,7 +198,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
                 }
             }
             catch (Exception ex) {
-                Util_Loggers.ProcessNone_ERROR.DonimoNaranAkirameta(ex, "棋譜解析中☆");
+                Util_Loggers.ProcessNone_ERROR.DonimoNaranAkirameta(ex, "棋譜解析中☆ exceptionArea=["+ exceptionArea + "]");
                 throw ex;
             }
         }

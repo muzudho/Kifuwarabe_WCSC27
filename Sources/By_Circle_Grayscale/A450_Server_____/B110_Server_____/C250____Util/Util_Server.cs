@@ -90,7 +90,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
                         logger
                         );
 
-                    Debug.Assert(result.Out_newNode_OrNull == null, "ここでノードに変化があるのはおかしい。");
+                    Debug.Assert(result.Out_newMove_OrNull == Move.Empty, "ここでノードに変化があるのはおかしい。");
 
                     if (genjo.IsBreak())
                     {
@@ -123,7 +123,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
                             genjo,
                             logger
                             );
-                        Debug.Assert(result.Out_newNode_OrNull == null, "ここでノードに変化があるのはおかしい。");
+                        Debug.Assert(result.Out_newMove_OrNull == Move.Empty, "ここでノードに変化があるのはおかしい。");
 
 
                         if (genjo.IsBreak())
@@ -146,7 +146,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
                             genjo,
                             logger
                             );
-                        Debug.Assert(result.Out_newNode_OrNull == null, "ここでノードに変化があるのはおかしい。");
+                        Debug.Assert(result.Out_newMove_OrNull == Move.Empty, "ここでノードに変化があるのはおかしい。");
 
 
                         if (genjo.IsBreak())
@@ -179,7 +179,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
                         logger
                         );
 
-                    if (null != result.Out_newNode_OrNull)
+                    if (Move.Empty != result.Out_newMove_OrNull)
                     {
 
                         //× kifu1.Pv_Append(result.Out_newNode_OrNull.Move, logger);
@@ -188,7 +188,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
 
                         string jsaFugoStr_notUse;
                         serversideStorage.AfterSetCurNode_Srv(
-                            result.Out_newNode_OrNull.Move,
+                            result.Out_newMove_OrNull,
                             result.NewSky,
                             out jsaFugoStr_notUse,
                             logger);

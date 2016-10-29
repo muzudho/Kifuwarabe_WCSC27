@@ -119,7 +119,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
                                 logger
                                 );
                             // 棋譜ツリーのカレントを変更します。
-                            result.SetNode( new MoveExImpl(nextMove),
+                            result.SetNode( nextMove,
                                 ittesasuResult.SyuryoKyokumenW
                                 );
                             out_moveNodeType = MoveNodeType.Do;

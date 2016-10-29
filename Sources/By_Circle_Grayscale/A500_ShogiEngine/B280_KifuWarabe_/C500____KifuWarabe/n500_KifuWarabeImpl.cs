@@ -911,7 +911,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
 
                 // ┏━━━━プログラム━━━━┓
 
-                MoveEx curNode1 = this.Kifu_AtLoop2.Pv_GetLatest2();
+                Move curMove1 = this.Kifu_AtLoop2.Pv_GetLatest();
                 Sky positionA = this.Kifu_AtLoop2.PositionA;
                 int latestTemezumi = positionA.Temezumi;//現・手目済
 
@@ -925,7 +925,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
                 {
                     this.Logger.AppendLine("サーバーから受信した局面☆（＾▽＾）");
                     this.Logger.AppendLine(Conv_Shogiban.ToLog(Conv_Sky.ToShogiban(
-                        Conv_Move.ToPlayerside(curNode1.Move),
+                        Conv_Move.ToPlayerside(curMove1),
                         positionA, Logger)));
                     this.Logger.Flush(LogTypes.Plain);
                 }
