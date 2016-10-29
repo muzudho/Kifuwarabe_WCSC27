@@ -118,7 +118,7 @@ namespace Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter
                         logger);
                     if (Fingers.Error_1 == koma)
                     {
-                        string message = "Conv_SfenSasiteTokens#ToMove：["+Conv_Playerside.ToLog_Kanji(psideA)+"]駒台から種類[" + uttaSyurui + "]の駒を掴もうとしましたが、エラーでした。\n"+
+                        string message = "Conv_SfenSasiteTokens#ToMove：["+Conv_Playerside.LogStr_Kanji(psideA)+"]駒台から種類[" + uttaSyurui + "]の駒を掴もうとしましたが、エラーでした。\n"+
                             Conv_Shogiban.ToLog( Conv_Sky.ToShogiban(psideA,positionA,logger))+"\n"+
                             "hint=["+hint+"]\n"+
                             "str1=["+ str1+"]\n"+

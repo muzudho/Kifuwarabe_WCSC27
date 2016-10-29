@@ -49,7 +49,6 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
         /// <param name="logger"></param>
         public static Maps_OneAndOne<Finger, SySet<SyElement>> LA_RemoveMate(
             int yomikaisiTemezumi,
-            bool isHonshogi,
             Maps_OneAndMulti<Finger, MoveEx> genTeban_komabetuAllMoves1,// 指定局面で、どの駒が、どんな手を指すことができるか
             Playerside psideCreate,
             Sky positionA,//指定局面。
@@ -76,26 +75,19 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
                 exception_area = 20000;
 
                 List<Move> restMovelist;
-                if (isHonshogi)
-                {
-                    // 王手が掛かっている局面を除きます。
+                // 王手が掛かっている局面を除きます。
 
-                    restMovelist = Util_LegalMove.LAA_RemoveNextNode_IfMate(
-                        yomikaisiTemezumi,
-                        inputMovelist,
-                        positionA.Temezumi,
-                        psideCreate,
-                        positionA,
-                        kifu1,
+                restMovelist = Util_LegalMove.LAA_RemoveNextNode_IfMate(
+                    yomikaisiTemezumi,
+                    inputMovelist,
+                    positionA.Temezumi,
+                    psideCreate,
+                    positionA,
+                    kifu1,
 #if DEBUG
-                    logF_kiki,
+                logF_kiki,
 #endif
-                    logger);
-                }
-                else
-                {
-                    restMovelist = new List<Move>();
-                }
+                logger);
 
                 exception_area = 30000;
 
@@ -227,18 +219,17 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
                     IttemodosuResult ittemodosuResult;
                     Util_IttemodosuRoutine.UndoMove(
                         out ittemodosuResult,
+                        ref positionA,
                         moveExB.Move,//この関数が呼び出されたときの指し手☆（＾～＾）
-                        positionA,
                         "A900_IfMate",
                         logger
                         );
-                    positionA = ittemodosuResult.SyuryoSky;
                 }
                 catch (Exception ex)
                 {
                     logger.DonimoNaranAkirameta(ex,
                         "ノードを削除しているときだぜ☆（＾▽＾） exception_area=" + exception_area +
-                        "\nmove=" + Conv_Move.ToLog2(moveExB));
+                        "\nmove=" + Conv_MoveEx.LogStr(moveExB));
                     throw ex;
                 }
 

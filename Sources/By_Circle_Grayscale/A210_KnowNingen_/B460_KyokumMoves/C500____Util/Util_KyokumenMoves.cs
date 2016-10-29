@@ -81,7 +81,6 @@ namespace Grayscale.A210_KnowNingen_.B460_KyokumMoves.C500____Util
             int caller_forLog,//デバッグ用。
             out List_OneAndMulti<Finger, SySet<SyElement>> out_komaBETUSusumeruMasus,
 
-            bool isHonshogi,
             Sky positionA,
             Playerside psideA,
             bool isAiteban

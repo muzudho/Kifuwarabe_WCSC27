@@ -6,6 +6,10 @@ namespace Grayscale.A210_KnowNingen_.B245_ConvScore__.C___500_ConvScore
 {
     public abstract class Conv_Score
     {
+        public const float PositiveMax = 30000.0f;
+        public const float NegativeMax = -30000.0f;
+        public const float Resign = -30001.0f;
+
         /// <summary>
         /// 初期値に使う。
         /// </summary>
@@ -19,10 +23,10 @@ namespace Grayscale.A210_KnowNingen_.B245_ConvScore__.C___500_ConvScore
             {
                 case Playerside.P1:
                     // 1プレイヤーはまだ、大きな数を見つけていないという設定。
-                    return float.MinValue;
+                    return Conv_Score.NegativeMax;// float.MinValue;
                 case Playerside.P2:
                     // 2プレイヤーはまだ、小さな数を見つけていないという設定。
-                    return float.MaxValue;
+                    return Conv_Score.PositiveMax;// float.MaxValue;
                 default: throw new Exception("探索中、プレイヤーサイドのエラー");
             }
         }

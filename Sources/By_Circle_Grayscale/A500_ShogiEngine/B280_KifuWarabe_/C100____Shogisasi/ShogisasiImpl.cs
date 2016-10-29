@@ -65,10 +65,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C100____Shogisasi
         /// <param name="logTag"></param>
         /// <returns></returns>
         public MoveEx WA_Bestmove(
-            ref int searchedMaxDepth,
-            ref ulong searchedNodes,
-            string[] searchedPv,
-            bool isHonshogi,
+            ref YomisujiInfo yomisujiInfo,
 
             Earth earth1,
             Tree kifu1,// ツリーを伸ばしているぜ☆（＾～＾）
@@ -105,13 +102,11 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C100____Shogisasi
                 // 指し手は１つに絞ること。
                 //
                 bestChild = Tansaku_FukasaYusen_Routine.WAA_GetBestChild_Start(
-                    ref searchedMaxDepth,
-                    ref searchedNodes,
-                    searchedPv,
+                    ref yomisujiInfo,
 
                     kifu1,// ツリーを伸ばしているぜ☆（＾～＾）
 
-                    isHonshogi, Mode_Tansaku.Shogi_ENgine,
+                    Mode_Tansaku.Shogi_ENgine,
                     args, logger);
             }
             catch (Exception ex) {

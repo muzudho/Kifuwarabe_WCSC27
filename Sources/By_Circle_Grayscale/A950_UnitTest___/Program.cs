@@ -111,7 +111,7 @@ namespace Grayscale.A950_UnitTest___
                 int i = 0;
                 foreach (Move move in pv)
                 {
-                    logger.AppendLine("["+i+"]" + Conv_Move.ToLog1(move));
+                    logger.AppendLine("["+i+"]" + Conv_Move.Log(move));
                     i++;
                 }
                 logger.Flush(LogTypes.Plain);
@@ -128,12 +128,11 @@ namespace Grayscale.A950_UnitTest___
                     IttemodosuResult syuryoResult2;
                     Util_IttemodosuRoutine.UndoMove(
                         out syuryoResult2,
+                        ref positionA,
                         move1,
-                        positionA,
                         "G900",
                         logger
                         );
-                    positionA = syuryoResult2.SyuryoSky;
                     Debug.Assert(null != positionA, "局面がヌル");
 
                     // 盤面をログ出力したいぜ☆

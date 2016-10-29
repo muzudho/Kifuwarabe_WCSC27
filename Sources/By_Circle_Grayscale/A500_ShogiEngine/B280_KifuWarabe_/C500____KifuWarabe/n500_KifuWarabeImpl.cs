@@ -40,6 +40,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Finger = ProjectDark.NamedInt.StrictNamedInt0; //スプライト番号
+using Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct;
+using Grayscale.A500_ShogiEngine.B240_TansaFukasa.C___500_Struct;
 
 #if DEBUG
 using Grayscale.A060_Application.B520_Syugoron___.C___250_Struct;
@@ -1001,28 +1003,11 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
                             //------------------------------------------------------------
                             // 指し手のチョイス
                             //------------------------------------------------------------
-                            bool isHonshogi = true;
 
-
-
-                            //------------------------------------------------------------
-                            // MultiPV のテスト中☆
-                            //------------------------------------------------------------
-                            //
-                            // 指し手を決めます。
-                            // TODO: その指し手の評価値がいくらだったのか調べたい。
-                            //
-                            // FIXME: ログがＭｕｌｔｉＰＶ別になっていないので、混ざって、同じ手を２度指しているみたいに見えてしまう☆
-                            //
-                            int searchedMaxDepth = 0;
-                            ulong searchedNodes = 0;
-                            string[] searchedPv = new string[KifuWarabeImpl.SEARCHED_PV_LENGTH];
+                            YomisujiInfo yomisujiInfo = new YomisujiInfoImpl(KifuWarabeImpl.SEARCHED_PV_LENGTH);
                             // null を返すことがある？
                             MoveEx bestmove2 = this.Shogisasi.WA_Bestmove(
-                                ref searchedMaxDepth,
-                                ref searchedNodes,
-                                searchedPv,
-                                isHonshogi,
+                                ref yomisujiInfo,
 
                                 this.Earth_AtLoop2,
                                 this.Kifu_AtLoop2,// ツリーを伸ばしているぜ☆（＾～＾）
@@ -1066,13 +1051,13 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
                                     sb.Append("info time ");
                                     sb.Append(this.Shogisasi.TimeManager.Stopwatch.ElapsedMilliseconds);
                                     sb.Append(" depth ");
-                                    sb.Append(searchedMaxDepth);
+                                    sb.Append(yomisujiInfo.SearchedMaxDepth);
                                     sb.Append(" nodes ");
-                                    sb.Append(searchedNodes);
+                                    sb.Append(yomisujiInfo.SearchedNodes);
                                     sb.Append(" score cp ");
                                     sb.Append(hyojiScore.ToString());
                                     sb.Append(" pv ");//+ " pv 3a3b L*4h 4c4d"
-                                    foreach (string sfen in searchedPv)
+                                    foreach (string sfen in yomisujiInfo.SearchedPv)
                                     {
                                         if ("" != sfen)
                                         {

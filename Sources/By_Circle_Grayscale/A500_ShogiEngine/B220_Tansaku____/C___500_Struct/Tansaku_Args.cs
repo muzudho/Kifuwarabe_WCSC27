@@ -11,7 +11,6 @@ namespace Grayscale.A500_ShogiEngine.B220_Tansaku____.C___500_Tansaku
     public interface Tansaku_Args
     {
 
-        bool IsHonshogi { get; }
         int[] YomuLimitter { get; }
 
 #if DEBUG

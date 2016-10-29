@@ -15,6 +15,8 @@ using Finger = ProjectDark.NamedInt.StrictNamedInt0; //スプライト番号
 using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 using Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
+using Grayscale.A500_ShogiEngine.B240_TansaFukasa.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter;
 
 #if DEBUG
 using Grayscale.A210_KnowNingen_.B250_Log_Kaisetu.C250____Struct;
@@ -43,7 +45,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
             Tansaku_Genjo genjo,
             Tree kifu1,
 
-            ref int searchedMaxDepth,
+            ref YomisujiInfo yomisujiInfo,
             out int out_yomiDeep,
             KwLogger logger
             )
@@ -59,13 +61,25 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                 logger);
 
             out_yomiDeep = positionA.Temezumi - genjo.YomikaisiTemezumi + 1;
-            if (searchedMaxDepth < out_yomiDeep - 1)//これから探索する分をマイナス1しているんだぜ☆（＾～＾）
+            if (yomisujiInfo.SearchedMaxDepth < out_yomiDeep - 1)//これから探索する分をマイナス1しているんだぜ☆（＾～＾）
             {
-                searchedMaxDepth = out_yomiDeep - 1;
+                yomisujiInfo.SearchedMaxDepth = out_yomiDeep - 1;
             }
 
             return result_movelist;
         }
+        public static void Log(List<MoveEx> movelist, string message, KwLogger logger)
+        {
+            int index = 0;
+            logger.AppendLine("┌──────────┐" + message);
+            foreach (MoveEx moveEx in movelist)
+            {
+                logger.AppendLine("(" + index + ")" + Conv_MoveEx.LogStr(moveEx));
+                index++;
+            }
+            logger.AppendLine("└──────────┘");
+        }
+
 
 
         /// <summary>
@@ -124,7 +138,6 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                 Util_KyokumenMoves.LA_Split_KomaBETUSusumeruMasus(
                     1,
                     out komaBETUSusumeruMasus,
-                    genjo.Args.IsHonshogi,//本将棋か
                     positionA,//現在の局面  // FIXME:Lockすると、ここでヌルになる☆
 
                     //手番
@@ -164,108 +177,76 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                 //----------------------------------------
                 // ②利きから、被王手の局面を除いたハブノード
                 //----------------------------------------
-                if (genjo.Args.IsHonshogi)
-                {
-                    //----------------------------------------
-                    // 本将棋
-                    //----------------------------------------
 
-                    exceptionArea = 300011;
-                    //----------------------------------------
-                    // 指定局面での全ての指し手。
-                    //----------------------------------------
-                    Maps_OneAndMulti<Finger, MoveEx> komaBETUAllSasites = Conv_KomabetuSusumeruMasus.ToKomaBETUAllSasites(
-                        komaBETUSusumeruMasus, positionA);
-                    if(test){                        
-                        foreach (Finger fig in komaBETUAllSasites.Items.Keys)
-                        {
-                            if (fig == Fingers.Error_1)
-                            {
-                                logger.DonimoNaranAkirameta("駒番号が入っていないデータが含まれているぜ☆（＾～＾）");
-                            }
-                        }
-                    }
-
-                    //#if DEBUG
-                    //                    System.Console.WriteLine("komaBETUAllSasitesの全要素＝" + Util_Maps_OneAndMultiEx<Finger, SySet<SyElement>>.CountAllElements(komaBETUAllSasites));
-                    //#endif
-
-
-                    exceptionArea = 300012;
-                    //----------------------------------------
-                    // 本将棋の場合、王手されている局面は削除します。
-                    //----------------------------------------
-                    Maps_OneAndOne<Finger, SySet<SyElement>> starbetuSusumuMasus = Util_LegalMove.LA_RemoveMate(
-                        genjo.YomikaisiTemezumi,
-                        genjo.Args.IsHonshogi,
-                        komaBETUAllSasites,//駒別の全ての指し手
-                        psideCreate,
-                        positionA,
-                        kifu1,
-#if DEBUG
-                        genjo.Args.LogF_moveKiki,//利き用
-#endif
-                        "読みNextルーチン",
-                        logger);
-
-                    exceptionArea = 40000;
-
-                    //----------------------------------------
-                    // 『駒別升ズ』を、ハブ・ノードへ変換。
-                    //----------------------------------------
-                    //成り以外の手
-                    movelist = Conv_Movelist1.ToMovelist_NonPromotion(
-                        starbetuSusumuMasus,
-                        psideCreate,
-                        positionA,
-                        logger
-                    );
-
-                    exceptionArea = 42000;
-
-                    //----------------------------------------
-                    // 成りの指し手を作成します。（拡張）
-                    //----------------------------------------
-                    //成りの手
-                    List<MoveEx> nariMovelist = Util_SasuEx.CreateNariSasite(
-                        positionA,
-                        movelist,
-                        logger
-                        );
-
-                    // マージ
-                    foreach (MoveEx nariMoveEx in nariMovelist)
+                exceptionArea = 300011;
+                //----------------------------------------
+                // 指定局面での全ての指し手。
+                //----------------------------------------
+                Maps_OneAndMulti<Finger, MoveEx> komaBETUAllSasites = Conv_KomabetuSusumeruMasus.ToKomaBETUAllSasites(
+                    komaBETUSusumeruMasus, positionA);
+                if(test){                        
+                    foreach (Finger fig in komaBETUAllSasites.Items.Keys)
                     {
-                        if (!movelist.Contains(nariMoveEx))
+                        if (fig == Fingers.Error_1)
                         {
-                            movelist.Add(nariMoveEx);
+                            logger.DonimoNaranAkirameta("駒番号が入っていないデータが含まれているぜ☆（＾～＾）");
                         }
                     }
                 }
-                else
+
+                //#if DEBUG
+                //                    System.Console.WriteLine("komaBETUAllSasitesの全要素＝" + Util_Maps_OneAndMultiEx<Finger, SySet<SyElement>>.CountAllElements(komaBETUAllSasites));
+                //#endif
+
+
+                exceptionArea = 300012;
+                //----------------------------------------
+                // 本将棋の場合、王手されている局面は削除します。
+                //----------------------------------------
+                Maps_OneAndOne<Finger, SySet<SyElement>> starbetuSusumuMasus = Util_LegalMove.LA_RemoveMate(
+                    genjo.YomikaisiTemezumi,
+                    komaBETUAllSasites,//駒別の全ての指し手
+                    psideCreate,
+                    positionA,
+                    kifu1,
+#if DEBUG
+                    genjo.Args.LogF_moveKiki,//利き用
+#endif
+                    "読みNextルーチン",
+                    logger);
+
+                exceptionArea = 40000;
+
+                //----------------------------------------
+                // 『駒別升ズ』を、ハブ・ノードへ変換。
+                //----------------------------------------
+                //成り以外の手
+                movelist = Conv_Movelist1.ToMovelist_NonPromotion(
+                    starbetuSusumuMasus,
+                    psideCreate,
+                    positionA,
+                    logger
+                );
+
+                exceptionArea = 42000;
+
+                //----------------------------------------
+                // 成りの指し手を作成します。（拡張）
+                //----------------------------------------
+                //成りの手
+                List<MoveEx> nariMovelist = Util_SasuEx.CreateNariSasite(
+                    positionA,
+                    movelist,
+                    logger
+                    );
+
+                // マージ
+                foreach (MoveEx nariMoveEx in nariMovelist)
                 {
-                    //----------------------------------------
-                    // 本将棋じゃないもの
-                    //----------------------------------------
-                    exceptionArea = 50000;
-
-                    //----------------------------------------
-                    // 駒別置ける升　→　指し手別局面
-                    //----------------------------------------
-                    //
-                    // １対１変換
-                    //
-                    movelist = Conv_Movelist1.ToMovelist_NonPromotion(
-                        komaBETUSusumeruMasus,
-                        psideCreate,
-                        positionA,
-                        logger
-                        );
-
-                    //#if DEBUG
-                    //                    System.Console.WriteLine("駒別置ける升="+komaBETUSusumeruMasus.Items.Count+"件。　指し手別局面="+ss.Count+"件。");
-                    //                    Debug.Assert(komaBETUSusumeruMasus.Items.Count == ss.Count, "変換後のデータ件数が異なります。[" + komaBETUSusumeruMasus.Items.Count + "]→["+ss.Count+"]");
-                    //#endif
+                    if (!movelist.Contains(nariMoveEx))
+                    {
+                        movelist.Add(nariMoveEx);
+                    }
                 }
 
                 exceptionArea = 1000000;

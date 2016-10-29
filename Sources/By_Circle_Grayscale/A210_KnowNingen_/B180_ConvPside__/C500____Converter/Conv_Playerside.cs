@@ -4,7 +4,6 @@ namespace Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter
 {
     public abstract class Conv_Playerside
     {
-
         public static Okiba ToKomadai(Playerside pside)
         {
             Okiba result;
@@ -36,7 +35,7 @@ namespace Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter
         /// </summary>
         /// <param name="pside"></param>
         /// <returns></returns>
-        public static string ToLog_Kanji(Playerside pside)
+        public static string LogStr_Kanji(Playerside pside)
         {
             string psideStr;
 
@@ -63,7 +62,7 @@ namespace Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter
         /// </summary>
         /// <param name="pside"></param>
         /// <returns></returns>
-        public static string ToSankaku(Playerside pside)
+        public static string LogStr_Sankaku(Playerside pside)
         {
             string psideStr;
 
@@ -81,11 +80,5 @@ namespace Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter
 
             return psideStr;
         }
-
-
-
-
-
-
     }
 }

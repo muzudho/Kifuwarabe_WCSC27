@@ -34,15 +34,13 @@ namespace Grayscale.A500_ShogiEngine.B220_Tansaku____.C500____Struct
         /// <param name="temezumi_yomiCur">読んでいる局面の手目済み</param>
         /// <param name="pside_teban"></param>
         public Tansaku_GenjoImpl(
-            //KifuNode node_yomiKaisi,
             int temezumi,
             Tansaku_Args yomiArgs)
         {
-            //this.node_yomi = node_yomiKaisi;
             this.args = yomiArgs;
 
             // 読み開始時の手番を記憶しておきます。
-            this.YomikaisiTemezumi = temezumi;// node_yomiKaisi.Value.ToKyokumenConst.Temezumi;
+            this.YomikaisiTemezumi = temezumi;
         }
 
     }

@@ -42,7 +42,7 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct
             logger.AppendLine("┌──────────┐"+message);
             foreach(MoveEx moveEx in this.m_pv_)
             {
-                logger.AppendLine("("+ index+")" +Conv_Move.ToLog2(moveEx));
+                logger.AppendLine("("+ index+")" +Conv_MoveEx.LogStr(moveEx));
                 index++;
             }
             logger.AppendLine("└──────────┘");

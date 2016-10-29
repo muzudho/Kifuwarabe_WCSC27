@@ -5,6 +5,9 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct
 {
     public class MoveExImpl : MoveEx
     {
+        public static readonly MoveEx NULL_OBJECT = new MoveExImpl();
+
+
         public MoveExImpl()
         {
             this.m_move_ = Move.Empty;

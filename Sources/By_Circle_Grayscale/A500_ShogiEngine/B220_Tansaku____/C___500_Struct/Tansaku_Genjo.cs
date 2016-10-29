@@ -11,10 +11,5 @@ namespace Grayscale.A500_ShogiEngine.B220_Tansaku____.C___500_Tansaku
         /// </summary>
         int YomikaisiTemezumi { get; set; }
 
-        ///// <summary>
-        ///// 読んでいる局面
-        ///// </summary>
-        //KifuNode Node_yomi { get; }
-        //void SetNode_yomi(KifuNode node_yomi);
     }
 }

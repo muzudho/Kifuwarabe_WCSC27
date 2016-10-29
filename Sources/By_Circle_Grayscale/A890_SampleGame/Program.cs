@@ -11,6 +11,8 @@ using Grayscale.A500_ShogiEngine.B200_Scoreing___.C___240_Shogisasi;
 using Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C100____Shogisasi;
 using Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe;
 using System;
+using Grayscale.A500_ShogiEngine.B240_TansaFukasa.C___500_Struct;
+using Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct;
 
 namespace P930_SampleGame
 {
@@ -22,7 +24,7 @@ namespace P930_SampleGame
         /// <param name="args"></param>
         static void Main(string[] args)
         {
-            KwLogger errH = Util_Loggers.ProcessEngine_DEFAULT;
+            KwLogger logger = Util_Loggers.ProcessEngine_DEFAULT;
 
 
             // 将棋エンジン　きふわらべ
@@ -38,19 +40,14 @@ namespace P930_SampleGame
             Sky positionA = Util_SkyCreator.New_Hirate();//日本の符号読取時;
             Tree kifu1 = new TreeImpl(positionA);
 
-            int searchedMaxDepth = 0;
-            ulong searchedNodes = 0;
-            string[] searchedPv = new string[KifuWarabeImpl.SEARCHED_PV_LENGTH];
+            YomisujiInfo yomisujiInfo = new YomisujiInfoImpl(KifuWarabeImpl.SEARCHED_PV_LENGTH);
             MoveEx bestmoveNode = shogisasi.WA_Bestmove(
-                ref searchedMaxDepth,
-                ref searchedNodes,
-                searchedPv,
-                true,
+                ref yomisujiInfo,
 
                 earth1,
                 kifu1,// ツリーを伸ばしているぜ☆（＾～＾）
 
-                errH);
+                logger);
 
             Move move = bestmoveNode.Move;
             string sfenText = Conv_Move.ToSfen(move);

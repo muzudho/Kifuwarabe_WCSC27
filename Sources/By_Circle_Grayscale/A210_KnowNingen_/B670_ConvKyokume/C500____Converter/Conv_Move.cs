@@ -14,6 +14,7 @@ using System;
 using System.Diagnostics;
 using System.Text;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B245_ConvScore__.C___500_ConvScore;
 
 namespace Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter
 {
@@ -846,12 +847,7 @@ namespace Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter
             return (Move)(1 << (int)MoveShift.ErrorCheck);//エラー
         }
 
-        public static string ToLog2(MoveEx moveEx)
-        {
-            return Conv_Move.ToLog1(moveEx.Move) + " Score=" + ((int)(moveEx.Score*1000))/1000 + "点";
-        }
-
-        public static string ToLog1(Move move)
+        public static string Log(Move move)
         {
             if (Move.Empty==move)
             {
@@ -882,7 +878,7 @@ namespace Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter
 
             // 手番
             Playerside playersideB = Conv_Move.ToPlayerside(move);
-            sb.Append("pside="+ Conv_Playerside.ToLog_Kanji(playersideB) );
+            sb.Append("pside="+ Conv_Playerside.LogStr_Kanji(playersideB) );
 
             bool drop = Conv_Move.ToDrop(move);
 

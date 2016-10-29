@@ -38,8 +38,8 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
         /// <param name="logger"></param>
         public static void UndoMove(
             out IttemodosuResult ittemodosuResult,
+            ref Sky positionA,
             Move moved,
-            Sky positionA,
             string hint,
             KwLogger logger
             )
@@ -159,7 +159,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
                 exception_area = 700011;
 
                 // ノード
-                ittemodosuResult.SyuryoSky = positionA;// この変数を返すのがポイント。棋譜とは別に、現局面。
+                //ittemodosuResult.SyuryoSky = positionA;// この変数を返すのがポイント。棋譜とは別に、現局面。
 
                 exception_area = 700021;
 

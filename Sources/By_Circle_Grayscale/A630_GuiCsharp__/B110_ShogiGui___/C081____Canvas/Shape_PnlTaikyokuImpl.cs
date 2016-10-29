@@ -380,7 +380,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C081____Canvas
             //----------
             // 先後表示
             //----------
-            this.lblPside.Text = Conv_Playerside.ToLog_Kanji(
+            this.lblPside.Text = Conv_Playerside.LogStr_Kanji(
                 psideA
                 );
             this.lblPside.Paint(e.Graphics);

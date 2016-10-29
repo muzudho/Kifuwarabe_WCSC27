@@ -44,7 +44,7 @@ namespace Grayscale.A210_KnowNingen_.B550_JsaFugo____.C500____Util
             Playerside pside = Conv_Move.ToPlayerside(move);
             SyElement dstMasu = Conv_Move.ToDstMasu(move);
 
-            sb.Append(Conv_Playerside.ToSankaku(pside));
+            sb.Append(Conv_Playerside.LogStr_Sankaku(pside));
 
             //------------------------------
             // “同”に変換せず、“筋・段”をそのまま出します。
@@ -125,7 +125,7 @@ namespace Grayscale.A210_KnowNingen_.B550_JsaFugo____.C500____Util
             SyElement dstMasu = Conv_Move.ToDstMasu(move);
             Playerside pside = Conv_Move.ToPlayerside(move);
 
-            sb.Append(Conv_Playerside.ToSankaku(pside));
+            sb.Append(Conv_Playerside.LogStr_Sankaku(pside));
 
             //------------------------------
             // “同”で表記できるところは、“同”で表記します。それ以外は“筋・段”で表記します。

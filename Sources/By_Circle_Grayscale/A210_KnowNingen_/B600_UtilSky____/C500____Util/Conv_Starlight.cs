@@ -15,7 +15,7 @@ namespace Grayscale.A210_KnowNingen_.B600_UtilSky____.C500____Util
             Json_Obj obj = new Json_Obj();
 
             // プレイヤーサイド
-            obj.Add(new Json_Prop("pside", Conv_Playerside.ToSankaku(Conv_Busstop.ToPlayerside( koma))));// ▲△
+            obj.Add(new Json_Prop("pside", Conv_Playerside.LogStr_Sankaku(Conv_Busstop.ToPlayerside( koma))));// ▲△
 
             // マス  
             obj.Add(new Json_Prop("masu", Conv_Masu.ToMasuHandle(Conv_Busstop.ToMasu( koma))));// ▲△

@@ -265,7 +265,7 @@ namespace Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter
 
             // 手番
             sb.Append(
-                Conv_Playerside.ToLog_Kanji(Conv_Busstop.ToPlayerside(busstop))
+                Conv_Playerside.LogStr_Kanji(Conv_Busstop.ToPlayerside(busstop))
                 );
 
             return sb.ToString();

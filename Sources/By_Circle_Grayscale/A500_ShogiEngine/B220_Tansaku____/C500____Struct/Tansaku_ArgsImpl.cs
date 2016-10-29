@@ -10,12 +10,6 @@ namespace Grayscale.A500_ShogiEngine.B220_Tansaku____.C500____Struct
     public class Tansaku_ArgsImpl : Tansaku_Args
     {
         /// <summary>
-        /// 本将棋なら真。
-        /// </summary>
-        public bool IsHonshogi { get { return this.m_isHonshogi_; } }
-        private bool m_isHonshogi_;
-
-        /// <summary>
         /// 読みの上限の様々な設定☆（深さ優先探索で使用☆）
         /// </summary>
         public int[] YomuLimitter { get { return this.m_yomuLimitter_; } }
@@ -28,12 +22,10 @@ namespace Grayscale.A500_ShogiEngine.B220_Tansaku____.C500____Struct
         private KaisetuBoards m_logF_moveKiki_;
 
         public Tansaku_ArgsImpl(
-            bool isHonshogi,
             int[] yomuLimitter,
             KaisetuBoards logF_moveKiki
             )
         {
-            this.m_isHonshogi_ = isHonshogi;
             this.m_yomuLimitter_ = yomuLimitter;
             this.m_logF_moveKiki_ = logF_moveKiki;
         }

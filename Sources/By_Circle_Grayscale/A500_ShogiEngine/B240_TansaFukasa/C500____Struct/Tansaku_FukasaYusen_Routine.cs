@@ -46,7 +46,6 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
 
         public static Tansaku_Genjo CreateGenjo(
             int temezumi,
-            bool isHonshogi,
             Mode_Tansaku mode_Tansaku,
             KwLogger errH
             )
@@ -178,7 +177,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
 #endif
 
 
-            Tansaku_Args args = new Tansaku_ArgsImpl(isHonshogi, yomuLimitter, logF_moveKiki);
+            Tansaku_Args args = new Tansaku_ArgsImpl( yomuLimitter, logF_moveKiki);
             Tansaku_Genjo genjo = new Tansaku_GenjoImpl(
                 temezumi,
                 args
@@ -198,13 +197,10 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
         /// <param name="logTag"></param>
         /// <returns></returns>
         public static MoveEx WAA_GetBestChild_Start(
-            ref int searchedMaxDepth,
-            ref ulong searchedNodes,
-            string[] searchedPv,
+            ref YomisujiInfo yomisujiInfo,
 
             Tree kifu1,// ツリーを伸ばしているぜ☆（＾～＾）
 
-            bool isHonshogi,
             Mode_Tansaku mode_Tansaku,
             EvaluationArgs args,
             KwLogger logger
@@ -218,25 +214,89 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                 exceptionArea = 10;
                 Tansaku_Genjo genjo = Tansaku_FukasaYusen_Routine.CreateGenjo(
                     positionA.Temezumi,
-                    isHonshogi, mode_Tansaku, logger);
+                    mode_Tansaku, logger);
 
-                //kifu1.Pv_GetLatest().SetScore(Conv_Score.GetWorstScore(kifu1.GetNextPside()));// プレイヤー1ならmin値、プレイヤー2ならmax値。
+                /*
+                int yomiDeep2 = positionA.Temezumi - genjo.YomikaisiTemezumi + 1;
+                List<MoveEx> movelist2 = Util_MovePicker.CreateMovelist_BeforeLoop(
+                        genjo,
+                        kifu1,
+                        ref yomisujiInfo,
+                        out yomiDeep2,
+                        logger
+                        );
+                Util_MovePicker.Log(movelist2, "X2000", logger);
+                MoveEx bestmove = new MoveExImpl(Move.Empty,
+                    Conv_Score.Resign // Conv_Score.GetWorstScore(kifu1.GetNextPside())//合法手が無ければ投了☆（＾▽＾）
+                    );
+                foreach (MoveEx iSibling_moveEx in movelist2)//次に読む手
+                {
+                    Util_IttesasuSuperRoutine.DoMove_Super1(
+                        Conv_Move.ToPlayerside(iSibling_moveEx.Move),
+                        ref positionA,//指定局面
+                        iSibling_moveEx,
+                        kifu1,
+                        "X1000",
+                        logger
+                    );
+                    TreeImpl.OnDoCurrentMove("親にドッキング", iSibling_moveEx, kifu1, positionA, logger);
 
-                // ここが再帰のスタート地点☆（＾▽＾）
+
+                    MoveEx move = Tansaku_FukasaYusen_Routine.WAAA_GetBestChild_Recursive(
+                        kifu1.Pv_GetLatest(),//スコアは更新されるぜ☆
+                        0,//wideCount
+                        ref yomisujiInfo,
+                        genjo,
+                        positionA.Temezumi,
+                        kifu1.GetNextPside(),
+                        kifu1,
+                        args,
+                        logger
+                    );
+
+                    logger.AppendLine( Conv_MoveEx.LogStr_GetHighScore(
+                        move,
+                        bestmove,
+                        kifu1.GetNextPside(),
+                        "X4110"
+                        ));
+                    bestmove = Conv_MoveEx.GetHighScore(
+                        move,
+                        bestmove,
+                        //Conv_Playerside.Reverse(
+                            kifu1.GetNextPside()//一手先の局面からみた次の手番だぜ☆（＾～＾）
+                                                //)
+                    );
+
+
+                    // １手戻したいぜ☆（＾～＾）
+                    IttemodosuResult ittemodosuResult;
+                    Util_IttemodosuRoutine.UndoMove(
+                        out ittemodosuResult,
+                        ref positionA,
+                        iSibling_moveEx.Move,//この関数が呼び出されたときの指し手☆（＾～＾）
+                        "X9000",
+                        logger
+                        );
+                    TreeImpl.OnUndoCurrentMove(kifu1, positionA, logger, "WAAA_Yomu_Loop20000");
+                }
+
+                // 最善の、次の一手を返すぜ☆（＾▽＾）
+                logger.AppendLine(Conv_MoveEx.LogStr(bestmove,"ベストムーブX4000"));
+                return bestmove;
+                */
+
                 return Tansaku_FukasaYusen_Routine.WAAA_GetBestChild_Recursive(
-                    kifu1.Pv_GetLatest(),
-                    ref searchedMaxDepth,
-                    ref searchedNodes,
-                    searchedPv,
+                    kifu1.Pv_GetLatest(),//スコアは更新されるぜ☆
+                    0,//wideCount
+                    ref yomisujiInfo,
                     genjo,
-
                     positionA.Temezumi,
                     kifu1.GetNextPside(),
                     kifu1,
-
                     args,
                     logger
-                    );
+                );
             }
             catch (Exception ex)
             {
@@ -260,10 +320,9 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
         /// <param name="logger"></param>
         /// <returns>最善の子</returns>
         private static MoveEx WAAA_GetBestChild_Recursive(
-            MoveEx iMe,
-            ref int searchedMaxDepth,
-            ref ulong searchedNodes,
-            string[] searchedPv,
+            MoveEx iParent,
+            int iParent_wideCount,
+            ref YomisujiInfo yomisujiInfo,
             Tansaku_Genjo genjo,
 
             int kaisiTemezumi,
@@ -294,49 +353,52 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
 
                 if (Tansaku_FukasaYusen_Routine.IsLeaf(
                     yomiDeep2,
-                    0,//wideCount1,
+                    iParent_wideCount,
                     genjo,
                     args.Shogisasi.TimeManager
                 ))
                 {
+                    //----------------------------------------
+                    // 小さなカゴ☆（＾▽＾）
+                    //----------------------------------------
 
                     exceptionArea = 3000;
 
-                    //----------------------------------------
-                    // ここが末端なら
-                    //----------------------------------------
                     Tansaku_FukasaYusen_Routine.Do_Leaf(
-                        iMe,
+                        iParent,// スコアを更新
                         kifu1.GetNextPside(),
                         positionA,
                         args,
                         logger
                         );
 
-                    return iMe;
+                    return MoveExImpl.NULL_OBJECT;// iMe;//ヌルでも返したいところだぜ☆（＾～＾）newしたくないので、適当にiMeを返している☆
                 }
 
 
 
                 // 見つからなかった場合、投了に設定しておくぜ☆
-                MoveEx result_bestChild = new MoveExImpl(
+                MoveEx result_bestSibling = new MoveExImpl(
                     Move.Empty,//これが３手読みのときに出てくるぜ☆
                     Conv_Score.GetWorstScore(kifu1.GetNextPside())// プレイヤー1ならmin値、プレイヤー2ならmax値。
                     );
 
-                int wideCount1 = 0;
+                int iSibling_wideCount = 0;
                 exceptionArea = 2000;
-                List<MoveEx> movelist2 = Util_MovePicker.CreateMovelist_BeforeLoop(
-                    genjo,
+                List<MoveEx> movelist2;
+                {
+                    movelist2 = Util_MovePicker.CreateMovelist_BeforeLoop(
+                        genjo,
 
-                    kifu1,
+                        kifu1,
 
-                    ref searchedMaxDepth,
-                    out yomiDeep2,
-                    logger
-                    );
+                        ref yomisujiInfo,
+                        out yomiDeep2,
+                        logger
+                        );
+                }
 
-                foreach (MoveEx iMoveEx in movelist2)//次に読む手
+                foreach (MoveEx iSibling_moveEx in movelist2)//次に読む手
                 {
 
                     //────────────────────────────────────────
@@ -352,7 +414,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                         // 《８》カウンターを次局面へ
 
                         // 探索ノードのカウントを加算☆（＾～＾）少ないほど枝刈りの質が高いぜ☆
-                        searchedNodes++;
+                        yomisujiInfo.SearchedNodes++;
 
                         // このノードは、途中節か葉か未確定。
 
@@ -363,9 +425,9 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
 
                         // 局面
                         Util_IttesasuSuperRoutine.DoMove_Super1(
-                            Conv_Move.ToPlayerside(iMoveEx.Move),
+                            Conv_Move.ToPlayerside(iSibling_moveEx.Move),
                             ref positionA,//指定局面
-                            iMoveEx,
+                            iSibling_moveEx,
                             kifu1,
                             "C100",
                             logger
@@ -375,7 +437,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
 
 
                         // 自分を親要素につなげたあとで、子を検索するぜ☆（＾～＾）
-                        TreeImpl.OnDoCurrentMove("親にドッキング", iMoveEx, kifu1, positionA, logger);
+                        TreeImpl.OnDoCurrentMove("親にドッキング", iSibling_moveEx, kifu1, positionA, logger);
 
                         exceptionArea = 44012;
 
@@ -384,10 +446,9 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                         // （＾▽＾）再帰☆
                         {
                             Tansaku_FukasaYusen_Routine.WAAA_GetBestChild_Recursive(
-                                iMoveEx,
-                                ref searchedMaxDepth,
-                                ref searchedNodes,
-                                searchedPv,
+                                iSibling_moveEx,
+                                iSibling_wideCount,
+                                ref yomisujiInfo,
                                 genjo,
 
                                 positionA.Temezumi,
@@ -397,54 +458,45 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                                 args,
                                 logger);
 
-                            // 点数を、子から親へバックするぜ☆
-                            kifu1.Pv_GetLatest().SetScore(
-                                Conv_Score.GetHighScore(
-                                    kifu1.Pv_GetLatest().Score,
-                                    iMoveEx.Score,//iMovEx_childChild.Score,
-                                    kifu1.GetNextPside()
-                                    )
-                                );
+                            //// 親の点数も更新されるぜ☆
+                            //kifu1.Pv_GetLatest().SetScore(
+                            //    Conv_Score.GetHighScore(
+                            //        kifu1.Pv_GetLatest().Score,
+                            //        iSibling_moveEx.Score,//iMovEx_childChild.Score,
+                            //        kifu1.GetNextPside()
+                            //        )
+                            //    );
                         }
 
                         exceptionArea = 6000;
 
-                        //*
                         // １手戻したいぜ☆（＾～＾）
-
                         IttemodosuResult ittemodosuResult;
                         Util_IttemodosuRoutine.UndoMove(
                             out ittemodosuResult,
-                            iMoveEx.Move,//この関数が呼び出されたときの指し手☆（＾～＾）
-                            positionA,
+                            ref positionA,
+                            iSibling_moveEx.Move,//この関数が呼び出されたときの指し手☆（＾～＾）
                             "C900",
                             logger
                             );
-                        positionA = ittemodosuResult.SyuryoSky;
-                        //*/
-
-                        TreeImpl.OnUndoCurrentMove(kifu1, ittemodosuResult.SyuryoSky, logger, "WAAA_Yomu_Loop20000");
+                        TreeImpl.OnUndoCurrentMove(kifu1, positionA, logger, "WAAA_Yomu_Loop20000");
 
                         exceptionArea = 7000;
 
                         //----------------------------------------
                         // 子要素の検索が終わった時点で、読み筋を格納☆
                         //----------------------------------------
-                        searchedPv[yomiDeep2] = Conv_Move.ToSfen(iMoveEx.Move); //FIXME:
-                        searchedPv[yomiDeep2 + 1] = "";//後ろの１手を消しておいて 終端子扱いにする。
+                        yomisujiInfo.SearchedPv[yomiDeep2] = Conv_Move.ToSfen(iSibling_moveEx.Move); //FIXME:
+                        yomisujiInfo.SearchedPv[yomiDeep2 + 1] = "";//後ろの１手を消しておいて 終端子扱いにする。
 
 
                         exceptionArea = 8000;
 
-                        //----------------------------------------
-                        // 子要素の検索が終わった時点
-                        //----------------------------------------
-                        //
-                        // 子の点数を、自分に反映させるぜ☆
+                        // 兄弟のうち、最善の者を残すぜ☆
                         bool alpha_cut;
-                        result_bestChild = Util_Scoreing.Update_BestScore_And_Check_AlphaCut(
-                            result_bestChild,
-                            iMoveEx,
+                        result_bestSibling = Util_Scoreing.Update_BestScore_And_Check_AlphaCut(
+                            result_bestSibling,
+                            iSibling_moveEx,
 
                             yomiDeep2,
                             psideA,
@@ -454,7 +506,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
 
                         exceptionArea = 9000;
 
-                        wideCount1++;
+                        iSibling_wideCount++;
 
 #if DEBUG_ALPHA_METHOD
                 errH.AppendLine_AddMemo("3. 手(" + node_yomi.Value.ToKyokumenConst.Temezumi + ")読(" + yomiDeep + ") 兄弟最善=[" + a_siblingDecidedValue + "] 子ベスト=[" + a_childrenBest + "] 自点=[" + a_myScore + "]");
@@ -469,18 +521,6 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                             //----------------------------------------
                             break;
                         }
-
-                        exceptionArea = 1000110;
-
-
-
-
-
-
-
-
-
-
                     }
                     catch (Exception ex)
                     {
@@ -499,16 +539,17 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                         }
 
                         logger.DonimoNaranAkirameta(ex, "棋譜ツリーで例外です(A)。exceptionArea=" + exceptionArea
-                            + " entry.Key=" + Conv_Move.ToSfen(iMoveEx.Move)
+                            + " entry.Key=" + Conv_Move.ToSfen(iSibling_moveEx.Move)
                             //+ " node_yomi.CountAllNodes=" + node_yomi_KAIZOMAE.CountAllNodes()
                             + " 指し手候補="+sb.ToString());
                         throw ex;
-
                     }
                 }
 
-                iMe.SetScore(result_bestChild.Score);
-                return result_bestChild;
+
+                // 親の点数も更新されるぜ☆
+                iParent.SetScore(result_bestSibling.Score);
+                return result_bestSibling;
             }
             catch (Exception ex)
             {

@@ -100,7 +100,9 @@
     <Compile Include="B180_Hyokakansu_\C500____Hyokakansu\HyokakansuAbstract.cs" />
     <Compile Include="B180_Hyokakansu_\C500____Hyokakansu\Hyokakansu_Komawari.cs" />
     <Compile Include="B240_TansaFukasa\C500____Struct\Util_MovePicker.cs" />
+    <Compile Include="B240_TansaFukasa\C500____Struct\YomisujiInfoImpl.cs" />
     <Compile Include="B240_TansaFukasa\C___500_Struct\Mode_Tansaku.cs" />
+    <Compile Include="B240_TansaFukasa\C___500_Struct\YomisujiInfo.cs" />
     <Compile Include="B260_UtilClient_\C500____Util\Util_InClient.cs" />
     <Compile Include="B200_Scoreing___\C___240_Shogisasi\Shogisasi.cs" />
     <Compile Include="B200_Scoreing___\C010____Log\PerformanceMetrics.cs" />

@@ -308,15 +308,12 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
             IttemodosuResult ittemodosuResult;
             Util_IttemodosuRoutine.UndoMove(
                 out ittemodosuResult,
+                ref positionA,
                 curNode1.Move,
-                positionA,
                 "B",
                 logger
                 );
-
-            //kifu1_mutable.MoveEx_SetCurrent(
-                TreeImpl.OnUndoCurrentMove(kifu1_mutable, ittemodosuResult.SyuryoSky, logger, "Makimodosi_Srv30000");
-                //);
+            TreeImpl.OnUndoCurrentMove(kifu1_mutable, positionA, logger, "Makimodosi_Srv30000");
 
             movedKoma = ittemodosuResult.FigMovedKoma;
             foodKoma = ittemodosuResult.FigFoodKoma;
