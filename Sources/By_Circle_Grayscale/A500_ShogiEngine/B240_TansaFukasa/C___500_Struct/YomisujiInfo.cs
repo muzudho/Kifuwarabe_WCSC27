@@ -4,6 +4,5 @@
     {
         int SearchedMaxDepth { get; set; }
         ulong SearchedNodes { get; set; }
-        string[] SearchedPv { get; set; }
     }
 }

@@ -13,6 +13,7 @@ using Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe;
 using System;
 using Grayscale.A500_ShogiEngine.B240_TansaFukasa.C___500_Struct;
 using Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct;
+using Grayscale.A210_KnowNingen_.B240_Move.C___600_Pv;
 
 namespace P930_SampleGame
 {
@@ -40,9 +41,11 @@ namespace P930_SampleGame
             Sky positionA = Util_SkyCreator.New_Hirate();//日本の符号読取時;
             Tree kifu1 = new TreeImpl(positionA);
 
-            YomisujiInfo yomisujiInfo = new YomisujiInfoImpl(KifuWarabeImpl.SEARCHED_PV_LENGTH);
+            YomisujiInfo yomisujiInfo = new YomisujiInfoImpl();
+            PvList pvList;
             MoveEx bestmoveNode = shogisasi.WA_Bestmove(
                 ref yomisujiInfo,
+                out pvList,
 
                 earth1,
                 kifu1,// ツリーを伸ばしているぜ☆（＾～＾）
@@ -50,13 +53,10 @@ namespace P930_SampleGame
                 logger);
 
             Move move = bestmoveNode.Move;
-            string sfenText = Conv_Move.ToSfen(move);
+            string sfenText = Conv_Move.LogStr_Sfen(move);
             System.Console.WriteLine("sfenText="+ sfenText + " move=" + Convert.ToString((int)move, 2));
 
 
-            //bool isTimeoutShutdown_temp;
-            //kifuWarabe.AtBody(out isTimeoutShutdown_temp, errH);    // 将棋サーバーからのメッセージの受信や、
-            // 思考は、ここで行っています。
             kifuWarabe.OnA3();
         }
     }

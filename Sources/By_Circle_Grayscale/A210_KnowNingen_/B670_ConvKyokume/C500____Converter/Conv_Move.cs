@@ -13,8 +13,6 @@ using Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky;
 using System;
 using System.Diagnostics;
 using System.Text;
-using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B245_ConvScore__.C___500_ConvScore;
 
 namespace Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter
 {
@@ -31,7 +29,7 @@ namespace Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter
         /// ************************************************************************************************************************
         /// </summary>
         /// <returns></returns>
-        public static string ToSfen(Move move)
+        public static string LogStr_Sfen(Move move)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -181,9 +179,9 @@ namespace Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter
         /// ファイル名にも使えるように、ファイル名に使えない文字を置換します。
         /// </summary>
         /// <returns></returns>
-        public static string ToSfen_ForFilename(Move move)
+        public static string LogStr_SfenForFilename(Move move)
         {
-            string moveSfen = Conv_Move.ToSfen(move);
+            string moveSfen = Conv_Move.LogStr_Sfen(move);
             return Conv_Filepath.ToEscape(moveSfen);
         }
 
@@ -847,13 +845,13 @@ namespace Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter
             return (Move)(1 << (int)MoveShift.ErrorCheck);//エラー
         }
 
-        public static string LogStr(Move move, string message)
+        public static string LogStr_Description(Move move, string message)
         {
             return "┌──────────┐" + message + Environment.NewLine +
-            Conv_Move.LogStr(move) + Environment.NewLine +
+            Conv_Move.LogStr_Description(move) + Environment.NewLine +
             "└──────────┘";
         }
-        public static string LogStr(Move move)
+        public static string LogStr_Description(Move move)
         {
             if (Move.Empty==move)
             {

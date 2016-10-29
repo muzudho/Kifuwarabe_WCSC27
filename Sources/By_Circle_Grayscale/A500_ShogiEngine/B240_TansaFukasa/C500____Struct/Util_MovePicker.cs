@@ -74,7 +74,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
             logger.AppendLine("┌──────────┐" + message);
             foreach (Move move in movelist)
             {
-                logger.AppendLine("(" + index + ")" + Conv_Move.LogStr(move));
+                logger.AppendLine("(" + index + ")" + Conv_Move.LogStr_Description(move));
                 index++;
             }
             logger.AppendLine("└──────────┘");

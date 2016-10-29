@@ -5,6 +5,7 @@ using Grayscale.A500_ShogiEngine.B130_FeatureVect.C___500_Struct;
 using Grayscale.A500_ShogiEngine.B210_timeMan____.C___500_struct__;
 using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 using Grayscale.A500_ShogiEngine.B240_TansaFukasa.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B240_Move.C___600_Pv;
 
 namespace Grayscale.A500_ShogiEngine.B200_Scoreing___.C___240_Shogisasi
 {
@@ -40,6 +41,7 @@ namespace Grayscale.A500_ShogiEngine.B200_Scoreing___.C___240_Shogisasi
         /// <returns></returns>
         MoveEx WA_Bestmove(
             ref YomisujiInfo yomisujiInfo,
+            out PvList out_pvList,
 
             Earth earth1,
             Tree kifu1,

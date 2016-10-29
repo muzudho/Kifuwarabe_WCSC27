@@ -148,7 +148,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C250____OperationA
                     goto gt_EndLoop;
                 }
 
-                sb.Append(Conv_Move.ToSfen(move));
+                sb.Append(Conv_Move.LogStr_Sfen(move));
                 sb.Append(" ");
 
             gt_EndLoop:

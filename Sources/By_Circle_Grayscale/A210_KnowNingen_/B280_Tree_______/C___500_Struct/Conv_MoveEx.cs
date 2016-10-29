@@ -35,7 +35,7 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct
             {
                 scoreStr = (((int)(moveEx.Score * 1000)) / 1000).ToString();
             }
-            return Conv_Move.LogStr(moveEx.Move) + " Score=" + scoreStr + "点";
+            return Conv_Move.LogStr_Description(moveEx.Move) + " Score=" + scoreStr + "点";
         }
 
         public static string LogStr_GetHighScore(

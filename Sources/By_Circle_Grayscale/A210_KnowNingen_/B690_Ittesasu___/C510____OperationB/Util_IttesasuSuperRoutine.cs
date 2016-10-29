@@ -46,7 +46,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C510____OperationB
             {
                 string message = "Util_IttesasuSuperRoutine#DoMove_Super:指し手に該当する駒が無かったぜ☆（＾～＾） hint=" +
                     hint +
-                    " move=" + Conv_Move.LogStr(ref_move);
+                    " move=" + Conv_Move.LogStr_Description(ref_move);
 
                 throw new Exception(message);
             }

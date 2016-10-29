@@ -62,9 +62,12 @@
     <Compile Include="B170_WordShogi__\C260____Operator\Util_SyElement_BinaryOperator.cs" />
     <Compile Include="B170_WordShogi__\C___250_Masu\New_Basho.cs" />
     <Compile Include="B180_ConvPside__\C500____Converter\Conv_Masu.cs" />
+    <Compile Include="B240_Move\C600____Pv\PvListImpl.cs" />
     <Compile Include="B240_Move\C___400_Busstop\n1_BusstopShift.cs" />
     <Compile Include="B240_Move\C___400_Busstop\n2_BusstopMask.cs" />
     <Compile Include="B240_Move\C___400_Busstop\n3_Busstop.cs" />
+    <Compile Include="B240_Move\C___600_Pv\Conv_Pv.cs" />
+    <Compile Include="B240_Move\C___600_Pv\PvList.cs" />
     <Compile Include="B245_ConvScore__\C___500_ConvScore\Conv_Score.cs" />
     <Compile Include="B280_Tree_______\C500____Struct\EarthImpl.cs" />
     <Compile Include="B280_Tree_______\C500____Struct\Util_Tree.cs" />

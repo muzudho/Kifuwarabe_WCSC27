@@ -42,6 +42,8 @@ using System.Windows.Forms;
 using Finger = ProjectDark.NamedInt.StrictNamedInt0; //スプライト番号
 using Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct;
 using Grayscale.A500_ShogiEngine.B240_TansaFukasa.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B240_Move.C600____Pv;
+using Grayscale.A210_KnowNingen_.B240_Move.C___600_Pv;
 
 #if DEBUG
 using Grayscale.A060_Application.B520_Syugoron___.C___250_Struct;
@@ -198,11 +200,6 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
         private string seihinName;
 
         public KwLogger Logger { get; set; }
-
-        /// <summary>
-        /// 読み筋を格納する配列の容量。
-        /// </summary>
-        public const int SEARCHED_PV_LENGTH = 2048;
 
         /// <summary>
         /// 将棋エンジンの中の一大要素「思考エンジン」です。
@@ -1004,10 +1001,13 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
                             // 指し手のチョイス
                             //------------------------------------------------------------
 
-                            YomisujiInfo yomisujiInfo = new YomisujiInfoImpl(KifuWarabeImpl.SEARCHED_PV_LENGTH);
+                            YomisujiInfo yomisujiInfo = new YomisujiInfoImpl();
                             // null を返すことがある？
+
+                            PvList pvList;
                             MoveEx bestmove2 = this.Shogisasi.WA_Bestmove(
                                 ref yomisujiInfo,
+                                out pvList,
 
                                 this.Earth_AtLoop2,
                                 this.Kifu_AtLoop2,// ツリーを伸ばしているぜ☆（＾～＾）
@@ -1027,7 +1027,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
                                 )
                             {
                                 // Ｍｏｖｅを使っていきたい。
-                                string sfenText = Conv_Move.ToSfen(bestmove2.Move);
+                                string sfenText = Conv_Move.LogStr_Sfen(bestmove2.Move);
 
                                 // ログが重過ぎる☆！
                                 //OwataMinister.WARABE_ENGINE.Logger.WriteLine_AddMemo("(Warabe)指し手のチョイス： bestmove＝[" + sfenText + "]" +
@@ -1057,14 +1057,15 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
                                     sb.Append(" score cp ");
                                     sb.Append(hyojiScore.ToString());
                                     sb.Append(" pv ");//+ " pv 3a3b L*4h 4c4d"
-                                    foreach (string sfen in yomisujiInfo.SearchedPv)
-                                    {
-                                        if ("" != sfen)
-                                        {
-                                            sb.Append(sfen);
-                                            sb.Append(" ");
-                                        }
-                                    }
+                                    sb.Append(Conv_Pv.LogStr(pvList));
+                                    //foreach (string sfen in yomisujiInfo.SearchedPv)
+                                    //{
+                                    //    if ("" != sfen)
+                                    //    {
+                                    //        sb.Append(sfen);
+                                    //        sb.Append(" ");
+                                    //    }
+                                    //}
                                     this.Send(sb.ToString());//FIXME:                                                                                           
                                 }
 

@@ -14,6 +14,7 @@ using Grayscale.A500_ShogiEngine.B240_TansaFukasa.C___500_Struct;
 using Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct;
 using System;
 using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
+using Grayscale.A210_KnowNingen_.B240_Move.C___600_Pv;
 
 #if DEBUG
 using Grayscale.A210_KnowNingen_.B250_Log_Kaisetu.C250____Struct;
@@ -66,6 +67,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C100____Shogisasi
         /// <returns></returns>
         public MoveEx WA_Bestmove(
             ref YomisujiInfo yomisujiInfo,
+            out PvList out_pvList,
 
             Earth earth1,
             Tree kifu1,// ツリーを伸ばしているぜ☆（＾～＾）
@@ -102,6 +104,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C100____Shogisasi
                 // 指し手は１つに絞ること。
                 //
                 bestChild = Tansaku_FukasaYusen_Routine.WAA_GetBestChild_Start(
+                    out out_pvList,
                     ref yomisujiInfo,
 
                     kifu1,// ツリーを伸ばしているぜ☆（＾～＾）

@@ -9,6 +9,7 @@ using Grayscale.A500_ShogiEngine.B200_Scoreing___.C___250_Args;
 using System;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct;
+using Grayscale.A210_KnowNingen_.B245_ConvScore__.C___500_ConvScore;
 
 #if DEBUG || LEARN
 using Grayscale.A210_KnowNingen_.B620_KyokumHyoka.C___250_Struct;
@@ -54,8 +55,8 @@ namespace Grayscale.A500_ShogiEngine.B200_Scoreing___.C500____Util
                 // 千日手用の評価をします。
                 switch (psideA)
                 {
-                    case Playerside.P1: return float.MinValue;
-                    case Playerside.P2: return float.MaxValue;
+                    case Playerside.P1: return Conv_Score.NegativeMax;
+                    case Playerside.P2: return Conv_Score.PositiveMax;
                     default: throw new Exception("千日手判定をしようとしましたが、プレイヤーの先後が分からず続行できませんでした。");
                 }
             }

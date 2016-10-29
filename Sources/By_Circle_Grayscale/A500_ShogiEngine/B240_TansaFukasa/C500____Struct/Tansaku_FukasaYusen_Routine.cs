@@ -24,6 +24,8 @@ using System.Diagnostics;
 using System.Text;
 using Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter;
 using Grayscale.A210_KnowNingen_.B245_ConvScore__.C___500_ConvScore;
+using Grayscale.A210_KnowNingen_.B240_Move.C___600_Pv;
+using Grayscale.A210_KnowNingen_.B240_Move.C600____Pv;
 
 #if DEBUG
 using Grayscale.A210_KnowNingen_.B250_Log_Kaisetu.C250____Struct;
@@ -73,6 +75,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
         /// <param name="logTag"></param>
         /// <returns></returns>
         public static MoveEx WAA_GetBestChild_Start(
+            out PvList out_pv,
             ref YomisujiInfo yomisujiInfo,
 
             Tree kifu1,// ツリーを伸ばしているぜ☆（＾～＾）
@@ -91,7 +94,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                 Tansaku_Genjo genjo = Tansaku_FukasaYusen_Routine.CreateGenjo(
                     positionA.Temezumi,
                     mode_Tansaku, logger);
-                int depth = 1;//カウントダウン式
+                int depth = 3;// 2;// 1;//読みの深さ、カウントダウン式
 
                 int yomiDeep2 = positionA.Temezumi - genjo.YomikaisiTemezumi + 1;
                 List<Move> movelist2 = Util_MovePicker.CreateMovelist_BeforeLoop(
@@ -104,6 +107,8 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                 Util_MovePicker.Log(movelist2, "X2000", logger);
                 float alpha = Conv_Score.GetBadestScore(kifu1.GetNextPside());  //アルファ
                 float beta = Conv_Score.GetGoodestScore(kifu1.GetNextPside());  //ベータ
+                out_pv = new PvListImpl();
+                PvList pvList = new PvListImpl();
                 Move bestMove = Move.Empty;
                 float bestScore = Conv_Score.Resign; //合法手が無ければ投了☆（＾▽＾）
                 foreach (Move iMove_ in movelist2)//次に読む手
@@ -131,10 +136,11 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                         -beta,
                         -alpha,
                         depth-1,
+                        pvList,
                         args,
                         logger
                     );
-                    logger.AppendLine(Conv_Move.LogStr(iMove, "初手ムーブX4110。スコア="+score+"点"));
+                    logger.AppendLine(Conv_Move.LogStr_Description(iMove, "初手ムーブX4110。スコア="+score+"点"));
 
 
 
@@ -162,11 +168,18 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                     }
 
 
+                    //────────────────────────────────────────
+                    // アップデート・アルファ
+                    //────────────────────────────────────────
                     if (Conv_Score.IsBGreaterThanA(bestScore, score))// bestScore < score
                     {
-                        // アップデート・アルファ
                         bestMove = iMove;
                         bestScore = score;
+
+                        // PVを作るぜ☆（＾▽＾）
+                        out_pv.List[0] = iMove; // 先頭に今回の指し手を置くぜ☆
+                        Array.Copy(pvList.List, 0, out_pv.List, 1, pvList.Size); // 後ろに子要素の指し手を置くぜ☆
+                        out_pv.Size = 1 + pvList.Size;
                     }
                 }
 
@@ -207,6 +220,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
             float alpha,
             float beta,
             int depth,//カウントダウン式
+            PvList pv,
             EvaluationArgs args,
             KwLogger logger
             )
@@ -236,6 +250,11 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
 
                     exceptionArea = 3000;
 
+                    // pv
+                    pv.List[0] = Move.Empty; // 終端子
+                    pv.Size = 0;
+
+                    // 点数
                     return Tansaku_FukasaYusen_Routine.Do_Leaf(
                         kifu1.GetNextPside(),
                         positionA,
@@ -256,6 +275,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                     );
 
 
+                PvList pvList = new PvListImpl();
                 Move bestMove = Move.Empty;
                 float bestScore = Conv_Score.Resign; //合法手が無ければ投了☆（＾▽＾）
                 foreach (Move iMove_ in movelist2)//次に読む手
@@ -306,12 +326,13 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                             genjo,
 
                             positionA.Temezumi,
-                            Conv_Playerside.Reverse(kifu1.GetNextPside()),//× kifu1.GetNextPside(),
+                            kifu1.GetNextPside(),//Conv_Playerside.Reverse(kifu1.GetNextPside()),//× kifu1.GetNextPside(),
                             kifu1,
 
                             -beta,
                             -alpha,
                             depth-1,
+                            pvList,//子要素のPVをここに溜めていくぜ☆（＾▽＾）
                             args,
                             logger);
 
@@ -329,16 +350,6 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                         TreeImpl.OnUndoCurrentMove(kifu1, positionA, logger, "WAAA_Yomu_Loop20000");
 
                         exceptionArea = 7000;
-
-                        //----------------------------------------
-                        // 子要素の検索が終わった時点で、読み筋を格納☆
-                        //----------------------------------------
-                        yomisujiInfo.SearchedPv[yomiDeep2] = Conv_Move.ToSfen(iMove); //FIXME:
-                        yomisujiInfo.SearchedPv[yomiDeep2 + 1] = "";//後ろの１手を消しておいて 終端子扱いにする。
-
-
-                        exceptionArea = 8000;
-
                         //────────────────────────────────────────
                         // ベータ・カット
                         //────────────────────────────────────────
@@ -368,6 +379,11 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                         {
                             bestMove = iMove;
                             bestScore = score;
+
+                            // PVを作るぜ☆（＾▽＾）
+                            pv.List[0] = iMove; // 先頭に今回の指し手を置くぜ☆
+                            Array.Copy(pvList.List, 0, pv.List, 1, pvList.Size); // 後ろに子要素の指し手を置くぜ☆
+                            pv.Size = 1 + pvList.Size;
                         }
                     }
                     catch (Exception ex)
@@ -377,7 +393,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                         int i = 0;
                         foreach(Move entry2 in movelist2)
                         {
-                            sb.Append(Conv_Move.ToSfen(entry2));
+                            sb.Append(Conv_Move.LogStr_Sfen(entry2));
                             sb.Append(",");
                             if (0 == i % 15)
                             {
@@ -387,7 +403,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                         }
 
                         logger.DonimoNaranAkirameta(ex, "棋譜ツリーで例外です(A)。exceptionArea=" + exceptionArea
-                            + " entry.Key=" + Conv_Move.ToSfen(iMove)
+                            + " entry.Key=" + Conv_Move.LogStr_Sfen(iMove)
                             //+ " node_yomi.CountAllNodes=" + node_yomi_KAIZOMAE.CountAllNodes()
                             + " 指し手候補="+sb.ToString());
                         throw ex;
@@ -440,7 +456,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
 
             // 局面に評価値を付けます。
             return
-                //(psideA==Playerside.P2 ? -1 : 1) *// 2プレイヤーはプラス・マイナスを逆に出すぜ☆（＾▽＾）
+                (psideA==Playerside.P2 ? -1 : 1) *// 2プレイヤーはプラス・マイナスを逆に出すぜ☆（＾▽＾）
                 Util_Scoreing.DoScoreing_Kyokumen(
                     psideA,
                     positionA,

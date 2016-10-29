@@ -273,7 +273,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
                     if (fingers.Count < 1)
                     {
                         string message = "Util_IttesasuRoutine#Do24:指し手に該当する駒が無かったぜ☆（＾～＾）"+
-                            " move=" + Conv_Move.LogStr(move);
+                            " move=" + Conv_Move.LogStr_Description(move);
                         throw new Exception(message);
                     }
                     figMovedKoma = fingers.ToFirst();

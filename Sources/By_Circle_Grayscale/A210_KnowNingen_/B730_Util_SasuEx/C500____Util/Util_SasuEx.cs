@@ -75,7 +75,7 @@ namespace Grayscale.A210_KnowNingen_.B730_Util_SasuEx.C500____Util
                         );
 
                         // TODO: 一段目の香車のように、既に駒は成っている場合があります。無い指し手だけ追加するようにします。
-                        string sasiteStr = Conv_Move.ToSfen(move);//重複防止用のキー
+                        string sasiteStr = Conv_Move.LogStr_Sfen(move);//重複防止用のキー
                         if (!newSasiteList.ContainsKey(sasiteStr))
                         {
                             newSasiteList.Add(sasiteStr, move);
@@ -113,13 +113,13 @@ namespace Grayscale.A210_KnowNingen_.B730_Util_SasuEx.C500____Util
                             foreach (Move entry in a_sasitebetuEntry)
                             {
                                 sb.Append("「");
-                                sb.Append(Conv_Move.ToSfen(entry));
+                                sb.Append(Conv_Move.LogStr_Sfen(entry));
                                 sb.Append("」");
                             }
                         }
 
                         //>>>>> エラーが起こりました。
-                        logger.DonimoNaranAkirameta(ex, "新しく作った「成りの指し手」を既存ノードに追加していた時です。：追加したい指し手=「" + Conv_Move.ToSfen(newMove) + "」既存の手=" + sb.ToString());
+                        logger.DonimoNaranAkirameta(ex, "新しく作った「成りの指し手」を既存ノードに追加していた時です。：追加したい指し手=「" + Conv_Move.LogStr_Sfen(newMove) + "」既存の手=" + sb.ToString());
                         throw ex;
                     }
 
