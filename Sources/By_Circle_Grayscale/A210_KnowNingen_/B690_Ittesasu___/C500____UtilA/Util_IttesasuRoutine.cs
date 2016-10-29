@@ -220,8 +220,6 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
             KwLogger logger
             )
         {
-            MoveEx newNodeB = new MoveExImpl(move);
-
                 //----------------------------------------
                 // 次ノード追加
                 //----------------------------------------
@@ -229,7 +227,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
                     Conv_Sky.ToKyokumenHash(positionA), "After3_ChangeCurrent(次の一手なし)");
 
             //次ノードを、これからのカレントとします。
-            TreeImpl.OnDoCurrentMove("ツリー更新前", newNodeB, kifu1, positionA, logger);
+            TreeImpl.OnDoCurrentMove("ツリー更新前", move, kifu1, positionA, logger);
         }
 
 
@@ -275,7 +273,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
                     if (fingers.Count < 1)
                     {
                         string message = "Util_IttesasuRoutine#Do24:指し手に該当する駒が無かったぜ☆（＾～＾）"+
-                            " move=" + Conv_Move.Log(move);
+                            " move=" + Conv_Move.LogStr(move);
                         throw new Exception(message);
                     }
                     figMovedKoma = fingers.ToFirst();

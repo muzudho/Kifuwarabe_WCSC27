@@ -23,14 +23,14 @@ namespace Grayscale.A210_KnowNingen_.B770_Conv_Sasu__.C500____Converter
         /// <param name="positionA"></param>
         /// <param name="logger"></param>
         /// <returns></returns>
-        public static List<MoveEx> ToMovelist_NonPromotion(
+        public static List<Move> ToMovelist_NonPromotion(
             Maps_OneAndOne<Finger, SySet<SyElement>> komabetuSusumuMasus,
             Playerside psideCreate,
             Sky positionA,
             KwLogger logger
         )
         {
-            List<MoveEx> result_movelist = new List<MoveEx>();
+            List<Move> result_movelist = new List<Move>();
 
             komabetuSusumuMasus.Foreach_Entry((Finger key, SySet<SyElement> value, ref bool toBreak) =>
             {
@@ -39,7 +39,7 @@ namespace Grayscale.A210_KnowNingen_.B770_Conv_Sasu__.C500____Converter
 
                 foreach (SyElement dstMasu in value.Elements)
                 {
-                    MoveEx moveEx = new MoveExImpl( Conv_Move.ToMove(
+                    Move move = Conv_Move.ToMove(
                         Conv_Busstop.ToMasu( koma),
                         dstMasu,
                         Conv_Busstop.ToKomasyurui( koma),
@@ -48,14 +48,12 @@ namespace Grayscale.A210_KnowNingen_.B770_Conv_Sasu__.C500____Converter
                         false,//ドロップしない
                         psideCreate,
                         false
-                        ),
-                        Conv_Score.GetWorstScore(psideCreate)
                         );
 
-                    if (!result_movelist.Contains(moveEx))
+                    if (!result_movelist.Contains(move))
                     {
                         result_movelist.Add(
-                            moveEx//成らない手
+                            move//成らない手
                             );
                     }
                 }

@@ -196,7 +196,7 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
                 {
                     throw new ApplicationException("駒のハンドルが負数でしたが、間違いです(B)。figKoma=" + (int)figKoma +
                         " move=" + Convert.ToString((int)move,2)+
-                        "\n Log=" + Conv_Move.Log(move));
+                        "\n Log=" + Conv_Move.LogStr(move));
                 }
 
                 enable_moveMap.Put_NewOrOverwrite(

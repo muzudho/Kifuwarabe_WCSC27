@@ -847,7 +847,13 @@ namespace Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter
             return (Move)(1 << (int)MoveShift.ErrorCheck);//エラー
         }
 
-        public static string Log(Move move)
+        public static string LogStr(Move move, string message)
+        {
+            return "┌──────────┐" + message + Environment.NewLine +
+            Conv_Move.LogStr(move) + Environment.NewLine +
+            "└──────────┘";
+        }
+        public static string LogStr(Move move)
         {
             if (Move.Empty==move)
             {

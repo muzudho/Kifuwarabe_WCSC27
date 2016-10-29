@@ -35,7 +35,7 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct
             {
                 scoreStr = (((int)(moveEx.Score * 1000)) / 1000).ToString();
             }
-            return Conv_Move.Log(moveEx.Move) + " Score=" + scoreStr + "点";
+            return Conv_Move.LogStr(moveEx.Move) + " Score=" + scoreStr + "点";
         }
 
         public static string LogStr_GetHighScore(
@@ -62,7 +62,7 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct
             {
                 if (b.Score == Conv_Score.Resign)
                 {
-                    goto gt_p1random;
+                    goto gt_random;
                 }
                 return b;
             }
@@ -100,7 +100,7 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct
                 default: throw new Exception("探索中、プレイヤーサイドのエラー");
             }
 
-        gt_p1random:
+        gt_random:
             // 同着の場合はランダムだぜ☆（＾▽＾）
             if (0 < KwRandom.Random.Next(2))
             {

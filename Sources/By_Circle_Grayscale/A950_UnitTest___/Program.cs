@@ -111,7 +111,7 @@ namespace Grayscale.A950_UnitTest___
                 int i = 0;
                 foreach (Move move in pv)
                 {
-                    logger.AppendLine("["+i+"]" + Conv_Move.Log(move));
+                    logger.AppendLine("["+i+"]" + Conv_Move.LogStr(move));
                     i++;
                 }
                 logger.Flush(LogTypes.Plain);

@@ -177,14 +177,19 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
                 long exception_area = 1000120;
                 try
                 {
-                    bool successful = Util_IttesasuSuperRoutine.DoMove_Super1(
-                        Conv_Move.ToPlayerside(moveExB.Move),
-                        ref positionA,//指定局面
-                        moveExB,
-                        kifu1,
-                        "A100_IfMate",
-                        logger
-                    );
+                    bool successful;
+                    {
+                        Move temp = moveExB.Move;
+                        successful = Util_IttesasuSuperRoutine.DoMove_Super1(
+                            Conv_Move.ToPlayerside(moveExB.Move),
+                            ref positionA,//指定局面
+                            ref temp,
+                            kifu1,
+                            "A100_IfMate",
+                            logger
+                        );
+                        moveExB.SetMove(temp);
+                    }
                     if (!successful)
                     {
                         // 将棋盤と指し手の不一致があるとき

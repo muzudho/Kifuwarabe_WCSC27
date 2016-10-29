@@ -31,51 +31,82 @@ namespace Grayscale.A210_KnowNingen_.B245_ConvScore__.C___500_ConvScore
             }
         }
 
-        public static float GetHighScore(
-            float score1,
-            float score2,
+        public static bool IsHighScoreA(
+            float a,
+            float b,
             Playerside pside// このノードが、どちらの手番か。
         )
         {
+            // 投了は取らないぜ☆（＾▽＾）
+            if (a == Conv_Score.Resign)
+            {
+                return false;
+            }
+            else if (b == Conv_Score.Resign)
+            {
+                // a は投了ではないぜ☆（＾▽＾）
+                return true;
+            }
+
             switch (pside)
             {
                 case Playerside.P1:
                     // 大きい方を取るぜ☆
-                    if (score1 < score2)
+                    if (b < a)
                     {
-                        return score2;
+                        return true;
                     }
-                    else if (score2 < score1)
-                    {
-                        return score1;
-                    }
-                    else if (0 < KwRandom.Random.Next(2))
-                    {
-                        return score1;
-                    }
-                    else
-                    {
-                        return score2;
-                    }
+                    return false;
 
                 case Playerside.P2:
                     // 小さい方を取るぜ☆
-                    if (score1 < score2)
+                    if (a < b)
                     {
-                        return score1;
+                        return true;
                     }
-                    else if (score2 < score1)
+                    return false;
+
+                default: throw new Exception("探索中、プレイヤーサイドのエラー");
+            }
+        }
+
+        public static float GetHighScore(
+            float a,
+            float b,
+            Playerside pside// このノードが、どちらの手番か。
+        )
+        {
+            // 投了は取らないぜ☆（＾▽＾）
+            if (a == Conv_Score.Resign)
+            {
+                // b は投了かもしれないし、そうでないかも知れないが、aとbは同じ点数☆（＾▽＾）
+                return b;
+            }
+            else if (b == Conv_Score.Resign)
+            {
+                // a は投了ではないぜ☆（＾▽＾）
+                return a;
+            }
+
+            switch (pside)
+            {
+                case Playerside.P1:
+                    // 大きい方を取るぜ☆
+                    if (a < b)
                     {
-                        return score2;
+                        return b;
                     }
-                    else if (0 < KwRandom.Random.Next(2))
+                    // aの方が大きいか、aもbも同じのどちらかだぜ☆（＾▽＾）
+                    return a;
+
+                case Playerside.P2:
+                    // 小さい方を取るぜ☆
+                    if (a < b)
                     {
-                        return score1;
+                        return a;
                     }
-                    else
-                    {
-                        return score2;
-                    }
+                    // bの方が小さいか、aもbも同じのどちらかだぜ☆（＾▽＾）
+                    return b;
 
                 default: throw new Exception("探索中、プレイヤーサイドのエラー");
             }

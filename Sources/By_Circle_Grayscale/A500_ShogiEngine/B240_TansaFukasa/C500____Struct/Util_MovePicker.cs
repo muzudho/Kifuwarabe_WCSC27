@@ -41,7 +41,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
         /// <param name="out_yomiDeep"></param>
         /// <param name="out_a_childrenBest"></param>
         /// <param name="logger"></param>
-        public static List<MoveEx> CreateMovelist_BeforeLoop(
+        public static List<Move> CreateMovelist_BeforeLoop(
             Tansaku_Genjo genjo,
             Tree kifu1,
 
@@ -52,7 +52,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
         {
             Sky positionA = kifu1.PositionA;//この局面から合法手を作成☆（＾～＾）
 
-            List< MoveEx> result_movelist = Util_MovePicker.WAAAA_Create_ChildNodes(
+            List<Move> result_movelist = Util_MovePicker.WAAAA_Create_ChildNodes(
                 genjo,
                 kifu1.GetNextPside(),//これから作る指し手の先後
                 kifu1,
@@ -68,13 +68,13 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
 
             return result_movelist;
         }
-        public static void Log(List<MoveEx> movelist, string message, KwLogger logger)
+        public static void Log(List<Move> movelist, string message, KwLogger logger)
         {
             int index = 0;
             logger.AppendLine("┌──────────┐" + message);
-            foreach (MoveEx moveEx in movelist)
+            foreach (Move move in movelist)
             {
-                logger.AppendLine("(" + index + ")" + Conv_MoveEx.LogStr(moveEx));
+                logger.AppendLine("(" + index + ")" + Conv_Move.LogStr(move));
                 index++;
             }
             logger.AppendLine("└──────────┘");
@@ -96,7 +96,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
         /// <param name="logF_moveKiki"></param>
         /// <param name="logTag"></param>
         /// <returns>複数のノードを持つハブ・ノード</returns>
-        private static List<MoveEx> WAAAA_Create_ChildNodes(
+        private static List<Move> WAAAA_Create_ChildNodes(
             Tansaku_Genjo genjo,
             Playerside psideCreate,
             Tree kifu1,
@@ -113,7 +113,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
             //
             // このハブ・ノード自身は空っぽで、ハブ・ノードの次ノードが、次局面のリストになっています。
             //
-            List<MoveEx> movelist;
+            List<Move> movelist;
 
             try
             {
@@ -234,18 +234,18 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                 // 成りの指し手を作成します。（拡張）
                 //----------------------------------------
                 //成りの手
-                List<MoveEx> nariMovelist = Util_SasuEx.CreateNariSasite(
+                List<Move> nariMovelist = Util_SasuEx.CreateNariSasite(
                     positionA,
                     movelist,
                     logger
                     );
 
                 // マージ
-                foreach (MoveEx nariMoveEx in nariMovelist)
+                foreach (Move nariMove in nariMovelist)
                 {
-                    if (!movelist.Contains(nariMoveEx))
+                    if (!movelist.Contains(nariMove))
                     {
-                        movelist.Add(nariMoveEx);
+                        movelist.Add(nariMove);
                     }
                 }
 

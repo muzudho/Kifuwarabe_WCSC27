@@ -149,9 +149,11 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct
 #endregion
 
 
-        public static void OnDoCurrentMove(string hint, MoveEx moveEx, Tree kifu1, Sky positionA, KwLogger logger)
+        public static void OnDoCurrentMove(string hint, Move move, Tree kifu1, Sky positionA, KwLogger logger)
         {
-            kifu1.Pv_Append("オンDoCurrentMove "+ hint, moveEx, logger);
+            kifu1.Pv_Append("オンDoCurrentMove "+ hint,
+                new MoveExImpl( move),//FIXME:
+                logger);
 
             kifu1.SetPositionA(positionA);
         }

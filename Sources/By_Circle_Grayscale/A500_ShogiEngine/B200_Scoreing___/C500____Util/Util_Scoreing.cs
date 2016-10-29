@@ -7,6 +7,8 @@ using Grayscale.A210_KnowNingen_.B320_ConvWords__.C500____Converter;
 using Grayscale.A500_ShogiEngine.B180_Hyokakansu_.C510____HyokakansuColl;
 using Grayscale.A500_ShogiEngine.B200_Scoreing___.C___250_Args;
 using System;
+using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct;
 
 #if DEBUG || LEARN
 using Grayscale.A210_KnowNingen_.B620_KyokumHyoka.C___250_Struct;
@@ -28,9 +30,13 @@ namespace Grayscale.A500_ShogiEngine.B200_Scoreing___.C500____Util
         /// <param name="b"></param>
         /// <param name="a"></param>
         /// <param name="alpha_cut"></param>
-        public static MoveEx Update_BestScore_And_Check_AlphaCut(
-            MoveEx a,//比較１
-            MoveEx b,//比較２
+        public static void Update_BestScore_And_Check_AlphaCut(
+            out Move bestMove,
+            out float bestScore,
+            Move aMove,//比較１
+            float aScore,
+            Move bMove,//比較２
+            float bScore,
 
             int yomiDeep,//1start
             Playerside pside,// このノードが、どちらの手番か。
@@ -38,25 +44,25 @@ namespace Grayscale.A500_ShogiEngine.B200_Scoreing___.C500____Util
             out bool alpha_cut
             )
         {
-            MoveEx c;
-
             alpha_cut = false;
             switch (pside)
             {
                 case Playerside.P1:
                     // 1プレイヤーは、大きな数を見つけたい。
-                    if (a.Score < b.Score)
+                    if (aScore < bScore)
                     {
-                        c = b;
+                        bestMove = bMove;
+                        bestScore = bScore;
                     }
                     else
                     {
-                        c = a;
+                        bestMove = aMove;
+                        bestScore = aScore;
                     }
                     //----------------------------------------
                     // アルファー・カット
                     //----------------------------------------
-                    if (1<yomiDeep && parentsiblingBestScore < c.Score)
+                    if (1<yomiDeep && parentsiblingBestScore < bestScore)
                     {
                         // 親の兄が既に見つけている数字より　大きな数字を見つけた場合
                         alpha_cut = true;//探索を打ち切り
@@ -64,18 +70,20 @@ namespace Grayscale.A500_ShogiEngine.B200_Scoreing___.C500____Util
                     break;
                 case Playerside.P2:
                     // 2プレイヤーは、小さな数を見つけたい。
-                    if (b.Score < a.Score)
+                    if (bScore < aScore)
                     {
-                        c = b;
+                        bestMove = bMove;
+                        bestScore = bScore;
                     }
                     else
                     {
-                        c = a;
+                        bestMove = aMove;
+                        bestScore = aScore;
                     }
                     //----------------------------------------
                     // アルファー・カット
                     //----------------------------------------
-                    if (1 < yomiDeep && c.Score < parentsiblingBestScore)
+                    if (1 < yomiDeep && bestScore < parentsiblingBestScore)
                     {
                         // 親の兄が既に見つけている数字より　小さな数字を見つけた場合
                         alpha_cut = true;//探索を打ち切り
@@ -83,8 +91,6 @@ namespace Grayscale.A500_ShogiEngine.B200_Scoreing___.C500____Util
                     break;
                 default: throw new Exception("子要素探索中、プレイヤーサイドのエラー");
             }
-
-            return c;
         }
 
         /// <summary>

@@ -27,31 +27,31 @@ namespace Grayscale.A210_KnowNingen_.B730_Util_SasuEx.C500____Util
         /// これが通称【水際のいんちきプログラム】なんだぜ☆
         /// 必要により、【成り】の指し手を追加するぜ☆
         /// </summary>
-        public static List<MoveEx> CreateNariSasite(
+        public static List<Move> CreateNariSasite(
             Sky positionA,
-            List<MoveEx> a_sasitebetuEntry,
-            KwLogger errH
+            List<Move> a_sasitebetuEntry,
+            KwLogger logger
             )
         {
             //----------------------------------------
             // 『進める駒』と、『移動先升』
             //----------------------------------------
-            List<MoveEx> result_komabetuEntry = new List<MoveEx>();
+            List<Move> result_komabetuEntry = new List<Move>();
 
             try
             {
                 Dictionary<string, Move> newSasiteList = new Dictionary<string, Move>();
 
-                foreach(MoveEx moveEx1 in a_sasitebetuEntry)
+                foreach(Move move1 in a_sasitebetuEntry)
                 {
                     // ・移動元の駒
-                    SyElement srcMasu = Conv_Move.ToSrcMasu(moveEx1.Move, positionA);
-                    Komasyurui14 srcKs = Conv_Move.ToSrcKomasyurui(moveEx1.Move);
+                    SyElement srcMasu = Conv_Move.ToSrcMasu(move1, positionA);
+                    Komasyurui14 srcKs = Conv_Move.ToSrcKomasyurui(move1);
 
                     // ・移動先の駒
-                    SyElement dstMasu = Conv_Move.ToDstMasu(moveEx1.Move);
-                    Komasyurui14 dstKs = Conv_Move.ToDstKomasyurui(moveEx1.Move);
-                    Playerside pside = Conv_Move.ToPlayerside(moveEx1.Move);
+                    SyElement dstMasu = Conv_Move.ToDstMasu(move1);
+                    Komasyurui14 dstKs = Conv_Move.ToDstKomasyurui(move1);
+                    Playerside pside = Conv_Move.ToPlayerside(move1);
 
                     // 成りができる動きなら真。
                     bool isPromotionable;
@@ -90,19 +90,18 @@ namespace Grayscale.A210_KnowNingen_.B730_Util_SasuEx.C500____Util
                 // 新しく作った【成り】の指し手を追加します。
                 foreach (Move newMove in newSasiteList.Values)
                 {
-                    MoveEx newMoveEx = new MoveExImpl(newMove);
                     // 指す前の駒
                     SyElement srcMasu = Conv_Move.ToSrcMasu(newMove, positionA);
 
                     try
                     {
-                        if (!result_komabetuEntry.Contains(newMoveEx))
+                        if (!result_komabetuEntry.Contains(newMove))
                         {
                             // 指し手が既存でない局面だけを追加します。
 
                             // 『進める駒』と、『移動先升』
                             result_komabetuEntry.Add(
-                                newMoveEx//成りの手
+                                newMove//成りの手
                                 );
                         }
                     }
@@ -111,16 +110,16 @@ namespace Grayscale.A210_KnowNingen_.B730_Util_SasuEx.C500____Util
                         // 既存の指し手
                         StringBuilder sb = new StringBuilder();
                         {
-                            foreach (MoveEx entry in a_sasitebetuEntry)
+                            foreach (Move entry in a_sasitebetuEntry)
                             {
                                 sb.Append("「");
-                                sb.Append(Conv_Move.ToSfen(entry.Move));
+                                sb.Append(Conv_Move.ToSfen(entry));
                                 sb.Append("」");
                             }
                         }
 
                         //>>>>> エラーが起こりました。
-                        errH.DonimoNaranAkirameta(ex, "新しく作った「成りの指し手」を既存ノードに追加していた時です。：追加したい指し手=「" + Conv_Move.ToSfen(newMove) + "」既存の手=" + sb.ToString());
+                        logger.DonimoNaranAkirameta(ex, "新しく作った「成りの指し手」を既存ノードに追加していた時です。：追加したい指し手=「" + Conv_Move.ToSfen(newMove) + "」既存の手=" + sb.ToString());
                         throw ex;
                     }
 
