@@ -23,7 +23,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C510____OperationB
             Playerside psideA,
             ref Sky positionA,//指定局面
             ref Move ref_move,//TODO:取った駒があると、上書きされる
-            Tree kifu1,
+            //KifuTree kifuTree1,
             string hint,
             KwLogger logger
             )
@@ -55,7 +55,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C510____OperationB
                 Util_IttesasuSuperRoutine.DoMove_Super2(
                         ref positionA,
                         ref ref_move,
-                        kifu1,
+                        psideA,//kifuTree1.GetNextPside(),
                         // フィンガー
                         fingers.ToFirst(),// マス
 
@@ -88,7 +88,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C510____OperationB
         public static void DoMove_Super2(
             ref Sky positionA,//指定局面
             ref Move ref_moveA,
-            Tree kifu1,
+            Playerside psideA,
             Finger figKoma,//動かす駒
             SyElement dstMasu,//移動先マス
             bool toNaru,//成るなら真
@@ -105,7 +105,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C510____OperationB
                 // 駒台の空いているマス１つ。
                 SyElement akiMasu;
                 if (
-                    kifu1.GetNextPside()
+                    psideA
                     == Playerside.P1)
                 {
                     akiMasu = Util_IttesasuRoutine.GetKomadaiKomabukuroSpace(Okiba.Sente_Komadai, positionA);
@@ -120,7 +120,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C510____OperationB
 
                 // 駒台の空いているマスへ移動☆
                 positionA.PutOverwriteOrAdd_Busstop(tottaKomaFig,
-                    Conv_Busstop.ToBusstop(kifu1.GetNextPside(), akiMasu, Conv_Busstop.ToKomasyurui(tottaKomaBus))
+                    Conv_Busstop.ToBusstop(psideA, akiMasu, Conv_Busstop.ToKomasyurui(tottaKomaBus))
                     );
 
                 if (Conv_Busstop.ToKomasyurui(tottaKomaBus) != Komasyurui14.H00_Null___)
@@ -144,7 +144,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C510____OperationB
                 }
 
                 positionA.PutOverwriteOrAdd_Busstop(figKoma,
-                    Conv_Busstop.ToBusstop(kifu1.GetNextPside(), dstMasu, komaSyurui)
+                    Conv_Busstop.ToBusstop(psideA, dstMasu, komaSyurui)
                     );
             }
 

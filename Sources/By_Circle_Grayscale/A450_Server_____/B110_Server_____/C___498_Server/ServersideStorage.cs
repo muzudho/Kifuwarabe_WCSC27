@@ -12,8 +12,8 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C___498_Server
 
 
 
-        Tree KifuTree { get; }
-        void SetKifuTree(Tree kifu1);
+        Grand Grand1 { get; }
+        void SetKifuTree(Grand kifu1);
 
 
 

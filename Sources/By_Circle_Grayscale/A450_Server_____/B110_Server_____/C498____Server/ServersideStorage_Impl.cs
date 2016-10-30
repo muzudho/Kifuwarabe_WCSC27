@@ -16,7 +16,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C498____Server
         {
             this.PlayerTypes = new PlayerType[3];
 
-            this.m_kifuTree_ = new TreeImpl(new SkyImpl(positionA));
+            this.m_kifuTree_ = new GrandImpl(new SkyImpl(positionA));
 
             this.m_earth_ = new EarthImpl();
             this.Earth.SetProperty(Word_KifuTree.PropName_Startpos, "9/9/9/9/9/9/9/9/9");
@@ -30,12 +30,12 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C498____Server
 
 
 
-        public Tree KifuTree { get { return this.m_kifuTree_; } }
-        public void SetKifuTree(Tree kifu1)
+        public Grand Grand1 { get { return this.m_kifuTree_; } }
+        public void SetKifuTree(Grand kifu1)
         {
             this.m_kifuTree_ = kifu1;
         }
-        private Tree m_kifuTree_;
+        private Grand m_kifuTree_;
 
 
 
@@ -105,9 +105,8 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C498____Server
         {
             this.SetPositionServerside(positionA);
 
-            out_jsaFugoStr = Conv_SasiteStr_Jsa.ToSasiteStr_Jsa(
-                move,
-                this.KifuTree.Pv_ToList(),
+            out_jsaFugoStr = Conv_SasiteStr_Jsa.ToSasiteStr_Jsa(move,
+                this.Grand1.KifuTree.Kifu_ToArray(),
                 positionA,
                 logger
                 );

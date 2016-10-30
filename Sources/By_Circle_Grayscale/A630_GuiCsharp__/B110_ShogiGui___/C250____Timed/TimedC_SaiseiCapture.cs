@@ -91,10 +91,10 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                 //------------------------------
                                 Util_Function_Csharp.Komaokuri_Gui(
                                     restText,
-                                    m_mainGui_.OwnerConsole.Link_Server.Storage.KifuTree.Pv_GetLatest(),
-                                    m_mainGui_.OwnerConsole.Link_Server.Storage.KifuTree.PositionA,
+                                    m_mainGui_.OwnerConsole.Link_Server.Storage.Grand1.KifuTree.Kifu_GetLatest(),
+                                    m_mainGui_.OwnerConsole.Link_Server.Storage.Grand1.PositionA,
                                     m_mainGui_,
-                                    m_mainGui_.OwnerConsole.Link_Server.Storage.KifuTree,
+                                    m_mainGui_.OwnerConsole.Link_Server.Storage.Grand1,
                                     eventState.Flg_logTag);//追加
 
                                 //------------------------------

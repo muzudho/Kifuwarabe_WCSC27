@@ -28,7 +28,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
             {
                 // 処理の順序が悪く、初回はうまく判定できない。
                 Sky positionA = shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside;
-                Playerside psideA = shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.GetNextPside();
+                Playerside psideA = shogibanGui.OwnerConsole.Link_Server.Storage.Grand1.KifuTree.GetNextPside();
 
 
                 //----------

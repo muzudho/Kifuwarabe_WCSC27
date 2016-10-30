@@ -85,7 +85,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
                     inputLine = kifuParserA_Impl.Execute_Step_CurrentMutable(
                         ref result,
                         serversideStorage.Earth,
-                        serversideStorage.KifuTree,
+                        serversideStorage.Grand1,
                         genjo,
                         logger
                         );
@@ -119,7 +119,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
                         inputLine = kifuParserA_Impl.Execute_Step_CurrentMutable(
                             ref result,
                             serversideStorage.Earth,
-                            serversideStorage.KifuTree,
+                            serversideStorage.Grand1,
                             genjo,
                             logger
                             );
@@ -142,7 +142,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
                         inputLine = kifuParserA_Impl.Execute_Step_CurrentMutable(
                             ref result,
                             serversideStorage.Earth,
-                            serversideStorage.KifuTree,
+                            serversideStorage.Grand1,
                             genjo,
                             logger
                             );
@@ -174,7 +174,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
                     inputLine = kifuParserA_Impl.Execute_Step_CurrentMutable(
                         ref result,
                         serversideStorage.Earth,
-                        serversideStorage.KifuTree,
+                        serversideStorage.Grand1,
                         genjo,
                         logger
                         );
@@ -224,7 +224,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
                     // 駒の配置
                     //------------------------------
 
-                    Playerside rootPside = TreeImpl.MoveEx_ClearAllCurrent(serversideStorage.KifuTree, parsedKyokumen.NewSky,logger);
+                    Playerside rootPside = GrandImpl.MoveEx_ClearAllCurrent(serversideStorage.Grand1, parsedKyokumen.NewSky,logger);
 
                     string jsaFugoStr_notUse;
                     serversideStorage.AfterSetCurNode_Srv(
@@ -263,8 +263,8 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
             out Finger movedKoma,
             out Finger foodKoma,
             out string jsaFugoStr,
-            Move curMove1,//削るノード
-            Tree kifu1_mutable,
+            Move move1,//削るノード
+            Grand grand1_mutable,
             KwLogger logger
             )
         {
@@ -273,10 +273,10 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
             //------------------------------
             // 棋譜から１手削ります
             //------------------------------
-            Sky positionA = kifu1_mutable.PositionA;// curNode1.GetNodeValue();
+            Sky positionA = grand1_mutable.PositionA;// curNode1.GetNodeValue();
             int korekaranoTemezumi = positionA.Temezumi - 1;//１手前へ。
 
-            if (kifu1_mutable.Pv_IsRoot())// curNode1.IsRoot(kifu1_mutable,logger)
+            if (grand1_mutable.KifuTree.Kifu_IsRoot())// curNode1.IsRoot(kifu1_mutable,logger)
             {
                 // ルート
                 jsaFugoStr = "×";
@@ -290,9 +290,8 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
             // 符号
             //------------------------------
             // [巻戻し]ボタン
-            jsaFugoStr = Conv_SasiteStr_Jsa.ToSasiteStr_Jsa(
-                curMove1,
-                kifu1_mutable.Pv_ToList(),
+            jsaFugoStr = Conv_SasiteStr_Jsa.ToSasiteStr_Jsa(move1,
+                grand1_mutable.KifuTree.Kifu_ToArray(),
                 positionA,
                 logger);
 
@@ -306,11 +305,20 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
             Util_IttemodosuRoutine.UndoMove(
                 out ittemodosuResult,
                 ref positionA,
-                curMove1,
+                move1,
                 "B",
                 logger
                 );
-            TreeImpl.OnUndoCurrentMove(kifu1_mutable, positionA, logger, "Makimodosi_Srv30000");
+            // OnUndoCurrentMove
+            if (grand1_mutable.KifuTree.Kifu_IsRoot())
+            {
+                // やってはいけない操作は、例外を返すようにします。
+                string message = "ルート局面を削除しようとしました。hint=" + "Makimodosi_Srv30000";
+                throw new Exception(message);
+            }
+            grand1_mutable.KifuTree.Kifu_RemoveLast(logger);
+            grand1_mutable.SetPositionA(positionA);
+
 
             movedKoma = ittemodosuResult.FigMovedKoma;
             foodKoma = ittemodosuResult.FigFoodKoma;

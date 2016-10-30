@@ -80,7 +80,8 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
             out PvList out_pv,
             ref YomisujiInfo yomisujiInfo,
 
-            Tree kifu1,// ツリーを伸ばしているぜ☆（＾～＾）
+            Sky positionA,
+            Grand grand1,// ツリーを伸ばしているぜ☆（＾～＾）
 
             Mode_Tansaku mode_Tansaku,
             EvaluationArgs args,
@@ -89,7 +90,6 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
             )
         {
             int exceptionArea = 0;
-            Sky positionA = kifu1.PositionA;
 
             try
             {
@@ -97,7 +97,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                 Tansaku_Genjo genjo = Tansaku_FukasaYusen_Routine.CreateGenjo(positionA.Temezumi, mode_Tansaku, logger);
                 int depth = 2; // 3;// 2;// 1;//読みの深さ、カウントダウン式
 
-                List<Move> movelist2 = Util_MovePicker.CreateMovelist_BeforeLoop(genjo, kifu1, logger);
+                List<Move> movelist2 = Util_MovePicker.CreateMovelist_BeforeLoop(genjo, positionA, grand1.KifuTree, logger);
                 Util_MovePicker.Log(movelist2, "X2000", logger);
                 float alpha = Conv_Score.NegativeMax;// Conv_Score.GetBadestScore(kifu1.GetNextPside());  //アルファ（ベストスコア）
                 float beta = Conv_Score.PositiveMax;// Conv_Score.GetGoodestScore(kifu1.GetNextPside());  //ベータ
@@ -123,19 +123,22 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                         Conv_Move.ToPlayerside(iMove),
                         ref positionA,//指定局面
                         ref iMove,
-                        kifu1,
+                        //grand1.KifuTree,
                         "X1000",
                         logger
                     );
-                    TreeImpl.OnDoCurrentMove("親にドッキング", iMove, kifu1, positionA, logger);
+                    //OnDoCurrentMove
+                    grand1.KifuTree.Kifu_Append("オンDoCurrentMove " + "親にドッキング", iMove, logger);
+                    grand1.SetPositionA(positionA);
 
 
                     float score = -Tansaku_FukasaYusen_Routine.WAAA_Search(
                         ref yomisujiInfo,
                         genjo,
                         positionA.Temezumi,
-                        kifu1.GetNextPside(),
-                        kifu1,
+                        grand1.KifuTree.GetNextPside(),
+                        ref positionA,
+                        grand1.KifuTree,
 
                         -beta,
                         -alpha,
@@ -158,7 +161,15 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                         "X9000",
                         logger
                         );
-                    TreeImpl.OnUndoCurrentMove(kifu1, positionA, logger, "WAAA_Yomu_Loop20000");
+                    // OnUndoCurrentMove
+                    if (grand1.KifuTree.Kifu_IsRoot())
+                    {
+                        // やってはいけない操作は、例外を返すようにします。
+                        string message = "ルート局面を削除しようとしました。hint=" + "WAAA_Yomu_Loop20000";
+                        throw new Exception(message);
+                    }
+                    grand1.KifuTree.Kifu_RemoveLast(logger);
+                    grand1.SetPositionA(positionA);
 
 
                     if (Conv_Score.IsBGreaterThanOrEqualA(beta, score))//beta <= score
@@ -220,7 +231,8 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
 
             int kaisiTemezumi,
             Playerside psideA,
-            Tree kifu1,
+            ref Sky position,
+            KifuTree kifuTree1,
 
             float alpha,
             float beta,
@@ -232,8 +244,6 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
             )
         {
             int exceptionArea = 0;
-            Sky positionA = kifu1.PositionA;//この局面から、合法手を作成☆（＾～＾）
-
 
             try
             {
@@ -253,7 +263,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                     exceptionArea = 3000;
 
                     // 読みの深さ
-                    yomisujiInfo.SearchedMaxDepth = positionA.Temezumi - genjo.YomikaisiTemezumi + 1;
+                    yomisujiInfo.SearchedMaxDepth = position.Temezumi - genjo.YomikaisiTemezumi + 1;
 
                     // pv
                     pv.List[0] = Move.Empty; // 終端子
@@ -261,15 +271,15 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
 
                     // 点数
                     return Tansaku_FukasaYusen_Routine.Do_Leaf(
-                        kifu1.GetNextPside(),
-                        positionA,
+                        psideA,// grandA.KifuTree.GetNextPside(),
+                        position,
                         args,
                         logger
                         );
                 }
 
                 exceptionArea = 2000;
-                List<Move> movelist2 = Util_MovePicker.CreateMovelist_BeforeLoop(genjo, kifu1, logger);
+                List<Move> movelist2 = Util_MovePicker.CreateMovelist_BeforeLoop(genjo, position, kifuTree1, logger);
 
 
                 PvList pvList = new PvListImpl();
@@ -303,14 +313,16 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                         // 局面
                         Util_IttesasuSuperRoutine.DoMove_Super1(
                             Conv_Move.ToPlayerside(iMove),
-                            ref positionA,//指定局面
+                            ref position,//指定局面
                             ref iMove,//駒を取ると更新されるぜ☆（＾～＾）
-                            kifu1,
+                            //kifuTree1,
                             "C100",
                             logger
                         );
                         // 自分を親要素につなげたあとで、子を検索するぜ☆（＾～＾）
-                        TreeImpl.OnDoCurrentMove("親にドッキング", iMove, kifu1, positionA, logger);
+                        // OnDoCurrentMove
+                        kifuTree1.Kifu_Append("オンDoCurrentMove " + "親にドッキング", iMove, logger);
+                        //grandA.SetPositionA(position);
 
                         exceptionArea = 44012;
 
@@ -321,9 +333,10 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                             ref yomisujiInfo,
                             genjo,
 
-                            positionA.Temezumi,
-                            kifu1.GetNextPside(),
-                            kifu1,
+                            position.Temezumi,
+                            Conv_Playerside.Reverse(psideA),
+                            ref position,
+                            kifuTree1,
 
                             -beta,
                             -alpha,
@@ -339,12 +352,21 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                         IttemodosuResult ittemodosuResult;
                         Util_IttemodosuRoutine.UndoMove(
                             out ittemodosuResult,
-                            ref positionA,
+                            ref position,
                             iMove,//この関数が呼び出されたときの指し手☆（＾～＾）
                             "C900",
                             logger
                             );
-                        TreeImpl.OnUndoCurrentMove(kifu1, positionA, logger, "WAAA_Yomu_Loop20000");
+                        // OnUndoCurrentMove
+                        if (kifuTree1.Kifu_IsRoot())
+                        {
+                            // やってはいけない操作は、例外を返すようにします。
+                            string message = "ルート局面を削除しようとしました。hint=" + "WAAA_Yomu_Loop20000";
+                            throw new Exception(message);
+                        }
+                        kifuTree1.Kifu_RemoveLast(logger);
+                        //grandA.SetPositionA(position);
+
 
                         //────────────────────────────────────────
                         // ベータ・カット

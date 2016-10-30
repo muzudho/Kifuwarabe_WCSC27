@@ -15,7 +15,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C___500_Parser
             Earth earth1,
             Move move1,
             Sky positionA,
-            Tree kifu1,
+            Grand kifu1,
 
             out KifuParserA_State nextState,
             KifuParserA owner,

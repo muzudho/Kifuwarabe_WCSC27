@@ -240,7 +240,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C480____Util
                 MoveEx newNode = new MoveExImpl();
 
 
-                Playerside rootPside = TreeImpl.MoveEx_ClearAllCurrent(shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree, newSky,logger);
+                Playerside rootPside = GrandImpl.MoveEx_ClearAllCurrent(shogibanGui.OwnerConsole.Link_Server.Storage.Grand1, newSky,logger);
 
                 string jsaFugoStr_notUse;
                 shogibanGui.OwnerConsole.Link_Server.Storage.AfterSetCurNode_Srv(

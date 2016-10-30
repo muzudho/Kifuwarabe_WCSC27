@@ -101,7 +101,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C125____UtilB
         public static void Clear_SetStartpos_KokokaraSaifu(
             Earth earth1,
             Sky positionA,//kifu1.GetRoot().GetNodeValue()
-            Tree kifu1,
+            Grand kifu1,
             Playerside pside, KwLogger logger)
         {
 
@@ -110,7 +110,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C125____UtilB
             //------------------------------------------------------------
             earth1.Clear();
 
-            Playerside rootPside = TreeImpl.MoveEx_ClearAllCurrent(kifu1, positionA, logger);
+            Playerside rootPside = GrandImpl.MoveEx_ClearAllCurrent(kifu1, positionA, logger);
 
             earth1.SetProperty(
                 Word_KifuTree.PropName_Startpos,

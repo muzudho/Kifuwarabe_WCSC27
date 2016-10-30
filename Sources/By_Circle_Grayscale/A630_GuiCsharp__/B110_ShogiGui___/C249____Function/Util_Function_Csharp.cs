@@ -40,7 +40,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
             mainGui.OwnerConsole.Link_Server.Storage.Earth.Clear();
 
             // 棋譜を空っぽにします。
-            Playerside rootPside = TreeImpl.MoveEx_ClearAllCurrent(mainGui.OwnerConsole.Link_Server.Storage.KifuTree, positionA,logger);
+            Playerside rootPside = GrandImpl.MoveEx_ClearAllCurrent(mainGui.OwnerConsole.Link_Server.Storage.Grand1, positionA,logger);
 
             mainGui.OwnerConsole.Link_Server.Storage.Earth.SetProperty(Word_KifuTree.PropName_Startpos, "startpos");//平手の初期局面
 
@@ -67,7 +67,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
         /// ************************************************************************************************************************
         /// </summary>
         public static bool Makimodosi_Gui(
-            Tree kifu1,
+            Grand kifu1,
             Playerside pside,
             ServersideShogibanGui_Csharp mainGui,
             Finger movedKoma,
@@ -119,10 +119,10 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
 
         public static bool Komaokuri_Gui(
             string restText,
-            Move curMoveA,
+            Move moveA,
             Sky positionA,
             ServersideShogibanGui_Csharp shogiGui,
-            Tree kifu1,
+            Grand kifu1,
             KwLogger logger
             )
         {
@@ -131,9 +131,8 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
             //------------------------------
             {
                 // [コマ送り][再生]ボタン
-                string jsaFugoStr = Conv_SasiteStr_Jsa.ToSasiteStr_Jsa(
-                    curMoveA,
-                    kifu1.Pv_ToList(),
+                string jsaFugoStr = Conv_SasiteStr_Jsa.ToSasiteStr_Jsa(moveA,
+                    kifu1.KifuTree.Kifu_ToArray(),
                     positionA, logger);
 
                 shogiGui.Shape_PnlTaikyoku.SetFugo(jsaFugoStr);

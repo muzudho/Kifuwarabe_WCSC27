@@ -43,16 +43,15 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
         /// <param name="logger"></param>
         public static List<Move> CreateMovelist_BeforeLoop(
             Tansaku_Genjo genjo,
-            Tree kifu1,
+            Sky positionA,
+            KifuTree kifuTree1,
             KwLogger logger
             )
         {
-            Sky positionA = kifu1.PositionA;//この局面から合法手を作成☆（＾～＾）
-
             List<Move> result_movelist = Util_MovePicker.WAAAA_Create_ChildNodes(
                 genjo,
-                kifu1.GetNextPside(),//これから作る指し手の先後
-                kifu1,
+                kifuTree1.GetNextPside(),//これから作る指し手の先後
+                kifuTree1,
                 positionA,
                 //move_ForLog,//ログ用
                 logger);
@@ -90,7 +89,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
         private static List<Move> WAAAA_Create_ChildNodes(
             Tansaku_Genjo genjo,
             Playerside psideCreate,
-            Tree kifu1,
+            KifuTree kifuTree1,
             Sky positionA,
             //Move move_ForLog,
             KwLogger logger
@@ -132,7 +131,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                     positionA,//現在の局面  // FIXME:Lockすると、ここでヌルになる☆
 
                     //手番
-                    kifu1.GetNextPside(),// × psideA,
+                    kifuTree1.GetNextPside(),// × psideA,
 
                     false//相手番か
 #if DEBUG
@@ -199,7 +198,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                     komaBETUAllSasites,//駒別の全ての指し手
                     psideCreate,
                     positionA,
-                    kifu1,
+                    kifuTree1,
 #if DEBUG
                     genjo.Args.LogF_moveKiki,//利き用
 #endif

@@ -52,7 +52,7 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
             Maps_OneAndMulti<Finger, MoveEx> genTeban_komabetuAllMoves1,// 指定局面で、どの駒が、どんな手を指すことができるか
             Playerside psideCreate,
             Sky positionA,//指定局面。
-            Tree kifu1,
+            KifuTree kifuTree1,
 #if DEBUG
             KaisetuBoards logF_kiki,
 #endif
@@ -83,7 +83,7 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
                     positionA.Temezumi,
                     psideCreate,
                     positionA,
-                    kifu1,
+                    kifuTree1,
 #if DEBUG
                 logF_kiki,
 #endif
@@ -161,7 +161,7 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
             int temezumi_yomiGenTeban_forLog,//読み進めている現在の手目
             Playerside psideCreate,
             Sky positionA,
-            Tree kifu1,
+            KifuTree kifuTree1,
 #if DEBUG
             KaisetuBoards logF_kiki,
 #endif
@@ -184,7 +184,7 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
                             Conv_Move.ToPlayerside(moveExB.Move),
                             ref positionA,//指定局面
                             ref temp,
-                            kifu1,
+                            //kifuTree1,
                             "A100_IfMate",
                             logger
                         );

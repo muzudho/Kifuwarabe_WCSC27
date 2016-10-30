@@ -50,7 +50,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C___497_EngineClient
         /// <param name="errH"></param>
         void ComputerPlay_OnChangedTurn(
             Earth earth,
-            Tree kifu1,
+            Grand kifu1,
             KwLogger errH);
 
         /// <summary>

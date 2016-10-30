@@ -124,7 +124,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
             {
                 // FIXME:平手とは限らないが、平手という前提で作っておく。
                 this.m_earth_AtLoop2_ = new EarthImpl();
-                this.m_kifu_AtLoop2_ = new TreeImpl(positionInit);
+                this.m_kifu_AtLoop2_ = new GrandImpl(positionInit);
                 this.Earth_AtLoop2.SetProperty(Word_KifuTree.PropName_Startpos, "startpos");// 平手 // FIXME:平手とは限らないが。
 
                 this.m_kifu_AtLoop2_.PositionA.AssertFinger((Finger)0);
@@ -217,20 +217,20 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
         /// <summary>
         /// 棋譜です。
         /// </summary>
-        public Tree Kifu_AtLoop2 { get { return this.m_kifu_AtLoop2_; } }
+        public Grand Kifu_AtLoop2 { get { return this.m_kifu_AtLoop2_; } }
         /*
         public Sky PositionA { get {
                 return this.Kifu_AtLoop2.CurNode1.GetNodeValue();
                 //return this.m_positionA_;
             } }
         */
-        public void SetKifu_AtLoop2(Tree kifu)
+        public void SetKifu_AtLoop2(Grand kifu)
         {
             this.m_kifu_AtLoop2_ = kifu;
             //this.m_positionA_ = kifu.GetSky();
         }
         //private Sky m_positionA_;
-        private Tree m_kifu_AtLoop2_;
+        private Grand m_kifu_AtLoop2_;
 
         public Earth Earth_AtLoop2 { get { return this.m_earth_AtLoop2_; } }
         public void SetEarth_AtLoop2(Earth earth1)
@@ -909,7 +909,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
 
                 // ┏━━━━プログラム━━━━┓
 
-                Move curMove1 = this.Kifu_AtLoop2.Pv_GetLatest();
+                Move curMove1 = this.Kifu_AtLoop2.KifuTree.Kifu_GetLatest();
                 Sky positionA = this.Kifu_AtLoop2.PositionA;
                 int latestTemezumi = positionA.Temezumi;//現・手目済
 
@@ -1007,7 +1007,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
 
                             DLGT_SendInfo dlgt_SendInfo = (int hyojiScore, PvList pvList2) => {
                                 if (
-                                    this.Kifu_AtLoop2.GetNextPside()
+                                    this.Kifu_AtLoop2.KifuTree.GetNextPside()
                                     == Playerside.P2)
                                 {
                                     // 符号を逆転

@@ -148,7 +148,7 @@ namespace Grayscale.A630_GuiCsharp__
                 this.ShogibanGui.OwnerConsole.Link_Server.Storage.Earth.Clear();
 
                 // 棋譜を空っぽにします。
-                Playerside rootPside = TreeImpl.MoveEx_ClearAllCurrent(this.ShogibanGui.OwnerConsole.Link_Server.Storage.KifuTree, positionInit,logger);
+                Playerside rootPside = GrandImpl.MoveEx_ClearAllCurrent(this.ShogibanGui.OwnerConsole.Link_Server.Storage.Grand1, positionInit,logger);
 
                 this.ShogibanGui.OwnerConsole.Link_Server.Storage.Earth.SetProperty(Word_KifuTree.PropName_Startpos, "startpos");//平手の初期局面
 
@@ -219,8 +219,8 @@ namespace Grayscale.A630_GuiCsharp__
             this.ShogibanGui.Shape_PnlTaikyoku.Paint(
                 sender,
                 e,
-                this.ShogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.GetNextPside(),
-                this.ShogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.PositionA,
+                this.ShogibanGui.OwnerConsole.Link_Server.Storage.Grand1.KifuTree.GetNextPside(),
+                this.ShogibanGui.OwnerConsole.Link_Server.Storage.Grand1.PositionA,
                 this.ShogibanGui, Shape_CanvasImpl.WINDOW_NAME_SHOGIBAN, Util_Loggers.ProcessGui_PAINT);
 
         gt_EndMethod:
@@ -372,7 +372,7 @@ namespace Grayscale.A630_GuiCsharp__
         /// </summary>
         /// <param name="response"></param>
         public void Solute_RepaintRequest(
-            A630Form_Shogiban_Mutex mutex, ServersideShogibanGui_Csharp mainGui, KwLogger errH)
+            A630Form_Shogiban_Mutex mutex, ServersideShogibanGui_Csharp mainGui, KwLogger logger)
         {
             A630Uc_ConsoleImpl form2 = ((A630Form_ShogibanImpl)this.ParentForm).A630Form_Console.Uc_Form2Main;
 
@@ -383,7 +383,7 @@ namespace Grayscale.A630_GuiCsharp__
             {
                 this.ShogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside.Foreach_Busstops((Finger finger, Busstop busstop, ref bool toBreak) =>
                 {
-                    Util_Function_Csharp.Redraw_KomaLocation(finger, this.ShogibanGui, errH);
+                    Util_Function_Csharp.Redraw_KomaLocation(finger, this.ShogibanGui, logger);
                 });
             }
             mainGui.RepaintRequest.Clear_KomasRecalculateRequested();
@@ -428,14 +428,14 @@ namespace Grayscale.A630_GuiCsharp__
                             case SyuturyokuKirikae.Japanese:
                                 form2.WriteLine_Syuturyoku(Util_KirokuGakari.ToJsaFugoListString(
                                     this.ShogibanGui.OwnerConsole.Link_Server.Storage.Earth,
-                                    this.ShogibanGui.OwnerConsole.Link_Server.Storage.KifuTree,//.CurrentNode,
-                                    "Ui_PnlMain.Response", errH));
+                                    this.ShogibanGui.OwnerConsole.Link_Server.Storage.Grand1,//.CurrentNode,
+                                    "Ui_PnlMain.Response", logger));
                                 break;
                             case SyuturyokuKirikae.Sfen:
                                 form2.WriteLine_Syuturyoku(
                                     Util_KirokuGakari.ToSfen_PositionCommand(
                                         this.ShogibanGui.OwnerConsole.Link_Server.Storage.Earth,
-                                        this.ShogibanGui.OwnerConsole.Link_Server.Storage.KifuTree//.CurrentNode//エンドノード
+                                        this.ShogibanGui.OwnerConsole.Link_Server.Storage.Grand1.KifuTree.Kifu_ToArray()//.CurrentNode//エンドノード
                                         ));
                                 break;
                             case SyuturyokuKirikae.Html:

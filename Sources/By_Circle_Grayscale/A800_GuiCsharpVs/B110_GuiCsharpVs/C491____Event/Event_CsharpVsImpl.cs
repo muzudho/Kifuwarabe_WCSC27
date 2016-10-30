@@ -48,7 +48,7 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C491____Event
                             shogiGui.OwnerConsole.Link_Server.Clients[clientIndex].Download(
                             Util_KirokuGakari.ToSfen_PositionCommand(
                                 shogiGui.OwnerConsole.Link_Server.Storage.Earth,
-                                shogiGui.OwnerConsole.Link_Server.Storage.KifuTree
+                                shogiGui.OwnerConsole.Link_Server.Storage.Grand1.KifuTree.Kifu_ToArray()
                                 ),
                             logger2);
 

@@ -62,7 +62,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C100____Shogisasi
         /// </summary>
         /// <param name="enableLog"></param>
         /// <param name="isHonshogi"></param>
-        /// <param name="kifu1"></param>
+        /// <param name="grand1"></param>
         /// <param name="logTag"></param>
         /// <returns></returns>
         public MoveEx WA_Bestmove(
@@ -70,7 +70,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C100____Shogisasi
             out PvList out_pvList,
 
             Earth earth1,
-            Tree kifu1,// ツリーを伸ばしているぜ☆（＾～＾）
+            Grand grand1,// ツリーを伸ばしているぜ☆（＾～＾）
 
             DLGT_SendInfo dlgt_SendInfo,
             KwLogger logger
@@ -108,7 +108,8 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C100____Shogisasi
                     out out_pvList,
                     ref yomisujiInfo,
 
-                    kifu1,// ツリーを伸ばしているぜ☆（＾～＾）
+                    grand1.PositionA,
+                    grand1,// ツリーを伸ばしているぜ☆（＾～＾）
 
                     Mode_Tansaku.Shogi_ENgine,
                     args,

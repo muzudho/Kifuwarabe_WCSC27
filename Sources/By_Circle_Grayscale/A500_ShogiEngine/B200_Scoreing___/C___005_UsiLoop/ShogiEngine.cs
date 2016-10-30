@@ -41,7 +41,7 @@ namespace Grayscale.A500_ShogiEngine.B200_Scoreing___.C___005_Usi_Loop
         /// <summary>
         /// 棋譜です。
         /// </summary>
-        Tree Kifu_AtLoop2 { get; }
+        Grand Kifu_AtLoop2 { get; }
         
         /// <summary>
         /// 「go ponder」の属性一覧です。

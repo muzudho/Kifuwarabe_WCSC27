@@ -141,10 +141,10 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                         logger
                         );
                     Util_Function_Csharp.Komaokuri_Gui(restText,
-                        shogibanGui3.OwnerConsole.Link_Server.Storage.KifuTree.Pv_GetLatest(),
-                        shogibanGui3.OwnerConsole.Link_Server.Storage.KifuTree.PositionA,
+                        shogibanGui3.OwnerConsole.Link_Server.Storage.Grand1.KifuTree.Kifu_GetLatest(),
+                        shogibanGui3.OwnerConsole.Link_Server.Storage.Grand1.PositionA,
                         shogibanGui3,
-                        shogibanGui3.OwnerConsole.Link_Server.Storage.KifuTree,
+                        shogibanGui3.OwnerConsole.Link_Server.Storage.Grand1,
                         logger);
                     Util_Menace.Menace(shogibanGui3, logger);// メナス
                 };
@@ -169,16 +169,16 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     if (!Util_Server.Makimodosi_Srv(
                         out movedKoma, out foodKoma,
                         out fugoJStr,
-                        shogibanGui2.OwnerConsole.Link_Server.Storage.KifuTree.Pv_GetLatest(),
-                        shogibanGui2.OwnerConsole.Link_Server.Storage.KifuTree,
+                        shogibanGui2.OwnerConsole.Link_Server.Storage.Grand1.KifuTree.Kifu_GetLatest(),
+                        shogibanGui2.OwnerConsole.Link_Server.Storage.Grand1,
                         logger))
                     {
                         goto gt_EndBlock;
                     }
 
                     Util_Function_Csharp.Makimodosi_Gui(
-                        shogibanGui2.OwnerConsole.Link_Server.Storage.KifuTree,
-                        shogibanGui2.OwnerConsole.Link_Server.Storage.KifuTree.GetNextPside(),
+                        shogibanGui2.OwnerConsole.Link_Server.Storage.Grand1,
+                        shogibanGui2.OwnerConsole.Link_Server.Storage.Grand1.KifuTree.GetNextPside(),
                         shogibanGui2,
                         movedKoma, foodKoma, fugoJStr, Util_Function_Csharp.ReadLine_FromTextbox(), logger);
                     Util_Menace.Menace(shogibanGui2, logger);//メナス
@@ -312,10 +312,10 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     Util_KifuTree282.Clear_SetStartpos_KokokaraSaifu(
 
                         shogibanGui2.OwnerConsole.Link_Server.Storage.Earth,
-                        shogibanGui2.OwnerConsole.Link_Server.Storage.KifuTree.PositionA,
-                        shogibanGui2.OwnerConsole.Link_Server.Storage.KifuTree,
+                        shogibanGui2.OwnerConsole.Link_Server.Storage.Grand1.PositionA,
+                        shogibanGui2.OwnerConsole.Link_Server.Storage.Grand1,
                         
-                        shogibanGui2.OwnerConsole.Link_Server.Storage.KifuTree.GetNextPside(),
+                        shogibanGui2.OwnerConsole.Link_Server.Storage.Grand1.KifuTree.GetNextPside(),
                         logger
                         );
                     shogibanGui2.RepaintRequest.SyuturyokuRequest = RepaintRequestGedanTxt.Kifu;
@@ -377,7 +377,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     if (Busstop.Empty != koma)
                     {
                         Sky positionA = new SkyImpl(shogibanGui3.OwnerConsole.Link_Server.Storage.PositionServerside);
-                        MoveEx modifyNode = new MoveExImpl(shogibanGui3.OwnerConsole.Link_Server.Storage.KifuTree.Pv_GetLatest());
+                        MoveEx modifyNode = new MoveExImpl(shogibanGui3.OwnerConsole.Link_Server.Storage.Grand1.KifuTree.Kifu_GetLatest());
                         positionA.AddObjects(
                                 new Finger[] { figKoma }, new Busstop[] {
                                     Conv_Busstop.ToBusstop(
@@ -391,7 +391,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                         // ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
                         // ここで局面データを変更します。
                         // ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        shogibanGui3.OwnerConsole.Link_Server.Storage.KifuTree.MoveEx_OnEditCurrent( positionA);//modifyNode,
+                        shogibanGui3.OwnerConsole.Link_Server.Storage.Grand1.MoveEx_OnEditCurrent( positionA);//modifyNode,
                         string jsaFugoStr_notUse;
                         shogibanGui3.OwnerConsole.Link_Server.Storage.AfterSetCurNode_Srv(
                             modifyNode.Move,
@@ -573,12 +573,12 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     // ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
                     // ここで棋譜の変更をします。
                     // ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                    shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.Pv_Append("成る成らない", move, logger);
-                    shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.MoveEx_OnEditCurrent( positionA);//newMoveEx,
+                    shogibanGui.OwnerConsole.Link_Server.Storage.Grand1.KifuTree.Kifu_Append("成る成らない", move, logger);
+                    shogibanGui.OwnerConsole.Link_Server.Storage.Grand1.MoveEx_OnEditCurrent( positionA);//newMoveEx,
 
                     string jsaFugoStr_use;
                     shogibanGui.OwnerConsole.Link_Server.Storage.AfterSetCurNode_Srv(
-                        shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.Pv_GetLatest(),
+                        shogibanGui.OwnerConsole.Link_Server.Storage.Grand1.KifuTree.Kifu_GetLatest(),
                         positionA,
                         out jsaFugoStr_use,
                         logger);
@@ -601,7 +601,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                 {
                     //System.C onsole.WriteLine("マウス左ボタンを押したのでチェンジターンします。");
                     shogibanGui.ComputerPlay_OnChangedTurn(
-                        shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree,
+                        shogibanGui.OwnerConsole.Link_Server.Storage.Grand1,
                         logger);
                 }
             }
@@ -618,7 +618,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
             shogibanGui.RepaintRequest.SetFlag_RefreshRequest();
 
             shogibanGui.ComputerPlay_OnChangedTurn(
-                shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree,
+                shogibanGui.OwnerConsole.Link_Server.Storage.Grand1,
                 logger
                 );//マウス左ボタンを押したのでチェンジターンします。
 

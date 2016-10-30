@@ -43,7 +43,7 @@ namespace Grayscale.A500_ShogiEngine.B200_Scoreing___.C___240_Shogisasi
             out PvList out_pvList,
 
             Earth earth1,
-            Tree kifu1,
+            Grand kifu1,
 
             DLGT_SendInfo dlgt_SendInfo,
             KwLogger logger

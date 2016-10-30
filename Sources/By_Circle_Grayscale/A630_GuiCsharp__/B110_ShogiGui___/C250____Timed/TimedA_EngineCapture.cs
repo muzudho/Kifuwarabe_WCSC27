@@ -67,10 +67,10 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                         );// 棋譜の[コマ送り]を実行します。
                     Util_Function_Csharp.Komaokuri_Gui(
                         restText,
-                        this.m_shogibanGui_.OwnerConsole.Link_Server.Storage.KifuTree.Pv_GetLatest(),
-                        this.m_shogibanGui_.OwnerConsole.Link_Server.Storage.KifuTree.PositionA,
+                        this.m_shogibanGui_.OwnerConsole.Link_Server.Storage.Grand1.KifuTree.Kifu_GetLatest(),
+                        this.m_shogibanGui_.OwnerConsole.Link_Server.Storage.Grand1.PositionA,
                         this.m_shogibanGui_,
-                        this.m_shogibanGui_.OwnerConsole.Link_Server.Storage.KifuTree,
+                        this.m_shogibanGui_.OwnerConsole.Link_Server.Storage.Grand1,
                         logger);//追加
                     // ↑チェンジターン済み
                     Util_Menace.Menace((ServersideShogibanGui_Csharp)this.m_shogibanGui_, logger);// メナス

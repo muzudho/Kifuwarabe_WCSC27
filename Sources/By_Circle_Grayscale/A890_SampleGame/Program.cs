@@ -40,7 +40,7 @@ namespace P930_SampleGame
             // 棋譜
             Earth earth1 = new EarthImpl();
             Sky positionA = Util_SkyCreator.New_Hirate();//日本の符号読取時;
-            Tree kifu1 = new TreeImpl(positionA);
+            Grand kifu1 = new GrandImpl(positionA);
 
             YomisujiInfo yomisujiInfo = new YomisujiInfoImpl();
             PvList pvList;

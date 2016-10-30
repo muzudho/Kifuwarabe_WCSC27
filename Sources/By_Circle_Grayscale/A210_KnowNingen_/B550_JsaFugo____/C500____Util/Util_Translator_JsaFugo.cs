@@ -115,7 +115,7 @@ namespace Grayscale.A210_KnowNingen_.B550_JsaFugo____.C500____Util
         public static string ToString_UseDou(
             JsaFugoImpl jsaFugo,
             Move move,
-            List<Move> pv
+            Move[] pv
             )
         {
             StringBuilder sb = new StringBuilder();
@@ -130,7 +130,7 @@ namespace Grayscale.A210_KnowNingen_.B550_JsaFugo____.C500____Util
             //------------------------------
             // “同”で表記できるところは、“同”で表記します。それ以外は“筋・段”で表記します。
             //------------------------------
-            int index = pv.Count - 1;
+            int index = pv.Length - 1;
             if (0<index-1)
             {
                 index--;

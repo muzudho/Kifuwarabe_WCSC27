@@ -91,8 +91,8 @@ namespace Grayscale.A630_GuiCsharp__
             //------------------------------
             shogibanGui.OwnerConsole.Shape_Canvas.Paint(
                 sender, e,
-                shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.GetNextPside(),
-                shogibanGui.OwnerConsole.Link_Server.Storage.KifuTree.PositionA,
+                shogibanGui.OwnerConsole.Link_Server.Storage.Grand1.KifuTree.GetNextPside(),
+                shogibanGui.OwnerConsole.Link_Server.Storage.Grand1.PositionA,
                 shogibanGui, Shape_CanvasImpl.WINDOW_NAME_CONSOLE, Util_Loggers.ProcessGui_PAINT);
 
         gt_EndMethod:

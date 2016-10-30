@@ -27,12 +27,12 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C500____Gui
         /// ************************************************************************************************************************
         /// </summary>
         public override void ComputerPlay_OnChangedTurn(
-            Tree kifu1,
+            Grand kifu1,
             //Playerside pside,
             KwLogger logger)
         {
             int clientIndex;
-            if (Playerside.P1 == kifu1.GetNextPside())// pside
+            if (Playerside.P1 == kifu1.KifuTree.GetNextPside())// pside
             {
                 clientIndex = 1;
             }
@@ -98,7 +98,7 @@ namespace Grayscale.A800_GuiCsharpVs.B110_GuiCsharpVs.C500____Gui
                 this.OwnerConsole.Link_Server.Clients[clientIndex].Download(
                 Util_KirokuGakari.ToSfen_PositionCommand(
                     this.OwnerConsole.Link_Server.Storage.Earth,
-                    this.OwnerConsole.Link_Server.Storage.KifuTree
+                    this.OwnerConsole.Link_Server.Storage.Grand1.KifuTree.Kifu_ToArray()
                     ),
                 logger);
 

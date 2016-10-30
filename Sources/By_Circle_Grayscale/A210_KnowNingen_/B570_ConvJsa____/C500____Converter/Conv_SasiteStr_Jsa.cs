@@ -24,7 +24,7 @@ namespace Grayscale.A210_KnowNingen_.B570_ConvJsa____.C500____Converter
         /// <returns></returns>
         public static string ToSasiteStr_Jsa(
             Move move,
-            List<Move> pv,
+            Move[] pv,// 「同」を調べるために参照するぜ☆（＾▽＾）
             Sky positionA,
             KwLogger logger
             )

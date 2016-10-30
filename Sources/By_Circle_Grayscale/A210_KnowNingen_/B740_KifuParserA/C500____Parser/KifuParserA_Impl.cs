@@ -41,7 +41,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
         public string Execute_Step_CurrentMutable(
             ref KifuParserA_Result result,
             Earth earth1,
-            Tree kifu1_mutable,
+            Grand kifu1_mutable,
             KifuParserA_Genjo genjo,
             KwLogger logger
             ,
@@ -68,7 +68,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
                     out moveNodeType,
                     ref result,
                     earth1,
-                    kifu1_mutable.Pv_GetLatest(),
+                    kifu1_mutable.KifuTree.Kifu_GetLatest(),
                     kifu1_mutable.PositionA,
                     kifu1_mutable,
                     out nextState,
@@ -79,7 +79,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
                     earth1.Clear();
 
                     // 棋譜を空っぽにします。
-                    Playerside rootPside = TreeImpl.MoveEx_ClearAllCurrent(kifu1_mutable, result.NewSky,logger);
+                    Playerside rootPside = GrandImpl.MoveEx_ClearAllCurrent(kifu1_mutable, result.NewSky,logger);
 
                     earth1.SetProperty(Word_KifuTree.PropName_Startpos, "startpos");//平手の初期局面
                 }
@@ -98,7 +98,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
 
                     exceptionArea = 520;
                     // ■■■■■■■■■■カレント・チェンジ■■■■■■■■■■
-                    result.SetNode(kifu1_mutable.Pv_GetLatest(), result.NewSky);
+                    result.SetNode(kifu1_mutable.KifuTree.Kifu_GetLatest(), result.NewSky);
                 }
                 this.State = nextState;
             }
@@ -119,7 +119,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
         public void Execute_All_CurrentMutable(
             ref KifuParserA_Result result,
             Earth earth1,
-            Tree kifu1_mutable,
+            Grand kifu1_mutable,
             KifuParserA_Genjo genjo,
             KwLogger logger
             ,
@@ -156,7 +156,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
                         out moveNodeType,
                         ref result,
                         earth1,
-                        kifu1_mutable.Pv_GetLatest(),
+                        kifu1_mutable.KifuTree.Kifu_GetLatest(),
                         kifu1_mutable.PositionA,
                         kifu1_mutable,
                         out nextState,
@@ -168,7 +168,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
                         earth1.Clear();
 
                         // 棋譜を空っぽにします。
-                        Playerside rootPside = TreeImpl.MoveEx_ClearAllCurrent(kifu1_mutable, positionInit, logger);
+                        Playerside rootPside = GrandImpl.MoveEx_ClearAllCurrent(kifu1_mutable, positionInit, logger);
 
                         earth1.SetProperty(Word_KifuTree.PropName_Startpos, "startpos");//平手の初期局面
                     }
@@ -188,7 +188,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
 
                         exceptionArea = 620;
                         // ■■■■■■■■■■カレント・チェンジ■■■■■■■■■■
-                        result.SetNode(kifu1_mutable.Pv_GetLatest(), result.NewSky);
+                        result.SetNode(kifu1_mutable.KifuTree.Kifu_GetLatest(), result.NewSky);
                     }
 
                     this.State = nextState;

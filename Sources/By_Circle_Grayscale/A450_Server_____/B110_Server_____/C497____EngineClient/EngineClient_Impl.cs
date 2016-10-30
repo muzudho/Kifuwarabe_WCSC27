@@ -324,7 +324,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
         /// </summary>
         public void ComputerPlay_OnChangedTurn(
             Earth earth1,
-            Tree kifu1,
+            Grand grand1,
             KwLogger logger)
         {
             if (!this.IsLive_ShogiEngine())
@@ -333,7 +333,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
             }
 
             int clientIndex = 0;
-            switch (kifu1.GetNextPside())
+            switch (grand1.KifuTree.GetNextPside())
             {
                 case Playerside.P1:
                     clientIndex = 1;
@@ -354,7 +354,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient
                 this.Download(
                     Util_KirokuGakari.ToSfen_PositionCommand(
                         earth1,
-                        kifu1//エンドノード
+                        grand1.KifuTree.Kifu_ToArray()//エンドノード
                     ),
                     logger);
 

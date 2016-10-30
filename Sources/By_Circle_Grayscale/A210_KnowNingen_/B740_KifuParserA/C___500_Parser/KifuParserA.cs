@@ -19,7 +19,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C___500_Parser
             ref KifuParserA_Result result,
 
             Earth earth1,
-            Tree kifu1,
+            Grand kifu1,
 
             KifuParserA_Genjo genjo,
             KwLogger errH
@@ -39,7 +39,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C___500_Parser
             ref KifuParserA_Result result,
 
             Earth earth1,
-            Tree kifu1,
+            Grand kifu1,
 
             KifuParserA_Genjo genjo,
             KwLogger errH

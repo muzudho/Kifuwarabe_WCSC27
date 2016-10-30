@@ -236,7 +236,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
         /// </summary>
         public virtual void ComputerPlay_OnChangedTurn(
             //int clientIndex,
-            Tree kifu1,
+            Grand kifu1,
             //Playerside pside,
             KwLogger logger)
         {
@@ -450,7 +450,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
         }
 
 
-        public void Response( string mutexString, KwLogger errH)
+        public void Response( string mutexString, KwLogger logger)
         {
             Uc_Form_Shogiban uc_Form1Main = ((A630Form_Shogiban)this.OwnerForm).Uc_Form_Shogiban;
 
@@ -489,7 +489,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C500____GUI
                 default: break;
             }
 
-            uc_Form1Main.Solute_RepaintRequest(mutex2, this, errH);// 再描画
+            uc_Form1Main.Solute_RepaintRequest(mutex2, this, logger);// 再描画
 
         gt_EndMethod:
             ;

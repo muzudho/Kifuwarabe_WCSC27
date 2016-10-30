@@ -214,7 +214,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
         /// </summary>
         public static void BeforeUpdateKifuTree(
             Earth earth1,
-            Tree kifu1,
+            Grand kifu1,
             Move move,
             Sky positionA,
             KwLogger logger
@@ -227,7 +227,9 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
                     Conv_Sky.ToKyokumenHash(positionA), "After3_ChangeCurrent(次の一手なし)");
 
             //次ノードを、これからのカレントとします。
-            TreeImpl.OnDoCurrentMove("ツリー更新前", move, kifu1, positionA, logger);
+            // OnDoCurrentMove
+            kifu1.KifuTree.Kifu_Append("オンDoCurrentMove " + "ツリー更新前", move, logger);
+            kifu1.SetPositionA(positionA);
         }
 
 

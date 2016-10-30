@@ -26,7 +26,7 @@ namespace Grayscale.A500_ShogiEngine.B260_UtilClient_.C500____Util
         public static void OnChangeSky_Im_Client(
 
             Earth earth1,
-            Tree kifu1,
+            Grand kifu1,
 
             KifuParserA_Genjo genjo,
             KwLogger logger
@@ -59,7 +59,7 @@ namespace Grayscale.A500_ShogiEngine.B260_UtilClient_.C500____Util
                 earth1.Clear();
 
                 // 棋譜を空っぽにします。
-                Playerside rootPside = TreeImpl.MoveEx_ClearAllCurrent(kifu1, null,logger);
+                Playerside rootPside = GrandImpl.MoveEx_ClearAllCurrent(kifu1, null,logger);
 
                 // 文字列から、指定局面を作成します。
                 earth1.SetProperty(Word_KifuTree.PropName_Startpos, old_inputLine);//指定の初期局面

@@ -58,7 +58,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
             Earth earth1,
             Move moveA,
             Sky positionA,
-            Tree kifu1,
+            Grand kifu1,
 
             out KifuParserA_State nextState,
             KifuParserA owner,
@@ -85,7 +85,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
                         moveA,
 
                         
-                        kifu1.GetNextPside(),
+                        kifu1.KifuTree.GetNextPside(),
 
                         positionA,
                         logger
