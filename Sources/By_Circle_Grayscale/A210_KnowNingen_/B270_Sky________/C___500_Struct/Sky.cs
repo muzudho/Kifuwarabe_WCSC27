@@ -22,8 +22,8 @@ namespace Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct
             [CallerFilePath] string sourceFilePath = "",
             [CallerLineNumber] int sourceLineNumber = 0);
 
-        void IncreasePsideTemezumi();
-        void DecreasePsideTemezumi();
+        void IncreaseTemezumi();
+        void DecreaseTemezumi();
 
 
         /// <summary>

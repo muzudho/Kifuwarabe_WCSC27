@@ -114,6 +114,9 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C100____Shogisasi
                 Sky position = grand1.PositionA;
                 // 局面ハッシュを最新にします。TODO: positionコマンド受信時に行った方がいいのか☆？
                 position.KyokumenHash = Conv_Position.ToKyokumenHash(position);
+                // トランスポジション・テーブルをクリアーするぜ☆（＾▽＾）
+                Tansaku_FukasaYusen_Routine.TranspositionTable.Clear();
+
                 /*
                 // 試し
                 if (position.KyokumenHash == Conv_Position.ToKyokumenHash(position))
@@ -137,7 +140,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C100____Shogisasi
 
                     Conv_Score.NegativeMax, //アルファ（ベストスコア）
                     Conv_Score.PositiveMax, //ベータ
-                    2, //3,// 2,// 1, //読みの深さ、カウントダウン式
+                    2,//3,// 2,// 1, //読みの深さ、カウントダウン式
                     // 4手読み、5手読みは、3手読みより弱い☆？ 角を切ってしまう☆
                     out_pv,
                     args,

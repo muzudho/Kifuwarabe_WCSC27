@@ -12,20 +12,20 @@ namespace Grayscale.A210_KnowNingen_.B220_ZobrishHash.C500____Struct
     {
 
         /// <summary>
-        /// 升の数　×　プレイヤー２人分の駒種類。
+        /// 升の数　×　プレイヤー２人分の駒種類。 FIXME: 無駄なヌル駒も入っているのでは☆
         /// </summary>
-        private static ulong[,] randamValueTable = null;
+        private static ulong[,] m_randamValueTable_ = null;
 
         private static void Init()
         {
-            Util_ZobristHashing.randamValueTable = new ulong[ConstShogi.BAN_SIZE, 2 * Array_Komasyurui.Items_AllElements.Length];
-            for (int masu2 = 0; masu2 < ConstShogi.BAN_SIZE; masu2++)
+            Util_ZobristHashing.m_randamValueTable_ = new ulong[ConstShogi.BAN_SIZE, 2 * Array_Komasyurui.Items_AllElements.Length];
+            for (int masu = 0; masu < ConstShogi.BAN_SIZE; masu++)
             {
                 foreach (Komasyurui14 komasyurui2 in Array_Komasyurui.Items_AllElements)
                 {
-                    // プレイヤー２人分
-                    Util_ZobristHashing.randamValueTable[masu2,(int)komasyurui2] = (ulong)(KwRandom.Random.NextDouble()*ulong.MaxValue);
-                    Util_ZobristHashing.randamValueTable[masu2,(int)komasyurui2 + Array_Komasyurui.Items_AllElements.Length] = (ulong)(KwRandom.Random.NextDouble()*ulong.MaxValue);
+                    // プレイヤー１、２
+                    Util_ZobristHashing.m_randamValueTable_[masu,(int)komasyurui2] = (ulong)(KwRandom.Random.NextDouble()*ulong.MaxValue);
+                    Util_ZobristHashing.m_randamValueTable_[masu,(int)komasyurui2 + Array_Komasyurui.Items_AllElements.Length] = (ulong)(KwRandom.Random.NextDouble()*ulong.MaxValue);
                 }
             }
         }
@@ -37,24 +37,24 @@ namespace Grayscale.A210_KnowNingen_.B220_ZobrishHash.C500____Struct
         /// <param name="playerNumber">どの（1,2）プレイヤーの</param>
         /// <param name="komaSyurui">どの駒種類があるか</param>
         /// <returns></returns>
-        public static ulong GetValue(int masu1, Playerside playerNumber1, Komasyurui14 komaSyurui1)
+        public static ulong GetValue(int masu, Playerside pside, Komasyurui14 komaSyurui)
         {
             ulong result;
 
-            if (null == Util_ZobristHashing.randamValueTable)
+            if (null == Util_ZobristHashing.m_randamValueTable_)
             {
                 Util_ZobristHashing.Init();
             }
 
-            if(masu1<0 || ConstShogi.BAN_SIZE<= masu1)
+            if(masu<0 || ConstShogi.BAN_SIZE<= masu)
             {
                 result = 0;
                 goto gt_EndMethod;
             }
 
-            int b = ((int)playerNumber1-1) * Array_Komasyurui.Items_AllElements.Length + (int)komaSyurui1;
+            int b = ((int)pside-1) * Array_Komasyurui.Items_AllElements.Length + (int)komaSyurui;
 
-            result = Util_ZobristHashing.randamValueTable[masu1,b];
+            result = Util_ZobristHashing.m_randamValueTable_[masu,b];
 
         gt_EndMethod:
             return result;

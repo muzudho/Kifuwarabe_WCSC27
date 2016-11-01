@@ -28,6 +28,8 @@ using Grayscale.A210_KnowNingen_.B240_Move.C___600_Pv;
 using Grayscale.A210_KnowNingen_.B240_Move.C600____Pv;
 using Grayscale.A210_KnowNingen_.B243_TranspositT.C___500_TTable;
 using Grayscale.A210_KnowNingen_.B243_TranspositT.C500____TTable;
+using Grayscale.A210_KnowNingen_.B243_TranspositT.C___400_TTEntry;
+using Grayscale.A210_KnowNingen_.B243_TranspositT.C500____Tt;
 
 #if DEBUG
 using Grayscale.A210_KnowNingen_.B250_Log_Kaisetu.C250____Struct;
@@ -101,9 +103,22 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
 
             try
             {
+                //────────────────────────────────────────
                 // トランスポジション・テーブル
-                //Tansaku_FukasaYusen_Routine.TranspositionTable.Probe(
-                //)
+                //────────────────────────────────────────
+                TTEntry ttEntry;
+                {
+                    ttEntry = Tansaku_FukasaYusen_Routine.TranspositionTable.Probe(position.KyokumenHash);
+
+                    if (null != ttEntry &&
+                        depth <= ttEntry.Depth)
+                    {
+                        // もっと深い探索で調べた点をすぐ返すぜ☆（＾▽＾）
+                        logger.AppendLine("トランスポジション・カット☆ スコア=[" + ttEntry.Value + "]点 ttEntry="+ttEntry.LogStr_Description());
+                        logger.Flush(LogTypes.Plain);
+                        return ttEntry.Value;
+                    }
+                }
 
 
                 // （１）IsLeaf
@@ -261,6 +276,18 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                             + " 指し手候補="+sb.ToString());
                         throw ex;
                     }
+                }
+
+                //────────────────────────────────────────
+                // トランスポジション・テーブル
+                //────────────────────────────────────────
+                {
+                    if (null== ttEntry)
+                    {
+                        ttEntry = new TTEntryImpl();
+                    }
+                    ttEntry.Save(position.KyokumenHash, pv.List[0], depth, alpha);
+                    Tansaku_FukasaYusen_Routine.TranspositionTable.Set(ttEntry);
                 }
 
                 // （１１）ベストなスコア

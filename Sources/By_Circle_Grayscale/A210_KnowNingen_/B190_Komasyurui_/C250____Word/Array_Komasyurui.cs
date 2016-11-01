@@ -13,10 +13,10 @@ namespace Grayscale.A210_KnowNingen_.B190_Komasyurui_.C250____Word
         {
             get
             {
-                return Array_Komasyurui.items_All;
+                return Array_Komasyurui.m_items_All_;
             }
         }
-        private static Komasyurui14[] items_All;
+        private static Komasyurui14[] m_items_All_;
 
 
         public static Komasyurui14[] Items_OnKoma
@@ -34,10 +34,10 @@ namespace Grayscale.A210_KnowNingen_.B190_Komasyurui_.C250____Word
             Array array = Enum.GetValues(typeof(Komasyurui14));
 
 
-            Array_Komasyurui.items_All = new Komasyurui14[array.Length];
+            Array_Komasyurui.m_items_All_ = new Komasyurui14[array.Length];
             for (int i = 0; i < array.Length; i++)
             {
-                Array_Komasyurui.items_All[i] = (Komasyurui14)array.GetValue(i);
+                Array_Komasyurui.m_items_All_[i] = (Komasyurui14)array.GetValue(i);
             }
 
 

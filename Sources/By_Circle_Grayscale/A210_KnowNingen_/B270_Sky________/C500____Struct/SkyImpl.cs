@@ -86,11 +86,11 @@ namespace Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct
         public ulong KyokumenHash { get; set; }
 
 
-        public void IncreasePsideTemezumi()
+        public void IncreaseTemezumi()
         {
             this.SetTemezumi(this.Temezumi + 1);// 1手進めます。
         }
-        public void DecreasePsideTemezumi()
+        public void DecreaseTemezumi()
         {
             this.SetTemezumi(this.Temezumi - 1);// 1手戻します。
         }

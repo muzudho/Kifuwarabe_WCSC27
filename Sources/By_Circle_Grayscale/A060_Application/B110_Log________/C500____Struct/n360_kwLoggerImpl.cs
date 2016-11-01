@@ -226,6 +226,9 @@ namespace Grayscale.A060_Application.B110_Log________.C500____Struct
         /// <param name="message1"></param>
         public void DonimoNaranAkirameta(string message1)
         {
+            // すでに溜まっているものを吐き出しておくぜ☆（＾▽＾）
+            this.Flush(LogTypes.Plain);
+
             //>>>>> エラーが起こりました。
             string message2 = "エラー：" + message1;
             Debug.Fail(message2);

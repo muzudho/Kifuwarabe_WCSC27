@@ -57,7 +57,16 @@ namespace Grayscale.A210_KnowNingen_.B320_ConvWords__.C500____Converter
                 position.AssertFinger(fig);
                 Busstop koma = position.BusstopIndexOf(fig);
 
-                // 盤上の駒。 FIXME: 持ち駒はまだ見ていない。
+                if (
+                    Conv_Busstop.ToOkiba(koma)!=Okiba.ShogiBan ||
+                    Conv_Busstop.ToKomadai(koma)
+                    )
+                {
+                    // FIXME: 持ち駒はまだ見ていない。
+                    continue;
+                }
+
+                // 盤上の駒。
                 ulong value = Util_ZobristHashing.GetValue(
                     Conv_Masu.ToMasuHandle(Conv_Busstop.ToMasu(koma)),
                     Conv_Busstop.ToPlayerside(koma),
@@ -89,6 +98,15 @@ namespace Grayscale.A210_KnowNingen_.B320_ConvWords__.C500____Converter
             sb.AppendLine("└──────────┘");
 
             return sb.ToString();
+        }
+
+        /// <summary>
+        /// TODO: 持ち駒も判定したい。
+        /// </summary>
+        /// <returns></returns>
+        public static string LogStr_Graphical(Playerside pside, Sky position, KwLogger logger)
+        {
+            return Conv_Shogiban.ToLog(Conv_Position.ToShogiban(pside, position, logger));
         }
     }
 }

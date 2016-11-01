@@ -4,11 +4,13 @@ namespace Grayscale.A210_KnowNingen_.B243_TranspositT.C___400_TTEntry
 {
     public interface TTEntry
     {
+        string LogStr_Description();
+
         Move Move { get; }
         ulong Key { get; }
         int Depth { get; }
-        int Value { get; }
+        float Value { get; }
 
-        void Save(ulong key, Move move, int depth, int value);
+        void Save(ulong key, Move move, int depth, float value);
     }
 }
