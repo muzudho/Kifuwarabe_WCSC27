@@ -9,10 +9,11 @@ using System.Diagnostics;
 using Finger = ProjectDark.NamedInt.StrictNamedInt0; //フィンガー番号
 using Grayscale.A060_Application.B110_Log________.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
+using System.Text;
 
 namespace Grayscale.A210_KnowNingen_.B320_ConvWords__.C500____Converter
 {
-    public abstract class Conv_Sky
+    public abstract class Conv_Position
     {
         public static ShogibanImpl ToShogiban(Playerside pside, Sky src_Sky, KwLogger logger)
         {
@@ -47,14 +48,14 @@ namespace Grayscale.A210_KnowNingen_.B320_ConvWords__.C500____Converter
         /// TODO: 持ち駒も判定したい。
         /// </summary>
         /// <returns></returns>
-        public static ulong ToKyokumenHash(Sky sky)
+        public static ulong ToKyokumenHash(Sky position)
         {
             ulong hash = 0;
 
-            foreach (Finger fig in sky.Fingers_All().Items)
+            foreach (Finger fig in position.Fingers_All().Items)
             {
-                sky.AssertFinger(fig);
-                Busstop koma = sky.BusstopIndexOf(fig);
+                position.AssertFinger(fig);
+                Busstop koma = position.BusstopIndexOf(fig);
 
                 // 盤上の駒。 FIXME: 持ち駒はまだ見ていない。
                 ulong value = Util_ZobristHashing.GetValue(
@@ -67,6 +68,27 @@ namespace Grayscale.A210_KnowNingen_.B320_ConvWords__.C500____Converter
             }
 
             return hash;
+        }
+
+        /// <summary>
+        /// TODO: 持ち駒も判定したい。
+        /// </summary>
+        /// <returns></returns>
+        public static string LogStr_Description(Sky position)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine("┌──────────┐");
+            foreach (Finger fig in position.Fingers_All().Items)
+            {
+                position.AssertFinger(fig);
+                Busstop koma = position.BusstopIndexOf(fig);
+
+                sb.AppendLine(Conv_Busstop.LogStr_Description(koma));
+            }
+            sb.AppendLine("└──────────┘");
+
+            return sb.ToString();
         }
     }
 }

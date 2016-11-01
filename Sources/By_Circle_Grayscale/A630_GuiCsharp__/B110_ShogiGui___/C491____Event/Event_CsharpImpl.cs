@@ -559,8 +559,6 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     //
                     positionA = new SkyImpl(shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside);
                     // 先後を逆転させて、1手進めます。
-                    //newNode.GetValue().IncreasePsideTemezumi();
-                    positionA.ReversePlayerside();// 先後を反転させます。
                     positionA.SetTemezumi(shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside.Temezumi + 1);//１手進める
 
 
@@ -568,7 +566,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                     //----------------------------------------
                     // 次ノード追加
                     //----------------------------------------
-                    shogibanGui.OwnerConsole.Link_Server.Storage.Earth.GetSennititeCounter().CountUp_New(Conv_Sky.ToKyokumenHash(positionA), "After_NaruNaranai");
+                    shogibanGui.OwnerConsole.Link_Server.Storage.Earth.GetSennititeCounter().CountUp_New(Conv_Position.ToKyokumenHash(positionA), "After_NaruNaranai");
 
                     // ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
                     // ここで棋譜の変更をします。

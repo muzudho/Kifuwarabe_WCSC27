@@ -33,7 +33,7 @@ namespace Grayscale.A950_UnitTest___
 
             // 盤面をログ出力したいぜ☆
             logger.AppendLine("初期局面");
-            logger.AppendLine(Conv_Shogiban.ToLog(Conv_Sky.ToShogiban(psideA_init, positionA, logger)));
+            logger.AppendLine(Conv_Shogiban.ToLog(Conv_Position.ToShogiban(psideA_init, positionA, logger)));
             logger.Flush(LogTypes.Plain);
             MachineImpl.GetInstance().ReadKey();
 
@@ -76,7 +76,7 @@ namespace Grayscale.A950_UnitTest___
 
                         // 盤面をログ出力したいぜ☆
                         logger.AppendLine("sfen=[" + Conv_Move.LogStr_Sfen(moveB) + "] captured=[" + Conv_Komasyurui.ToStr_Ichimoji(Conv_Move.ToCaptured(moveB)) + "]");
-                        logger.AppendLine(Conv_Shogiban.ToLog_Type2(Conv_Sky.ToShogiban(
+                        logger.AppendLine(Conv_Shogiban.ToLog_Type2(Conv_Position.ToShogiban(
                             Conv_Move.ToPlayerside(moveB),
                             positionA, logger)
                             ,positionA,moveB));
@@ -137,7 +137,7 @@ namespace Grayscale.A950_UnitTest___
 
                     // 盤面をログ出力したいぜ☆
                     logger.AppendLine("back sfen=[" + Conv_Move.LogStr_Sfen(move1) + "] captured=[" + Conv_Komasyurui.ToStr_Ichimoji(Conv_Move.ToCaptured(move1)) + "]");
-                    logger.AppendLine(Conv_Shogiban.ToLog(Conv_Sky.ToShogiban(
+                    logger.AppendLine(Conv_Shogiban.ToLog(Conv_Position.ToShogiban(
                         Conv_Move.ToPlayerside(move1),
                         positionA, logger)));
                     logger.Flush(LogTypes.Plain);

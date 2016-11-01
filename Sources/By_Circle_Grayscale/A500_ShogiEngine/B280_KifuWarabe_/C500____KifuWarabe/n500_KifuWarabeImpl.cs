@@ -922,7 +922,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
                 if (test)
                 {
                     this.Logger.AppendLine("サーバーから受信した局面☆（＾▽＾）");
-                    this.Logger.AppendLine(Conv_Shogiban.ToLog(Conv_Sky.ToShogiban(
+                    this.Logger.AppendLine(Conv_Shogiban.ToLog(Conv_Position.ToShogiban(
                         Conv_Move.ToPlayerside(curMove1),
                         positionA, Logger)));
                     this.Logger.Flush(LogTypes.Plain);

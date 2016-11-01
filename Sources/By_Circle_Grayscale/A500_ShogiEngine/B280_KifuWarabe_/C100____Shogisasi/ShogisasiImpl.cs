@@ -18,6 +18,7 @@ using Grayscale.A210_KnowNingen_.B240_Move.C___600_Pv;
 using Grayscale.A210_KnowNingen_.B245_ConvScore__.C___500_ConvScore;
 using Grayscale.A210_KnowNingen_.B240_Move.C600____Pv;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct;
+using Grayscale.A210_KnowNingen_.B320_ConvWords__.C500____Converter;
 
 #if DEBUG
 using Grayscale.A210_KnowNingen_.B250_Log_Kaisetu.C250____Struct;
@@ -81,6 +82,9 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C100____Shogisasi
         {
             MoveEx bestMoveEx = null;
 
+
+
+
             //────────────────────────────────────────
             // ストップウォッチ
             //────────────────────────────────────────
@@ -108,8 +112,23 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C100____Shogisasi
                 // 指し手は１つに絞ること。
                 //
                 Sky position = grand1.PositionA;
+                // 局面ハッシュを最新にします。TODO: positionコマンド受信時に行った方がいいのか☆？
+                position.KyokumenHash = Conv_Position.ToKyokumenHash(position);
+                /*
+                // 試し
+                if (position.KyokumenHash == Conv_Position.ToKyokumenHash(position))
+                {
+                    logger.AppendLine("（WA_Bestmove）（＾▽＾）局面ハッシュの整合性がとれているぜ☆！");
+                }
+                else
+                {
+                    logger.AppendLine("（WA_Bestmove）【エラー】局面ハッシュの整合性がとれていないぜ☆（／＿＼） position.KyokumenHash=[" + position.KyokumenHash + "] Conv_Position.ToKyokumenHash(position)=[" + Conv_Position.ToKyokumenHash(position) + "]");
+                    logger.AppendLine("（WA_Bestmove）解説=" + Conv_Position.LogStr_Description( position) + "]");
+                }
+                */
+
                 out_pv = new PvListImpl();
-                float alpha = Tansaku_FukasaYusen_Routine.WAAA_Search(//.WAA_GetBestChild_Start
+                float alpha = Tansaku_FukasaYusen_Routine.WAAA_Search(
                     ref yomisujiInfo,
                     Tansaku_FukasaYusen_Routine.CreateGenjo(position.Temezumi, Mode_Tansaku.Shogi_ENgine, logger),
 
@@ -118,7 +137,8 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C100____Shogisasi
 
                     Conv_Score.NegativeMax, //アルファ（ベストスコア）
                     Conv_Score.PositiveMax, //ベータ
-                    2,//1,// 3,// 2,// 1, //読みの深さ、カウントダウン式
+                    2, //3,// 2,// 1, //読みの深さ、カウントダウン式
+                    // 4手読み、5手読みは、3手読みより弱い☆？ 角を切ってしまう☆
                     out_pv,
                     args,
                     dlgt_SendInfo,

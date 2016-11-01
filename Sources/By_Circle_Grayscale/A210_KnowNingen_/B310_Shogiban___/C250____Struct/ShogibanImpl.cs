@@ -58,7 +58,7 @@ namespace Grayscale.A210_KnowNingen_.B310_Shogiban___.C250____Struct
                 if (this.BanjoKomas.ContainsKey(masuHandle))
                 {
                     // FIXME: エラー☆（＾▽＾）
-                    string message = "[重複]masu=" + Conv_Masu.ToLog(masu)+ " busstop="+ Conv_Busstop.ToLog(koma);
+                    string message = "[重複]masu=" + Conv_Masu.ToLog(masu)+ " busstop="+ Conv_Busstop.LogStr_Description(koma);
                     if (this.ErrorMessage.ContainsKey(masuHandle))
                     {
                         this.ErrorMessage.Add(masuHandle,
@@ -81,7 +81,7 @@ namespace Grayscale.A210_KnowNingen_.B310_Shogiban___.C250____Struct
                 errH.DonimoNaranAkirameta(ex,
                     "将棋盤ログを作っているとき☆（＾▽＾）\n"+
                     " masu="+Conv_Masu.ToLog(masu) +"\n"+
-                    " busstop=" + Conv_Busstop.ToLog(koma)
+                    " busstop=" + Conv_Busstop.LogStr_Description(koma)
                     );
                 throw ex;
             }

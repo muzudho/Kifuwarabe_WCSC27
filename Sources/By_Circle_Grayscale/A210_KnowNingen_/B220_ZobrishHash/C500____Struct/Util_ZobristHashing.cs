@@ -21,11 +21,6 @@ namespace Grayscale.A210_KnowNingen_.B220_ZobrishHash.C500____Struct
             Util_ZobristHashing.randamValueTable = new ulong[ConstShogi.BAN_SIZE, 2 * Array_Komasyurui.Items_AllElements.Length];
             for (int masu2 = 0; masu2 < ConstShogi.BAN_SIZE; masu2++)
             {
-                
-                //Util_ZobristHashing.randamValueTable[masu2] = new int[
-                //    Array_Komasyurui.Items_All.Length * 2// プレイヤー２人分
-                //    ];
-
                 foreach (Komasyurui14 komasyurui2 in Array_Komasyurui.Items_AllElements)
                 {
                     // プレイヤー２人分
@@ -38,9 +33,9 @@ namespace Grayscale.A210_KnowNingen_.B220_ZobrishHash.C500____Struct
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="masu">升0～80。</param>
-        /// <param name="playerNumber">1,2</param>
-        /// <param name="komaSyurui">駒種類</param>
+        /// <param name="masu">どの（0～80）マスに</param>
+        /// <param name="playerNumber">どの（1,2）プレイヤーの</param>
+        /// <param name="komaSyurui">どの駒種類があるか</param>
         /// <returns></returns>
         public static ulong GetValue(int masu1, Playerside playerNumber1, Komasyurui14 komaSyurui1)
         {

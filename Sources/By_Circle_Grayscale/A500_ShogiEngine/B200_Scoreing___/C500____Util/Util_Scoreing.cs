@@ -38,7 +38,7 @@ namespace Grayscale.A500_ShogiEngine.B200_Scoreing___.C500____Util
             //----------------------------------------
             bool isSennitite;
             {
-                ulong hash = Conv_Sky.ToKyokumenHash(positionA);
+                ulong hash = Conv_Position.ToKyokumenHash(positionA);
                 if (args.SennititeConfirmer.IsNextSennitite(hash))
                 {
                     // 千日手になる場合。

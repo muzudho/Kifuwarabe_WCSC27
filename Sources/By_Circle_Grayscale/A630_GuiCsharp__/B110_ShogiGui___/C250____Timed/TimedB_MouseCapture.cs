@@ -398,7 +398,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                                     //----------------------------------------
                                                     // 次ノード追加
                                                     //----------------------------------------
-                                                    shogibanGui.OwnerConsole.Link_Server.Storage.Earth.GetSennititeCounter().CountUp_New(Conv_Sky.ToKyokumenHash(position_newChild), "TimedB.Step(1)");
+                                                    shogibanGui.OwnerConsole.Link_Server.Storage.Earth.GetSennititeCounter().CountUp_New(Conv_Position.ToKyokumenHash(position_newChild), "TimedB.Step(1)");
 
                                                     // OnDoCurrentMove
                                                     shogibanGui.OwnerConsole.Link_Server.Storage.Grand1.KifuTree.Kifu_Append("オンDoCurrentMove " + "マウス左ボタンつまみたい駒", newNode.Move, logger);
@@ -541,7 +541,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                                         //----------------------------------------
                                                         // 次ノード追加
                                                         //----------------------------------------
-                                                        shogibanGui.OwnerConsole.Link_Server.Storage.Earth.GetSennititeCounter().CountUp_New(Conv_Sky.ToKyokumenHash(position_newChild), "TimedB.Step(2)");
+                                                        shogibanGui.OwnerConsole.Link_Server.Storage.Earth.GetSennititeCounter().CountUp_New(Conv_Position.ToKyokumenHash(position_newChild), "TimedB.Step(2)");
 
                                                         // OnDoCurrentMove
                                                         shogibanGui.OwnerConsole.Link_Server.Storage.Grand1.KifuTree.Kifu_Append("オンDoCurrentMove " + "マウス左ボタン置く駒", newNode.Move, logger);

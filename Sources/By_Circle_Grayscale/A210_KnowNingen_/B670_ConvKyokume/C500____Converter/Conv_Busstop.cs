@@ -231,7 +231,7 @@ namespace Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter
             return 0 != (v & (int)BusstopMask.ErrorCheck);
         }
 
-        public static string ToLog(Busstop busstop)
+        public static string LogStr_Description(Busstop busstop)
         {
             StringBuilder sb = new StringBuilder();
 

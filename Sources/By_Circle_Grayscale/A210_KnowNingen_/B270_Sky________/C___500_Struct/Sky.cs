@@ -11,6 +11,11 @@ namespace Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct
 
     public interface Sky
     {
+        /// <summary>
+        /// 局面ハッシュ
+        /// </summary>
+        ulong KyokumenHash { get; set; }
+
         void AssertFinger(
             Finger finger,
             [CallerMemberName] string memberName = "",
@@ -55,11 +60,6 @@ namespace Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct
         /// 持ち駒の枚数だぜ☆（＾▽＾）
         /// </summary>
         int[] MotiSu { get; set; }
-
-        /// <summary>
-        /// 手番を反転します。
-        /// </summary>
-        void ReversePlayerside();
 
         /// <summary>
         /// 追加分があれば。

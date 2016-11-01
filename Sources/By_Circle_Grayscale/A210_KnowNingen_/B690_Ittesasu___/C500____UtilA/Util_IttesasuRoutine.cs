@@ -197,9 +197,6 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
             // 駒を進めてから、先後と手目済を進めること。
             //------------------------------
             {
-                positionA.ReversePlayerside();
-
-
                 positionA.SetTemezumi(positionA.Temezumi + 1);
             }
 
@@ -224,7 +221,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
                 // 次ノード追加
                 //----------------------------------------
                 earth1.GetSennititeCounter().CountUp_New(
-                    Conv_Sky.ToKyokumenHash(positionA), "After3_ChangeCurrent(次の一手なし)");
+                    Conv_Position.ToKyokumenHash(positionA), "After3_ChangeCurrent(次の一手なし)");
 
             //次ノードを、これからのカレントとします。
             // OnDoCurrentMove

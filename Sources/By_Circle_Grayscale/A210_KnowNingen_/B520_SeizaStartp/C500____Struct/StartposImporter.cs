@@ -3,15 +3,15 @@ using Grayscale.A120_KifuSfen___.B160_ConvSfen___.C500____Converter;
 using Grayscale.A210_KnowNingen_.B170_WordShogi__.C250____Masu;
 using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C250____Word;
+using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct;
-using Grayscale.A210_KnowNingen_.B310_Shogiban___.C250____Struct;
+using Grayscale.A210_KnowNingen_.B320_ConvWords__.C500____Converter;
+using Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Finger = ProjectDark.NamedInt.StrictNamedInt0; //フィンガー番号
-using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
 
 namespace Grayscale.A210_KnowNingen_.B520_SeizaStartp.C500____Struct
 {
@@ -119,7 +119,7 @@ namespace Grayscale.A210_KnowNingen_.B520_SeizaStartp.C500____Struct
         public Sky ToSky()
         {
             // 駒40個に、Finger番号を割り当てておきます。
-            Sky newSky = new SkyImpl();// 駒数０。
+            Sky newPos = new SkyImpl();// 駒数０。
 
             Dictionary<Finger, Busstop> komaDic = new Dictionary<Finger, Busstop>();
 
@@ -449,7 +449,7 @@ namespace Grayscale.A210_KnowNingen_.B520_SeizaStartp.C500____Struct
                 int komaHandle = 0;
                 foreach (Busstop koma in komas)
                 {
-                    newSky.PutOverwriteOrAdd_Busstop(
+                    newPos.PutOverwriteOrAdd_Busstop(
                         komaHandle,
                         koma
                     );
@@ -457,7 +457,8 @@ namespace Grayscale.A210_KnowNingen_.B520_SeizaStartp.C500____Struct
                 }
             }
 
-            return newSky;
+            newPos.KyokumenHash = Conv_Position.ToKyokumenHash(newPos);
+            return newPos;
         }
 
     }

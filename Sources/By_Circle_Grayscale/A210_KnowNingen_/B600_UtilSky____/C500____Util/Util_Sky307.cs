@@ -26,14 +26,14 @@ namespace Grayscale.A210_KnowNingen_.B600_UtilSky____.C500____Util
             Debug.Assert(positionA.Count == 40, "sky.Starlights.Count=[" + positionA.Count + "]");//将棋の駒の数
 
             return new SfenstringImpl("sfen " + Util_StartposExporter.ToSfenstring(
-                Conv_Sky.ToShogiban(psideA, positionA, errH), false));
+                Conv_Position.ToShogiban(psideA, positionA, errH), false));
         }
 
         public static SfenstringImpl ExportSfen_ForDebug(
             Playerside psideA, Sky positionA, bool psideIsBlack, KwLogger logger)
         {
             return new SfenstringImpl("sfen " + Util_StartposExporter.ToSfenstring(
-                Conv_Sky.ToShogiban(psideA, positionA, logger), true));
+                Conv_Position.ToShogiban(psideA, positionA, logger), true));
         }
 
         /// <summary>

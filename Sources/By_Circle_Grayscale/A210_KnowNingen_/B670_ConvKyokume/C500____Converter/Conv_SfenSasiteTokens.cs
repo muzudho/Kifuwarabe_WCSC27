@@ -119,7 +119,7 @@ namespace Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter
                     if (Fingers.Error_1 == koma)
                     {
                         string message = "Conv_SfenSasiteTokens#ToMove：["+Conv_Playerside.LogStr_Kanji(psideA)+"]駒台から種類[" + uttaSyurui + "]の駒を掴もうとしましたが、エラーでした。\n"+
-                            Conv_Shogiban.ToLog( Conv_Sky.ToShogiban(psideA,positionA,logger))+"\n"+
+                            Conv_Shogiban.ToLog( Conv_Position.ToShogiban(psideA,positionA,logger))+"\n"+
                             "hint=["+hint+"]\n"+
                             "str1=["+ str1+"]\n"+
                             "str2=[" + str2 + "]\n" +
@@ -188,7 +188,7 @@ namespace Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter
                         // どんな局面なのか？
                         {
                             sb.AppendLine("局面=sfen " + Util_StartposExporter.ToSfenstring(
-                                Conv_Sky.ToShogiban(psideA, positionA,logger), true));
+                                Conv_Position.ToShogiban(psideA, positionA,logger), true));
                         }
 
                         sb.Append(Util_Sky307.Json_1Sky(positionA, "エラー駒になったとき",

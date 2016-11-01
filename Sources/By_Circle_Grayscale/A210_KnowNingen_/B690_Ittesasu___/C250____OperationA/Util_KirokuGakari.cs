@@ -79,7 +79,6 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C250____OperationA
 
 
                 // 採譜用新ノード
-                saifu_PositionA.ReversePlayerside();
                 saifu_PositionA.SetTemezumi(temezumi);
 
 
@@ -89,7 +88,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C250____OperationA
                 // 次ノート追加
                 //----------------------------------------
                 earth1.GetSennititeCounter().CountUp_New(
-                    Conv_Sky.ToKyokumenHash(saifu_PositionA),
+                    Conv_Position.ToKyokumenHash(saifu_PositionA),
                     hint + "/AppendChild_And_ChangeCurrentToChild");
 
                 // OnDoCurrentMove

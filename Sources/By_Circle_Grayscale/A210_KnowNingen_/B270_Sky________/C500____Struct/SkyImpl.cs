@@ -34,6 +34,9 @@ namespace Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct
         /// <param name="src"></param>
         public SkyImpl(Sky src)
         {
+            // 局面ハッシュのクローン
+            this.KyokumenHash = src.KyokumenHash;
+
             // 手番のクローン
             this.temezumi = src.Temezumi;
 
@@ -80,21 +83,15 @@ namespace Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct
         }
 
 
-        /// <summary>
-        /// 手番を反転します。
-        /// </summary>
-        public void ReversePlayerside()
-        {
-        }
+        public ulong KyokumenHash { get; set; }
+
 
         public void IncreasePsideTemezumi()
         {
-            this.ReversePlayerside();// 先後を逆転させます。
             this.SetTemezumi(this.Temezumi + 1);// 1手進めます。
         }
         public void DecreasePsideTemezumi()
         {
-            this.ReversePlayerside();// 先後を逆転させます。
             this.SetTemezumi(this.Temezumi - 1);// 1手戻します。
         }
 

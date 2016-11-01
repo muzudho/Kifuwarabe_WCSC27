@@ -26,6 +26,8 @@ using Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter;
 using Grayscale.A210_KnowNingen_.B245_ConvScore__.C___500_ConvScore;
 using Grayscale.A210_KnowNingen_.B240_Move.C___600_Pv;
 using Grayscale.A210_KnowNingen_.B240_Move.C600____Pv;
+using Grayscale.A210_KnowNingen_.B243_TranspositT.C___500_TTable;
+using Grayscale.A210_KnowNingen_.B243_TranspositT.C500____TTable;
 
 #if DEBUG
 using Grayscale.A210_KnowNingen_.B250_Log_Kaisetu.C250____Struct;
@@ -47,6 +49,11 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
     /// </summary>
     public class Tansaku_FukasaYusen_Routine
     {
+        static Tansaku_FukasaYusen_Routine()
+        {
+            Tansaku_FukasaYusen_Routine.TranspositionTable = new TTableImpl(100000);
+        }
+        public static TTable TranspositionTable { get; set; }
 
         public static Tansaku_Genjo CreateGenjo(
             int temezumi,
@@ -65,157 +72,6 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
 
             return genjo;
         }
-
-        /*
-        /// <summary>
-        /// 読む。
-        /// 
-        /// 棋譜ツリーを作成します。
-        /// </summary>
-        /// <param name="kifu">この棋譜ツリーの現局面に、次局面をぶら下げて行きます。</param>
-        /// <param name="enableLog"></param>
-        /// <param name="isHonshogi"></param>
-        /// <param name="logTag"></param>
-        /// <returns></returns>
-        public static float WAA_GetBestChild_Start(
-            ref YomisujiInfo yomisujiInfo,// （１）読み筋ｉｎｆｏ
-            Tansaku_Genjo genjo,// （２）何か引数
-            Playerside psideA,// （３）手番
-
-            ref Sky positionA,// （４）将棋盤
-
-            float alpha,// （５）アルファ
-            float beta,// （６）ベータ
-            int depth,// （７）残り深度
-            PvList out_pv, // （８）読み筋
-            EvaluationArgs args,
-            DLGT_SendInfo dlgt_SendInfo,
-            KwLogger logger
-            )
-        {
-            int exceptionArea = 0;
-
-            try
-            {
-                exceptionArea = 10;
-                
-
-                // （１）IsLeaf
-
-
-                // （２）ムーブ・ピッカー
-                List<Move> movelist2 = Util_MovePicker.CreateMovelist_BeforeLoop(
-                    positionA, psideA, logger);
-                Util_MovePicker.Log(movelist2, "X2000", logger);
-
-
-                // （３）ループ
-                PvList pvList = new PvListImpl();
-                Move bestMove = Move.Empty;
-                foreach (Move iMove_ in movelist2)//次に読む手
-                {
-                    Move iMove = iMove_;
-
-                    // （４）ノード・カウンター
-                    yomisujiInfo.SearchedNodes++;// 探索ノードのカウントを加算☆（＾～＾）少ないほど枝刈りの質が高いぜ☆
-
-                    // （５）info
-                    // 3秒おきに、info
-                    if (
-                        args.Shogisasi.TimeManager.InfoMilliSeconds + 3000 <=
-                        args.Shogisasi.TimeManager.Stopwatch.ElapsedMilliseconds)
-                    {
-                        args.Shogisasi.TimeManager.InfoMilliSeconds = args.Shogisasi.TimeManager.Stopwatch.ElapsedMilliseconds;
-                        dlgt_SendInfo((int)alpha, out_pv);
-                    }
-
-                    // （６）DoMove
-                    Util_IttesasuSuperRoutine.DoMove_Super1(
-                        Conv_Move.ToPlayerside(iMove),
-                        ref positionA,//指定局面
-                        ref iMove,
-                        "X1000",
-                        logger
-                    );
-
-
-                    // （７）サーチ
-                    float score = -Tansaku_FukasaYusen_Routine.WAAA_Search(
-                        ref yomisujiInfo,
-                        genjo,
-                        Conv_Playerside.Reverse(psideA),
-                        ref positionA,
-
-                        -beta,
-                        -alpha,
-                        depth-1,
-                        pvList,
-                        args,
-                        dlgt_SendInfo,
-                        logger
-                    );
-                    logger.AppendLine(Conv_Move.LogStr_Description(iMove, "初手ムーブX4110。スコア="+score+"点　alpha=["+alpha+"]　beta=["+beta+"]"));
-
-
-                    // （８）UndoMove
-                    // １手戻したいぜ☆（＾～＾）
-                    IttemodosuResult ittemodosuResult;
-                    Util_IttemodosuRoutine.UndoMove(
-                        out ittemodosuResult,
-                        ref positionA,
-                        iMove,//この関数が呼び出されたときの指し手☆（＾～＾）
-                        "X9000",
-                        logger
-                        );
-
-
-                    //────────────────────────────────────────
-                    // （９）ベータ・カット
-                    //────────────────────────────────────────
-                    if (Conv_Score.IsBGreaterThanOrEqualA(beta, score))//beta <= score
-                    {
-#if DEBUG_ALPHA_METHOD
-                        logger.AppendLine("初手ベータ・カット☆！");
-#endif
-                        //----------------------------------------
-                        // 次の「子の弟」要素はもう読みません。
-                        //----------------------------------------
-                        break;
-                    }
-
-
-                    //────────────────────────────────────────
-                    // （１０）アップデート・アルファ
-                    //────────────────────────────────────────
-                    if (Conv_Score.IsBGreaterThanA(alpha, score))// alpha < score
-                    {
-                        bestMove = iMove;
-                        alpha = score;
-
-                        // PVを作るぜ☆（＾▽＾）
-                        out_pv.List[0] = iMove; // 先頭に今回の指し手を置くぜ☆
-                        Array.Copy(pvList.List, 0, out_pv.List, 1, pvList.Size); // 後ろに子要素の指し手を置くぜ☆
-                        out_pv.Size = 1 + pvList.Size;
-                    }
-                }
-
-                // （１１）ベストなスコア
-                // 最善の、次の一手を返すぜ☆（＾▽＾）
-                return alpha;
-            }
-            catch (Exception ex)
-            {
-                //>>>>> エラーが起こりました。
-                string message = ex.GetType().Name + " " + ex.Message + "：場所（" + exceptionArea + "）：";
-                Debug.Fail(message);
-
-                // どうにもできないので  ログだけ取って、上に投げます。
-                logger.AppendLine(message);
-                logger.Flush(LogTypes.Error);
-                throw ex;
-            }
-        }
-        */
 
         /// <summary>
         /// 自要素のスコアを更新します。
@@ -245,11 +101,10 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
 
             try
             {
-                //
-                // まず前提として、
-                // 現手番の「被王手の局面」だけがピックアップされます。
-                // これはつまり、次の局面がないときは、その枝は投了ということです。
-                //
+                // トランスポジション・テーブル
+                //Tansaku_FukasaYusen_Routine.TranspositionTable.Probe(
+                //)
+
 
                 // （１）IsLeaf
                 exceptionArea = 1000;
@@ -277,7 +132,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
 
                 // （２）ムーブ・ピッカー
                 exceptionArea = 2000;
-                List<Move> movelist2 = Util_MovePicker.CreateMovelist_BeforeLoop(
+                List<Move> movelist = Util_MovePicker.CreateMovelist_BeforeLoop(
                     position,
                     psideA,
                     logger);
@@ -287,9 +142,9 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                 exceptionArea = 3000;
                 PvList pvList = new PvListImpl();
                 Move bestMove = Move.Empty;
-                foreach (Move iMove_ in movelist2)//次に読む手
+                for(int i=0; i<movelist.Count; i++)
                 {
-                    Move iMove = iMove_;
+                    Move iMove = movelist[i];//読む手
 
                     //────────────────────────────────────────
                     // 葉以外の探索中なら
@@ -341,7 +196,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                             args,
                             dlgt_SendInfo,
                             logger);
-                        logger.AppendLine(Conv_Move.LogStr_Description(iMove, "途中ムーブX310。スコア=" + score + "点　alpha=[" + alpha + "]　beta=[" + beta + "]"));
+                        logger.AppendLine(Conv_Move.LogStr_Description(iMove, "サーチ後。depth=["+depth+"] i=["+i+"] スコア=" + score + "点　alpha=[" + alpha + "]　beta=[" + beta + "]"));
 
                         // （８）UndoMove
                         exceptionArea = 8000;
@@ -367,7 +222,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                             //----------------------------------------
                             // 次の「子の弟」要素はもう読みません。
                             //----------------------------------------
-                            break;
+                            return beta;
                         }
 
                         //────────────────────────────────────────
@@ -389,16 +244,16 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                     {
                         StringBuilder sb = new StringBuilder();
 
-                        int i = 0;
-                        foreach(Move move2 in movelist2)
+                        int i2 = 0;
+                        foreach(Move move2 in movelist)
                         {
                             sb.Append(Conv_Move.LogStr_Sfen(move2));
                             sb.Append(",");
-                            if (0 == i % 15)
+                            if (0 == i2 % 15)
                             {
                                 sb.AppendLine();
                             }
-                            i++;
+                            i2++;
                         }
 
                         logger.DonimoNaranAkirameta(ex, "棋譜ツリーで例外です(A)。exceptionArea=" + exceptionArea
