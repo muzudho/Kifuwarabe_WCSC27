@@ -12,7 +12,7 @@ using Grayscale.A090_UsiFramewor.B500_usiFramewor.C150____EngineOption;
 using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 using Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct;
 using Grayscale.A210_KnowNingen_.B300_KomahaiyaTr.C500____Table;
@@ -117,7 +117,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
             #endregion
 
             // 棋譜
-            Sky positionInit = Util_SkyCreator.New_Hirate();// きふわらべ起動時
+            Position positionInit = Util_SkyCreator.New_Hirate();// きふわらべ起動時
             {
                 // FIXME:平手とは限らないが、平手という前提で作っておく。
                 this.m_earth_AtLoop2_ = new EarthImpl();
@@ -127,7 +127,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
                 this.m_kifu_AtLoop2_.PositionA.AssertFinger((Finger)0);
                 Debug.Assert(!Conv_Masu.OnKomabukuro(
                     Conv_Masu.ToMasuHandle(
-                        Conv_Busstop.ToMasu(this.m_kifu_AtLoop2_.PositionA.BusstopIndexOf((Finger)0))
+                        Conv_Busstop.GetMasu(this.m_kifu_AtLoop2_.PositionA.BusstopIndexOf((Finger)0))
                         )
                     ), "駒が駒袋にあった。");
             }
@@ -902,7 +902,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
                 // ┏━━━━プログラム━━━━┓
 
                 Move curMove1 = this.Kifu_AtLoop2.KifuTree.Kifu_GetLatest();
-                Sky positionA = this.Kifu_AtLoop2.PositionA;
+                Position positionA = this.Kifu_AtLoop2.PositionA;
                 int latestTemezumi = positionA.Temezumi;//現・手目済
 
                 //#if DEBUG
@@ -939,12 +939,12 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
                     //OwataMinister.WARABE_ENGINE.Logger.WriteLine_AddMemo("▲王の置き場＝" + Conv_Masu.Masu_ToOkiba(koma1.Masu));
                     //OwataMinister.WARABE_ENGINE.Logger.WriteLine_AddMemo("△王の置き場＝" + Conv_Masu.Masu_ToOkiba(koma2.Masu));
 
-                    if (Conv_Busstop.ToOkiba(king1p) != Okiba.ShogiBan)
+                    if (Conv_Busstop.GetOkiba(king1p) != Okiba.ShogiBan)
                     {
                         // 先手の王さまが将棋盤上にいないとき☆
                         result_kingState = Result_KingState.Lost_SenteOh;
                     }
-                    else if (Conv_Busstop.ToOkiba(king2p) != Okiba.ShogiBan)
+                    else if (Conv_Busstop.GetOkiba(king2p) != Okiba.ShogiBan)
                     {
                         // または、後手の王さまが将棋盤上にいないとき☆
                         result_kingState = Result_KingState.Lost_GoteOh;

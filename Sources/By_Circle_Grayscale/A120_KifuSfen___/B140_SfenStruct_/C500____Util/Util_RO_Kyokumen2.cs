@@ -20,7 +20,7 @@ namespace Grayscale.A120_KifuSfen___.B140_SfenStruct_.C500____Util
 //#if DEBUG
             StringBuilder sb = new StringBuilder();
             int komaCount = 0;
-            result.Foreach_Masu201((int masuHandle, string masuString, ref bool toBreak) =>
+            result.Foreach_Masu81((int masuHandle, string masuString, ref bool toBreak) =>
             {
                 sb.Append("[" + masuString + "]");
                 if (masuString != "")

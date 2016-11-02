@@ -1,6 +1,6 @@
 ﻿using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C250____Word;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C500____Struct;
 using Grayscale.A210_KnowNingen_.B290_Komahaiyaku.C500____Util;
 using Grayscale.A210_KnowNingen_.B310_Shogiban___.C250____Struct;
 using Grayscale.A210_KnowNingen_.B310_Shogiban___.C500____Util;
@@ -8,7 +8,7 @@ using Grayscale.A210_KnowNingen_.B410_SeizaFinger.C250____Struct;
 using Finger = ProjectDark.NamedInt.StrictNamedInt0; //スプライト番号
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
 
 namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C505____ConvLogJson
 {
@@ -81,7 +81,7 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C505____ConvLogJson
         /// <param name="finger"></param>
         /// <param name="extentionWithDot"></param>
         /// <returns></returns>
-        public static string Finger_ToString(Sky src_Sky, Finger finger, string extentionWithDot)
+        public static string Finger_ToString(Position src_Sky, Finger finger, string extentionWithDot)
         {
             string komaImg = "";
 
@@ -90,8 +90,8 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C505____ConvLogJson
                 src_Sky.AssertFinger(finger);
                 Busstop koma = src_Sky.BusstopIndexOf(finger);
 
-                Playerside pside = Conv_Busstop.ToPlayerside( koma);
-                Komasyurui14 ks14 = Conv_Busstop.ToKomasyurui(koma);
+                Playerside pside = Conv_Busstop.GetPlayerside( koma);
+                Komasyurui14 ks14 = Conv_Busstop.GetKomasyurui(koma);
 
                 komaImg = Util_Converter_LogGraphicEx.PsideKs14_ToString(pside, ks14, extentionWithDot);
             }

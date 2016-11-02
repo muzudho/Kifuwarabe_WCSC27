@@ -1,6 +1,6 @@
 ﻿using Grayscale.A060_Application.B110_Log________.C___500_Struct;
 using Grayscale.A090_UsiFramewor.B500_usiFramewor.C___150_EngineOption;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
 using Grayscale.A500_ShogiEngine.B130_FeatureVect.C___500_Struct;
 using Grayscale.A500_ShogiEngine.B130_FeatureVect.C500____Struct;
@@ -100,7 +100,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C100____Shogisasi
                 //
                 // 指し手は１つに絞ること。
                 //
-                Sky position = grand1.PositionA;
+                Position position = grand1.PositionA;
                 // 局面ハッシュを最新にします。TODO: positionコマンド受信時に行った方がいいのか☆？
                 position.KyokumenHash = Conv_Position.ToKyokumenHash(position);
                 // トランスポジション・テーブルをクリアーするぜ☆（＾▽＾）
@@ -129,7 +129,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C100____Shogisasi
 
                     Conv_Score.NegativeMax, //アルファ（ベストスコア）
                     Conv_Score.PositiveMax, //ベータ
-                    5,//3,// 2,// 1, //読みの深さ、カウントダウン式
+                    3,// 2,// 1, //読みの深さ、カウントダウン式
                     // 4手読み、5手読みは、3手読みより弱い☆？ 角を切ってしまう☆
                     out_pv,
                     args,

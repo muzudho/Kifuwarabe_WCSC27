@@ -5,7 +5,7 @@ using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C250____Word;
 using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C500____Util;
 using Grayscale.A210_KnowNingen_.B200_ConvMasu___.C500____Conv;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C500____Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct;
 using Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky;
@@ -20,7 +20,7 @@ using Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C060____TextBoxListener;
 using Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C101____Conv;
 using System.Drawing;
 using Finger = ProjectDark.NamedInt.StrictNamedInt0; //スプライト番号
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
 
 namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
 {
@@ -36,7 +36,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
         {
             MoveEx newNode = new MoveExImpl();
 
-            Sky positionA = Util_SkyCreator.New_Hirate();//[初期配置]ボタン押下時
+            Position positionA = Util_SkyCreator.New_Hirate();//[初期配置]ボタン押下時
             mainGui.OwnerConsole.Link_Server.Storage.Earth.Clear();
 
             // 棋譜を空っぽにします。
@@ -120,7 +120,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
         public static bool Komaokuri_Gui(
             string restText,
             Move moveA,
-            Sky positionA,
+            Position positionA,
             ServersideShogibanGui_Csharp shogiGui,
             Grand kifu1,
             KwLogger logger
@@ -172,21 +172,21 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
             {
                 // 成ります
 
-                toSyurui = Util_Komasyurui14.NariCaseHandle[(int)Conv_Busstop.ToKomasyurui(mainGui.Shape_PnlTaikyoku.MouseBusstopOrNull2)];
+                toSyurui = Util_Komasyurui14.NariCaseHandle[(int)Conv_Busstop.GetKomasyurui(mainGui.Shape_PnlTaikyoku.MouseBusstopOrNull2)];
                 mainGui.SetNaruFlag(false);
             }
             else
             {
                 // そのまま
-                toSyurui = Conv_Busstop.ToKomasyurui(mainGui.Shape_PnlTaikyoku.MouseBusstopOrNull2);
+                toSyurui = Conv_Busstop.GetKomasyurui(mainGui.Shape_PnlTaikyoku.MouseBusstopOrNull2);
             }
 
 
             // 置く駒
             {
                 mainGui.OwnerConsole.Link_Server.Storage.PositionServerside.AssertFinger(btnKoma_Selected.Finger);
-                dst = Conv_Busstop.ToBusstop(
-                        Conv_Busstop.ToPlayerside(mainGui.OwnerConsole.Link_Server.Storage.PositionServerside.BusstopIndexOf(btnKoma_Selected.Finger)),
+                dst = Conv_Busstop.BuildBusstop(
+                        Conv_Busstop.GetPlayerside(mainGui.OwnerConsole.Link_Server.Storage.PositionServerside.BusstopIndexOf(btnKoma_Selected.Finger)),
                         btnMasu.Zahyo,
                         toSyurui
                         );
@@ -247,20 +247,20 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
             int suji;
             int dan;
 
-            Okiba okiba = Conv_Masu.ToOkiba(Conv_Busstop.ToMasu(koma));
+            Okiba okiba = Conv_Masu.ToOkiba(Conv_Busstop.GetMasu(koma));
             if (okiba == Okiba.ShogiBan)
             {
-                Conv_Masu.ToSuji_FromBanjoMasu(Conv_Busstop.ToMasu(koma), out suji);
-                Conv_Masu.ToDan_FromBanjoMasu(Conv_Busstop.ToMasu(koma), out dan);
+                Conv_Masu.ToSuji_FromBanjoMasu(Conv_Busstop.GetMasu(koma), out suji);
+                Conv_Masu.ToDan_FromBanjoMasu(Conv_Busstop.GetMasu(koma), out dan);
             }
             else
             {
-                Conv_Masu.ToSuji_FromBangaiMasu(Conv_Busstop.ToMasu(koma), out suji);
-                Conv_Masu.ToDan_FromBangaiMasu(Conv_Busstop.ToMasu(koma), out dan);
+                Conv_Masu.ToSuji_FromBangaiMasu(Conv_Busstop.GetMasu(koma), out suji);
+                Conv_Masu.ToDan_FromBangaiMasu(Conv_Busstop.GetMasu(koma), out dan);
             }
 
 
-            switch (Conv_Busstop.ToOkiba(koma))
+            switch (Conv_Busstop.GetOkiba(koma))
             {
                 case Okiba.ShogiBan:
                     btnKoma.SetBounds(new Rectangle(

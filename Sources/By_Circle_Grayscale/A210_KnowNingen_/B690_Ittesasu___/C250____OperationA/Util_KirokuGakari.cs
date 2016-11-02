@@ -1,8 +1,8 @@
 ﻿using Grayscale.A060_Application.B110_Log________.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C500____Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct;
 using Grayscale.A210_KnowNingen_.B320_ConvWords__.C500____Converter;
@@ -51,14 +51,14 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C250____OperationA
 
             // 採譜用に、新しい対局を用意します。
             Earth saifuEarth2 = new EarthImpl();
-            Grand saifuKifu2;//使い捨て☆
+            Grand saifuGrand2;//使い捨て☆
             {
-                Sky positionInit = Util_SkyCreator.New_Hirate();//日本の符号読取時
-                saifuKifu2 = new GrandImpl(positionInit);
+                Position positionInit = Util_SkyCreator.New_Hirate();//日本の符号読取時
+                saifuGrand2 = new GrandImpl(positionInit);
                 earth1.Clear();
 
                 // 棋譜を空っぽにします。
-                Playerside rootPside = GrandImpl.MoveEx_ClearAllCurrent(saifuKifu2, positionInit,logger);
+                Playerside rootPside = GrandImpl.MoveEx_ClearAllCurrent(saifuGrand2, positionInit,logger);
 
                 saifuEarth2.SetProperty(
                     Word_KifuTree.PropName_Startpos, "startpos");//平手の初期局面 // FIXME:平手とは限らないのでは？
@@ -75,11 +75,8 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C250____OperationA
                 //------------------------------
                 // 符号の追加（記録係）
                 //------------------------------
-                Sky saifu_PositionA = new SkyImpl(saifuKifu2.PositionA);
-
-
-                // 採譜用新ノード
-                saifu_PositionA.SetTemezumi(temezumi);
+                Position saifu_PositionA = new PositionImpl(saifuGrand2.PositionA);
+                saifu_PositionA.SetTemezumi(temezumi);// 採譜用新ノード
 
 
                 // 記録係り用棋譜（採譜）
@@ -92,12 +89,12 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C250____OperationA
                     hint + "/AppendChild_And_ChangeCurrentToChild");
 
                 // OnDoCurrentMove
-                saifuKifu2.KifuTree.Kifu_Append("オンDoCurrentMove " + "記録係", move, logger);
-                saifuKifu2.SetPositionA(saifu_PositionA);
+                saifuGrand2.KifuTree.Kifu_Append("オンDoCurrentMove " + "記録係", move, logger);
+                saifuGrand2.SetPositionA(saifu_PositionA);
 
                 // 後手の符号がまだ含まれていない。
                 string jsaFugoStr = Conv_SasiteStr_Jsa.ToSasiteStr_Jsa(move,
-                    saifuKifu2.KifuTree.Kifu_ToArray(),
+                    saifuGrand2.KifuTree.Kifu_ToArray(),
                     saifu_PositionA,
                     logger);
                 sb.Append(jsaFugoStr);

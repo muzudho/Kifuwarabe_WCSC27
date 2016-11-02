@@ -5,12 +5,12 @@ using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C250____Word;
 using Grayscale.A210_KnowNingen_.B210_KomanoKidou.C500____Struct;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C500____Struct;
 
 using Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky;
 using Grayscale.A210_KnowNingen_.B550_JsaFugo____.C250____Struct;
 using Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
 
 namespace Grayscale.A210_KnowNingen_.B560_JsaFugoWrit.C500____Writer
 {
@@ -23,7 +23,7 @@ namespace Grayscale.A210_KnowNingen_.B560_JsaFugoWrit.C500____Writer
     /// </summary>
     public abstract class Array_JsaFugoCreator15
     {
-        public delegate JsaFugoImpl DELEGATE_CreateJFugo(Move move, Sky kWrap, KwLogger errH);
+        public delegate JsaFugoImpl DELEGATE_CreateJFugo(Move move, Position kWrap, KwLogger errH);
 
         public static DELEGATE_CreateJFugo[] ItemMethods
         {
@@ -58,7 +58,7 @@ namespace Grayscale.A210_KnowNingen_.B560_JsaFugoWrit.C500____Writer
         }
 
 
-        public static JsaFugoImpl CreateNullKoma(Move move, Sky kWrap, KwLogger errH)
+        public static JsaFugoImpl CreateNullKoma(Move move, Position kWrap, KwLogger errH)
         {
             JsaFugoImpl result;
 
@@ -93,7 +93,7 @@ namespace Grayscale.A210_KnowNingen_.B560_JsaFugoWrit.C500____Writer
         /// </summary>
         /// <param name="sasite">移動先、移動元、両方のマス番号</param>
         /// <returns></returns>
-        public static JsaFugoImpl CreateFu(Move move, Sky src_Sky, KwLogger errH)
+        public static JsaFugoImpl CreateFu(Move move, Position src_Sky, KwLogger errH)
         {
             JsaFugoImpl result;
 
@@ -189,7 +189,7 @@ namespace Grayscale.A210_KnowNingen_.B560_JsaFugoWrit.C500____Writer
             return result;
         }
 
-        public static JsaFugoImpl CreateKyo(Move move, Sky src_Sky, KwLogger errH)
+        public static JsaFugoImpl CreateKyo(Move move, Position src_Sky, KwLogger errH)
         {
             JsaFugoImpl fugo;
 
@@ -298,7 +298,7 @@ namespace Grayscale.A210_KnowNingen_.B560_JsaFugoWrit.C500____Writer
             return fugo;
         }
 
-        public static JsaFugoImpl CreateKei(Move move, Sky src_Sky, KwLogger errH)
+        public static JsaFugoImpl CreateKei(Move move, Position src_Sky, KwLogger errH)
         {
             JsaFugoImpl fugo;
 
@@ -411,7 +411,7 @@ namespace Grayscale.A210_KnowNingen_.B560_JsaFugoWrit.C500____Writer
             return fugo;
         }
 
-        public static JsaFugoImpl CreateGin(Move move, Sky src_Sky, KwLogger errH)
+        public static JsaFugoImpl CreateGin(Move move, Position src_Sky, KwLogger errH)
         {
             JsaFugoImpl fugo;
 
@@ -581,7 +581,7 @@ namespace Grayscale.A210_KnowNingen_.B560_JsaFugoWrit.C500____Writer
             return fugo;
         }
 
-        public static JsaFugoImpl CreateKin(Move move, Sky kWrap, KwLogger errH)
+        public static JsaFugoImpl CreateKin(Move move, Position kWrap, KwLogger errH)
         {
             JsaFugoImpl fugo;
 
@@ -607,7 +607,7 @@ namespace Grayscale.A210_KnowNingen_.B560_JsaFugoWrit.C500____Writer
 
         public static void CreateKin_static(
             Move move,//移動先、移動元、両方のマス番号
-            Sky src_Sky,
+            Position src_Sky,
             out MigiHidari migiHidari, out AgaruHiku agaruHiku, out NariNarazu nari, out DaHyoji daHyoji,
             KwLogger errH
             )
@@ -767,7 +767,7 @@ namespace Grayscale.A210_KnowNingen_.B560_JsaFugoWrit.C500____Writer
             nari = NariNarazu.CTRL_SONOMAMA;
         }
 
-        public static JsaFugoImpl CreateOh(Move move, Sky copy_Sky, KwLogger errH)
+        public static JsaFugoImpl CreateOh(Move move, Position copy_Sky, KwLogger errH)
         {
             JsaFugoImpl fugo;
 
@@ -812,7 +812,7 @@ namespace Grayscale.A210_KnowNingen_.B560_JsaFugoWrit.C500____Writer
             return fugo;
         }
 
-        public static JsaFugoImpl CreateHisya(Move move, Sky src_Sky, KwLogger errH)
+        public static JsaFugoImpl CreateHisya(Move move, Position src_Sky, KwLogger errH)
         {
             JsaFugoImpl fugo;
 
@@ -979,7 +979,7 @@ namespace Grayscale.A210_KnowNingen_.B560_JsaFugoWrit.C500____Writer
             return fugo;
         }
 
-        public static JsaFugoImpl CreateKaku(Move move, Sky src_Sky, KwLogger errH)
+        public static JsaFugoImpl CreateKaku(Move move, Position src_Sky, KwLogger errH)
         {
             JsaFugoImpl fugo;
 
@@ -1145,7 +1145,7 @@ namespace Grayscale.A210_KnowNingen_.B560_JsaFugoWrit.C500____Writer
             return fugo;
         }
 
-        public static JsaFugoImpl CreateRyu(Move move, Sky src_Sky, KwLogger errH)
+        public static JsaFugoImpl CreateRyu(Move move, Position src_Sky, KwLogger errH)
         {
             JsaFugoImpl fugo;
 
@@ -1339,7 +1339,7 @@ namespace Grayscale.A210_KnowNingen_.B560_JsaFugoWrit.C500____Writer
             return fugo;
         }
 
-        public static JsaFugoImpl CreateUma(Move move, Sky src_Sky, KwLogger errH)
+        public static JsaFugoImpl CreateUma(Move move, Position src_Sky, KwLogger errH)
         {
             JsaFugoImpl fugo;
 
@@ -1534,7 +1534,7 @@ namespace Grayscale.A210_KnowNingen_.B560_JsaFugoWrit.C500____Writer
             return fugo;
         }
 
-        public static JsaFugoImpl CreateTokin(Move move, Sky kWrap, KwLogger errH)
+        public static JsaFugoImpl CreateTokin(Move move, Position kWrap, KwLogger errH)
         {
             JsaFugoImpl fugo;
 
@@ -1558,7 +1558,7 @@ namespace Grayscale.A210_KnowNingen_.B560_JsaFugoWrit.C500____Writer
             return fugo;
         }
 
-        public static JsaFugoImpl CreateNariKyo(Move move, Sky kWrap, KwLogger errH)
+        public static JsaFugoImpl CreateNariKyo(Move move, Position kWrap, KwLogger errH)
         {
             MigiHidari migiHidari;
             AgaruHiku agaruHiku;
@@ -1582,7 +1582,7 @@ namespace Grayscale.A210_KnowNingen_.B560_JsaFugoWrit.C500____Writer
             return fugo;
         }
 
-        public static JsaFugoImpl CreateNariKei(Move move, Sky kWrap, KwLogger errH)
+        public static JsaFugoImpl CreateNariKei(Move move, Position kWrap, KwLogger errH)
         {
             JsaFugoImpl fugo;
 
@@ -1606,7 +1606,7 @@ namespace Grayscale.A210_KnowNingen_.B560_JsaFugoWrit.C500____Writer
             return fugo;
         }
 
-        public static JsaFugoImpl CreateNariGin(Move move, Sky kWrap, KwLogger errH)
+        public static JsaFugoImpl CreateNariGin(Move move, Position kWrap, KwLogger errH)
         {
             JsaFugoImpl fugo;
 
@@ -1630,7 +1630,7 @@ namespace Grayscale.A210_KnowNingen_.B560_JsaFugoWrit.C500____Writer
             return fugo;
         }
 
-        public static JsaFugoImpl CreateErrorKoma(Move move, Sky copy_Sky, KwLogger errH)
+        public static JsaFugoImpl CreateErrorKoma(Move move, Position copy_Sky, KwLogger errH)
         {
             JsaFugoImpl fugo;
 

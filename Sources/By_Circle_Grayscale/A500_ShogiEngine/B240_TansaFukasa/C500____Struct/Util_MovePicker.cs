@@ -2,8 +2,8 @@
 using Grayscale.A060_Application.B410_Collection_.C500____Struct;
 using Grayscale.A060_Application.B520_Syugoron___.C___250_Struct;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C500____Struct;
 using Grayscale.A210_KnowNingen_.B460_KyokumMoves.C500____Util;
 using Grayscale.A210_KnowNingen_.B730_Util_SasuEx.C500____Util;
 using Grayscale.A210_KnowNingen_.B770_Conv_Sasu__.C500____Converter;
@@ -29,30 +29,6 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
 {
     public abstract class Util_MovePicker
     {
-
-        /// <summary>
-        /// ループに入る前に。
-        /// </summary>
-        /// <param name="genjo"></param>
-        /// <param name="node_yomi"></param>
-        /// <param name="out_movelist"></param>
-        /// <param name="out_yomiDeep"></param>
-        /// <param name="out_a_childrenBest"></param>
-        /// <param name="logger"></param>
-        public static List<Move> CreateMovelist_BeforeLoop(
-            Sky positionA,
-            Playerside psideCreate,
-            KwLogger logger
-            )
-        {
-            List<Move> result_movelist = Util_MovePicker.WAAAA_Create_ChildNodes(
-                psideCreate,//これから作る指し手の先後
-                positionA,
-                //move_ForLog,//ログ用
-                logger);
-
-            return result_movelist;
-        }
         public static void Log(List<Move> movelist, string message, KwLogger logger)
         {
             int index = 0;
@@ -81,10 +57,9 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
         /// <param name="logF_moveKiki"></param>
         /// <param name="logTag"></param>
         /// <returns>複数のノードを持つハブ・ノード</returns>
-        private static List<Move> WAAAA_Create_ChildNodes(
-            Playerside psideCreate,
-            Sky positionA,
-            //Move move_ForLog,
+        public static List<Move> WAAAA_CreateMovelist(
+            Playerside pside,
+            Position position,
             KwLogger logger
             )
         {
@@ -114,12 +89,11 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                 //----------------------------------------
                 List_OneAndMulti<Finger, SySet<SyElement>> komaBETUSusumeruMasus;
                 Util_KyokumenMoves.LA_Split_KomaBETUSusumeruMasus(
-                    1,
                     out komaBETUSusumeruMasus,
-                    positionA,//現在の局面  // FIXME:Lockすると、ここでヌルになる☆
+                    position,//現在の局面  // FIXME:Lockすると、ここでヌルになる☆
 
                     //手番
-                    psideCreate,//kifuTree1.GetNextPside(),// × psideA,
+                    pside,
 
                     false//相手番か
                 );
@@ -135,19 +109,6 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                     }
                 }
 
-                //#if DEBUG
-                //                System.Console.WriteLine("komaBETUSusumeruMasusの全要素＝" + Util_List_OneAndMultiEx<Finger, SySet<SyElement>>.CountAllElements(komaBETUSusumeruMasus));
-                //#endif
-                //#if DEBUG
-                //                string jsaSasiteStr = Util_Translator_Sasite.ToSasite(genjo.Node_yomiNext, genjo.Node_yomiNext.Value, errH);
-                //                System.Console.WriteLine("[" + jsaSasiteStr + "]の駒別置ける升 調べ\n" + Util_List_OneAndMultiEx<Finger, SySet<SyElement>>.Dump(komaBETUSusumeruMasus, genjo.Node_yomiNext.Value.ToKyokumenConst));
-                //#endif
-                //Sasiteseisei_FukasaYusen_Routine.Log2(genjo, logBrd_move1, errH);//ログ試し
-
-                exceptionArea = 29000;
-
-
-
                 //----------------------------------------
                 // ②利きから、被王手の局面を除いたハブノード
                 //----------------------------------------
@@ -157,7 +118,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                 // 指定局面での全ての指し手。
                 //----------------------------------------
                 Maps_OneAndMulti<Finger, MoveEx> komaBETUAllSasites = Conv_KomabetuSusumeruMasus.ToKomaBETUAllSasites(
-                    komaBETUSusumeruMasus, positionA);
+                    komaBETUSusumeruMasus, position);
                 if(test){                        
                     foreach (Finger fig in komaBETUAllSasites.Items.Keys)
                     {
@@ -168,10 +129,6 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                     }
                 }
 
-                //#if DEBUG
-                //                    System.Console.WriteLine("komaBETUAllSasitesの全要素＝" + Util_Maps_OneAndMultiEx<Finger, SySet<SyElement>>.CountAllElements(komaBETUAllSasites));
-                //#endif
-
 
                 exceptionArea = 300012;
                 //----------------------------------------
@@ -179,8 +136,8 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                 //----------------------------------------
                 Maps_OneAndOne<Finger, SySet<SyElement>> starbetuSusumuMasus = Util_LegalMove.LA_RemoveMate(
                     komaBETUAllSasites,//駒別の全ての指し手
-                    psideCreate,
-                    positionA,
+                    pside,
+                    position,
                     "読みNextルーチン",
                     logger);
 
@@ -192,8 +149,8 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                 //成り以外の手
                 movelist = Conv_Movelist1.ToMovelist_NonPromotion(
                     starbetuSusumuMasus,
-                    psideCreate,
-                    positionA,
+                    pside,
+                    position,
                     logger
                 );
 
@@ -204,7 +161,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                 //----------------------------------------
                 //成りの手
                 List<Move> nariMovelist = Util_SasuEx.CreateNariSasite(
-                    positionA,
+                    position,
                     movelist,
                     logger
                     );
@@ -217,9 +174,6 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                         movelist.Add(nariMove);
                     }
                 }
-
-                exceptionArea = 1000000;
-
             }
             catch (Exception ex)
             {

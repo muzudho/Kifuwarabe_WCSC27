@@ -23,6 +23,6 @@
         /// <summary>
         /// 初期化
         /// </summary>
-        Clear
+        Startpos
     }
 }

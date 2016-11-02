@@ -7,7 +7,7 @@ using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 using Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter;
 using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C250____Word;
 using Grayscale.A210_KnowNingen_.B210_KomanoKidou.C500____Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C500____Struct;
 using Grayscale.A210_KnowNingen_.B310_Shogiban___.C250____Struct;
 using Grayscale.A210_KnowNingen_.B310_Shogiban___.C500____Util;
 using Grayscale.A210_KnowNingen_.B410_SeizaFinger.C250____Struct;
@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using Finger = ProjectDark.NamedInt.StrictNamedInt0; //スプライト番号
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
 
 #if DEBUG
 
@@ -40,7 +40,7 @@ namespace Grayscale.A210_KnowNingen_.B440_Utifudume__.C500____Util
         /// </summary>
         public static void Utifudume(
             Playerside psideA,
-            Sky positionA,
+            Position positionA,
             SySet<SyElement> masus_mikata_onBanjo,//打ち歩詰めチェック用
             SySet<SyElement> masus_aite_onBanjo,//打ち歩詰めチェック用
             SySet<SyElement>[] aMasus,//駒種類別、置こうとする升
@@ -75,7 +75,7 @@ namespace Grayscale.A210_KnowNingen_.B440_Utifudume__.C500____Util
             // 相手の玉頭の升。
             SyElement masu_gyokutou = null;
             {
-                SySet<SyElement> sySet = KomanoKidou.DstIppo_上(pside_aite, Conv_Busstop.ToMasu( king_aite));
+                SySet<SyElement> sySet = KomanoKidou.DstIppo_上(pside_aite, Conv_Busstop.GetMasu( king_aite));
                 foreach (SyElement element2 in sySet.Elements)//最初の１件を取る。
                 {
                     masu_gyokutou = element2;
@@ -151,7 +151,7 @@ namespace Grayscale.A210_KnowNingen_.B440_Utifudume__.C500____Util
                         if (masuNumber == gyokutouMasuNumber)
                         {
                             positionA.AssertFinger(figKoma);
-                            ksList.Add(Conv_Busstop.ToKomasyurui(positionA.BusstopIndexOf(figKoma)));
+                            ksList.Add(Conv_Busstop.GetKomasyurui(positionA.BusstopIndexOf(figKoma)));
                             break;
                         }
                     }

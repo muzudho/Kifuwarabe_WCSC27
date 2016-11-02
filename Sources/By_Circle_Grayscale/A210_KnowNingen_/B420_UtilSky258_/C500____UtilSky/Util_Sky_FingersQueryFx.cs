@@ -2,11 +2,11 @@
 using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C250____Word;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C500____Struct;
 using Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter;
 using System;
 using Finger = ProjectDark.NamedInt.StrictNamedInt0; //フィンガー番号
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
 
 namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
 {
@@ -22,23 +22,23 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
         /// <summary>
         /// ４分割します。
         /// </summary>
-        /// <param name="fs_banjoSeme">fingers</param>
-        /// <param name="fs_banjoKurau"></param>
-        /// <param name="fs_motiSeme"></param>
-        /// <param name="fs_motiKurau"></param>
-        /// <param name="src_Sky"></param>
+        /// <param name="out_banjoSeme">fingers</param>
+        /// <param name="out_banjoKurau"></param>
+        /// <param name="out_motiSeme"></param>
+        /// <param name="out_motiKurau"></param>
+        /// <param name="position"></param>
         /// <param name="tebanSeme"></param>
         /// <param name="tebanKurau"></param>
-        /// <param name="errH_OrNull"></param>
+        /// <param name="logger_OrNull"></param>
         public static void Split_BanjoSeme_BanjoKurau_MotiSeme_MotiKurau(
-            out Fingers fs_banjoSeme,//戦駒（利きを調べる側）
-            out Fingers fs_banjoKurau,//戦駒（喰らう側）
-            out Fingers fs_motiSeme,// 持駒（利きを調べる側）
-            out Fingers fs_motiKurau,// 持駒（喰らう側）
-            Sky src_Sky,
+            out Fingers out_banjoSeme,//戦駒（利きを調べる側）
+            out Fingers out_banjoKurau,//戦駒（喰らう側）
+            out Fingers out_motiSeme,// 持駒（利きを調べる側）
+            out Fingers out_motiKurau,// 持駒（喰らう側）
+            Position position,
             Playerside tebanSeme,
             Playerside tebanKurau,
-            KwLogger errH_OrNull
+            KwLogger logger_OrNull
         )
         {
             Fingers fs_banjoSeme_temp = new Fingers();// （１）盤上駒_攻め手
@@ -46,23 +46,23 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
             Fingers fs_motiSeme_temp = new Fingers();// （３）持ち駒_攻め手
             Fingers fs_motiKurau_temp = new Fingers();// （４）持ち駒_食らう側
 
-            src_Sky.Foreach_Busstops((Finger finger, Busstop star, ref bool toBreak) =>
+            position.Foreach_Busstops((Finger finger, Busstop star, ref bool toBreak) =>
             {
-                if (Conv_Busstop.ToOkiba(star) == Okiba.ShogiBan)
+                if (Conv_Busstop.GetOkiba(star) == Okiba.ShogiBan)
                 {
                     //
                     // 盤上
                     //
-                    if (tebanSeme == Conv_Busstop.ToPlayerside( star))
+                    if (tebanSeme == Conv_Busstop.GetPlayerside( star))
                     {
                         fs_banjoSeme_temp.Add(finger);// （１）盤上駒_攻め手
                     }
-                    else if (tebanKurau == Conv_Busstop.ToPlayerside( star))
+                    else if (tebanKurau == Conv_Busstop.GetPlayerside( star))
                     {
                         fs_banjoKurau_temp.Add(finger);// （２）盤上駒_食らう側
                     }
                 }
-                else if (Conv_Busstop.ToOkiba(star) == Okiba.Sente_Komadai)
+                else if (Conv_Busstop.GetOkiba(star) == Okiba.Sente_Komadai)
                 {
                     //
                     // P1駒台
@@ -82,7 +82,7 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
                         throw new Exception("駒台の持ち駒を調べようとしましたが、先手でも、後手でもない指定でした。");
                     }
                 }
-                else if (Conv_Busstop.ToOkiba(star) == Okiba.Gote_Komadai)
+                else if (Conv_Busstop.GetOkiba(star) == Okiba.Gote_Komadai)
                 {
                     //
                     // P2駒台
@@ -107,10 +107,10 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
                     throw new Exception("駒台の持ち駒を調べようとしましたが、盤上でも、駒台でもない指定でした。");
                 }
             });
-            fs_banjoSeme = fs_banjoSeme_temp;// （１）盤上駒_攻め手
-            fs_banjoKurau = fs_banjoKurau_temp;// （２）盤上駒_食らう側
-            fs_motiSeme = fs_motiSeme_temp;// （３）持ち駒_攻め手
-            fs_motiKurau = fs_motiKurau_temp;// （４）持ち駒_食らう側
+            out_banjoSeme = fs_banjoSeme_temp;// （１）盤上駒_攻め手
+            out_banjoKurau = fs_banjoKurau_temp;// （２）盤上駒_食らう側
+            out_motiSeme = fs_motiSeme_temp;// （３）持ち駒_攻め手
+            out_motiKurau = fs_motiKurau_temp;// （４）持ち駒_食らう側
         }
 
 
@@ -128,7 +128,7 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
         public static void Split_Moti1p_Moti2p(
             out Fingers fingers_moti1p,// 持駒 1P
             out Fingers fingers_moti2p,// 持駒 2=
-            Sky src_Sky,
+            Position src_Sky,
             KwLogger errH_OrNull
         )
         {
@@ -137,14 +137,14 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
 
             src_Sky.Foreach_Busstops((Finger finger, Busstop koma, ref bool toBreak) =>
             {
-                if (Conv_Busstop.ToOkiba(koma) == Okiba.Sente_Komadai)
+                if (Conv_Busstop.GetOkiba(koma) == Okiba.Sente_Komadai)
                 {
                     //
                     // 1P 駒台
                     //
                     fingers_moti1p_temp.Add(finger);
                 }
-                else if (Conv_Busstop.ToOkiba(koma) == Okiba.Gote_Komadai)
+                else if (Conv_Busstop.GetOkiba(koma) == Okiba.Gote_Komadai)
                 {
                     //
                     // 2P 駒台
@@ -160,7 +160,7 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
         public static void Split_Jigyoku_Aitegyoku(
             out Busstop koma_Jigyoku_orNull,
             out Busstop koma_Aitegyoku_orNull,
-            Sky src_Sky,
+            Position src_Sky,
             Playerside jiPside,
             Playerside aitePside
             )
@@ -171,9 +171,9 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
             src_Sky.Foreach_Busstops((Finger finger, Busstop koma, ref bool toBreak) =>
             {
                 if (
-                    Okiba.ShogiBan == Conv_Busstop.ToOkiba(koma)
-                    && jiPside == Conv_Busstop.ToPlayerside( koma)
-                    && Komasyurui14.H06_Gyoku__ == Conv_Busstop.ToKomasyurui( koma)
+                    Okiba.ShogiBan == Conv_Busstop.GetOkiba(koma)
+                    && jiPside == Conv_Busstop.GetPlayerside( koma)
+                    && Komasyurui14.H06_Gyoku__ == Conv_Busstop.GetKomasyurui( koma)
                     )
                 {
                     //
@@ -182,9 +182,9 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
                     koma_Jigyoku_temp = koma;
                 }
                 else if (
-                    Okiba.ShogiBan == Conv_Busstop.ToOkiba(koma)
-                    && aitePside == Conv_Busstop.ToPlayerside(koma)
-                    && Komasyurui14.H06_Gyoku__ == Conv_Busstop.ToKomasyurui(koma)
+                    Okiba.ShogiBan == Conv_Busstop.GetOkiba(koma)
+                    && aitePside == Conv_Busstop.GetPlayerside(koma)
+                    && Komasyurui14.H06_Gyoku__ == Conv_Busstop.GetKomasyurui(koma)
                     )
                 {
                     //
@@ -206,7 +206,7 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
         public static void Split_1PGyoku_2PGyoku(
             out Busstop koma_1PGyoku_orNull,
             out Busstop koma_2PGyoku_orNull,
-            Sky src_Sky
+            Position src_Sky
         )
         {
             Busstop koma_1PGyoku_temp = Busstop.Empty;
@@ -215,15 +215,15 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
             src_Sky.Foreach_Busstops((Finger finger, Busstop koma, ref bool toBreak) =>
             {
                 if(
-                    Okiba.ShogiBan == Conv_Busstop.ToOkiba(koma)
-                    && Komasyurui14.H06_Gyoku__ == Conv_Busstop.ToKomasyurui( koma)
+                    Okiba.ShogiBan == Conv_Busstop.GetOkiba(koma)
+                    && Komasyurui14.H06_Gyoku__ == Conv_Busstop.GetKomasyurui( koma)
                     )
                 {
-                    if (Playerside.P1 == Conv_Busstop.ToPlayerside( koma))
+                    if (Playerside.P1 == Conv_Busstop.GetPlayerside( koma))
                     {
                         koma_1PGyoku_temp = koma;// 1P玉の位置
                     }
-                    else if (Playerside.P2 == Conv_Busstop.ToPlayerside(koma))
+                    else if (Playerside.P2 == Conv_Busstop.GetPlayerside(koma))
                     {
                         koma_2PGyoku_temp = koma;// 2P玉の位置
                     }

@@ -1,6 +1,6 @@
 ﻿using Grayscale.A060_Application.B110_Log________.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
 
 namespace Grayscale.A450_Server_____.B110_Server_____.C___498_Server
@@ -35,8 +35,8 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C___498_Server
 
 
 
-        Sky PositionServerside { get; }
-        void SetPositionServerside(Sky sky);
+        Position PositionServerside { get; }
+        void SetPositionServerside(Position sky);
 
 
 
@@ -55,7 +55,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C___498_Server
         /// <param name="newNode"></param>
         void AfterSetCurNode_Srv(
             Move move,
-            Sky positionA,
+            Position positionA,
             out string out_jsaFugoStr,
             KwLogger logger
             );

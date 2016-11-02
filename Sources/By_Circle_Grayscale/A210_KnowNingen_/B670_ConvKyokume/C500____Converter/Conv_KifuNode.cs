@@ -5,8 +5,8 @@ using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 using Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter;
 using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C500____Util;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C500____Struct;
 using Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky;
 using System;
 using System.Text;
@@ -21,7 +21,7 @@ namespace Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter
         /// </summary>
         /// <param name="errH"></param>
         /// <returns></returns>
-        public static RO_Kyokumen1_ForFormat ToRO_Kyokumen1(Sky src_Sky, KwLogger errH)
+        public static RO_Kyokumen1_ForFormat ToRO_Kyokumen1(Position src_Sky, KwLogger errH)
         {
             RO_Kyokumen1_ForFormat ro_Kyokumen1 = new RO_Kyokumen1_ForFormatImpl();
 
@@ -40,8 +40,8 @@ namespace Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter
                         Busstop koma1 = src_Sky.BusstopIndexOf(koma0);
 
                         ro_Kyokumen1.Ban[suji,dan] = Util_Komasyurui14.SfenText(
-                            Conv_Busstop.ToKomasyurui(koma1),
-                            Conv_Busstop.ToPlayerside( koma1)
+                            Conv_Busstop.GetKomasyurui(koma1),
+                            Conv_Busstop.GetPlayerside( koma1)
                             );
                     }
                 }
@@ -70,7 +70,7 @@ namespace Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter
         /// <param name="pside"></param>
         /// <param name="errH"></param>
         /// <returns></returns>
-        public static string ToSfenstring(Sky src_Sky, Playerside pside, KwLogger errH)
+        public static string ToSfenstring(Position src_Sky, Playerside pside, KwLogger errH)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("sfen ");
@@ -99,8 +99,8 @@ namespace Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter
                         Busstop koma1 = src_Sky.BusstopIndexOf(koma0);
 
                         sb.Append(Util_Komasyurui14.SfenText(
-                            Conv_Busstop.ToKomasyurui(koma1),
-                            Conv_Busstop.ToPlayerside( koma1)
+                            Conv_Busstop.GetKomasyurui(koma1),
+                            Conv_Busstop.GetPlayerside( koma1)
                             ));
                     }
                     else

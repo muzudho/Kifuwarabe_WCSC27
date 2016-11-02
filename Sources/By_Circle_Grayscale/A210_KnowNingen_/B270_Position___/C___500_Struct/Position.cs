@@ -1,15 +1,25 @@
 ﻿using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C500____Struct;
 using System.Runtime.CompilerServices;
 using Finger = ProjectDark.NamedInt.StrictNamedInt0; //フィンガー番号
 using System.Collections.Generic;
 
-namespace Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct
+namespace Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct
 {
     public delegate void DELEGATE_Sky_Foreach(Finger finger, Busstop busstop, ref bool toBreak);
 
-    public interface Sky
+    /// <summary>
+    /// 駒データベース☆（＾▽＾）
+    /// 
+    /// きふわらべには、
+    /// （１）G サーバー用（ＧＵＩ用）
+    /// （２）S サーバー用
+    /// （３）K 棋譜採譜記録係用
+    /// （４）C コンピューター将棋ソフト用
+    /// の４つのポジションがあるぜ☆（＾～＾）
+    /// </summary>
+    public interface Position
     {
         /// <summary>
         /// 局面ハッシュ
@@ -75,6 +85,6 @@ namespace Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct
         /// <param name="kifu"></param>
         /// <param name="finger"></param>
         /// <param name="busstop"></param>
-        void PutOverwriteOrAdd_Busstop(Finger finger, Busstop busstop);
+        void PutBusstop(Finger finger, Busstop busstop);
     }
 }

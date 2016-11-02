@@ -2,7 +2,7 @@
 using Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter;
 using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C250____Word;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C500____Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct;
 using Grayscale.A210_KnowNingen_.B320_ConvWords__.C500____Converter;
@@ -18,7 +18,7 @@ using Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C___500_Gui;
 using Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function;
 using Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C480____Util;
 using Finger = ProjectDark.NamedInt.StrictNamedInt0; //スプライト番号
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
 
 namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
 {
@@ -376,14 +376,14 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
 
                     if (Busstop.Empty != koma)
                     {
-                        Sky positionA = new SkyImpl(shogibanGui3.OwnerConsole.Link_Server.Storage.PositionServerside);
+                        Position positionA = new PositionImpl(shogibanGui3.OwnerConsole.Link_Server.Storage.PositionServerside);
                         MoveEx modifyNode = new MoveExImpl(shogibanGui3.OwnerConsole.Link_Server.Storage.Grand1.KifuTree.Kifu_GetLatest());
                         positionA.AddObjects(
                                 new Finger[] { figKoma }, new Busstop[] {
-                                    Conv_Busstop.ToBusstop(
-                                        Conv_Playerside.Reverse(Conv_Busstop.ToPlayerside( koma)),//向きを逆さにします。
-                                        Conv_Busstop.ToMasu( koma),
-                                        Conv_Busstop.ToKomasyurui(koma)
+                                    Conv_Busstop.BuildBusstop(
+                                        Conv_Playerside.Reverse(Conv_Busstop.GetPlayerside( koma)),//向きを逆さにします。
+                                        Conv_Busstop.GetMasu( koma),
+                                        Conv_Busstop.GetKomasyurui(koma)
                                     )
                                 }
                             );
@@ -518,7 +518,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                 bool torareruKomaAri;
                 Busstop koma_Food_after;
                 {
-                    Sky temp = shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside;
+                    Position temp = shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside;
                     Util_Server.Komamove1a_50Srv(
                         out torareruKomaAri, out koma_Food_after, dst, btnTumandeiruKoma.Koma, dst,
                         ref temp,
@@ -543,23 +543,22 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C491____Event
                 shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside.AssertFinger(btnTumandeiruKoma.Finger);
 
                 Move move = Conv_Move.ToMove(
-                    Conv_Busstop.ToMasu(shogibanGui.Shape_PnlTaikyoku.MouseBusstopOrNull2),
-                    Conv_Busstop.ToMasu(shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside.BusstopIndexOf(btnTumandeiruKoma.Finger)),
-                    Conv_Busstop.ToKomasyurui(shogibanGui.Shape_PnlTaikyoku.MouseBusstopOrNull2),
-                    Conv_Busstop.ToKomasyurui(shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside.BusstopIndexOf(btnTumandeiruKoma.Finger)),//これで成りかどうか判定
-                    shogibanGui.Shape_PnlTaikyoku.MousePos_FoodKoma != Busstop.Empty ? Conv_Busstop.ToKomasyurui( shogibanGui.Shape_PnlTaikyoku.MousePos_FoodKoma) : Komasyurui14.H00_Null___,
-                    Conv_Busstop.ToPlayerside(shogibanGui.Shape_PnlTaikyoku.MouseBusstopOrNull2),
+                    Conv_Busstop.GetMasu(shogibanGui.Shape_PnlTaikyoku.MouseBusstopOrNull2),
+                    Conv_Busstop.GetMasu(shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside.BusstopIndexOf(btnTumandeiruKoma.Finger)),
+                    Conv_Busstop.GetKomasyurui(shogibanGui.Shape_PnlTaikyoku.MouseBusstopOrNull2),
+                    Conv_Busstop.GetKomasyurui(shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside.BusstopIndexOf(btnTumandeiruKoma.Finger)),//これで成りかどうか判定
+                    shogibanGui.Shape_PnlTaikyoku.MousePos_FoodKoma != Busstop.Empty ? Conv_Busstop.GetKomasyurui( shogibanGui.Shape_PnlTaikyoku.MousePos_FoodKoma) : Komasyurui14.H00_Null___,
+                    Conv_Busstop.GetPlayerside(shogibanGui.Shape_PnlTaikyoku.MouseBusstopOrNull2),
                     false
                     );// 選択している駒の元の場所と、移動先
 
-                Sky positionA;
+                Position positionA;
                 {
                     //
                     // 成ったので、指し手データ差替え。
                     //
-                    positionA = new SkyImpl(shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside);
-                    // 先後を逆転させて、1手進めます。
-                    positionA.SetTemezumi(shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside.Temezumi + 1);//１手進める
+                    positionA = new PositionImpl(shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside);
+                    positionA.IncreaseTemezumi();//１手進める
 
 
                     //「成る／成らない」ボタンを押したときです。

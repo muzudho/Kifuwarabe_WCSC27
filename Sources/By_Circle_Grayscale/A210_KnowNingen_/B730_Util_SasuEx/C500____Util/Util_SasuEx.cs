@@ -3,7 +3,7 @@ using Grayscale.A060_Application.B520_Syugoron___.C___250_Struct;
 using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C250____Word;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B480_Util_Sasu__.C500____Util;
 using Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter;
 using System;
@@ -28,7 +28,7 @@ namespace Grayscale.A210_KnowNingen_.B730_Util_SasuEx.C500____Util
         /// 必要により、【成り】の指し手を追加するぜ☆
         /// </summary>
         public static List<Move> CreateNariSasite(
-            Sky positionA,
+            Position positionA,
             List<Move> a_sasitebetuEntry,
             KwLogger logger
             )

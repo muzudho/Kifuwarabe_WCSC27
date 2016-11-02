@@ -7,8 +7,8 @@ using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C250____Word;
 using Grayscale.A210_KnowNingen_.B200_ConvMasu___.C500____Conv;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C500____Struct;
 using Grayscale.A210_KnowNingen_.B410_SeizaFinger.C250____Struct;
 using Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter;
 using System.Diagnostics;
@@ -99,7 +99,7 @@ namespace Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter
 
         public static bool Yuko(int masuHandle)
         {
-            return 0 <= masuHandle && masuHandle <= 201;
+            return 0 <= masuHandle && masuHandle <= Masu_Honshogi.nError;
         }
 
         #endregion
@@ -121,24 +121,24 @@ namespace Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter
         /// <returns></returns>
         public static bool OnKomadai(int masuHandle)
         {
-            return Masu_Honshogi.nsen01 <= masuHandle && masuHandle <= Masu_Honshogi.ngo40;
+            return Masu_Honshogi.nSenteKomadai <= masuHandle && masuHandle <= Masu_Honshogi.nGoteKomadai;
         }
 
         public static bool OnSenteKomadai(int masuHandle)
         {
-            return Masu_Honshogi.nsen01 <= masuHandle && masuHandle <= Masu_Honshogi.nsen40;
+            return Masu_Honshogi.nSenteKomadai == masuHandle;
         }
 
         public static bool OnGoteKomadai(int masuHandle)
         {
-            return Masu_Honshogi.ngo01 <= masuHandle && masuHandle <= Masu_Honshogi.ngo40;
+            return Masu_Honshogi.nGoteKomadai == masuHandle;
         }
 
         public static bool OnKomabukuro(int masuHandle)
         {
-            Debug.Assert(Masu_Honshogi.nfukuro01 == 161, "fukuro01=[" + Masu_Honshogi.nfukuro01.ToString() + "]");
+            Debug.Assert(Masu_Honshogi.nFukuro == 161, "fukuro01=[" + Masu_Honshogi.nFukuro.ToString() + "]");
 
-            return Masu_Honshogi.nfukuro01 <= masuHandle && masuHandle <= Masu_Honshogi.nfukuro40;
+            return Masu_Honshogi.nFukuro == masuHandle;
         }
 
 
@@ -163,27 +163,15 @@ namespace Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter
         }
         public static int ToMasuHandle_FromBangaiSujiDan(Okiba okiba, int suji, int dan)
         {
-            int masuHandle = ERROR_MASU_HANDLE;
-
             switch (okiba)
             {
-                case Okiba.Sente_Komadai:
-                case Okiba.Gote_Komadai:
-                case Okiba.KomaBukuro:
-                    if (1 <= suji && suji <= Conv_Masu.KOMADAI_LAST_SUJI && 1 <= dan && dan <= Conv_Masu.KOMADAI_LAST_DAN)
-                    {
-                        masuHandle = (suji - 1) * Conv_Masu.KOMADAI_LAST_DAN + (dan - 1);
-                        masuHandle += Conv_Masu.ToMasuHandle(Conv_Okiba.GetFirstMasuFromOkiba(okiba));
-                    }
-                    break;
-
-                default:
-                    break;
+                case Okiba.Sente_Komadai: return Masu_Honshogi.nSenteKomadai;
+                case Okiba.Gote_Komadai: return Masu_Honshogi.nGoteKomadai;
+                case Okiba.KomaBukuro: return Masu_Honshogi.nFukuro;
+                default: return ERROR_MASU_HANDLE;
             }
-
-            return masuHandle;
         }
-        public static int ToMasuHandle_FromKomadaiKomasyurui_First(Playerside pside, Komasyurui14 ks14, Sky positionA)
+        public static int ToMasuHandle_FromKomadaiKomasyurui_First(Playerside pside, Komasyurui14 ks14, Position positionA)
         {
             Fingers figKomas = new Fingers();
 
@@ -192,32 +180,14 @@ namespace Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter
                 positionA.AssertFinger(figKoma);
                 Busstop koma = positionA.BusstopIndexOf(figKoma);
 
-                if (Conv_Busstop.ToKomadai(koma) && pside == Conv_Busstop.ToPlayerside(koma))
+                if (Conv_Busstop.IsKomadai(koma) && pside == Conv_Busstop.GetPlayerside(koma))
                 {
-                    SyElement masu = Conv_Busstop.ToMasu(koma);
+                    SyElement masu = Conv_Busstop.GetMasu(koma);
                     return Conv_Masu.ToMasuHandle(masu);
                 }
             }
 
             return Masu_Honshogi.nError;
-
-            /*
-            switch (okiba)
-            {
-                case Okiba.Sente_Komadai:
-                case Okiba.Gote_Komadai:
-                case Okiba.KomaBukuro:
-                    if (ks14 != Komasyurui14.H00_Null___)
-                    {
-                        SyElement masu = Conv_Masu.ToMasu_FromDokodemoKomasyurui(ks14, positionA);
-                        return Conv_Masu.ToMasuHandle(masu);
-                    }
-                    break;
-                default:
-                    break;
-            }
-            return ERROR_MASU_HANDLE;
-            */
         }
 
         /// <summary>
@@ -255,7 +225,7 @@ namespace Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter
                 return Masu_Honshogi.Query_Basho(Masu_Honshogi.nError);//範囲外が指定されることもあります。
             }
         }
-        public static SyElement ToMasu_FromDokodemoKomasyurui(Komasyurui14 syurui, Sky positionA)
+        public static SyElement ToMasu_FromDokodemoKomasyurui(Komasyurui14 syurui, Position positionA)
         {
             Fingers figKomas = new Fingers();
 
@@ -263,12 +233,12 @@ namespace Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter
             {
                 positionA.AssertFinger(figKoma);
                 Busstop koma = positionA.BusstopIndexOf(figKoma);
-                return Conv_Busstop.ToMasu(koma);
+                return Conv_Busstop.GetMasu(koma);
             }
 
             return Masu_Honshogi.Query_Basho(Masu_Honshogi.nError);
         }
-        public static SyElement ToMasu_FromKomadaiKomasyurui(Playerside pside, Komasyurui14 ks14, Sky positionA)
+        public static SyElement ToMasu_FromKomadaiKomasyurui(Playerside pside, Komasyurui14 ks14, Position positionA)
         {
             int masuHandle = Conv_Masu.ToMasuHandle_FromKomadaiKomasyurui_First(pside, ks14, positionA);
 
@@ -640,17 +610,17 @@ namespace Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter
                 // 将棋盤
                 result = Okiba.ShogiBan;
             }
-            else if ((int)Masu_Honshogi.nsen01 <= masuNumber && masuNumber <= (int)Masu_Honshogi.nsen40)
+            else if ((int)Masu_Honshogi.nSenteKomadai == masuNumber)
             {
                 // 先手駒台
                 result = Okiba.Sente_Komadai;
             }
-            else if ((int)Masu_Honshogi.ngo01 <= masuNumber && masuNumber <= (int)Masu_Honshogi.ngo40)
+            else if ((int)Masu_Honshogi.nGoteKomadai == masuNumber)
             {
                 // 後手駒台
                 result = Okiba.Gote_Komadai;
             }
-            else if ((int)Masu_Honshogi.nfukuro01 <= masuNumber && masuNumber <= (int)Masu_Honshogi.nfukuro40)
+            else if ((int)Masu_Honshogi.nFukuro == masuNumber)
             {
                 // 駒袋
                 result = Okiba.KomaBukuro;

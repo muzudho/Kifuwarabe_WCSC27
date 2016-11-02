@@ -75,13 +75,13 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C080____Shape
                 goto gt_EndMethod;
             }
 
-            Komahaiyaku185 haiyaku = Data_KomahaiyakuTransition.ToHaiyaku( Conv_Busstop.ToKomasyurui( komaKs), Conv_Busstop.ToMasu(komaKs), Conv_Busstop.ToPlayerside(komaKs));
+            Komahaiyaku185 haiyaku = Data_KomahaiyakuTransition.ToHaiyaku( Conv_Busstop.GetKomasyurui( komaKs), Conv_Busstop.GetMasu(komaKs), Conv_Busstop.GetPlayerside(komaKs));
 
             if (haiyaku == Komahaiyaku185.n000_未設定)
             {
                 // 配役未設定時は、普通に駒を描画します。
                 g.DrawString(
-                    Util_Komasyurui14.KanjiIchimoji[(int)Conv_Busstop.ToKomasyurui(komaKs)],
+                    Util_Komasyurui14.KanjiIchimoji[(int)Conv_Busstop.GetKomasyurui(komaKs)],
                     new Font(FontFamily.GenericSerif, 20.0f), Brushes.Black, location);
             }
             else
@@ -167,11 +167,11 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C080____Shape
                 //----------
                 StringBuilder sb = new StringBuilder();
                 sb.Append(Const_Filepath.m_EXE_TO_CONFIG + "img/koma/");
-                sb.Append(Conv_Komasyurui.ToStr_ImageName(Conv_Busstop.ToKomasyurui( koma)));
+                sb.Append(Conv_Komasyurui.ToStr_ImageName(Conv_Busstop.GetKomasyurui( koma)));
                 sb.Append(".png");
                 Image img = Image.FromFile(sb.ToString());
 
-                if (Conv_Busstop.ToPlayerside( koma) == Playerside.P2)
+                if (Conv_Busstop.GetPlayerside( koma) == Playerside.P2)
                 {
                     // 画像を180度回転させたい☆
                     img.RotateFlip(RotateFlipType.Rotate180FlipNone);
@@ -190,13 +190,13 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C080____Shape
                 StringBuilder sb = new StringBuilder();
                 sb.Append( Const_Filepath.m_EXE_TO_CONFIG + "img/mobility/");
                 sb.Append((int)
-                    Data_KomahaiyakuTransition.ToHaiyaku(Conv_Busstop.ToKomasyurui(koma), Conv_Busstop.ToMasu(koma), Conv_Busstop.ToPlayerside(koma))
+                    Data_KomahaiyakuTransition.ToHaiyaku(Conv_Busstop.GetKomasyurui(koma), Conv_Busstop.GetMasu(koma), Conv_Busstop.GetPlayerside(koma))
                     //koma.Haiyaku
                     );//配役番号
                 sb.Append(".png");
                 Image img = Image.FromFile(sb.ToString());
 
-                if (Conv_Busstop.ToPlayerside( koma) == Playerside.P2)
+                if (Conv_Busstop.GetPlayerside( koma) == Playerside.P2)
                 {
                     // 画像を180度回転させたい☆
                     img.RotateFlip(RotateFlipType.Rotate180FlipNone);
@@ -232,7 +232,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C080____Shape
             //----------
             if(false)
             {
-                if (Conv_Busstop.ToPlayerside( koma) == Playerside.P1)
+                if (Conv_Busstop.GetPlayerside( koma) == Playerside.P1)
                 {
                     //----------
                     // 先手

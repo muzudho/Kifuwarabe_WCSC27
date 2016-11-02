@@ -6,8 +6,8 @@ using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C250____Word;
 using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C500____Util;
 using Grayscale.A210_KnowNingen_.B220_ZobrishHash.C500____Struct;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C500____Struct;
 using Grayscale.A210_KnowNingen_.B320_ConvWords__.C500____Converter;
 using Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky;
 using Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter;
@@ -22,7 +22,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C510____OperationB
     {
         public static bool DoMove_Super1(
             Playerside psideA,
-            ref Sky position,//指定局面
+            ref Position position,//指定局面
             ref Move ref_move,//TODO:取った駒があると、上書きされる
             string hint,
             KwLogger logger
@@ -70,7 +70,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C510____OperationB
         /// <param name="logger"></param>
         /// <returns></returns>
         public static void DoMove_Super2(
-            ref Sky position,//指定局面
+            ref Position position,//指定局面
             ref Move ref_moveA,
             Playerside a_pside,
             Finger a_figKoma,//動かす駒
@@ -90,7 +90,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C510____OperationB
 
             // 動かす駒の種類
             Busstop a_komaBus = position.BusstopIndexOf(a_figKoma);
-            Komasyurui14 a_komaSyurui = Conv_Busstop.ToKomasyurui(a_komaBus);
+            Komasyurui14 a_komaSyurui = Conv_Busstop.GetKomasyurui(a_komaBus);
 
             // 移動先に相手の駒がないか、確認します。
             Finger b_komaFig = Util_Sky_FingersQuery.InMasuNow_Old(position, d_masu).ToFirst();
@@ -102,8 +102,8 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C510____OperationB
                 //────────────────────────────────────────
                 position.AssertFinger(b_komaFig);
                 Busstop b_komaBus = position.BusstopIndexOf(b_komaFig);
-                Playerside b_pside = Conv_Busstop.ToPlayerside(b_komaBus);
-                Komasyurui14 b_komaSyurui = Conv_Busstop.ToKomasyurui(b_komaBus);
+                Playerside b_pside = Conv_Busstop.GetPlayerside(b_komaBus);
+                Komasyurui14 b_komaSyurui = Conv_Busstop.GetKomasyurui(b_komaBus);
 
                 // ハッシュを差分更新（盤上から消えた、取られた駒の分だけ消す）
                 {
@@ -123,9 +123,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C510____OperationB
                 }
 
                 // 取られた駒は、駒台の空いているマスへ移動☆
-                position.PutOverwriteOrAdd_Busstop(b_komaFig,
-                    Conv_Busstop.ToBusstop(a_pside, e_akiMasu, b_komaSyurui)
-                    );
+                position.PutBusstop(b_komaFig, Conv_Busstop.BuildBusstop(a_pside, e_akiMasu, b_komaSyurui));
 
                 if (b_komaSyurui!= Komasyurui14.H00_Null___)
                 {
@@ -138,7 +136,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C510____OperationB
             {
                 // ハッシュを差分更新（移動元から消えた駒を消す）
                 {
-                    SyElement c_masu = Conv_Busstop.ToMasu(a_komaBus);
+                    SyElement c_masu = Conv_Busstop.GetMasu(a_komaBus);
                     position.KyokumenHash ^= Util_ZobristHashing.GetValue(((New_Basho)c_masu).MasuNumber, a_pside, a_komaSyurui);
                 }
 
@@ -151,12 +149,12 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C510____OperationB
                 // ハッシュを差分更新（移動先に現れた駒を現す）
                 position.KyokumenHash ^= Util_ZobristHashing.GetValue(((New_Basho)d_masu).MasuNumber, a_pside, a_komaSyurui);
 
-                position.PutOverwriteOrAdd_Busstop(a_figKoma,
-                    Conv_Busstop.ToBusstop(a_pside, d_masu, a_komaSyurui)
+                position.PutBusstop(a_figKoma,
+                    Conv_Busstop.BuildBusstop(a_pside, d_masu, a_komaSyurui)
                     );
             }
 
-            // 動かしたあとに、先後を逆転させて、手目済カウントを増やします。
+            // 動かしたあとに、手目済カウントを増やします。
             position.IncreaseTemezumi();
         }
     }

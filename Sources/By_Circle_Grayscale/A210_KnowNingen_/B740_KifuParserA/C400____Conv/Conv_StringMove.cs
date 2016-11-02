@@ -3,7 +3,7 @@ using Grayscale.A060_Application.B110_Log________.C500____Struct;
 using Grayscale.A120_KifuSfen___.B160_ConvSfen___.C500____Converter;
 using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter;
 using Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA;
 using System;
@@ -17,7 +17,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C400____Conv
             string sfenMove1,
             Move previous_Move,  // 「同」を調べるためのもの。
             Playerside pside,
-            Sky previous_Sky,
+            Position previous_Sky,
             KwLogger errH
             )
         {

@@ -5,7 +5,7 @@ using Grayscale.A210_KnowNingen_.B170_WordShogi__.C___250_Masu;
 using Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter;
 using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C250____Word;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C500____Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
 
 using Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky;
@@ -14,7 +14,7 @@ using Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter;
 using System.Collections.Generic;
 using System.Text;
 using Finger = ProjectDark.NamedInt.StrictNamedInt0; //スプライト番号
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct;
 
@@ -30,7 +30,7 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C510____UtilLogJson
         /// <param name="km_sasite"></param>
         /// <param name="comment"></param>
         /// <returns></returns>
-        public static string JsonKyokumens_MultiKomabetuMasus(bool enableLog, Sky src_Sky_base, Maps_OneAndOne<Finger, SySet<SyElement>> km_sasite, string comment)
+        public static string JsonKyokumens_MultiKomabetuMasus(bool enableLog, Position src_Sky_base, Maps_OneAndOne<Finger, SySet<SyElement>> km_sasite, string comment)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -45,7 +45,7 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C510____UtilLogJson
                 src_Sky_base.AssertFinger(key);
                 Busstop koma = src_Sky_base.BusstopIndexOf(key);
 
-                Komasyurui14 ks14 = Conv_Busstop.ToKomasyurui(koma);
+                Komasyurui14 ks14 = Conv_Busstop.GetKomasyurui(koma);
 
                 sb.AppendLine("            [");
 
@@ -60,7 +60,7 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C510____UtilLogJson
 
 
                 string komaImg = Util_Converter_LogGraphicEx.Finger_ToString(src_Sky_base, key, "");
-                sb.AppendLine("                { act:\"drawImg\", img:\"" + komaImg + "\", masu: " + Conv_Masu.ToMasuHandle(Conv_Busstop.ToMasu( koma)) + " },");//FIXME:おかしい？
+                sb.AppendLine("                { act:\"drawImg\", img:\"" + komaImg + "\", masu: " + Conv_Masu.ToMasuHandle(Conv_Busstop.GetMasu( koma)) + " },");//FIXME:おかしい？
 
                 // コメント
                 sb.AppendLine("                { act:\"drawText\", text:\"" + comment + "\"  , x:0, y:20 },");
@@ -78,7 +78,7 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C510____UtilLogJson
         /// </summary>
         /// <param name="hkomas_gen_MOTI"></param>
         /// <returns></returns>
-        public static string JsonElements_KomaHandles(bool enableLog, Sky src_Sky, List<int> hKomas, string comment)
+        public static string JsonElements_KomaHandles(bool enableLog, Position src_Sky, List<int> hKomas, string comment)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -98,7 +98,7 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C510____UtilLogJson
 
 
                 string komaImg = Util_Converter_LogGraphicEx.Finger_ToString(src_Sky, hKoma, "");
-                sb.AppendLine("                { act:\"drawImg\", img:\"" + komaImg + "\", masu: " + Conv_Masu.ToMasuHandle(Conv_Busstop.ToMasu( koma)) + " },");//FIXME:おかしい？
+                sb.AppendLine("                { act:\"drawImg\", img:\"" + komaImg + "\", masu: " + Conv_Masu.ToMasuHandle(Conv_Busstop.GetMasu( koma)) + " },");//FIXME:おかしい？
             }
 
 

@@ -47,44 +47,16 @@ namespace Grayscale.A210_KnowNingen_.B310_Shogiban___.C250____Struct
         /// </summary>
         public Playerside Playerside { get; set; }
 
-
+        /// <summary>
+        /// TODO: 駒台にある駒は、masu が重複する方針☆
+        /// </summary>
+        /// <param name="masu"></param>
+        /// <param name="koma"></param>
+        /// <param name="logger"></param>
         public void AddKoma(SyElement masu, Busstop koma, KwLogger logger)
         {
-            Debug.Assert(!this.ContainsBanjoKoma(Conv_Masu.ToMasuHandle(masu)), "既に駒がある枡に、駒を置こうとしています。[" + Conv_Masu.ToMasuHandle(masu) + "]");
+            //Debug.Assert(!this.ContainsBanjoKoma(Conv_Masu.ToMasuHandle(masu)), "既に駒がある枡に、駒を置こうとしています。[" + Conv_Masu.ToMasuHandle(masu) + "]");
 
-            try
-            {
-                int masuHandle = Conv_Masu.ToMasuHandle(masu);
-                if (this.BanjoKomas.ContainsKey(masuHandle))
-                {
-                    // FIXME: エラー☆（＾▽＾）
-                    string message = "[重複]masu=" + Conv_Masu.ToLog(masu)+ " busstop="+ Conv_Busstop.LogStr_Description(koma);
-                    if (this.ErrorMessage.ContainsKey(masuHandle))
-                    {
-                        this.ErrorMessage.Add(masuHandle,
-                            this.ErrorMessage[masuHandle] + " " +
-                            message);
-                    }
-                    else
-                    {
-                        this.ErrorMessage.Add(masuHandle, message);
-                    }
-                }
-                else
-                {
-                    // まだ古い仕様なので、とりあえず駒台と区別せず盤上に追加
-                    this.BanjoKomas.Add(masuHandle, koma);
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.DonimoNaranAkirameta(ex,
-                    "将棋盤ログを作っているとき☆（＾▽＾）\n"+
-                    " masu="+Conv_Masu.ToLog(masu) +"\n"+
-                    " busstop=" + Conv_Busstop.LogStr_Description(koma)
-                    );
-                throw ex;
-            }
 
 
             if (Conv_Masu.OnShogiban(Conv_Masu.ToMasuHandle(masu)))
@@ -92,12 +64,48 @@ namespace Grayscale.A210_KnowNingen_.B310_Shogiban___.C250____Struct
                 // 盤上
                 // TODO:ほんとはここで追加したい this.BanjoKomas.Add(Conv_Masu.ToMasuHandle(masu), koma);
 
+                try
+                {
+                    int masuHandle = Conv_Masu.ToMasuHandle(masu);
+                    if (this.BanjoKomas.ContainsKey(masuHandle))
+                    {
+                        // FIXME: エラー☆（＾▽＾）
+                        string message = "[重複]masu=" + Conv_Masu.ToLog(masu) + " busstop=" + Conv_Busstop.LogStr_Description(koma);
+                        if (this.ErrorMessage.ContainsKey(masuHandle))
+                        {
+                            this.ErrorMessage.Add(masuHandle,
+                                this.ErrorMessage[masuHandle] + " " +
+                                message);
+                        }
+                        else
+                        {
+                            this.ErrorMessage.Add(masuHandle, message);
+                        }
+                    }
+                    else
+                    {
+                        // TODO: エラー
+
+                        // まだ古い仕様なので、とりあえず駒台と区別せず盤上に追加
+                        this.BanjoKomas.Add(masuHandle, koma);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    logger.DonimoNaranAkirameta(ex,
+                        "将棋盤ログを作っているとき☆（＾▽＾）\n" +
+                        " masu=" + Conv_Masu.ToLog(masu) + "\n" +
+                        " busstop=" + Conv_Busstop.LogStr_Description(koma)
+                        );
+                    throw ex;
+                }
+
                 // 特にカウントはなし
             }
             else if (Conv_Masu.OnSenteKomadai(Conv_Masu.ToMasuHandle(masu)))
             {
                 // 先手駒台
-                switch (Conv_Busstop.ToKomasyurui(koma))
+                switch (Conv_Busstop.GetKomasyurui(koma))
                 {
                     case Komasyurui14.H01_Fu_____:
                         this.m_motiSu_[(int)Pieces.P]++;
@@ -128,7 +136,7 @@ namespace Grayscale.A210_KnowNingen_.B310_Shogiban___.C250____Struct
             else if (Conv_Masu.OnGoteKomadai(Conv_Masu.ToMasuHandle(masu)))
             {
                 // 後手駒台
-                switch (Conv_Busstop.ToKomasyurui(koma))
+                switch (Conv_Busstop.GetKomasyurui(koma))
                 {
                     case Komasyurui14.H01_Fu_____:
                         this.m_motiSu_[(int)Pieces.p]++;
@@ -159,7 +167,7 @@ namespace Grayscale.A210_KnowNingen_.B310_Shogiban___.C250____Struct
             else
             {
                 // 駒袋
-                switch (Conv_Busstop.ToKomasyurui(koma))
+                switch (Conv_Busstop.GetKomasyurui(koma))
                 {
                     case Komasyurui14.H01_Fu_____:
                         this.m_komabukuroSu_[(int)PieceTypes.P]++;

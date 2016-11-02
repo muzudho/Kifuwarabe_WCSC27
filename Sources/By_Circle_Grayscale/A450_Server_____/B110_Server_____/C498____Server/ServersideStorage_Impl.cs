@@ -1,7 +1,7 @@
 ﻿using Grayscale.A060_Application.B110_Log________.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C500____Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct;
 using Grayscale.A210_KnowNingen_.B570_ConvJsa____.C500____Converter;
@@ -12,11 +12,11 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C498____Server
 {
     public class ServersideStorage_Impl : ServersideStorage
     {
-        public ServersideStorage_Impl(Sky positionA)
+        public ServersideStorage_Impl(Position positionA)
         {
             this.PlayerTypes = new PlayerType[3];
 
-            this.m_kifuTree_ = new GrandImpl(new SkyImpl(positionA));
+            this.m_kifuTree_ = new GrandImpl(new PositionImpl(positionA));
 
             this.m_earth_ = new EarthImpl();
             this.Earth.SetProperty(Word_KifuTree.PropName_Startpos, "9/9/9/9/9/9/9/9/9");
@@ -75,12 +75,12 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C498____Server
         /// 局面が進むごとに更新されていきます。
         /// 
         /// </summary>
-        public Sky PositionServerside { get { return this.m_positionServerside_; } }
-        public void SetPositionServerside(Sky positionServerside)
+        public Position PositionServerside { get { return this.m_positionServerside_; } }
+        public void SetPositionServerside(Position positionServerside)
         {
             this.m_positionServerside_ = positionServerside;
         }
-        private Sky m_positionServerside_;
+        private Position m_positionServerside_;
 
 
 
@@ -98,16 +98,16 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C498____Server
         /// <param name="newNode"></param>
         public void AfterSetCurNode_Srv(
             Move move,
-            Sky positionA,
+            Position position,
             out string out_jsaFugoStr,
             KwLogger logger
             )
         {
-            this.SetPositionServerside(positionA);
+            this.SetPositionServerside(position);
 
             out_jsaFugoStr = Conv_SasiteStr_Jsa.ToSasiteStr_Jsa(move,
                 this.Grand1.KifuTree.Kifu_ToArray(),
-                positionA,
+                position,
                 logger
                 );
         }

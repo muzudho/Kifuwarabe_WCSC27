@@ -4,8 +4,8 @@ using Grayscale.A120_KifuSfen___.B140_SfenStruct_.C___250_Struct;
 using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C250____Word;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C500____Struct;
 using Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky;
 using Grayscale.A210_KnowNingen_.B520_SeizaStartp.C500____Struct;
 using Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter;
@@ -27,7 +27,7 @@ namespace Grayscale.A210_KnowNingen_.B830_ConvStartpo.C500____Converter
         /// <param name="startposImporter"></param>
         /// <param name="logTag"></param>
         public static ParsedKyokumen ToParsedKyokumen(
-            Sky positionServerside,// Gui局面を使用
+            Position positionServerside,// Gui局面を使用
             StartposImporter startposImporter,
             KifuParserA_Genjo genjo,
             KwLogger logger
@@ -53,7 +53,7 @@ namespace Grayscale.A210_KnowNingen_.B830_ConvStartpo.C500____Converter
             // 駒の配置
             //------------------------------
             {
-                Sky newSky = startposImporter.ToSky();
+                Position newSky = startposImporter.ToSky();
                 newSky.SetTemezumi(startposImporter.RO_SfenStartpos.Temezumi);// FIXME: 将棋所だと常に 1 かも？？
                 parsedKyokumen.NewMove = Move.Empty;// Conv_Move.GetErrorMove();//ルートなので
                 parsedKyokumen.NewSky = newSky;
@@ -251,9 +251,9 @@ namespace Grayscale.A210_KnowNingen_.B830_ConvStartpo.C500____Converter
                             parsedKyokumen.Sky
                         );
 
-                        parsedKyokumen.Sky.PutOverwriteOrAdd_Busstop(
+                        parsedKyokumen.Sky.PutBusstop(
                             koma,
-                            Conv_Busstop.ToBusstop(
+                            Conv_Busstop.BuildBusstop(
                                 itaruPside,
                                 akiMasu,
                                 parsedKyokumen.MotiList[i].Komasyurui

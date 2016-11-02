@@ -5,7 +5,7 @@ using Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky;
 using Grayscale.A210_KnowNingen_.B640_KifuTree___.C250____Struct;
 using Grayscale.A210_KnowNingen_.B740_KifuParserA.C___500_Parser;
 using System;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
 
 namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
@@ -41,7 +41,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
 
             Earth earth1,
             Move move1_notUse,
-            Sky positionA,
+            Position positionA,
             Grand kifu1,
 
             out KifuParserA_State nextState,
@@ -71,17 +71,14 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
                     //----------------------------------------
                     // 棋譜を空っぽにし、平手初期局面を与えます。
                     //----------------------------------------
-                    out_moveNodeType = MoveNodeType.Clear;
+                    out_moveNodeType = MoveNodeType.Startpos;
 
                     nextState = KifuParserA_StateA1a_SfenStartpos.GetInstance();
                 }
                 else
                 {
-//#if DEBUG
                     errH.AppendLine("（＾△＾）ここはスルーして次に状態遷移するんだぜ☆\n「" + genjo.InputLine + "」vs【" + this.GetType().Name + "】");//　：　局面の指定のようなんだぜ☆　対応していない☆？
                     errH.Flush(LogTypes.Error);
-                    //errH.AppendLine_Error("（＾△＾）「" + genjo.InputLine + "」vs【" + this.GetType().Name + "】　：　局面の指定のようなんだぜ☆　対応していない☆？");
-                    //#endif
                     nextState = KifuParserA_StateA1b_SfenLnsgkgsnl.GetInstance();
                 }
             }

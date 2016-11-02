@@ -7,7 +7,7 @@ using Grayscale.A210_KnowNingen_.B170_WordShogi__.C250____Masu;
 using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 using Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C500____Struct;
 using Grayscale.A210_KnowNingen_.B320_ConvWords__.C500____Converter;
 using Grayscale.A210_KnowNingen_.B410_SeizaFinger.C250____Struct;
 using Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky;
@@ -17,7 +17,7 @@ using Grayscale.A210_KnowNingen_.B770_Conv_Sasu__.C500____Converter;
 using System;
 using System.Collections.Generic;
 using Finger = ProjectDark.NamedInt.StrictNamedInt0; //スプライト番号
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B690_Ittesasu___.C510____OperationB;
 using Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA;
 using Grayscale.A210_KnowNingen_.B690_Ittesasu___.C___250_OperationA;
@@ -49,7 +49,7 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
         public static Maps_OneAndOne<Finger, SySet<SyElement>> LA_RemoveMate(
             Maps_OneAndMulti<Finger, MoveEx> genTeban_komabetuAllMoves1,// 指定局面で、どの駒が、どんな手を指すことができるか
             Playerside psideCreate,
-            Sky positionA,//指定局面。
+            Position positionA,//指定局面。
             string hint,
             KwLogger logger)
         {
@@ -148,7 +148,7 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
             List<Move> inputMovelist,
             int temezumi_yomiGenTeban_forLog,//読み進めている現在の手目
             Playerside psideCreate,
-            Sky positionA,
+            Position positionA,
             KwLogger logger
             )
         {
@@ -231,7 +231,7 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
         /// GetAvailableMove()の中では使わないでください。循環してしまいます。
         /// </summary>
         public static bool LAAA_KingSuicide(
-            Sky position,//調べたい局面
+            Position position,//調べたい局面
             int temezumi_yomiCur_forLog,//読み進めている現在の手目
             Playerside psideCreate,//現手番側
             KwLogger logger
@@ -263,7 +263,7 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
                 position.AssertFinger(Finger_Honshogi.GoteOh);
                 Busstop koma = position.BusstopIndexOf(Finger_Honshogi.GoteOh);
 
-                    genTeban_kingMasuNumber = Conv_Masu.ToMasuHandle(Conv_Busstop.ToMasu( koma));
+                    genTeban_kingMasuNumber = Conv_Masu.ToMasuHandle(Conv_Busstop.GetMasu( koma));
             }
             else
             {
@@ -271,7 +271,7 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
                 position.AssertFinger(Finger_Honshogi.SenteOh);
                 Busstop koma = position.BusstopIndexOf(Finger_Honshogi.SenteOh);
 
-                    genTeban_kingMasuNumber = Conv_Masu.ToMasuHandle(Conv_Busstop.ToMasu(koma));
+                    genTeban_kingMasuNumber = Conv_Masu.ToMasuHandle(Conv_Busstop.GetMasu(koma));
             }
 
 
@@ -305,7 +305,7 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
         /// <param name="logger"></param>
         public static List_OneAndMulti<Finger, SySet<SyElement>> LAAAA_GetEffect(
             bool isHonshogi,
-            Sky positionA,
+            Position positionA,
             Playerside psideCreate,
             bool isAiteban,
             string logBrd_caption,

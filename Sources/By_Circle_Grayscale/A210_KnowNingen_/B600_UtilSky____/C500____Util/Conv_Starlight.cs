@@ -15,13 +15,13 @@ namespace Grayscale.A210_KnowNingen_.B600_UtilSky____.C500____Util
             Json_Obj obj = new Json_Obj();
 
             // プレイヤーサイド
-            obj.Add(new Json_Prop("pside", Conv_Playerside.LogStr_Sankaku(Conv_Busstop.ToPlayerside( koma))));// ▲△
+            obj.Add(new Json_Prop("pside", Conv_Playerside.LogStr_Sankaku(Conv_Busstop.GetPlayerside( koma))));// ▲△
 
             // マス  
-            obj.Add(new Json_Prop("masu", Conv_Masu.ToMasuHandle(Conv_Busstop.ToMasu( koma))));// ▲△
+            obj.Add(new Json_Prop("masu", Conv_Masu.ToMasuHandle(Conv_Busstop.GetMasu( koma))));// ▲△
 
             // 駒の種類。歩、香、桂…。
-            obj.Add(new Json_Prop("syurui", Conv_Komasyurui.ToStr_Ichimoji(Conv_Busstop.ToKomasyurui( koma))));// ▲△
+            obj.Add(new Json_Prop("syurui", Conv_Komasyurui.ToStr_Ichimoji(Conv_Busstop.GetKomasyurui( koma))));// ▲△
 
             return obj;
         }

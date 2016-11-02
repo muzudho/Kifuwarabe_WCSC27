@@ -19,27 +19,25 @@ namespace Grayscale.A120_KifuSfen___.B140_SfenStruct_.C250____Struct
         /// 持ち駒を、カウントで。
         /// 
         /// [0～80] 盤上
-        /// [81～120] 先手駒台
-        /// [121～160] 後手駒台
-        /// [161～200] 駒袋
         /// </summary>
-        public string[] Masu201 { get { return masu201; } } private string[] masu201;
+        public string[] Masu81 { get { return m_masu81_; } }
+        private string[] m_masu81_;
         public string AsMasu(int masuHandle)
         {
-            return this.masu201[masuHandle];
+            return this.m_masu81_[masuHandle];
         }
 
         public string GetKomaAs(int suji, int dan)
         {
-            return this.Masu201[ Conv_SujiDan.ToMasu(suji, dan)];
+            return this.Masu81[ Conv_SujiDan.ToMasu(suji, dan)];
         }
 
-        public void Foreach_Masu201(DELEGATE_Masu201 delegate_method)
+        public void Foreach_Masu81(DELEGATE_Masu81 delegate_method)
         {
             bool toBreak = false;
 
             int masuHandle = 0;
-            foreach (string masuString in this.masu201)
+            foreach (string masuString in this.m_masu81_)
             {
                 System.Diagnostics.Debug.Assert(null != masuString, "masuStringがヌル");
 
@@ -124,7 +122,7 @@ namespace Grayscale.A120_KifuSfen___.B140_SfenStruct_.C250____Struct
 
 
         public RO_Kyokumen2_ForTokenizeImpl(
-            string[] masu201,
+            string[] masu81,
             int[] motiSu,
             int fK,//駒袋 王
             int fR,//駒袋 飛
@@ -139,7 +137,7 @@ namespace Grayscale.A120_KifuSfen___.B140_SfenStruct_.C250____Struct
             )
         {
             //盤
-            this.masu201 = masu201;
+            this.m_masu81_ = masu81;
 
             Array.Copy(motiSu, this.MotiSu, motiSu.Length);
 

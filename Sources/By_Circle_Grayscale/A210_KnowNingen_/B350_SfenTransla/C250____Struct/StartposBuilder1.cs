@@ -56,24 +56,24 @@ namespace Grayscale.A210_KnowNingen_.B350_SfenTransla.C250____Struct
             }
             else if (Conv_Masu.OnSenteKomadai(masuNumber))
             {
-                if (this.motiBlack.ContainsKey(Conv_Busstop.ToKomasyurui( koma)))
+                if (this.motiBlack.ContainsKey(Conv_Busstop.GetKomasyurui( koma)))
                 {
-                    this.motiBlack[Conv_Busstop.ToKomasyurui( koma)] = this.motiBlack[Conv_Busstop.ToKomasyurui( koma)];
+                    this.motiBlack[Conv_Busstop.GetKomasyurui( koma)] = this.motiBlack[Conv_Busstop.GetKomasyurui( koma)];
                 }
                 else
                 {
-                    this.motiBlack.Add(Conv_Busstop.ToKomasyurui( koma), 0);
+                    this.motiBlack.Add(Conv_Busstop.GetKomasyurui( koma), 0);
                 }
             }
             else if (Conv_Masu.OnGoteKomadai(masuNumber))
             {
-                if (this.motiWhite.ContainsKey(Conv_Busstop.ToKomasyurui( koma)))
+                if (this.motiWhite.ContainsKey(Conv_Busstop.GetKomasyurui( koma)))
                 {
-                    this.motiWhite[Conv_Busstop.ToKomasyurui( koma)] = this.motiWhite[Conv_Busstop.ToKomasyurui( koma)];
+                    this.motiWhite[Conv_Busstop.GetKomasyurui( koma)] = this.motiWhite[Conv_Busstop.GetKomasyurui( koma)];
                 }
                 else
                 {
-                    this.motiWhite.Add(Conv_Busstop.ToKomasyurui( koma), 0);
+                    this.motiWhite.Add(Conv_Busstop.GetKomasyurui( koma), 0);
                 }
             }
         }

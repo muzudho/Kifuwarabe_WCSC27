@@ -1,7 +1,7 @@
 ﻿using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 using Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
 using Grayscale.A120_KifuSfen___.B140_SfenStruct_.C___250_Struct;
 using System;
 using System.Collections.Generic;
@@ -10,20 +10,20 @@ using System.Runtime.CompilerServices;
 using Finger = ProjectDark.NamedInt.StrictNamedInt0; //フィンガー番号
 using Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter;
 
-namespace Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct
+namespace Grayscale.A210_KnowNingen_.B270_Position___.C500____Struct
 {
 
     /// <summary>
-    /// 局面データです。
+    /// 駒データベースだぜ☆（＾▽＾）
     /// </summary>
-    public class SkyImpl : Sky
+    public class PositionImpl : Position
     {
         /// <summary>
         /// 棋譜を新規作成するときに使うコンストラクター。
         /// </summary>
-        public SkyImpl()
+        public PositionImpl()
         {
-            this.temezumi = 0;//初期局面は 0手目済み
+            this.m_temezumi_ = 0;//初期局面は 0手目済み
             this.m_busstops_ = new List<Busstop>();
             this.MotiSu = new int[(int)Pieces.Num];
         }
@@ -32,13 +32,13 @@ namespace Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct
         /// クローンを作ります。
         /// </summary>
         /// <param name="src"></param>
-        public SkyImpl(Sky src)
+        public PositionImpl(Position src)
         {
             // 局面ハッシュのクローン
             this.KyokumenHash = src.KyokumenHash;
 
             // 手番のクローン
-            this.temezumi = src.Temezumi;
+            this.m_temezumi_ = src.Temezumi;
 
             // 星々のクローン
             this.m_busstops_ = new List<Busstop>();
@@ -86,6 +86,7 @@ namespace Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct
         public ulong KyokumenHash { get; set; }
 
 
+        #region 手目済
         public void IncreaseTemezumi()
         {
             this.SetTemezumi(this.Temezumi + 1);// 1手進めます。
@@ -95,18 +96,19 @@ namespace Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct
             this.SetTemezumi(this.Temezumi - 1);// 1手戻します。
         }
 
-        #region プロパティー
-
         /// <summary>
         /// 何手目済みか。初期局面を 0 とする。
         /// </summary>
-        public int Temezumi { get { return this.temezumi; } }
-        private int temezumi;
+        public int Temezumi { get { return this.m_temezumi_; } }
+        private int m_temezumi_;
         public void SetTemezumi(int temezumi)
         {
-            this.temezumi = temezumi;
+            this.m_temezumi_ = temezumi;
         }
+        #endregion
 
+
+        #region プロパティー
         /// <summary>
         /// 盤面なので、動かないもの（駒）の位置のリストだぜ☆（＾～＾）駒しかないはずなので、４０個のはずだぜ☆（＾～＾）
         /// </summary>
@@ -215,16 +217,16 @@ namespace Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct
 
 
         /// <summary>
-        /// 駒台に戻すとき
+        /// 駒台に戻すとき。上書き、または追加。
         /// </summary>
         /// <param name="kifu"></param>
         /// <param name="finger"></param>
         /// <param name="busstop"></param>
-        public void PutOverwriteOrAdd_Busstop(Finger finger, Busstop busstop)
+        public void PutBusstop(Finger finger, Busstop busstop)
         {
             if (this.m_busstops_.Count == (int)finger)
             {
-                // オブジェクトを追加します。
+                // 新しい駒なら、オブジェクトを追加します。
                 this.Busstops.Add(busstop);
             }
             else if (this.m_busstops_.Count + 1 <= (int)finger)
@@ -233,7 +235,6 @@ namespace Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct
                 Debug.Assert((int)finger < this.Busstops.Count, "要素の個数より2大きいインデックスを指定しました。 インデックス[" + (int)finger + "]　要素の個数[" + this.Busstops.Count + "]");
 
                 string message = this.GetType().Name + "#SetStarPos：　リストの要素より2多いインデックスを指定されましたので、追加しません。starIndex=[" + finger + "] / this.stars.Count=[" + this.m_busstops_.Count + "]";
-                //LarabeLogger.GetInstance().WriteLineError(LarabeLoggerList.ERROR, message);
                 throw new Exception(message);
             }
             else

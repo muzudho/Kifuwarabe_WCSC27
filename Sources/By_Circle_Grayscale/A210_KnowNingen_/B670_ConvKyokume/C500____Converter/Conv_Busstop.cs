@@ -11,11 +11,18 @@ using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C500____Util;
 namespace Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter
 {
     /// <summary>
-    /// ＲＯ＿Ｓｔａｒ と Busstop の変換☆
+    /// 指し手（駒の移動元と、移動先など）を記憶しているもの☆
     /// </summary>
     public abstract class Conv_Busstop
     {
-        public static Busstop ToBusstop(Playerside pside, SyElement masu, Komasyurui14 komasyrui)
+        /// <summary>
+        /// Busstopの作成。
+        /// </summary>
+        /// <param name="pside"></param>
+        /// <param name="masu"></param>
+        /// <param name="komasyrui"></param>
+        /// <returns></returns>
+        public static Busstop BuildBusstop(Playerside pside, SyElement masu, Komasyurui14 komasyrui)
         {
             int errorCheck = 0;
 
@@ -69,15 +76,15 @@ namespace Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter
             return (Busstop)v;
         }
 
-        public static Okiba ToOkiba(Busstop busstop)
+        public static Okiba GetOkiba(Busstop busstop)
         {
-            if (Conv_Busstop.ToKomadai(busstop))
+            if (Conv_Busstop.IsKomadai(busstop))
             {
-                if (Playerside.P1 == Conv_Busstop.ToPlayerside(busstop))
+                if (Playerside.P1 == Conv_Busstop.GetPlayerside(busstop))
                 {
                     return Okiba.Sente_Komadai;
                 }
-                else if (Playerside.P2 == Conv_Busstop.ToPlayerside(busstop))
+                else if (Playerside.P2 == Conv_Busstop.GetPlayerside(busstop))
                 {
                     return Okiba.Gote_Komadai;
                 }
@@ -98,18 +105,18 @@ namespace Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter
         /// </summary>
         /// <param name="move"></param>
         /// <returns></returns>
-        public static SyElement ToMasu(Busstop busstop)
+        public static SyElement GetMasu(Busstop busstop)
         {
             int v = (int)busstop;              // バリュー
 
             // TODO: エラーチェック
-            if (Conv_Busstop.ToErrorCheck(busstop))
+            if (Conv_Busstop.IsErrorCheck(busstop))
             {
                 return Masu_Honshogi.Query_ErrorMasu();
             }
 
             // 打かどうか。
-            Okiba okiba = Conv_Busstop.ToOkiba(busstop);
+            Okiba okiba = Conv_Busstop.GetOkiba(busstop);
             if (Okiba.Empty == okiba)
             {
                 // TODO: エラーチェック
@@ -150,12 +157,12 @@ namespace Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter
         /// </summary>
         /// <param name="busstop"></param>
         /// <returns></returns>
-        public static bool ToKomadai(Busstop busstop)
+        public static bool IsKomadai(Busstop busstop)
         {
             int v = (int)busstop;              // バリュー
 
             // TODO: エラーチェック
-            if (Conv_Busstop.ToErrorCheck(busstop))
+            if (Conv_Busstop.IsErrorCheck(busstop))
             {
                 return false;//FIXME:
             }
@@ -164,12 +171,12 @@ namespace Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter
             return 0 != (v & (int)BusstopMask.Komadai);
         }
 
-        public static Komasyurui14 ToKomasyurui(Busstop busstop)
+        public static Komasyurui14 GetKomasyurui(Busstop busstop)
         {
             int v = (int)busstop;              // バリュー
 
             // TODO: エラーチェック
-            if (Conv_Busstop.ToErrorCheck(busstop))
+            if (Conv_Busstop.IsErrorCheck(busstop))
             {
                 return Komasyurui14.H00_Null___;
             }
@@ -190,12 +197,12 @@ namespace Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter
             return (Komasyurui14)komasyurui;
         }
 
-        public static Playerside ToPlayerside(Busstop busstop)
+        public static Playerside GetPlayerside(Busstop busstop)
         {
             int v = (int)busstop;              // バリュー
 
             // TODO: エラーチェック
-            if (Conv_Busstop.ToErrorCheck(busstop))
+            if (Conv_Busstop.IsErrorCheck(busstop))
             {
                 return Playerside.Empty;
             }
@@ -223,7 +230,7 @@ namespace Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter
             }
         }
 
-        public static bool ToErrorCheck(Busstop busstop)
+        public static bool IsErrorCheck(Busstop busstop)
         {
             int v = (int)busstop;              // バリュー
 
@@ -236,36 +243,36 @@ namespace Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter
             StringBuilder sb = new StringBuilder();
 
             // エラーの有無
-            if (Conv_Busstop.ToErrorCheck(busstop))
+            if (Conv_Busstop.IsErrorCheck(busstop))
             {
                 sb.Append("error ");
             }
 
             // 持ち駒か
-            if (Conv_Busstop.ToKomadai(busstop))
+            if (Conv_Busstop.IsKomadai(busstop))
             {
                 sb.Append("komadai ");
             }
 
             // 駒種類
             sb.Append(
-                Util_Komasyurui14.KanjiIchimoji[(int)Conv_Busstop.ToKomasyurui(busstop)]
+                Util_Komasyurui14.KanjiIchimoji[(int)Conv_Busstop.GetKomasyurui(busstop)]
                 );
             sb.Append(" ");
 
             // 升
             sb.Append(
-                Conv_Masu.ToLog(Conv_Busstop.ToMasu(busstop))
+                Conv_Masu.ToLog(Conv_Busstop.GetMasu(busstop))
                 );
 
             // 置き場
             sb.Append(
-                Conv_Okiba.ToLog(            Conv_Busstop.ToOkiba(busstop))
+                Conv_Okiba.ToLog(            Conv_Busstop.GetOkiba(busstop))
                 );
 
             // 手番
             sb.Append(
-                Conv_Playerside.LogStr_Kanji(Conv_Busstop.ToPlayerside(busstop))
+                Conv_Playerside.LogStr_Kanji(Conv_Busstop.GetPlayerside(busstop))
                 );
 
             return sb.ToString();

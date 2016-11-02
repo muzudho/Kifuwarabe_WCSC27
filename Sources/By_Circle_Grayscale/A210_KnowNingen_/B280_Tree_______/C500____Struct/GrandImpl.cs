@@ -2,7 +2,7 @@
 using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 using Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter;
 using System;
@@ -20,12 +20,12 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct
     /// </summary>
     public class GrandImpl : Grand
     {
-        public GrandImpl(Sky position)
+        public GrandImpl(Position position)
         {
             this.m_positionA_ = position;
             this.m_kifuTree_ = new KifuTreeImpl();
         }
-        public GrandImpl(Move root, Sky position)
+        public GrandImpl(Move root, Position position)
         {
             this.m_positionA_ = position;
             this.m_kifuTree_ = new KifuTreeImpl(root);
@@ -43,7 +43,7 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct
 
 
 #region MoveEx関連
-        public static Playerside MoveEx_ClearAllCurrent(Grand tree, Sky position, KwLogger logger)
+        public static Playerside MoveEx_ClearAllCurrent(Grand tree, Position position, KwLogger logger)
         {
             Playerside rootPside = Playerside.P2;
             if (1<tree.KifuTree.Kifu_Count())
@@ -61,22 +61,22 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct
         /// <param name="node"></param>
         /// <param name="sky"></param>
         /// <returns></returns>
-        public void MoveEx_OnEditCurrent( Sky sky)
+        public void MoveEx_OnEditCurrent( Position sky)
         {
             this.m_positionA_ = sky;
         }
 #endregion
 
 
-        public Sky PositionA
+        public Position PositionA
         {
             get { return this.m_positionA_; }
         }
-        public void SetPositionA(Sky positionA)
+        public void SetPositionA(Position positionA)
         {
             this.m_positionA_ = positionA;
         }
-        private Sky m_positionA_;
+        private Position m_positionA_;
 
 
     }

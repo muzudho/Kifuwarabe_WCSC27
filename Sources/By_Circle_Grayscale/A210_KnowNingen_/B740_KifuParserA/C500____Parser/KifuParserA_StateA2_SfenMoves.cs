@@ -1,8 +1,8 @@
 ﻿using Grayscale.A060_Application.B110_Log________.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C250____Word;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C500____Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct;
 using Grayscale.A210_KnowNingen_.B690_Ittesasu___.C___250_OperationA;
@@ -57,7 +57,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
 
             Earth earth1,
             Move moveA,
-            Sky positionA,
+            Position positionA,
             Grand kifu1,
 
             out KifuParserA_State nextState,
@@ -68,10 +68,6 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
         {
             out_moveNodeType = MoveNodeType.None;
             int exceptionArea = 0;
-
-            //bool isHonshogi = true;//FIXME:暫定
-
-            
             nextState = this;
 
             try
@@ -83,10 +79,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
                         out rest,
                         genjo.InputLine,
                         moveA,
-
-                        
                         kifu1.KifuTree.GetNextPside(),
-
                         positionA,
                         logger
                         );
@@ -119,9 +112,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
                                 logger
                                 );
                             // 棋譜ツリーのカレントを変更します。
-                            result.SetNode( nextMove,
-                                ittesasuResult.SyuryoKyokumenW
-                                );
+                            result.SetNode(nextMove, ittesasuResult.SyuryoKyokumenW);
                             out_moveNodeType = MoveNodeType.Do;
 
                             exceptionArea = 1080;
@@ -136,7 +127,6 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
                             logger.AppendLine(message);
                             logger.Flush(LogTypes.Error);
                         }
-
                     }
                     else
                     {
@@ -161,7 +151,6 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
             catch (Exception ex)
             {
                 // エラーが起こりました。
-                //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
                 // どうにもできないので  ログだけ取って無視します。
                 string message = this.GetType().Name + "#Execute：" + ex.GetType().Name + "：" + ex.Message;

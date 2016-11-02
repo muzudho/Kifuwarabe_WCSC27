@@ -6,8 +6,8 @@ using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C250____Word;
 using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C500____Util;
 using Grayscale.A210_KnowNingen_.B200_ConvMasu___.C500____Conv;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C500____Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky;
 using Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter;
@@ -40,7 +40,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
         /// <param name="logger"></param>
         public static void UndoMove(
             out IttemodosuResult ittemodosuResult,
-            ref Sky position,
+            ref Position position,
             Move moved,
             string hint,
             KwLogger logger
@@ -61,8 +61,8 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
 
                 // ハッシュを差分更新（移動先から消えた駒を消す）
                 {
-                    SyElement srcMasu = Conv_Busstop.ToMasu(position.Busstops[(int)figMovedKoma]);
-                    Komasyurui14 komaSyurui = Conv_Busstop.ToKomasyurui(position.Busstops[(int)figMovedKoma]);
+                    SyElement srcMasu = Conv_Busstop.GetMasu(position.Busstops[(int)figMovedKoma]);
+                    Komasyurui14 komaSyurui = Conv_Busstop.GetKomasyurui(position.Busstops[(int)figMovedKoma]);
                     position.KyokumenHash ^= Util_ZobristHashing.GetValue(((New_Basho)srcMasu).MasuNumber, pside_ugokasu, komaSyurui);
                 }
 
@@ -87,7 +87,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
                 Busstop dst = Util_IttemodosuRoutine.Undo37_KomaOnModosisakiMasu(syurui2, moved, position);
 
                 // ハッシュを差分更新（移動元に戻した駒を現す）
-                position.KyokumenHash ^= Util_ZobristHashing.GetValue(((New_Basho)Conv_Busstop.ToMasu(dst)).MasuNumber, pside_ugokasu, syurui2);
+                position.KyokumenHash ^= Util_ZobristHashing.GetValue(((New_Basho)Conv_Busstop.GetMasu(dst)).MasuNumber, pside_ugokasu, syurui2);
 
 
                 exception_area = 40000;
@@ -139,7 +139,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
                         // 指されていた駒と、取られていた駒
                         //
                         new Finger[] { figFoodKoma },
-                        new Busstop[] { Conv_Busstop.ToBusstop(
+                        new Busstop[] { Conv_Busstop.BuildBusstop(
                             Conv_Playerside.Reverse(pside10),//先後を逆にして盤上に置きます。
                             dstMasu,// マス
                             captured
@@ -170,7 +170,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
         private static void Undo25_UgokasuKoma(
             out Finger figMovedKoma,
             Move moved,
-            Sky positionA,
+            Position positionA,
             KwLogger logger
             )
         {
@@ -203,7 +203,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
         private static Busstop Undo37_KomaOnModosisakiMasu(
             Komasyurui14 syurui2,
             Move moved,
-            Sky positionA
+            Position positionA
             )
         {
             Playerside pside = Conv_Move.ToPlayerside(moved);
@@ -247,7 +247,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
 
 
 
-            return Conv_Busstop.ToBusstop(
+            return Conv_Busstop.BuildBusstop(
                 pside,
                 masu,//戻し先
                 syurui2);
@@ -263,7 +263,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
         private static void Do62_TorareteitaKoma_ifExists(
             out Finger out_figFoodKoma,
             Move move,
-            Sky kaisi_Sky,//巻き戻しのとき
+            Position kaisi_Sky,//巻き戻しのとき
             KwLogger errH
         )
         {

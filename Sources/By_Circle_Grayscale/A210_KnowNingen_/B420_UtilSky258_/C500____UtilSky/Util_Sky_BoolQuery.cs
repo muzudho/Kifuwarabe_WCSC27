@@ -7,11 +7,11 @@ using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C250____Word;
 using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C500____Util;
 using Grayscale.A210_KnowNingen_.B200_ConvMasu___.C500____Conv;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C500____Struct;
 using Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter;
 using System;
 using Finger = ProjectDark.NamedInt.StrictNamedInt0; //スプライト番号
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
 
 namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
 {
@@ -25,7 +25,7 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
         /// </summary>
         /// <param name="masus"></param>
         /// <returns></returns>
-        public static bool ExistsIn(Move move, SySet<SyElement> masus, Sky positionA, KwLogger errH)
+        public static bool ExistsIn(Move move, SySet<SyElement> masus, Position positionA, KwLogger errH)
         {
             bool matched = false;
 
@@ -104,7 +104,7 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
         /// 不一致判定：　先後、駒種類  が、自分と同じものが　＜ひとつもない＞
         /// </summary>
         /// <returns></returns>
-        public static bool NeverOnaji(Move move, Sky src_Sky, params Fingers[] komaGroupArgs)
+        public static bool NeverOnaji(Move move, Position src_Sky, params Fingers[] komaGroupArgs)
         {
             bool unmatched = true;
 
@@ -119,8 +119,8 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
                     Busstop busstop = src_Sky.BusstopIndexOf(figKoma);
 
                     if (
-                            pside1 == Conv_Busstop.ToPlayerside(busstop) // 誰のものか
-                        && ks1 == Conv_Busstop.ToKomasyurui(busstop) // 駒の種類は
+                            pside1 == Conv_Busstop.GetPlayerside(busstop) // 誰のものか
+                        && ks1 == Conv_Busstop.GetKomasyurui(busstop) // 駒の種類は
                         )
                     {
                         // １つでも一致するものがあれば、終了します。
@@ -185,7 +185,7 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
         /// <returns></returns>
         public static bool IsSente(Busstop ms)
         {
-            return Playerside.P1 == Conv_Busstop.ToPlayerside(ms);
+            return Playerside.P1 == Conv_Busstop.GetPlayerside(ms);
         }
 
         /// <summary>
@@ -202,7 +202,7 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
         /// <returns></returns>
         public static bool IsGote(Busstop ms)
         {
-            return Playerside.P2 == Conv_Busstop.ToPlayerside(ms);
+            return Playerside.P2 == Conv_Busstop.GetPlayerside(ms);
         }
 
         /// <summary>

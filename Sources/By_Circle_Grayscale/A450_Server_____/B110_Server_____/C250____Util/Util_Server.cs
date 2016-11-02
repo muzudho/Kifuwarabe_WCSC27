@@ -7,8 +7,8 @@ using Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter;
 using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C250____Word;
 using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C500____Util;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C500____Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct;
 using Grayscale.A210_KnowNingen_.B310_Shogiban___.C500____Util;
@@ -273,7 +273,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
             //------------------------------
             // 棋譜から１手削ります
             //------------------------------
-            Sky positionA = grand1_mutable.PositionA;// curNode1.GetNodeValue();
+            Position positionA = grand1_mutable.PositionA;// curNode1.GetNodeValue();
             int korekaranoTemezumi = positionA.Temezumi - 1;//１手前へ。
 
             if (grand1_mutable.KifuTree.Kifu_IsRoot())// curNode1.IsRoot(kifu1_mutable,logger)
@@ -367,6 +367,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
                 "hint",
                 logger
                 );
+            logger.Flush(LogTypes.Plain);
 
         gt_EndMethod:
             ;
@@ -390,7 +391,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
             Busstop dst,
             Finger fig_btnTumandeiruKoma,
             Busstop foodee_koma,//取られる対象の駒
-            ref Sky ref_positionServerside,
+            ref Position ref_positionServerside,
             KwLogger errH
             )
         {
@@ -400,7 +401,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
 
 
             // 取られることになる駒のボタン
-            btnKoma_Food_Koma = Util_Sky_FingersQuery.InMasuNow_Old(ref_positionServerside, Conv_Busstop.ToMasu( foodee_koma)).ToFirst();
+            btnKoma_Food_Koma = Util_Sky_FingersQuery.InMasuNow_Old(ref_positionServerside, Conv_Busstop.GetMasu( foodee_koma)).ToFirst();
             if (Fingers.Error_1 == btnKoma_Food_Koma)
             {
                 koma_Food_after = Busstop.Empty;
@@ -418,12 +419,12 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
 
 
             ref_positionServerside.AssertFinger(btnKoma_Food_Koma);
-            Komasyurui14 koma_Food_pre_Syurui = Conv_Busstop.ToKomasyurui(ref_positionServerside.BusstopIndexOf(btnKoma_Food_Koma));
+            Komasyurui14 koma_Food_pre_Syurui = Conv_Busstop.GetKomasyurui(ref_positionServerside.BusstopIndexOf(btnKoma_Food_Koma));
 
 
             // その駒は、駒置き場に移動させます。
             SyElement akiMasu;
-            switch (Conv_Busstop.ToPlayerside( foodee_koma))
+            switch (Conv_Busstop.GetPlayerside( foodee_koma))
             {
                 case Playerside.P2:
 
@@ -432,7 +433,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
                     {
                         // 駒台に空きスペースがありました。
                         //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-                        koma_Food_after = Conv_Busstop.ToBusstop(
+                        koma_Food_after = Conv_Busstop.BuildBusstop(
                             Playerside.P2,
                             akiMasu,//駒台へ
                             Util_Komasyurui14.NarazuCaseHandle(koma_Food_pre_Syurui)
@@ -443,7 +444,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
                         // エラー：　駒台に空きスペースがありませんでした。
                         //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-                        koma_Food_after = Conv_Busstop.ToBusstop(
+                        koma_Food_after = Conv_Busstop.BuildBusstop(
                             Playerside.P2,
                             Conv_Masu.ToMasu_FromBangaiSujiDan(
                                 Okiba.Gote_Komadai,
@@ -465,7 +466,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
                         // 駒台に空きスペースがありました。
                         //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-                        koma_Food_after = Conv_Busstop.ToBusstop(
+                        koma_Food_after = Conv_Busstop.BuildBusstop(
                             Playerside.P1,
                             akiMasu,//駒台へ
                             Util_Komasyurui14.NarazuCaseHandle(koma_Food_pre_Syurui)
@@ -476,7 +477,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C250____Util
                         // エラー：　駒台に空きスペースがありませんでした。
                         //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-                        koma_Food_after = Conv_Busstop.ToBusstop(
+                        koma_Food_after = Conv_Busstop.BuildBusstop(
                             Playerside.P1,
                             Conv_Masu.ToMasu_FromBangaiSujiDan(
                                 Okiba.Sente_Komadai,

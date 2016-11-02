@@ -64,24 +64,24 @@ namespace Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter
             switch (okiba)
             {
                 case Okiba.ShogiBan:
-                    firstMasu = Masu_Honshogi.Query_Basho( Masu_Honshogi.nban11_１一);//[0]
+                    firstMasu = Masu_Honshogi.Query_Basho( Masu_Honshogi.nban11_１一);
                     break;
 
                 case Okiba.Sente_Komadai:
-                    firstMasu = Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01);//[81]
+                    firstMasu = Masu_Honshogi.Query_Basho(Masu_Honshogi.nSenteKomadai);
                     break;
 
                 case Okiba.Gote_Komadai:
-                    firstMasu = Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01);//[121]
+                    firstMasu = Masu_Honshogi.Query_Basho(Masu_Honshogi.nGoteKomadai);
                     break;
 
                 case Okiba.KomaBukuro:
-                    firstMasu = Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01);//[161];
+                    firstMasu = Masu_Honshogi.Query_Basho(Masu_Honshogi.nFukuro);
                     break;
 
                 default:
                     //エラー
-                    firstMasu = Masu_Honshogi.Query_Basho(Masu_Honshogi.nError);// -1→[201];
+                    firstMasu = Masu_Honshogi.Query_Basho(Masu_Honshogi.nError);
                     break;
             }
 

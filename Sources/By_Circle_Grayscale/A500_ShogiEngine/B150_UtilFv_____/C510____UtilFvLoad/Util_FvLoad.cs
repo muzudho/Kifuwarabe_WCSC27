@@ -1,7 +1,7 @@
 ﻿using Grayscale.A060_Application.B110_Log________.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 using Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct;
 using Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky;
@@ -20,44 +20,6 @@ namespace Grayscale.A500_ShogiEngine.B523_UtilFv_____.C510____UtilFvLoad
 {
     public abstract class Util_FvLoad
     {
-        private class PP_P1Item
-        {
-            public string Filepath{get;set;}
-            public int P1_base{get;set;}
-            public PP_P1Item(string filepath, int p1_base)
-            {
-                this.Filepath = filepath;
-                this.P1_base = p1_base;
-            }
-        }
-
-        /// <summary>
-        /// 棋譜ツリーを、平手初期局面 で準備します。
-        /// </summary>
-        public static void CreateKifuTree(
-            out Earth out_earth1,
-            out Sky out_positionA,
-            out Grand out_kifu1
-            )
-        {
-
-
-            // 棋譜
-            out_earth1 = new EarthImpl();
-            out_positionA = Util_SkyCreator.New_Hirate();
-            out_kifu1 = new GrandImpl(out_positionA);
-            out_earth1.SetProperty(Word_KifuTree.PropName_Startpos, "startpos");// 平手
-
-
-            out_positionA.AssertFinger((Finger)0);
-            Debug.Assert(!Conv_Masu.OnKomabukuro(
-                Conv_Masu.ToMasuHandle(
-                    Conv_Busstop.ToMasu(out_positionA.BusstopIndexOf((Finger)0))
-                    )
-                ), "駒が駒袋にあった。");
-        }
-
-
         /// <summary>
         /// フィーチャー・ベクター関連のファイルを全て開きます。
         /// </summary>

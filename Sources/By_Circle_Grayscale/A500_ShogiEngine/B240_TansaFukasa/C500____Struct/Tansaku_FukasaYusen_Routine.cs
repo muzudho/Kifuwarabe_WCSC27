@@ -3,10 +3,16 @@
 
 using Grayscale.A060_Application.B110_Log________.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
+using Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter;
+using Grayscale.A210_KnowNingen_.B240_Move.C___600_Pv;
+using Grayscale.A210_KnowNingen_.B240_Move.C600____Pv;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct;
+using Grayscale.A210_KnowNingen_.B243_TranspositT.C___400_TTEntry;
+using Grayscale.A210_KnowNingen_.B243_TranspositT.C___500_TTable;
+using Grayscale.A210_KnowNingen_.B243_TranspositT.C500____Tt;
+using Grayscale.A210_KnowNingen_.B243_TranspositT.C500____TTable;
+using Grayscale.A210_KnowNingen_.B245_ConvScore__.C___500_ConvScore;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter;
 using Grayscale.A210_KnowNingen_.B690_Ittesasu___.C___250_OperationA;
 using Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA;
@@ -19,16 +25,7 @@ using Grayscale.A500_ShogiEngine.B220_Tansaku____.C500____Struct;
 using Grayscale.A500_ShogiEngine.B240_TansaFukasa.C___500_Struct;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Text;
-using Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter;
-using Grayscale.A210_KnowNingen_.B245_ConvScore__.C___500_ConvScore;
-using Grayscale.A210_KnowNingen_.B240_Move.C___600_Pv;
-using Grayscale.A210_KnowNingen_.B240_Move.C600____Pv;
-using Grayscale.A210_KnowNingen_.B243_TranspositT.C___500_TTable;
-using Grayscale.A210_KnowNingen_.B243_TranspositT.C500____TTable;
-using Grayscale.A210_KnowNingen_.B243_TranspositT.C___400_TTEntry;
-using Grayscale.A210_KnowNingen_.B243_TranspositT.C500____Tt;
 
 #if DEBUG
 using Grayscale.A060_Application.B520_Syugoron___.C___250_Struct;
@@ -80,7 +77,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
             Tansaku_Genjo genjo,// （２）何か引数
 
             Playerside psideA,// （３）手番
-            ref Sky position,// （４）将棋盤
+            ref Position position,// （４）将棋盤
 
             float alpha,// （５）アルファ
             float beta,// （６）ベータ
@@ -92,8 +89,6 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
             )
         {
             int exceptionArea = 0;
-            // 後ろ向き探索なら、alphaがbestValueと同じ☆（＾～＾）
-            //float bestValue = Conv_Score.NegativeMax;
 
             try
             {
@@ -110,7 +105,6 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                         // もっと深い探索で調べた点をすぐ返すぜ☆（＾▽＾）
                         //logger.AppendLine("トランスポジション・カット☆");
                         logger.AppendLine("トランスポジション・カット☆ スコア=[" + ttEntry.Value + "]点 ttEntry="+ttEntry.LogStr_Description());
-                        //logger.Flush(LogTypes.Plain);
 
                         // 読みの深さ
                         yomisujiInfo.SearchedMaxDepth = position.Temezumi - genjo.YomikaisiTemezumi;
@@ -150,9 +144,9 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
 
                 // （２）ムーブ・ピッカー
                 exceptionArea = 2000;
-                List<Move> movelist = Util_MovePicker.CreateMovelist_BeforeLoop(
-                    position,
+                List<Move> movelist = Util_MovePicker.WAAAA_CreateMovelist(
                     psideA,
+                    position,
                     logger);
 
 
@@ -327,7 +321,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
         /// </summary>
         private static float Do_Leaf(
             Playerside psideA,
-            Sky positionA,
+            Position positionA,
             EvaluationArgs args,
             KwLogger logger
             )

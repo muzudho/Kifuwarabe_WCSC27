@@ -9,8 +9,8 @@ using Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter;
 using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C250____Word;
 using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C500____Util;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C500____Struct;
 using Grayscale.A210_KnowNingen_.B310_Shogiban___.C500____Util;
 using Grayscale.A210_KnowNingen_.B320_ConvWords__.C500____Converter;
 using Grayscale.A210_KnowNingen_.B350_SfenTransla.C500____Util;
@@ -45,7 +45,7 @@ namespace Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter
             string strNari, //+
             out Move move,
             Playerside psideA,
-            Sky positionA,
+            Position positionA,
             string hint,
             KwLogger logger
             )
@@ -236,7 +236,7 @@ namespace Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter
                     positionA.AssertFinger(srcKoma);
                     Busstop dstKoma = positionA.BusstopIndexOf(srcKoma);
 
-                    srcMasu = Conv_Busstop.ToMasu( dstKoma);
+                    srcMasu = Conv_Busstop.GetMasu( dstKoma);
                 }
                 else
                 {
@@ -246,7 +246,7 @@ namespace Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter
                     Busstop dstKoma = positionA.BusstopIndexOf(koma);
 
 
-                    dstSyurui = Conv_Busstop.ToKomasyurui(dstKoma);
+                    dstSyurui = Conv_Busstop.GetKomasyurui(dstKoma);
                     srcSyurui = dstSyurui; //駒は「元・種類」を記憶していませんので、「現・種類」を指定します。
 
                     srcOkiba = Okiba.ShogiBan;

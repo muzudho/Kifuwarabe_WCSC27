@@ -1,13 +1,13 @@
 ﻿using Grayscale.A060_Application.B520_Syugoron___.C___250_Struct;
 using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C250____Word;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C500____Struct;
 using Grayscale.A210_KnowNingen_.B310_Shogiban___.C250____Struct;
 using Grayscale.A210_KnowNingen_.B310_Shogiban___.C500____Util;
 using Finger = ProjectDark.NamedInt.StrictNamedInt0; //スプライト番号
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
 
 namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
 {
@@ -21,7 +21,7 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
         /// <param name="masu">マス番号</param>
         /// <param name="logTag">ログ名</param>
         /// <returns>スプライト番号。なければエラー番号。</returns>
-        public static Busstop InMasuNow(Sky src_Sky, SyElement masu)
+        public static Busstop InMasuNow(Position src_Sky, SyElement masu)
         {
             Busstop koma = Busstop.Empty;
 
@@ -47,7 +47,7 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
         /// <param name="masu">マス番号</param>
         /// <param name="logTag">ログ名</param>
         /// <returns>スプライト番号。なければエラー番号。</returns>
-        public static Busstop InMasuPsideNow(Sky src_Sky, SyElement masu, Playerside pside)
+        public static Busstop InMasuPsideNow(Position src_Sky, SyElement masu, Playerside pside)
         {
             Busstop koma = Busstop.Empty;
 
@@ -60,7 +60,7 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
             }
 
             koma = Util_Koma.FromFinger(src_Sky, fig);
-            if (Conv_Busstop.ToPlayerside( koma) != pside)
+            if (Conv_Busstop.GetPlayerside( koma) != pside)
             {
                 // サイドが異なる
                 koma = Busstop.Empty;
@@ -79,7 +79,7 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
         /// <param name="masu">マス番号</param>
         /// <param name="logTag">ログ名</param>
         /// <returns>スプライト番号。なければエラー番号。</returns>
-        public static Busstop InMasuPsideKomasyuruiNow(Sky src_Sky, SyElement masu, Playerside pside, Komasyurui14 syurui)
+        public static Busstop InMasuPsideKomasyuruiNow(Position src_Sky, SyElement masu, Playerside pside, Komasyurui14 syurui)
         {
             Busstop koma = Busstop.Empty;
 
@@ -92,7 +92,7 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
             }
 
             koma = Util_Koma.FromFinger(src_Sky, fig);
-            if (Conv_Busstop.ToPlayerside( koma) != pside || Conv_Busstop.ToKomasyurui( koma) != syurui)
+            if (Conv_Busstop.GetPlayerside( koma) != pside || Conv_Busstop.GetKomasyurui( koma) != syurui)
             {
                 // サイド または駒の種類が異なる
                 koma = Busstop.Empty;

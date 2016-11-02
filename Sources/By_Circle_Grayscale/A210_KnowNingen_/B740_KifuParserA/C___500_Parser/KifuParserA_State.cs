@@ -1,6 +1,6 @@
 ﻿using Grayscale.A060_Application.B110_Log________.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
 
 namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C___500_Parser
@@ -14,7 +14,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C___500_Parser
 
             Earth earth1,
             Move move1,
-            Sky positionA,
+            Position positionA,
             Grand kifu1,
 
             out KifuParserA_State nextState,

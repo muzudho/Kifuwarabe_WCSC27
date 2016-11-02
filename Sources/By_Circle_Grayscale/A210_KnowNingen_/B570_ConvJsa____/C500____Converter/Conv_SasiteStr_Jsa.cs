@@ -2,7 +2,7 @@
 using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C250____Word;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B550_JsaFugo____.C250____Struct;
 using Grayscale.A210_KnowNingen_.B550_JsaFugo____.C500____Util;
 using Grayscale.A210_KnowNingen_.B560_JsaFugoWrit.C500____Writer;
@@ -25,7 +25,7 @@ namespace Grayscale.A210_KnowNingen_.B570_ConvJsa____.C500____Converter
         public static string ToSasiteStr_Jsa(
             Move move,
             Move[] pv,// 「同」を調べるために参照するぜ☆（＾▽＾）
-            Sky positionA,
+            Position positionA,
             KwLogger logger
             )
         {

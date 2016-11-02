@@ -148,9 +148,9 @@
     <Compile Include="B170_WordShogi__\C500____Word\Hogaku.cs" />
     <Compile Include="B170_WordShogi__\C500____Word\Okiba.cs" />
     <Compile Include="B170_WordShogi__\C500____Word\Playerside.cs" />
-    <Compile Include="B270_Sky________\C___500_Struct\Sky.cs" />
-    <Compile Include="B270_Sky________\C500____Struct\Fingers.cs" />
-    <Compile Include="B270_Sky________\C500____Struct\SkyImpl.cs" />
+    <Compile Include="B270_Position___\C___500_Struct\Position.cs" />
+    <Compile Include="B270_Position___\C500____Struct\Fingers.cs" />
+    <Compile Include="B270_Position___\C500____Struct\PositionImpl.cs" />
     <Compile Include="B280_Tree_______\C___500_Struct\Grand.cs" />
     <Compile Include="B280_Tree_______\C500____Struct\GrandImpl.cs" />
     <Compile Include="B190_Komasyurui_\C500____Util\Util_Komasyurui14.cs" />
@@ -165,9 +165,7 @@
     <Compile Include="B310_Shogiban___\C500____Util\Util_Koma.cs" />
     <Compile Include="B350_SfenTransla\C250____Struct\StartposBuilder1.cs" />
     <Compile Include="B350_SfenTransla\C500____Util\Util_StartposExporter.cs" />
-    <Compile Include="B360_MasusWriter\C250____Log\LogShogibanTermDisplay.cs" />
     <Compile Include="B360_MasusWriter\C500____Util\Util_Masus.cs" />
-    <Compile Include="B360_MasusWriter\C250____Log\Writer_Masus.cs" />
     <Compile Include="B380_Michi______\C500____Struct\Michi187Array.cs" />
     <Compile Include="B390_KomahaiyaEx\C500____Util\Util_KomahaiyakuEx184.cs" />
     <Compile Include="B390_KomahaiyaEx\C500____Util\Util_Array_KomahaiyakuEx184.cs" />
@@ -191,7 +189,6 @@
     <Compile Include="B510_KifuReaderB\C500____Reader\KifuReaderB_StateB0.cs" />
     <Compile Include="B520_SeizaStartp\C500____Struct\StartposImporter.cs" />
     <Compile Include="B600_UtilSky____\C500____Util\Util_Sky307.cs" />
-    <Compile Include="B610_NodeWriter_\C500____Writer\NodeWriterImpl.cs" />
     <Compile Include="B420_UtilSky258_\C500____UtilSky\Util_Sky_CountQuery.cs" />
     <Compile Include="B690_Ittesasu___\C125____UtilB\Util_KifuTree282.cs" />
     <Compile Include="B280_Tree_______\C500____Struct\Word_KifuTree.cs" />

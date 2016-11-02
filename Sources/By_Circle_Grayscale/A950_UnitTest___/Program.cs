@@ -2,7 +2,7 @@
 using Grayscale.A060_Application.B110_Log________.C___500_Struct;
 using Grayscale.A060_Application.B110_Log________.C500____Struct;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B320_ConvWords__.C500____Converter;
 using Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky;
 using Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter;
@@ -28,7 +28,7 @@ namespace Grayscale.A950_UnitTest___
 
 
 
-            Sky positionA = Util_SkyCreator.New_Hirate();
+            Position positionA = Util_SkyCreator.New_Hirate();
             Playerside psideA_init = Playerside.P1;
 
             // 盤面をログ出力したいぜ☆

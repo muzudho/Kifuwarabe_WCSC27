@@ -7,13 +7,13 @@ using System.Collections.Generic;
 namespace Grayscale.A210_KnowNingen_.B170_WordShogi__.C250____Masu
 {
     /// <summary>
-    /// 駒を置ける場所２０１箇所だぜ☆
+    /// 駒を置ける場所だぜ☆
     /// 
     /// 将棋盤０～８０。（計８１マス）
-    /// 先手駒台８１～１２０。（計４０マス）
-    /// 後手駒台１２１～１６０。（計４０マス）
-    /// 駒袋１６１～２００。（計４０マス）
-    /// エラー２０１。
+    /// 先手駒台
+    /// 後手駒台
+    /// 駒袋
+    /// エラー
     /// 
     /// int型にキャストして使うんだぜ☆
     /// </summary>
@@ -329,133 +329,16 @@ namespace Grayscale.A210_KnowNingen_.B170_WordShogi__.C250____Masu
                 Masu_Honshogi.Query_Basho(Masu_Honshogi.nban11_１一+80),//[80]９九
 
                 //先手駒台
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+0),//[81]
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+1),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+2),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+3),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+4),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+5),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+6),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+7),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+8),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+9),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+10),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+11),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+12),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+13),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+14),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+15),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+16),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+17),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+18),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+19),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+20),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+21),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+22),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+23),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+24),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+25),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+26),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+27),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+28),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+29),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+30),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+31),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+32),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+33),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+34),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+35),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+36),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+37),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+38),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nsen01+39),
+                Masu_Honshogi.Query_Basho(Masu_Honshogi.nSenteKomadai),
 
                 //後手駒台
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+0),//[121]
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+1),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+2),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+3),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+4),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+5),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+6),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+7),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+8),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+9),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+10),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+11),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+12),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+13),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+14),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+15),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+16),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+17),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+18),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+19),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+20),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+21),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+22),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+23),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+24),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+25),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+26),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+27),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+28),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+29),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+30),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+31),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+32),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+33),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+34),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+35),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+36),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+37),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+38),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.ngo01+39),
+                Masu_Honshogi.Query_Basho(Masu_Honshogi.nGoteKomadai),
 
                 //駒袋
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+0),//[161] fukuro01
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+1),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+2),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+3),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+4),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+5),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+6),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+7),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+8),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+9),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+10),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+11),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+12),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+13),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+14),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+15),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+16),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+17),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+18),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+19),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+20),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+21),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+22),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+23),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+24),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+25),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+26),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+27),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+28),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+29),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+30),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+31),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+32),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+33),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+34),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+35),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+36),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+37),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+38),
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nfukuro01+39),
+                Masu_Honshogi.Query_Basho(Masu_Honshogi.nFukuro),
 
-                Masu_Honshogi.Query_Basho(Masu_Honshogi.nError)//[201]
-
+                //エラー用
+                Masu_Honshogi.Query_Basho(Masu_Honshogi.nError)
             };
 
             Masu_Honshogi.items_81 = new SyElement[81];
@@ -587,133 +470,16 @@ namespace Grayscale.A210_KnowNingen_.B170_WordShogi__.C250____Masu
 
 
         // 先手駒台
-        public const int nsen01 = Masu_Honshogi.nban99_９九 + 1;
-        public const int nsen02 = Masu_Honshogi.nsen01 + 1;
-        public const int nsen03 = Masu_Honshogi.nsen02 + 1;
-        public const int nsen04 = Masu_Honshogi.nsen03 + 1;
-        public const int nsen05 = Masu_Honshogi.nsen04 + 1;
-        public const int nsen06 = Masu_Honshogi.nsen05 + 1;
-        public const int nsen07 = Masu_Honshogi.nsen06 + 1;
-        public const int nsen08 = Masu_Honshogi.nsen07 + 1;
-        public const int nsen09 = Masu_Honshogi.nsen08 + 1;
-        public const int nsen10 = Masu_Honshogi.nsen09 + 1;
-        public const int nsen11 = Masu_Honshogi.nsen10 + 1;
-        public const int nsen12 = Masu_Honshogi.nsen11 + 1;
-        public const int nsen13 = Masu_Honshogi.nsen12 + 1;
-        public const int nsen14 = Masu_Honshogi.nsen13 + 1;
-        public const int nsen15 = Masu_Honshogi.nsen14 + 1;
-        public const int nsen16 = Masu_Honshogi.nsen15 + 1;
-        public const int nsen17 = Masu_Honshogi.nsen16 + 1;
-        public const int nsen18 = Masu_Honshogi.nsen17 + 1;
-        public const int nsen19 = Masu_Honshogi.nsen18 + 1;
-        public const int nsen20 = Masu_Honshogi.nsen19 + 1;
-        public const int nsen21 = Masu_Honshogi.nsen20 + 1;
-        public const int nsen22 = Masu_Honshogi.nsen21 + 1;
-        public const int nsen23 = Masu_Honshogi.nsen22 + 1;
-        public const int nsen24 = Masu_Honshogi.nsen23 + 1;
-        public const int nsen25 = Masu_Honshogi.nsen24 + 1;
-        public const int nsen26 = Masu_Honshogi.nsen25 + 1;
-        public const int nsen27 = Masu_Honshogi.nsen26 + 1;
-        public const int nsen28 = Masu_Honshogi.nsen27 + 1;
-        public const int nsen29 = Masu_Honshogi.nsen28 + 1;
-        public const int nsen30 = Masu_Honshogi.nsen29 + 1;
-        public const int nsen31 = Masu_Honshogi.nsen30 + 1;
-        public const int nsen32 = Masu_Honshogi.nsen31 + 1;
-        public const int nsen33 = Masu_Honshogi.nsen32 + 1;
-        public const int nsen34 = Masu_Honshogi.nsen33 + 1;
-        public const int nsen35 = Masu_Honshogi.nsen34 + 1;
-        public const int nsen36 = Masu_Honshogi.nsen35 + 1;
-        public const int nsen37 = Masu_Honshogi.nsen36 + 1;
-        public const int nsen38 = Masu_Honshogi.nsen37 + 1;
-        public const int nsen39 = Masu_Honshogi.nsen38 + 1;
-        public const int nsen40 = Masu_Honshogi.nsen39 + 1;
+        public const int nSenteKomadai = Masu_Honshogi.nban99_９九 + 1;
 
         // 後手駒台
-        public const int ngo01 = Masu_Honshogi.nsen40 + 1;
-        public const int ngo02 = Masu_Honshogi.ngo01 + 1;
-        public const int ngo03 = Masu_Honshogi.ngo02 + 1;
-        public const int ngo04 = Masu_Honshogi.ngo03 + 1;
-        public const int ngo05 = Masu_Honshogi.ngo04 + 1;
-        public const int ngo06 = Masu_Honshogi.ngo05 + 1;
-        public const int ngo07 = Masu_Honshogi.ngo06 + 1;
-        public const int ngo08 = Masu_Honshogi.ngo07 + 1;
-        public const int ngo09 = Masu_Honshogi.ngo08 + 1;
-        public const int ngo10 = Masu_Honshogi.ngo09 + 1;
-        public const int ngo11 = Masu_Honshogi.ngo10 + 1;
-        public const int ngo12 = Masu_Honshogi.ngo11 + 1;
-        public const int ngo13 = Masu_Honshogi.ngo12 + 1;
-        public const int ngo14 = Masu_Honshogi.ngo13 + 1;
-        public const int ngo15 = Masu_Honshogi.ngo14 + 1;
-        public const int ngo16 = Masu_Honshogi.ngo15 + 1;
-        public const int ngo17 = Masu_Honshogi.ngo16 + 1;
-        public const int ngo18 = Masu_Honshogi.ngo17 + 1;
-        public const int ngo19 = Masu_Honshogi.ngo18 + 1;
-        public const int ngo20 = Masu_Honshogi.ngo19 + 1;
-        public const int ngo21 = Masu_Honshogi.ngo20 + 1;
-        public const int ngo22 = Masu_Honshogi.ngo21 + 1;
-        public const int ngo23 = Masu_Honshogi.ngo22 + 1;
-        public const int ngo24 = Masu_Honshogi.ngo23 + 1;
-        public const int ngo25 = Masu_Honshogi.ngo24 + 1;
-        public const int ngo26 = Masu_Honshogi.ngo25 + 1;
-        public const int ngo27 = Masu_Honshogi.ngo26 + 1;
-        public const int ngo28 = Masu_Honshogi.ngo27 + 1;
-        public const int ngo29 = Masu_Honshogi.ngo28 + 1;
-        public const int ngo30 = Masu_Honshogi.ngo29 + 1;
-        public const int ngo31 = Masu_Honshogi.ngo30 + 1;
-        public const int ngo32 = Masu_Honshogi.ngo31 + 1;
-        public const int ngo33 = Masu_Honshogi.ngo32 + 1;
-        public const int ngo34 = Masu_Honshogi.ngo33 + 1;
-        public const int ngo35 = Masu_Honshogi.ngo34 + 1;
-        public const int ngo36 = Masu_Honshogi.ngo35 + 1;
-        public const int ngo37 = Masu_Honshogi.ngo36 + 1;
-        public const int ngo38 = Masu_Honshogi.ngo37 + 1;
-        public const int ngo39 = Masu_Honshogi.ngo38 + 1;
-        public const int ngo40 = Masu_Honshogi.ngo39 + 1;
+        public const int nGoteKomadai = Masu_Honshogi.nSenteKomadai + 1;
 
         // 駒袋
-        public const int nfukuro01 = Masu_Honshogi.ngo40 + 1;
-        public const int nfukuro02 = Masu_Honshogi.nfukuro01 + 1;
-        public const int nfukuro03 = Masu_Honshogi.nfukuro02 + 1;
-        public const int nfukuro04 = Masu_Honshogi.nfukuro03 + 1;
-        public const int nfukuro05 = Masu_Honshogi.nfukuro04 + 1;
-        public const int nfukuro06 = Masu_Honshogi.nfukuro05 + 1;
-        public const int nfukuro07 = Masu_Honshogi.nfukuro06 + 1;
-        public const int nfukuro08 = Masu_Honshogi.nfukuro07 + 1;
-        public const int nfukuro09 = Masu_Honshogi.nfukuro08 + 1;
-        public const int nfukuro10 = Masu_Honshogi.nfukuro09 + 1;
-        public const int nfukuro11 = Masu_Honshogi.nfukuro10 + 1;
-        public const int nfukuro12 = Masu_Honshogi.nfukuro11 + 1;
-        public const int nfukuro13 = Masu_Honshogi.nfukuro12 + 1;
-        public const int nfukuro14 = Masu_Honshogi.nfukuro13 + 1;
-        public const int nfukuro15 = Masu_Honshogi.nfukuro14 + 1;
-        public const int nfukuro16 = Masu_Honshogi.nfukuro15 + 1;
-        public const int nfukuro17 = Masu_Honshogi.nfukuro16 + 1;
-        public const int nfukuro18 = Masu_Honshogi.nfukuro17 + 1;
-        public const int nfukuro19 = Masu_Honshogi.nfukuro18 + 1;
-        public const int nfukuro20 = Masu_Honshogi.nfukuro19 + 1;
-        public const int nfukuro21 = Masu_Honshogi.nfukuro20 + 1;
-        public const int nfukuro22 = Masu_Honshogi.nfukuro21 + 1;
-        public const int nfukuro23 = Masu_Honshogi.nfukuro22 + 1;
-        public const int nfukuro24 = Masu_Honshogi.nfukuro23 + 1;
-        public const int nfukuro25 = Masu_Honshogi.nfukuro24 + 1;
-        public const int nfukuro26 = Masu_Honshogi.nfukuro25 + 1;
-        public const int nfukuro27 = Masu_Honshogi.nfukuro26 + 1;
-        public const int nfukuro28 = Masu_Honshogi.nfukuro27 + 1;
-        public const int nfukuro29 = Masu_Honshogi.nfukuro28 + 1;
-        public const int nfukuro30 = Masu_Honshogi.nfukuro29 + 1;
-        public const int nfukuro31 = Masu_Honshogi.nfukuro30 + 1;
-        public const int nfukuro32 = Masu_Honshogi.nfukuro31 + 1;
-        public const int nfukuro33 = Masu_Honshogi.nfukuro32 + 1;
-        public const int nfukuro34 = Masu_Honshogi.nfukuro33 + 1;
-        public const int nfukuro35 = Masu_Honshogi.nfukuro34 + 1;
-        public const int nfukuro36 = Masu_Honshogi.nfukuro35 + 1;
-        public const int nfukuro37 = Masu_Honshogi.nfukuro36 + 1;
-        public const int nfukuro38 = Masu_Honshogi.nfukuro37 + 1;
-        public const int nfukuro39 = Masu_Honshogi.nfukuro38 + 1;
-        public const int nfukuro40 = Masu_Honshogi.nfukuro39 + 1;
+        public const int nFukuro = Masu_Honshogi.nGoteKomadai + 1;
 
         // エラー用の升
-        public const int nError = Masu_Honshogi.nfukuro40 + 1;
+        public const int nError = Masu_Honshogi.nFukuro + 1;
 
 
 

@@ -6,8 +6,8 @@ using Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter;
 using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C250____Word;
 using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C500____Util;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C500____Struct;
 using Grayscale.A210_KnowNingen_.B310_Shogiban___.C500____Util;
 using Grayscale.A210_KnowNingen_.B410_SeizaFinger.C250____Struct;
 using Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter;
@@ -32,14 +32,14 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
         /// <param name="okiba"></param>
         /// <param name="kifuD"></param>
         /// <returns></returns>
-        public static Fingers InOkibaPsideNow(Sky src_Sky, Okiba okiba, Playerside pside)
+        public static Fingers InOkibaPsideNow(Position src_Sky, Okiba okiba, Playerside pside)
         {
             Fingers fingers = new Fingers();
 
             src_Sky.Foreach_Busstops((Finger finger, Busstop koma, ref bool toBreak) =>
             {
-                if (Conv_Busstop.ToOkiba(koma) == okiba
-                    && Conv_Busstop.ToPlayerside(koma)== pside
+                if (Conv_Busstop.GetOkiba(koma) == okiba
+                    && Conv_Busstop.GetPlayerside(koma)== pside
                     )
                 {
                     fingers.Add(finger);
@@ -60,7 +60,7 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
         /// <param name="syurui"></param>
         /// <param name="hKomas"></param>
         /// <returns></returns>
-        public static Fingers InKomasyuruiNow(Sky src_Sky, Komasyurui14 syurui, KwLogger errH)
+        public static Fingers InKomasyuruiNow(Position src_Sky, Komasyurui14 syurui, KwLogger errH)
         {
             Fingers figKomas = new Fingers();
 
@@ -70,7 +70,7 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
                 Busstop koma = src_Sky.BusstopIndexOf(figKoma);
 
 
-                if (Util_Komasyurui14.Matches(syurui, Conv_Busstop.ToKomasyurui(koma)))
+                if (Util_Komasyurui14.Matches(syurui, Conv_Busstop.GetKomasyurui(koma)))
                 {
                     figKomas.Add(figKoma);
                 }
@@ -88,7 +88,7 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
         /// <param name="syurui"></param>
         /// <param name="kifu"></param>
         /// <returns></returns>
-        public static Fingers InOkibaKomasyuruiNow(Sky src_Sky, Okiba okiba, Komasyurui14 syurui)
+        public static Fingers InOkibaKomasyuruiNow(Position src_Sky, Okiba okiba, Komasyurui14 syurui)
         {
             Fingers komas = new Fingers();
 
@@ -99,8 +99,8 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
 
 
                 if (
-                    okiba == Conv_Busstop.ToOkiba(koma)
-                    && Util_Komasyurui14.Matches(syurui, Conv_Busstop.ToKomasyurui( koma))
+                    okiba == Conv_Busstop.GetOkiba(koma)
+                    && Util_Komasyurui14.Matches(syurui, Conv_Busstop.GetKomasyurui( koma))
                     )
                 {
                     komas.Add(figKoma);
@@ -120,16 +120,16 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
         /// <param name="pside">先後サイド。</param>
         /// <param name="komaSyurui">駒の種類。</param>
         /// <returns></returns>
-        public static Fingers InOkibaPsideKomasyuruiNow(Sky src_Sky, Okiba okiba, Playerside pside, Komasyurui14 komaSyurui)
+        public static Fingers InOkibaPsideKomasyuruiNow(Position src_Sky, Okiba okiba, Playerside pside, Komasyurui14 komaSyurui)
         {
             Fingers fingers = new Fingers();
 
             src_Sky.Foreach_Busstops((Finger finger, Busstop koma, ref bool toBreak) =>
             {
                 if (
-                    okiba == Conv_Busstop.ToOkiba(koma)
-                    && pside == Conv_Busstop.ToPlayerside( koma)
-                    && komaSyurui == Conv_Busstop.ToKomasyurui( koma)
+                    okiba == Conv_Busstop.GetOkiba(koma)
+                    && pside == Conv_Busstop.GetPlayerside( koma)
+                    && komaSyurui == Conv_Busstop.GetKomasyurui( koma)
                     )
                 {
                     fingers.Add(finger);
@@ -149,7 +149,7 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
         /// <param name="masu">マス番号</param>
         /// <param name="logTag">ログ名</param>
         /// <returns>スプライト番号。なければエラー番号。</returns>
-        public static Fingers InMasuNow_Old(Sky positionA, SyElement masu)
+        public static Fingers InMasuNow_Old(Position positionA, SyElement masu)
         {
             // １個入る。
             Fingers found = new Fingers();
@@ -158,7 +158,7 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
             {
                 Busstop koma = Util_Koma.FromFinger(positionA, finger);
 
-                if (Masu_Honshogi.Basho_Equals(Conv_Busstop.ToMasu( koma), masu))
+                if (Masu_Honshogi.Basho_Equals(Conv_Busstop.GetMasu( koma), masu))
                 {
                     found.Add(finger);
                 }
@@ -177,7 +177,7 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
         /// <param name="masu">マス番号</param>
         /// <param name="logTag">ログ名</param>
         /// <returns>スプライト番号。なければエラー番号。</returns>
-        public static Fingers InMasuNow_New(Sky positionA, Move move, KwLogger logger)
+        public static Fingers InMasuNow_New(Position positionA, Move move, KwLogger logger)
         {
             //Komasyurui14 ks14_move = Conv_Move.ToSrcKomasyurui(move);
             bool drop = Conv_Move.ToDrop(move);
@@ -217,7 +217,7 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
                 {
                     Busstop koma = Util_Koma.FromFinger(positionA, finger);
 
-                    if (Masu_Honshogi.Basho_Equals(Conv_Busstop.ToMasu( koma), srcMasu))
+                    if (Masu_Honshogi.Basho_Equals(Conv_Busstop.GetMasu( koma), srcMasu))
                     {
                         foundList.Add(finger);
                     }
@@ -286,7 +286,7 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
         /// <param name="kifu"></param>
         /// <param name="okiba"></param>
         /// <returns></returns>
-        public static Fingers InOkibaNow(Sky src_Sky, Okiba okiba, KwLogger errH)
+        public static Fingers InOkibaNow(Position src_Sky, Okiba okiba, KwLogger errH)
         {
             Fingers komas = new Fingers();
 
@@ -295,7 +295,7 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
                 src_Sky.AssertFinger(figKoma);
                 Busstop koma = src_Sky.BusstopIndexOf(figKoma);
 
-                if (okiba == Conv_Busstop.ToOkiba(koma))
+                if (okiba == Conv_Busstop.GetOkiba(koma))
                 {
                     komas.Add(figKoma);
                 }
@@ -312,13 +312,13 @@ namespace Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky
         /// <param name="pside"></param>
         /// <param name="hKomas"></param>
         /// <returns></returns>
-        public static Fingers InPsideNow(Sky src_Sky, Playerside pside, KwLogger errH)
+        public static Fingers InPsideNow(Position src_Sky, Playerside pside, KwLogger errH)
         {
             Fingers fingers = new Fingers();
 
             src_Sky.Foreach_Busstops((Finger finger, Busstop koma, ref bool toBreak) =>
             {
-                if (pside == Conv_Busstop.ToPlayerside( koma))
+                if (pside == Conv_Busstop.GetPlayerside( koma))
                 {
                     fingers.Add(finger);
                 }

@@ -3,7 +3,7 @@ using Grayscale.A060_Application.B520_Syugoron___.C___250_Struct;
 using Grayscale.A210_KnowNingen_.B170_WordShogi__.C250____Masu;
 using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 using Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C500____Struct;
 using Grayscale.A210_KnowNingen_.B310_Shogiban___.C250____Struct;
 using Grayscale.A210_KnowNingen_.B310_Shogiban___.C500____Util;
 using Grayscale.A210_KnowNingen_.B410_SeizaFinger.C250____Struct;
@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using Finger = ProjectDark.NamedInt.StrictNamedInt0; //スプライト番号
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
 
 namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
 {
@@ -27,7 +27,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
             if (0 < shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside.Temezumi)
             {
                 // 処理の順序が悪く、初回はうまく判定できない。
-                Sky positionA = shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside;
+                Position positionA = shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside;
                 Playerside psideA = shogibanGui.OwnerConsole.Link_Server.Storage.Grand1.KifuTree.GetNextPside();
 
 
@@ -47,9 +47,9 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C249____Function
 
 
                     if (
-                        Okiba.ShogiBan == Conv_Busstop.ToOkiba(koma)
+                        Okiba.ShogiBan == Conv_Busstop.GetOkiba(koma)
                         &&
-                        psideA != Conv_Busstop.ToPlayerside( koma)
+                        psideA != Conv_Busstop.GetPlayerside( koma)
                         )
                     {
                         // 駒の利き

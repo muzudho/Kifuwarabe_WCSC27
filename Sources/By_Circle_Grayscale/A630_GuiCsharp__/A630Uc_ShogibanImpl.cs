@@ -6,7 +6,7 @@ using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C500____Util;
 using Grayscale.A210_KnowNingen_.B200_ConvMasu___.C500____Conv;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C500____Struct;
 using Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky;
 using Grayscale.A210_KnowNingen_.B640_KifuTree___.C250____Struct;
 using Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter;
@@ -28,7 +28,7 @@ using System.Text;
 using System.Windows.Forms;
 using Finger = ProjectDark.NamedInt.StrictNamedInt0; //スプライト番号
 using Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct;
 
 #if DEBUG
@@ -144,7 +144,7 @@ namespace Grayscale.A630_GuiCsharp__
             //      平手に並べます。
             //
             {
-                Sky positionInit = Util_SkyCreator.New_Hirate();//起動直後
+                Position positionInit = Util_SkyCreator.New_Hirate();//起動直後
                 this.ShogibanGui.OwnerConsole.Link_Server.Storage.Earth.Clear();
 
                 // 棋譜を空っぽにします。
@@ -525,16 +525,16 @@ namespace Grayscale.A630_GuiCsharp__
             sb.AppendLine("        <div style=\"margin-top:10px; width:30px;\">");
             sb.Append("            ");
 
-            Sky siteiSky = shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside;
+            Position siteiSky = shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside;
 
             //────────────────────────────────────────
             // 持ち駒（後手）
             //────────────────────────────────────────
             siteiSky.Foreach_Busstops((Finger finger, Busstop koma, ref bool toBreak) =>
             {
-                if (Conv_Busstop.ToOkiba(koma) == Okiba.Gote_Komadai)
+                if (Conv_Busstop.GetOkiba(koma) == Okiba.Gote_Komadai)
                 {
-                    sb.Append(Util_Komasyurui14.Fugo[(int)Conv_Busstop.ToKomasyurui(koma)]);
+                    sb.Append(Util_Komasyurui14.Fugo[(int)Conv_Busstop.GetKomasyurui(koma)]);
                 }
             });
 
@@ -557,36 +557,36 @@ namespace Grayscale.A630_GuiCsharp__
                     {
                         int suji2;
                         int dan2;
-                        Okiba okiba = Conv_Masu.ToOkiba(Conv_Busstop.ToMasu(koma2));
+                        Okiba okiba = Conv_Masu.ToOkiba(Conv_Busstop.GetMasu(koma2));
                         if (okiba == Okiba.ShogiBan)
                         {
-                            Conv_Masu.ToSuji_FromBanjoMasu(Conv_Busstop.ToMasu(koma2), out suji2);
-                            Conv_Masu.ToDan_FromBanjoMasu(Conv_Busstop.ToMasu(koma2), out dan2);
+                            Conv_Masu.ToSuji_FromBanjoMasu(Conv_Busstop.GetMasu(koma2), out suji2);
+                            Conv_Masu.ToDan_FromBanjoMasu(Conv_Busstop.GetMasu(koma2), out dan2);
                         }
                         else
                         {
-                            Conv_Masu.ToSuji_FromBangaiMasu(Conv_Busstop.ToMasu(koma2), out suji2);
-                            Conv_Masu.ToDan_FromBangaiMasu(Conv_Busstop.ToMasu(koma2), out dan2);
+                            Conv_Masu.ToSuji_FromBangaiMasu(Conv_Busstop.GetMasu(koma2), out suji2);
+                            Conv_Masu.ToDan_FromBangaiMasu(Conv_Busstop.GetMasu(koma2), out dan2);
                         }
 
 
                         if (
-                            Conv_Busstop.ToOkiba(koma2) == Okiba.ShogiBan //盤上
+                            Conv_Busstop.GetOkiba(koma2) == Okiba.ShogiBan //盤上
                             && suji2 == suji
                             && dan2 == dan
                         )
                         {
-                            if (Playerside.P2 == Conv_Busstop.ToPlayerside( koma2))
+                            if (Playerside.P2 == Conv_Busstop.GetPlayerside( koma2))
                             {
                                 sb.Append("<td><span class=\"koma2x\">");
-                                sb.Append(Util_Komasyurui14.Fugo[(int)Conv_Busstop.ToKomasyurui(koma2)]);
+                                sb.Append(Util_Komasyurui14.Fugo[(int)Conv_Busstop.GetKomasyurui(koma2)]);
                                 sb.Append("</span></td>");
                                 isSpace = false;
                             }
                             else
                             {
                                 sb.Append("<td><span class=\"koma1x\">");
-                                sb.Append(Util_Komasyurui14.Fugo[(int)Conv_Busstop.ToKomasyurui(koma2)]);
+                                sb.Append(Util_Komasyurui14.Fugo[(int)Conv_Busstop.GetKomasyurui(koma2)]);
                                 sb.Append("</span></td>");
                                 isSpace = false;
                             }
@@ -616,9 +616,9 @@ namespace Grayscale.A630_GuiCsharp__
 
             siteiSky.Foreach_Busstops((Finger finger, Busstop koma, ref bool toBreak) =>
             {
-                if (Conv_Busstop.ToOkiba(koma) == Okiba.Sente_Komadai)
+                if (Conv_Busstop.GetOkiba(koma) == Okiba.Sente_Komadai)
                 {
-                    sb.Append(Util_Komasyurui14.Fugo[(int)Conv_Busstop.ToKomasyurui(koma)]);
+                    sb.Append(Util_Komasyurui14.Fugo[(int)Conv_Busstop.GetKomasyurui(koma)]);
                 }
             });
 

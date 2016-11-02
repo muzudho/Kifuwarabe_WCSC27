@@ -9,7 +9,7 @@ using System.Text;
 using Grayscale.A120_KifuSfen___.B140_SfenStruct_.C___250_Struct;
 using Grayscale.A210_KnowNingen_.B200_ConvMasu___.C500____Conv;
 using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C250____Word;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter;
 
 namespace Grayscale.A210_KnowNingen_.B320_ConvWords__.C500____Converter
@@ -19,7 +19,7 @@ namespace Grayscale.A210_KnowNingen_.B320_ConvWords__.C500____Converter
     /// </summary>
     public abstract class Conv_Shogiban
     {
-        public static string ToLog_Type2(ShogibanImpl shogiban, Sky sky, Move move)
+        public static string ToLog_Type2(ShogibanImpl shogiban, Position sky, Move move)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -62,8 +62,8 @@ namespace Grayscale.A210_KnowNingen_.B320_ConvWords__.C500____Converter
                     {
                         Busstop koma = shogiban.GetBanjoKomaFromMasu(masuNumber);
                         string errorMessage = shogiban.GetErrorMessage(masuNumber);
-                        Komasyurui14 ks = Conv_Busstop.ToKomasyurui(koma);
-                        Playerside pside = Conv_Busstop.ToPlayerside(koma);
+                        Komasyurui14 ks = Conv_Busstop.GetKomasyurui(koma);
+                        Playerside pside = Conv_Busstop.GetPlayerside(koma);
 
                         if (Playerside.P1 == pside)
                         {
@@ -146,13 +146,13 @@ namespace Grayscale.A210_KnowNingen_.B320_ConvWords__.C500____Converter
                     }
 
                     // 駒の種類だけだと先手ゴマになってしまう。先後も判定した。
-                    switch(Conv_Busstop.ToPlayerside( koma))
+                    switch(Conv_Busstop.GetPlayerside( koma))
                     {
                         case Playerside.P1:
-                            sb.Append(Util_Komasyurui14.Sfen1P[(int)Conv_Busstop.ToKomasyurui( koma)]);
+                            sb.Append(Util_Komasyurui14.Sfen1P[(int)Conv_Busstop.GetKomasyurui( koma)]);
                             break;
                         case Playerside.P2:
-                            sb.Append(Util_Komasyurui14.Sfen2P[(int)Conv_Busstop.ToKomasyurui(koma)]);
+                            sb.Append(Util_Komasyurui14.Sfen2P[(int)Conv_Busstop.GetKomasyurui(koma)]);
                             break;
                         default:
                             throw new Exception("ない手番");

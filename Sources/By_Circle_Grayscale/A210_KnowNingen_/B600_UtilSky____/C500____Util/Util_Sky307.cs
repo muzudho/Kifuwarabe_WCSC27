@@ -4,7 +4,7 @@ using Grayscale.A210_KnowNingen_.B130_Json_______.C500____Struct;
 using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 using Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C500____Struct;
 using Grayscale.A210_KnowNingen_.B310_Shogiban___.C250____Struct;
 using Grayscale.A210_KnowNingen_.B350_SfenTransla.C500____Util;
 using Grayscale.A210_KnowNingen_.B420_UtilSky258_.C505____ConvLogJson;
@@ -12,7 +12,7 @@ using Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter;
 using System.Diagnostics;
 using System.Text;
 using Finger = ProjectDark.NamedInt.StrictNamedInt0; //フィンガー番号
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B320_ConvWords__.C500____Converter;
 using Grayscale.A060_Application.B110_Log________.C___500_Struct;
 
@@ -21,7 +21,7 @@ namespace Grayscale.A210_KnowNingen_.B600_UtilSky____.C500____Util
     public abstract class Util_Sky307
     {
 
-        public static SfenstringImpl ExportSfen(Playerside psideA, Sky positionA,KwLogger errH)
+        public static SfenstringImpl ExportSfen(Playerside psideA, Position positionA,KwLogger errH)
         {
             Debug.Assert(positionA.Count == 40, "sky.Starlights.Count=[" + positionA.Count + "]");//将棋の駒の数
 
@@ -30,7 +30,7 @@ namespace Grayscale.A210_KnowNingen_.B600_UtilSky____.C500____Util
         }
 
         public static SfenstringImpl ExportSfen_ForDebug(
-            Playerside psideA, Sky positionA, bool psideIsBlack, KwLogger logger)
+            Playerside psideA, Position positionA, bool psideIsBlack, KwLogger logger)
         {
             return new SfenstringImpl("sfen " + Util_StartposExporter.ToSfenstring(
                 Conv_Position.ToShogiban(psideA, positionA, logger), true));
@@ -40,7 +40,7 @@ namespace Grayscale.A210_KnowNingen_.B600_UtilSky____.C500____Util
         /// ログが多くなるので、１行で出力されるようにします。
         /// </summary>
         /// <returns></returns>
-        public static Json_Val ToJsonVal(Sky src_Sky)
+        public static Json_Val ToJsonVal(Position src_Sky)
         {
             Json_Obj obj = new Json_Obj();
 
@@ -66,7 +66,7 @@ namespace Grayscale.A210_KnowNingen_.B600_UtilSky____.C500____Util
         /// 「グラフィカル局面ログ」出力用だぜ☆
         /// </summary>
         public static string Json_1Sky(
-            Sky src_Sky,
+            Position src_Sky,
             string memo,
             string hint,
             int temezumi_yomiGenTeban_forLog//読み進めている現在の手目済
@@ -102,22 +102,22 @@ namespace Grayscale.A210_KnowNingen_.B600_UtilSky____.C500____Util
             // 全駒
             src_Sky.Foreach_Busstops((Finger finger, Busstop koma, ref bool toBreak) =>
             {
-                if (Conv_Busstop.ToOkiba(koma) == Okiba.Gote_Komadai)
+                if (Conv_Busstop.GetOkiba(koma) == Okiba.Gote_Komadai)
                 {
                     // 後手持ち駒
-                    sb.AppendLine("    { act:\"drawImg\", img:\"" + Util_Converter_LogGraphicEx.PsideKs14_ToString(Conv_Busstop.ToPlayerside( koma), Conv_Busstop.ToKomasyurui( koma), "") + "\", masu: " + hMasu_gote + " },");//FIXME: \記号が入ってなければいいが☆
+                    sb.AppendLine("    { act:\"drawImg\", img:\"" + Util_Converter_LogGraphicEx.PsideKs14_ToString(Conv_Busstop.GetPlayerside( koma), Conv_Busstop.GetKomasyurui( koma), "") + "\", masu: " + hMasu_gote + " },");//FIXME: \記号が入ってなければいいが☆
                     hMasu_gote++;
                 }
-                else if (Conv_Busstop.ToOkiba(koma) == Okiba.Sente_Komadai)
+                else if (Conv_Busstop.GetOkiba(koma) == Okiba.Sente_Komadai)
                 {
                     // 先手持ち駒
-                    sb.AppendLine("    { act:\"drawImg\", img:\"" + Util_Converter_LogGraphicEx.PsideKs14_ToString(Conv_Busstop.ToPlayerside(koma), Conv_Busstop.ToKomasyurui(koma), "") + "\", masu: " + hMasu_sente + " },");//FIXME: \記号が入ってなければいいが☆
+                    sb.AppendLine("    { act:\"drawImg\", img:\"" + Util_Converter_LogGraphicEx.PsideKs14_ToString(Conv_Busstop.GetPlayerside(koma), Conv_Busstop.GetKomasyurui(koma), "") + "\", masu: " + hMasu_sente + " },");//FIXME: \記号が入ってなければいいが☆
                     hMasu_sente++;
                 }
-                else if (Conv_Busstop.ToOkiba(koma) == Okiba.ShogiBan)
+                else if (Conv_Busstop.GetOkiba(koma) == Okiba.ShogiBan)
                 {
                     // 盤上
-                    sb.AppendLine("    { act:\"drawImg\", img:\"" + Util_Converter_LogGraphicEx.PsideKs14_ToString(Conv_Busstop.ToPlayerside(koma), Conv_Busstop.ToKomasyurui(koma), "") + "\", masu: " + Conv_Masu.ToMasuHandle( Conv_Busstop.ToMasu( koma)) + " },");//FIXME: \記号が入ってなければいいが☆
+                    sb.AppendLine("    { act:\"drawImg\", img:\"" + Util_Converter_LogGraphicEx.PsideKs14_ToString(Conv_Busstop.GetPlayerside(koma), Conv_Busstop.GetKomasyurui(koma), "") + "\", masu: " + Conv_Masu.ToMasuHandle( Conv_Busstop.GetMasu( koma)) + " },");//FIXME: \記号が入ってなければいいが☆
                 }
 
                 hKoma++;

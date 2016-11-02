@@ -7,10 +7,11 @@ using Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA;
 using Grayscale.A210_KnowNingen_.B740_KifuParserA.C___500_Parser;
 using System;
 using System.Runtime.CompilerServices;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct;
 using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C500____Struct;
 
 namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
 {
@@ -74,8 +75,10 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
                     out nextState,
                     this,
                     genjo, logger);
-                if (MoveNodeType.Clear == moveNodeType)
+                if (MoveNodeType.Startpos == moveNodeType)//Execute_Step_CurrentMutable
                 {
+                    // ここは通らないぜ☆（＾～＾）？
+                    logger.AppendLine("局面のクリアー命令☆（＾▽＾）Execute_Step_CurrentMutable");
                     earth1.Clear();
 
                     // 棋譜を空っぽにします。
@@ -162,9 +165,11 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
                         out nextState,
                         this,
                         genjo, logger);
-                    if (MoveNodeType.Clear == moveNodeType)
+                    if (MoveNodeType.Startpos == moveNodeType)//Execute_All_CurrentMutable
                     {
-                        Sky positionInit = Util_SkyCreator.New_Hirate();
+                        // ここはよく通るぜ☆（＾▽＾）
+                        logger.AppendLine("局面のクリアー命令☆（＾▽＾）Execute_All_CurrentMutable");
+                        Position positionInit = Util_SkyCreator.New_Hirate();
                         earth1.Clear();
 
                         // 棋譜を空っぽにします。

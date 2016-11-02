@@ -1,7 +1,7 @@
 ﻿using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C500____Struct;
 using Finger = ProjectDark.NamedInt.StrictNamedInt0; //フィンガー番号
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
 
 namespace Grayscale.A210_KnowNingen_.B310_Shogiban___.C500____Util
 {
@@ -24,7 +24,7 @@ namespace Grayscale.A210_KnowNingen_.B310_Shogiban___.C500____Util
 
 
 
-        public static Busstop FromFinger(Sky src_Sky,Finger finger)
+        public static Busstop FromFinger(Position src_Sky,Finger finger)
         {
             src_Sky.AssertFinger(finger);
             return src_Sky.BusstopIndexOf(finger);

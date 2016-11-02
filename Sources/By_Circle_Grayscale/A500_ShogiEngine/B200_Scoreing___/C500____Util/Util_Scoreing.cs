@@ -1,7 +1,7 @@
 ﻿using Grayscale.A060_Application.B110_Log________.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 using Grayscale.A210_KnowNingen_.B245_ConvScore__.C___500_ConvScore;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B320_ConvWords__.C500____Converter;
 using Grayscale.A500_ShogiEngine.B180_Hyokakansu_.C___500_Hyokakansu;
 using Grayscale.A500_ShogiEngine.B180_Hyokakansu_.C500____Hyokakansu;
@@ -31,7 +31,7 @@ namespace Grayscale.A500_ShogiEngine.B200_Scoreing___.C500____Util
         /// </summary>
         public static float DoScoreing_Kyokumen(
             Playerside psideA,
-            Sky positionA,
+            Position positionA,
 
             EvaluationArgs args,
             KwLogger logger

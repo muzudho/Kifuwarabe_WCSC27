@@ -2,7 +2,7 @@
 using Grayscale.A060_Application.B110_Log________.C500____Struct;
 using Grayscale.A090_UsiFramewor.B500_usiFramewor.C550____Flow;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct;
 using Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky;
@@ -39,7 +39,7 @@ namespace P930_SampleGame
 
             // 棋譜
             Earth earth1 = new EarthImpl();
-            Sky positionA = Util_SkyCreator.New_Hirate();//日本の符号読取時;
+            Position positionA = Util_SkyCreator.New_Hirate();//日本の符号読取時;
             Grand kifu1 = new GrandImpl(positionA);
 
             YomisujiInfo yomisujiInfo = new YomisujiInfoImpl();

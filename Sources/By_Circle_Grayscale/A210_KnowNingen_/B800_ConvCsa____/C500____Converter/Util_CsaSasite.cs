@@ -8,7 +8,7 @@ using Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter;
 using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C250____Word;
 using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C500____Util;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky;
 using Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter;
 using System.Diagnostics;
@@ -106,7 +106,7 @@ namespace Grayscale.A210_KnowNingen_.B800_ConvCsa____.C500____Converter
         /// <param name="csa"></param>
         /// <param name="ittemae_Sky">1手前の局面。ルート局面などの理由で１手前の局面がない場合はヌル。</param>
         /// <returns></returns>
-        public static string ToSfen(CsaKifuSasite csa, Sky ittemae_Sky_orNull)
+        public static string ToSfen(CsaKifuSasite csa, Position ittemae_Sky_orNull)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -184,7 +184,7 @@ namespace Grayscale.A210_KnowNingen_.B800_ConvCsa____.C500____Converter
                     Busstop srcKoma = Util_Sky_KomaQuery.InMasuNow(ittemae_Sky_orNull, srcMasu);
                     Debug.Assert(Busstop.Empty!= srcKoma,"元位置の駒を取得できなかった。1");
 
-                    if (!Util_Komasyurui14.IsNari(Conv_Busstop.ToKomasyurui( srcKoma)) && nari)//移動元で「成り」でなかった駒が、移動後に「成駒」になっていた場合。
+                    if (!Util_Komasyurui14.IsNari(Conv_Busstop.GetKomasyurui( srcKoma)) && nari)//移動元で「成り」でなかった駒が、移動後に「成駒」になっていた場合。
                     {
                         sb.Append("+");
                     }

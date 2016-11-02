@@ -1,4 +1,4 @@
-﻿using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+﻿using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
 using Grayscale.A450_Server_____.B110_Server_____.C___497_EngineClient;
 using Grayscale.A450_Server_____.B110_Server_____.C___498_Server;
 using Grayscale.A450_Server_____.B110_Server_____.C497____EngineClient;
@@ -12,7 +12,7 @@ namespace Grayscale.A450_Server_____.B110_Server_____.C498____Server
     {
         public const int CLIENT_SIZE = 3;
 
-        public Server_Impl(Sky positionA)
+        public Server_Impl(Position positionA)
         {
             this.Storage = new ServersideStorage_Impl(positionA);
             this.m_clients = new EngineClient[Server_Impl.CLIENT_SIZE];

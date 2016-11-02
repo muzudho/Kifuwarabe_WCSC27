@@ -2,7 +2,7 @@
 namespace Grayscale.A120_KifuSfen___.B140_SfenStruct_.C___250_Struct
 {
 
-    public delegate void DELEGATE_Masu201(int masuHandle, string masuString, ref bool toBreak);
+    public delegate void DELEGATE_Masu81(int masuHandle, string masuString, ref bool toBreak);
 
     /// <summary>
     /// 「position sfen ～ moves」の、「sfen ～」の部分を読み込んだあとの、局面情報。
@@ -16,7 +16,7 @@ namespace Grayscale.A120_KifuSfen___.B140_SfenStruct_.C___250_Struct
 
         RO_Kyokumen1_ForFormat ToKyokumen1();
 
-        void Foreach_Masu201(DELEGATE_Masu201 delegate_method);
+        void Foreach_Masu81(DELEGATE_Masu81 delegate_method);
 
         string GetKomaAs(int suji, int dan);
 

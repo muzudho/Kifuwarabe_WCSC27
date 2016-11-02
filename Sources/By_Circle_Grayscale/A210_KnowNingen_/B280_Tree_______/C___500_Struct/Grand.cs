@@ -1,5 +1,5 @@
 ﻿using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
 
 namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct
 {
@@ -24,8 +24,8 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct
         /// </summary>
         /// <param name="sky"></param>
         /// <returns></returns>
-        void MoveEx_OnEditCurrent( Sky sky);
-        Sky PositionA { get; }
-        void SetPositionA(Sky positionA);
+        void MoveEx_OnEditCurrent( Position sky);
+        Position PositionA { get; }
+        void SetPositionA(Position positionA);
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Grayscale.A060_Application.B110_Log________.C___500_Struct;
 using Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C___500_Gui;
 using System.Windows.Forms;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 
 namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C___081_Canvas
@@ -20,7 +20,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C___081_Canvas
             object sender,
             PaintEventArgs e,
             Playerside psideA,
-            Sky positionA,
+            Position positionA,
             ServersideShogibanGui_Csharp shogiGui,
             string windowName,
             KwLogger errH

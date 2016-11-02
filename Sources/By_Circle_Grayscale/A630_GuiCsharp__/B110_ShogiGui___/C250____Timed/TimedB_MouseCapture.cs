@@ -7,8 +7,8 @@ using Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter;
 using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C250____Word;
 using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C500____Util;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C500____Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct;
 using Grayscale.A210_KnowNingen_.B320_ConvWords__.C500____Converter;
@@ -63,7 +63,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
             //kikiZukei.DebugWrite("駒の利きLv1");
 
             // 味方の駒
-            Sky positionA = shogibanGui.OwnerConsole.Link_Server.Storage.Grand1.PositionA;
+            Position positionA = shogibanGui.OwnerConsole.Link_Server.Storage.Grand1.PositionA;
             Playerside psideA = shogibanGui.OwnerConsole.Link_Server.Storage.Grand1.KifuTree.GetNextPside();
 
             SySet<SyElement> mikataZukei = Util_Sky_SyugoQuery.Masus_Now(
@@ -127,7 +127,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                         }
                                         bMouseMove_SceneB_1TumamitaiKoma = true;
 
-                                        Sky src_Sky = shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside;
+                                        Position src_Sky = shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside;
 
                                         Point mouse = eventState.MouseLocation;
 
@@ -181,7 +181,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                                 src_Sky.AssertFinger(btnKoma.Koma);
                                                 Busstop koma = src_Sky.BusstopIndexOf(btnKoma.Koma);
 
-                                                if (Okiba.ShogiBan == Conv_Busstop.ToOkiba(koma))
+                                                if (Okiba.ShogiBan == Conv_Busstop.GetOkiba(koma))
                                                 {
                                                     // マウスオーバーした駒の利き
                                                     TimedB_MouseCapture.Check_MouseoverKomaKiki(shogibanGui, btnKoma.Koma, eventState.Flg_logTag);
@@ -215,7 +215,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                     {
                                         #region マウス左ボタンダウン
                                         SceneName nextPhaseB = SceneName.Ignore;
-                                        Sky src_Sky = shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside;
+                                        Position src_Sky = shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside;
 
                                         //----------
                                         // 駒
@@ -307,7 +307,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                 case MouseEventStateName.MouseLeftButtonUp:
                                     {
                                         #region マウス左ボタンアップ
-                                        Sky src_GuiSky = shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside;
+                                        Position src_GuiSky = shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside;
 
                                         //----------
                                         // 将棋盤：升目
@@ -358,7 +358,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                                 Busstop koma1 = src_GuiSky.BusstopIndexOf(btnKoma.Koma);
 
 
-                                                if (Okiba.ShogiBan == Conv_Busstop.ToOkiba(koma1))
+                                                if (Okiba.ShogiBan == Conv_Busstop.GetOkiba(koma1))
                                                 {
                                                     //----------
                                                     // 移動済表示
@@ -378,19 +378,19 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                                     System.Diagnostics.Debug.Assert(Busstop.Empty != srcStarlight, "komaStarlightがヌル");
 
                                                     Move move = Conv_Move.ToMove(
-                                                        Conv_Busstop.ToMasu(dstStarlight),
-                                                        Conv_Busstop.ToMasu(srcStarlight),
-                                                        Conv_Busstop.ToKomasyurui(dstStarlight),
-                                                        Conv_Busstop.ToKomasyurui(srcStarlight),//これで成りかどうか判定
-                                                        shogibanGui.Shape_PnlTaikyoku.MousePos_FoodKoma != Busstop.Empty ? Conv_Busstop.ToKomasyurui( shogibanGui.Shape_PnlTaikyoku.MousePos_FoodKoma) : Komasyurui14.H00_Null___,
-                                                        Conv_Busstop.ToPlayerside(dstStarlight),
+                                                        Conv_Busstop.GetMasu(dstStarlight),
+                                                        Conv_Busstop.GetMasu(srcStarlight),
+                                                        Conv_Busstop.GetKomasyurui(dstStarlight),
+                                                        Conv_Busstop.GetKomasyurui(srcStarlight),//これで成りかどうか判定
+                                                        shogibanGui.Shape_PnlTaikyoku.MousePos_FoodKoma != Busstop.Empty ? Conv_Busstop.GetKomasyurui( shogibanGui.Shape_PnlTaikyoku.MousePos_FoodKoma) : Komasyurui14.H00_Null___,
+                                                        Conv_Busstop.GetPlayerside(dstStarlight),
                                                         false
                                                     );// 選択している駒の元の場所と、移動先
 
                                                     //
                                                     // TODO: 一手[巻戻し]のときは追加したくない
                                                     //
-                                                    Sky position_newChild = new SkyImpl(src_GuiSky);
+                                                    Position position_newChild = new PositionImpl(src_GuiSky);
                                                     position_newChild.SetTemezumi(shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside.Temezumi + 1);//1手進ませる。
                                                     MoveEx newNode = new MoveExImpl(move);
 
@@ -479,7 +479,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                 case MouseEventStateName.MouseLeftButtonUp:
                                     {
                                         #region マウス左ボタンアップ
-                                        Sky src_GuiSky = shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside;
+                                        Position src_GuiSky = shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside;
 
 
                                         //----------
@@ -502,7 +502,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                                     Busstop koma = src_GuiSky.BusstopIndexOf(btnKoma.Koma);
 
 
-                                                    if (Okiba.ShogiBan == Conv_Busstop.ToOkiba(koma))
+                                                    if (Okiba.ShogiBan == Conv_Busstop.GetOkiba(koma))
                                                     {
                                                         //>>>>> 将棋盤の上に置いてあった駒から、指を放しました
                                                         //System.C onsole.WriteLine("つまんでいる駒を放します。(4)");
@@ -521,17 +521,17 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                                         src_GuiSky.AssertFinger(btnKoma.Koma);
                                                         
                                                         Move move = Conv_Move.ToMove(
-                                                            Conv_Busstop.ToMasu(shogibanGui.Shape_PnlTaikyoku.MouseBusstopOrNull2),
-                                                            Conv_Busstop.ToMasu(src_GuiSky.BusstopIndexOf(btnKoma.Koma)),
-                                                            Conv_Busstop.ToKomasyurui(shogibanGui.Shape_PnlTaikyoku.MouseBusstopOrNull2),
-                                                            Conv_Busstop.ToKomasyurui(src_GuiSky.BusstopIndexOf(btnKoma.Koma)),//これで成りかどうか判定
-                                                            shogibanGui.Shape_PnlTaikyoku.MousePos_FoodKoma != Busstop.Empty ? Conv_Busstop.ToKomasyurui( shogibanGui.Shape_PnlTaikyoku.MousePos_FoodKoma) : Komasyurui14.H00_Null___,
-                                                            Conv_Busstop.ToPlayerside(shogibanGui.Shape_PnlTaikyoku.MouseBusstopOrNull2),
+                                                            Conv_Busstop.GetMasu(shogibanGui.Shape_PnlTaikyoku.MouseBusstopOrNull2),
+                                                            Conv_Busstop.GetMasu(src_GuiSky.BusstopIndexOf(btnKoma.Koma)),
+                                                            Conv_Busstop.GetKomasyurui(shogibanGui.Shape_PnlTaikyoku.MouseBusstopOrNull2),
+                                                            Conv_Busstop.GetKomasyurui(src_GuiSky.BusstopIndexOf(btnKoma.Koma)),//これで成りかどうか判定
+                                                            shogibanGui.Shape_PnlTaikyoku.MousePos_FoodKoma != Busstop.Empty ? Conv_Busstop.GetKomasyurui( shogibanGui.Shape_PnlTaikyoku.MousePos_FoodKoma) : Komasyurui14.H00_Null___,
+                                                            Conv_Busstop.GetPlayerside(shogibanGui.Shape_PnlTaikyoku.MouseBusstopOrNull2),
                                                             false
                                                             );// 選択している駒の元の場所と、移動先
 
                                                         // 駒を置いたので、次のノードを準備しておく☆？
-                                                        Sky position_newChild = new SkyImpl(src_GuiSky);
+                                                        Position position_newChild = new PositionImpl(src_GuiSky);
                                                         MoveEx newNode =
                                                             new MoveExImpl(move);
                                                         position_newChild.SetTemezumi( shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside.Temezumi + 1);//1手進ませる。
@@ -660,7 +660,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
 
                                                     shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside.Foreach_Busstops((Finger finger, Busstop koma, ref bool toBreak) =>
                                                     {
-                                                        if (Conv_Busstop.ToMasu( koma) == btnSasitaiMasu2.Zahyo)
+                                                        if (Conv_Busstop.GetMasu( koma) == btnSasitaiMasu2.Zahyo)
                                                         {
                                                             //>>>>> そこに駒が置いてあった。
 #if DEBUG
@@ -706,7 +706,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                             Busstop koma = tumandeiruLight;
 
                                             if (
-                                                    Okiba.ShogiBan == Conv_Busstop.ToOkiba(koma) && Util_Sky_BoolQuery.IsNareruKoma(Conv_Busstop.ToKomasyurui(koma))
+                                                    Okiba.ShogiBan == Conv_Busstop.GetOkiba(koma) && Util_Sky_BoolQuery.IsNareruKoma(Conv_Busstop.GetKomasyurui(koma))
                                                     &&
                                                     (
                                                         Conv_Masu.InBanjoAitejin(
@@ -714,7 +714,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                                             shogibanGui.OwnerConsole.Link_Server.Storage.Grand1.KifuTree.GetNextPside()
                                                             )
                                                         ||
-                                                        Util_Sky_BoolQuery.InBanjoAitejin(Conv_Busstop.ToMasu( koma), Conv_Busstop.ToPlayerside( koma))
+                                                        Util_Sky_BoolQuery.InBanjoAitejin(Conv_Busstop.GetMasu( koma), Conv_Busstop.GetPlayerside( koma))
                                                     )
                                                 )
                                             {
@@ -748,7 +748,7 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                                     bool torareruKomaAri;
                                                     Busstop koma_Food_after;
                                                     {
-                                                        Sky temp = shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside;
+                                                        Position temp = shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside;
                                                         Util_Server.Komamove1a_50Srv(
                                                             out torareruKomaAri,
                                                             out koma_Food_after,
@@ -777,14 +777,14 @@ namespace Grayscale.A630_GuiCsharp__.B110_ShogiGui___.C250____Timed
                                             shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside.AssertFinger(btnTumandeiruKoma.Koma);
                                             Busstop koma = shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside.BusstopIndexOf(btnTumandeiruKoma.Koma);
 
-                                            shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside.SetTemezumi(shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside.Temezumi + 1);//1手進める。
+                                            shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside.IncreaseTemezumi();//1手進める。
                                             shogibanGui.OwnerConsole.Link_Server.Storage.PositionServerside.AddObjects(
                                                 new Finger[] { btnTumandeiruKoma.Koma },
                                                 new Busstop[] {
-                                                    Conv_Busstop.ToBusstop(
+                                                    Conv_Busstop.BuildBusstop(
                                                         Conv_Okiba.ToPside(Conv_Masu.ToOkiba(btnSasitaiMasu.Zahyo)),// 先手の駒置きに駒を置けば、先手の向きに揃えます。
                                                         btnSasitaiMasu.Zahyo,
-                                                        Util_Komasyurui14.NarazuCaseHandle(Conv_Busstop.ToKomasyurui( koma))
+                                                        Util_Komasyurui14.NarazuCaseHandle(Conv_Busstop.GetKomasyurui( koma))
                                                     )
                                                 });
 

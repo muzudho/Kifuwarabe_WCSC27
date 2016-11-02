@@ -1,10 +1,10 @@
 ﻿using Grayscale.A060_Application.B110_Log________.C___500_Struct;
 using Grayscale.A060_Application.B410_Collection_.C500____Struct;
 using Grayscale.A060_Application.B520_Syugoron___.C___250_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C500____Struct;
 using Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky;
 using Finger = ProjectDark.NamedInt.StrictNamedInt0; //スプライト番号
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
 
 #if DEBUG
 
@@ -22,7 +22,7 @@ namespace Grayscale.A210_KnowNingen_.B430_Play_______.C250____Calc
         /// <param name="logTag"></param>
         /// <returns></returns>
         public static Maps_OneAndOne<Finger, SySet<SyElement>> Get_PotentialMoves(
-            Sky src_Sky,
+            Position src_Sky,
             Fingers fingers,
             KwLogger errH_orNull
             )

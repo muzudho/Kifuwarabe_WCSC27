@@ -1,4 +1,4 @@
-﻿using Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct;
+﻿using Grayscale.A210_KnowNingen_.B270_Position___.C500____Struct;
 using Finger = ProjectDark.NamedInt.StrictNamedInt0; //スプライト番号
 
 namespace Grayscale.A210_KnowNingen_.B410_SeizaFinger.C250____Struct

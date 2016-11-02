@@ -6,7 +6,7 @@ using Grayscale.A120_KifuSfen___.B140_SfenStruct_.C250____Struct;
 using Grayscale.A120_KifuSfen___.B140_SfenStruct_.C500____Util;
 using System;
 using System.Text.RegularExpressions;
-using Grayscale.A120_KifuSfen___.B140_SfenStruct_.C___250_Struct;
+using Grayscale.A060_Application.B610_ConstShogi_.C250____Const;
 
 namespace Grayscale.A120_KifuSfen___.B160_ConvSfen___.C500____Converter
 {
@@ -434,12 +434,12 @@ namespace Grayscale.A120_KifuSfen___.B160_ConvSfen___.C500____Converter
             };
 
             // 盤上の８１升
-            string[] masu201;
+            string[] masu81;
             {
-                masu201 = new string[201];
-                for (int i = 0; i < 201; i++)
+                masu81 = new string[ConstShogi.BAN_SIZE];
+                for (int i = 0; i < ConstShogi.BAN_SIZE; i++)
                 {
-                    masu201[i] = "";
+                    masu81[i] = "";
                 }
 
                 int spaceCount;
@@ -524,7 +524,7 @@ namespace Grayscale.A120_KifuSfen___.B160_ConvSfen___.C500____Converter
                                 case "+p": bP++; break;
                             }
 
-                            masu201[Conv_SujiDan.ToMasu(suji, dan)] = moji;
+                            masu81[Conv_SujiDan.ToMasu(suji, dan)] = moji;
 
                             suji--;
                         }
@@ -542,47 +542,8 @@ namespace Grayscale.A120_KifuSfen___.B160_ConvSfen___.C500____Converter
             int fL = 4 - bL - motiSu[(int)Pieces.L] - motiSu[(int)Pieces.l];
             int fP = 18 - bP - motiSu[(int)Pieces.P] - motiSu[(int)Pieces.p];
 
-
-            // 盤外
-            {
-                int iMasu;
-
-                // 持ち駒
-
-                iMasu = 81;// (int)Masu_Honshogi.nsen01;
-                for (int i = 0; i < motiSu[(int)Pieces.K]; i++) { masu201[(int)iMasu] = "K"; iMasu++; }//▲王
-                for (int i = 0; i < motiSu[(int)Pieces.R]; i++) { masu201[(int)iMasu] = "R"; iMasu++; }//▲飛
-                for (int i = 0; i < motiSu[(int)Pieces.B]; i++) { masu201[(int)iMasu] = "B"; iMasu++; }//▲角
-                for (int i = 0; i < motiSu[(int)Pieces.G]; i++) { masu201[(int)iMasu] = "G"; iMasu++; }//▲金
-                for (int i = 0; i < motiSu[(int)Pieces.S]; i++) { masu201[(int)iMasu] = "S"; iMasu++; }//▲銀
-                for (int i = 0; i < motiSu[(int)Pieces.N]; i++) { masu201[(int)iMasu] = "N"; iMasu++; }//▲桂
-                for (int i = 0; i < motiSu[(int)Pieces.L]; i++) { masu201[(int)iMasu] = "L"; iMasu++; }//▲香
-                for (int i = 0; i < motiSu[(int)Pieces.P]; i++) { masu201[(int)iMasu] = "P"; iMasu++; }//▲歩
-
-                iMasu = 121;// (int)Masu_Honshogi.ngo01;
-                for (int i = 0; i < motiSu[(int)Pieces.k]; i++) { masu201[(int)iMasu] = "k"; iMasu++; }//△王
-                for (int i = 0; i < motiSu[(int)Pieces.r]; i++) { masu201[(int)iMasu] = "r"; iMasu++; }//△飛
-                for (int i = 0; i < motiSu[(int)Pieces.b]; i++) { masu201[(int)iMasu] = "b"; iMasu++; }//△角
-                for (int i = 0; i < motiSu[(int)Pieces.g]; i++) { masu201[(int)iMasu] = "g"; iMasu++; }//△金
-                for (int i = 0; i < motiSu[(int)Pieces.s]; i++) { masu201[(int)iMasu] = "s"; iMasu++; }//△銀
-                for (int i = 0; i < motiSu[(int)Pieces.n]; i++) { masu201[(int)iMasu] = "n"; iMasu++; }//△桂
-                for (int i = 0; i < motiSu[(int)Pieces.l]; i++) { masu201[(int)iMasu] = "l"; iMasu++; }//△香
-                for (int i = 0; i < motiSu[(int)Pieces.p]; i++) { masu201[(int)iMasu] = "p"; iMasu++; }//△歩
-
-                iMasu = 161;// (int)Masu_Honshogi.nfukuro01;
-                for (int i = 0; i < fP; i++) { masu201[(int)iMasu] = "P"; iMasu++; }//駒袋 歩
-                for (int i = 0; i < fL; i++) { masu201[(int)iMasu] = "L"; iMasu++; }//駒袋 香
-                for (int i = 0; i < fN; i++) { masu201[(int)iMasu] = "N"; iMasu++; }//駒袋 桂
-                for (int i = 0; i < fS; i++) { masu201[(int)iMasu] = "S"; iMasu++; }//駒袋 銀
-                for (int i = 0; i < fG; i++) { masu201[(int)iMasu] = "G"; iMasu++; }//駒袋 金
-                for (int i = 0; i < fK; i++) { masu201[(int)iMasu] = "K"; iMasu++; }//駒袋 王
-                for (int i = 0; i < fR; i++) { masu201[(int)iMasu] = "R"; iMasu++; }//駒袋 飛
-                for (int i = 0; i < fB; i++) { masu201[(int)iMasu] = "B"; iMasu++; }//駒袋 角
-            }
-
-
             RO_Kyokumen2_ForTokenize result = new RO_Kyokumen2_ForTokenizeImpl(
-                masu201,//全升
+                masu81,//全升
                 motiSu,//持駒の枚数
 
                 fK,//駒袋 王

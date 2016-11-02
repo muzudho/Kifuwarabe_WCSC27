@@ -9,8 +9,8 @@ using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C250____Word;
 using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C500____Util;
 using Grayscale.A210_KnowNingen_.B210_KomanoKidou.C500____Struct;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C500____Struct;
 using Grayscale.A210_KnowNingen_.B320_ConvWords__.C500____Converter;
 using Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky;
 using Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter;
@@ -46,7 +46,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
             string strDaHyoji, //打
             out Move move,
             Move src_Move,// 「同」を調べるためだけに使う☆
-            Sky src_Sky,// = kifu.CurNode.Value.Kyokumen;
+            Position src_Sky,// = kifu.CurNode.Value.Kyokumen;
             KwLogger errH
             )
         {
@@ -956,7 +956,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
                 src_Sky.AssertFinger(foundKoma);
                 Busstop koma = src_Sky.BusstopIndexOf(foundKoma);
 
-                srcMasuHandle1 = Conv_Masu.ToMasuHandle(Conv_Busstop.ToMasu( koma));
+                srcMasuHandle1 = Conv_Masu.ToMasuHandle(Conv_Busstop.GetMasu( koma));
             }
             else
             {
@@ -997,7 +997,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
                 src_Sky.AssertFinger(hitKoma);
                 Busstop koma = src_Sky.BusstopIndexOf(hitKoma);
 
-                srcMasuHandle1 = Conv_Masu.ToMasuHandle(Conv_Busstop.ToMasu( koma));
+                srcMasuHandle1 = Conv_Masu.ToMasuHandle(Conv_Busstop.GetMasu( koma));
             }
 
 

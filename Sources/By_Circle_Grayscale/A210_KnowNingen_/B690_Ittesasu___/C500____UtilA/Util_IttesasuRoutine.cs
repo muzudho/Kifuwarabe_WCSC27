@@ -6,8 +6,8 @@ using Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter;
 using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C250____Word;
 using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C500____Util;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C500____Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B320_ConvWords__.C500____Converter;
 using Grayscale.A210_KnowNingen_.B420_UtilSky258_.C500____UtilSky;
@@ -33,15 +33,15 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
         /// <param name="ittesasuArg"></param>
         /// <param name="ittesasu_mutable"></param>
         /// <param name="syuryoResult"></param>
-        /// <param name="errH"></param>
+        /// <param name="logger"></param>
         /// <param name="memberName"></param>
         /// <param name="sourceFilePath"></param>
         /// <param name="sourceLineNumber"></param>
         public static void DoMove_Normal(
             out IttesasuResult syuryoResult,
-            ref Move move1,//このメソッド実行後、取った駒を上書きされることがあるぜ☆（＾▽＾）
-            Sky positionA,// 一手指し、開始局面。
-            KwLogger errH,
+            ref Move move,//このメソッド実行後、取った駒を上書きされることがあるぜ☆（＾▽＾）
+            Position position,// 一手指し、開始局面。
+            KwLogger logger,
             [CallerMemberName] string memberName = "",
             [CallerFilePath] string sourceFilePath = "",
             [CallerLineNumber] int sourceLineNumber = 0
@@ -68,9 +68,9 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
                 Finger figMovedKoma;
                 Util_IttesasuRoutine.Do24_UgokasuKoma_IdoSakiHe(
                     out figMovedKoma,
-                    move1,
-                    positionA,
-                    errH
+                    move,
+                    position,
+                    logger
                     //hint
                     );
                 syuryoResult.FigMovedKoma = figMovedKoma; //動かした駒更新
@@ -78,14 +78,14 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
 
 
                 exceptionArea = 1060;
-                SyElement dstMasu = Conv_Move.ToDstMasu(move1);
-                Komasyurui14 dstKs = Conv_Move.ToDstKomasyurui(move1);
+                SyElement dstMasu = Conv_Move.ToDstMasu(move);
+                Komasyurui14 dstKs = Conv_Move.ToDstKomasyurui(move);
                 Busstop afterStar;
                 {
                     afterStar = Util_IttesasuRoutine.Do36_KomaOnDestinationMasu(
                         dstKs,
-                        move1,
-                        positionA
+                        move,
+                        position
                         );
                 }
 
@@ -104,18 +104,18 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
                 {
                     Util_IttesasuRoutine.Do61_KomaToru(
                         afterStar,
-                        positionA,
+                        position,
                         out figFoodKoma,
                         out food_koma,
                         out food_pside,
                         out food_akiMasu,
-                        errH
+                        logger
                         );
 
                     if (Fingers.Error_1 != figFoodKoma)
                     {
                         //>>>>> 指した先に駒があったなら
-                        syuryoResult.FoodKomaSyurui = Conv_Busstop.ToKomasyurui( food_koma);
+                        syuryoResult.FoodKomaSyurui = Conv_Busstop.GetKomasyurui( food_koma);
                     }
                     else
                     {
@@ -135,7 +135,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
                     //------------------------------
                     // 局面データの書き換え
                     //------------------------------
-                    positionA.AddObjects(
+                    position.AddObjects(
                         //
                         // 指した駒と、取った駒
                         //
@@ -143,10 +143,10 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
                             figFoodKoma// 取った駒
                         },
                         new Busstop[] { afterStar,//指した駒
-                            Conv_Busstop.ToBusstop(
+                            Conv_Busstop.BuildBusstop(
                             food_pside,
                             food_akiMasu,//駒台の空きマスへ
-                            Util_Komasyurui14.NarazuCaseHandle(Conv_Busstop.ToKomasyurui( food_koma))// 取られた駒の種類。表面を上に向ける。
+                            Util_Komasyurui14.NarazuCaseHandle(Conv_Busstop.GetKomasyurui( food_koma))// 取られた駒の種類。表面を上に向ける。
                         )// 取った駒
                         }
                         );
@@ -158,7 +158,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
                     //------------------------------------------------------------
 
                     //駒を取って変化しているかもしれない？
-                    positionA.AddObjects(
+                    position.AddObjects(
                         //
                         // 指した駒
                         //
@@ -176,8 +176,8 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
 
                 // どうにもできないので  ログだけ取って無視します。
                 string message = "Util_IttesasuRoutine#Execute（B）： exceptionArea=" + exceptionArea + "\n" + ex.GetType().Name + "：" + ex.Message;
-                errH.AppendLine(message);
-                errH.Flush(LogTypes.Error);
+                logger.AppendLine(message);
+                logger.Flush(LogTypes.Error);
                 throw ex;
             }
 
@@ -186,23 +186,21 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
             if (syuryoResult.FoodKomaSyurui != Komasyurui14.H00_Null___)
             {
                 // 元のキーの、取った駒の種類だけを差替えます。
-                move1 = Conv_Move.SetCaptured(
-                    move1,
+                move = Conv_Move.SetCaptured(
+                    move,
                     syuryoResult.FoodKomaSyurui
                     );
             }
 
 
             //------------------------------
-            // 駒を進めてから、先後と手目済を進めること。
+            // 駒を進めてから、手目済を進めること。
             //------------------------------
-            {
-                positionA.SetTemezumi(positionA.Temezumi + 1);
-            }
+            position.IncreaseTemezumi();
 
             //
             // ノード
-            syuryoResult.SyuryoKyokumenW = positionA;
+            syuryoResult.SyuryoKyokumenW = position;
             // この変数を返すのがポイント。棋譜とは別に、現局面。
         }
 
@@ -213,7 +211,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
             Earth earth1,
             Grand kifu1,
             Move move,
-            Sky positionA,
+            Position positionA,
             KwLogger logger
             )
         {
@@ -240,7 +238,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
         private static void Do24_UgokasuKoma_IdoSakiHe(
             out Finger figMovedKoma,
             Move move,
-            Sky positionA,
+            Position positionA,
             KwLogger logger,
             [CallerMemberName] string memberName = "",
             [CallerFilePath] string sourceFilePath = "",
@@ -324,13 +322,13 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
         private static Busstop Do36_KomaOnDestinationMasu(
             Komasyurui14 syurui2,
             Move move,
-            Sky src_Sky)
+            Position src_Sky)
         {
             Playerside pside = Conv_Move.ToPlayerside(move);
             SyElement dstMasu = Conv_Move.ToDstMasu(move);
 
             // 次の位置
-            return Conv_Busstop.ToBusstop(pside,
+            return Conv_Busstop.BuildBusstop(pside,
                 dstMasu,
                 syurui2);
         }
@@ -342,7 +340,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
         /// </summary>
         private static void Do61_KomaToru(
             Busstop dstKoma,
-            Sky susunda_Sky_orNull_before,//駒を取られたとき、局面を変更します。
+            Position susunda_Sky_orNull_before,//駒を取られたとき、局面を変更します。
             out Finger out_figFoodKoma,
             out Busstop out_food_koma,
             out Playerside pside,
@@ -353,7 +351,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
             //----------
             // 将棋盤上のその場所に駒はあるか
             //----------
-            out_figFoodKoma = Util_Sky_FingersQuery.InMasuNow_Old(susunda_Sky_orNull_before, Conv_Busstop.ToMasu( dstKoma)).ToFirst();//盤上
+            out_figFoodKoma = Util_Sky_FingersQuery.InMasuNow_Old(susunda_Sky_orNull_before, Conv_Busstop.GetMasu( dstKoma)).ToFirst();//盤上
 
 
             if (Fingers.Error_1 != out_figFoodKoma)
@@ -375,7 +373,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
                 // 取られる駒は、駒置き場の空きマスに移動させます。
                 //
                 Okiba okiba;
-                switch (Conv_Busstop.ToPlayerside( dstKoma))
+                switch (Conv_Busstop.GetPlayerside( dstKoma))
                 {
                     case Playerside.P1:
                         {
@@ -395,7 +393,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
 
                             StringBuilder sb = new StringBuilder();
                             sb.AppendLine("エラー：　先後がおかしいです。");
-                            sb.AppendLine("dst.Pside=" + Conv_Busstop.ToPlayerside( dstKoma));
+                            sb.AppendLine("dst.Pside=" + Conv_Busstop.GetPlayerside( dstKoma));
                             throw new Exception(sb.ToString());
                         }
                 }
@@ -438,44 +436,23 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C500____UtilA
         /// <param name="okiba">先手駒台、または後手駒台</param>
         /// <param name="uc_Main">メインパネル</param>
         /// <returns>置ける場所。無ければヌル。</returns>
-        public static SyElement GetKomadaiKomabukuroSpace(Okiba okiba, Sky src_Sky)
+        public static SyElement GetKomadaiKomabukuroSpace(Okiba okiba, Position src_Sky)
         {
-            SyElement akiMasu = Masu_Honshogi.Query_Basho(Masu_Honshogi.nError);
-
-            // 先手駒台または後手駒台の、各マスの駒がある場所を調べます。
-            bool[] exists = new bool[Conv_Masu.KOMADAI_KOMABUKURO_SPACE_LENGTH];//駒台スペースは40マスです。
-
-
-            src_Sky.Foreach_Busstops((Finger finger, Busstop koma, ref bool toBreak) =>
+            // TODO: とりあえず、駒台の上を１マスにしたい。
+            switch(okiba)
             {
-                if (Conv_Busstop.ToOkiba(koma) == okiba)
-                {
-                    exists[
-                        Conv_Masu.ToMasuHandle(Conv_Busstop.ToMasu( koma)) - Conv_Masu.ToMasuHandle(Conv_Okiba.GetFirstMasuFromOkiba(okiba))
-                        ] = true;
-                }
-            });
+                case Okiba.Sente_Komadai:
+                    return Masu_Honshogi.Query_Basho(Masu_Honshogi.nSenteKomadai);
 
+                case Okiba.Gote_Komadai:
+                    return Masu_Honshogi.Query_Basho(Masu_Honshogi.nGoteKomadai);
 
-            //駒台スペースは40マスです。
-            for (int i = 0; i < Conv_Masu.KOMADAI_KOMABUKURO_SPACE_LENGTH; i++ )
-            {
-                if (!exists[i])
-                {
-                    akiMasu = Masu_Honshogi.Masus_All[i + Conv_Masu.ToMasuHandle(Conv_Okiba.GetFirstMasuFromOkiba(okiba))];
-                    goto gt_EndMethod;
-                }
+                case Okiba.KomaBukuro:
+                    return Masu_Honshogi.Query_Basho(Masu_Honshogi.nFukuro);
+
+                default:
+                    return Masu_Honshogi.Query_Basho(Masu_Honshogi.nError);
             }
-
-        gt_EndMethod:
-
-            //System.C onsole.WriteLine("ゲット駒台駒袋スペース＝" + akiMasu);
-
-            return akiMasu;
         }
-
-
     }
-
-
 }

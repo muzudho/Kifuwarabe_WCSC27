@@ -3,11 +3,11 @@ using Grayscale.A060_Application.B520_Syugoron___.C___250_Struct;
 using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C250____Word;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B270_Sky________.C500____Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C500____Struct;
 using Grayscale.A210_KnowNingen_.B480_Util_Sasu__.C500____Util;
 using Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter;
 using Finger = ProjectDark.NamedInt.StrictNamedInt0; //スプライト番号
-using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
+using Grayscale.A210_KnowNingen_.B270_Position___.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct;
 
@@ -23,7 +23,7 @@ namespace Grayscale.A210_KnowNingen_.B770_Conv_Sasu__.C500____Converter
         /// <returns></returns>
         public static Maps_OneAndMulti<Finger, MoveEx> ToKomaBETUAllSasites(
             List_OneAndMulti<Finger, SySet<SyElement>> komaBETUSusumeruMasus,
-            Sky positionA
+            Position positionA
             )
         {
             Maps_OneAndMulti<Finger, MoveEx> result_komabetuAllMoves = new Maps_OneAndMulti<Finger, MoveEx>();
@@ -37,20 +37,20 @@ namespace Grayscale.A210_KnowNingen_.B770_Conv_Sasu__.C500____Converter
                 foreach (SyElement susumuMasu in susumuMasuSet.Elements)// 星が進める升。
                 {
                     // 移動先の星（升の変更）
-                    Busstop dstStar = Conv_Busstop.ToBusstop(
-                        Conv_Busstop.ToPlayerside( srcStar),
+                    Busstop dstStar = Conv_Busstop.BuildBusstop(
+                        Conv_Busstop.GetPlayerside( srcStar),
                         susumuMasu,
-                        Conv_Busstop.ToKomasyurui( srcStar)
+                        Conv_Busstop.GetKomasyurui( srcStar)
                     );
 
                     // 打かどうかは元位置（駒台）から判定してくれだぜ☆（＾▽＾）
                     Move move = Conv_Move.ToMove(
-                        Conv_Busstop.ToMasu( srcStar),
-                        Conv_Busstop.ToMasu(dstStar),
-                        Conv_Busstop.ToKomasyurui( srcStar),
-                        Conv_Busstop.ToKomasyurui(dstStar),//これで成りかどうか判定
+                        Conv_Busstop.GetMasu( srcStar),
+                        Conv_Busstop.GetMasu(dstStar),
+                        Conv_Busstop.GetKomasyurui( srcStar),
+                        Conv_Busstop.GetKomasyurui(dstStar),//これで成りかどうか判定
                         Komasyurui14.H00_Null___,//取った駒不明
-                        Conv_Busstop.ToPlayerside( srcStar),
+                        Conv_Busstop.GetPlayerside( srcStar),
                         false
                         );
                     result_komabetuAllMoves.Put_NewOrOverwrite(figKoma, new MoveExImpl( move));//FIXME: １つの駒に指し手は１つ？？
@@ -62,7 +62,7 @@ namespace Grayscale.A210_KnowNingen_.B770_Conv_Sasu__.C500____Converter
                     // 必要により、【成り】の指し手を追加します。
                     // FIXME: ここ以外で、成りの指し手を追加している☆？（＾～＾）？
 
-                    Okiba srcOkiba = Conv_Busstop.ToOkiba(srcStar);//Moveは置き場情報を欠損している。
+                    Okiba srcOkiba = Conv_Busstop.GetOkiba(srcStar);//Moveは置き場情報を欠損している。
                     if (Okiba.ShogiBan == srcOkiba)
                     //if(Conv_Move.ToDrop(move))
                     {

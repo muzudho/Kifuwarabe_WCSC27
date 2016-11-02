@@ -66,7 +66,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="B140_Conv_FvKoumoku\C500____Converter\Conv_FvKoumoku522.cs" />
-    <Compile Include="B150_UtilFv_____\C480____UtilFvEdit\Util_FeatureVectorEdit.cs" />
     <Compile Include="B200_Scoreing___\C250____Args\EvaluationArgsImpl.cs" />
     <Compile Include="B200_Scoreing___\C500____Util\Util_Scoreing.cs" />
     <Compile Include="B200_Scoreing___\C___250_Args\EvaluationArgs.cs" />
@@ -77,11 +76,9 @@
     <Compile Include="B240_TansaFukasa\C500____Struct\Tansaku_FukasaYusen_Routine.cs" />
     <Compile Include="B150_UtilFv_____\C490____UtilFvFormat\Const_FeatureVectorFormat.cs" />
     <Compile Include="B150_UtilFv_____\C491____UtilFvIo\Util_FeatureVectorInput.cs" />
-    <Compile Include="B150_UtilFv_____\C491____UtilFvIo\Util_FeatureVectorOutput.cs" />
     <Compile Include="B130_FeatureVect\C___500_Struct\FeatureVector.cs" />
     <Compile Include="B130_FeatureVect\C___500_Struct\Const_NikomaKankeiP_Param.cs" />
     <Compile Include="B130_FeatureVect\C500____Struct\FeatureVectorImpl.cs" />
-    <Compile Include="B150_UtilFv_____\C490____UtilFvFormat\Format_FeatureVector_Komawari.cs" />
     <Compile Include="B150_UtilFv_____\C510____UtilFvLoad\Util_FvLoad.cs" />
     <Compile Include="B180_Hyokakansu_\C___500_Hyokakansu\Hyokakansu.cs" />
     <Compile Include="B180_Hyokakansu_\C060____UtilLua\Util_Lua_KifuWarabe.cs" />
