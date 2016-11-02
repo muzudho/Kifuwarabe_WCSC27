@@ -120,21 +120,33 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C100____Shogisasi
                 */
 
                 out_pv = new PvListImpl();
-                float alpha = Tansaku_FukasaYusen_Routine.WAAA_Search(
-                    ref yomisujiInfo,
-                    Tansaku_FukasaYusen_Routine.CreateGenjo(position.Temezumi, Mode_Tansaku.Shogi_ENgine, logger),
+                float alpha = Conv_Score.NegativeMax;
 
-                    grand1.KifuTree.GetNextPside(),
-                    ref position,
+                // TODO: 反復深化させたいぜ☆（＾▽＾）
+                int maxDepth = 7;// depth 6 ぐらいしか伸びないぜ☆（＾～＾）
+                for (int rootDepth=1;
+                    rootDepth<=maxDepth && !args.Shogisasi.TimeManager.IsTimeOver()//思考の時間切れ
+                    ; rootDepth++)
+                {
 
-                    Conv_Score.NegativeMax, //アルファ（ベストスコア）
-                    Conv_Score.PositiveMax, //ベータ
-                    3,// 2,// 1, //読みの深さ、カウントダウン式
-                    // 4手読み、5手読みは、3手読みより弱い☆？ 角を切ってしまう☆
-                    out_pv,
-                    args,
-                    dlgt_SendInfo,
-                    logger);
+                    alpha = Tansaku_FukasaYusen_Routine.WAAA_Search(
+                        ref yomisujiInfo,
+                        Tansaku_FukasaYusen_Routine.CreateGenjo(position.Temezumi, Mode_Tansaku.Shogi_ENgine, logger),
+
+                        grand1.KifuTree.GetNextPside(),
+                        ref position,
+
+                        Conv_Score.NegativeMax, //アルファ（ベストスコア）
+                        Conv_Score.PositiveMax, //ベータ
+                        rootDepth,//3,// 2,// 1, //読みの深さ、カウントダウン式
+                                  // 4手読み、5手読みは、3手読みより弱い☆？ 角を切ってしまう☆
+                        out_pv,
+                        args,
+                        dlgt_SendInfo,
+                        logger);
+
+                }
+
 
                 // TODO:
                 grand1.KifuTree.Kifu_Set(out_pv.List, out_pv.Size, logger);

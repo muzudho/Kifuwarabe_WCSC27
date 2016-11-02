@@ -78,7 +78,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
                 if (MoveNodeType.Startpos == moveNodeType)//Execute_Step_CurrentMutable
                 {
                     // ここは通らないぜ☆（＾～＾）？
-                    logger.AppendLine("局面のクリアー命令☆（＾▽＾）Execute_Step_CurrentMutable");
+                    //logger.AppendLine("局面のクリアー命令☆（＾▽＾）Execute_Step_CurrentMutable");
                     earth1.Clear();
 
                     // 棋譜を空っぽにします。
@@ -168,7 +168,7 @@ namespace Grayscale.A210_KnowNingen_.B740_KifuParserA.C500____Parser
                     if (MoveNodeType.Startpos == moveNodeType)//Execute_All_CurrentMutable
                     {
                         // ここはよく通るぜ☆（＾▽＾）
-                        logger.AppendLine("局面のクリアー命令☆（＾▽＾）Execute_All_CurrentMutable");
+                        //logger.AppendLine("局面のクリアー命令☆（＾▽＾）Execute_All_CurrentMutable");
                         Position positionInit = Util_SkyCreator.New_Hirate();
                         earth1.Clear();
 
