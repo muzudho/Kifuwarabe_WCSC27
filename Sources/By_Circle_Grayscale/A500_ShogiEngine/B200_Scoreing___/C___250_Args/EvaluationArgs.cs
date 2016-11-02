@@ -17,12 +17,5 @@ namespace Grayscale.A500_ShogiEngine.B200_Scoreing___.C___250_Args
         FeatureVector FeatureVector { get; }
 
         Shogisasi Shogisasi { get; }
-
-#if DEBUG
-        /// <summary>
-        /// デバッグ用。
-        /// </summary>
-        KaisetuBoards KaisetuBoards_orNull { get; }
-#endif
     }
 }

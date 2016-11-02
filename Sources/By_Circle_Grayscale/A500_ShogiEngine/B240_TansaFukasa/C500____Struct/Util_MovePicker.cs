@@ -19,10 +19,8 @@ using Grayscale.A500_ShogiEngine.B240_TansaFukasa.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B670_ConvKyokume.C500____Converter;
 
 #if DEBUG
-using Grayscale.A210_KnowNingen_.B250_Log_Kaisetu.C250____Struct;
 using Grayscale.A210_KnowNingen_.B110_GraphicLog_.C500____Util;
 using Grayscale.A210_KnowNingen_.B460_KyokumMoves.C250____Log;
-using Grayscale.A210_KnowNingen_.B810_LogGraphiEx.C500____Util;
 using Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter;
 #else
 #endif
@@ -110,11 +108,6 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                 // 盤１個分のログの準備
                 //----------------------------------------
                 exceptionArea = 20000;
-#if DEBUG
-                MmLogGenjoImpl mm_log_orNull = null;
-                KaisetuBoard logBrd_move1;
-                Tansaku_FukasaYusen_Routine.Log1(genjo, positionA, out mm_log_orNull, out logBrd_move1, logger);
-#endif
 
                 //----------------------------------------
                 // 進めるマス
@@ -129,10 +122,6 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                     psideCreate,//kifuTree1.GetNextPside(),// × psideA,
 
                     false//相手番か
-#if DEBUG
-                    ,
-                    mm_log_orNull
-#endif
                 );
                 bool test = true;
                 if (test)
@@ -192,9 +181,6 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                     komaBETUAllSasites,//駒別の全ての指し手
                     psideCreate,
                     positionA,
-#if DEBUG
-                    genjo.Args.LogF_moveKiki,//利き用
-#endif
                     "読みNextルーチン",
                     logger);
 

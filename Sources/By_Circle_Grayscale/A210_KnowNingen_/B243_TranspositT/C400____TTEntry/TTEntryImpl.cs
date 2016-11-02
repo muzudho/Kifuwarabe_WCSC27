@@ -26,7 +26,7 @@ namespace Grayscale.A210_KnowNingen_.B243_TranspositT.C500____Tt
             sb.Append(this.Depth);
             sb.Append("] value=[");
             sb.Append(this.Value);
-            sb.Append("] value=[");
+            sb.Append("]");
             return sb.ToString();
         }
 

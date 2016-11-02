@@ -20,10 +20,6 @@ using Grayscale.A210_KnowNingen_.B240_Move.C600____Pv;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct;
 using Grayscale.A210_KnowNingen_.B320_ConvWords__.C500____Converter;
 
-#if DEBUG
-using Grayscale.A210_KnowNingen_.B250_Log_Kaisetu.C250____Struct;
-#endif
-
 namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C100____Shogisasi
 {
     /// <summary>
@@ -90,17 +86,10 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C100____Shogisasi
             //────────────────────────────────────────
             this.TimeManager.Stopwatch.Restart();
 
-#if DEBUG
-            KaisetuBoards logF_kiki = new KaisetuBoards();// デバッグ用だが、メソッドはこのオブジェクトを必要としてしまう。
-#endif
             EvaluationArgs args = new EvaluationArgsImpl(
                 earth1.GetSennititeCounter(),
                 this.FeatureVector,
                 this
-#if DEBUG
-                ,
-                logF_kiki
-#endif
                 );
 
 
@@ -140,7 +129,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C100____Shogisasi
 
                     Conv_Score.NegativeMax, //アルファ（ベストスコア）
                     Conv_Score.PositiveMax, //ベータ
-                    2,//3,// 2,// 1, //読みの深さ、カウントダウン式
+                    5,//3,// 2,// 1, //読みの深さ、カウントダウン式
                     // 4手読み、5手読みは、3手読みより弱い☆？ 角を切ってしまう☆
                     out_pv,
                     args,

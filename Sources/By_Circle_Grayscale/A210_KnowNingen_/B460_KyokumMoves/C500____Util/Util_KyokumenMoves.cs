@@ -84,19 +84,9 @@ namespace Grayscale.A210_KnowNingen_.B460_KyokumMoves.C500____Util
             Sky positionA,
             Playerside psideA,
             bool isAiteban
-#if DEBUG
-            ,
-            MmLogGenjo mmLog_orNull
-#endif
             )
         {
             KwLogger errH = null;
-#if DEBUG
-                    if (mmLog_orNull != null)
-                    {
-                        errH = mmLog_orNull.ErrH;
-                    }
-#endif
 
             // 《１》 移動可能場所
             out_komaBETUSusumeruMasus = new List_OneAndMulti<Finger, SySet<SyElement>>();
@@ -216,15 +206,6 @@ namespace Grayscale.A210_KnowNingen_.B460_KyokumMoves.C500____Util
                 {
                     //>>>>> エラーが起こりました。
                     string msg = ex.GetType().Name + " " + ex.Message + "：ランダムチョイス(50)：";
-
-#if DEBUG
-                    if (null != mmLog_orNull)
-                    {
-                        // どうにもできないので  ログだけ取って無視します。
-                        mmLog_orNull.ErrH.DonimoNaranAkirameta(ex,msg);
-                    }
-#endif
-
                     throw new Exception( msg,ex);
                 }
 

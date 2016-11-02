@@ -25,7 +25,6 @@ using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct;
 
 #if DEBUG
-using Grayscale.A210_KnowNingen_.B250_Log_Kaisetu.C250____Struct;
 using Grayscale.A210_KnowNingen_.B420_UtilSky258_.C505____ConvLogJson;
 #endif
 
@@ -51,9 +50,6 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
             Maps_OneAndMulti<Finger, MoveEx> genTeban_komabetuAllMoves1,// 指定局面で、どの駒が、どんな手を指すことができるか
             Playerside psideCreate,
             Sky positionA,//指定局面。
-#if DEBUG
-            KaisetuBoards logF_kiki,
-#endif
             string hint,
             KwLogger logger)
         {
@@ -80,10 +76,7 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
                     positionA.Temezumi,
                     psideCreate,
                     positionA,
-#if DEBUG
-                logF_kiki,
-#endif
-                logger);
+                    logger);
 
                 exception_area = 30000;
 
@@ -156,9 +149,6 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
             int temezumi_yomiGenTeban_forLog,//読み進めている現在の手目
             Playerside psideCreate,
             Sky positionA,
-#if DEBUG
-            KaisetuBoards logF_kiki,
-#endif
             KwLogger logger
             )
         {
@@ -197,10 +187,6 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
                         positionA,
                         temezumi_yomiGenTeban_forLog,
                         psideCreate,//現手番＝攻め手視点
-#if DEBUG
-                    logF_kiki,
-#endif
-                        moveExB.Move,
                         logger
                         );
 
@@ -245,35 +231,26 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
         /// GetAvailableMove()の中では使わないでください。循環してしまいます。
         /// </summary>
         public static bool LAAA_KingSuicide(
-            Sky src_Sky,//調べたい局面
+            Sky position,//調べたい局面
             int temezumi_yomiCur_forLog,//読み進めている現在の手目
             Playerside psideCreate,//現手番側
-
-#if DEBUG
-            KaisetuBoards logF_kiki,
-#endif
-            Move move_forLog,
-            KwLogger errH
+            KwLogger logger
             )
         {
             bool isHonshogi = true;
 
-            System.Diagnostics.Debug.Assert(src_Sky.Count == Masu_Honshogi.HONSHOGI_KOMAS);
+            System.Diagnostics.Debug.Assert(position.Count == Masu_Honshogi.HONSHOGI_KOMAS);
 
             // 「相手の駒を動かしたときの利き」リスト
             // 持ち駒はどう考える？「駒を置けば、思い出王手だってある」
             List_OneAndMulti<Finger, SySet<SyElement>> sMs_effect_aiTeban = Util_LegalMove.LAAAA_GetEffect(
                 isHonshogi,
-                src_Sky,
+                position,
                 psideCreate,
                 true,// 相手盤の利きを調べます。
-#if DEBUG
-                logF_kiki,
-#endif
                 "玉自殺ﾁｪｯｸ",
                 temezumi_yomiCur_forLog,
-                move_forLog,
-                errH);
+                logger);
 
             
             // 現手番側が受け手に回ったとします。現手番の、王の座標
@@ -283,16 +260,16 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
             {
                 // 現手番は、後手
 
-                src_Sky.AssertFinger(Finger_Honshogi.GoteOh);
-                Busstop koma = src_Sky.BusstopIndexOf(Finger_Honshogi.GoteOh);
+                position.AssertFinger(Finger_Honshogi.GoteOh);
+                Busstop koma = position.BusstopIndexOf(Finger_Honshogi.GoteOh);
 
                     genTeban_kingMasuNumber = Conv_Masu.ToMasuHandle(Conv_Busstop.ToMasu( koma));
             }
             else
             {
                 // 現手番は、先手
-                src_Sky.AssertFinger(Finger_Honshogi.SenteOh);
-                Busstop koma = src_Sky.BusstopIndexOf(Finger_Honshogi.SenteOh);
+                position.AssertFinger(Finger_Honshogi.SenteOh);
+                Busstop koma = position.BusstopIndexOf(Finger_Honshogi.SenteOh);
 
                     genTeban_kingMasuNumber = Conv_Masu.ToMasuHandle(Conv_Busstop.ToMasu(koma));
             }
@@ -331,25 +308,11 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
             Sky positionA,
             Playerside psideCreate,
             bool isAiteban,
-#if DEBUG
-            KaisetuBoards logF_kiki,
-#endif
             string logBrd_caption,
             int temezumi_yomiCur_forLog,
-            Move move_forLog,
-            KwLogger errH
+            KwLogger logger
             )
         {
-#if DEBUG
-            KaisetuBoard logBrd_kiki = new KaisetuBoard();
-            logBrd_kiki.Caption = logBrd_caption;// "利き_" 
-            logBrd_kiki.Temezumi = temezumi_yomiCur_forLog;
-            logBrd_kiki.YomikaisiTemezumi = yomikaisiTemezumi;
-            //logBrd_kiki.Score = 0.0d;
-            logBrd_kiki.GenTeban = psideCreate;// 現手番
-            logF_kiki.boards.Add(logBrd_kiki);
-#endif
-
             // 《１》
             List_OneAndMulti<Finger, SySet<SyElement>> sMs_effect = new List_OneAndMulti<Finger,SySet<SyElement>>();//盤上の駒の利き
             {
@@ -367,17 +330,6 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
                         tebanSeme = psideCreate;
                         tebanKurau = Conv_Playerside.Reverse(psideCreate);
                     }
-
-#if DEBUG
-                    if (Playerside.P1 == tebanSeme)
-                    {
-                        logBrd_kiki.NounaiSeme = Gkl_NounaiSeme.Sente;
-                    }
-                    else if(Playerside.P2 == tebanSeme)
-                    {
-                        logBrd_kiki.NounaiSeme = Gkl_NounaiSeme.Gote;
-                    }
-#endif
                 }
 
 
@@ -395,39 +347,8 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
                         positionA,
                         tebanSeme,
                         tebanKurau,
-                        errH
+                        logger
                     );
-
-
-                // 攻め手の駒の位置
-#if DEBUG
-                KaisetuBoard boardLog_clone = new KaisetuBoard(logBrd_kiki);
-                foreach (Finger finger in fingers_seme_BANJO.Items)
-                {
-                    Busstop koma = positionA.BusstopIndexOf(finger);
-
-
-                        Gkl_KomaMasu km = new Gkl_KomaMasu(
-                            Util_Converter_LogGraphicEx.PsideKs14_ToString(tebanSeme, Conv_Busstop.ToKomasyurui(koma), ""),
-                            Conv_Masu.ToMasuHandle(Conv_Busstop.ToMasu( koma))
-                            );
-                        boardLog_clone.KomaMasu1.Add(km);
-                }
-                foreach (Finger finger in fingers_kurau_BANJO.Items)
-                {
-                    Busstop koma = positionA.BusstopIndexOf(finger);
-
-
-                        logBrd_kiki.KomaMasu2.Add(new Gkl_KomaMasu(
-                            Util_Converter_LogGraphicEx.PsideKs14_ToString(tebanKurau, Conv_Busstop.ToKomasyurui(koma), ""),
-                            Conv_Masu.ToMasuHandle(Conv_Busstop.ToMasu(koma))
-                            ));
-                }
-                logBrd_kiki = boardLog_clone;
-#endif
-
-
-
 
                 // 《１．３》
                 SySet<SyElement> masus_seme_BANJO = Conv_Fingers.ToMasus(fingers_seme_BANJO, positionA);// 盤上のマス（利きを調べる側の駒）
@@ -442,27 +363,8 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
                     masus_kurau_BANJO,
                     positionA,
                     //Conv_Sasite.Sasite_To_KsString_ForLog(sasite_forLog, pside_genTeban3),
-                    errH
+                    logger
                     );// 利きを調べる側の利き（戦駒）
-
-                // 盤上駒の利き
-#if DEBUG
-                logBrd_kiki = new KaisetuBoard(logBrd_kiki);
-                kmEffect_seme_BANJO.Foreach_Entry((Finger key, SySet<SyElement> value, ref bool toBreak) =>
-                {
-                    Busstop koma = positionA.BusstopIndexOf(key);
-
-
-                    string komaImg = Util_Converter_LogGraphicEx.PsideKs14_ToString(tebanSeme, Conv_Busstop.ToKomasyurui(koma), "");
-
-                    foreach (New_Basho masu in value.Elements)
-                    {
-                        boardLog_clone.Masu_theEffect.Add(masu.MasuNumber);
-                    }
-                });
-                logBrd_kiki = boardLog_clone;
-#endif
-
 
                 try
                 {
@@ -471,10 +373,9 @@ namespace Grayscale.A210_KnowNingen_.B780_LegalMove__.C500____Util
 
                 }
                 catch (Exception ex) {
-                    errH.DonimoNaranAkirameta(ex, "ランダムチョイス(50)");
+                    logger.DonimoNaranAkirameta(ex, "ランダムチョイス(50)");
                     throw ex;
                 }
-
             }
             return sMs_effect;
         }

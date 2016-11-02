@@ -101,15 +101,17 @@ namespace Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct
             }
 
         gt_random:
-            // 同着の場合はランダムだぜ☆（＾▽＾）
-            if (0 < KwRandom.Random.Next(2))
-            {
-                return a;
-            }
-            else
-            {
-                return b;
-            }
+            // 同着の場合は a とするぜ☆（＾▽＾）検査が楽になるからな☆（＾～＾）
+            return a;
+            //// 同着の場合はランダムだぜ☆（＾▽＾）
+            //if (0 < KwRandom.Random.Next(2))
+            //{
+            //    return a;
+            //}
+            //else
+            //{
+            //    return b;
+            //}
         }
     }
 }

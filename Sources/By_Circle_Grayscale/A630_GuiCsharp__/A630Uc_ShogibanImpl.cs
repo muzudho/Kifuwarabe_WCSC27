@@ -445,8 +445,8 @@ namespace Grayscale.A630_GuiCsharp__
 
 #if DEBUG
                         // ログ
-                        errH.AppendLine(form2.GetOutputareaText());
-                        errH.Flush(LogTypes.Plain);
+                        logger.AppendLine(form2.GetOutputareaText());
+                        logger.Flush(LogTypes.Plain);
 #endif
                     }
                     break;

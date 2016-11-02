@@ -11,28 +11,6 @@ namespace Grayscale.A500_ShogiEngine.B523_UtilFv_____.C480____UtilFvEdit
     public abstract class Util_FeatureVectorEdit
     {
         /// <summary>
-        /// 増減の確認用。
-        /// </summary>
-        /// <returns></returns>
-        public static float GetTotal_PP(FeatureVector fv)
-        {
-            float result = 0.0f;
-
-            for (int p1 = 0; p1 < FeatureVectorImpl.CHOSA_KOMOKU_P; p1++)
-            {
-                for (int p2 = 0; p2 < FeatureVectorImpl.CHOSA_KOMOKU_P; p2++)
-                {
-                    result += fv.NikomaKankeiPp_ForMemory[p1, p2];
-                }
-            }
-
-            return result;
-        }
-
-
-
-
-        /// <summary>
         /// 旧型。
         /// 適当に数字を埋めます☆
         /// </summary>
@@ -75,19 +53,6 @@ namespace Grayscale.A500_ShogiEngine.B523_UtilFv_____.C480____UtilFvEdit
                 fv.Komawari[(int)Komasyurui14.H07_Hisya__] * 2 +
                 fv.Komawari[(int)Komasyurui14.H08_Kaku___] * 2 +
                 0;
-
-            //
-            // PP
-            //
-            for (int iChosaKomoku1 = 0; iChosaKomoku1 < FeatureVectorImpl.CHOSA_KOMOKU_P; iChosaKomoku1++)//調査項目Ｐ
-            {
-                for (int iChosaKomoku2 = 0; iChosaKomoku2 < FeatureVectorImpl.CHOSA_KOMOKU_P; iChosaKomoku2++)//調査項目Ｐ
-                {
-                    // 0.0～1.0
-                    fv.NikomaKankeiPp_ForMemory[iChosaKomoku1, iChosaKomoku2] = KwRandom.Random.Next(0, 999);
-                }
-            }
         }
-
     }
 }

@@ -4,7 +4,6 @@
 using Grayscale.A060_Application.B110_Log________.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B170_WordShogi__.C500____Word;
 using Grayscale.A210_KnowNingen_.B240_Move_______.C___500_Struct;
-using Grayscale.A210_KnowNingen_.B250_Log_Kaisetu.C250____Struct;
 using Grayscale.A210_KnowNingen_.B270_Sky________.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B280_Tree_______.C500____Struct;
@@ -32,11 +31,9 @@ using Grayscale.A210_KnowNingen_.B243_TranspositT.C___400_TTEntry;
 using Grayscale.A210_KnowNingen_.B243_TranspositT.C500____Tt;
 
 #if DEBUG
-using Grayscale.A210_KnowNingen_.B250_Log_Kaisetu.C250____Struct;
 using Grayscale.A060_Application.B520_Syugoron___.C___250_Struct;
 using Grayscale.A210_KnowNingen_.B110_GraphicLog_.C500____Util;
 using Grayscale.A210_KnowNingen_.B460_KyokumMoves.C250____Log;
-using Grayscale.A210_KnowNingen_.B810_LogGraphiEx.C500____Util;
 using Grayscale.A210_KnowNingen_.B180_ConvPside__.C500____Converter;
 #else
 #endif
@@ -63,13 +60,8 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
             KwLogger logger
             )
         {
-            // TODO:ここではログを出力せずに、ツリーの先端で出力したい。
-            KaisetuBoards logF_moveKiki = new KaisetuBoards();
-
-            Tansaku_Args args = new Tansaku_ArgsImpl( logF_moveKiki);
             Tansaku_Genjo genjo = new Tansaku_GenjoImpl(
-                temezumi,
-                args
+                temezumi
                 );
 
             return genjo;
@@ -100,6 +92,8 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
             )
         {
             int exceptionArea = 0;
+            // 後ろ向き探索なら、alphaがbestValueと同じ☆（＾～＾）
+            //float bestValue = Conv_Score.NegativeMax;
 
             try
             {
@@ -114,8 +108,17 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                         depth <= ttEntry.Depth)
                     {
                         // もっと深い探索で調べた点をすぐ返すぜ☆（＾▽＾）
+                        //logger.AppendLine("トランスポジション・カット☆");
                         logger.AppendLine("トランスポジション・カット☆ スコア=[" + ttEntry.Value + "]点 ttEntry="+ttEntry.LogStr_Description());
-                        logger.Flush(LogTypes.Plain);
+                        //logger.Flush(LogTypes.Plain);
+
+                        // 読みの深さ
+                        yomisujiInfo.SearchedMaxDepth = position.Temezumi - genjo.YomikaisiTemezumi;
+
+                        // pv
+                        pv.List[0] = Move.Empty; // 終端子
+                        pv.Size = 0;
+
                         return ttEntry.Value;
                     }
                 }
@@ -130,7 +133,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                     //----------------------------------------
 
                     // 読みの深さ
-                    yomisujiInfo.SearchedMaxDepth = position.Temezumi - genjo.YomikaisiTemezumi + 1;
+                    yomisujiInfo.SearchedMaxDepth = position.Temezumi - genjo.YomikaisiTemezumi;
 
                     // pv
                     pv.List[0] = Move.Empty; // 終端子
@@ -156,7 +159,6 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                 // （３）ループ
                 exceptionArea = 3000;
                 PvList pvList = new PvListImpl();
-                Move bestMove = Move.Empty;
                 for(int i=0; i<movelist.Count; i++)
                 {
                     Move iMove = movelist[i];//読む手
@@ -197,7 +199,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                         // これを呼び出す回数を減らすのが、アルファ法。
                         // 枝か、葉か、確定させにいきます。
                         // （＾▽＾）再帰☆
-                        float score = -Tansaku_FukasaYusen_Routine.WAAA_Search(
+                        float value = -Tansaku_FukasaYusen_Routine.WAAA_Search(
                             ref yomisujiInfo,
                             genjo,
 
@@ -211,7 +213,7 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                             args,
                             dlgt_SendInfo,
                             logger);
-                        logger.AppendLine(Conv_Move.LogStr_Description(iMove, "サーチ後。depth=["+depth+"] i=["+i+"] スコア=" + score + "点　alpha=[" + alpha + "]　beta=[" + beta + "]"));
+                        logger.AppendLine(Conv_Move.LogStr_Description(iMove, "サーチ後。depth=["+depth+"] i=["+i+"] スコア=" + value + "点　alpha=[" + alpha + "]　beta=[" + beta + "]"));
 
                         // （８）UndoMove
                         exceptionArea = 8000;
@@ -228,8 +230,8 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                         //────────────────────────────────────────
                         // （９）ベータ・カット
                         //────────────────────────────────────────
-                        exceptionArea = 9000;
-                        if (Conv_Score.IsBGreaterThanOrEqualA(beta, score))//beta <= score
+                        //exceptionArea = 9000;
+                        if (Conv_Score.IsBGreaterThanOrEqualA(beta, value))//beta <= value
                         {
 #if DEBUG_ALPHA_METHOD
                             logger.AppendLine("ベータ・カット☆！！");
@@ -243,11 +245,9 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                         //────────────────────────────────────────
                         // （１０）アップデート・アルファ
                         //────────────────────────────────────────
-                        exceptionArea = 10000;
-                        if (Conv_Score.IsBGreaterThanA(alpha, score))// alpha < score
+                        if (Conv_Score.IsBGreaterThanA(alpha, value))// alpha < value
                         {
-                            bestMove = iMove;
-                            alpha = score;
+                            alpha = value;
 
                             // PVを作るぜ☆（＾▽＾）
                             pv.List[0] = iMove; // 先頭に今回の指し手を置くぜ☆
@@ -286,7 +286,8 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                     {
                         ttEntry = new TTEntryImpl();
                     }
-                    ttEntry.Save(position.KyokumenHash, pv.List[0], depth, alpha);
+                    ttEntry.Save(position.KyokumenHash, pv.List[0], depth, alpha
+                        );
                     Tansaku_FukasaYusen_Routine.TranspositionTable.Set(ttEntry);
                 }
 
@@ -341,63 +342,5 @@ namespace Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct
                     logger
                 );
         }
-
-#if DEBUG
-        public static void Log1(
-            Tansaku_Genjo genjo,
-            Sky src_Sky,
-            out MmLogGenjoImpl out_mm_log,
-            out KaisetuBoard out_logBrd_move1,
-            KwLogger errH
-        )
-        {
-            Move move_forLog = Move.Empty;//ログ出力しないことにした☆（＞＿＜）
-            out_logBrd_move1 = new KaisetuBoard();// 盤１個分のログの準備
-
-            try
-            {
-                out_mm_log = new MmLogGenjoImpl(
-                        genjo.YomikaisiTemezumi,
-                        out_logBrd_move1,//ログ？
-                        src_Sky.Temezumi,//手済み
-                        move_forLog,//指し手
-                        errH//ログ
-                    );
-            }
-            catch (Exception ex)
-            {
-                errH.DonimoNaranAkirameta(ex, "棋譜ツリーの読みループの作成次ノードの前半２０です。");
-                throw ex;
-            }
-        }
-        /*
-        private static void Log2(
-            Tansaku_Genjo genjo,
-            MoveEx node_yomi,
-            KaisetuBoard logBrd_move1,
-            KwLogger errH
-        )
-        {
-            try
-            {
-                logBrd_move1.Move = node_yomi.Key;
-
-                SyElement srcMasu = Conv_Move.ToSrcMasu(logBrd_move1.Move);
-                SyElement dstMasu = Conv_Move.ToDstMasu(logBrd_move1.Move);
-
-                // ログ試し
-                logBrd_move1.Arrow.Add(new Gkl_Arrow(Conv_Masu.ToMasuHandle(srcMasu),
-                    Conv_Masu.ToMasuHandle(dstMasu)));
-                genjo.Args.LogF_moveKiki.boards.Add(logBrd_move1);
-            }
-            catch (Exception ex)
-            {
-                errH.DonimoNaranAkirameta(ex, "棋譜ツリーの読みループの作成次ノードの前半４０です。");
-                throw ex;
-            }
-        }
-        */
-#endif
     }
-
 }

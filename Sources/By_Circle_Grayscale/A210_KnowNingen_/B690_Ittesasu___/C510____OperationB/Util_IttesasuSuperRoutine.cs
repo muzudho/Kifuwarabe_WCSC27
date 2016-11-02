@@ -70,7 +70,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C510____OperationB
         /// <param name="logger"></param>
         /// <returns></returns>
         public static void DoMove_Super2(
-            ref Sky position_Move,//指定局面
+            ref Sky position,//指定局面
             ref Move ref_moveA,
             Playerside a_pside,
             Finger a_figKoma,//動かす駒
@@ -85,101 +85,47 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C510____OperationB
             // 取られる駒を b と呼ぶとする。
             //      この駒の元位置は d 、駒台は e と呼ぶとする。
             //
-            Sky position_Hash = new SkyImpl(position_Move);
-            Sky position_Move_Src = new SkyImpl(position_Move);
-            Sky position_Hash_Src = new SkyImpl(position_Hash);
 
-            //*
-            // TODO: 試し
-            if (position_Hash.KyokumenHash == Conv_Position.ToKyokumenHash(position_Move))
-            {
-                // logger.AppendLine("①（＾▽＾）局面ハッシュの整合性がとれているぜ☆！");
-            }
-            else
-            {
-                logger.DonimoNaranAkirameta(
-                    "①【エラー】局面ハッシュの整合性がとれていないぜ☆（／＿＼） position_Hash.KyokumenHash=[" + position_Hash.KyokumenHash + "] Conv_Position.ToKyokumenHash(position_Move)=[" + Conv_Position.ToKyokumenHash(position_Move) + "]"+
-                    "position_Hash" + Environment.NewLine +
-                    Conv_Position.LogStr_Description(position_Hash) +
-                    "position_Move" + Environment.NewLine +
-                    Conv_Position.LogStr_Description(position_Move) +
-                    "]"
-                    );
-            }
-            //*/
-
-            position_Hash.AssertFinger(a_figKoma);
-            position_Move.AssertFinger(a_figKoma);
+            position.AssertFinger(a_figKoma);
 
             // 動かす駒の種類
-            Busstop a_komaBus = position_Move.BusstopIndexOf(a_figKoma);
+            Busstop a_komaBus = position.BusstopIndexOf(a_figKoma);
             Komasyurui14 a_komaSyurui = Conv_Busstop.ToKomasyurui(a_komaBus);
 
             // 移動先に相手の駒がないか、確認します。
-            Finger b_komaFig = Util_Sky_FingersQuery.InMasuNow_Old(position_Move, d_masu).ToFirst();
+            Finger b_komaFig = Util_Sky_FingersQuery.InMasuNow_Old(position, d_masu).ToFirst();
 
             if (b_komaFig != Fingers.Error_1)
             {
                 //────────────────────────────────────────
                 // なにか駒を取ったら
                 //────────────────────────────────────────
-                position_Move.AssertFinger(b_komaFig);
-                Busstop b_komaBus = position_Move.BusstopIndexOf(b_komaFig);
+                position.AssertFinger(b_komaFig);
+                Busstop b_komaBus = position.BusstopIndexOf(b_komaFig);
                 Playerside b_pside = Conv_Busstop.ToPlayerside(b_komaBus);
                 Komasyurui14 b_komaSyurui = Conv_Busstop.ToKomasyurui(b_komaBus);
 
                 // ハッシュを差分更新（盤上から消えた、取られた駒の分だけ消す）
-                ulong xorSrc = position_Hash.KyokumenHash;
-                ulong xorOperand;
                 {
-                    xorOperand = Util_ZobristHashing.GetValue(((New_Basho)d_masu).MasuNumber, b_pside, b_komaSyurui);
-                    logger.AppendLine("ハッシュを差分更新（盤上から消えた、取られた駒の分だけ消す） xorOperand=[" + xorOperand+ "] b_komaBus="+Conv_Busstop.LogStr_Description(b_komaBus));
-                    position_Hash.KyokumenHash ^= xorOperand;
+                    ulong xorOperand = Util_ZobristHashing.GetValue(((New_Basho)d_masu).MasuNumber, b_pside, b_komaSyurui);
+                    position.KyokumenHash ^= xorOperand;
                 }
-                ulong xorDst = position_Hash.KyokumenHash;
 
                 // 駒台の空いているマス１つ。
                 SyElement e_akiMasu;
                 if (a_pside == Playerside.P1)
                 {
-                    e_akiMasu = Util_IttesasuRoutine.GetKomadaiKomabukuroSpace(Okiba.Sente_Komadai, position_Move);
+                    e_akiMasu = Util_IttesasuRoutine.GetKomadaiKomabukuroSpace(Okiba.Sente_Komadai, position);
                 }
                 else
                 {
-                    e_akiMasu = Util_IttesasuRoutine.GetKomadaiKomabukuroSpace(Okiba.Gote_Komadai, position_Move);
+                    e_akiMasu = Util_IttesasuRoutine.GetKomadaiKomabukuroSpace(Okiba.Gote_Komadai, position);
                 }
 
                 // 取られた駒は、駒台の空いているマスへ移動☆
-                position_Move.PutOverwriteOrAdd_Busstop(b_komaFig,
+                position.PutOverwriteOrAdd_Busstop(b_komaFig,
                     Conv_Busstop.ToBusstop(a_pside, e_akiMasu, b_komaSyurui)
                     );
-
-                //*
-                // TODO: 試し
-                if (position_Hash.KyokumenHash == Conv_Position.ToKyokumenHash(position_Move))
-                {
-                    //logger.AppendLine("⑤（＾▽＾）局面ハッシュの整合性がとれているぜ☆！");
-                }
-                else
-                {
-                    logger.DonimoNaranAkirameta(
-                        "⑤【エラー】駒取ったチョクゴ☆AAA 局面ハッシュの整合性がとれていないぜ☆（／＿＼）" +
-                        "b_komaBus = "+Conv_Busstop.LogStr_Description(b_komaBus) + Environment.NewLine +
-                        "xorSrc    =[" + xorSrc + "]" + Environment.NewLine +
-                        "xorOperand=[" + xorOperand + "]" + Environment.NewLine +
-                        "xorDst  正=[" + xorDst + "]" + Environment.NewLine +
-                        "position_Hash .KyokumenHash=[" + position_Hash.KyokumenHash + "]" + Environment.NewLine +
-                        Conv_Position.LogStr_Graphical(a_pside, position_Hash, logger) +
-                        "position_Move.ToKyokumenHash(position_Hash_Src)=[" + Conv_Position.ToKyokumenHash(position_Hash_Src) + "]" + Environment.NewLine +
-                        "position_Move.ToKyokumenHash(position_Hash    )=[" + Conv_Position.ToKyokumenHash(position_Hash) + "]" + Environment.NewLine +
-                        "position_Move.ToKyokumenHash(position_Move_Src)=[" + Conv_Position.ToKyokumenHash(position_Move_Src) + "]" + Environment.NewLine +
-                        "position_Move.ToKyokumenHash(position_Move  誤)=[" + Conv_Position.ToKyokumenHash(position_Move) + "]" + Environment.NewLine +
-                        Conv_Position.LogStr_Graphical(a_pside, position_Move, logger) +
-                        "]"
-                        );
-                }
-                //*/
-
 
                 if (b_komaSyurui!= Komasyurui14.H00_Null___)
                 {
@@ -193,7 +139,7 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C510____OperationB
                 // ハッシュを差分更新（移動元から消えた駒を消す）
                 {
                     SyElement c_masu = Conv_Busstop.ToMasu(a_komaBus);
-                    position_Hash.KyokumenHash ^= Util_ZobristHashing.GetValue(((New_Basho)c_masu).MasuNumber, a_pside, a_komaSyurui);
+                    position.KyokumenHash ^= Util_ZobristHashing.GetValue(((New_Basho)c_masu).MasuNumber, a_pside, a_komaSyurui);
                 }
 
                 // これ以前は、成りを考慮していない
@@ -203,36 +149,15 @@ namespace Grayscale.A210_KnowNingen_.B690_Ittesasu___.C510____OperationB
                 }
 
                 // ハッシュを差分更新（移動先に現れた駒を現す）
-                position_Hash.KyokumenHash ^= Util_ZobristHashing.GetValue(((New_Basho)d_masu).MasuNumber, a_pside, a_komaSyurui);
+                position.KyokumenHash ^= Util_ZobristHashing.GetValue(((New_Basho)d_masu).MasuNumber, a_pside, a_komaSyurui);
 
-                position_Move.PutOverwriteOrAdd_Busstop(a_figKoma,
+                position.PutOverwriteOrAdd_Busstop(a_figKoma,
                     Conv_Busstop.ToBusstop(a_pside, d_masu, a_komaSyurui)
                     );
             }
 
             // 動かしたあとに、先後を逆転させて、手目済カウントを増やします。
-            position_Move.IncreaseTemezumi();
-
-            //*
-            // TODO: 試し
-            if (position_Hash.KyokumenHash == Conv_Position.ToKyokumenHash(position_Move))
-            {
-                //logger.AppendLine("②（＾▽＾）局面ハッシュの整合性がとれているぜ☆！");
-            }
-            else
-            {
-                logger.DonimoNaranAkirameta(
-                    "②【エラー】ぶくぶく☆ 局面ハッシュの整合性がとれていないぜ☆（／＿＼） position_Hash.KyokumenHash=[" + position_Hash.KyokumenHash + "] Conv_Position.ToKyokumenHash(position_Move)=[" + Conv_Position.ToKyokumenHash(position_Move) + "]" +
-                    "position_Hash" + Environment.NewLine +
-                    Conv_Position.LogStr_Description(position_Hash) +
-                    "position_Move" + Environment.NewLine +
-                    Conv_Position.LogStr_Description(position_Move) +
-                    "]"
-                    );
-            }
-            //*/
-
-            position_Move.KyokumenHash = position_Hash.KyokumenHash;
+            position.IncreaseTemezumi();
         }
     }
 }

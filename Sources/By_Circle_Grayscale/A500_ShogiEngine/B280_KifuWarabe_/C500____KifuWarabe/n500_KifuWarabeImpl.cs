@@ -48,11 +48,8 @@ using Grayscale.A500_ShogiEngine.B240_TansaFukasa.C500____Struct;
 
 #if DEBUG
 using Grayscale.A060_Application.B520_Syugoron___.C___250_Struct;
-using Grayscale.A150_LogKyokuPng.B100_KyokumenPng.C___500_Struct;
 using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C250____Word;
 using Grayscale.A210_KnowNingen_.B190_Komasyurui_.C500____Util;
-using Grayscale.A150_LogKyokuPng.B200_LogKyokuPng.C500____UtilWriter;
-using Grayscale.A240_KifuTreeLog.B110_KifuTreeLog.C500____Struct;
 using Grayscale.A060_Application.B110_Log________.C___500_Struct;
 #endif
 
@@ -626,6 +623,11 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
             return line;
         }
 
+        /// <summary>
+        /// （＾△＾）positionきたｺﾚ！"
+        /// </summary>
+        /// <param name="line"></param>
+        /// <returns></returns>
         private Result_LoopM OnM2_Position(string line)
         {
             KwLogger logger = Util_Loggers.ProcessEngine_DEFAULT;
@@ -726,9 +728,7 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
                 //
                 // “が”、まだ指してはいけません。
                 #endregion
-#if DEBUG
-                this.Log1_AtLoop2("（＾△＾）positionきたｺﾚ！");
-#endif
+
                 // 入力行を解析します。
                 KifuParserA_Result result = new KifuParserA_ResultImpl();
                 KifuParserA_Impl kifuParserA = new KifuParserA_Impl();
@@ -755,14 +755,6 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
                         logger
                         );
                 }
-
-
-#if DEBUG
-                this.Log2_Png_Tyokkin_AtLoop2(line,
-                    result.Out_newNode_OrNull.Move,
-                    this.Kifu_AtLoop2.PositionA,
-                    logger);
-#endif
 
                 //------------------------------------------------------------
                 // じっとがまん
@@ -1431,73 +1423,6 @@ namespace Grayscale.A500_ShogiEngine.B280_KifuWarabe_.C500____KifuWarabe
             Util_Loggers.ProcessEngine_DEFAULT.Flush(LogTypes.Plain);
 #endif
         }
-
-
-#if DEBUG
-        private void Log1_AtLoop2(string message)
-        {
-            Util_Loggers.ProcessEngine_DEFAULT.AppendLine(message);
-            Util_Loggers.ProcessEngine_DEFAULT.Flush(LogTypes.Plain);
-        }
-        private void Log2_Png_Tyokkin_AtLoop2(string line, Move move_forLog, Sky sky, KwLogger errH)
-        {
-            //OwataMinister.WARABE_ENGINE.Logger.WriteLine_AddMemo(
-            //    Util_Sky307.Json_1Sky(this.Kifu.CurNode.Value.ToKyokumenConst, "現局面になっているのかなんだぜ☆？　line=[" + line + "]　棋譜＝" + KirokuGakari.ToJsaKifuText(this.Kifu, OwataMinister.WARABE_ENGINE),
-            //        "PgCS",
-            //        this.Kifu.CurNode.Value.ToKyokumenConst.Temezumi
-            //    )
-            //);
-
-            //
-            // 局面画像ﾛｸﾞ
-            //
-            {
-                // 出力先
-                string fileName = "_log_直近の指し手.png";
-
-                SyElement srcMasu = Conv_Move.ToSrcMasu(move_forLog);
-                SyElement dstMasu = Conv_Move.ToDstMasu(move_forLog);
-                Komasyurui14 captured = Conv_Move.ToCaptured(move_forLog);
-                int srcMasuNum = Conv_Masu.ToMasuHandle(srcMasu);
-                int dstMasuNum = Conv_Masu.ToMasuHandle(dstMasu);
-
-                KyokumenPngArgs_FoodOrDropKoma foodKoma;
-                if (Komasyurui14.H00_Null___ != captured)
-                {
-                    switch (Util_Komasyurui14.NarazuCaseHandle(captured))
-                    {
-                        case Komasyurui14.H00_Null___: foodKoma = KyokumenPngArgs_FoodOrDropKoma.NONE; break;
-                        case Komasyurui14.H01_Fu_____: foodKoma = KyokumenPngArgs_FoodOrDropKoma.FU__; break;
-                        case Komasyurui14.H02_Kyo____: foodKoma = KyokumenPngArgs_FoodOrDropKoma.KYO_; break;
-                        case Komasyurui14.H03_Kei____: foodKoma = KyokumenPngArgs_FoodOrDropKoma.KEI_; break;
-                        case Komasyurui14.H04_Gin____: foodKoma = KyokumenPngArgs_FoodOrDropKoma.GIN_; break;
-                        case Komasyurui14.H05_Kin____: foodKoma = KyokumenPngArgs_FoodOrDropKoma.KIN_; break;
-                        case Komasyurui14.H07_Hisya__: foodKoma = KyokumenPngArgs_FoodOrDropKoma.HI__; break;
-                        case Komasyurui14.H08_Kaku___: foodKoma = KyokumenPngArgs_FoodOrDropKoma.KAKU; break;
-                        default: foodKoma = KyokumenPngArgs_FoodOrDropKoma.UNKNOWN; break;
-                    }
-                }
-                else
-                {
-                    foodKoma = KyokumenPngArgs_FoodOrDropKoma.NONE;
-                }
-
-                // 直近の指し手。
-                Util_KyokumenPng_Writer.Write1(
-                    Conv_KifuNode.ToRO_Kyokumen1(sky, errH),
-                    srcMasuNum,
-                    dstMasuNum,
-                    foodKoma,
-                    Conv_Move.ToSfen(move_forLog),
-                    "",
-                    fileName,
-                    Util_KifuTreeLogWriter.REPORT_ENVIRONMENT,
-                    errH
-                    );
-            }
-        }
-#endif
-
 
         #region 処理の流れ
         public void OnA1()

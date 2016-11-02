@@ -106,7 +106,6 @@
     <Compile Include="B670_ConvKyokume\C500____Converter\Conv_Move.cs" />
     <Compile Include="B740_KifuParserA\C400____Conv\Conv_StringMove.cs" />
     <Compile Include="B800_ConvCsa____\C500____Converter\Util_CsaSasite.cs" />
-    <Compile Include="B250_Log_Kaisetu\C500____Util\Util_LogWriter022_Json.cs" />
     <Compile Include="B290_Komahaiyaku\C250____Word\Array_Komahaiyaku185.cs" />
     <Compile Include="B420_UtilSky258_\C250____UtilFingers\Util_Fingers_KomasyuruiQuery.cs" />
     <Compile Include="B420_UtilSky258_\C500____UtilSky\Util_Sky_FingerQuery.cs" />
@@ -122,12 +121,10 @@
     <Compile Include="B420_UtilSky258_\C500____UtilSky\Util_Sky_FingersQuery.cs" />
     <Compile Include="B420_UtilSky258_\C500____UtilSky\Util_SkyCreator.cs" />
     <Compile Include="B550_JsaFugo____\C500____Util\Util_Translator_JsaFugo.cs" />
-    <Compile Include="B810_LogGraphiEx\C500____Util\Conv_KaisetuBoards.cs" />
     <Compile Include="B220_ZobrishHash\C500____Struct\Util_ZobristHashing.cs" />
     <Compile Include="B630_Sennitite__\C500____Struct\SennititeConfirmerImpl.cs" />
     <Compile Include="B630_Sennitite__\C___500_Struct\SennititeConfirmer.cs" />
     <Compile Include="B600_UtilSky____\C500____Util\Conv_Starlight.cs" />
-    <Compile Include="B620_KyokumHyoka\C___250_Struct\HyokakansuName.cs" />
     <Compile Include="B670_ConvKyokume\C500____Converter\Conv_KifuNode.cs" />
     <Compile Include="B690_Ittesasu___\C500____UtilA\Conv_JsaFugoText.cs" />
     <Compile Include="B670_ConvKyokume\C500____Converter\Conv_SfenSasiteTokens.cs" />
@@ -151,8 +148,6 @@
     <Compile Include="B170_WordShogi__\C500____Word\Hogaku.cs" />
     <Compile Include="B170_WordShogi__\C500____Word\Okiba.cs" />
     <Compile Include="B170_WordShogi__\C500____Word\Playerside.cs" />
-    <Compile Include="B250_Log_Kaisetu\C250____Struct\KaisetuBoard.cs" />
-    <Compile Include="B250_Log_Kaisetu\C250____Struct\KaisetuBoards.cs" />
     <Compile Include="B270_Sky________\C___500_Struct\Sky.cs" />
     <Compile Include="B270_Sky________\C500____Struct\Fingers.cs" />
     <Compile Include="B270_Sky________\C500____Struct\SkyImpl.cs" />

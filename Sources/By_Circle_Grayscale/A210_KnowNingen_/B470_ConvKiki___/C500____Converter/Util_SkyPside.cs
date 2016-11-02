@@ -37,10 +37,6 @@ namespace Grayscale.A210_KnowNingen_.B470_ConvKiki___.C500____Converter
                 src_Sky,//現在の局面
                 tebanside,//手番
                 false//相手番か
-#if DEBUG
-                ,
-                null
-#endif
             );
 
             MasubetuKikisuImpl result = new MasubetuKikisuImpl();
