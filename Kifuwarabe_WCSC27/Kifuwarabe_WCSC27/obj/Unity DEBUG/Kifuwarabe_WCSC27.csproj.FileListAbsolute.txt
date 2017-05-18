@@ -1,2 +1,0 @@
-C:\Users\Takahashi\Documents\muzudho\Shogi\Kifuwarabe_WCSC27\Kifuwarabe_WCSC27\Kifuwarabe_WCSC27\obj\Unity DEBUG\shogi34.exe
-C:\Users\Takahashi\Documents\muzudho\Shogi\Kifuwarabe_WCSC27\Kifuwarabe_WCSC27\Kifuwarabe_WCSC27\obj\Unity DEBUG\shogi34.pdb

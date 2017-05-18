@@ -1,8 +1,0 @@
-C:\Users\Takahashi\Documents\muzudho\shogi34\shogi34\shogi34\bin\Unity DEBUG\shogi34.exe.config
-C:\Users\Takahashi\Documents\muzudho\shogi34\shogi34\shogi34\bin\Unity DEBUG\shogi34.exe
-C:\Users\Takahashi\Documents\muzudho\shogi34\shogi34\shogi34\bin\Unity DEBUG\shogi34.pdb
-C:\Users\Takahashi\Documents\muzudho\shogi34\shogi34\shogi34\obj\Unity DEBUG\shogi34.exe
-C:\Users\Takahashi\Documents\muzudho\shogi34\shogi34\shogi34\obj\Unity DEBUG\shogi34.pdb
-C:\Users\Takahashi\Documents\muzudho\shogi34\Game\shogi34.exe.config
-C:\Users\Takahashi\Documents\muzudho\shogi34\Game\shogi34.exe
-C:\Users\Takahashi\Documents\muzudho\shogi34\Game\shogi34.pdb
