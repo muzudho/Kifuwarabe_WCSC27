@@ -1,39 +1,43 @@
-# ���ӂ��� WCSC27
+﻿# きふわらべ WCSC27
 
 MIT License
 https://opensource.org/licenses/mit-license.php
 
-Game �t�H���_�[�� kifuwarabe_wcsc27.exe �����Ă��ꂾ�����i�O�`�O�jVisual Studio 2017 �Ƃ��ŃR���p�C�����낾�����i�O�`�O�j
-���Q���̂��̂� ���̂܂ܕ��荞�ނ����i�O�`�O�j
+Game フォルダーに kifuwarabe_wcsc27.exe を入れてくれだぜ☆（＾～＾）Visual Studio 2017 とかでコンパイルしろだぜ☆（＾～＾）
+大会参加のものを そのまま放り込むぜ☆（＾～＾）
 
-���̃o�[�W�����͊J���I���ŁA���͐݌v��������꒼�������i�O�`�O�j
-Unity�œ����悤�ɂ���� Mac���[�U�[�ł��V�ׂ�̂ł͂Ȃ����A�Ƃ�������������(�O���O)
-
-
-- [USI���[�h] USI�G���W���Ȃ�ŏ������ɓo�^�ł��邺���i�O�`�O�j
-- [�ǂ��Ԃ��傤�����[�h](Windows �R�}���h�v�����v�g�p) .exe ���_�u���N���b�N���� ������ʂ� [Enter]�L�[�������� �ǂ��Ԃ��傤�� �ŗV�ׂ邺���i�O�`�O�j
-- �r�b�g�{�[�h��128bit�Ȃ�ŁA3x4 �Ձ`9x9�� �̊ԂŗV��ł��ꂾ�����i�O�`�O�j
-- �P�i�ڂł�������Ȃ��o�O��A�������̂P�i�ڐ��炸�A�Ղ̔��Α��֐��E��������肷��o�O�Ȃ�  �l�X�Ȑ݌v�Y�ꂪ���邺���i�O�`�O�j
-
-## ����ł�@�\
-
-- �@�B�w�K�A��ՁA���� �̂R�� 3x4�� �ɂ����Ή����ĂȂ��̂ŁA�@�\�����낵�Ă��܂��������i�O�`�O�j 3x4�Ղł������Ȃ��Ȃ������i�O�`�O�j
+このバージョンは開発終了で、次は設計から手を入れ直すぜ☆（＾～＾）
+Unityで動くようにすれば Macユーザーでも遊べるのではないか、という改造だぜ☆(＾◇＾)
 
 
+- [USIモード] USIエンジンなんで将棋所に登録できるぜ☆（＾～＾）
+- [どうぶつしょうぎモード](Windows コマンドプロンプト用) .exe をダブルクリックして 黒い画面で [Enter]キーを押せば どうぶつしょうぎ で遊べるぜ☆（＾～＾）
+- ビットボードは128bitなんで、3x4 盤～9x9盤 の間で遊んでくれだぜ☆（＾～＾）
+- １段目でしか成らないバグや、うさぎの１段目成らず、盤の反対側へ世界一周したりするバグなど  様々な設計忘れがあるぜ☆（＾～＾）
 
-## �ǂ��Ԃ��傤�����[�h �̐���
+## しんでる機能
 
-- �uman�v�R�}���h�Ő������ǂ߂邺���i�O�`�O�j
-
-�悭�g���R�}���h
-
-- �u@�v�R�}���h�ŊO���X�N���v�g�E�t�@�C�����s�BGame/Command �t�H���_�[���̃e�L�X�g�t�@�C����ǂ߂�����
-- �uset�v�R�}���h�Ŋe��ݒ�B
-- �udo�v�R�}���h�Ŏw���B
-- �uundo�v�R�}���h�Ŗ߂��B
-- �uky�v�ŔՖʕ\���Bkyokumen�B
-- �usasite�v�ukiki�v�ŏ��\���B
+- 機械学習、定跡、成績 の３つは 3x4盤 にしか対応してないので、機能をころしてしまったぜ☆（＾～＾） 3x4盤でも動かなくなった☆（＾～＾）
 
 
-�Ȃ񂩊��Ŏg���Ă��ꂾ�����i�O�`�O�j
+
+## どうぶつしょうぎモード の説明
+
+- 「man」コマンドで説明が読めるぜ☆（＾～＾）
+
+よく使うコマンド
+
+- 「@」コマンドで外部スクリプト・ファイル実行。Game/Command フォルダー下のテキストファイルを読めだぜ☆
+- 「set」コマンドで各種設定。
+- 「do」コマンドで指す。
+- 「undo」コマンドで戻す。
+- 「ky」で盤面表示。kyokumen。
+- 「sasite」「kiki」で情報表示。
+
+
+なんか勘で使ってくれだぜ☆（＾～＾）
+
+
+ソースコードの解説は Qiita に書いていくが、開発終わってるんで　ソースコードの改良は行わないぜ☆（＾～＾）
+http://qiita.com/muzudho1/items/f520859a997f16f2948f
 
