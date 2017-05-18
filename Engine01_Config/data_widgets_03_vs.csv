@@ -1,5 +1,0 @@
-window,type,name,ｺﾒﾝﾄ,IsLight_OnFlowB_1TumamitaiKoma,x,y,label,fontSize,fugo,width,height,visible,backColor,okiba,suji,dan,masuHandle,EOL
-Shogiban,Button,BtnShogiEngineKido1P,将棋エンジン１Ｐ起動ボタン,TRUE,700,120,起動１,20,,,,,,,,,,
-Shogiban,Button,BtnShogiEngineKido2P,将棋エンジン２Ｐ起動ボタン,TRUE,800,120,起動２,20,,,,,,,,,,
-Shogiban,Button,BtnShogiEngineKidoT,将棋エンジン起動ボタン_Ｔ,TRUE,900,120,CP先,20,,,,,,,,,,
-EOF,,,,,,,,,,,,,,,,,,

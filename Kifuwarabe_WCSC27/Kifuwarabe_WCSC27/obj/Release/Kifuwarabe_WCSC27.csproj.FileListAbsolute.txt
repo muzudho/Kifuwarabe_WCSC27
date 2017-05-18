@@ -1,0 +1,6 @@
+C:\Users\Takahashi\Documents\muzudho\Shogi\Kifuwarabe_WCSC27\Game\kifuwarabe_wcsc27.exe.config
+C:\Users\Takahashi\Documents\muzudho\Shogi\Kifuwarabe_WCSC27\Game\kifuwarabe_wcsc27.exe
+C:\Users\Takahashi\Documents\muzudho\Shogi\Kifuwarabe_WCSC27\Game\kifuwarabe_wcsc27.pdb
+C:\Users\Takahashi\Documents\muzudho\Shogi\Kifuwarabe_WCSC27\Kifuwarabe_WCSC27\Kifuwarabe_WCSC27\obj\Release\kifuwarabe_wcsc27.exe
+C:\Users\Takahashi\Documents\muzudho\Shogi\Kifuwarabe_WCSC27\Kifuwarabe_WCSC27\Kifuwarabe_WCSC27\obj\Release\kifuwarabe_wcsc27.pdb
+C:\Users\Takahashi\Documents\muzudho\Shogi\Kifuwarabe_WCSC27\Kifuwarabe_WCSC27\Kifuwarabe_WCSC27\obj\Release\Kifuwarabe_WCSC27.csprojResolveAssemblyReference.cache
