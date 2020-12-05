@@ -90,7 +90,7 @@
   <ItemGroup>
     <Compile Include="abstracts\CommandMode.cs" />
     <Compile Include="abstracts\EnumExtensions.cs" />
-    <Compile Include="abstracts\Itiran_FenParser.cs" />
+    <Compile Include="Presenter\FenParsers.cs" />
     <Compile Include="abstracts\Med_Kyokumen.cs" />
     <Compile Include="abstracts\Med_Parser.cs" />
     <Compile Include="abstracts\Util_Bitboard.cs" />
