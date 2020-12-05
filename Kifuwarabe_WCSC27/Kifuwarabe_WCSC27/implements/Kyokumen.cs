@@ -919,7 +919,7 @@ namespace kifuwarabe_wcsc27.implements
         /// <param name="ss">指し手☆</param>
         public void DoSasite(bool isSfen, Sasite ss , SasiteType ssType, ref Nanteme konoTeme, Taikyokusya jibun, Mojiretu syuturyoku)
         {
-            bool gt_EndMethod;
+            // bool endMethodFlag;
 
             Taikyokusya aite;
 
@@ -961,7 +961,7 @@ namespace kifuwarabe_wcsc27.implements
             Teme++;
 
 
-            gt_EndMethod = false;
+            // endMethodFlag = false;
             if (Sasite.Toryo == ss) {
                 goto gt_EndMethod;
             }// 投了なら、なにも更新せず終了☆（＾▽＾）
@@ -1194,7 +1194,7 @@ namespace kifuwarabe_wcsc27.implements
                 KyokumenHash.SetXor(Util_ZobristHashing.GetMotiKey(Sindan, mk_t0));
             }
 
-            //DoSasite1( isSfen, ss, ssType, ref konoTeme, jibun, syuturyoku, out gt_EndMethod);
+            //DoSasite1( isSfen, ss, ssType, ref konoTeme, jibun, syuturyoku, out endMethodFlag);
 
 
             // ローカル変数はグローバル変数に移動した。

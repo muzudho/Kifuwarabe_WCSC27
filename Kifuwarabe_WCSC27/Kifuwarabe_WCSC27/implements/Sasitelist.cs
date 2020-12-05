@@ -30,9 +30,9 @@ namespace kifuwarabe_wcsc27.implements
                 this.List_Reason[this.SslistCount] = reason;
                 this.SslistCount++;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw ;
             }
         }
         public void ClearSslist()
@@ -43,9 +43,9 @@ namespace kifuwarabe_wcsc27.implements
                 Array.Clear(this.List_Reason, 0, this.SslistCount);
                 this.SslistCount = 0;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw ;
             }
         }
     }

@@ -835,10 +835,13 @@ namespace kifuwarabe_wcsc27.abstracts
                     Util_Machine.Assert_Sabun_Kiki("飛び利き増やす1", ky.Sindan, syuturyoku);
                     ky.Shogiban.N250_OkuBanjoKoma(isSfen, ms1, km1, true, ky.Sindan, syuturyoku);
                     Util_Machine.Assert_Sabun_Kiki("飛び利き増やす2", ky.Sindan, syuturyoku);
+
+                    /*
                     if (false)
                     {
                         ky.Tekiyo(true, syuturyoku); // FIXME: 駒１個置く毎に盤面作り直しているとデバッグでトレースしにくい。
                     }
+                    */
                 }
             }
             else if (caret_1 == commandline.IndexOf("raion", caret_1))

@@ -234,7 +234,7 @@ namespace kifuwarabe_wcsc27.implements
         /// <param name="fueta"></param>
         public void HerasuBanjoKoma(Kyokumen ky, Koma km, Masu ms)
         {
-            if (false)
+            if (DebugOptions.ReducePiecesOnBoard)
             {
                 Debug.Assert(Conv_Koma.IsOk(km), "");//空白とか禁止☆（＾～＾）！
 
@@ -259,7 +259,7 @@ namespace kifuwarabe_wcsc27.implements
         /// <param name="ninsyo"></param>
         public void HaneiMotiKoma(Kyokumen ky, MotiKoma mk)
         {
-            if (false)
+            if (DebugOptions.EvaluationHand)
             {
                 // 駒の位置（評価関数の項目番号）☆ 持ち駒が 0 枚で、-1 の場合もあり☆
                 int koumokuNo = Util_NikomaKankei.GetKoumokuBango_MotiKoma(ky, mk);
@@ -276,7 +276,7 @@ namespace kifuwarabe_wcsc27.implements
 
         public void KesuMotiKoma(Kyokumen ky, MotiKoma mk)
         {
-            if (false)
+            if (DebugOptions.ReduceHand)
             {
                 // 駒の位置（評価関数の項目番号）☆ 持ち駒が 0 枚で、-1 の場合もあり☆
                 int koumokuNo = Util_NikomaKankei.GetKoumokuBango_MotiKoma(ky, mk);
@@ -303,7 +303,7 @@ namespace kifuwarabe_wcsc27.implements
         /// <param name="fueta"></param>
         public void FuyasuBanjoKoma(Kyokumen ky, Koma km, Masu ms)
         {
-            if (false)
+            if (DebugOptions.AddPiecesOnBoard)
             {
                 Debug.Assert(Conv_Koma.IsOk(km), "");//空白とか禁止☆（＾～＾）！
 

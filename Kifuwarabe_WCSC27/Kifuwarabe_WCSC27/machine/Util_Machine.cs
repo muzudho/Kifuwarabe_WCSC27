@@ -279,7 +279,7 @@ namespace kifuwarabe_wcsc27.machine
                         System.IO.File.AppendAllText(bestFile, syuturyoku.ToContents());
                         break;
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         if (0==retry)
                         {
@@ -292,7 +292,7 @@ namespace kifuwarabe_wcsc27.machine
                         else
                         {
                             // 無理☆（＾▽＾）ｗｗｗ
-                            throw ex;
+                            throw;
                         }
                     }
                 }
