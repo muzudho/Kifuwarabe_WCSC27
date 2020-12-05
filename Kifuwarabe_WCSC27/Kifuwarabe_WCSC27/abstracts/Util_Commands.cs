@@ -1,12 +1,13 @@
-﻿using kifuwarabe_wcsc27.facade;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Text;
+using kifuwarabe_wcsc27.facade;
 using kifuwarabe_wcsc27.implements;
 using kifuwarabe_wcsc27.interfaces;
 using kifuwarabe_wcsc27.machine;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using System.Diagnostics;
+using Nett;
 
 namespace kifuwarabe_wcsc27.abstracts
 {
@@ -2882,8 +2883,12 @@ namespace kifuwarabe_wcsc27.abstracts
         {
 #if UNITY
 #else
-            syuturyoku.AppendLine("id name " + Program.IdName);
-            syuturyoku.AppendLine("id author " + Program.IdAuthor);
+            var profilePath = System.Configuration.ConfigurationManager.AppSettings["Profile"];
+            var toml = Toml.ReadFile(Path.Combine(profilePath, "Engine.toml"));
+            var engineName = toml.Get<TomlTable>("Engine").Get<string>("Name");
+            var engineAuthor = toml.Get<TomlTable>("Engine").Get<string>("Author");
+            syuturyoku.AppendLine($"id name {engineName}");
+            syuturyoku.AppendLine($"id author {engineAuthor}");
             syuturyoku.AppendLine("option name SikoJikan type spin default 500 min 100 max 10000000");
             syuturyoku.AppendLine("option name SikoJikanRandom type spin default 1000 min 0 max 10000000");
             syuturyoku.AppendLine("option name Comment type string default Jikan is milli seconds.");

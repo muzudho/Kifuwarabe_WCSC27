@@ -8,15 +8,6 @@ namespace kifuwarabe_wcsc27
     public class Program
     {
         /// <summary>
-        /// SFENに対応したエンジン名
-        /// </summary>
-        public const string IdName = "Kifuwarabe WCSC27";
-        /// <summary>
-        /// SFENに対応したエンジン作者名
-        /// </summary>
-        public const string IdAuthor = "Satoshi TAKAHASHI";
-
-        /// <summary>
         /// ここからコンソール・アプリケーションが始まるぜ☆（＾▽＾）
         /// 
         /// ＰＣのコンソール画面のプログラムなんだぜ☆（＾▽＾）
