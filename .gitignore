@@ -1,2 +1,8 @@
 Game/*.exe
 **/*.exe
+**/*.pdb
+**/*.suo
+**/db.lock
+**/storage.ide
+**/*.csprojAssemblyReference.cache
+**/*.csproj.FileListAbsolute.txt
