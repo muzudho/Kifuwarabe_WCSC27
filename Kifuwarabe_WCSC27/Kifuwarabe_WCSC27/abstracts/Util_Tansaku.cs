@@ -216,7 +216,7 @@ namespace kifuwarabe_wcsc27.abstracts
                         case MoveCharacter.SinteYusen://thru
                         case MoveCharacter.SinteNomi:
                             {
-                                List<Move> josekiSasites = Option_Application.Joseki.GetSasites(ky);
+                                List<Move> josekiSasites = Option_Application.Joseki.GetMoves(ky);
                                 // この局面の合法手を取得☆（＾▽＾）
                                 int fukasa = 0;
                                 Util_SasiteSeisei.GenerateSasite_01(fukasa, ky, MoveType.N21_All,true, syuturyoku);// グローバル変数 Util_SasiteSeisei.Sasitelist[fukasa].Sslist に指し手がセットされるぜ☆（＾▽＾）

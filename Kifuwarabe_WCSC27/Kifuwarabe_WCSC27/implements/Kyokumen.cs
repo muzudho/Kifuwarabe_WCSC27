@@ -1136,7 +1136,7 @@ namespace kifuwarabe_wcsc27.implements
                 sindan1.Append("ms_t1=["); Conv_Masu.Setumei(ms_t1, this, sindan1); sindan1.AppendLine("]位置を、シットダウンした。");
                 sindan1.Append("kaisi-対局者=["); Conv_Taikyokusya.Setumei_Name(Util_Tansaku.KaisiTaikyokusya, sindan1); sindan1.AppendLine("]");
                 sindan1.Append("対局者=["); Conv_Taikyokusya.Setumei_Name(jibun, sindan1); sindan1.AppendLine("]");
-                sindan1.Append("do sasite=["); ConvMove.Setumei(isSfen, ss, sindan1); sindan1.AppendLine("]");
+                sindan1.Append("do move=["); ConvMove.Setumei(isSfen, ss, sindan1); sindan1.AppendLine("]");
                 sindan1.Append("相手対局者=["); Conv_Taikyokusya.Setumei_Name(aite, sindan1); sindan1.AppendLine("]");
                 sindan1.Append("相手番のfood駒=["); Conv_Koma.Setumei(km_c, sindan1); sindan1.AppendLine("]");
                 Util_Information.Setumei_1Bitboard("手番の駒全部BB", Shogiban.GetBBKomaZenbu(jibun), sindan1);
@@ -1233,7 +1233,7 @@ namespace kifuwarabe_wcsc27.implements
 
             sindan3.Append("kaisi-対局者=["); Conv_Taikyokusya.Setumei_Name(Util_Tansaku.KaisiTaikyokusya, sindan3); sindan3.AppendLine("]");
             sindan3.Append("自分=["); Conv_Taikyokusya.Setumei_Name(jibun, sindan3); sindan3.AppendLine("]");
-            sindan3.Append("do sasite=["); ConvMove.Setumei(isSfen, ss, sindan3); sindan3.AppendLine("]");
+            sindan3.Append("do move=["); ConvMove.Setumei(isSfen, ss, sindan3); sindan3.AppendLine("]");
             sindan3.Append("ms_src=["); Conv_Masu.Setumei(ms_t0, this, sindan3); sindan3.AppendLine("]位置を、手番の駒全部BBからオフにしたいぜ☆");
             sindan3.Append("手番=["); Conv_Taikyokusya.Setumei_Name(jibun, sindan3); sindan3.AppendLine("]");
             sindan3.Append("移動元の手番の駒=["); Conv_Koma.Setumei(km_t0, sindan3); sindan3.AppendLine("]");
@@ -1299,7 +1299,7 @@ namespace kifuwarabe_wcsc27.implements
 
             sindan2.Append("kaisi-対局者=["); Conv_Taikyokusya.Setumei_Name(Util_Tansaku.KaisiTaikyokusya, sindan2); sindan2.AppendLine("]");
             sindan2.Append("対局者=["); Conv_Taikyokusya.Setumei_Name(jibun, sindan2); sindan2.AppendLine("]");
-            sindan2.Append("do sasite=["); ConvMove.Setumei(isSfen, ss, sindan2); sindan2.AppendLine("]");
+            sindan2.Append("do move=["); ConvMove.Setumei(isSfen, ss, sindan2); sindan2.AppendLine("]");
             sindan2.Append("ms_t0=["); Conv_Masu.Setumei(ms_t0, this, sindan2); sindan2.AppendLine("]");
             sindan2.Append("ms_t1=["); Conv_Masu.Setumei(ms_t1, this, sindan2); sindan2.AppendLine("]");
             Util_Information.Setumei_1Bitboard("手番の全部の駒", this.Shogiban.GetBBKomaZenbu(jibun), sindan2);
@@ -1447,15 +1447,15 @@ namespace kifuwarabe_wcsc27.implements
 
             if (!Shogiban.ExistsBBKomaZenbu(ms_t1))
             {
-                Mojiretu str_sasite = new MojiretuImpl();
-                str_sasite.Append("指し手に該当する戻せる駒が無かったぜ☆（＾～＾） sasite=");
-                ConvMove.AppendFenTo(isSfen, ss, str_sasite);
-                str_sasite.AppendLine();
+                Mojiretu str_move = new MojiretuImpl();
+                str_move.Append("指し手に該当する戻せる駒が無かったぜ☆（＾～＾） move=");
+                ConvMove.AppendFenTo(isSfen, ss, str_move);
+                str_move.AppendLine();
 
                 syuturyoku.AppendLine("駒全部");
-                Util_Commands.Koma_cmd(isSfen, "koma", this, str_sasite);
+                Util_Commands.Koma_cmd(isSfen, "koma", this, str_move);
 
-                throw new Exception( str_sasite.ToContents());
+                throw new Exception( str_move.ToContents());
             }
 #endif
 

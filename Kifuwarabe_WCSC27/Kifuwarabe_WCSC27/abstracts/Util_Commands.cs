@@ -219,12 +219,12 @@ namespace kifuwarabe_wcsc27.abstracts
 #if DEBUG
             Util_Information.Setumei_NingenGameYo(ky, syuturyoku);
             Ky(isSfen, "ky fen", ky, syuturyoku);// 参考：改造FEN表示
-            Sasite_cmd(isSfen, "sasite", ky, syuturyoku);// 参考：指し手表示
+            Sasite_cmd(isSfen, "move", ky, syuturyoku);// 参考：指し手表示
             if (false){
                 Util_Information.HyojiKomanoIbasho(ky.Shogiban, syuturyoku);// 参考：駒の表示
             }
             Util_Information.HyojiKomanoKikiSu(ky.Shogiban, syuturyoku);// 参考：利きの数
-            Sasite_cmd(isSfen, "sasite seisei", ky, syuturyoku);// 参考：指し手生成表示
+            Sasite_cmd(isSfen, "move seisei", ky, syuturyoku);// 参考：指し手生成表示
             Util_Machine.Flush(syuturyoku);
 #endif
 
@@ -479,7 +479,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     }
 
                     List<Move> removeListSs = new List<Move>();
-                    foreach (KeyValuePair<Move, JosekiSasite> ssEntry in kyEntry.Value.SsItems)
+                    foreach (KeyValuePair<Move, JosekiMove> ssEntry in kyEntry.Value.SsItems)
                     {
                         Move ss = ssEntry.Value.Move;//指し手データ
 
@@ -934,10 +934,10 @@ namespace kifuwarabe_wcsc27.abstracts
             syuturyoku.AppendLine(kigo + "nikoma yomu     : 二駒関係ファイル読込み☆");
             syuturyoku.AppendLine(kigo + "quit            : アプリケーション終了。保存してないものは保存する☆");
             syuturyoku.AppendLine(kigo + "rnd             : ランダムに１手指すぜ☆");
-            syuturyoku.AppendLine(kigo + "sasite          : 味方の指し手を一覧するぜ☆");
-            syuturyoku.AppendLine(kigo + "sasite 1361     : 指し手コード 1361 を翻訳するぜ☆");
-            syuturyoku.AppendLine(kigo + "sasite seisei   : 指し手生成のテストだぜ☆");
-            syuturyoku.AppendLine(kigo + "sasite su       : 指し手の件数を出力するぜ☆");
+            syuturyoku.AppendLine(kigo + "move          : 味方の指し手を一覧するぜ☆");
+            syuturyoku.AppendLine(kigo + "move 1361     : 指し手コード 1361 を翻訳するぜ☆");
+            syuturyoku.AppendLine(kigo + "move seisei   : 指し手生成のテストだぜ☆");
+            syuturyoku.AppendLine(kigo + "move su       : 指し手の件数を出力するぜ☆");
             syuturyoku.AppendLine(kigo + "see B3          : B3 にある駒を取り合ったときの評価値を返すぜ☆");
             syuturyoku.AppendLine(kigo + "set             : 設定を一覧表示するぜ☆");
             syuturyoku.AppendLine(kigo + "set AspirationFukasa 7  : アスピレーション窓探索を使い始める深さ☆（＾～＾）");
@@ -1364,7 +1364,7 @@ namespace kifuwarabe_wcsc27.abstracts
 
         public static void Sasite_cmd(bool isSfen, string commandline, Kyokumen ky, Mojiretu syuturyoku)
         {
-            if (commandline == "sasite")
+            if (commandline == "move")
             {
                 List<MoveKakucho> sslist = Util_Application.Sasite_cmd(ky, syuturyoku);
                 Conv_Sasitelist.Setumei(isSfen, "指し手全部", sslist, syuturyoku);
@@ -1374,17 +1374,16 @@ namespace kifuwarabe_wcsc27.abstracts
 
             // うしろに続く文字は☆（＾▽＾）
             int caret_1 = 0;
-            Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret_1, "sasite ");
+            Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret_1, "move ");
 
-            #region sasite su
             if (caret_1 == commandline.IndexOf("su", caret_1))// 指し手の件数出力
             {
                 List<MoveKakucho> sslist = Util_Application.Sasite_cmd(ky, syuturyoku);
                 syuturyoku.AppendLine("指し手 件数=[" + sslist.Count + "]");
                 return;
             }
-            #endregion
-            #region sasite seisei
+
+            #region 指し手生成
             else if (caret_1 == commandline.IndexOf("seisei", caret_1))// 指し手生成チェック
             {
                 int fukasa = 0;
@@ -1759,7 +1758,7 @@ namespace kifuwarabe_wcsc27.abstracts
 #endregion
             else
             {
-                if (Util_Application.Sasite_cmd(commandline, ky.Sindan, out Move ss))// sasite 912 とか☆
+                if (Util_Application.Sasite_cmd(commandline, ky.Sindan, out Move ss))// move 912 とか☆
                 {
                     ConvMove.Setumei(isSfen, ss, syuturyoku);
                     syuturyoku.Append(" (");
@@ -2607,7 +2606,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 //────────────────────────────────────────
                 foreach (KeyValuePair<ulong, JosekiKyokumen> entryKy in Option_Application.Joseki.KyItems)
                 {
-                    foreach (KeyValuePair<Move, JosekiSasite> entrySs in entryKy.Value.SsItems)
+                    foreach (KeyValuePair<Move, JosekiMove> entrySs in entryKy.Value.SsItems)
                     {
                         if (entrySs.Value.Hyokati <= Hyokati.TumeTesu_FuNoSu_HyakuTeTumerare)
                         {

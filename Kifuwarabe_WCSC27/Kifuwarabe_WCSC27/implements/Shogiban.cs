@@ -1362,7 +1362,7 @@ namespace kifuwarabe_wcsc27.implements
             ////#if DEBUG
             //{
             //    syuturyoku.AppendLine("（＾～＾）減らす盤上の駒3★");
-            //    Util_Commands.Sasite_cmd(isSfen, "sasite su", this, syuturyoku);
+            //    Util_Commands.Sasite_cmd(isSfen, "move su", this, syuturyoku);
             //    Util_Machine.Flush(syuturyoku);
             //}
             ////#endif
@@ -1375,7 +1375,7 @@ namespace kifuwarabe_wcsc27.implements
             ////#if DEBUG
             //{
             //    syuturyoku.AppendLine("（＾～＾）減らす盤上の駒4★");
-            //    Util_Commands.Sasite_cmd(isSfen, "sasite su", this, syuturyoku);
+            //    Util_Commands.Sasite_cmd(isSfen, "move su", this, syuturyoku);
             //    Util_Machine.Flush(syuturyoku);
             //}
             ////#endif
@@ -1420,7 +1420,7 @@ namespace kifuwarabe_wcsc27.implements
             ////#if DEBUG
             //{
             //    syuturyoku.AppendLine("（＾～＾）減らす盤上の駒5★");
-            //    Util_Commands.Sasite_cmd(isSfen, "sasite su", this, syuturyoku);
+            //    Util_Commands.Sasite_cmd(isSfen, "move su", this, syuturyoku);
             //    Util_Machine.Flush(syuturyoku);
             //}
             ////#endif

@@ -222,7 +222,7 @@ namespace kifuwarabe_wcsc27.abstracts
                             throw new Exception(msg);
                         }
 
-                        if (!ky_forAssert.CanDoSasite(bestSasite, out SasiteMatigaiRiyu riyu))
+                        if (!ky_forAssert.CanDoSasite(bestSasite, out MoveMatigaiRiyu riyu))
                         {
                             Mojiretu reigai1 = new MojiretuImpl();
                             reigai1.AppendLine("指せない指し手を定跡に登録しようとしたぜ☆（＾～＾）！：");

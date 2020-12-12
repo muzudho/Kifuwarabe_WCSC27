@@ -40,11 +40,11 @@ namespace kifuwarabe_wcsc27.implements
             foreach(string fugo in fugoItiran)
             {
                 int caret = 0;
-                if(!Med_Parser.TryFenMove(isSfen, fugo, ref caret,kys,out Move sasite))
+                if(!Med_Parser.TryFenMove(isSfen, fugo, ref caret,kys,out Move move))
                 {
                     throw new System.Exception("指し手のパースエラー fugo=["+ fugo + "]");
                 }
-                SsList.Add(sasite);
+                SsList.Add(move);
             }
         }
 
@@ -83,7 +83,7 @@ namespace kifuwarabe_wcsc27.implements
             syuturyoku.Append("< kifu, 初期局面, ");
             ky2.TusinYo_Line(isSfen, syuturyoku);
 
-            syuturyoku.Append("< kifu, sasite = ");
+            syuturyoku.Append("< kifu, move = ");
             int temeMade = 1;
             foreach (Move ss in this.SsList)
             {

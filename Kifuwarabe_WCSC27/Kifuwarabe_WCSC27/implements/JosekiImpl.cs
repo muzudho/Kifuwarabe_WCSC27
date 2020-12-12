@@ -8,9 +8,9 @@ using kifuwarabe_wcsc27.abstracts;
 
 namespace kifuwarabe_wcsc27.implements
 {
-    public class JosekiSasite
+    public class JosekiMove
     {
-        public JosekiSasite(Move move, Move ousyu, Hyokati hyokati, int fukasa, int version, JosekiKyokumen owner)
+        public JosekiMove(Move move, Move ousyu, Hyokati hyokati, int fukasa, int version, JosekiKyokumen owner)
         {
             this.Owner = owner;
             this.Move = move;
@@ -83,7 +83,7 @@ namespace kifuwarabe_wcsc27.implements
             this.Owner = owner;
             this.Fen = fen;
             this.TbTaikyokusya = tb;
-            this.SsItems = new Dictionary<Move, JosekiSasite>();
+            this.SsItems = new Dictionary<Move, JosekiMove>();
         }
 
         public Joseki Owner { get; private set; }
@@ -91,14 +91,14 @@ namespace kifuwarabe_wcsc27.implements
         /// <summary>
         /// 記録されている合法手一覧☆（＾▽＾）
         /// </summary>
-        public Dictionary<Move, JosekiSasite> SsItems { get; private set; }
+        public Dictionary<Move, JosekiMove> SsItems { get; private set; }
 
         /// <summary>
         /// 指し手データを返すぜ☆（＾▽＾）
         /// </summary>
         /// <param name="ss">指し手</param>
         /// <returns>無ければヌル☆</returns>
-        public JosekiSasite GetSasite(Move ss)
+        public JosekiMove GetSasite(Move ss)
         {
             if (this.SsItems.ContainsKey(ss))
             {
@@ -114,14 +114,14 @@ namespace kifuwarabe_wcsc27.implements
         public string Fen { get; private set; }
         public Taikyokusya TbTaikyokusya { get; private set; }
 
-        public JosekiSasite AddSasite(Move bestSasite, Hyokati hyokati, int fukasa, int version)
+        public JosekiMove AddSasite(Move bestSasite, Hyokati hyokati, int fukasa, int version)
         {
-            JosekiSasite josekiSs;
+            JosekiMove josekiSs;
 
             if (!this.SsItems.ContainsKey(bestSasite))
             {
                 // 無ければ問答無用で追加☆（＾▽＾）
-                josekiSs = new JosekiSasite(bestSasite, Move.Toryo, hyokati, fukasa, version, this);
+                josekiSs = new JosekiMove(bestSasite, Move.Toryo, hyokati, fukasa, version, this);
                 this.SsItems.Add(bestSasite, josekiSs);
                 this.Owner.Edited = true;
             }
@@ -132,14 +132,14 @@ namespace kifuwarabe_wcsc27.implements
 
                 if (josekiSs.Version < version) // 新しいソフトの評価を優先☆
                 {
-                    josekiSs = new JosekiSasite(bestSasite, Move.Toryo, hyokati, fukasa, version, this);
+                    josekiSs = new JosekiMove(bestSasite, Move.Toryo, hyokati, fukasa, version, this);
                     this.SsItems[bestSasite] = josekiSs;
                     this.Owner.Edited = true;
                 }
                 // バージョンが同じなら
                 else if (josekiSs.Fukasa < fukasa)// 深い探索の方を優先☆（＾▽＾）
                 {
-                    josekiSs = new JosekiSasite(bestSasite, Move.Toryo, hyokati, fukasa, version, this);
+                    josekiSs = new JosekiMove(bestSasite, Move.Toryo, hyokati, fukasa, version, this);
                     this.SsItems[bestSasite] = josekiSs;
                     this.Owner.Edited = true;
                 }
@@ -163,7 +163,7 @@ namespace kifuwarabe_wcsc27.implements
             syuturyoku.AppendLine(this.Fen);
 
             // 指し手
-            foreach (KeyValuePair<Move, JosekiSasite> entry2 in this.SsItems)
+            foreach (KeyValuePair<Move, JosekiMove> entry2 in this.SsItems)
             {
                 entry2.Value.ToContentsLine_NotUnity(isSfen, syuturyoku);
             }
@@ -333,7 +333,7 @@ namespace kifuwarabe_wcsc27.implements
             this.Clear();
             Kyokumen ky_forJoseki = new Kyokumen();//使いまわすぜ☆（＾▽＾）
             JosekiKyokumen josekiKy = null;
-            JosekiSasite josekiSs;
+            JosekiMove josekiSs;
             Match m;
             string commandline;
             for (int iGyoBango = 0; iGyoBango<lines.Length; iGyoBango++)
@@ -447,7 +447,7 @@ namespace kifuwarabe_wcsc27.implements
                     // 高速化のために、ローカル変数を減らして、詰め込んだコードにしているぜ☆（＞＿＜）            
 
                     // 第１引数 B1C1 や toryo のような指し手の解析。
-                    josekiSs = new JosekiSasite(
+                    josekiSs = new JosekiMove(
                         // １列目：指し手☆ (1:グループ,2:指し手全体,3～7:指し手各部,8:投了)
                         m.Groups[8].Success ? Move.Toryo : // "toryo" が入っている場合☆
                             Med_Parser.TryFen_Sasite2(Option_Application.Optionlist.USI,
@@ -539,7 +539,7 @@ namespace kifuwarabe_wcsc27.implements
 #endif
             )
         {
-            Move bestSasite = Move.Toryo;
+            Move bestMove = Move.Toryo;
             out_bestHyokati = Hyokati.TumeTesu_GohosyuNasi;
             int bestFukasa = 0;
 #if DEBUG
@@ -555,11 +555,11 @@ namespace kifuwarabe_wcsc27.implements
 #if DEBUG
                 fen_forTest = josekyKy.Fen;
 #endif
-                foreach (KeyValuePair<Move, JosekiSasite> entry in josekyKy.SsItems)
+                foreach (KeyValuePair<Move, JosekiMove> entry in josekyKy.SsItems)
                 {
                     if (out_bestHyokati < entry.Value.Hyokati)// 評価値が高い指し手を選ぶぜ☆（＾▽＾）
                     {
-                        bestSasite = entry.Key;
+                        bestMove = entry.Key;
                         out_bestHyokati = entry.Value.Hyokati;
                         bestFukasa = entry.Value.Fukasa;
                     }
@@ -567,7 +567,7 @@ namespace kifuwarabe_wcsc27.implements
                         bestFukasa < entry.Value.Fukasa//深く読んでいる指し手を選ぶぜ☆（＾▽＾）
                         )
                     {
-                        bestSasite = entry.Key;
+                        bestMove = entry.Key;
                         out_bestHyokati = entry.Value.Hyokati;
                         bestFukasa = entry.Value.Fukasa;
                     }
@@ -590,12 +590,12 @@ namespace kifuwarabe_wcsc27.implements
                     throw new Exception(msg);
                 }
 
-                if (!ky_forAssert.CanDoSasite(bestSasite, out SasiteMatigaiRiyu riyu))
+                if (!ky_forAssert.CanDoMove(bestMove, out MoveMatigaiRiyu riyu))
                 {
                     Mojiretu sindan2 = new MojiretuImpl();
                     sindan2.Append("取得：　指せない指し手を定跡から取り出そうとしたぜ☆（＾～＾）！：");
                     sindan2.Append("理由:"); ConvMove.SetumeiLine(riyu,sindan2);
-                    sindan2.Append("指し手:"); ConvMove.SetumeiLine(isSfen, bestSasite, sindan2);
+                    sindan2.Append("指し手:"); ConvMove.SetumeiLine(isSfen, bestMove, sindan2);
                     sindan2.Append("定跡局面　（"); ky_forAssert.AppendFenTo(Option_Application.Optionlist.USI, sindan2); sindan2.AppendLine("）");
                     Util_Information.Setumei_Lines_Kyokumen(ky_forAssert, sindan2);
 
@@ -611,7 +611,7 @@ namespace kifuwarabe_wcsc27.implements
             }
 #endif
 
-            return bestSasite;
+            return bestMove;
         }
 
         /// <summary>
@@ -633,36 +633,36 @@ namespace kifuwarabe_wcsc27.implements
         /// </summary>
         /// <param name="ky"></param>
         /// <returns></returns>
-        public List<Move> GetSasites(Kyokumen ky)
+        public List<Move> GetMoves(Kyokumen ky)
         {
-            List<Move> sasites = new List<Move>();
+            List<Move> moves = new List<Move>();
 
             ulong hash = ky.KyokumenHash.Value;
             if (this.KyItems.ContainsKey(hash))
             {
                 JosekiKyokumen josekyKy = this.KyItems[hash];
 
-                foreach (KeyValuePair<Move, JosekiSasite> entry in josekyKy.SsItems)
+                foreach (KeyValuePair<Move, JosekiMove> entry in josekyKy.SsItems)
                 {
-                    sasites.Add(entry.Key);
+                    moves.Add(entry.Key);
                 }
             }
-            return sasites;
+            return moves;
         }
 
         /// <summary>
         /// 情報
         /// </summary>
-        public void Joho(out int out_kyokumenSu, out int out_sasiteSu)
+        public void Joho(out int out_kyokumenSu, out int out_moveSu)
         {
             out_kyokumenSu = 0;
-            out_sasiteSu = 0;
+            out_moveSu = 0;
             foreach (KeyValuePair<ulong, JosekiKyokumen> entryKy in this.KyItems)
             {
                 out_kyokumenSu++;
-                foreach (KeyValuePair<Move, JosekiSasite> entrySs in entryKy.Value.SsItems)
+                foreach (KeyValuePair<Move, JosekiMove> entrySs in entryKy.Value.SsItems)
                 {
-                    out_sasiteSu++;
+                    out_moveSu++;
                 }
             }
         }
@@ -699,7 +699,7 @@ namespace kifuwarabe_wcsc27.implements
                 int newest = int.MinValue;
                 foreach (JosekiKyokumen josekiKy in this.KyItems.Values)
                 {
-                    foreach (JosekiSasite josekiSs in josekiKy.SsItems.Values)
+                    foreach (JosekiMove josekiSs in josekiKy.SsItems.Values)
                     {
                         if (josekiSs.Version < oldest)
                         {
@@ -721,7 +721,7 @@ namespace kifuwarabe_wcsc27.implements
                 {
                     // バージョン番号が古いキーを列挙☆（＾▽＾）
                     List<Move> removee = new List<Move>();
-                    foreach (KeyValuePair<Move, JosekiSasite> entry in josekiKy.SsItems)
+                    foreach (KeyValuePair<Move, JosekiMove> entry in josekiKy.SsItems)
                     {
                         if (oldest == entry.Value.Version)
                         {
@@ -754,7 +754,7 @@ namespace kifuwarabe_wcsc27.implements
                 int deepest = int.MinValue;
                 foreach (JosekiKyokumen josekiKy in this.KyItems.Values)
                 {
-                    foreach (JosekiSasite josekiSs in josekiKy.SsItems.Values)
+                    foreach (JosekiMove josekiSs in josekiKy.SsItems.Values)
                     {
                         if (josekiSs.Fukasa < shallowest)
                         {
@@ -777,7 +777,7 @@ namespace kifuwarabe_wcsc27.implements
                 {
                     // 浅いキーを列挙☆（＾▽＾）
                     List<Move> removee = new List<Move>();
-                    foreach (KeyValuePair<Move, JosekiSasite> entry in josekiKy.SsItems)
+                    foreach (KeyValuePair<Move, JosekiMove> entry in josekiKy.SsItems)
                     {
                         if (shallowest == entry.Value.Fukasa)
                         {
@@ -811,7 +811,7 @@ namespace kifuwarabe_wcsc27.implements
                     Hyokati badest = Hyokati.TumeTesu_SeiNoSu_ReiTeDume;
                     Hyokati goodest = Hyokati.TumeTesu_FuNoSu_ReiTeTumerare;
 
-                    foreach (JosekiSasite josekiSs in josekiKy.SsItems.Values)
+                    foreach (JosekiMove josekiSs in josekiKy.SsItems.Values)
                     {
                         if (josekiSs.Hyokati < badest)
                         {
@@ -830,7 +830,7 @@ namespace kifuwarabe_wcsc27.implements
 
                     // 評価が悪いキーを列挙☆（＾▽＾）
                     List<Move> removee = new List<Move>();
-                    foreach (KeyValuePair<Move, JosekiSasite> entry in josekiKy.SsItems)
+                    foreach (KeyValuePair<Move, JosekiMove> entry in josekiKy.SsItems)
                     {
                         if (badest == entry.Value.Hyokati)
                         {
@@ -926,7 +926,7 @@ namespace kifuwarabe_wcsc27.implements
                 {
                     removeKeys.Add(joKy.Key);
 
-                    foreach (KeyValuePair<Move, JosekiSasite> joSs in joKy.Value.SsItems)
+                    foreach (KeyValuePair<Move, JosekiMove> joSs in joKy.Value.SsItems)
                     {
                         joP2.AddSasite(
                             joKy.Value.Fen,
@@ -959,7 +959,7 @@ namespace kifuwarabe_wcsc27.implements
         {
             foreach (KeyValuePair<ulong, JosekiKyokumen> joKy in joseki.KyItems)
             {
-                foreach (KeyValuePair<Move, JosekiSasite> joSs in joKy.Value.SsItems)
+                foreach (KeyValuePair<Move, JosekiMove> joSs in joKy.Value.SsItems)
                 {
                     this.AddSasite(
                         joKy.Value.Fen,

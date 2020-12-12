@@ -8,9 +8,9 @@ namespace kifuwarabe_wcsc27.implements
     /// </summary>
     public class MoveKakuchoImpl : MoveKakucho
     {
-        public MoveKakuchoImpl(Move sasite, MoveType kati)
+        public MoveKakuchoImpl(Move move, MoveType kati)
         {
-            this.Move = sasite;
+            this.Move = move;
             this.MoveType = kati;
         }
 

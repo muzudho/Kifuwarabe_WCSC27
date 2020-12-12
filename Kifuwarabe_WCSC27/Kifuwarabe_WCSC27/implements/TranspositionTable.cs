@@ -24,7 +24,7 @@ namespace kifuwarabe_wcsc27.implements
         {
             syuturyoku.Append("key=[");
             syuturyoku.Append(Key.ToString());
-            syuturyoku.Append("] sasite=[");
+            syuturyoku.Append("] move=[");
             ConvMove.Setumei(isSfen, Move,syuturyoku);
             syuturyoku.Append("] sasiteType=[");
             Conv_SasiteType.Setumei(MoveType, syuturyoku);

@@ -193,7 +193,7 @@ namespace kifuwarabe_wcsc27.abstracts
             // カーソルを進めるぜ☆（＾～＾）
             Util_String.SkipMatch(commandline, ref caret, m);
 
-            // 符号１「B4B3」を元に、sasite を作ります。
+            // 符号１「B4B3」を元に、move を作ります。
             out_sasite = TryFen_Sasite2(
                 isSfen,
                 kys,

@@ -162,11 +162,11 @@ namespace kifuwarabe_wcsc27.abstracts
 
         public static Move Go(Kyokumen ky, out HyokatiUtiwake out_hyokatiUtiwake, Util_Tansaku.Dlgt_CreateJoho dlgt_CreateJoho, Mojiretu syuturyoku)
         {
-            Move sasite = Util_Tansaku.Go(Option_Application.Optionlist.USI, ky, out out_hyokatiUtiwake, out bool isJosekiTraced, dlgt_CreateJoho, syuturyoku);
+            Move move = Util_Tansaku.Go(Option_Application.Optionlist.USI, ky, out out_hyokatiUtiwake, out bool isJosekiTraced, dlgt_CreateJoho, syuturyoku);
 #if !UNITY
             Util_ConsoleGame.IsJosekiTraced = isJosekiTraced;
 #endif
-            return sasite;
+            return move;
         }
 
         public static void Jam(bool isSfen, Kyokumen ky, Mojiretu syuturyoku)
@@ -314,17 +314,17 @@ namespace kifuwarabe_wcsc27.abstracts
         {
             // うしろに続く文字は☆（＾▽＾）
             int caret = 0;
-            Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "sasite ");
+            Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "move ");
             string line = commandline.Substring(caret).Trim();
 
-            // sasite 912 といった数字かどうか☆（＾～＾）
+            // move 912 といった数字かどうか☆（＾～＾）
             if (int.TryParse(line, out int ssSuji))
             {
                 out_sasite = (Move)ssSuji;
                 return true;
             }
 
-            // 数字でなければ、 sasite B2B3 といった文字列か☆（＾～＾）
+            // 数字でなければ、 move B2B3 といった文字列か☆（＾～＾）
             if(Med_Parser.TryFenMove(Option_Application.Optionlist.USI, commandline, ref caret, kys, out out_sasite))
             {
                 return true;

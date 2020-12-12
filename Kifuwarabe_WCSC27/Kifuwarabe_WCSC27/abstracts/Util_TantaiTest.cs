@@ -386,7 +386,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     Util_Commands.Do(isSfen, "do c4c3", ky, mode, mojiretu1);
 
                     mojiretu1.AppendLine("# 次に　きりん　を上げて、千日手を受け入れるかだぜ☆（＾▽＾）");
-                    Util_Commands.Sasite_cmd(isSfen, "sasite seisei", ky, mojiretu1);
+                    Util_Commands.Sasite_cmd(isSfen, "move seisei", ky, mojiretu1);
                     Util_Commands.Go(isSfen, mode, ky, mojiretu1);
                     Option_Application.Optionlist.SaidaiFukasa = oldSaidaiFukasa;//設定を元に戻しておくぜ☆
 
