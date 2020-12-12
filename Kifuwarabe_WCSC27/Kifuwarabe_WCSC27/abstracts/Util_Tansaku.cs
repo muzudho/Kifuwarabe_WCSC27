@@ -219,8 +219,8 @@ namespace kifuwarabe_wcsc27.abstracts
                                 List<Move> josekiSasites = Option_Application.Joseki.GetMoves(ky);
                                 // この局面の合法手を取得☆（＾▽＾）
                                 int fukasa = 0;
-                                Util_SasiteSeisei.GenerateSasite_01(fukasa, ky, MoveType.N21_All,true, syuturyoku);// グローバル変数 Util_SasiteSeisei.Sasitelist[fukasa].Sslist に指し手がセットされるぜ☆（＾▽＾）
-                                List<Move> gohosyu = new List<Move>( Util_SasiteSeisei.Sasitelist[fukasa].List_Sasite);
+                                AbstractUtilMoveGen.GenerateSasite_01(fukasa, ky, MoveType.N21_All,true, syuturyoku);// グローバル変数 Util_SasiteSeisei.Sasitelist[fukasa].Sslist に指し手がセットされるぜ☆（＾▽＾）
+                                List<Move> gohosyu = new List<Move>( AbstractUtilMoveGen.MoveList[fukasa].ListMove);
                                 foreach (Move ss in josekiSasites)
                                 {
                                     if (gohosyu.Contains(ss))
@@ -251,7 +251,7 @@ namespace kifuwarabe_wcsc27.abstracts
                         default:
                             {
                                 // 評価値で選ぶぜ☆（＾～＾）
-                                josekiSs = Option_Application.Joseki.GetSasite(isSfen, ky, out Hyokati bestHyokati, syuturyoku
+                                josekiSs = Option_Application.Joseki.GetMove(isSfen, ky, out Hyokati bestHyokati, syuturyoku
 #if DEBUG
                                     , out fen_forTest
 #endif
@@ -326,7 +326,7 @@ namespace kifuwarabe_wcsc27.abstracts
                         Util_Tansaku.NekkoKaranoFukasa <= Option_Application.Optionlist.SaidaiFukasa && !Option_Application.TimeManager.IsTimeOver_IterationDeeping()//思考の時間切れ
                         ; Util_Tansaku.NekkoKaranoFukasa++)
                     {
-                        Debug.Assert(0 <= Util_Tansaku.NekkoKaranoFukasa && Util_Tansaku.NekkoKaranoFukasa < Util_SasiteSeisei.Sasitelist.Length, "");
+                        Debug.Assert(0 <= Util_Tansaku.NekkoKaranoFukasa && Util_Tansaku.NekkoKaranoFukasa < AbstractUtilMoveGen.MoveList.Length, "");
 
                         #region アスピレーション・ウィンドウ・サーチ（１）
                         // アスピレーション・ウィンドウ・サーチ（１）を使う場合
@@ -675,7 +675,7 @@ namespace kifuwarabe_wcsc27.abstracts
 #endif
 */
             Nanteme nanteme = new Nanteme();
-            ky.DoSasite(isSfen,
+            ky.DoMove(isSfen,
                 null !=best_yomisuji_orNull?best_yomisuji_orNull.GetBestSasite():Move.Toryo,
                 null != best_yomisuji_orNull ? best_yomisuji_orNull.GetBestSasiteType() : MoveType.N00_Karappo
                 , ref nanteme, ky.Teban, syuturyoku);
@@ -745,7 +745,7 @@ namespace kifuwarabe_wcsc27.abstracts
             Dlgt_CreateJoho dlgt_CreateJoho,
             Mojiretu syuturyoku)
         {
-            Debug.Assert(1 <= fukasa && fukasa < Util_SasiteSeisei.Sasitelist.Length, "");
+            Debug.Assert(1 <= fukasa && fukasa < AbstractUtilMoveGen.MoveList.Length, "");
 
             Util_Tansaku.KaisiTaikyokusya = ky.Teban;
             Util_Tansaku.KaisiNantemade = ky.Konoteme.ScanNantemadeBango();
@@ -801,7 +801,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 ""
             );
 
-            Debug.Assert(0 <= fukasa && fukasa < Util_SasiteSeisei.Sasitelist.Length, "");
+            Debug.Assert(0 <= fukasa && fukasa < AbstractUtilMoveGen.MoveList.Length, "");
             out_edaBest_Yomisuji = null;
             // 評価値は、開始時にマイナスで受け取り、相手番ではプラスに反転させつつ、葉まで届けるぜ☆（＾～＾）
 
@@ -1008,13 +1008,13 @@ namespace kifuwarabe_wcsc27.abstracts
 
             // 深さ1 のときに手を指しても、深さのカウントは増えない☆
             // 
-            Util_SasiteSeisei.GenerateSasite_01(fukasa, ky, MoveType.N21_All,true, syuturyoku);// グローバル変数 Util_SasiteSeisei.Sslist に指し手がセットされるぜ☆（＾▽＾）
+            AbstractUtilMoveGen.GenerateSasite_01(fukasa, ky, MoveType.N21_All,true, syuturyoku);// グローバル変数 Util_SasiteSeisei.Sslist に指し手がセットされるぜ☆（＾▽＾）
 
             #region ステイルメイト
             //────────────────────────────────────────
             // ステイル・メイト
             //────────────────────────────────────────
-            if (Util_SasiteSeisei.Sasitelist[fukasa].SslistCount<1)
+            if (AbstractUtilMoveGen.MoveList[fukasa].SslistCount<1)
             {
                 // ステイルメイトだぜ☆（＾▽＾）！
 
@@ -1062,10 +1062,10 @@ namespace kifuwarabe_wcsc27.abstracts
             }
             #endregion
 
-            for (int iSs=0; iSs<Util_SasiteSeisei.Sasitelist[fukasa].SslistCount; iSs++)
+            for (int iSs=0; iSs<AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
             {
-                Move eda_sasite = Util_SasiteSeisei.Sasitelist[fukasa].List_Sasite[iSs];
-                MoveType eda_sasiteType = Util_SasiteSeisei.Sasitelist[fukasa].List_Reason[iSs];
+                Move eda_sasite = AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs];
+                MoveType eda_sasiteType = AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs];
 
                 // 探索打ち切りフラグ☆（＾▽＾）
                 utikiri = false;
@@ -1160,7 +1160,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 }
 #endregion
 
-                ky.DoSasite(isSfen, eda_sasite, eda_sasiteType, ref nanteme,ky.Teban, syuturyoku);
+                ky.DoMove(isSfen, eda_sasite, eda_sasiteType, ref nanteme,ky.Teban, syuturyoku);
                 //{
                 //    Util_Logger.AppendLine("do後 " + ConvMove.Setumei_Fen(ss));
                 //    Util_Logger.AppendLine(ApplicationImpl.Kyokumen.Setumei());
@@ -1365,7 +1365,7 @@ namespace kifuwarabe_wcsc27.abstracts
 
                 gt_GoUndo:
                 ;
-                ky.UndoSasite(isSfen, eda_sasite, syuturyoku);
+                ky.UndoMove(isSfen, eda_sasite, syuturyoku);
 
                 gt_SkipUndo:
                 ;

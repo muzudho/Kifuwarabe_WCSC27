@@ -80,7 +80,7 @@ namespace kifuwarabe_wcsc27.abstracts
             {
                 // まず、一手指すぜ☆
                 Nanteme nanteme = new Nanteme();
-                ky.DoSasite(Option_Application.Optionlist.USI, kyosiSs, MoveType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
+                ky.DoMove(Option_Application.Optionlist.USI, kyosiSs, MoveType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
 
                 // 評価値を調べようぜ☆（＾▽＾）
                 Hyokati komawariHyokati = ky.Komawari.Get(ky.Teban);
@@ -89,7 +89,7 @@ namespace kifuwarabe_wcsc27.abstracts
 
 
                 // 一手戻そうぜ☆（＾▽＾）
-                ky.UndoSasite(Option_Application.Optionlist.USI, kyosiSs, syuturyoku);
+                ky.UndoMove(Option_Application.Optionlist.USI, kyosiSs, syuturyoku);
             }
             else
             {
@@ -131,14 +131,14 @@ namespace kifuwarabe_wcsc27.abstracts
 
                 // まず、一手指すぜ☆
                 Nanteme nanteme = new Nanteme();
-                ky.DoSasite(Option_Application.Optionlist.USI, entry.Key, MoveType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
+                ky.DoMove(Option_Application.Optionlist.USI, entry.Key, MoveType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
 
                 // 評価値を調べようぜ☆（＾▽＾）
                 ky.Hyoka(out sonotanoTe_hyokatiUtiwake, HyokaRiyu.Yososu, true// ランダムな局面で学習したりもするし☆（＾～＾）
                     );
 
                 // 一手戻そうぜ☆（＾▽＾）
-                ky.UndoSasite(Option_Application.Optionlist.USI, entry.Key, syuturyoku);
+                ky.UndoMove(Option_Application.Optionlist.USI, entry.Key, syuturyoku);
 
                 if (!Conv_Hyokati.InHyokati(sonotanoTe_hyokatiUtiwake.EdaBest))
                 {

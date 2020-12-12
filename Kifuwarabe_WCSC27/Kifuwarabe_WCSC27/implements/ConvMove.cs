@@ -152,7 +152,7 @@ namespace kifuwarabe_wcsc27.implements
         /// <param name="ms_dst"></param>
         /// <param name="natta"></param>
         /// <returns></returns>
-        public static Move ToSasite_01a_NarazuSasi(Masu ms_src, Masu ms_dst, Kyokumen.Sindanyo kys)
+        public static Move ToMove01aNarazuSasi(Masu ms_src, Masu ms_dst, Kyokumen.Sindanyo kys)
         {
             Debug.Assert(kys.IsBanjoOrError(ms_src), "ms_src=["+ ms_src + "] kys.MASUS=[" + kys.MASU_YOSOSU+"]");
             Debug.Assert(kys.IsBanjo(ms_dst), "盤外に指したぜ☆？");
@@ -182,7 +182,7 @@ namespace kifuwarabe_wcsc27.implements
         /// <param name="ms_dst"></param>
         /// <param name="natta"></param>
         /// <returns></returns>
-        public static Move ToSasite_01b_NariSasi(Masu ms_src, Masu ms_dst, Kyokumen.Sindanyo kys)
+        public static Move ToMove01bNariSasi(Masu ms_src, Masu ms_dst, Kyokumen.Sindanyo kys)
         {
             Debug.Assert(kys.IsBanjoOrError(ms_src), "");
             Debug.Assert(kys.IsBanjo(ms_dst), "盤外に指したぜ☆？");
@@ -212,7 +212,7 @@ namespace kifuwarabe_wcsc27.implements
         /// <param name="mkUtta"></param>
         /// <param name="natta"></param>
         /// <returns></returns>
-        public static Move ToSasite_01c_Utta(Masu ms_dst, MotiKomasyurui mkUtta)
+        public static Move ToMove01cUtta(Masu ms_dst, MotiKomasyurui mkUtta)
         {
             Debug.Assert(MotiKomasyurui.Yososu != mkUtta,"");
 

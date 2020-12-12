@@ -104,7 +104,7 @@
     <Compile Include="abstracts\Util_Kettyaku.cs" />
     <Compile Include="abstracts\Util_KikaiGakusyu.cs" />
     <Compile Include="abstracts\Util_NikomaKankei.cs" />
-    <Compile Include="abstracts\Util_SasiteSeisei.cs" />
+    <Compile Include="abstracts\AbstractUtilMoveGen.cs" />
     <Compile Include="abstracts\Util_HiouteCase.cs" />
     <Compile Include="abstracts\Util_Ittedume.cs" />
     <Compile Include="abstracts\Util_Sigmoid.cs" />
@@ -155,7 +155,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="implements\ConvMove.cs" />
-    <Compile Include="implements\Conv_Sasitelist.cs" />
+    <Compile Include="implements\AbstractConvMovelist.cs" />
     <Compile Include="implements\Conv_Kihon.cs" />
     <Compile Include="implements\HiouteJoho.cs" />
     <Compile Include="implements\Nanteme.cs" />

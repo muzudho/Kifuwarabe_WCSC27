@@ -817,7 +817,7 @@ namespace kifuwarabe_wcsc27.implements
         //    syuturyoku.AppendLine();
         //}
 
-        public bool CanDoSasite(Move ss, out MoveMatigaiRiyu reason)
+        public bool CanDoMove(Move ss, out MoveMatigaiRiyu reason)
         {
             if (Move.Toryo == ss) { reason = MoveMatigaiRiyu.Karappo; return true; }// 投了はＯＫだぜ☆（＾～＾）
 
@@ -917,7 +917,7 @@ namespace kifuwarabe_wcsc27.implements
         /// ハッシュも差分変更するぜ☆
         /// </summary>
         /// <param name="ss">指し手☆</param>
-        public void DoSasite(bool isSfen, Move ss , MoveType ssType, ref Nanteme konoTeme, Taikyokusya jibun, Mojiretu syuturyoku)
+        public void DoMove(bool isSfen, Move ss , MoveType ssType, ref Nanteme konoTeme, Taikyokusya jibun, Mojiretu syuturyoku)
         {
             // bool endMethodFlag;
 
@@ -1194,7 +1194,7 @@ namespace kifuwarabe_wcsc27.implements
                 KyokumenHash.SetXor(Util_ZobristHashing.GetMotiKey(Sindan, mk_t0));
             }
 
-            //DoSasite1( isSfen, ss, ssType, ref konoTeme, jibun, syuturyoku, out endMethodFlag);
+            //DoMove1( isSfen, ss, ssType, ref konoTeme, jibun, syuturyoku, out endMethodFlag);
 
 
             // ローカル変数はグローバル変数に移動した。
@@ -1356,7 +1356,7 @@ namespace kifuwarabe_wcsc27.implements
         /// 指定した指し手をやりなおす動きをするぜ☆（＾▽＾）
         /// </summary>
         /// <param name="ss"></param>
-        public void UndoSasite(bool isSfen, Move ss, Mojiretu syuturyoku)
+        public void UndoMove(bool isSfen, Move ss, Mojiretu syuturyoku)
         {
             //────────────────────────────────────────
             // 手番
@@ -2314,7 +2314,7 @@ namespace kifuwarabe_wcsc27.implements
                     ms_src = (Masu)ms_semegoma;
 
                     // FIXME: とりあえず、成らずで作ってみるぜ☆（＾～＾）
-                    Move ss = ConvMove.ToSasite_01a_NarazuSasi(ms_src, ms, this.Sindan);
+                    Move ss = ConvMove.ToMove01aNarazuSasi(ms_src, ms, this.Sindan);
 
                     // 駒を取る前に、取る駒の点数を取っておくぜ☆（＾～＾）
                     Komasyurui tottaKomasyurui;
@@ -2334,7 +2334,7 @@ namespace kifuwarabe_wcsc27.implements
                     }
 
                     Nanteme nanteme = new Nanteme();
-                    this.DoSasite(isSfen, ss, MoveType.N00_Karappo, ref nanteme, this.Teban, syuturyokuTestYo_orKarappo);
+                    this.DoMove(isSfen, ss, MoveType.N00_Karappo, ref nanteme, this.Teban, syuturyokuTestYo_orKarappo);
 
                     if (Komasyurui.R == tottaKomasyurui)
                     {
@@ -2391,7 +2391,7 @@ namespace kifuwarabe_wcsc27.implements
                         syuturyokuTestYo_orKarappo.AppendLine("SEE>────────────────────");
                     }
 
-                    this.UndoSasite(isSfen, ss, syuturyokuTestYo_orKarappo);
+                    this.UndoMove(isSfen, ss, syuturyokuTestYo_orKarappo);
 
                     goto gt_EndLoop; // 実質、break文☆（＾～＾）
                 }// if 文

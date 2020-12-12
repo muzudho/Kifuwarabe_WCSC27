@@ -184,7 +184,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// <summary>
         /// 定跡更新（ゲームセクション内）
         /// </summary>
-        public static void Update1_JosekiToroku(Move inputSasite, Kyokumen ky, Mojiretu syuturyoku)
+        public static void Update1_JosekiToroku(Move inputMove, Kyokumen ky, Mojiretu syuturyoku)
         {
             if (Util_Machine.IsEnableBoardSize() && Option_Application.Optionlist.JosekiRec)
             {
@@ -192,7 +192,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 );
 
                 // 定跡更新☆（＾▽＾）
-                Option_Application.Joseki.AddSasite(KyFen_before, KyHash_before, KyTaikyokusya_before, inputSasite,
+                Option_Application.Joseki.AddMove(KyFen_before, KyHash_before, KyTaikyokusya_before, inputMove,
                     hyokatiUtiwake.EdaBest,// 指した直後の局面の点数
                     1,//人間は１手読み扱いで☆
                     Util_Application.VERSION,
@@ -203,7 +203,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// <summary>
         /// 定跡更新（ゲームセクション内）
         /// </summary>
-        public static void Update2_JosekiToroku(Move bestSasite, Hyokati bestHyokati, Kyokumen ky, Mojiretu syuturyoku)
+        public static void Update2_JosekiToroku(Move bestMove, Hyokati bestHyokati, Kyokumen ky, Mojiretu syuturyoku)
         {
             if (Util_Machine.IsEnableBoardSize() && Option_Application.Optionlist.JosekiRec)
             {
@@ -222,12 +222,12 @@ namespace kifuwarabe_wcsc27.abstracts
                             throw new Exception(msg);
                         }
 
-                        if (!ky_forAssert.CanDoSasite(bestSasite, out MoveMatigaiRiyu riyu))
+                        if (!ky_forAssert.CanDoMove(bestMove, out MoveMatigaiRiyu riyu))
                         {
                             Mojiretu reigai1 = new MojiretuImpl();
                             reigai1.AppendLine("指せない指し手を定跡に登録しようとしたぜ☆（＾～＾）！：");
                             reigai1.Append("理由:"); ConvMove.SetumeiLine(riyu, reigai1);
-                            reigai1.Append("指し手:"); ConvMove.SetumeiLine(Option_Application.Optionlist.USI, bestSasite, reigai1);
+                            reigai1.Append("指し手:"); ConvMove.SetumeiLine(Option_Application.Optionlist.USI, bestMove, reigai1);
                             reigai1.Append("定跡にする１手前の局面　（"); reigai1.Append(KyFen_before); reigai1.AppendLine("）");
                             Util_Information.Setumei_Lines_Kyokumen(ky_forAssert,reigai1);
                             reigai1.AppendLine();
@@ -240,7 +240,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     }
 #endif
 
-                    Option_Application.Joseki.AddSasite(KyFen_before, KyHash_before, KyTaikyokusya_before, bestSasite, bestHyokati, Util_Tansaku.NekkoKaranoFukasa, Util_Application.VERSION, syuturyoku);
+                    Option_Application.Joseki.AddMove(KyFen_before, KyHash_before, KyTaikyokusya_before, bestMove, bestHyokati, Util_Tansaku.NekkoKaranoFukasa, Util_Application.VERSION, syuturyoku);
                 }
             }
         }

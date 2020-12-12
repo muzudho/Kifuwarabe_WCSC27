@@ -98,7 +98,7 @@ namespace kifuwarabe_wcsc27.implements
         /// </summary>
         /// <param name="ss">指し手</param>
         /// <returns>無ければヌル☆</returns>
-        public JosekiMove GetSasite(Move ss)
+        public JosekiMove GetMove(Move ss)
         {
             if (this.SsItems.ContainsKey(ss))
             {
@@ -114,33 +114,33 @@ namespace kifuwarabe_wcsc27.implements
         public string Fen { get; private set; }
         public Taikyokusya TbTaikyokusya { get; private set; }
 
-        public JosekiMove AddSasite(Move bestSasite, Hyokati hyokati, int fukasa, int version)
+        public JosekiMove AddMove(Move bestMove, Hyokati hyokati, int fukasa, int version)
         {
             JosekiMove josekiSs;
 
-            if (!this.SsItems.ContainsKey(bestSasite))
+            if (!this.SsItems.ContainsKey(bestMove))
             {
                 // 無ければ問答無用で追加☆（＾▽＾）
-                josekiSs = new JosekiMove(bestSasite, Move.Toryo, hyokati, fukasa, version, this);
-                this.SsItems.Add(bestSasite, josekiSs);
+                josekiSs = new JosekiMove(bestMove, Move.Toryo, hyokati, fukasa, version, this);
+                this.SsItems.Add(bestMove, josekiSs);
                 this.Owner.Edited = true;
             }
             else
             {
                 // 既存なら
-                josekiSs = this.SsItems[bestSasite];
+                josekiSs = this.SsItems[bestMove];
 
                 if (josekiSs.Version < version) // 新しいソフトの評価を優先☆
                 {
-                    josekiSs = new JosekiMove(bestSasite, Move.Toryo, hyokati, fukasa, version, this);
-                    this.SsItems[bestSasite] = josekiSs;
+                    josekiSs = new JosekiMove(bestMove, Move.Toryo, hyokati, fukasa, version, this);
+                    this.SsItems[bestMove] = josekiSs;
                     this.Owner.Edited = true;
                 }
                 // バージョンが同じなら
                 else if (josekiSs.Fukasa < fukasa)// 深い探索の方を優先☆（＾▽＾）
                 {
-                    josekiSs = new JosekiMove(bestSasite, Move.Toryo, hyokati, fukasa, version, this);
-                    this.SsItems[bestSasite] = josekiSs;
+                    josekiSs = new JosekiMove(bestMove, Move.Toryo, hyokati, fukasa, version, this);
+                    this.SsItems[bestMove] = josekiSs;
                     this.Owner.Edited = true;
                 }
                 // 深さが同じなら
@@ -217,7 +217,7 @@ namespace kifuwarabe_wcsc27.implements
         /// データを追加するぜ☆（＾▽＾） 指しながら定跡を追加していくときだぜ☆
         /// </summary>
         /// <param name="ky_before"></param>
-        public JosekiKyokumen AddSasite(string kyFen_before, ulong kyHash_before, Taikyokusya kyTb_before, Move bestSasite, Hyokati hyokati, int fukasa, int version, Mojiretu syuturyoku)
+        public JosekiKyokumen AddMove(string kyFen_before, ulong kyHash_before, Taikyokusya kyTb_before, Move bestMove, Hyokati hyokati, int fukasa, int version, Mojiretu syuturyoku)
         {
             JosekiKyokumen josekiKy = this.ParseKyokumenLine(kyFen_before, kyHash_before, kyTb_before, syuturyoku);
 
@@ -238,8 +238,8 @@ namespace kifuwarabe_wcsc27.implements
             //                    throw new Exception(msg);
             //                }
 
-            //                SasiteError reason;
-            //                if (!ky2.CanDoSasite(bestSasite, out reason))
+            //                MoveError reason;
+            //                if (!ky2.CanDoMove(bestMove, out reason))
             //                {
             //                    throw new Exception("指せない指し手を定跡に登録しようとしたぜ☆（＾～＾）！："+ConvMove.Setumei(reason));
             //                }
@@ -252,11 +252,11 @@ namespace kifuwarabe_wcsc27.implements
             //                //     B1A1 .....
             //                Util_Machine.AppendLine("定跡登録");
             //                Util_Machine.AppendLine("    " + kyFen_before);
-            //                Util_Machine.AppendLine("    " + ConvMove.ToFen(bestSasite));
+            //                Util_Machine.AppendLine("    " + ConvMove.ToFen(bestMove));
             //            }
             //#endif
 
-            josekiKy.AddSasite(bestSasite, hyokati, fukasa, version);
+            josekiKy.AddMove(bestMove, hyokati, fukasa, version);
 
 //#if DEBUG
 //            // 定跡を追加した直後にダンプして中身を目視確認だぜ☆（＾～＾）
@@ -450,7 +450,7 @@ namespace kifuwarabe_wcsc27.implements
                     josekiSs = new JosekiMove(
                         // １列目：指し手☆ (1:グループ,2:指し手全体,3～7:指し手各部,8:投了)
                         m.Groups[8].Success ? Move.Toryo : // "toryo" が入っている場合☆
-                            Med_Parser.TryFen_Sasite2(Option_Application.Optionlist.USI,
+                            Med_Parser.TryFenMove2(Option_Application.Optionlist.USI,
                                 ky_forJoseki.Sindan,
                                 m.Groups[3].Value,
                                 m.Groups[4].Value,
@@ -461,7 +461,7 @@ namespace kifuwarabe_wcsc27.implements
 
                         // ２列目：応手☆ none とか。(9:グループ,10:none,11:指し手全体,12～16:指し手各部,17:投了)
                         m.Groups[10].Success || m.Groups[17].Success ? Move.Toryo :// [10]"none" または[17]"toryo" が入っている場合☆ FIXME: none と toryo を区別してないぜ☆（＾～＾）
-                        Med_Parser.TryFen_Sasite2(Option_Application.Optionlist.USI,
+                        Med_Parser.TryFenMove2(Option_Application.Optionlist.USI,
                             ky_forJoseki.Sindan,
                             m.Groups[12].Value,
                             m.Groups[13].Value,
@@ -509,12 +509,12 @@ namespace kifuwarabe_wcsc27.implements
                     //                        throw new Exception(msg);
                     //                    }
 
-                    //                    Move bestSasite;
+                    //                    Move bestMove;
                     //                    int caret_test = 0;
-                    //                    ConvMove.TryParse(commandline, ref caret_test, ky2, out bestSasite);
+                    //                    ConvMove.TryParse(commandline, ref caret_test, ky2, out bestMove);
 
-                    //                    SasiteError reason;
-                    //                    if (!ky2.CanDoSasite( bestSasite, out reason))
+                    //                    MoveError reason;
+                    //                    if (!ky2.CanDoMove( bestMove, out reason))
                     //                    {
                     //                        throw new Exception("新規：　指せない指し手を定跡に登録しようとしたぜ☆（＾～＾）！：" + ConvMove.Setumei(reason));
                     //                    }
@@ -533,7 +533,7 @@ namespace kifuwarabe_wcsc27.implements
         /// </summary>
         /// <param name="ky"></param>
         /// <returns>なければ投了☆</returns>
-        public Move GetSasite(bool isSfen, Kyokumen ky, out Hyokati out_bestHyokati, Mojiretu syuturyoku
+        public Move GetMove(bool isSfen, Kyokumen ky, out Hyokati out_bestHyokati, Mojiretu syuturyoku
 #if DEBUG
             , out string fen_forTest
 #endif
@@ -928,7 +928,7 @@ namespace kifuwarabe_wcsc27.implements
 
                     foreach (KeyValuePair<Move, JosekiMove> joSs in joKy.Value.SsItems)
                     {
-                        joP2.AddSasite(
+                        joP2.AddMove(
                             joKy.Value.Fen,
                             joKy.Key,
                             joKy.Value.TbTaikyokusya,
@@ -961,7 +961,7 @@ namespace kifuwarabe_wcsc27.implements
             {
                 foreach (KeyValuePair<Move, JosekiMove> joSs in joKy.Value.SsItems)
                 {
-                    this.AddSasite(
+                    this.AddMove(
                         joKy.Value.Fen,
                         joKy.Key,
                         joKy.Value.TbTaikyokusya,

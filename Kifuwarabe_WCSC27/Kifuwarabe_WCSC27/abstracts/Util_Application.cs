@@ -103,7 +103,7 @@ namespace kifuwarabe_wcsc27.abstracts
         public static void DoSasite(bool isSfen, Move ss, Kyokumen ky, Mojiretu syuturyoku)
         {
             Nanteme konoTeme = new Nanteme();// 使いまわさないだろう☆（＾～＾）ここで作ってしまおう☆
-            ky.DoSasite(isSfen, ss, MoveType.N00_Karappo, ref konoTeme, ky.Teban, syuturyoku);
+            ky.DoMove(isSfen, ss, MoveType.N00_Karappo, ref konoTeme, ky.Teban, syuturyoku);
         }
         public static bool ParseDoSasite( Kyokumen ky, out Move out_sasite)
         {
@@ -282,29 +282,29 @@ namespace kifuwarabe_wcsc27.abstracts
         public static void Rnd( Kyokumen ky, Mojiretu syuturyoku)
         {
             int fukasa = 0;
-            Util_SasiteSeisei.GenerateSasite_01(fukasa, ky, MoveType.N21_All,true, syuturyoku);//グローバル変数に指し手がセットされるぜ☆（＾▽＾）
-            if (Util_SasiteSeisei.Sasitelist[fukasa].SslistCount < 1)
+            AbstractUtilMoveGen.GenerateSasite_01(fukasa, ky, MoveType.N21_All,true, syuturyoku);//グローバル変数に指し手がセットされるぜ☆（＾▽＾）
+            if (AbstractUtilMoveGen.MoveList[fukasa].SslistCount < 1)
             {
                 Nanteme nanteme = new Nanteme();
-                ky.DoSasite(Option_Application.Optionlist.USI, Move.Toryo, MoveType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
+                ky.DoMove(Option_Application.Optionlist.USI, Move.Toryo, MoveType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
             }
             else
             {
-                Move ss = Util_SasiteSeisei.Sasitelist[fukasa].List_Sasite[Option_Application.Random.Next(Util_SasiteSeisei.Sasitelist[fukasa].SslistCount)];
+                Move ss = AbstractUtilMoveGen.MoveList[fukasa].ListMove[Option_Application.Random.Next(AbstractUtilMoveGen.MoveList[fukasa].SslistCount)];
                 Nanteme nanteme = new Nanteme();
-                ky.DoSasite(Option_Application.Optionlist.USI, ss, MoveType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
+                ky.DoMove(Option_Application.Optionlist.USI, ss, MoveType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
             }
         }
 
-        public static List<MoveKakucho> Sasite_cmd( Kyokumen ky, Mojiretu syuturyoku)
+        public static List<MoveKakucho> MoveCmd( Kyokumen ky, Mojiretu syuturyoku)
         {
             List<MoveKakucho> sslist = new List<MoveKakucho>();
             int fukasa = 0;
-            Util_SasiteSeisei.GenerateSasite_01(fukasa, ky, MoveType.N21_All,true, syuturyoku);//グローバル変数に指し手がセットされるぜ☆（＾▽＾）
+            AbstractUtilMoveGen.GenerateSasite_01(fukasa, ky, MoveType.N21_All,true, syuturyoku);//グローバル変数に指し手がセットされるぜ☆（＾▽＾）
 
-            for (int iSs = 0; iSs < Util_SasiteSeisei.Sasitelist[fukasa].SslistCount; iSs++)
+            for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
             {
-                sslist.Add(new MoveKakuchoImpl( Util_SasiteSeisei.Sasitelist[fukasa].List_Sasite[iSs], Util_SasiteSeisei.Sasitelist[fukasa].List_Reason[iSs]));
+                sslist.Add(new MoveKakuchoImpl( AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
             }
 
             return sslist;
@@ -734,10 +734,10 @@ namespace kifuwarabe_wcsc27.abstracts
                 {
                     Option_Application.Optionlist.SaidaiFukasa = val;
 
-                    if (Util_SasiteSeisei.SAIDAI_SASITE_FUKASA - 1 < Option_Application.Optionlist.SaidaiFukasa)
+                    if (AbstractUtilMoveGen.SAIDAI_SASITE_FUKASA - 1 < Option_Application.Optionlist.SaidaiFukasa)
                     {
-                        Option_Application.Optionlist.SaidaiFukasa = Util_SasiteSeisei.SAIDAI_SASITE_FUKASA - 1;
-                        syuturyoku.AppendLine("(^q^)実装の上限の [" + (Util_SasiteSeisei.SAIDAI_SASITE_FUKASA - 1) + "] に下げたぜ☆");
+                        Option_Application.Optionlist.SaidaiFukasa = AbstractUtilMoveGen.SAIDAI_SASITE_FUKASA - 1;
+                        syuturyoku.AppendLine("(^q^)実装の上限の [" + (AbstractUtilMoveGen.SAIDAI_SASITE_FUKASA - 1) + "] に下げたぜ☆");
                     }
                 }
             }
@@ -847,7 +847,7 @@ namespace kifuwarabe_wcsc27.abstracts
             {
                 throw new Exception("パースエラー [" + commandline + "]");
             }
-            ky.UndoSasite(Option_Application.Optionlist.USI, ss, syuturyoku); // このムーブには取った駒は含まれないのでは。
+            ky.UndoMove(Option_Application.Optionlist.USI, ss, syuturyoku); // このムーブには取った駒は含まれないのでは。
         }
 
 
@@ -1119,7 +1119,7 @@ namespace kifuwarabe_wcsc27.abstracts
                             Util_Machine.Flush(syuturyoku);
                             Util_Commandline.CommentCommandline();// コマンドの誤発動防止
                         }
-                        else if (!ky.CanDoSasite(inputSasite, out MoveMatigaiRiyu reason))// 指し手の合否チェック
+                        else if (!ky.CanDoMove(inputSasite, out MoveMatigaiRiyu reason))// 指し手の合否チェック
                         {
                             // イリーガル・ムーブなどの、エラー理由表示☆（＾～＾）
                             ConvMove.Setumei(reason, syuturyoku);

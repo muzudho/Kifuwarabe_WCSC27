@@ -122,7 +122,7 @@ namespace kifuwarabe_wcsc27.abstracts
         static Regex kyokumenPattern_sfen_;
         static Regex kyokumenPattern_dfen_;
 
-        public static Regex GetSasitePattern(bool isSfen)
+        public static Regex GetMovePattern(bool isSfen)
         {
             if (isSfen)
             {

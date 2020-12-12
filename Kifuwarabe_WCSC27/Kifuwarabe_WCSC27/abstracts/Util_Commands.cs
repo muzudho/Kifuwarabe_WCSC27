@@ -141,7 +141,7 @@ namespace kifuwarabe_wcsc27.abstracts
             syuturyoku.Append("< ");
 #endif
 
-            if (ky.CanDoSasite(ss, out MoveMatigaiRiyu riyu))
+            if (ky.CanDoMove(ss, out MoveMatigaiRiyu riyu))
             {
                 syuturyoku.AppendLine("cando, true");
             }
@@ -169,7 +169,7 @@ namespace kifuwarabe_wcsc27.abstracts
             }
 
             Nanteme nanteme = new Nanteme();
-            ky.DoSasite(isSfen, ss, MoveType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
+            ky.DoMove(isSfen, ss, MoveType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
 
 #if UNITY
             syuturyoku.Append("< do, ");
@@ -219,23 +219,23 @@ namespace kifuwarabe_wcsc27.abstracts
 #if DEBUG
             Util_Information.Setumei_NingenGameYo(ky, syuturyoku);
             Ky(isSfen, "ky fen", ky, syuturyoku);// 参考：改造FEN表示
-            Sasite_cmd(isSfen, "move", ky, syuturyoku);// 参考：指し手表示
+            Move_cmd(isSfen, "move", ky, syuturyoku);// 参考：指し手表示
             if (false){
                 Util_Information.HyojiKomanoIbasho(ky.Shogiban, syuturyoku);// 参考：駒の表示
             }
             Util_Information.HyojiKomanoKikiSu(ky.Shogiban, syuturyoku);// 参考：利きの数
-            Sasite_cmd(isSfen, "move seisei", ky, syuturyoku);// 参考：指し手生成表示
+            Move_cmd(isSfen, "move seisei", ky, syuturyoku);// 参考：指し手生成表示
             Util_Machine.Flush(syuturyoku);
 #endif
 
-            Move bestSasite = Util_Application.Go(ky, out HyokatiUtiwake best_hyokatiUtiwake, Face_YomisujiJoho.Dlgt_WriteYomisujiJoho, syuturyoku);
+            Move bestMove = Util_Application.Go(ky, out HyokatiUtiwake best_hyokatiUtiwake, Face_YomisujiJoho.Dlgt_WriteYomisujiJoho, syuturyoku);
             // 勝敗判定☆（＾▽＾）
-            Util_Kettyaku.JudgeKettyaku(bestSasite, ky);
+            Util_Kettyaku.JudgeKettyaku(bestMove, ky);
 
             if (isSfen)
             {
                 syuturyoku.Append("bestmove ");
-                ConvMove.AppendFenTo(isSfen, bestSasite, syuturyoku);
+                ConvMove.AppendFenTo(isSfen, bestMove, syuturyoku);
                 syuturyoku.AppendLine();
                 Util_Machine.Flush_USI(syuturyoku);
             }
@@ -248,7 +248,7 @@ namespace kifuwarabe_wcsc27.abstracts
 
 #if UNITY
             syuturyoku.Append("< go, ");
-            ConvMove.AppendFenTo(bestSasite, syuturyoku);// Unity用に指し手を出力するぜ☆（＾▽＾）
+            ConvMove.AppendFenTo(bestMove, syuturyoku);// Unity用に指し手を出力するぜ☆（＾▽＾）
             syuturyoku.AppendLine();
 #endif
         }
@@ -484,7 +484,7 @@ namespace kifuwarabe_wcsc27.abstracts
                         Move ss = ssEntry.Value.Move;//指し手データ
 
                         // 合法手かどうか調べるぜ☆
-                        if (!ky2.CanDoSasite(ss, out MoveMatigaiRiyu reason)// 指せない手☆
+                        if (!ky2.CanDoMove(ss, out MoveMatigaiRiyu reason)// 指せない手☆
                                                                           //||
                                                                           //Move.Toryo == ss
                         )
@@ -1362,12 +1362,12 @@ namespace kifuwarabe_wcsc27.abstracts
             Util_Machine.Flush(syuturyoku);
         }
 
-        public static void Sasite_cmd(bool isSfen, string commandline, Kyokumen ky, Mojiretu syuturyoku)
+        public static void MoveCmd(bool isSfen, string commandline, Kyokumen ky, Mojiretu syuturyoku)
         {
             if (commandline == "move")
             {
-                List<MoveKakucho> sslist = Util_Application.Sasite_cmd(ky, syuturyoku);
-                Conv_Sasitelist.Setumei(isSfen, "指し手全部", sslist, syuturyoku);
+                List<MoveKakucho> sslist = Util_Application.MoveCmd(ky, syuturyoku);
+                AbstractConvMovelist.Setumei(isSfen, "指し手全部", sslist, syuturyoku);
                 syuturyoku.AppendLine();
                 return;
             }
@@ -1378,7 +1378,7 @@ namespace kifuwarabe_wcsc27.abstracts
 
             if (caret_1 == commandline.IndexOf("su", caret_1))// 指し手の件数出力
             {
-                List<MoveKakucho> sslist = Util_Application.Sasite_cmd(ky, syuturyoku);
+                List<MoveKakucho> sslist = Util_Application.MoveCmd(ky, syuturyoku);
                 syuturyoku.AppendLine("指し手 件数=[" + sslist.Count + "]");
                 return;
             }
@@ -1393,7 +1393,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 HiouteJoho aiteHioute;// 相手番側が、王手回避が必要かどうか調べたいぜ☆（＾～＾）
                 {
                     ky.Teban = Conv_Taikyokusya.Hanten(ky.Teban);
-                    aiteHioute = Util_SasiteSeisei.CreateHiouteJoho(ky, true);
+                    aiteHioute = AbstractUtilMoveGen.CreateHiouteJoho(ky, true);
                     ky.Teban = Conv_Taikyokusya.Hanten(ky.Teban);
 
                     if (aiteHioute.IsHoui())
@@ -1416,70 +1416,70 @@ namespace kifuwarabe_wcsc27.abstracts
 #region 逼迫返討手
                 {
                     sslist.Clear();
-                    Util_SasiteSeisei.GenerateSasite_01(fukasa, ky, MoveType.N13_HippakuKaeriutiTe, NO_MERGE, syuturyoku);
+                    AbstractUtilMoveGen.GenerateSasite_01(fukasa, ky, MoveType.N13_HippakuKaeriutiTe, NO_MERGE, syuturyoku);
 
-                    for (int iSs = 0; iSs < Util_SasiteSeisei.Sasitelist[fukasa].SslistCount; iSs++)
+                    for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
                     {
-                        sslist.Add(new MoveKakuchoImpl(Util_SasiteSeisei.Sasitelist[fukasa].List_Sasite[iSs], Util_SasiteSeisei.Sasitelist[fukasa].List_Reason[iSs]));
+                        sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
                     }
 
-                    Conv_Sasitelist.Setumei(isSfen, "逼迫返討手", sslist, syuturyoku);
+                    AbstractConvMovelist.Setumei(isSfen, "逼迫返討手", sslist, syuturyoku);
                     syuturyoku.AppendLine();
                 }
 #endregion
 #region 余裕返討手
                 {
                     sslist.Clear();
-                    Util_SasiteSeisei.GenerateSasite_01(fukasa, ky, MoveType.N14_YoyuKaeriutiTe, NO_MERGE, syuturyoku);
+                    AbstractUtilMoveGen.GenerateSasite_01(fukasa, ky, MoveType.N14_YoyuKaeriutiTe, NO_MERGE, syuturyoku);
 
-                    for (int iSs = 0; iSs < Util_SasiteSeisei.Sasitelist[fukasa].SslistCount; iSs++)
+                    for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
                     {
-                        sslist.Add(new MoveKakuchoImpl(Util_SasiteSeisei.Sasitelist[fukasa].List_Sasite[iSs], Util_SasiteSeisei.Sasitelist[fukasa].List_Reason[iSs]));
+                        sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
                     }
 
-                    Conv_Sasitelist.Setumei(isSfen, "余裕返討手", sslist, syuturyoku);
+                    AbstractConvMovelist.Setumei(isSfen, "余裕返討手", sslist, syuturyoku);
                     syuturyoku.AppendLine();
                 }
 #endregion
 #region らいおんキャッチ
                 {
                     sslist.Clear();
-                    Util_SasiteSeisei.GenerateSasite_01(fukasa, ky, MoveType.N12_RaionCatch, NO_MERGE, syuturyoku);
+                    AbstractUtilMoveGen.GenerateSasite_01(fukasa, ky, MoveType.N12_RaionCatch, NO_MERGE, syuturyoku);
 
-                    for (int iSs = 0; iSs < Util_SasiteSeisei.Sasitelist[fukasa].SslistCount; iSs++)
+                    for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
                     {
-                        sslist.Add(new MoveKakuchoImpl(Util_SasiteSeisei.Sasitelist[fukasa].List_Sasite[iSs], Util_SasiteSeisei.Sasitelist[fukasa].List_Reason[iSs]));
+                        sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
                     }
 
-                    Conv_Sasitelist.Setumei(isSfen, "らいおんキャッチ", sslist, syuturyoku);
+                    AbstractConvMovelist.Setumei(isSfen, "らいおんキャッチ", sslist, syuturyoku);
                     syuturyoku.AppendLine();
                 }
 #endregion
 #region 逃げろ手
                 {
                     sslist.Clear();
-                    Util_SasiteSeisei.GenerateSasite_01(fukasa, ky, MoveType.N15_NigeroTe, NO_MERGE, syuturyoku);
+                    AbstractUtilMoveGen.GenerateSasite_01(fukasa, ky, MoveType.N15_NigeroTe, NO_MERGE, syuturyoku);
 
-                    for (int iSs = 0; iSs < Util_SasiteSeisei.Sasitelist[fukasa].SslistCount; iSs++)
+                    for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
                     {
-                        sslist.Add(new MoveKakuchoImpl(Util_SasiteSeisei.Sasitelist[fukasa].List_Sasite[iSs], Util_SasiteSeisei.Sasitelist[fukasa].List_Reason[iSs]));
+                        sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
                     }
 
-                    Conv_Sasitelist.Setumei(isSfen, "逃げろ手", sslist, syuturyoku);
+                    AbstractConvMovelist.Setumei(isSfen, "逃げろ手", sslist, syuturyoku);
                     syuturyoku.AppendLine();
                 }
 #endregion
 #region トライ
                 {
                     sslist.Clear();
-                    Util_SasiteSeisei.GenerateSasite_01(fukasa, ky, MoveType.N16_Try, NO_MERGE, syuturyoku);
+                    AbstractUtilMoveGen.GenerateSasite_01(fukasa, ky, MoveType.N16_Try, NO_MERGE, syuturyoku);
 
-                    for (int iSs = 0; iSs < Util_SasiteSeisei.Sasitelist[fukasa].SslistCount; iSs++)
+                    for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
                     {
-                        sslist.Add(new MoveKakuchoImpl(Util_SasiteSeisei.Sasitelist[fukasa].List_Sasite[iSs], Util_SasiteSeisei.Sasitelist[fukasa].List_Reason[iSs]));
+                        sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
                     }
 
-                    Conv_Sasitelist.Setumei(isSfen, "トライ", sslist, syuturyoku);
+                    AbstractConvMovelist.Setumei(isSfen, "トライ", sslist, syuturyoku);
                     syuturyoku.AppendLine();
                 }
 #endregion
@@ -1487,28 +1487,28 @@ namespace kifuwarabe_wcsc27.abstracts
 #region 駒を取る手（逃げ道を開けない手）
                 {
                     sslist.Clear();
-                    Util_SasiteSeisei.GenerateSasite_01(fukasa, ky, MoveType.N01_KomaWoToruTe, NO_MERGE, syuturyoku);
+                    AbstractUtilMoveGen.GenerateSasite_01(fukasa, ky, MoveType.N01_KomaWoToruTe, NO_MERGE, syuturyoku);
 
-                    for (int iSs = 0; iSs < Util_SasiteSeisei.Sasitelist[fukasa].SslistCount; iSs++)
+                    for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
                     {
-                        sslist.Add(new MoveKakuchoImpl(Util_SasiteSeisei.Sasitelist[fukasa].List_Sasite[iSs], Util_SasiteSeisei.Sasitelist[fukasa].List_Reason[iSs]));
+                        sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
                     }
 
-                    Conv_Sasitelist.Setumei(isSfen, "駒を取る手（逃げ道を開けない手）", sslist, syuturyoku);
+                    AbstractConvMovelist.Setumei(isSfen, "駒を取る手（逃げ道を開けない手）", sslist, syuturyoku);
                     syuturyoku.AppendLine();
                 }
 #endregion
 #region 駒を取る手（逃げ道を開ける手）
                 {
                     sslist.Clear();
-                    Util_SasiteSeisei.GenerateSasite_01(fukasa, ky, MoveType.N01_KomaWoToruTe, NO_MERGE, syuturyoku);
+                    AbstractUtilMoveGen.GenerateSasite_01(fukasa, ky, MoveType.N01_KomaWoToruTe, NO_MERGE, syuturyoku);
 
-                    for (int iSs = 0; iSs < Util_SasiteSeisei.SasitelistBad[fukasa].SslistCount; iSs++)
+                    for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveListBad[fukasa].SslistCount; iSs++)
                     {
-                        sslist.Add(new MoveKakuchoImpl(Util_SasiteSeisei.SasitelistBad[fukasa].List_Sasite[iSs], Util_SasiteSeisei.SasitelistBad[fukasa].List_Reason[iSs]));
+                        sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveListBad[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveListBad[fukasa].List_Reason[iSs]));
                     }
 
-                    Conv_Sasitelist.Setumei(isSfen, "駒を取る手（逃げ道を開ける手）", sslist, syuturyoku);
+                    AbstractConvMovelist.Setumei(isSfen, "駒を取る手（逃げ道を開ける手）", sslist, syuturyoku);
                     syuturyoku.AppendLine();
                 }
 #endregion
@@ -1518,50 +1518,50 @@ namespace kifuwarabe_wcsc27.abstracts
 #region 紐付王手指（逃げ道を開けない手）
                 {
                     sslist.Clear();
-                    Util_SasiteSeisei.GenerateSasite_01(fukasa, ky, MoveType.N10_HimotukiOteSasi, NO_MERGE, syuturyoku);
-                    for (int iSs = 0; iSs < Util_SasiteSeisei.Sasitelist[fukasa].SslistCount; iSs++)
+                    AbstractUtilMoveGen.GenerateSasite_01(fukasa, ky, MoveType.N10_HimotukiOteSasi, NO_MERGE, syuturyoku);
+                    for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
                     {
-                        sslist.Add(new MoveKakuchoImpl(Util_SasiteSeisei.Sasitelist[fukasa].List_Sasite[iSs], Util_SasiteSeisei.Sasitelist[fukasa].List_Reason[iSs]));
+                        sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
                     }
-                    Conv_Sasitelist.Setumei(isSfen, "紐付王手指（逃げ道を開けない手）", sslist, syuturyoku);
+                    AbstractConvMovelist.Setumei(isSfen, "紐付王手指（逃げ道を開けない手）", sslist, syuturyoku);
                     syuturyoku.AppendLine();
                 }
 #endregion
 #region 捨て王手指（逃げ道を開けない手）
                 {
                     sslist.Clear();
-                    Util_SasiteSeisei.GenerateSasite_01(fukasa, ky, MoveType.N06_SuteOteSasi, NO_MERGE, syuturyoku);
-                    for (int iSs = 0; iSs < Util_SasiteSeisei.Sasitelist[fukasa].SslistCount; iSs++)
+                    AbstractUtilMoveGen.GenerateSasite_01(fukasa, ky, MoveType.N06_SuteOteSasi, NO_MERGE, syuturyoku);
+                    for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
                     {
-                        sslist.Add(new MoveKakuchoImpl(Util_SasiteSeisei.Sasitelist[fukasa].List_Sasite[iSs], Util_SasiteSeisei.Sasitelist[fukasa].List_Reason[iSs]));
+                        sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
                     }
-                    Conv_Sasitelist.Setumei(isSfen, "捨て王手指（逃げ道を開けない手）", sslist, syuturyoku);
+                    AbstractConvMovelist.Setumei(isSfen, "捨て王手指（逃げ道を開けない手）", sslist, syuturyoku);
                     syuturyoku.AppendLine();
                 }
 #endregion
 #region 捨て王手打（逃げ道を開けない手）
                 {
                     sslist.Clear();
-                    Util_SasiteSeisei.GenerateSasite_01(fukasa, ky, MoveType.N07_SuteOteDa, NO_MERGE, syuturyoku);
-                    for (int iSs = 0; iSs < Util_SasiteSeisei.Sasitelist[fukasa].SslistCount; iSs++)
+                    AbstractUtilMoveGen.GenerateSasite_01(fukasa, ky, MoveType.N07_SuteOteDa, NO_MERGE, syuturyoku);
+                    for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
                     {
-                        sslist.Add(new MoveKakuchoImpl(Util_SasiteSeisei.Sasitelist[fukasa].List_Sasite[iSs], Util_SasiteSeisei.Sasitelist[fukasa].List_Reason[iSs]));
+                        sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
                     }
-                    Conv_Sasitelist.Setumei(isSfen, "捨て王手打（逃げ道を開けない手）", sslist, syuturyoku);
+                    AbstractConvMovelist.Setumei(isSfen, "捨て王手打（逃げ道を開けない手）", sslist, syuturyoku);
                     syuturyoku.AppendLine();
                 }
 #endregion
 #region 紐付王手打（逃げ道を開けない手）
                 {
                     sslist.Clear();
-                    Util_SasiteSeisei.GenerateSasite_01(fukasa, ky, MoveType.N11_HimotukiOteDa, NO_MERGE, syuturyoku);
+                    AbstractUtilMoveGen.GenerateSasite_01(fukasa, ky, MoveType.N11_HimotukiOteDa, NO_MERGE, syuturyoku);
 
-                    for (int iSs = 0; iSs < Util_SasiteSeisei.Sasitelist[fukasa].SslistCount; iSs++)
+                    for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
                     {
-                        sslist.Add(new MoveKakuchoImpl(Util_SasiteSeisei.Sasitelist[fukasa].List_Sasite[iSs], Util_SasiteSeisei.Sasitelist[fukasa].List_Reason[iSs]));
+                        sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
                     }
 
-                    Conv_Sasitelist.Setumei(isSfen, "紐付王手打（逃げ道を開けない手）", sslist, syuturyoku);
+                    AbstractConvMovelist.Setumei(isSfen, "紐付王手打（逃げ道を開けない手）", sslist, syuturyoku);
                     syuturyoku.AppendLine();
                 }
 #endregion
@@ -1569,48 +1569,48 @@ namespace kifuwarabe_wcsc27.abstracts
 #region 紐付王手指（逃げ道を開ける手）
                 {
                     sslist.Clear();
-                    Util_SasiteSeisei.GenerateSasite_01(fukasa, ky, MoveType.N10_HimotukiOteSasi, NO_MERGE, syuturyoku);
-                    for (int iSs = 0; iSs < Util_SasiteSeisei.SasitelistBad[fukasa].SslistCount; iSs++)
+                    AbstractUtilMoveGen.GenerateSasite_01(fukasa, ky, MoveType.N10_HimotukiOteSasi, NO_MERGE, syuturyoku);
+                    for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveListBad[fukasa].SslistCount; iSs++)
                     {
-                        sslist.Add(new MoveKakuchoImpl(Util_SasiteSeisei.SasitelistBad[fukasa].List_Sasite[iSs], Util_SasiteSeisei.SasitelistBad[fukasa].List_Reason[iSs]));
+                        sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveListBad[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveListBad[fukasa].List_Reason[iSs]));
                     }
-                    Conv_Sasitelist.Setumei(isSfen, "紐付王手指（逃げ道を開ける手）", sslist, syuturyoku);
+                    AbstractConvMovelist.Setumei(isSfen, "紐付王手指（逃げ道を開ける手）", sslist, syuturyoku);
                     syuturyoku.AppendLine();
                 }
 #endregion
 #region 捨て王手指（逃げ道を開ける手）
                 {
                     sslist.Clear();
-                    Util_SasiteSeisei.GenerateSasite_01(fukasa, ky, MoveType.N06_SuteOteSasi, NO_MERGE, syuturyoku);
-                    for (int iSs = 0; iSs < Util_SasiteSeisei.SasitelistBad[fukasa].SslistCount; iSs++)
+                    AbstractUtilMoveGen.GenerateSasite_01(fukasa, ky, MoveType.N06_SuteOteSasi, NO_MERGE, syuturyoku);
+                    for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveListBad[fukasa].SslistCount; iSs++)
                     {
-                        sslist.Add(new MoveKakuchoImpl(Util_SasiteSeisei.SasitelistBad[fukasa].List_Sasite[iSs], Util_SasiteSeisei.SasitelistBad[fukasa].List_Reason[iSs]));
+                        sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveListBad[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveListBad[fukasa].List_Reason[iSs]));
                     }
-                    Conv_Sasitelist.Setumei(isSfen, "捨て王手指（逃げ道を開ける手）", sslist, syuturyoku);
+                    AbstractConvMovelist.Setumei(isSfen, "捨て王手指（逃げ道を開ける手）", sslist, syuturyoku);
                     syuturyoku.AppendLine();
                 }
 #endregion
 #region 捨て王手打（逃げ道を開ける手）
                 {
                     sslist.Clear();
-                    Util_SasiteSeisei.GenerateSasite_01(fukasa, ky, MoveType.N07_SuteOteDa, NO_MERGE, syuturyoku);
-                    for (int iSs = 0; iSs < Util_SasiteSeisei.SasitelistBad[fukasa].SslistCount; iSs++)
+                    AbstractUtilMoveGen.GenerateSasite_01(fukasa, ky, MoveType.N07_SuteOteDa, NO_MERGE, syuturyoku);
+                    for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveListBad[fukasa].SslistCount; iSs++)
                     {
-                        sslist.Add(new MoveKakuchoImpl(Util_SasiteSeisei.SasitelistBad[fukasa].List_Sasite[iSs], Util_SasiteSeisei.SasitelistBad[fukasa].List_Reason[iSs]));
+                        sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveListBad[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveListBad[fukasa].List_Reason[iSs]));
                     }
-                    Conv_Sasitelist.Setumei(isSfen, "捨て王手打（逃げ道を開ける手）", sslist, syuturyoku);
+                    AbstractConvMovelist.Setumei(isSfen, "捨て王手打（逃げ道を開ける手）", sslist, syuturyoku);
                     syuturyoku.AppendLine();
                 }
 #endregion
 #region 紐付王手打（逃げ道を開ける手）
                 {
                     sslist.Clear();
-                    Util_SasiteSeisei.GenerateSasite_01(fukasa, ky, MoveType.N11_HimotukiOteDa, NO_MERGE, syuturyoku);
-                    for (int iSs = 0; iSs < Util_SasiteSeisei.SasitelistBad[fukasa].SslistCount; iSs++)
+                    AbstractUtilMoveGen.GenerateSasite_01(fukasa, ky, MoveType.N11_HimotukiOteDa, NO_MERGE, syuturyoku);
+                    for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveListBad[fukasa].SslistCount; iSs++)
                     {
-                        sslist.Add(new MoveKakuchoImpl(Util_SasiteSeisei.SasitelistBad[fukasa].List_Sasite[iSs], Util_SasiteSeisei.SasitelistBad[fukasa].List_Reason[iSs]));
+                        sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveListBad[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveListBad[fukasa].List_Reason[iSs]));
                     }
-                    Conv_Sasitelist.Setumei(isSfen, "紐付王手打（逃げ道を開ける手）", sslist, syuturyoku);
+                    AbstractConvMovelist.Setumei(isSfen, "紐付王手打（逃げ道を開ける手）", sslist, syuturyoku);
                     syuturyoku.AppendLine();
                 }
 #endregion
@@ -1618,14 +1618,14 @@ namespace kifuwarabe_wcsc27.abstracts
 #region 紐付緩慢打
                 {
                     sslist.Clear();
-                    Util_SasiteSeisei.GenerateSasite_01(fukasa, ky, MoveType.N09_HimotukiKanmanDa, NO_MERGE, syuturyoku);
+                    AbstractUtilMoveGen.GenerateSasite_01(fukasa, ky, MoveType.N09_HimotukiKanmanDa, NO_MERGE, syuturyoku);
 
-                    for (int iSs = 0; iSs < Util_SasiteSeisei.Sasitelist[fukasa].SslistCount; iSs++)
+                    for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
                     {
-                        sslist.Add(new MoveKakuchoImpl(Util_SasiteSeisei.Sasitelist[fukasa].List_Sasite[iSs], Util_SasiteSeisei.Sasitelist[fukasa].List_Reason[iSs]));
+                        sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
                     }
 
-                    Conv_Sasitelist.Setumei(isSfen, "紐付緩慢打", sslist, syuturyoku);
+                    AbstractConvMovelist.Setumei(isSfen, "紐付緩慢打", sslist, syuturyoku);
                     syuturyoku.AppendLine();
                 }
 #endregion
@@ -1633,42 +1633,42 @@ namespace kifuwarabe_wcsc27.abstracts
 #region 紐付緩慢指（仲間を見捨てない動き）
                 {
                     sslist.Clear();
-                    Util_SasiteSeisei.GenerateSasite_01(fukasa, ky, MoveType.N08_HimotukiKanmanSasi, NO_MERGE, syuturyoku);
+                    AbstractUtilMoveGen.GenerateSasite_01(fukasa, ky, MoveType.N08_HimotukiKanmanSasi, NO_MERGE, syuturyoku);
 
-                    for (int iSs = 0; iSs < Util_SasiteSeisei.Sasitelist[fukasa].SslistCount; iSs++)
+                    for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
                     {
-                        sslist.Add(new MoveKakuchoImpl(Util_SasiteSeisei.Sasitelist[fukasa].List_Sasite[iSs], Util_SasiteSeisei.Sasitelist[fukasa].List_Reason[iSs]));
+                        sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
                     }
 
-                    Conv_Sasitelist.Setumei(isSfen, "紐付緩慢指（仲間を見捨てない動き）", sslist, syuturyoku);
+                    AbstractConvMovelist.Setumei(isSfen, "紐付緩慢指（仲間を見捨てない動き）", sslist, syuturyoku);
                     syuturyoku.AppendLine();
                 }
 #endregion
 #region ぼっち緩慢指（仲間を見捨てない動き）
                 {
                     sslist.Clear();
-                    Util_SasiteSeisei.GenerateSasite_01(fukasa, ky, MoveType.N02_BottiKanmanSasi, NO_MERGE, syuturyoku);
+                    AbstractUtilMoveGen.GenerateSasite_01(fukasa, ky, MoveType.N02_BottiKanmanSasi, NO_MERGE, syuturyoku);
 
-                    for (int iSs = 0; iSs < Util_SasiteSeisei.Sasitelist[fukasa].SslistCount; iSs++)
+                    for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
                     {
-                        sslist.Add(new MoveKakuchoImpl(Util_SasiteSeisei.Sasitelist[fukasa].List_Sasite[iSs], Util_SasiteSeisei.Sasitelist[fukasa].List_Reason[iSs]));
+                        sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
                     }
 
-                    Conv_Sasitelist.Setumei(isSfen, "ぼっち緩慢指（仲間を見捨てない動き）", sslist, syuturyoku);
+                    AbstractConvMovelist.Setumei(isSfen, "ぼっち緩慢指（仲間を見捨てない動き）", sslist, syuturyoku);
                     syuturyoku.AppendLine();
                 }
 #endregion
 #region ぼっち緩慢打（仲間を見捨てない動き）
                 {
                     sslist.Clear();
-                    Util_SasiteSeisei.GenerateSasite_01(fukasa, ky, MoveType.N03_BottiKanmanDa, NO_MERGE, syuturyoku);
+                    AbstractUtilMoveGen.GenerateSasite_01(fukasa, ky, MoveType.N03_BottiKanmanDa, NO_MERGE, syuturyoku);
 
-                    for (int iSs = 0; iSs < Util_SasiteSeisei.Sasitelist[fukasa].SslistCount; iSs++)
+                    for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
                     {
-                        sslist.Add(new MoveKakuchoImpl(Util_SasiteSeisei.Sasitelist[fukasa].List_Sasite[iSs], Util_SasiteSeisei.Sasitelist[fukasa].List_Reason[iSs]));
+                        sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
                     }
 
-                    Conv_Sasitelist.Setumei(isSfen, "ぼっち緩慢打（仲間を見捨てない動き）", sslist, syuturyoku);
+                    AbstractConvMovelist.Setumei(isSfen, "ぼっち緩慢打（仲間を見捨てない動き）", sslist, syuturyoku);
                     syuturyoku.AppendLine();
                 }
 #endregion
@@ -1676,42 +1676,42 @@ namespace kifuwarabe_wcsc27.abstracts
 #region 紐付緩慢指（仲間を見捨てる動き）
                 {
                     sslist.Clear();
-                    Util_SasiteSeisei.GenerateSasite_01(fukasa, ky, MoveType.N08_HimotukiKanmanSasi, NO_MERGE, syuturyoku);
+                    AbstractUtilMoveGen.GenerateSasite_01(fukasa, ky, MoveType.N08_HimotukiKanmanSasi, NO_MERGE, syuturyoku);
 
-                    for (int iSs = 0; iSs < Util_SasiteSeisei.SasitelistBad[fukasa].SslistCount; iSs++)
+                    for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveListBad[fukasa].SslistCount; iSs++)
                     {
-                        sslist.Add(new MoveKakuchoImpl(Util_SasiteSeisei.SasitelistBad[fukasa].List_Sasite[iSs], Util_SasiteSeisei.SasitelistBad[fukasa].List_Reason[iSs]));
+                        sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveListBad[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveListBad[fukasa].List_Reason[iSs]));
                     }
 
-                    Conv_Sasitelist.Setumei(isSfen, "紐付緩慢指（仲間を見捨てる動き）", sslist, syuturyoku);
+                    AbstractConvMovelist.Setumei(isSfen, "紐付緩慢指（仲間を見捨てる動き）", sslist, syuturyoku);
                     syuturyoku.AppendLine();
                 }
 #endregion
 #region ぼっち緩慢指（仲間を見捨てる動き）
                 {
                     sslist.Clear();
-                    Util_SasiteSeisei.GenerateSasite_01(fukasa, ky, MoveType.N02_BottiKanmanSasi, NO_MERGE, syuturyoku);
+                    AbstractUtilMoveGen.GenerateSasite_01(fukasa, ky, MoveType.N02_BottiKanmanSasi, NO_MERGE, syuturyoku);
 
-                    for (int iSs = 0; iSs < Util_SasiteSeisei.SasitelistBad[fukasa].SslistCount; iSs++)
+                    for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveListBad[fukasa].SslistCount; iSs++)
                     {
-                        sslist.Add(new MoveKakuchoImpl(Util_SasiteSeisei.SasitelistBad[fukasa].List_Sasite[iSs], Util_SasiteSeisei.SasitelistBad[fukasa].List_Reason[iSs]));
+                        sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveListBad[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveListBad[fukasa].List_Reason[iSs]));
                     }
 
-                    Conv_Sasitelist.Setumei(isSfen, "ぼっち緩慢指（仲間を見捨てる動き）", sslist, syuturyoku);
+                    AbstractConvMovelist.Setumei(isSfen, "ぼっち緩慢指（仲間を見捨てる動き）", sslist, syuturyoku);
                     syuturyoku.AppendLine();
                 }
 #endregion
 #region ぼっち緩慢打（仲間を見捨てる動き）
                 {
                     sslist.Clear();
-                    Util_SasiteSeisei.GenerateSasite_01(fukasa, ky, MoveType.N03_BottiKanmanDa, NO_MERGE, syuturyoku);
+                    AbstractUtilMoveGen.GenerateSasite_01(fukasa, ky, MoveType.N03_BottiKanmanDa, NO_MERGE, syuturyoku);
 
-                    for (int iSs = 0; iSs < Util_SasiteSeisei.SasitelistBad[fukasa].SslistCount; iSs++)
+                    for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveListBad[fukasa].SslistCount; iSs++)
                     {
-                        sslist.Add(new MoveKakuchoImpl(Util_SasiteSeisei.SasitelistBad[fukasa].List_Sasite[iSs], Util_SasiteSeisei.SasitelistBad[fukasa].List_Reason[iSs]));
+                        sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveListBad[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveListBad[fukasa].List_Reason[iSs]));
                     }
 
-                    Conv_Sasitelist.Setumei(isSfen, "ぼっち緩慢打（仲間を見捨てる動き）", sslist, syuturyoku);
+                    AbstractConvMovelist.Setumei(isSfen, "ぼっち緩慢打（仲間を見捨てる動き）", sslist, syuturyoku);
                     syuturyoku.AppendLine();
                 }
 #endregion
@@ -1719,28 +1719,28 @@ namespace kifuwarabe_wcsc27.abstracts
 #region 捨て緩慢指し（タダ捨て指し）
                 {
                     sslist.Clear();
-                    Util_SasiteSeisei.GenerateSasite_01(fukasa, ky, MoveType.N04_SuteKanmanSasi, NO_MERGE, syuturyoku);
+                    AbstractUtilMoveGen.GenerateSasite_01(fukasa, ky, MoveType.N04_SuteKanmanSasi, NO_MERGE, syuturyoku);
 
-                    for (int iSs = 0; iSs < Util_SasiteSeisei.Sasitelist[fukasa].SslistCount; iSs++)
+                    for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
                     {
-                        sslist.Add(new MoveKakuchoImpl(Util_SasiteSeisei.Sasitelist[fukasa].List_Sasite[iSs], Util_SasiteSeisei.Sasitelist[fukasa].List_Reason[iSs]));
+                        sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
                     }
 
-                    Conv_Sasitelist.Setumei(isSfen, "捨て緩慢指し（タダ捨て指し）", sslist, syuturyoku);
+                    AbstractConvMovelist.Setumei(isSfen, "捨て緩慢指し（タダ捨て指し）", sslist, syuturyoku);
                     syuturyoku.AppendLine();
                 }
 #endregion
 #region 捨て緩慢打（タダ捨て打）
                 {
                     sslist.Clear();
-                    Util_SasiteSeisei.GenerateSasite_01(fukasa, ky, MoveType.N05_SuteKanmanDa, NO_MERGE, syuturyoku);
+                    AbstractUtilMoveGen.GenerateSasite_01(fukasa, ky, MoveType.N05_SuteKanmanDa, NO_MERGE, syuturyoku);
 
-                    for (int iSs = 0; iSs < Util_SasiteSeisei.Sasitelist[fukasa].SslistCount; iSs++)
+                    for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
                     {
-                        sslist.Add(new MoveKakuchoImpl(Util_SasiteSeisei.Sasitelist[fukasa].List_Sasite[iSs], Util_SasiteSeisei.Sasitelist[fukasa].List_Reason[iSs]));
+                        sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
                     }
 
-                    Conv_Sasitelist.Setumei(isSfen, "捨て緩慢打（タダ捨て打）", sslist, syuturyoku);
+                    AbstractConvMovelist.Setumei(isSfen, "捨て緩慢打（タダ捨て打）", sslist, syuturyoku);
                     syuturyoku.AppendLine();
                 }
 #endregion
@@ -1748,7 +1748,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 if (!NO_MERGE)
                 {
                     // マージを忘れるなだぜ☆（＾▽＾）
-                    Util_SasiteSeisei.MergeSasitelistGoodBad(fukasa
+                    AbstractUtilMoveGen.MergeMoveListGoodBad(fukasa
 #if DEBUG
                         , "マージを忘れるなだぜ☆（＾▽＾）"
 #endif
@@ -1826,7 +1826,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 // 指し手を指定した場合☆
                 Med_Parser.TryFenMove(isSfen, commandline, ref caret_1, ky.Sindan, out Move ss);
                 Nanteme nanteme = new Nanteme();
-                ky.DoSasite(isSfen, ss, MoveType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
+                ky.DoMove(isSfen, ss, MoveType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
                 Masu ms = ConvMove.GetDstMasu(ss, ky);
 
 
@@ -1844,7 +1844,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     Conv_Hyokati.Setumei(oisisa, syuturyoku);
                     syuturyoku.AppendLine();
                 }
-                ky.UndoSasite(isSfen, ss, syuturyoku);
+                ky.UndoMove(isSfen, ss, syuturyoku);
 
                 syuturyoku.Append("SEE_cmd>SEE評価値 ");
                 Conv_Hyokati.Setumei(oisisa, syuturyoku);
@@ -1917,7 +1917,7 @@ namespace kifuwarabe_wcsc27.abstracts
                         Move ss = ssEntry.Value.Move;//指し手データ
 
                         // 合法手かどうか調べるぜ☆
-                        if (!ky2.CanDoSasite(ss, out MoveMatigaiRiyu reason)// 指せない手☆
+                        if (!ky2.CanDoMove(ss, out MoveMatigaiRiyu reason)// 指せない手☆
                                                                               //||
                                                                               //Move.Toryo == ss
     )

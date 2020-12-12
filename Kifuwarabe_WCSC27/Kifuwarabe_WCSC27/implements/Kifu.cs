@@ -116,7 +116,7 @@ namespace kifuwarabe_wcsc27.implements
             foreach (Move ss in SsList)
             {
                 Nanteme nanteme = new Nanteme();
-                ky.DoSasite(isSfen, ss, MoveType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
+                ky.DoMove(isSfen, ss, MoveType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
 
 #if DEBUG
                 Util_Commands.Ky(isSfen, "ky", ky, syuturyoku);
@@ -148,7 +148,7 @@ namespace kifuwarabe_wcsc27.implements
                     break;
                 }
                 Nanteme nanteme = new Nanteme();
-                ky.DoSasite(isSfen, ss, MoveType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
+                ky.DoMove(isSfen, ss, MoveType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
                 temeMade--;
             }
         }

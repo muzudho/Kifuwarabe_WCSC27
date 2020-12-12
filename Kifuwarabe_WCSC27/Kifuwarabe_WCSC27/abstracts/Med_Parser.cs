@@ -54,7 +54,7 @@ namespace kifuwarabe_wcsc27.abstracts
         //    // リスト作成
         //    //------------------------------------------------------------
 
-        //    Match m = Itiran_FenParser.GetMasuSasitePattern(Option_Application.Optionlist.USI).Match(commandline, caret);
+        //    Match m = Itiran_FenParser.GetMasuMovePattern(Option_Application.Optionlist.USI).Match(commandline, caret);
         //    if (m.Success)
         //    {
         //        Util_String.SkipMatch(commandline, ref caret, m);
@@ -171,7 +171,7 @@ namespace kifuwarabe_wcsc27.abstracts
             // 「toryo」でも「none」でもなければ、「B4B3」形式と想定して、１手だけ読込み
             // テキスト形式の符号「A4A3 C1C2 …」の最初の１要素を、切り取ってトークンに分解します。
 
-            Match m = Itiran_FenParser.GetSasitePattern(isSfen).Match(commandline, caret);
+            Match m = Itiran_FenParser.GetMovePattern(isSfen).Match(commandline, caret);
             if (!m.Success)
             {
                 //// 「B4B3」形式ではなかった☆（＾△＾）！？　次の一手が読めない☆
@@ -194,7 +194,7 @@ namespace kifuwarabe_wcsc27.abstracts
             Util_String.SkipMatch(commandline, ref caret, m);
 
             // 符号１「B4B3」を元に、move を作ります。
-            out_sasite = TryFen_Sasite2(
+            out_sasite = TryFenMove2(
                 isSfen,
                 kys,
                 m.Groups[1].Value,
@@ -207,7 +207,7 @@ namespace kifuwarabe_wcsc27.abstracts
 
             return true;
         }
-        public static Move TryFen_Sasite2(
+        public static Move TryFenMove2(
             bool isSfen,
             Kyokumen.Sindanyo kys,
             string str1,
@@ -241,7 +241,7 @@ namespace kifuwarabe_wcsc27.abstracts
             if ("*" == str2)
             {
                 // 駒台から打ったぜ☆
-                return ConvMove.ToSasite_01c_Utta(
+                return ConvMove.ToMove01cUtta(
                     dstMs,
                     Med_Parser.Moji_MotikomaSyurui(isSfen, str1)//打った駒
                 );
@@ -249,8 +249,8 @@ namespace kifuwarabe_wcsc27.abstracts
             else
             {
                 // 盤上の駒を動かしたぜ☆
-                if (natta) { return ConvMove.ToSasite_01b_NariSasi(Med_Parser.FenSujiDan_Masu(isSfen, str1, str2), dstMs, kys); }
-                else { return ConvMove.ToSasite_01a_NarazuSasi(Med_Parser.FenSujiDan_Masu(isSfen, str1, str2), dstMs, kys); }
+                if (natta) { return ConvMove.ToMove01bNariSasi(Med_Parser.FenSujiDan_Masu(isSfen, str1, str2), dstMs, kys); }
+                else { return ConvMove.ToMove01aNarazuSasi(Med_Parser.FenSujiDan_Masu(isSfen, str1, str2), dstMs, kys); }
             }
         }
 
