@@ -8,12 +8,12 @@
 | 将棋エンジン ソース     | Kifuwarakei project                                   |
 | GUI                     | なし                                                  |
 | 将棋エンジン ランタイム | `Kifuwarabe_WCSC27/Game/kifuwarabe_wcsc27.exe`        |
-| 設定ファイル1           | `Kifuwarabe_WCSC27/Game/kifuwarabe_wcsc27.exe.config` |
+| 設定ファイル1           | `Kifuwarabe_WCSC27/Game/Grayscale.kifuwarakei.Engine.exe.config` |
 | 設定ファイル2           | `Kifuwarabe_WCSC27/Profile/Engine.toml`               |
 
-* `Kifuwarabe_WCSC25` のトップ・ディレクトリーに `Logs` ディレクトリーを作成してください。
-* `Kifuwaragyoku.sln` を `Release` モードで ビルドしてください。
-* 設定ファイル1 の `Grayscale.A500_ShogiEngine.exe.config` の中にある `Profile` のパスを、 設定ファイル2 の親ディレクトリー `Profile` に合わせてください。  
+* `Kifuwarabe_WCSC27` のトップ・ディレクトリーに `Logs` ディレクトリーを作成してください。
+* `Kifuwarakei.sln` を `Release` モードで ビルドしてください。
+* 設定ファイル1 の中にある `Profile` のパスを、 設定ファイル2 の親ディレクトリー `Profile` に合わせてください。  
 
 ## Manual
 
