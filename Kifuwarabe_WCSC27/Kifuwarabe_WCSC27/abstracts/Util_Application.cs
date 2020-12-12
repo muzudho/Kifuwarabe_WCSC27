@@ -1,4 +1,5 @@
-﻿using kifuwarabe_wcsc27.facade;
+﻿using kifuwarabe_wcsc27.Entities.Log;
+using kifuwarabe_wcsc27.facade;
 using kifuwarabe_wcsc27.implements;
 using kifuwarabe_wcsc27.interfaces;
 using kifuwarabe_wcsc27.machine;
@@ -1273,7 +1274,7 @@ namespace kifuwarabe_wcsc27.abstracts
             {
                 // 連続対局を止めるぜ☆（＾▽＾）
                 Option_Application.Optionlist.RenzokuTaikyoku = false;
-                syuturyoku.AppendLine(Util_Machine.RENZOKU_TAIKYOKU_STOP_FILE + "> done");
+                syuturyoku.AppendLine(Util_Log.RenzokuTaikyokuStopFile + "> done");
             }
 #endif
 

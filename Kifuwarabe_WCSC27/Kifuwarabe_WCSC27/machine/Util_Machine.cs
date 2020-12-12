@@ -1,5 +1,6 @@
 ﻿using kifuwarabe_wcsc27.implements;
 using System;
+using kifuwarabe_wcsc27.Entities.Log;
 
 #if UNITY && !KAIHATU // Unity本番用だぜ☆
 using kifuwarabe_wcsc27.abstracts;
@@ -9,7 +10,6 @@ using System.Diagnostics;
 
 #else // PC用だぜ☆
 using kifuwarabe_wcsc27.abstracts;
-using kifuwarabe_wcsc27.facade;
 using kifuwarabe_wcsc27.interfaces;
 using System.Diagnostics;
 using System.Collections.Generic;
@@ -38,9 +38,9 @@ namespace kifuwarabe_wcsc27.machine
             System.Console.Title = "きふわらべ";
 
             // ログ・ファイルがあれば削除するぜ☆
-            if (File.Exists(LOG_FOLDER + LOG_FILE_WOE + LOG_FILE_EXT))
+            if (File.Exists(Util_Log.LogFilePath))
             {
-                File.Delete(LOG_FOLDER + LOG_FILE_WOE + LOG_FILE_EXT);
+                File.Delete(Util_Log.LogFilePath);
             }
 #endif
 
@@ -59,75 +59,15 @@ namespace kifuwarabe_wcsc27.machine
 #if UNITY && !KAIHATU
 #else
         /// <summary>
-        /// ログ・フォルダー
-        /// </summary>
-        readonly static string LOG_FOLDER = "Log" + Path.DirectorySeparatorChar.ToString();
-        /// <summary>
-        /// ログ・ファイル名　拡張子抜き（without extension）
-        /// </summary>
-        const string LOG_FILE_WOE = "_auto_log";
-        /// <summary>
-        /// ログ・ファイル名の拡張子
-        /// </summary>
-        const string LOG_FILE_EXT = ".txt";
-
-        /// <summary>
-        /// 定跡ファイル名　拡張子抜き（without extension）
-        /// </summary>
-        public const string JOSEKI_FILE_WOE = "_auto_joseki";
-        /// <summary>
-        /// ローカルルール名
-        /// ファイル名に付けておかないと、ゴミ分割ファイル削除時に、巻き込まれて削除されてしまうぜ☆（＾～＾）
-        /// </summary>
-        public const string LOCALRULE_HONSHOGI = "_Honshogi";
-        public const string LOCALRULE_SAGARERUHIYOKO = "_SagareruHiyoko";
-        /// <summary>
-        /// 定跡ファイル名の拡張子
-        /// </summary>
-        public const string JOSEKI_FILE_EXT = ".txt";
-
-        /// <summary>
-        /// 成績ファイル名　拡張子抜き（without extension）
-        /// </summary>
-        public const string SEISEKI_FILE_WOE = "_auto_seiseki";
-        /// <summary>
-        /// 成績ファイル名の拡張子
-        /// </summary>
-        public const string SEISEKI_FILE_EXT = ".txt";
-
-        /// <summary>
-        /// 二駒関係ファイル名　拡張子抜き（without extension）
-        /// </summary>
-        public const string NIKOMA_FILE_WOE = "_auto_nikoma";
-        /// <summary>
-        /// 二駒関係ファイル名の拡張子
-        /// </summary>
-        public const string NIKOMA_FILE_EXT = ".txt";
-
-        /// <summary>
-        /// 二駒関係説明ファイル名　拡張子抜き（without extension）
-        /// </summary>
-        public const string NIKOMASETUMEI_FILE_WOE = "_auto_nikomaSetumei";
-        /// <summary>
-        /// 二駒関係説明ファイル名の拡張子
-        /// </summary>
-        public const string NIKOMASETUMEI_FILE_EXT = ".txt";
-
-        /// <summary>
-        /// この名前のファイルが存在すれば、連続対局をストップさせるぜ☆
-        /// </summary>
-        public const string RENZOKU_TAIKYOKU_STOP_FILE = "RenzokuTaikyokuStop.txt";
-
-        /// <summary>
         /// ログファイルの最大容量☆
         /// 目安として、64KB 以下なら快適、200KB にもなると遅さが目立つ感じ☆
         /// </summary>
-        public const int LOG_FILE_SAIDAI_YORYO = 64 * 1000;// 64 Kilo Byte
+        public const int LogFileSaidaiYoryo = 64 * 1000;// 64 Kilo Byte
         /// <summary>
         /// ログファイル分割数☆
         /// １つのファイルにたくさん書けないのなら、ファイル数を増やせばいいんだぜ☆（＾▽＾）
         /// </summary>
-        public const int LOG_FILE_BUNKATUSU = 50;
+        public const int LogFileBunkatsuSu = 50;
 #endif
         /// <summary>
         /// 出力する文字列を蓄えておくものだぜ☆（＾▽＾）
@@ -186,8 +126,8 @@ namespace kifuwarabe_wcsc27.machine
                 // _1 ～ _10 等のファイル名末尾を付けて、ログをローテーションするぜ☆（＾▽＾）
                 string bestFile;
                 {
-                    int maxFileSize = Util_Machine.LOG_FILE_SAIDAI_YORYO;
-                    int maxFileCount = Util_Machine.LOG_FILE_BUNKATUSU;
+                    int maxFileSize = Util_Machine.LogFileSaidaiYoryo;
+                    int maxFileCount = Util_Machine.LogFileBunkatsuSu;
                     long newestFileSize = 0;
                     int oldestFileIndex = -1;
                     DateTime oldestFileTime = DateTime.MaxValue;
@@ -198,7 +138,7 @@ namespace kifuwarabe_wcsc27.machine
                     // まず、ログファイルがあるか、Ｎ個確認するぜ☆（＾▽＾）
                     for (int i = 0; i < maxFileCount; i++)
                     {
-                        string file = LOG_FOLDER + LOG_FILE_WOE + "_" + (i + 1) + LOG_FILE_EXT;
+                        string file = Util_Log.NumberedLogFilePath(i);
 
                         // ファイルがあるか☆
                         if (File.Exists(file))
@@ -230,13 +170,9 @@ namespace kifuwarabe_wcsc27.machine
                     if (existFileCount < 1)
                     {
                         // ログ・ファイルが１つも無ければ、新規作成するぜ☆（＾▽＾）
+                        Util_Log.LogDirectoryToExists();
 
-                        if (!Directory.Exists(LOG_FOLDER))
-                        {
-                            Directory.CreateDirectory(LOG_FOLDER);
-                        }
-
-                        bestFile = LOG_FOLDER + LOG_FILE_WOE + "_1" + LOG_FILE_EXT;
+                        bestFile = Util_Log.NumberedLogFilePath(0); // 番号は 1 足される。
 
                         FileStream fs = File.Create(bestFile);
                         fs.Close(); // File.Create したあとは、必ず Close() しないと、ロックがかかったままになる☆（＾▽＾）
@@ -245,7 +181,7 @@ namespace kifuwarabe_wcsc27.machine
                     {
                         // ファイルがある場合は、一番新しいファイルに書き足すぜ☆（＾▽＾）
 
-                        bestFile = LOG_FOLDER + LOG_FILE_WOE + "_" + (newestFileIndex+1) + LOG_FILE_EXT;
+                        bestFile = Util_Log.NumberedLogFilePath(newestFileIndex);
                         // 一番新しいファイルのサイズが n バイト を超えている場合は、
                         // 新しいファイルを新規作成するぜ☆（＾▽＾）
                         if (maxFileSize < newestFileSize) // n バイト以上なら
@@ -254,7 +190,7 @@ namespace kifuwarabe_wcsc27.machine
                             if (maxFileCount <= existFileCount)
                             {
                                 // ファイルが全部ある場合は、一番古いファイルを消して、一から書き込むぜ☆
-                                bestFile = LOG_FOLDER + LOG_FILE_WOE + "_" + (oldestFileIndex+1) + LOG_FILE_EXT;
+                                bestFile = Util_Log.NumberedLogFilePath(oldestFileIndex);
                                 File.Delete(bestFile);
 
                                 FileStream fs = File.Create(bestFile);
@@ -263,7 +199,7 @@ namespace kifuwarabe_wcsc27.machine
                             else
                             {
                                 // まだ作っていないファイルを作って、書き込むぜ☆（＾▽＾）
-                                bestFile = LOG_FOLDER + LOG_FILE_WOE + "_" + (noExistsFileIndex+1) + LOG_FILE_EXT;
+                                bestFile = Util_Log.NumberedLogFilePath(noExistsFileIndex);
 
                                 FileStream fs = File.Create(bestFile);
                                 fs.Close(); // File.Create したあとは、必ず Close() しないと、ロックがかかったままになる☆（＾▽＾）
@@ -346,7 +282,7 @@ namespace kifuwarabe_wcsc27.machine
                 Util_Machine.Flush(syuturyoku);
 
                 // まず、既存ファイル名を列挙するぜ☆（＾▽＾）
-                string filenamePattern = Util_Machine.JOSEKI_FILE_WOE + (Option_Application.Optionlist.SagareruHiyoko ? Util_Machine.LOCALRULE_SAGARERUHIYOKO : Util_Machine.LOCALRULE_HONSHOGI) + "*";
+                string filenamePattern = Util_Log.JosekiFileStem + (Option_Application.Optionlist.SagareruHiyoko ? Util_Log.LocalRuleSagareruHiyoko : Util_Log.LocalRuleHonshogi) + "*";
                 string[] filepaths = Directory.GetFiles(".", filenamePattern);
 
                 // どんどんマージしていくぜ☆（＾▽＾）
@@ -418,7 +354,7 @@ namespace kifuwarabe_wcsc27.machine
                 {
                     foreach (string bunkatupartName in bunkatupartNames)
                     {
-                        expectedFiles.Add(Util_Machine.JOSEKI_FILE_WOE + (Option_Application.Optionlist.SagareruHiyoko ? Util_Machine.LOCALRULE_SAGARERUHIYOKO : Util_Machine.LOCALRULE_HONSHOGI) + bunkatupartName + Util_Machine.JOSEKI_FILE_EXT);
+                        expectedFiles.Add(Util_Log.JosekiFileStem + (Option_Application.Optionlist.SagareruHiyoko ? Util_Log.LocalRuleSagareruHiyoko : Util_Log.LocalRuleHonshogi) + bunkatupartName + Util_Log.JosekiFileExt);
                     }
                 }
 
@@ -427,7 +363,7 @@ namespace kifuwarabe_wcsc27.machine
                 List<string> removeFilepaths = new List<string>();
                 {
                     // まず、既存ファイル名を列挙するぜ☆（＾▽＾）
-                    string filenamePattern = Util_Machine.JOSEKI_FILE_WOE + (Option_Application.Optionlist.SagareruHiyoko ? Util_Machine.LOCALRULE_SAGARERUHIYOKO : Util_Machine.LOCALRULE_HONSHOGI) + "*";
+                    string filenamePattern = Util_Log.JosekiFileStem + (Option_Application.Optionlist.SagareruHiyoko ? Util_Log.LocalRuleSagareruHiyoko : Util_Log.LocalRuleHonshogi) + "*";
                     string[] filepaths = Directory.GetFiles(".", filenamePattern);
 
                     foreach (string filepath in filepaths)
@@ -525,7 +461,7 @@ namespace kifuwarabe_wcsc27.machine
                 Util_Machine.Flush(syuturyoku);
 
                 // ファイル名☆（＾▽＾）
-                string file = Util_Machine.NIKOMA_FILE_WOE + (Option_Application.Optionlist.SagareruHiyoko ? Util_Machine.LOCALRULE_SAGARERUHIYOKO : Util_Machine.LOCALRULE_HONSHOGI) + Util_Machine.NIKOMA_FILE_EXT;
+                string file = Util_Log.NikomaFileStem + (Option_Application.Optionlist.SagareruHiyoko ? Util_Log.LocalRuleSagareruHiyoko : Util_Log.LocalRuleHonshogi) + Util_Log.NikomaFileExt;
 
                 syuturyoku.Append(".");
                 Util_Machine.Flush(syuturyoku);
@@ -556,7 +492,7 @@ namespace kifuwarabe_wcsc27.machine
                 // 容量がでかくなったので、複数のファイルに分割して保存するぜ☆（＾▽＾）
 
                 // 残すべきファイル名☆（＾▽＾）
-                string file = Util_Machine.NIKOMA_FILE_WOE + (Option_Application.Optionlist.SagareruHiyoko ? Util_Machine.LOCALRULE_SAGARERUHIYOKO : Util_Machine.LOCALRULE_HONSHOGI) + Util_Machine.NIKOMA_FILE_EXT;
+                string file = Util_Log.NikomaFileStem + (Option_Application.Optionlist.SagareruHiyoko ? Util_Log.LocalRuleSagareruHiyoko : Util_Log.LocalRuleHonshogi) + Util_Log.NikomaFileExt;
                 if (!File.Exists(file))
                 {
                     // ファイルが無ければ作成します。
@@ -597,7 +533,7 @@ namespace kifuwarabe_wcsc27.machine
             // 容量がでかくなったので、複数のファイルに分割して保存するぜ☆（＾▽＾）
 
             // 残すべきファイル名☆（＾▽＾）
-            string file = Util_Machine.NIKOMASETUMEI_FILE_WOE + (Option_Application.Optionlist.SagareruHiyoko ? Util_Machine.LOCALRULE_SAGARERUHIYOKO : Util_Machine.LOCALRULE_HONSHOGI) + Util_Machine.NIKOMASETUMEI_FILE_EXT;
+            string file = Util_Log.NikomaSetumeiFileStem + (Option_Application.Optionlist.SagareruHiyoko ? Util_Log.LocalRuleSagareruHiyoko : Util_Log.LocalRuleHonshogi) + Util_Log.NikomaSetumeiFileExt;
             if (!File.Exists(file))
             {
                 // ファイルが無ければ作成します。
@@ -637,7 +573,7 @@ namespace kifuwarabe_wcsc27.machine
                 Util_Machine.Flush(syuturyoku);
 
                 // まず、既存ファイル名を列挙するぜ☆（＾▽＾）
-                string filenamePattern = Util_Machine.SEISEKI_FILE_WOE + (Option_Application.Optionlist.SagareruHiyoko ? Util_Machine.LOCALRULE_SAGARERUHIYOKO : Util_Machine.LOCALRULE_HONSHOGI) + "*";
+                string filenamePattern = Util_Log.SeisekiFileStem + (Option_Application.Optionlist.SagareruHiyoko ? Util_Log.LocalRuleSagareruHiyoko : Util_Log.LocalRuleHonshogi) + "*";
                 string[] filepaths = Directory.GetFiles(".", filenamePattern);
 
                 // どんどんマージしていくぜ☆（＾▽＾）
@@ -697,7 +633,7 @@ namespace kifuwarabe_wcsc27.machine
                 {
                     foreach (string bunkatupartName in bunkatupartNames)
                     {
-                        expectedFiles.Add(Util_Machine.SEISEKI_FILE_WOE + (Option_Application.Optionlist.SagareruHiyoko ? Util_Machine.LOCALRULE_SAGARERUHIYOKO : Util_Machine.LOCALRULE_HONSHOGI) + bunkatupartName + Util_Machine.SEISEKI_FILE_EXT);
+                        expectedFiles.Add(Util_Log.SeisekiFileStem + (Option_Application.Optionlist.SagareruHiyoko ? Util_Log.LocalRuleSagareruHiyoko : Util_Log.LocalRuleHonshogi) + bunkatupartName + Util_Log.SeisekiFileExt);
                     }
                 }
 
@@ -706,7 +642,7 @@ namespace kifuwarabe_wcsc27.machine
                 List<string> removeFilepaths = new List<string>();
                 {
                     // まず、既存ファイル名を列挙するぜ☆（＾▽＾）
-                    string filenamePattern = Util_Machine.SEISEKI_FILE_WOE + (Option_Application.Optionlist.SagareruHiyoko ? Util_Machine.LOCALRULE_SAGARERUHIYOKO : Util_Machine.LOCALRULE_HONSHOGI) + "*";
+                    string filenamePattern = Util_Log.SeisekiFileStem + (Option_Application.Optionlist.SagareruHiyoko ? Util_Log.LocalRuleSagareruHiyoko : Util_Log.LocalRuleHonshogi) + "*";
                     string[] filepaths = Directory.GetFiles(".", filenamePattern);
 
                     foreach (string filepath in filepaths)
@@ -811,7 +747,7 @@ namespace kifuwarabe_wcsc27.machine
         public static bool IsRenzokuTaikyokuStop()
         {
             // ファイルがあれば、連続対局をストップさせるぜ☆（＾▽＾）
-            return File.Exists(Util_Machine.RENZOKU_TAIKYOKU_STOP_FILE);
+            return File.Exists(Util_Log.RenzokuTaikyokuStopFile);
         }
 #endif
 

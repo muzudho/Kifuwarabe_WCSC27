@@ -9,7 +9,7 @@
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>kifuwarabe_wcsc27</RootNamespace>
-    <AssemblyName>kifuwarabe_wcsc27</AssemblyName>
+    <AssemblyName>Grayscale.kifuwarakei.Engine</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -94,6 +94,7 @@
   <ItemGroup>
     <Compile Include="abstracts\CommandMode.cs" />
     <Compile Include="abstracts\EnumExtensions.cs" />
+    <Compile Include="Entities\Log\Util_Log.cs" />
     <Compile Include="Presenter\FenParsers.cs" />
     <Compile Include="abstracts\Med_Kyokumen.cs" />
     <Compile Include="abstracts\Med_Parser.cs" />

@@ -1,13 +1,17 @@
 ﻿// 飛び利きをオンにするならこれ☆
 //#define TOBIKIKI_ON
 
+#if DEBUG
+using System;
+using System.Diagnostics;
+using kifuwarabe_wcsc27.abstracts;
+using kifuwarabe_wcsc27.interfaces;
+using kifuwarabe_wcsc27.machine;
+#else
 using kifuwarabe_wcsc27.interfaces;
 using kifuwarabe_wcsc27.abstracts;
 using System;
 using System.Diagnostics;
-using kifuwarabe_wcsc27.machine;
-
-#if DEBUG
 using kifuwarabe_wcsc27.machine;
 #endif
 
