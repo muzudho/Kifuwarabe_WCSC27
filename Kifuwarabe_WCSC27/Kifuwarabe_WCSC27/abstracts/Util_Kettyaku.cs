@@ -10,10 +10,10 @@ namespace kifuwarabe_wcsc27.abstracts
         /// 
         /// </summary>
         /// <param name="bestSasite">投了かどうか調べるだけ☆</param>
-        public static void JudgeKettyaku(Sasite bestSasite, Kyokumen ky)
+        public static void JudgeKettyaku(Move bestSasite, Kyokumen ky)
         {
             Taikyokusya tb2 = Conv_Taikyokusya.Hanten(ky.Teban);
-            if (Sasite.Toryo == bestSasite)
+            if (Move.Toryo == bestSasite)
             {
                 switch (ky.Teban)// 投了した時点で、次の手番に移っているぜ☆
                 {

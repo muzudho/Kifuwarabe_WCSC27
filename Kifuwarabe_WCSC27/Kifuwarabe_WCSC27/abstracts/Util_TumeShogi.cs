@@ -12,8 +12,8 @@ namespace kifuwarabe_wcsc27.abstracts
         public static void TumeShogi(bool isSfen, int bango, Kyokumen ky, Mojiretu syuturyoku)
         {
             // FIXME: 終わったら元に戻したいが☆（＾～＾）
-            Option_Application.Optionlist.PNChar[(int)Taikyokusya.T1] = SasiteCharacter.TansakuNomi;
-            Option_Application.Optionlist.PNChar[(int)Taikyokusya.T2] = SasiteCharacter.TansakuNomi;
+            Option_Application.Optionlist.PNChar[(int)Taikyokusya.T1] = MoveCharacter.TansakuNomi;
+            Option_Application.Optionlist.PNChar[(int)Taikyokusya.T2] = MoveCharacter.TansakuNomi;
             //Option_Application.Optionlist.BetaCutPer = 0; // ベータ・カットは使わないぜ☆（＾▽＾）ｗｗｗｗ
             //Option_Application.Optionlist.TranspositionTableTukau = false; // トランスポジション・テーブルは使わないぜ☆（＾▽＾）ｗｗｗｗ
             Option_Application.Optionlist.JosekiPer = 0; // 定跡は使わないぜ☆（＾▽＾）

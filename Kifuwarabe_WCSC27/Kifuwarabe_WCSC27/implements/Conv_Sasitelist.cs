@@ -6,13 +6,13 @@ namespace kifuwarabe_wcsc27.implements
 {
     public abstract class Conv_Sasitelist
     {
-        public static void Setumei(bool isSfen, string header, List<SasiteKakucho> sslist,Mojiretu syuturyoku)
+        public static void Setumei(bool isSfen, string header, List<MoveKakucho> sslist,Mojiretu syuturyoku)
         {
             syuturyoku.AppendLine(header);
             syuturyoku.AppendLine( "┌──────────┐");
-            foreach (SasiteKakucho ss in sslist)
+            foreach (MoveKakucho ss in sslist)
             {
-                Conv_Sasite.AppendFenTo(isSfen, ss.Sasite, syuturyoku);
+                ConvMove.AppendFenTo(isSfen, ss.Move, syuturyoku);
                 syuturyoku.AppendLine();
             }
             syuturyoku.AppendLine( "└──────────┘");

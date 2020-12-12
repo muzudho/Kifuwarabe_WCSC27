@@ -8,19 +8,19 @@ namespace kifuwarabe_wcsc27.implements
     {
         public Yomisuji()
         {
-            this.SasiteItiran = new Sasite[Conv_Yomisuji.MAX_PLY];
-            this.SasiteTypeItiran = new SasiteType[Conv_Yomisuji.MAX_PLY];
+            this.SasiteItiran = new Move[Conv_Yomisuji.MAX_PLY];
+            this.SasiteTypeItiran = new MoveType[Conv_Yomisuji.MAX_PLY];
         }
 
         public int Size { get; set; }
-        public Sasite[] SasiteItiran { get; set; }
-        public SasiteType[] SasiteTypeItiran { get; set; }
+        public Move[] SasiteItiran { get; set; }
+        public MoveType[] SasiteTypeItiran { get; set; }
 
         public void Setumei(bool isSfen, Mojiretu syuturyoku)
         {
             for (int i=0; i<this.Size; i++)
             {
-                Conv_Sasite.AppendFenTo(isSfen, this.SasiteItiran[i],syuturyoku);
+                ConvMove.AppendFenTo(isSfen, this.SasiteItiran[i],syuturyoku);
 
                 if (i + 1 < this.Size)
                 {
@@ -35,9 +35,9 @@ namespace kifuwarabe_wcsc27.implements
             this.Size = 0;
         }
 
-        public void Add(Sasite ss, SasiteType ssType)
+        public void Add(Move ss, MoveType ssType)
         {
-            if (Sasite.Toryo == ss)
+            if (Move.Toryo == ss)
             {
                 throw new Exception("投了を追加してはいけないぜ☆（＞＿＜）");
             }
@@ -47,19 +47,19 @@ namespace kifuwarabe_wcsc27.implements
             this.Size++;
         }
 
-        public Sasite GetBestSasite()
+        public Move GetBestSasite()
         {
             if (this.Size<1)
             {
-                return Sasite.Toryo;
+                return Move.Toryo;
             }
             return this.SasiteItiran[0];
         }
-        public SasiteType GetBestSasiteType()
+        public MoveType GetBestSasiteType()
         {
             if (this.Size < 1)
             {
-                return SasiteType.N00_Karappo;
+                return MoveType.N00_Karappo;
             }
             return this.SasiteTypeItiran[0];
         }

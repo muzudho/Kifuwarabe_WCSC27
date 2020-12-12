@@ -17,7 +17,7 @@ namespace kifuwarabe_wcsc27.implements
     {
         public Kifu()
         {
-            this.SsList = new List<Sasite>();
+            this.SsList = new List<Move>();
             this.SyokiKyokumenFen = "";
         }
 
@@ -25,7 +25,7 @@ namespace kifuwarabe_wcsc27.implements
         /// 先頭に追加するぜ☆（＾▽＾）
         /// </summary>
         /// <param name="ss"></param>
-        public void AddFirst(Sasite ss)
+        public void AddFirst(Move ss)
         {
             this.SsList.Insert(0, ss);
         }
@@ -40,7 +40,7 @@ namespace kifuwarabe_wcsc27.implements
             foreach(string fugo in fugoItiran)
             {
                 int caret = 0;
-                if(!Med_Parser.TryFen_Sasite(isSfen, fugo, ref caret,kys,out Sasite sasite))
+                if(!Med_Parser.TryFenMove(isSfen, fugo, ref caret,kys,out Move sasite))
                 {
                     throw new System.Exception("指し手のパースエラー fugo=["+ fugo + "]");
                 }
@@ -60,12 +60,12 @@ namespace kifuwarabe_wcsc27.implements
             Util_Information.Setumei_NingenGameYo(ky2,syuturyoku);
 
             int temeMade = 1;
-            foreach (Sasite ss in this.SsList)
+            foreach (Move ss in this.SsList)
             {
                 syuturyoku.Append("(");
                 syuturyoku.Append(temeMade.ToString());
                 syuturyoku.Append(")");
-                Conv_Sasite.AppendFenTo(isSfen, ss, syuturyoku);
+                ConvMove.AppendFenTo(isSfen, ss, syuturyoku);
                 syuturyoku.Append(" ");
                 temeMade++;
             }
@@ -85,16 +85,16 @@ namespace kifuwarabe_wcsc27.implements
 
             syuturyoku.Append("< kifu, sasite = ");
             int temeMade = 1;
-            foreach (Sasite ss in this.SsList)
+            foreach (Move ss in this.SsList)
             {
-                Conv_Sasite.AppendFenTo(isSfen, ss, syuturyoku);
+                ConvMove.AppendFenTo(isSfen, ss, syuturyoku);
                 syuturyoku.Append(" ");
                 temeMade++;
             }
             syuturyoku.AppendLine();
         }
 
-        public List<Sasite> SsList { get; set; }
+        public List<Move> SsList { get; set; }
         public string SyokiKyokumenFen { get; set; }
 
         /// <summary>
@@ -113,10 +113,10 @@ namespace kifuwarabe_wcsc27.implements
                 );
 
             // 棋譜を元に、局面データを再現するぜ☆
-            foreach (Sasite ss in SsList)
+            foreach (Move ss in SsList)
             {
                 Nanteme nanteme = new Nanteme();
-                ky.DoSasite(isSfen, ss, SasiteType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
+                ky.DoSasite(isSfen, ss, MoveType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
 
 #if DEBUG
                 Util_Commands.Ky(isSfen, "ky", ky, syuturyoku);
@@ -141,23 +141,23 @@ namespace kifuwarabe_wcsc27.implements
                 , false, out string moves, syuturyoku
                 );
             // 指定の手目まで進めるぜ☆（＾～＾）
-            foreach (Sasite ss in SsList)
+            foreach (Move ss in SsList)
             {
                 if (temeMade < 1)
                 {
                     break;
                 }
                 Nanteme nanteme = new Nanteme();
-                ky.DoSasite(isSfen, ss, SasiteType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
+                ky.DoSasite(isSfen, ss, MoveType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
                 temeMade--;
             }
         }
 
         public void AppendMovesTo(bool isSfen, Mojiretu syuturyoku)
         {
-            foreach (Sasite ss in SsList)
+            foreach (Move ss in SsList)
             {
-                Conv_Sasite.AppendFenTo(isSfen, ss, syuturyoku);
+                ConvMove.AppendFenTo(isSfen, ss, syuturyoku);
                 syuturyoku.Append(" ");
             }
         }

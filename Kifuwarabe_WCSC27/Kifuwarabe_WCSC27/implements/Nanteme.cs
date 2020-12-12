@@ -73,11 +73,11 @@ namespace kifuwarabe_wcsc27.implements
         /// <summary>
         /// 指し手の勝率の成績表を作るために、指し手を覚えておくぜ☆（＾▽＾）
         /// </summary>
-        public Sasite Sasite { get; set; }
+        public Move Move { get; set; }
         /// <summary>
         /// 読み筋に指し手タイプを出すことで、デバッグに使うために覚えておくぜ☆（＾▽＾）
         /// </summary>
-        public SasiteType SasiteType { get; set; }
+        public MoveType MoveType { get; set; }
 
         /// <summary>
         /// 取られた駒の種類だぜ☆（＾▽＾）
@@ -141,12 +141,12 @@ namespace kifuwarabe_wcsc27.implements
                     syuturyoku.Append(zuhaNantemade.ToString());// 「図はn手まで」の数字
                     syuturyoku.Append(")");
 #endif
-                    Conv_Sasite.AppendFenTo(isSfen, nanteme.Sasite, syuturyoku);
+                    ConvMove.AppendFenTo(isSfen, nanteme.Move, syuturyoku);
                     syuturyoku.Append(" ");
 
 #if !UNITY
                     // おまけ
-                    Conv_SasiteType.Setumei(nanteme.SasiteType, syuturyoku);
+                    Conv_SasiteType.Setumei(nanteme.MoveType, syuturyoku);
                     syuturyoku.Append(" ");
 #endif
                 }

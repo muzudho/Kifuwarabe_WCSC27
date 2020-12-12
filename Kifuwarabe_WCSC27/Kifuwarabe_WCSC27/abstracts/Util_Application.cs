@@ -100,12 +100,12 @@ namespace kifuwarabe_wcsc27.abstracts
         {
             return ky.Kekka;
         }
-        public static void DoSasite(bool isSfen, Sasite ss, Kyokumen ky, Mojiretu syuturyoku)
+        public static void DoSasite(bool isSfen, Move ss, Kyokumen ky, Mojiretu syuturyoku)
         {
             Nanteme konoTeme = new Nanteme();// 使いまわさないだろう☆（＾～＾）ここで作ってしまおう☆
-            ky.DoSasite(isSfen, ss, SasiteType.N00_Karappo, ref konoTeme, ky.Teban, syuturyoku);
+            ky.DoSasite(isSfen, ss, MoveType.N00_Karappo, ref konoTeme, ky.Teban, syuturyoku);
         }
-        public static bool ParseDoSasite( Kyokumen ky, out Sasite out_sasite)
+        public static bool ParseDoSasite( Kyokumen ky, out Move out_sasite)
         {
             // コンソールからのキー入力を解析するぜ☆（＾▽＾）
             int caret = Util_Commandline.Caret;
@@ -114,7 +114,7 @@ namespace kifuwarabe_wcsc27.abstracts
             Util_String.TobasuTangoToMatubiKuhaku(Util_Commandline.Commandline, ref caret, "do ");
 
             // うしろに続く文字は☆（＾▽＾）
-            if (!Med_Parser.TryFen_Sasite(Option_Application.Optionlist.USI, Util_Commandline.Commandline, ref caret, ky.Sindan, out out_sasite))
+            if (!Med_Parser.TryFenMove(Option_Application.Optionlist.USI, Util_Commandline.Commandline, ref caret, ky.Sindan, out out_sasite))
             {
                 Util_Commandline.Caret = oldCaret;
 
@@ -140,7 +140,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// 決着判定
         /// </summary>
         /// <param name="bestSasite">投了かどうか調べるだけだぜ☆（＾▽＾）</param>
-        public static void JudgeKettyaku(Sasite bestSasite, Kyokumen ky)
+        public static void JudgeKettyaku(Move bestSasite, Kyokumen ky)
         {
             Util_Kettyaku.JudgeKettyaku(bestSasite, ky);
         }
@@ -160,9 +160,9 @@ namespace kifuwarabe_wcsc27.abstracts
             ky.Hyoka( out out_hyokatiUtiwake, riyu, randomNaKyokumen);
         }
 
-        public static Sasite Go(Kyokumen ky, out HyokatiUtiwake out_hyokatiUtiwake, Util_Tansaku.Dlgt_CreateJoho dlgt_CreateJoho, Mojiretu syuturyoku)
+        public static Move Go(Kyokumen ky, out HyokatiUtiwake out_hyokatiUtiwake, Util_Tansaku.Dlgt_CreateJoho dlgt_CreateJoho, Mojiretu syuturyoku)
         {
-            Sasite sasite = Util_Tansaku.Go(Option_Application.Optionlist.USI, ky, out out_hyokatiUtiwake, out bool isJosekiTraced, dlgt_CreateJoho, syuturyoku);
+            Move sasite = Util_Tansaku.Go(Option_Application.Optionlist.USI, ky, out out_hyokatiUtiwake, out bool isJosekiTraced, dlgt_CreateJoho, syuturyoku);
 #if !UNITY
             Util_ConsoleGame.IsJosekiTraced = isJosekiTraced;
 #endif
@@ -282,35 +282,35 @@ namespace kifuwarabe_wcsc27.abstracts
         public static void Rnd( Kyokumen ky, Mojiretu syuturyoku)
         {
             int fukasa = 0;
-            Util_SasiteSeisei.GenerateSasite_01(fukasa, ky, SasiteType.N21_All,true, syuturyoku);//グローバル変数に指し手がセットされるぜ☆（＾▽＾）
+            Util_SasiteSeisei.GenerateSasite_01(fukasa, ky, MoveType.N21_All,true, syuturyoku);//グローバル変数に指し手がセットされるぜ☆（＾▽＾）
             if (Util_SasiteSeisei.Sasitelist[fukasa].SslistCount < 1)
             {
                 Nanteme nanteme = new Nanteme();
-                ky.DoSasite(Option_Application.Optionlist.USI, Sasite.Toryo, SasiteType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
+                ky.DoSasite(Option_Application.Optionlist.USI, Move.Toryo, MoveType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
             }
             else
             {
-                Sasite ss = Util_SasiteSeisei.Sasitelist[fukasa].List_Sasite[Option_Application.Random.Next(Util_SasiteSeisei.Sasitelist[fukasa].SslistCount)];
+                Move ss = Util_SasiteSeisei.Sasitelist[fukasa].List_Sasite[Option_Application.Random.Next(Util_SasiteSeisei.Sasitelist[fukasa].SslistCount)];
                 Nanteme nanteme = new Nanteme();
-                ky.DoSasite(Option_Application.Optionlist.USI, ss, SasiteType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
+                ky.DoSasite(Option_Application.Optionlist.USI, ss, MoveType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
             }
         }
 
-        public static List<SasiteKakucho> Sasite_cmd( Kyokumen ky, Mojiretu syuturyoku)
+        public static List<MoveKakucho> Sasite_cmd( Kyokumen ky, Mojiretu syuturyoku)
         {
-            List<SasiteKakucho> sslist = new List<SasiteKakucho>();
+            List<MoveKakucho> sslist = new List<MoveKakucho>();
             int fukasa = 0;
-            Util_SasiteSeisei.GenerateSasite_01(fukasa, ky, SasiteType.N21_All,true, syuturyoku);//グローバル変数に指し手がセットされるぜ☆（＾▽＾）
+            Util_SasiteSeisei.GenerateSasite_01(fukasa, ky, MoveType.N21_All,true, syuturyoku);//グローバル変数に指し手がセットされるぜ☆（＾▽＾）
 
             for (int iSs = 0; iSs < Util_SasiteSeisei.Sasitelist[fukasa].SslistCount; iSs++)
             {
-                sslist.Add(new SasiteKakuchoImpl( Util_SasiteSeisei.Sasitelist[fukasa].List_Sasite[iSs], Util_SasiteSeisei.Sasitelist[fukasa].List_Reason[iSs]));
+                sslist.Add(new MoveKakuchoImpl( Util_SasiteSeisei.Sasitelist[fukasa].List_Sasite[iSs], Util_SasiteSeisei.Sasitelist[fukasa].List_Reason[iSs]));
             }
 
             return sslist;
         }
 
-        public static bool Sasite_cmd(string commandline, Kyokumen.Sindanyo kys, out Sasite out_sasite)
+        public static bool Sasite_cmd(string commandline, Kyokumen.Sindanyo kys, out Move out_sasite)
         {
             // うしろに続く文字は☆（＾▽＾）
             int caret = 0;
@@ -320,17 +320,17 @@ namespace kifuwarabe_wcsc27.abstracts
             // sasite 912 といった数字かどうか☆（＾～＾）
             if (int.TryParse(line, out int ssSuji))
             {
-                out_sasite = (Sasite)ssSuji;
+                out_sasite = (Move)ssSuji;
                 return true;
             }
 
             // 数字でなければ、 sasite B2B3 といった文字列か☆（＾～＾）
-            if(Med_Parser.TryFen_Sasite(Option_Application.Optionlist.USI, commandline, ref caret, kys, out out_sasite))
+            if(Med_Parser.TryFenMove(Option_Application.Optionlist.USI, commandline, ref caret, kys, out out_sasite))
             {
                 return true;
             }
 
-            out_sasite = Sasite.Toryo;
+            out_sasite = Move.Toryo;
             return false;
         }
 
@@ -346,7 +346,7 @@ namespace kifuwarabe_wcsc27.abstracts
             foreach (KeyValuePair<ulong, SeisekiKyokumen> entryKy in Option_Application.Seiseki.KyItems)
             {
                 out_kyokumenSu++;
-                foreach (KeyValuePair<Sasite, SeisekiSasite> entrySs in entryKy.Value.SsItems)
+                foreach (KeyValuePair<Move, SeisekiMove> entrySs in entryKy.Value.SsItems)
                 {
                     out_sasiteSu++;
                 }
@@ -843,7 +843,7 @@ namespace kifuwarabe_wcsc27.abstracts
             int caret = 0;
             Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "undo ");
 
-            if (!Med_Parser.TryFen_Sasite(Option_Application.Optionlist.USI, commandline, ref caret, ky.Sindan, out Sasite ss))
+            if (!Med_Parser.TryFenMove(Option_Application.Optionlist.USI, commandline, ref caret, ky.Sindan, out Move ss))
             {
                 throw new Exception("パースエラー [" + commandline + "]");
             }
@@ -930,7 +930,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 Util_Machine.Flush(syuturyoku);
             }
         }
-        public static void InLoop_SeisekiKosin(Sasite ss_after, Kyokumen ky, Mojiretu syuturyoku)
+        public static void InLoop_SeisekiKosin(Move ss_after, Kyokumen ky, Mojiretu syuturyoku)
         {
             if (Option_Application.Optionlist.SeisekiRec)// 今回指した手全てに、成績を付けたいぜ☆（＾～＾）
             {
@@ -1111,18 +1111,18 @@ namespace kifuwarabe_wcsc27.abstracts
                             // do以外のコマンドであれば、コマンドラインを保持したまま、そのまま続行
                         }
                         // 以下、do コマンドの場合☆
-                        else if (!Util_Application.ParseDoSasite(ky, out Sasite inputSasite))
+                        else if (!Util_Application.ParseDoSasite(ky, out Move inputSasite))
                         {
                             // do コマンドのパースエラー表示（コンソール・ゲーム用）☆（＾～＾）
-                            Conv_Sasite.Setumei(SasiteMatigaiRiyu.ParameterSyosikiMatigai, syuturyoku);
+                            ConvMove.Setumei(MoveMatigaiRiyu.ParameterSyosikiMatigai, syuturyoku);
                             syuturyoku.AppendLine();
                             Util_Machine.Flush(syuturyoku);
                             Util_Commandline.CommentCommandline();// コマンドの誤発動防止
                         }
-                        else if (!ky.CanDoSasite(inputSasite, out SasiteMatigaiRiyu reason))// 指し手の合否チェック
+                        else if (!ky.CanDoSasite(inputSasite, out MoveMatigaiRiyu reason))// 指し手の合否チェック
                         {
                             // イリーガル・ムーブなどの、エラー理由表示☆（＾～＾）
-                            Conv_Sasite.Setumei(reason, syuturyoku);
+                            ConvMove.Setumei(reason, syuturyoku);
                             syuturyoku.AppendLine();
                             Util_Machine.Flush(syuturyoku);
                         }
@@ -1155,10 +1155,10 @@ namespace kifuwarabe_wcsc27.abstracts
                     {
                         Util_ConsoleGame.AppendMessage_ComputerSikochu(ky, syuturyoku);// 表示（コンピューター思考中☆）
 
-                        Sasite bestSasite = Util_Application.Go(ky, out HyokatiUtiwake best_hyokatiUTiwake, Face_YomisujiJoho.Dlgt_WriteYomisujiJoho, syuturyoku);// コンピューターに１手指させるぜ☆
+                        Move bestSasite = Util_Application.Go(ky, out HyokatiUtiwake best_hyokatiUTiwake, Face_YomisujiJoho.Dlgt_WriteYomisujiJoho, syuturyoku);// コンピューターに１手指させるぜ☆
 #if UNITY
                         syuturyoku.Append("< done ");
-                        Conv_Sasite.AppendFenTo(bestSasite, syuturyoku);// Unity用に指し手を出力するぜ☆（＾▽＾）
+                        ConvMove.AppendFenTo(bestSasite, syuturyoku);// Unity用に指し手を出力するぜ☆（＾▽＾）
                         syuturyoku.AppendLine();
 #endif
                         Util_Application.JudgeKettyaku(bestSasite, ky);// 勝敗判定☆（＾▽＾）

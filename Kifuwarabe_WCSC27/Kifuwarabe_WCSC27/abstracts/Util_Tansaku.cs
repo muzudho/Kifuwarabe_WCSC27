@@ -137,7 +137,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// 最善手は yomisuji[0] に入っているぜ☆（＾▽＾）
         /// </summary>
         /// <returns></returns>
-        public static Sasite Go(bool isSfen, Kyokumen ky, out HyokatiUtiwake out_kakutei_hyokatiUtiwake, out bool out_isJosekiNoTouri, Util_Tansaku.Dlgt_CreateJoho dlgt_CreateJoho, Mojiretu syuturyoku)
+        public static Move Go(bool isSfen, Kyokumen ky, out HyokatiUtiwake out_kakutei_hyokatiUtiwake, out bool out_isJosekiNoTouri, Util_Tansaku.Dlgt_CreateJoho dlgt_CreateJoho, Mojiretu syuturyoku)
         {
 #if DEBUG
             TansakuSyuryoRiyu tansakuSyuryoRiyu = TansakuSyuryoRiyu.Kaisi;
@@ -188,10 +188,10 @@ namespace kifuwarabe_wcsc27.abstracts
                 switch (Option_Application.Optionlist.PNChar[(int)ky.Teban])
                 {
                     // 「探索のみ」のやつは定跡を使わないんだぜ☆（＾▽＾）
-                    case SasiteCharacter.TansakuNomi: goto gt_NotUseJoseki;
+                    case MoveCharacter.TansakuNomi: goto gt_NotUseJoseki;
                     // 「勝率のみ」、「新手のみ」のやつは必ず成績を使うんだぜ☆（＾▽＾）
-                    case SasiteCharacter.SyorituNomi://thru
-                    case SasiteCharacter.SinteNomi:
+                    case MoveCharacter.SyorituNomi://thru
+                    case MoveCharacter.SinteNomi:
                         useJoseki = true;
                         break;
                     default:// それ以外のやつは、定跡採用率によるんだぜ☆（＾▽＾）
@@ -205,7 +205,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     Option_Application.TimeManager.RestartStopwatch_Tansaku();
                     Option_Application.TimeManager.LastJohoTime = 0;
 
-                    Sasite josekiSs = Sasite.Toryo;
+                    Move josekiSs = Move.Toryo;
 #if DEBUG
                     string fen_forTest = "未設定";
 #endif
@@ -213,15 +213,15 @@ namespace kifuwarabe_wcsc27.abstracts
                     // 勝率も見た方がいいのでは☆（＾～＾）？
                     switch (Option_Application.Optionlist.PNChar[(int)ky.Teban])
                     {
-                        case SasiteCharacter.SinteYusen://thru
-                        case SasiteCharacter.SinteNomi:
+                        case MoveCharacter.SinteYusen://thru
+                        case MoveCharacter.SinteNomi:
                             {
-                                List<Sasite> josekiSasites = Option_Application.Joseki.GetSasites(ky);
+                                List<Move> josekiSasites = Option_Application.Joseki.GetSasites(ky);
                                 // この局面の合法手を取得☆（＾▽＾）
                                 int fukasa = 0;
-                                Util_SasiteSeisei.GenerateSasite_01(fukasa, ky, SasiteType.N21_All,true, syuturyoku);// グローバル変数 Util_SasiteSeisei.Sasitelist[fukasa].Sslist に指し手がセットされるぜ☆（＾▽＾）
-                                List<Sasite> gohosyu = new List<Sasite>( Util_SasiteSeisei.Sasitelist[fukasa].List_Sasite);
-                                foreach (Sasite ss in josekiSasites)
+                                Util_SasiteSeisei.GenerateSasite_01(fukasa, ky, MoveType.N21_All,true, syuturyoku);// グローバル変数 Util_SasiteSeisei.Sasitelist[fukasa].Sslist に指し手がセットされるぜ☆（＾▽＾）
+                                List<Move> gohosyu = new List<Move>( Util_SasiteSeisei.Sasitelist[fukasa].List_Sasite);
+                                foreach (Move ss in josekiSasites)
                                 {
                                     if (gohosyu.Contains(ss))
                                     {
@@ -240,14 +240,14 @@ namespace kifuwarabe_wcsc27.abstracts
                                 }
                             }
                             break;
-                        case SasiteCharacter.SyorituYusen://thru
-                        case SasiteCharacter.SyorituNomi:
+                        case MoveCharacter.SyorituYusen://thru
+                        case MoveCharacter.SyorituNomi:
                             {
                                 josekiSs = Option_Application.Seiseki.GetSasite_Winest(ky, out float bestSyoritu);
                             }
                             break;
-                        case SasiteCharacter.HyokatiYusen://thru
-                        case SasiteCharacter.Yososu://thru
+                        case MoveCharacter.HyokatiYusen://thru
+                        case MoveCharacter.Yososu://thru
                         default:
                             {
                                 // 評価値で選ぶぜ☆（＾～＾）
@@ -261,25 +261,25 @@ namespace kifuwarabe_wcsc27.abstracts
                     }
 
                     // とはいえ、負け定跡を選ぶのは嫌だぜ☆（＾～＾）
-                    if (Sasite.Toryo != josekiSs)
+                    if (Move.Toryo != josekiSs)
                     {
                         if (!Option_Application.Seiseki.GetSasite_Syoritu(ky, josekiSs, out float syoritu))
                         {
                             // 成績が登録されていなければ無視するぜ☆（＾～＾）
-                            josekiSs = Sasite.Toryo;
+                            josekiSs = Move.Toryo;
                         }
                         else if (syoritu < 0.5)
                         {
                             // 成績が登録されていても、勝率が５割を切っていれば無視するぜ☆（＾～＾）
-                            josekiSs = Sasite.Toryo;
+                            josekiSs = Move.Toryo;
                         }
                     }
 
-                    if (Sasite.Toryo != josekiSs)
+                    if (Move.Toryo != josekiSs)
                     {
                         // 定跡用の 読み筋情報 を作るぜ☆（＾▽＾）
                         best_yomisuji_orNull = new Yomisuji();
-                        best_yomisuji_orNull.Add(josekiSs,SasiteType.N00_Karappo); // 先頭に今回の指し手を置くぜ☆
+                        best_yomisuji_orNull.Add(josekiSs,MoveType.N00_Karappo); // 先頭に今回の指し手を置くぜ☆
                         out_isJosekiNoTouri = true;// 定跡の通り指したとき☆
                         goto gt_DoSasite;
                     }
@@ -629,12 +629,12 @@ namespace kifuwarabe_wcsc27.abstracts
 #if DEBUG
             if(null!= best_yomisuji_orNull)
             {
-                Masu ms_dst = Conv_Sasite.GetDstMasu(best_yomisuji_orNull.GetBestSasite()); // 移動先升
-                Masu ms_src = Conv_Sasite.GetSrcMasu(best_yomisuji_orNull.GetBestSasite()); //打のときは指定なしだぜ☆
+                Masu ms_dst = ConvMove.GetDstMasu(best_yomisuji_orNull.GetBestSasite()); // 移動先升
+                Masu ms_src = ConvMove.GetSrcMasu(best_yomisuji_orNull.GetBestSasite()); //打のときは指定なしだぜ☆
 
                 String2 str2 = new String2Impl();
                 str2.Append("探索最後 DoSasiteの前に yomisuji.GetBestSasite()=[");
-                Conv_Sasite.Setumei(best_yomisuji_orNull.GetBestSasite(),str2);
+                ConvMove.Setumei(best_yomisuji_orNull.GetBestSasite(),str2);
                 str2.AppendLine("]");
                 str2.Append("ms_src=[");
                 Conv_Masu.Setumei(ms_src,str2);
@@ -676,8 +676,8 @@ namespace kifuwarabe_wcsc27.abstracts
 */
             Nanteme nanteme = new Nanteme();
             ky.DoSasite(isSfen,
-                null !=best_yomisuji_orNull?best_yomisuji_orNull.GetBestSasite():Sasite.Toryo,
-                null != best_yomisuji_orNull ? best_yomisuji_orNull.GetBestSasiteType() : SasiteType.N00_Karappo
+                null !=best_yomisuji_orNull?best_yomisuji_orNull.GetBestSasite():Move.Toryo,
+                null != best_yomisuji_orNull ? best_yomisuji_orNull.GetBestSasiteType() : MoveType.N00_Karappo
                 , ref nanteme, ky.Teban, syuturyoku);
 
             // 指し手が決まったときにも、強制情報表示
@@ -726,7 +726,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 Util_TimeManager.DoneShowJoho();
             }
 
-            return null!= best_yomisuji_orNull? best_yomisuji_orNull.GetBestSasite():Sasite.Toryo;
+            return null!= best_yomisuji_orNull? best_yomisuji_orNull.GetBestSasite():Move.Toryo;
         }
 
         /// <summary>
@@ -760,8 +760,8 @@ namespace kifuwarabe_wcsc27.abstracts
                 out out_hyokatiUtiwake,
                 dlgt_CreateJoho,
                 syuturyoku,
-                Sasite.Toryo,// １週目は、葉を通らない前提なので、この指し手は　スルーされる前提だぜ☆（＾▽＾）
-                SasiteType.N00_Karappo // まだ指し手を選んでないぜ☆　１週目は葉を通らない前提だぜ☆
+                Move.Toryo,// １週目は、葉を通らない前提なので、この指し手は　スルーされる前提だぜ☆（＾▽＾）
+                MoveType.N00_Karappo // まだ指し手を選んでないぜ☆　１週目は葉を通らない前提だぜ☆
                 );
         }
 
@@ -788,8 +788,8 @@ namespace kifuwarabe_wcsc27.abstracts
             , out HyokatiUtiwake out_hyokatiUtiwake
             , Dlgt_CreateJoho dlgt_CreateJoho
             , Mojiretu syuturyoku // 出力先
-            , Sasite eranda_sasite // 指した手だぜ☆（＾▽＾）
-            , SasiteType eranda_sasiteType // 指した、指し手のタイプだぜ☆（＾▽＾）
+            , Move eranda_sasite // 指した手だぜ☆（＾▽＾）
+            , MoveType eranda_sasiteType // 指した、指し手のタイプだぜ☆（＾▽＾）
             )
         {
             out_hyokatiUtiwake = new HyokatiUtiwake(
@@ -823,7 +823,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     //Util_Logger.AppendLine("トランスポジション・カット☆ beta=[" + beta + "]＜tt=[" + ttEntry.Hyokati + "]点 ttEntry=" + ttEntry.Setumei_Description());
 
                     out_edaBest_Yomisuji = new Yomisuji();
-                    out_edaBest_Yomisuji.Add(ttEntry.Sasite, ttEntry.SasiteType); // 先頭に今回の指し手を置くぜ☆
+                    out_edaBest_Yomisuji.Add(ttEntry.Move, ttEntry.MoveType); // 先頭に今回の指し手を置くぜ☆
                     out_hyokatiUtiwake.Set(
                         ttEntry.Hyokati,// 2016-12-22 追加☆（＾▽＾）
                         ttEntry.KomawariHyokati_ForJoho,
@@ -902,11 +902,11 @@ namespace kifuwarabe_wcsc27.abstracts
 
                 // このとき、駒を取った手かどうか☆
                 //if (eranda_sasiteType==SasiteType.KomaWoToruTe)
-                if(Sasite.Toryo != eranda_sasite)
+                if(Move.Toryo != eranda_sasite)
                 {
                     // 駒を取る手が　葉っぱ　に来たときは、ＳＥＥ（Static Exchange Evaluation）をやりたいぜ☆
                     // おいしさ：この手を指したときに確定している手番の得だぜ☆（＾▽＾）
-                    Hyokati oisisa = ky.SEE(isSfen, Conv_Sasite.GetDstMasu_WithoutErrorCheck((int)eranda_sasite),
+                    Hyokati oisisa = ky.SEE(isSfen, ConvMove.GetDstMasu_WithoutErrorCheck((int)eranda_sasite),
                         Util_Machine.KarappoSyuturyoku
                         );
 
@@ -1002,13 +1002,13 @@ namespace kifuwarabe_wcsc27.abstracts
                 HyokaRiyu.SaseruTeNasi3,// 合法手が無いとき☆
                 ""
                 );
-            Sasite bestSasite = Sasite.Toryo;
-            SasiteType bestSasiteType = SasiteType.N00_Karappo;
+            Move bestSasite = Move.Toryo;
+            MoveType bestSasiteType = MoveType.N00_Karappo;
             bool utikiri;
 
             // 深さ1 のときに手を指しても、深さのカウントは増えない☆
             // 
-            Util_SasiteSeisei.GenerateSasite_01(fukasa, ky, SasiteType.N21_All,true, syuturyoku);// グローバル変数 Util_SasiteSeisei.Sslist に指し手がセットされるぜ☆（＾▽＾）
+            Util_SasiteSeisei.GenerateSasite_01(fukasa, ky, MoveType.N21_All,true, syuturyoku);// グローバル変数 Util_SasiteSeisei.Sslist に指し手がセットされるぜ☆（＾▽＾）
 
             #region ステイルメイト
             //────────────────────────────────────────
@@ -1064,8 +1064,8 @@ namespace kifuwarabe_wcsc27.abstracts
 
             for (int iSs=0; iSs<Util_SasiteSeisei.Sasitelist[fukasa].SslistCount; iSs++)
             {
-                Sasite eda_sasite = Util_SasiteSeisei.Sasitelist[fukasa].List_Sasite[iSs];
-                SasiteType eda_sasiteType = Util_SasiteSeisei.Sasitelist[fukasa].List_Reason[iSs];
+                Move eda_sasite = Util_SasiteSeisei.Sasitelist[fukasa].List_Sasite[iSs];
+                MoveType eda_sasiteType = Util_SasiteSeisei.Sasitelist[fukasa].List_Reason[iSs];
 
                 // 探索打ち切りフラグ☆（＾▽＾）
                 utikiri = false;
@@ -1103,7 +1103,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 //────────────────────────────────────────
                 // らいおん捕獲＜探索打ち切り＞
                 //────────────────────────────────────────
-                if (eda_sasiteType == SasiteType.N12_RaionCatch || eda_sasiteType == SasiteType.N16_Try)
+                if (eda_sasiteType == MoveType.N12_RaionCatch || eda_sasiteType == MoveType.N16_Try)
                 {
                     // らいおんを捕まえる手か、トライする手なら、ここより奥を探索する必要はないぜ☆（＾▽＾）
 
@@ -1133,7 +1133,7 @@ namespace kifuwarabe_wcsc27.abstracts
                         ky.Konoteme.ScanYomisuji(isSfen,
                             Util_Tansaku.KaisiNantemade + 1, // 現局面の次の手から☆
                             yomisuji);
-                        Conv_Sasite.AppendFenTo(isSfen, eda_sasite, yomisuji);// このループでは、まだ指していない手だぜ☆
+                        ConvMove.AppendFenTo(isSfen, eda_sasite, yomisuji);// このループでは、まだ指していない手だぜ☆
 
                         dlgt_CreateJoho(
                             ky.Teban,
@@ -1162,7 +1162,7 @@ namespace kifuwarabe_wcsc27.abstracts
 
                 ky.DoSasite(isSfen, eda_sasite, eda_sasiteType, ref nanteme,ky.Teban, syuturyoku);
                 //{
-                //    Util_Logger.AppendLine("do後 " + Conv_Sasite.Setumei_Fen(ss));
+                //    Util_Logger.AppendLine("do後 " + ConvMove.Setumei_Fen(ss));
                 //    Util_Logger.AppendLine(ApplicationImpl.Kyokumen.Setumei());
                 //}
 
@@ -1393,7 +1393,7 @@ namespace kifuwarabe_wcsc27.abstracts
                         ky.Konoteme.ScanYomisuji(isSfen,
                             Util_Tansaku.KaisiNantemade + 1, // 現局面の次の手から☆
                             yomisuji);
-                        Conv_Sasite.AppendFenTo(isSfen, eda_sasite, yomisuji);// このループで指した手だぜ☆
+                        ConvMove.AppendFenTo(isSfen, eda_sasite, yomisuji);// このループで指した手だぜ☆
 
                         dlgt_CreateJoho(
                             ky.Teban,
@@ -1450,7 +1450,7 @@ namespace kifuwarabe_wcsc27.abstracts
                         ky.Konoteme.ScanYomisuji(isSfen,
                             Util_Tansaku.KaisiNantemade + 1, // 現局面の次の手から☆
                             yomisuji);
-                        Conv_Sasite.AppendFenTo(isSfen, eda_sasite, yomisuji);// このループで指した手だぜ☆
+                        ConvMove.AppendFenTo(isSfen, eda_sasite, yomisuji);// このループで指した手だぜ☆
 
                         dlgt_CreateJoho(
                             ky.Teban,
@@ -1514,7 +1514,7 @@ namespace kifuwarabe_wcsc27.abstracts
                         ky.Konoteme.ScanYomisuji(isSfen,
                             Util_Tansaku.KaisiNantemade + 1, // 現局面の次の手から☆
                             yomisuji);
-                        Conv_Sasite.AppendFenTo(isSfen, eda_sasite, yomisuji);// このループで指した手だぜ☆
+                        ConvMove.AppendFenTo(isSfen, eda_sasite, yomisuji);// このループで指した手だぜ☆
 
                         //Mojiretu riyuHosoku = new MojiretuImpl();
                         //riyuHosoku.Append("元alpha=");
@@ -1545,7 +1545,7 @@ namespace kifuwarabe_wcsc27.abstracts
             //;
 
             // 一番良かった兄弟は☆（＾▽＾）
-            if (Sasite.Toryo != bestSasite && null!= best_yomisujiChild_orNull)
+            if (Move.Toryo != bestSasite && null!= best_yomisujiChild_orNull)
             {
                 out_edaBest_Yomisuji = new Yomisuji();
                 out_edaBest_Yomisuji.Add(bestSasite, bestSasiteType); // 先頭に今回の指し手を置くぜ☆

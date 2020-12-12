@@ -138,12 +138,12 @@ namespace kifuwarabe_wcsc27.abstracts
         /// <param name="ky">取られた駒を調べるために使う☆</param>
         /// <param name="out_sasite"></param>
         /// <returns></returns>
-        public static bool TryFen_Sasite(
+        public static bool TryFenMove(
             bool isSfen,
             string commandline,
             ref int caret,
             Kyokumen.Sindanyo kys,
-            out Sasite out_sasite
+            out Move out_sasite
         )
         {
             if ('n' == commandline[caret])
@@ -152,7 +152,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 {
                     Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "none");
 
-                    out_sasite = Sasite.Toryo;
+                    out_sasite = Move.Toryo;
                     return true;
                 }
             }
@@ -163,7 +163,7 @@ namespace kifuwarabe_wcsc27.abstracts
             {
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, Itiran_FenParser.GetToryo(isSfen));
 
-                out_sasite = Sasite.Toryo;
+                out_sasite = Move.Toryo;
                 return true;
             }
             //}
@@ -180,7 +180,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 //Util_Machine.Flush();
                 //throw new Exception(msg);
 
-                out_sasite = Sasite.Toryo;
+                out_sasite = Move.Toryo;
                 return false;
             }
 
@@ -207,7 +207,7 @@ namespace kifuwarabe_wcsc27.abstracts
 
             return true;
         }
-        public static Sasite TryFen_Sasite2(
+        public static Move TryFen_Sasite2(
             bool isSfen,
             Kyokumen.Sindanyo kys,
             string str1,
@@ -241,7 +241,7 @@ namespace kifuwarabe_wcsc27.abstracts
             if ("*" == str2)
             {
                 // 駒台から打ったぜ☆
-                return Conv_Sasite.ToSasite_01c_Utta(
+                return ConvMove.ToSasite_01c_Utta(
                     dstMs,
                     Med_Parser.Moji_MotikomaSyurui(isSfen, str1)//打った駒
                 );
@@ -249,8 +249,8 @@ namespace kifuwarabe_wcsc27.abstracts
             else
             {
                 // 盤上の駒を動かしたぜ☆
-                if (natta) { return Conv_Sasite.ToSasite_01b_NariSasi(Med_Parser.FenSujiDan_Masu(isSfen, str1, str2), dstMs, kys); }
-                else { return Conv_Sasite.ToSasite_01a_NarazuSasi(Med_Parser.FenSujiDan_Masu(isSfen, str1, str2), dstMs, kys); }
+                if (natta) { return ConvMove.ToSasite_01b_NariSasi(Med_Parser.FenSujiDan_Masu(isSfen, str1, str2), dstMs, kys); }
+                else { return ConvMove.ToSasite_01a_NarazuSasi(Med_Parser.FenSujiDan_Masu(isSfen, str1, str2), dstMs, kys); }
             }
         }
 

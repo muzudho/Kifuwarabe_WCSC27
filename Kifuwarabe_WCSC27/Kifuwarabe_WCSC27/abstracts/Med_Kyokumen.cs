@@ -15,13 +15,13 @@ namespace kifuwarabe_wcsc27.abstracts
         public static void TukuruKifu(bool isSfen, Kyokumen ky, Mojiretu syuturyoku)
         {
             // 指した後の手☆（成績　登録用）
-            Sasite ss_after = Sasite.Toryo; // 未使用時の初期値
+            Move ss_after = Move.Toryo; // 未使用時の初期値
 
             // 決着から初期局面まで、逆順で戻しながら棋譜を記録するぜ☆（＾▽＾）
             int fukasa = 0;
             while (null != ky.Konoteme.Ittemae)//アンドゥできなくなるまで戻すぜ☆（＾▽＾）
             {
-                ss_after = ky.Konoteme.Sasite;// アンドゥする前に指し手を残しておくぜ☆（＾▽＾）
+                ss_after = ky.Konoteme.Move;// アンドゥする前に指し手を残しておくぜ☆（＾▽＾）
                 Option_Application.Kifu.AddFirst(ss_after);
                 ky.UndoSasite(isSfen, ss_after, syuturyoku);// 指し手を頼りにアンドゥするぜ☆（＾▽＾）
 #if !UNITY

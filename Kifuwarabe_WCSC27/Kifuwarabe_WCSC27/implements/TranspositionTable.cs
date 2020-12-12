@@ -6,13 +6,13 @@ namespace kifuwarabe_wcsc27.implements
 {
     public class TTEntry
     {
-        public void Save(ulong key, Sasite ss, SasiteType ssType, int fukasa,
+        public void Save(ulong key, Move ss, MoveType ssType, int fukasa,
             HyokatiUtiwake hyokatiUtiwake
             )
         {
             this.m_key_ = key;
-            this.m_sasite_ = ss;
-            this.m_sasiteType_ = ssType;
+            this.m_move_ = ss;
+            this.m_moveType_ = ssType;
             this.m_fukasa_ = fukasa;
             this.m_hyokati_ = hyokatiUtiwake.EdaBest;
             this.m_komawariHyokati_forJoho_ = hyokatiUtiwake.Komawari;
@@ -25,9 +25,9 @@ namespace kifuwarabe_wcsc27.implements
             syuturyoku.Append("key=[");
             syuturyoku.Append(Key.ToString());
             syuturyoku.Append("] sasite=[");
-            Conv_Sasite.Setumei(isSfen, Sasite,syuturyoku);
+            ConvMove.Setumei(isSfen, Move,syuturyoku);
             syuturyoku.Append("] sasiteType=[");
-            Conv_SasiteType.Setumei(SasiteType, syuturyoku);
+            Conv_SasiteType.Setumei(MoveType, syuturyoku);
             syuturyoku.Append("] fukasa=[");
             syuturyoku.Append(Fukasa.ToString());
             syuturyoku.Append("] hyokati=[");
@@ -41,11 +41,11 @@ namespace kifuwarabe_wcsc27.implements
             syuturyoku.Append("]");
         }
 
-        public Sasite Sasite { get { return m_sasite_; } }
-        private Sasite m_sasite_;
+        public Move Move { get { return m_move_; } }
+        private Move m_move_;
 
-        public SasiteType SasiteType { get { return m_sasiteType_; } }
-        private SasiteType m_sasiteType_;
+        public MoveType MoveType { get { return m_moveType_; } }
+        private MoveType m_moveType_;
 
         public ulong Key { get { return m_key_; } }
         private ulong m_key_;

@@ -8,7 +8,7 @@ namespace kifuwarabe_wcsc27.abstracts
     {
         static Util_KikaiGakusyu()
         {
-            Util_KikaiGakusyu.FirstAndHappaFens = new Dictionary<Sasite,List<string>>();
+            Util_KikaiGakusyu.FirstAndHappaFens = new Dictionary<Move,List<string>>();
         }
 
         /// <summary>
@@ -22,8 +22,8 @@ namespace kifuwarabe_wcsc27.abstracts
         /// <summary>
         /// 探索に入ったときの初手を覚えておくぜ☆（＾▽＾）
         /// </summary>
-        public static Sasite KaisiSasite { get; set; }
-        public static Dictionary<Sasite, List<string>> FirstAndHappaFens { get; set; }
+        public static Move KaisiSasite { get; set; }
+        public static Dictionary<Move, List<string>> FirstAndHappaFens { get; set; }
 
         /// <summary>
         /// 反復深化探索に入る前に、クリアーするぜ☆（＾▽＾）
@@ -62,7 +62,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// </summary>
         /// <param name="erandaSasite">実際に選んだ指し手☆</param>
         /// <param name="erandaHyokati">実際に選んだ手の評価値☆</param>
-        public static void Update(Sasite erandaSasite, Hyokati erandaHyokati, Kyokumen ky, Mojiretu syuturyoku)
+        public static void Update(Move erandaSasite, Hyokati erandaHyokati, Kyokumen ky, Mojiretu syuturyoku)
         {
             JosekiKyokumen joKy_orNull = Option_Application.Joseki.GetKyokumen(Util_KikaiGakusyu.KaisiKyHash);
             if (null == joKy_orNull)// この局面の定跡データが入っていなければ、そもそも　学習できないぜ☆（＾▽＾）
@@ -73,14 +73,14 @@ namespace kifuwarabe_wcsc27.abstracts
 
             // 成績表を見て、現局面で最も勝率の高い指し手を、教師とするぜ☆（＾～＾）
 
-            Sasite kyosiSs = Option_Application.Seiseki.GetSasite_Winest(ky, out float kyosiSyoritu_notUse);
+            Move kyosiSs = Option_Application.Seiseki.GetSasite_Winest(ky, out float kyosiSyoritu_notUse);
 
             Hyokati kyosiHyokati; // 教師の手の評価値☆
             if (Util_KikaiGakusyu.FirstAndHappaFens.ContainsKey(kyosiSs))// 教師の手はあるはずだろ☆（＾～＾）？
             {
                 // まず、一手指すぜ☆
                 Nanteme nanteme = new Nanteme();
-                ky.DoSasite(Option_Application.Optionlist.USI, kyosiSs, SasiteType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
+                ky.DoSasite(Option_Application.Optionlist.USI, kyosiSs, MoveType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
 
                 // 評価値を調べようぜ☆（＾▽＾）
                 Hyokati komawariHyokati = ky.Komawari.Get(ky.Teban);
@@ -118,7 +118,7 @@ namespace kifuwarabe_wcsc27.abstracts
 
 
             // では、今回の合法手を全て見ていくぜ☆（＾～＾）
-            foreach (KeyValuePair<Sasite, List<string>> entry in Util_KikaiGakusyu.FirstAndHappaFens)
+            foreach (KeyValuePair<Move, List<string>> entry in Util_KikaiGakusyu.FirstAndHappaFens)
             {
                 if (entry.Key == kyosiSs)
                 {
@@ -131,7 +131,7 @@ namespace kifuwarabe_wcsc27.abstracts
 
                 // まず、一手指すぜ☆
                 Nanteme nanteme = new Nanteme();
-                ky.DoSasite(Option_Application.Optionlist.USI, entry.Key, SasiteType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
+                ky.DoSasite(Option_Application.Optionlist.USI, entry.Key, MoveType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
 
                 // 評価値を調べようぜ☆（＾▽＾）
                 ky.Hyoka(out sonotanoTe_hyokatiUtiwake, HyokaRiyu.Yososu, true// ランダムな局面で学習したりもするし☆（＾～＾）
