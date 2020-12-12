@@ -94,7 +94,7 @@
   <ItemGroup>
     <Compile Include="abstracts\CommandMode.cs" />
     <Compile Include="abstracts\EnumExtensions.cs" />
-    <Compile Include="Entities\Log\Util_Log.cs" />
+    <Compile Include="Entities\Logger\Util_Log.cs" />
     <Compile Include="Presenter\FenParsers.cs" />
     <Compile Include="abstracts\Med_Kyokumen.cs" />
     <Compile Include="abstracts\Med_Parser.cs" />
