@@ -219,7 +219,7 @@ namespace kifuwarabe_wcsc27.abstracts
                                 List<Move> josekiSasites = Option_Application.Joseki.GetMoves(ky);
                                 // この局面の合法手を取得☆（＾▽＾）
                                 int fukasa = 0;
-                                AbstractUtilMoveGen.GenerateSasite_01(fukasa, ky, MoveType.N21_All,true, syuturyoku);// グローバル変数 Util_SasiteSeisei.Sasitelist[fukasa].Sslist に指し手がセットされるぜ☆（＾▽＾）
+                                AbstractUtilMoveGen.GenerateMove01(fukasa, ky, MoveType.N21_All,true, syuturyoku);// グローバル変数 Util_SasiteSeisei.Sasitelist[fukasa].Sslist に指し手がセットされるぜ☆（＾▽＾）
                                 List<Move> gohosyu = new List<Move>( AbstractUtilMoveGen.MoveList[fukasa].ListMove);
                                 foreach (Move ss in josekiSasites)
                                 {
@@ -1008,7 +1008,7 @@ namespace kifuwarabe_wcsc27.abstracts
 
             // 深さ1 のときに手を指しても、深さのカウントは増えない☆
             // 
-            AbstractUtilMoveGen.GenerateSasite_01(fukasa, ky, MoveType.N21_All,true, syuturyoku);// グローバル変数 Util_SasiteSeisei.Sslist に指し手がセットされるぜ☆（＾▽＾）
+            AbstractUtilMoveGen.GenerateMove01(fukasa, ky, MoveType.N21_All,true, syuturyoku);// グローバル変数 Util_SasiteSeisei.Sslist に指し手がセットされるぜ☆（＾▽＾）
 
             #region ステイルメイト
             //────────────────────────────────────────

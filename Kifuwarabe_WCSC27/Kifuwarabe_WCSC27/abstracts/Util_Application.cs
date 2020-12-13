@@ -100,12 +100,12 @@ namespace kifuwarabe_wcsc27.abstracts
         {
             return ky.Kekka;
         }
-        public static void DoSasite(bool isSfen, Move ss, Kyokumen ky, Mojiretu syuturyoku)
+        public static void DoMove(bool isSfen, Move ss, Kyokumen ky, Mojiretu syuturyoku)
         {
             Nanteme konoTeme = new Nanteme();// 使いまわさないだろう☆（＾～＾）ここで作ってしまおう☆
             ky.DoMove(isSfen, ss, MoveType.N00_Karappo, ref konoTeme, ky.Teban, syuturyoku);
         }
-        public static bool ParseDoSasite( Kyokumen ky, out Move out_sasite)
+        public static bool ParseDoMove( Kyokumen ky, out Move out_sasite)
         {
             // コンソールからのキー入力を解析するぜ☆（＾▽＾）
             int caret = Util_Commandline.Caret;
@@ -139,10 +139,10 @@ namespace kifuwarabe_wcsc27.abstracts
         /// <summary>
         /// 決着判定
         /// </summary>
-        /// <param name="bestSasite">投了かどうか調べるだけだぜ☆（＾▽＾）</param>
-        public static void JudgeKettyaku(Move bestSasite, Kyokumen ky)
+        /// <param name="bestMove">投了かどうか調べるだけだぜ☆（＾▽＾）</param>
+        public static void JudgeKettyaku(Move bestMove, Kyokumen ky)
         {
-            Util_Kettyaku.JudgeKettyaku(bestSasite, ky);
+            Util_Kettyaku.JudgeKettyaku(bestMove, ky);
         }
         /// <summary>
         /// 決着
@@ -282,7 +282,7 @@ namespace kifuwarabe_wcsc27.abstracts
         public static void Rnd( Kyokumen ky, Mojiretu syuturyoku)
         {
             int fukasa = 0;
-            AbstractUtilMoveGen.GenerateSasite_01(fukasa, ky, MoveType.N21_All,true, syuturyoku);//グローバル変数に指し手がセットされるぜ☆（＾▽＾）
+            AbstractUtilMoveGen.GenerateMove01(fukasa, ky, MoveType.N21_All,true, syuturyoku);//グローバル変数に指し手がセットされるぜ☆（＾▽＾）
             if (AbstractUtilMoveGen.MoveList[fukasa].SslistCount < 1)
             {
                 Nanteme nanteme = new Nanteme();
@@ -300,7 +300,7 @@ namespace kifuwarabe_wcsc27.abstracts
         {
             List<MoveKakucho> sslist = new List<MoveKakucho>();
             int fukasa = 0;
-            AbstractUtilMoveGen.GenerateSasite_01(fukasa, ky, MoveType.N21_All,true, syuturyoku);//グローバル変数に指し手がセットされるぜ☆（＾▽＾）
+            AbstractUtilMoveGen.GenerateMove01(fukasa, ky, MoveType.N21_All,true, syuturyoku);//グローバル変数に指し手がセットされるぜ☆（＾▽＾）
 
             for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
             {
@@ -310,7 +310,7 @@ namespace kifuwarabe_wcsc27.abstracts
             return sslist;
         }
 
-        public static bool Sasite_cmd(string commandline, Kyokumen.Sindanyo kys, out Move out_sasite)
+        public static bool MoveCmd(string commandline, Kyokumen.Sindanyo kys, out Move out_sasite)
         {
             // うしろに続く文字は☆（＾▽＾）
             int caret = 0;
@@ -531,7 +531,7 @@ namespace kifuwarabe_wcsc27.abstracts
             {
                 // うしろに続く文字は☆（＾▽＾）
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "P1Char ");
-                Option_Application.Optionlist.PNChar[(int)Taikyokusya.T1] = Conv_SasiteCharacter.Parse(commandline,ref caret);
+                Option_Application.Optionlist.PNChar[(int)Taikyokusya.T1] = AbstractConvMoveCharacter.Parse(commandline,ref caret);
             }
 #endregion
 #region P1Com
@@ -560,7 +560,7 @@ namespace kifuwarabe_wcsc27.abstracts
             {
                 // うしろに続く文字は☆（＾▽＾）
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "P2Char ");
-                Option_Application.Optionlist.PNChar[(int)Taikyokusya.T2] = Conv_SasiteCharacter.Parse(commandline,ref caret);
+                Option_Application.Optionlist.PNChar[(int)Taikyokusya.T2] = AbstractConvMoveCharacter.Parse(commandline,ref caret);
             }
 #endregion
 #region P2Com
@@ -944,7 +944,7 @@ namespace kifuwarabe_wcsc27.abstracts
 
                     Mojiretu kyMojiretu = new MojiretuImpl();
                     ky.AppendFenTo(Option_Application.Optionlist.USI, kyMojiretu);
-                    Option_Application.Seiseki.AddSasite(
+                    Option_Application.Seiseki.AddMove(
                         kyMojiretu.ToContents(),
                         ky.KyokumenHash.Value,
                         ky.Teban,
@@ -1111,7 +1111,7 @@ namespace kifuwarabe_wcsc27.abstracts
                             // do以外のコマンドであれば、コマンドラインを保持したまま、そのまま続行
                         }
                         // 以下、do コマンドの場合☆
-                        else if (!Util_Application.ParseDoSasite(ky, out Move inputSasite))
+                        else if (!Util_Application.ParseDoMove(ky, out Move inputSasite))
                         {
                             // do コマンドのパースエラー表示（コンソール・ゲーム用）☆（＾～＾）
                             ConvMove.Setumei(MoveMatigaiRiyu.ParameterSyosikiMatigai, syuturyoku);
@@ -1129,7 +1129,7 @@ namespace kifuwarabe_wcsc27.abstracts
                         else
                         {
                             // do コマンドを実行するぜ☆（＾▽＾）
-                            Util_Application.DoSasite(Option_Application.Optionlist.USI, inputSasite, ky, syuturyoku);// １手指す☆！（＾▽＾）
+                            Util_Application.DoMove(Option_Application.Optionlist.USI, inputSasite, ky, syuturyoku);// １手指す☆！（＾▽＾）
                             Util_Application.JudgeKettyaku(inputSasite, ky);// 勝敗判定☆（＾▽＾）
 
                             // 局面出力
@@ -1312,7 +1312,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 // コンピューター対局者の性格は　ころころ変えるぜ☆（＾▽＾）
                 for (int iTb = 0; iTb < Conv_Taikyokusya.Itiran.Length; iTb++)
                 {
-                    Option_Application.Optionlist.PNChar[(int)Conv_Taikyokusya.Itiran[iTb]] = Conv_SasiteCharacter.Items[Option_Application.Random.Next(Conv_SasiteCharacter.Items.Length)];
+                    Option_Application.Optionlist.PNChar[(int)Conv_Taikyokusya.Itiran[iTb]] = AbstractConvMoveCharacter.Items[Option_Application.Random.Next(AbstractConvMoveCharacter.Items.Length)];
                 }
             }
 

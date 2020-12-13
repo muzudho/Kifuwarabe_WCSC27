@@ -263,7 +263,7 @@ namespace kifuwarabe_wcsc27.implements
         /// データを追加するぜ☆（＾▽＾） 指しながら定跡を追加していくときだぜ☆
         /// </summary>
         /// <param name="ky_before"></param>
-        public SeisekiKyokumen AddSasite(string kyFen_before, ulong kyHash_before, Taikyokusya kyTb_before, Move bestSasite, int version, int kati, int hikiwake, int make)
+        public SeisekiKyokumen AddMove(string kyFen_before, ulong kyHash_before, Taikyokusya kyTb_before, Move bestSasite, int version, int kati, int hikiwake, int make)
         {
             SeisekiKyokumen josekiKy = this.Parse_AddKyLine(kyFen_before, kyHash_before, kyTb_before);
 
@@ -554,7 +554,7 @@ namespace kifuwarabe_wcsc27.implements
 
                     foreach (KeyValuePair<Move, SeisekiMove> seSs in seKy.Value.SsItems)
                     {
-                        seP2.AddSasite(
+                        seP2.AddMove(
                             seKy.Value.Fen,
                             seKy.Key,
                             seKy.Value.TbTaikyokusya,
@@ -587,7 +587,7 @@ namespace kifuwarabe_wcsc27.implements
             {
                 foreach (KeyValuePair<Move, SeisekiMove> seSs in seKy.Value.SsItems)
                 {
-                    this.AddSasite(
+                    this.AddMove(
                         seKy.Value.Fen,
                         seKy.Key,
                         seKy.Value.TbTaikyokusya,

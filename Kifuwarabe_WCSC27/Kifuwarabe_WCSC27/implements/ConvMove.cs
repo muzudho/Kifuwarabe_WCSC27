@@ -316,7 +316,7 @@ namespace kifuwarabe_wcsc27.implements
         }
     }
 
-    public abstract class Conv_SasiteCharacter
+    public abstract class AbstractConvMoveCharacter
     {
         public static readonly MoveCharacter[] Items = new MoveCharacter[] {
             // enum の配列順にすること。

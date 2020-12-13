@@ -146,7 +146,7 @@ namespace kifuwarabe_wcsc27.implements
 
 #if !UNITY
                     // おまけ
-                    Conv_SasiteType.Setumei(nanteme.MoveType, syuturyoku);
+                    AbstractConvMoveType.Setumei(nanteme.MoveType, syuturyoku);
                     syuturyoku.Append(" ");
 #endif
                 }

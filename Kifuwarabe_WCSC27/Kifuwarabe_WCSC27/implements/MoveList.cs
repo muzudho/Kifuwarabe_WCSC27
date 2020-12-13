@@ -12,7 +12,7 @@ namespace kifuwarabe_wcsc27.implements
     {
         public MoveList()
         {
-            // List<SasiteKakucho> では範囲外インデックスエラーが出るので、配列にしてみるぜ☆
+            // List<MoveKakucho> では範囲外インデックスエラーが出るので、配列にしてみるぜ☆
             this.ListMove = new Move[AbstractUtilMoveGen.SAIDAI_SASITE];
             this.List_Reason = new MoveType[AbstractUtilMoveGen.SAIDAI_SASITE];
             this.SslistCount = 0;
