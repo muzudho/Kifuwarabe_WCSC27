@@ -2884,9 +2884,12 @@ namespace kifuwarabe_wcsc27.abstracts
 #else
             var profilePath = System.Configuration.ConfigurationManager.AppSettings["Profile"];
             var toml = Toml.ReadFile(Path.Combine(profilePath, "Engine.toml"));
+
             var engineName = toml.Get<TomlTable>("Engine").Get<string>("Name");
+            Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             var engineAuthor = toml.Get<TomlTable>("Engine").Get<string>("Author");
-            syuturyoku.AppendLine($"id name {engineName}");
+
+            syuturyoku.AppendLine($"id name {engineName} {version.Major}.{version.Minor}.{version.Build}");
             syuturyoku.AppendLine($"id author {engineAuthor}");
             syuturyoku.AppendLine("option name SikoJikan type spin default 500 min 100 max 10000000");
             syuturyoku.AppendLine("option name SikoJikanRandom type spin default 1000 min 0 max 10000000");
