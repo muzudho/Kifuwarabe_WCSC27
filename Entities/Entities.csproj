@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DD78DFB7-DE24-4D83-84F8-C2F48B8CC60D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Entities</RootNamespace>
+    <AssemblyName>Entities</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Nett, Version=0.15.0.0, Culture=neutral, PublicKeyToken=605dcfe7a1d3365b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nett.0.15.0\lib\net40\Nett.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="abstracts\AbstractUtilMoveGen.cs" />
+    <Compile Include="abstracts\CommandMode.cs" />
+    <Compile Include="abstracts\EnumExtensions.cs" />
+    <Compile Include="abstracts\Med_Koma.cs" />
+    <Compile Include="abstracts\Med_Kyokumen.cs" />
+    <Compile Include="abstracts\Med_Parser.cs" />
+    <Compile Include="abstracts\Option_Application.cs" />
+    <Compile Include="abstracts\Util_Application.cs" />
+    <Compile Include="abstracts\Util_Bitboard.cs" />
+    <Compile Include="abstracts\Util_Commandline.cs" />
+    <Compile Include="abstracts\Util_Commands.cs" />
+    <Compile Include="abstracts\Util_CommandSub.cs" />
+    <Compile Include="abstracts\Util_ConsoleGame.cs" />
+    <Compile Include="abstracts\Util_HiouteCase.cs" />
+    <Compile Include="abstracts\Util_Information.cs" />
+    <Compile Include="abstracts\Util_Ittedume.cs" />
+    <Compile Include="abstracts\Util_Kettyaku.cs" />
+    <Compile Include="abstracts\Util_KikaiGakusyu.cs" />
+    <Compile Include="abstracts\Util_NikomaKankei.cs" />
+    <Compile Include="abstracts\Util_Sigmoid.cs" />
+    <Compile Include="abstracts\Util_String.cs" />
+    <Compile Include="abstracts\Util_Taikyoku.cs" />
+    <Compile Include="abstracts\Util_Tansaku.cs" />
+    <Compile Include="abstracts\Util_TantaiTest.cs" />
+    <Compile Include="abstracts\Util_TimeManager.cs" />
+    <Compile Include="abstracts\Util_TryRule.cs" />
+    <Compile Include="abstracts\Util_TumeShogi.cs" />
+    <Compile Include="abstracts\Util_ZobristHashing.cs" />
+    <Compile Include="DebugOptions.cs" />
+    <Compile Include="facade\Face_Joseki.cs" />
+    <Compile Include="facade\Face_Kifuwarabe.cs" />
+    <Compile Include="facade\Face_Nikoma.cs" />
+    <Compile Include="facade\Face_Seiseki.cs" />
+    <Compile Include="facade\Face_YomisujiJoho.cs" />
+    <Compile Include="implements\AbstractConvMovelist.cs" />
+    <Compile Include="implements\Bitboard.cs" />
+    <Compile Include="implements\ConvMove.cs" />
+    <Compile Include="implements\Conv_Kihon.cs" />
+    <Compile Include="implements\HiouteJoho.cs" />
+    <Compile Include="implements\HyokatiUtiwake.cs" />
+    <Compile Include="implements\Itiran_Bitboards.cs" />
+    <Compile Include="implements\JosekiImpl.cs" />
+    <Compile Include="implements\Kifu.cs" />
+    <Compile Include="implements\Kyokumen.cs" />
+    <Compile Include="implements\KyokumenHashImpl.cs" />
+    <Compile Include="implements\MojiretuImpl.cs" />
+    <Compile Include="implements\MotiKomaItiranImpl.cs" />
+    <Compile Include="implements\MoveGenBunseki.cs" />
+    <Compile Include="implements\MoveKakuchoImpl.cs" />
+    <Compile Include="implements\MoveList.cs" />
+    <Compile Include="implements\Nanteme.cs" />
+    <Compile Include="implements\NikomaKoumokuBangoHairetu.cs" />
+    <Compile Include="implements\Optionlist.cs" />
+    <Compile Include="implements\Seiseki.cs" />
+    <Compile Include="implements\Shogiban.cs" />
+    <Compile Include="implements\TimeManager.cs" />
+    <Compile Include="implements\TranspositionTable.cs" />
+    <Compile Include="implements\Yomisuji.cs" />
+    <Compile Include="interfaces\Const_Game.cs" />
+    <Compile Include="interfaces\FenProtocol.cs" />
+    <Compile Include="interfaces\Hyokati.cs" />
+    <Compile Include="interfaces\Koma.cs" />
+    <Compile Include="interfaces\Komasyurui.cs" />
+    <Compile Include="interfaces\Masu.cs" />
+    <Compile Include="interfaces\Mojiretu.cs" />
+    <Compile Include="interfaces\Move.cs" />
+    <Compile Include="interfaces\TaikyokuKekka.cs" />
+    <Compile Include="interfaces\Taikyokusya.cs" />
+    <Compile Include="Logger\Util_Log.cs" />
+    <Compile Include="machine\Util_Machine.cs" />
+    <Compile Include="machine\Util_Test.cs" />
+    <Compile Include="Presenter\FenParsers.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

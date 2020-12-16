@@ -1,6 +1,6 @@
 ﻿namespace kifuwarabe_wcsc27.interfaces
 {
-    interface FenProtocol
+    public interface FenProtocol
     {
         string Fen { get; }
 
