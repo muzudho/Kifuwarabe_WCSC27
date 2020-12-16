@@ -8,7 +8,7 @@
     <ProjectGuid>{0D39F8BD-AEA4-4BAA-81B8-472BAB9B22EB}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>kifuwarabe_wcsc27</RootNamespace>
+    <RootNamespace>Grayscale.kifuwarakei.Engine</RootNamespace>
     <AssemblyName>Grayscale.kifuwarakei.Engine</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
+    <Compile Include="ProgramSupport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
