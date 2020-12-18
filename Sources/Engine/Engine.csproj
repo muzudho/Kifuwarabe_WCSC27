@@ -117,9 +117,13 @@
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.NetAnalyzers.5.0.1\analyzers\dotnet\cs\Microsoft.CodeAnalysis.NetAnalyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Entities\Entities.csproj">
+    <ProjectReference Include="..\Entities\Entities.csproj">
       <Project>{dd78dfb7-de24-4d83-84f8-c2f48b8cc60d}</Project>
       <Name>Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UseCases\UseCases.csproj">
+      <Project>{eb23f022-070a-4a63-ade9-c68a020037c0}</Project>
+      <Name>UseCases</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
