@@ -1,8 +1,9 @@
-﻿using kifuwarabe_wcsc27.interfaces;
+﻿using kifuwarabe_wcsc27.abstracts;
+using kifuwarabe_wcsc27.interfaces;
 
-namespace kifuwarabe_wcsc27.abstracts
+namespace Grayscale.Kifuwarakei.UseCases
 {
-    public abstract class Util_CommandSub
+    public abstract class PlayingSupport
     {
         //public static Taikyokusya Yomu_Player(string commandline, ref int caret, ref bool sippai, Mojiretu syuturyoku)
         //{

@@ -1176,7 +1176,7 @@
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret_1, "motikoma ");
                 bool failure = false;
 
-                MotiKoma mk1 = Util_CommandSub.Yomu_Motikoma(isSfen, commandline, ref caret_1, ref failure, syuturyoku);
+                MotiKoma mk1 = PlayingSupport.Yomu_Motikoma(isSfen, commandline, ref caret_1, ref failure, syuturyoku);
 
                 int koumoku1 = Util_NikomaKankei.GetKoumokuBango_MotiKoma(ky, mk1);
                 if (failure)
