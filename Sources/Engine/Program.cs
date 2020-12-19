@@ -1,7 +1,10 @@
 ﻿namespace Grayscale.kifuwarakei.Engine
 {
+    using System;
+    using System.IO;
     using kifuwarabe_wcsc27.abstracts;
     using kifuwarabe_wcsc27.facade;
+    using Nett;
 
     public class Program
     {
@@ -23,7 +26,15 @@
             if (Util_Commandline.Commandline=="usi")
             {
                 Option_Application.Optionlist.USI = true;
-                Util_Commands.Usi(Util_Commandline.Commandline, programSupport.Syuturyoku);
+
+                var profilePath = System.Configuration.ConfigurationManager.AppSettings["Profile"];
+                var toml = Toml.ReadFile(Path.Combine(profilePath, "Engine.toml"));
+
+                var engineName = toml.Get<TomlTable>("Engine").Get<string>("Name");
+                Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+                var engineAuthor = toml.Get<TomlTable>("Engine").Get<string>("Author");
+
+                Util_Commands.Usi(Util_Commandline.Commandline, $"{engineName} {version.Major}.{version.Minor}.{version.Build}", engineAuthor, programSupport.Syuturyoku);
             }
             else
             {

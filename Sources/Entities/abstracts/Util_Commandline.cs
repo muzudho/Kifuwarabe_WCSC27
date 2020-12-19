@@ -4,6 +4,8 @@ using kifuwarabe_wcsc27.interfaces;
 using System;
 using System.Collections.Generic;
 using kifuwarabe_wcsc27.implements;
+using Nett;
+using System.IO;
 
 namespace kifuwarabe_wcsc27.abstracts
 {
@@ -208,7 +210,19 @@ namespace kifuwarabe_wcsc27.abstracts
             else if (caret == commandline.IndexOf("tu", caret)) { Util_Commands.TumeShogi(Option_Application.Optionlist.USI, commandline, ky, syuturyoku); IsKyokumenEcho = false; }// "tumeshogi" と同じ☆（＾▽＾）
             else if (caret == commandline.IndexOf("undo", caret)) { Util_Commands.Undo(commandline, ky, syuturyoku); IsKyokumenEcho = false; }
             else if (caret == commandline.IndexOf("usinewgame", caret)) { Util_Commands.Usinewgame(commandline, syuturyoku); IsKyokumenEcho = false; }
-            else if (caret == commandline.IndexOf("usi", caret)) { Util_Commands.Usi(commandline, syuturyoku); IsKyokumenEcho = false; }//ここは普通、来ない☆（＾～＾）
+            else if (caret == commandline.IndexOf("usi", caret))
+            {
+                //ここは普通、来ない☆（＾～＾）
+                var profilePath = System.Configuration.ConfigurationManager.AppSettings["Profile"];
+                var toml = Toml.ReadFile(Path.Combine(profilePath, "Engine.toml"));
+
+                var engineName = toml.Get<TomlTable>("Engine").Get<string>("Name");
+                Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+                var engineAuthor = toml.Get<TomlTable>("Engine").Get<string>("Author");
+
+                Util_Commands.Usi(commandline, $"{engineName} {version.Major}.{version.Minor}.{version.Build}", engineAuthor, syuturyoku);
+                IsKyokumenEcho = false;
+            }
             else
             {
                 // 表示（コンソール・ゲーム用）

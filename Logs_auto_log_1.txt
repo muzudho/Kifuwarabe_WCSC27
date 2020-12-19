@@ -265,3 +265,575 @@ bestmove P*2b
 info time 0 depth -/1 nodes 26 score cp -1638 pv 5a6b
 info time 16 depth -/2 nodes 1791 score cp -3972 pv 1c1d B*7i
 info time 52 depth -/3 nodes 3992 score cp -1835 pv 5a6b 2d1b 9a9b
+info time 831 depth -/4 nodes 152303 score cp -3980 pv 1c1d 1e1d 7d7e 2d3b
+info time 1250 depth -/4 nodes 194127 score cp -3980 pv 1c1d 1e1d 7d7e 2d3b
+bestmove 1c1d
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> position startpos moves 7g7f 9c9d 6i7h 5a6b 7i6h 9d9e 6h7g 4a4b 5i6h 4b4a 4i5h 7c7d 6g6f 3c3d 5h6g 3d3e 8g8f 1a1b 2g2f 6a5b 2f2e 2b3c 1g1f 5b5a 1f1e 4a3b 5g5f 2c2d 2e2d 3c2d 2h2d 6b7b 2d2a+ P*2b N*2d 1c1d 2d3b+
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> go btime 319000 wtime 318000 binc 2000 winc 2000
+info time 0 depth -/1 nodes 25 score cp -1964 pv 3a3b
+info time 9 depth -/2 nodes 330 score cp -3966 pv 3a3b B*7i
+info time 39 depth -/3 nodes 1691 score cp -1848 pv 3a3b 2a3b 5a6b
+info time 1254 depth -/3 nodes 162359 score cp -1848 pv 3a3b 2a3b 5a6b
+bestmove 3a3b
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> position startpos moves 7g7f 9c9d 6i7h 5a6b 7i6h 9d9e 6h7g 4a4b 5i6h 4b4a 4i5h 7c7d 6g6f 3c3d 5h6g 3d3e 8g8f 1a1b 2g2f 6a5b 2f2e 2b3c 1g1f 5b5a 1f1e 4a3b 5g5f 2c2d 2e2d 3c2d 2h2d 6b7b 2d2a+ P*2b N*2d 1c1d 2d3b+ 3a3b 2a5a
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> go btime 320000 wtime 319000 binc 2000 winc 2000
+info time 0 depth -/1 nodes 66 score cp -1950 pv 1d1e
+info time 10 depth -/2 nodes 369 score cp -2921 pv 7a6b 5a6b
+info time 38 depth -/3 nodes 2909 score cp -1192 pv 7a6b 5a6b 7b6b
+info time 867 depth -/3 nodes 179502 score cp -1192 pv 7a6b 5a6b 7b6b
+bestmove 7a6b
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> position startpos moves 7g7f 9c9d 6i7h 5a6b 7i6h 9d9e 6h7g 4a4b 5i6h 4b4a 4i5h 7c7d 6g6f 3c3d 5h6g 3d3e 8g8f 1a1b 2g2f 6a5b 2f2e 2b3c 1g1f 5b5a 1f1e 4a3b 5g5f 2c2d 2e2d 3c2d 2h2d 6b7b 2d2a+ P*2b N*2d 1c1d 2d3b+ 3a3b 2a5a 7a6b 5a5b
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> go btime 321000 wtime 320000 binc 2000 winc 2000
+info time 0 depth -/1 nodes 69 score cp -2155 pv 6b7a
+info time 7 depth -/2 nodes 207 score cp -2723 pv 1d1e 5b6b
+info time 16 depth -/3 nodes 960 score cp -990 pv 1d1e 5b6b 7b6b
+info time 960 depth -/3 nodes 35889 score cp -990 pv 1d1e 5b6b 7b6b
+bestmove 1d1e
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> position startpos moves 7g7f 9c9d 6i7h 5a6b 7i6h 9d9e 6h7g 4a4b 5i6h 4b4a 4i5h 7c7d 6g6f 3c3d 5h6g 3d3e 8g8f 1a1b 2g2f 6a5b 2f2e 2b3c 1g1f 5b5a 1f1e 4a3b 5g5f 2c2d 2e2d 3c2d 2h2d 6b7b 2d2a+ P*2b N*2d 1c1d 2d3b+ 3a3b 2a5a 7a6b 5a5b 1d1e G*6a
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> go btime 322000 wtime 321000 binc 2000 winc 2000
+info time 0 depth -/1 nodes 68 score cp -1955 pv 6b7a
+info time 9 depth -/2 nodes 203 score cp -2729 pv N*9f 5b6b
+info time 22 depth -/3 nodes 1419 score cp -2262 pv 8a7c P*1h N*2c
+info time 644 depth -/3 nodes 108288 score cp -2262 pv 8a7c P*1h N*2c
+bestmove 8a7c
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> position startpos moves 7g7f 9c9d 6i7h 5a6b 7i6h 9d9e 6h7g 4a4b 5i6h 4b4a 4i5h 7c7d 6g6f 3c3d 5h6g 3d3e 8g8f 1a1b 2g2f 6a5b 2f2e 2b3c 1g1f 5b5a 1f1e 4a3b 5g5f 2c2d 2e2d 3c2d 2h2d 6b7b 2d2a+ P*2b N*2d 1c1d 2d3b+ 3a3b 2a5a 7a6b 5a5b 1d1e G*6a 8a7c G*7a
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> go btime 323000 wtime 322000 binc 2000 winc 2000
+info time 0 depth -/1 nodes 1 score cp -1757 pv 6b7a
+info time 5 depth -/2 nodes 3 score cp -3330 pv 6b7a 6a7a
+info time 10 depth -/3 nodes 6 score cp -2381 pv 6b7a 6a7a 7b7a
+info time 16 depth -/4 nodes 148 score cp -3777 pv 6b7a 6a7a 7b7a B*7i
+info time 34 depth -/5 nodes 2303 score cp -2257 pv 6b7a 6a7a 7b7a 5b6c G*8a
+info time 157 depth -/6 nodes 27830 score cp -4829 pv 6b7a 6a7a 7b7a S*6b 7a8a 6b5a+
+info time 1270 depth -/6 nodes 92943 score cp -4829 pv 6b7a 6a7a 7b7a S*6b 7a8a 6b5a+
+bestmove 6b7a
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> gameover lose
+
+図は 46手まで 対局者１の番
+ひ1い1う1
+     Ａ    Ｂ    Ｃ    Ｄ    Ｅ    Ｆ    Ｇ    Ｈ    Ｉ    
+  ┌──┬──┬──┬──┬──┬──┬──┬──┬──┐
+１│▽し│　　│▽ね│▲い│　　│　　│　　│　　│　　│
+  ├──┼──┼──┼──┼──┼──┼──┼──┼──┤
+２│　　│▽き│▽ら│　　│▲+K│　　│▽ね│▽ひ│▽し│
+  ├──┼──┼──┼──┼──┼──┼──┼──┼──┤
+３│　　│▽ひ│▽う│▽ひ│▽ひ│▽ひ│　　│　　│　　│
+  ├──┼──┼──┼──┼──┼──┼──┼──┼──┤
+４│　　│　　│▽ひ│　　│　　│　　│　　│　　│　　│
+  ├──┼──┼──┼──┼──┼──┼──┼──┼──┤
+５│▽ひ│　　│　　│　　│　　│　　│▽ひ│　　│▽ひ│
+  ├──┼──┼──┼──┼──┼──┼──┼──┼──┤
+６│　　│▲ひ│▲ひ│▲ひ│▲ひ│　　│　　│　　│　　│
+  ├──┼──┼──┼──┼──┼──┼──┼──┼──┤
+７│▲ひ│　　│▲ね│▲い│　　│▲ひ│▲ひ│　　│　　│
+  ├──┼──┼──┼──┼──┼──┼──┼──┼──┤
+８│　　│▲ぞ│▲い│▲ら│　　│　　│　　│　　│　　│
+  ├──┼──┼──┼──┼──┼──┼──┼──┼──┤
+９│▲し│▲う│　　│　　│　　│　　│▲ね│▲う│▲し│
+  └──┴──┴──┴──┴──┴──┴──┴──┴──┘
+ぞ1ひ1
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> isready
+readyok
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> usinewgame
+USI9x9> # ９ｘ９本将棋 USI通信用
+USI9x9> 
+USI9x9> # 対局者はひとまず、コンピューターが走り出さないように止めておくんだぜ☆（＾～＾）
+USI9x9> set P1Com false
+USI9x9> set P2Com false
+USI9x9> 
+USI9x9> ky clear
+図は  0手まで 対局者１の番
+
+     Ａ    Ｂ    Ｃ    Ｄ    Ｅ    Ｆ    Ｇ    Ｈ    Ｉ    
+  ┌──┬──┬──┬──┬──┬──┬──┬──┬──┐
+１│　　│　　│　　│　　│　　│　　│　　│　　│　　│
+  ├──┼──┼──┼──┼──┼──┼──┼──┼──┤
+２│　　│　　│　　│　　│　　│　　│　　│　　│　　│
+  ├──┼──┼──┼──┼──┼──┼──┼──┼──┤
+３│　　│　　│　　│　　│　　│　　│　　│　　│　　│
+  ├──┼──┼──┼──┼──┼──┼──┼──┼──┤
+４│　　│　　│　　│　　│　　│　　│　　│　　│　　│
+  ├──┼──┼──┼──┼──┼──┼──┼──┼──┤
+５│　　│　　│　　│　　│　　│　　│　　│　　│　　│
+  ├──┼──┼──┼──┼──┼──┼──┼──┼──┤
+６│　　│　　│　　│　　│　　│　　│　　│　　│　　│
+  ├──┼──┼──┼──┼──┼──┼──┼──┼──┤
+７│　　│　　│　　│　　│　　│　　│　　│　　│　　│
+  ├──┼──┼──┼──┼──┼──┼──┼──┼──┤
+８│　　│　　│　　│　　│　　│　　│　　│　　│　　│
+  ├──┼──┼──┼──┼──┼──┼──┼──┼──┤
+９│　　│　　│　　│　　│　　│　　│　　│　　│　　│
+  └──┴──┴──┴──┴──┴──┴──┴──┴──┘
+
+USI9x9> set BanYokoHaba 9
+USI9x9> set BanTateHaba 9
+USI9x9> 
+USI9x9> ky oku l 9a
+USI9x9> ky oku n 8a
+USI9x9> ky oku s 7a
+USI9x9> ky oku g 6a
+USI9x9> ky oku k 5a
+USI9x9> ky oku g 4a
+USI9x9> ky oku s 3a
+USI9x9> ky oku n 2a
+USI9x9> ky oku l 1a
+USI9x9> 
+USI9x9> ky oku r 8b
+USI9x9> ky oku b 2b
+USI9x9> 
+USI9x9> ky oku p 9c
+USI9x9> ky oku p 8c
+USI9x9> ky oku p 7c
+USI9x9> ky oku p 6c
+USI9x9> ky oku p 5c
+USI9x9> ky oku p 4c
+USI9x9> ky oku p 3c
+USI9x9> ky oku p 2c
+USI9x9> ky oku p 1c
+USI9x9> 
+USI9x9> ky oku P 9g
+USI9x9> ky oku P 8g
+USI9x9> ky oku P 7g
+USI9x9> ky oku P 6g
+USI9x9> ky oku P 5g
+USI9x9> ky oku P 4g
+USI9x9> ky oku P 3g
+USI9x9> ky oku P 2g
+USI9x9> ky oku P 1g
+USI9x9> 
+USI9x9> ky oku B 8h
+USI9x9> ky oku R 2h
+USI9x9> 
+USI9x9> ky oku L 9i
+USI9x9> ky oku N 8i
+USI9x9> ky oku S 7i
+USI9x9> ky oku G 6i
+USI9x9> ky oku K 5i
+USI9x9> ky oku G 4i
+USI9x9> ky oku S 3i
+USI9x9> ky oku N 2i
+USI9x9> ky oku L 1i
+USI9x9> 
+USI9x9> ky tekiyo
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> position startpos
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> go btime 300000 wtime 300000 binc 2000 winc 2000
+info time 0 depth -/1 nodes 26 score cp 960 pv 3i4h
+info time 8 depth -/2 nodes 728 score cp -960 pv 1i1h 7a6b
+info time 35 depth -/3 nodes 3737 score cp 1012 pv 2h3h 9a9b 5i4h
+info time 287 depth -/4 nodes 38363 score cp -958 pv 9g9f 7a6b 8g8f 8c8d
+info time 538 depth -/4 nodes 77500 score cp -958 pv 9g9f 7a6b 8g8f 8c8d
+bestmove 9g9f
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> position startpos moves 9g9f 4a3b
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> go btime 301000 wtime 301000 binc 2000 winc 2000
+info time 0 depth -/1 nodes 28 score cp 956 pv 3i4h
+info time 10 depth -/2 nodes 728 score cp -708 pv 1i1h 5a6b
+info time 32 depth -/3 nodes 3223 score cp 1238 pv 7i6h 9a9b 3i4h
+info time 362 depth -/4 nodes 52987 score cp -706 pv 2h1h 5a6b 2g2f 9c9d
+info time 743 depth -/4 nodes 112758 score cp -706 pv 2h1h 5a6b 2g2f 9c9d
+bestmove 2h1h
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> position startpos moves 9g9f 4a3b 2h1h 6a5b
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> go btime 302000 wtime 302000 binc 2000 winc 2000
+info time 0 depth -/1 nodes 27 score cp 974 pv 3i4h
+info time 9 depth -/2 nodes 675 score cp -1014 pv 8i9g 5a4b
+info time 28 depth -/3 nodes 2469 score cp 994 pv 7i6h 8c8d 8h7i
+info time 296 depth -/4 nodes 40604 score cp -400 pv 8g8f 9a9b 5i4h 7a7b
+info time 769 depth -/4 nodes 106160 score cp -400 pv 8g8f 9a9b 5i4h 7a7b
+bestmove 8g8f
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> position startpos moves 9g9f 4a3b 2h1h 6a5b 8g8f 3a4b
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> go btime 303000 wtime 303000 binc 2000 winc 2000
+info time 0 depth -/1 nodes 27 score cp 974 pv 3i4h
+info time 10 depth -/2 nodes 439 score cp -706 pv 5i5h 2b3a
+info time 30 depth -/3 nodes 2573 score cp 994 pv 7i6h 1a1b 8h7i
+info time 319 depth -/4 nodes 37491 score cp -710 pv 5i5h 5a6b 7i6h 6b7b
+info time 910 depth -/4 nodes 131356 score cp -710 pv 5i5h 5a6b 7i6h 6b7b
+bestmove 5i5h
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> position startpos moves 9g9f 4a3b 2h1h 6a5b 8g8f 3a4b 5i5h 7a7b
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> go btime 304000 wtime 304000 binc 2000 winc 2000
+info time 0 depth -/1 nodes 27 score cp 682 pv 3i3h
+info time 9 depth -/2 nodes 322 score cp -694 pv 6i7h 8b9b
+info time 28 depth -/3 nodes 2269 score cp 974 pv 3i4h 7b6a 5h5i
+info time 241 depth -/4 nodes 32266 score cp -676 pv 9f9e 9a9b 6i7h 7b6a
+info time 1346 depth -/4 nodes 234104 score cp -676 pv 9f9e 9a9b 6i7h 7b6a
+bestmove 9f9e
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> position startpos moves 9g9f 4a3b 2h1h 6a5b 8g8f 3a4b 5i5h 7a7b 9f9e 3c3d
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> go btime 305000 wtime 305000 binc 2000 winc 2000
+info time 0 depth -/1 nodes 27 score cp 682 pv 3i3h
+info time 10 depth -/2 nodes 679 score cp -716 pv 8i9g 2b3c
+info time 36 depth -/3 nodes 3955 score cp 974 pv 5h4h 9c9d 6i5i
+info time 327 depth -/4 nodes 42942 score cp -682 pv 3g3f 8b9b 8i9g 7b6a
+info time 1488 depth -/4 nodes 240602 score cp -682 pv 3g3f 8b9b 8i9g 7b6a
+bestmove 3g3f
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> position startpos moves 9g9f 4a3b 2h1h 6a5b 8g8f 3a4b 5i5h 7a7b 9f9e 3c3d 3g3f 4b3c
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> go btime 306000 wtime 306000 binc 2000 winc 2000
+info time 0 depth -/1 nodes 28 score cp 678 pv 3i3h
+info time 11 depth -/2 nodes 697 score cp -670 pv 2g2f 3c4b
+info time 36 depth -/3 nodes 3556 score cp 970 pv 3i4h 3c2d 5h5i
+info time 410 depth -/4 nodes 64718 score cp -738 pv 5h6h 2b3a 6i5h 3a4b
+info time 1074 depth -/4 nodes 165028 score cp -738 pv 5h6h 2b3a 6i5h 3a4b
+bestmove 5h6h
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> position startpos moves 9g9f 4a3b 2h1h 6a5b 8g8f 3a4b 5i5h 7a7b 9f9e 3c3d 3g3f 4b3c 5h6h 5a4b
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> go btime 307000 wtime 307000 binc 2000 winc 2000
+info time 0 depth -/1 nodes 28 score cp 978 pv 4i5h
+info time 11 depth -/2 nodes 672 score cp -1292 pv 9e9d 2b3a
+info time 36 depth -/3 nodes 3556 score cp 984 pv 4i5h 5b5a 3i4h
+info time 342 depth -/4 nodes 43179 score cp -1016 pv 6h5h 1a1b 7i6h 8b9b
+info time 1281 depth -/4 nodes 199169 score cp -1016 pv 6h5h 1a1b 7i6h 8b9b
+bestmove 6h5h
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> position startpos moves 9g9f 4a3b 2h1h 6a5b 8g8f 3a4b 5i5h 7a7b 9f9e 3c3d 3g3f 4b3c 5h6h 5a4b 6h5h 4c4d
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> go btime 308000 wtime 308000 binc 2000 winc 2000
+info time 0 depth -/1 nodes 28 score cp 678 pv 3i3h
+info time 8 depth -/2 nodes 418 score cp -1012 pv 4i4h 8b9b
+info time 32 depth -/3 nodes 3188 score cp 974 pv 5h6h 4b5a 4i5i
+info time 337 depth -/4 nodes 42079 score cp -1010 pv 4i4h 8b9b 3f3e 2c2d
+info time 1007 depth -/4 nodes 154187 score cp -1010 pv 4i4h 8b9b 3f3e 2c2d
+bestmove 4i4h
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> position startpos moves 9g9f 4a3b 2h1h 6a5b 8g8f 3a4b 5i5h 7a7b 9f9e 3c3d 3g3f 4b3c 5h6h 5a4b 6h5h 4c4d 4i4h 8c8d
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> go btime 309000 wtime 309000 binc 2000 winc 2000
+info time 0 depth -/1 nodes 27 score cp 680 pv 3i3h
+info time 10 depth -/2 nodes 756 score cp -1284 pv 9e9d 2b3a
+info time 36 depth -/3 nodes 3912 score cp 704 pv 5h6h 7b8c 6i7h
+info time 381 depth -/4 nodes 53629 score cp -996 pv 5g5f 2c2d 7i6h 9a9b
+info time 804 depth -/4 nodes 124678 score cp -996 pv 5g5f 2c2d 7i6h 9a9b
+bestmove 5g5f
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> position startpos moves 9g9f 4a3b 2h1h 6a5b 8g8f 3a4b 5i5h 7a7b 9f9e 3c3d 3g3f 4b3c 5h6h 5a4b 6h5h 4c4d 4i4h 8c8d 5g5f 8d8e
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> go btime 310000 wtime 310000 binc 2000 winc 2000
+info time 0 depth -/1 nodes 29 score cp 870 pv 8f8e
+info time 7 depth -/2 nodes 111 score cp -1086 pv 8f8e 2b3a
+info time 22 depth -/3 nodes 1653 score cp 876 pv 8f8e 2c2d 3i3h
+info time 345 depth -/4 nodes 34112 score cp -996 pv 8h9g 8e8f 9g8f P*8c
+info time 1072 depth -/4 nodes 156336 score cp -996 pv 8h9g 8e8f 9g8f P*8c
+bestmove 8h9g
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> position startpos moves 9g9f 4a3b 2h1h 6a5b 8g8f 3a4b 5i5h 7a7b 9f9e 3c3d 3g3f 4b3c 5h6h 5a4b 6h5h 4c4d 4i4h 8c8d 5g5f 8d8e 8h9g 8e8f
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> go btime 311000 wtime 311000 binc 2000 winc 2000
+info time 0 depth -/1 nodes 29 score cp 644 pv 9g8f
+info time 7 depth -/2 nodes 324 score cp -1286 pv 9g8f 2b3a
+info time 31 depth -/3 nodes 3573 score cp 765 pv 7i6h 9c9d 6h5i
+info time 452 depth -/4 nodes 59293 score cp -1215 pv 4h5g 8b9b 3i2h 5b4c
+info time 602 depth -/4 nodes 85752 score cp -1215 pv 4h5g 8b9b 3i2h 5b4c
+bestmove 4h5g
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> position startpos moves 9g9f 4a3b 2h1h 6a5b 8g8f 3a4b 5i5h 7a7b 9f9e 3c3d 3g3f 4b3c 5h6h 5a4b 6h5h 4c4d 4i4h 8c8d 5g5f 8d8e 8h9g 8e8f 4h5g 8f8g+
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> go btime 312000 wtime 312000 binc 2000 winc 2000
+info time 0 depth -/1 nodes 28 score cp 465 pv 7i8h
+info time 8 depth -/2 nodes 226 score cp -4961 pv 7i8h 8g9g
+info time 32 depth -/3 nodes 1518 score cp -1752 pv 7i6h 8g9g 8i9g
+info time 435 depth -/4 nodes 45513 score cp -3686 pv 1g1f 8g9g 8i9g 2b3a
+info time 1172 depth -/4 nodes 102979 score cp -3686 pv 1g1f 8g9g 8i9g 2b3a
+bestmove 1g1f
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> position startpos moves 9g9f 4a3b 2h1h 6a5b 8g8f 3a4b 5i5h 7a7b 9f9e 3c3d 3g3f 4b3c 5h6h 5a4b 6h5h 4c4d 4i4h 8c8d 5g5f 8d8e 8h9g 8e8f 4h5g 8f8g+ 1g1f 8g9g
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> go btime 313000 wtime 313000 binc 2000 winc 2000
+info time 0 depth -/1 nodes 29 score cp -1764 pv 8i9g
+info time 10 depth -/2 nodes 162 score cp -3788 pv 8i9g B*3a
+info time 37 depth -/3 nodes 3264 score cp -1759 pv 8i9g B*8f 7i6h
+info time 1057 depth -/4 nodes 148583 score cp -3792 pv 8i9g B*3a 1h2h P*8c
+info time 1433 depth -/4 nodes 204738 score cp -3792 pv 8i9g B*3a 1h2h P*8c
+bestmove 8i9g
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> position startpos moves 9g9f 4a3b 2h1h 6a5b 8g8f 3a4b 5i5h 7a7b 9f9e 3c3d 3g3f 4b3c 5h6h 5a4b 6h5h 4c4d 4i4h 8c8d 5g5f 8d8e 8h9g 8e8f 4h5g 8f8g+ 1g1f 8g9g 8i9g 8b8i+
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> go btime 314000 wtime 314000 binc 2000 winc 2000
+info time 0 depth -/1 nodes 37 score cp -1757 pv 7i6h
+info time 9 depth -/2 nodes 652 score cp -3768 pv 9g1d B*3a
+info time 52 depth -/3 nodes 3469 score cp -1660 pv 3i4h 8i9i 4h5i
+info time 1056 depth -/4 nodes 209417 score cp -3780 pv 9g8e 8i9i 8e9c B*3a
+info time 1062 depth -/4 nodes 209417 score cp -3780 pv 9g8e 8i9i 8e9c B*3a
+bestmove 9g8e
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> position startpos moves 9g9f 4a3b 2h1h 6a5b 8g8f 3a4b 5i5h 7a7b 9f9e 3c3d 3g3f 4b3c 5h6h 5a4b 6h5h 4c4d 4i4h 8c8d 5g5f 8d8e 8h9g 8e8f 4h5g 8f8g+ 1g1f 8g9g 8i9g 8b8i+ 9g8e 8i8e
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> go btime 315000 wtime 315000 binc 2000 winc 2000
+info time 0 depth -/1 nodes 35 score cp -1957 pv 7i6h
+info time 24 depth -/2 nodes 3821 score cp -3933 pv 9e9d B*5a
+info time 86 depth -/3 nodes 8732 score cp -1951 pv 3i4h 7b8c 7i6h
+info time 1332 depth -/3 nodes 330367 score cp -1951 pv 3i4h 7b8c 7i6h
+bestmove 3i4h
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> position startpos moves 9g9f 4a3b 2h1h 6a5b 8g8f 3a4b 5i5h 7a7b 9f9e 3c3d 3g3f 4b3c 5h6h 5a4b 6h5h 4c4d 4i4h 8c8d 5g5f 8d8e 8h9g 8e8f 4h5g 8f8g+ 1g1f 8g9g 8i9g 8b8i+ 9g8e 8i8e 3i4h P*8f
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> go btime 316000 wtime 316000 binc 2000 winc 2000
+info time 0 depth -/1 nodes 33 score cp -1661 pv 4h5i
+info time 14 depth -/2 nodes 1784 score cp -3937 pv 7i7h B*5a
+info time 68 depth -/3 nodes 5756 score cp -1848 pv 4h5i 8e9e 7i6h
+info time 661 depth -/3 nodes 146788 score cp -1848 pv 4h5i 8e9e 7i6h
+bestmove 4h5i
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> position startpos moves 9g9f 4a3b 2h1h 6a5b 8g8f 3a4b 5i5h 7a7b 9f9e 3c3d 3g3f 4b3c 5h6h 5a4b 6h5h 4c4d 4i4h 8c8d 5g5f 8d8e 8h9g 8e8f 4h5g 8f8g+ 1g1f 8g9g 8i9g 8b8i+ 9g8e 8i8e 3i4h P*8f 4h5i 8f8g+
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> go btime 317000 wtime 317000 binc 2000 winc 2000
+info time 0 depth -/1 nodes 31 score cp -3050 pv 7i6h
+info time 12 depth -/2 nodes 1427 score cp -5366 pv P*8h B*3a
+info time 57 depth -/3 nodes 4745 score cp -2756 pv 5h6h 8g8f 5g5h
+info time 1062 depth -/3 nodes 125699 score cp -2756 pv 5h6h 8g8f 5g5h
+bestmove 5h6h
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> position startpos moves 9g9f 4a3b 2h1h 6a5b 8g8f 3a4b 5i5h 7a7b 9f9e 3c3d 3g3f 4b3c 5h6h 5a4b 6h5h 4c4d 4i4h 8c8d 5g5f 8d8e 8h9g 8e8f 4h5g 8f8g+ 1g1f 8g9g 8i9g 8b8i+ 9g8e 8i8e 3i4h P*8f 4h5i 8f8g+ 5h6h 8g8h
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> go btime 318000 wtime 318000 binc 2000 winc 2000
+info time 0 depth -/1 nodes 29 score cp -1688 pv 6i7h
+info time 8 depth -/2 nodes 208 score cp -3783 pv 7i8h B*3a
+info time 27 depth -/3 nodes 1753 score cp -1654 pv 7i8h 8e9e 5g5h
+info time 1095 depth -/3 nodes 171671 score cp -1654 pv 7i8h 8e9e 5g5h
+bestmove 7i8h
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> position startpos moves 9g9f 4a3b 2h1h 6a5b 8g8f 3a4b 5i5h 7a7b 9f9e 3c3d 3g3f 4b3c 5h6h 5a4b 6h5h 4c4d 4i4h 8c8d 5g5f 8d8e 8h9g 8e8f 4h5g 8f8g+ 1g1f 8g9g 8i9g 8b8i+ 9g8e 8i8e 3i4h P*8f 4h5i 8f8g+ 5h6h 8g8h 7i8h 8e8h
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> go btime 319000 wtime 319000 binc 2000 winc 2000
+info time 0 depth -/1 nodes 29 score cp -1660 pv 5g5h
+info time 19 depth -/2 nodes 2786 score cp -3972 pv 6i7h B*3a
+info time 75 depth -/3 nodes 7753 score cp -1856 pv 2i1g 8h9i 5g5h
+info time 1004 depth -/3 nodes 261678 score cp -1856 pv 2i1g 8h9i 5g5h
+bestmove 2i1g
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> gameover lose
+
+図は 39手まで 対局者２の番
+ぞ1ね1う1
+     Ａ    Ｂ    Ｃ    Ｄ    Ｅ    Ｆ    Ｇ    Ｈ    Ｉ    
+  ┌──┬──┬──┬──┬──┬──┬──┬──┬──┐
+１│▽し│▽う│　　│　　│　　│　　│　　│▽う│▽し│
+  ├──┼──┼──┼──┼──┼──┼──┼──┼──┤
+２│　　│　　│▽ね│　　│▽い│▽ら│▽い│▽ぞ│　　│
+  ├──┼──┼──┼──┼──┼──┼──┼──┼──┤
+３│▽ひ│　　│▽ひ│▽ひ│▽ひ│　　│▽ね│▽ひ│▽ひ│
+  ├──┼──┼──┼──┼──┼──┼──┼──┼──┤
+４│　　│　　│　　│　　│　　│▽ひ│▽ひ│　　│　　│
+  ├──┼──┼──┼──┼──┼──┼──┼──┼──┤
+５│▲ひ│　　│　　│　　│　　│　　│　　│　　│　　│
+  ├──┼──┼──┼──┼──┼──┼──┼──┼──┤
+６│　　│　　│　　│　　│▲ひ│　　│▲ひ│　　│▲ひ│
+  ├──┼──┼──┼──┼──┼──┼──┼──┼──┤
+７│　　│　　│▲ひ│▲ひ│▲い│▲ひ│　　│▲ひ│▲う│
+  ├──┼──┼──┼──┼──┼──┼──┼──┼──┤
+８│　　│▽+K│　　│▲ら│　　│　　│　　│　　│▲き│
+  ├──┼──┼──┼──┼──┼──┼──┼──┼──┤
+９│▲し│　　│　　│▲い│▲ね│　　│　　│　　│▲し│
+  └──┴──┴──┴──┴──┴──┴──┴──┴──┘
+ひ2
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> quit
+usi
+id name Kifuwarakei 2.0.8
+id author Satoshi TAKAHASHI
+option name SikoJikan type spin default 500 min 100 max 10000000
+option name SikoJikanRandom type spin default 1000 min 0 max 10000000
+option name Comment type string default Jikan is milli seconds.
+usiok
+setoption name USI_Ponder value true
+> setoption name USI_Hash value 256
+> setoption name SikoJikan value 500
+> setoption name SikoJikanRandom value 1000
+> setoption name Comment value Jikan is milli seconds.
+> isready
+readyok
+> usinewgame
+USI9x9> # ９ｘ９本将棋 USI通信用
+USI9x9> 
+USI9x9> # 対局者はひとまず、コンピューターが走り出さないように止めておくんだぜ☆（＾～＾）
+USI9x9> set P1Com false
+USI9x9> set P2Com false
+USI9x9> 
+USI9x9> ky clear
+図は  0手まで 対局者１の番
+
+     Ａ    Ｂ    Ｃ    
+  ┌──┬──┬──┐
+１│　　│　　│　　│
+  ├──┼──┼──┤
+２│　　│　　│　　│
+  ├──┼──┼──┤
+３│　　│　　│　　│
+  ├──┼──┼──┤
+４│　　│　　│　　│
+  └──┴──┴──┘
+
+USI9x9> set BanYokoHaba 9
+USI9x9> set BanTateHaba 9
+USI9x9> 
+USI9x9> ky oku l 9a
+USI9x9> ky oku n 8a
+USI9x9> ky oku s 7a
+USI9x9> ky oku g 6a
+USI9x9> ky oku k 5a
+USI9x9> ky oku g 4a
+USI9x9> ky oku s 3a
+USI9x9> ky oku n 2a
+USI9x9> ky oku l 1a
+USI9x9> 
+USI9x9> ky oku r 8b
+USI9x9> ky oku b 2b
+USI9x9> 
+USI9x9> ky oku p 9c
+USI9x9> ky oku p 8c
+USI9x9> ky oku p 7c
+USI9x9> ky oku p 6c
+USI9x9> ky oku p 5c
+USI9x9> ky oku p 4c
+USI9x9> ky oku p 3c
+USI9x9> ky oku p 2c
+USI9x9> ky oku p 1c
+USI9x9> 
+USI9x9> ky oku P 9g
+USI9x9> ky oku P 8g
+USI9x9> ky oku P 7g
+USI9x9> ky oku P 6g
+USI9x9> ky oku P 5g
+USI9x9> ky oku P 4g
+USI9x9> ky oku P 3g
+USI9x9> ky oku P 2g
+USI9x9> ky oku P 1g
+USI9x9> 
+USI9x9> ky oku B 8h
+USI9x9> ky oku R 2h
+USI9x9> 
+USI9x9> ky oku L 9i
+USI9x9> ky oku N 8i
+USI9x9> ky oku S 7i
+USI9x9> ky oku G 6i
+USI9x9> ky oku K 5i
+USI9x9> ky oku G 4i
+USI9x9> ky oku S 3i
+USI9x9> ky oku N 2i
+USI9x9> ky oku L 1i
+USI9x9> 
+USI9x9> ky tekiyo
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> position startpos moves 7g7f
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> go btime 301000 wtime 300000 binc 2000 winc 2000
+info time 25 depth -/1 nodes 26 score cp 960 pv 7a6b
+info time 38 depth -/2 nodes 678 score cp -946 pv 5c5d 7i6h
+info time 72 depth -/3 nodes 3495 score cp 980 pv 5a6b 2g2f 4a5a
+info time 319 depth -/4 nodes 44040 score cp -688 pv 1c1d 5i6h 7a7b 2h3h
+info time 827 depth -/4 nodes 128156 score cp -688 pv 1c1d 5i6h 7a7b 2h3h
+bestmove 1c1d
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> position startpos moves 7g7f 1c1d 6i7h
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> go btime 302000 wtime 301000 binc 2000 winc 2000
+info time 0 depth -/1 nodes 28 score cp 956 pv 7a6b
+info time 9 depth -/2 nodes 581 score cp -700 pv 6a7b 5i6h
+info time 39 depth -/3 nodes 3980 score cp 1008 pv 8b7b 1i1h 5a6b
+info time 428 depth -/4 nodes 57625 score cp -418 pv 9c9d 8h7g 6a7b 7i8h
+info time 1488 depth -/4 nodes 231728 score cp -418 pv 9c9d 8h7g 6a7b 7i8h
+bestmove 9c9d
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> position startpos moves 7g7f 1c1d 6i7h 9c9d 5i6h
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> go btime 303000 wtime 302000 binc 2000 winc 2000
+info time 0 depth -/1 nodes 29 score cp 954 pv 7a6b
+info time 9 depth -/2 nodes 578 score cp -1018 pv 2b1c 8h7g
+info time 29 depth -/3 nodes 2493 score cp 992 pv 3a4b 1i1h 2b3a
+info time 338 depth -/4 nodes 49090 score cp -708 pv 8b7b 1i1h 2a1c 8i7g
+info time 899 depth -/4 nodes 148705 score cp -708 pv 8b7b 1i1h 2a1c 8i7g
+bestmove 8b7b
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> position startpos moves 7g7f 1c1d 6i7h 9c9d 5i6h 8b7b 4i5h
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> go btime 304000 wtime 303000 binc 2000 winc 2000
+info time 0 depth -/1 nodes 28 score cp 1006 pv 5a6b
+info time 11 depth -/2 nodes 700 score cp -1324 pv 2a1c 8h7g
+info time 34 depth -/3 nodes 2957 score cp 1010 pv 3a4b 1i1h 2b3a
+info time 290 depth -/4 nodes 44436 score cp -1324 pv 7b6b 8h7g 6a7b 8g8f
+info time 1226 depth -/4 nodes 180978 score cp -1324 pv 7b6b 8h7g 6a7b 8g8f
+bestmove 7b6b
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> position startpos moves 7g7f 1c1d 6i7h 9c9d 5i6h 8b7b 4i5h 7b6b 3i3h
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> go btime 305000 wtime 304000 binc 2000 winc 2000
+info time 0 depth -/1 nodes 27 score cp 1006 pv 5a5b
+info time 14 depth -/2 nodes 621 score cp -1316 pv 2a1c 8h7g
+info time 42 depth -/3 nodes 2460 score cp 1282 pv 6b5b 8h7g 3a4b
+info time 297 depth -/4 nodes 32681 score cp -1310 pv 1d1e 8h7g 4a4b 5h5i
+info time 987 depth -/4 nodes 153317 score cp -1310 pv 1d1e 8h7g 4a4b 5h5i
+bestmove 1d1e
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> position startpos moves 7g7f 1c1d 6i7h 9c9d 5i6h 8b7b 4i5h 7b6b 3i3h 1d1e 6h7g
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> go btime 306000 wtime 305000 binc 2000 winc 2000
+info time 0 depth -/1 nodes 27 score cp 1006 pv 5a5b
+info time 9 depth -/2 nodes 442 score cp -1300 pv 8c8d 7i6h
+info time 33 depth -/3 nodes 3452 score cp 1008 pv 6b5b 4g4f 7a7b
+info time 329 depth -/4 nodes 39275 score cp -1020 pv 5c5d 1i1h 6a5b 6g6f
+info time 1420 depth -/4 nodes 231243 score cp -1020 pv 5c5d 1i1h 6a5b 6g6f
+bestmove 5c5d
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> position startpos moves 7g7f 1c1d 6i7h 9c9d 5i6h 8b7b 4i5h 7b6b 3i3h 1d1e 6h7g 5c5d 7i6h
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> go btime 307000 wtime 306000 binc 2000 winc 2000
+info time 0 depth -/1 nodes 27 score cp 1004 pv 5a5b
+info time 8 depth -/2 nodes 433 score cp -1304 pv 2b1c 1i1h
+info time 33 depth -/3 nodes 3210 score cp 1008 pv 5a5b 6h5i 4a4b
+info time 331 depth -/4 nodes 41160 score cp -1296 pv 9d9e 5h5i 2a1c 5i4i
+info time 652 depth -/4 nodes 95628 score cp -1296 pv 9d9e 5h5i 2a1c 5i4i
+bestmove 9d9e
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> position startpos moves 7g7f 1c1d 6i7h 9c9d 5i6h 8b7b 4i5h 7b6b 3i3h 1d1e 6h7g 5c5d 7i6h 9d9e 8h7i
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> go btime 308000 wtime 307000 binc 2000 winc 2000
+info time 0 depth -/1 nodes 27 score cp 1004 pv 5a5b
+info time 9 depth -/2 nodes 497 score cp -1014 pv 3c3d 2h1h
+info time 28 depth -/3 nodes 2482 score cp 1276 pv 6b5b 1g1f 3a4b
+info time 340 depth -/4 nodes 44552 score cp -1004 pv 3c3d 9i9h 2a3c 1i1h
+info time 1194 depth -/4 nodes 172704 score cp -1004 pv 3c3d 9i9h 2a3c 1i1h
+bestmove 3c3d
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> position startpos moves 7g7f 1c1d 6i7h 9c9d 5i6h 8b7b 4i5h 7b6b 3i3h 1d1e 6h7g 5c5d 7i6h 9d9e 8h7i 3c3d 6g6f
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> go btime 309000 wtime 308000 binc 2000 winc 2000
+info time 0 depth -/1 nodes 29 score cp 1000 pv 5a5b
+info time 10 depth -/2 nodes 688 score cp -1294 pv 1a1b 7i8h
+info time 34 depth -/3 nodes 3606 score cp 1272 pv 6b5b 6h5i 3a4b
+info time 422 depth -/4 nodes 50991 score cp -994 pv 4c4d 8g8f 4a3b 1i1h
+info time 1439 depth -/4 nodes 197622 score cp -994 pv 4c4d 8g8f 4a3b 1i1h
+bestmove 4c4d
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> position startpos moves 7g7f 1c1d 6i7h 9c9d 5i6h 8b7b 4i5h 7b6b 3i3h 1d1e 6h7g 5c5d 7i6h 9d9e 8h7i 3c3d 6g6f 4c4d 7g8h
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> go btime 310000 wtime 309000 binc 2000 winc 2000
+info time 0 depth -/1 nodes 29 score cp 998 pv 5a5b
+info time 9 depth -/2 nodes 754 score cp -992 pv 9e9f 6h7g
+info time 35 depth -/3 nodes 3987 score cp 1268 pv 6b5b 9g9f 3a4b
+info time 320 depth -/4 nodes 42848 score cp -728 pv 7a8b 2h1h 4a5b 5g5f
+info time 1211 depth -/4 nodes 187239 score cp -728 pv 7a8b 2h1h 4a5b 5g5f
+bestmove 7a8b
+指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> 
