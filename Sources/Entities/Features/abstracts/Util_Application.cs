@@ -100,11 +100,6 @@ namespace kifuwarabe_wcsc27.abstracts
         {
             return ky.Kekka;
         }
-        public static void DoMove(bool isSfen, Move ss, Kyokumen ky, Mojiretu syuturyoku)
-        {
-            Nanteme konoTeme = new Nanteme();// 使いまわさないだろう☆（＾～＾）ここで作ってしまおう☆
-            ky.DoMove(isSfen, ss, MoveType.N00_Karappo, ref konoTeme, ky.Teban, syuturyoku);
-        }
         public static bool ParseDoMove( Kyokumen ky, out Move out_sasite)
         {
             // コンソールからのキー入力を解析するぜ☆（＾▽＾）

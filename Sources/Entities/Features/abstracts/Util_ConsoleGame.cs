@@ -11,15 +11,6 @@ namespace kifuwarabe_wcsc27.abstracts
     /// </summary>
     public abstract class Util_ConsoleGame
     {
-        /// <summary>
-        /// メインループ開始時☆（＾▽＾）
-        /// </summary>
-        public static void Begin_Mainloop(Mojiretu syuturyoku)
-        {
-            Util_Commandline.InitCommandline();// コマンド・ライン初期化☆
-            Util_Commandline.ReadCommandBuffer(syuturyoku);// コマンド・バッファー読取り☆
-        }
-
 #if UNITY && !KAIHATU
         // Unityのリリース・モードではコマンドライン読取りはしないぜ☆（＾▽＾）
 #else

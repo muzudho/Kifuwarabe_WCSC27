@@ -79,7 +79,9 @@
                 //────────────────────────────────────────
                 // （手順２）ユーザー入力
                 //────────────────────────────────────────
-                Util_ConsoleGame.Begin_Mainloop(syuturyoku);
+                Util_Commandline.InitCommandline();// コマンド・ライン初期化☆
+                Util_Commandline.ReadCommandBuffer(syuturyoku);// コマンド・バッファー読取り☆
+
 #if UNITY && !KAIHATU
                 // Unityの本番モードでは、コマンド・バッファーは使わないものとするぜ☆（＾～＾）
                 if(null!= commandline)
@@ -155,7 +157,11 @@
                         else
                         {
                             // do コマンドを実行するぜ☆（＾▽＾）
-                            Util_Application.DoMove(Option_Application.Optionlist.USI, inputSasite, ky, syuturyoku);// １手指す☆！（＾▽＾）
+                            // １手指す☆！（＾▽＾）
+                            Nanteme konoTeme = new Nanteme();// 使いまわさないだろう☆（＾～＾）ここで作ってしまおう☆
+                            ky.DoMove(Option_Application.Optionlist.USI, inputSasite, MoveType.N00_Karappo, ref konoTeme, ky.Teban, syuturyoku);
+
+
                             Util_Application.JudgeKettyaku(inputSasite, ky);// 勝敗判定☆（＾▽＾）
 
                             // 局面出力
