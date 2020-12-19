@@ -1,2 +1,0 @@
-set BanYokoHaba 9
-set BanTateHaba 9
