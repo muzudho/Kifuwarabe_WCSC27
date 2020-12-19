@@ -1,4 +1,5 @@
-﻿using Grayscale.Kifuwarakei.Entities.Logging;
+﻿using Grayscale.Kifuwarakei.Entities;
+using Grayscale.Kifuwarakei.Entities.Logging;
 using kifuwarabe_wcsc27.facade;
 using kifuwarabe_wcsc27.implements;
 using kifuwarabe_wcsc27.interfaces;
@@ -155,9 +156,9 @@ namespace kifuwarabe_wcsc27.abstracts
             ky.Hyoka( out out_hyokatiUtiwake, riyu, randomNaKyokumen);
         }
 
-        public static Move Go(Kyokumen ky, out HyokatiUtiwake out_hyokatiUtiwake, Util_Tansaku.Dlgt_CreateJoho dlgt_CreateJoho, Mojiretu syuturyoku)
+        public static Move Go(IPlaying playing, Kyokumen ky, out HyokatiUtiwake out_hyokatiUtiwake, Util_Tansaku.Dlgt_CreateJoho dlgt_CreateJoho, Mojiretu syuturyoku)
         {
-            Move move = Util_Tansaku.Go(Option_Application.Optionlist.USI, ky, out out_hyokatiUtiwake, out bool isJosekiTraced, dlgt_CreateJoho, syuturyoku);
+            Move move = Util_Tansaku.Go(playing,Option_Application.Optionlist.USI, ky, out out_hyokatiUtiwake, out bool isJosekiTraced, dlgt_CreateJoho, syuturyoku);
 #if !UNITY
             Util_ConsoleGame.IsJosekiTraced = isJosekiTraced;
 #endif
@@ -1012,7 +1013,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// <summary>
         /// 対局終了
         /// </summary>
-        public static void DoTejun5_SyuryoTaikyoku1( Kyokumen ky, Mojiretu syuturyoku )
+        public static void DoTejun5_SyuryoTaikyoku1(IPlaying playing, Kyokumen ky, Mojiretu syuturyoku )
         {
             // 表示（コンソール・ゲーム用）
             {
@@ -1068,7 +1069,7 @@ namespace kifuwarabe_wcsc27.abstracts
             Util_Application.ResetHirate(Option_Application.Optionlist.USI, ky, syuturyoku);
             if (Option_Application.Optionlist.RandomStart)
             {
-                Util_Commands.Ky(Option_Application.Optionlist.USI, "ky mazeru", ky, syuturyoku);
+                playing.Ky(Option_Application.Optionlist.USI, "ky mazeru", ky, syuturyoku);
             }
 
             if (Option_Application.Optionlist.RandomStartTaikyokusya)

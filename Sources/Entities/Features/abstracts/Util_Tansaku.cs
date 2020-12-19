@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Collections.Generic;
 using kifuwarabe_wcsc27.machine;
 using kifuwarabe_wcsc27.facade;
+using Grayscale.Kifuwarakei.Entities;
 
 namespace kifuwarabe_wcsc27.abstracts
 {
@@ -137,7 +138,9 @@ namespace kifuwarabe_wcsc27.abstracts
         /// 最善手は yomisuji[0] に入っているぜ☆（＾▽＾）
         /// </summary>
         /// <returns></returns>
-        public static Move Go(bool isSfen, Kyokumen ky, out HyokatiUtiwake out_kakutei_hyokatiUtiwake, out bool out_isJosekiNoTouri, Util_Tansaku.Dlgt_CreateJoho dlgt_CreateJoho, Mojiretu syuturyoku)
+        public static Move Go(
+            IPlaying playing,
+            bool isSfen, Kyokumen ky, out HyokatiUtiwake out_kakutei_hyokatiUtiwake, out bool out_isJosekiNoTouri, Util_Tansaku.Dlgt_CreateJoho dlgt_CreateJoho, Mojiretu syuturyoku)
         {
 #if DEBUG
             TansakuSyuryoRiyu tansakuSyuryoRiyu = TansakuSyuryoRiyu.Kaisi;
@@ -365,7 +368,9 @@ namespace kifuwarabe_wcsc27.abstracts
 
 
 
-                        Util_Tansaku.TansakuKaisi_(isSfen,ky,
+                        Util_Tansaku.TansakuKaisi_(
+                            playing,
+                            isSfen, ky,
                             alpha,// プラス・マイナスはそのままで☆
                             beta,
                             // 反復探索の１週目は 1、２周目は 2 と、だんだん初期値は増えていくぜ☆（＾▽＾）
@@ -579,7 +584,9 @@ namespace kifuwarabe_wcsc27.abstracts
                 else
                 {
                     // 反復深化探索を使わない場合☆
-                    Util_Tansaku.TansakuKaisi_(isSfen,
+                    Util_Tansaku.TansakuKaisi_(
+                        playing,
+                        isSfen,
                         ky,
                         Hyokati.TumeTesu_GohosyuNasi,// 合法手が無かった場合、この点数になるぜ☆（＾～＾）
                         Hyokati.TumeTesu_SeiNoSu_ReiTeDume,
@@ -738,7 +745,9 @@ namespace kifuwarabe_wcsc27.abstracts
         /// <param name="fukasa">カウントダウン式の数字☆（＾▽＾） 反復深化探索の１週目は 1、２週目は 2 だぜ☆（＾▽＾）</param>
         /// <param name="yomisuji"></param>
         /// <returns></returns>
-        private static void TansakuKaisi_(bool isSfen,Kyokumen ky, Hyokati alpha, Hyokati beta,
+        private static void TansakuKaisi_(
+            IPlaying playing,
+            bool isSfen,Kyokumen ky, Hyokati alpha, Hyokati beta,
             int fukasa,
             out Yomisuji out_yomisuji_orNull,
             out HyokatiUtiwake out_hyokatiUtiwake,
@@ -752,7 +761,9 @@ namespace kifuwarabe_wcsc27.abstracts
             Util_Tansaku.BadUtikiri = false;
             Option_Application.Optionlist.SetSikoJikan_KonkaiNoTansaku();//思考時間（ランダム込み）を確定させるぜ☆（＾～＾）
 
-            Util_Tansaku.Tansaku_(isSfen, ky,
+            Util_Tansaku.Tansaku_(
+                playing,
+                isSfen, ky,
                 alpha,//プラス・マイナスはそのままで☆
                 beta,
                 fukasa,
@@ -780,7 +791,9 @@ namespace kifuwarabe_wcsc27.abstracts
         /// <param name="out_edaBest_____Riyu_JohoNoTame">内訳の目視確認用に使うだけの項目。</param>
         /// <param name="dlgt_CreateJoho"></param>
         /// <returns></returns>
-        private static void Tansaku_(bool isSfen, Kyokumen ky,
+        private static void Tansaku_(
+            IPlaying playing,
+            bool isSfen, Kyokumen ky,
             Hyokati alpha,
             Hyokati beta,
             int fukasa,
@@ -906,7 +919,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 {
                     // 駒を取る手が　葉っぱ　に来たときは、ＳＥＥ（Static Exchange Evaluation）をやりたいぜ☆
                     // おいしさ：この手を指したときに確定している手番の得だぜ☆（＾▽＾）
-                    Hyokati oisisa = ky.SEE(isSfen, ConvMove.GetDstMasu_WithoutErrorCheck((int)eranda_sasite),
+                    Hyokati oisisa = ky.SEE(playing, isSfen, ConvMove.GetDstMasu_WithoutErrorCheck((int)eranda_sasite),
                         Util_Machine.KarappoSyuturyoku
                         );
 
@@ -1291,7 +1304,9 @@ namespace kifuwarabe_wcsc27.abstracts
                 // 探索者がプラスでスタートして、
                 // 探索者の反対側はマイナスになり、
                 // 探索者の反対側の反対側はプラスに戻るぜ☆（＾▽＾）
-                Tansaku_(isSfen,
+                Tansaku_(
+                    playing,
+                    isSfen,
                     ky,
                     (Hyokati)(-(int)beta),
                     (Hyokati)(-(int)alpha),// ここはアルファ☆（葉っぱからの最大値）

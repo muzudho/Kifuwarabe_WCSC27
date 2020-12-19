@@ -48,17 +48,17 @@ namespace kifuwarabe_wcsc27.abstracts
                     int oldSaidaiFukasa = Option_Application.Optionlist.SaidaiFukasa;
                     Option_Application.Optionlist.SaidaiFukasa = 1; // ログが出過ぎないように1手読みにするぜ☆
                     int count;
-                    Util_Commands.Do(isSfen, "do c4c3", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT == count) { fail = 1; goto gt_EndUnittestSennitite1a; }//1回目
-                    Util_Commands.Do(isSfen, "do a1a2", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT == count) { fail = 2; goto gt_EndUnittestSennitite1a; }
-                    Util_Commands.Do(isSfen, "do c3c4", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT == count) { fail = 3; goto gt_EndUnittestSennitite1a; }
-                    Util_Commands.Do(isSfen, "do a2a1", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT == count) { fail = 4; goto gt_EndUnittestSennitite1a; }
+                    playing.Do(isSfen, "do c4c3", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT == count) { fail = 1; goto gt_EndUnittestSennitite1a; }//1回目
+                    playing.Do(isSfen, "do a1a2", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT == count) { fail = 2; goto gt_EndUnittestSennitite1a; }
+                    playing.Do(isSfen, "do c3c4", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT == count) { fail = 3; goto gt_EndUnittestSennitite1a; }
+                    playing.Do(isSfen, "do a2a1", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT == count) { fail = 4; goto gt_EndUnittestSennitite1a; }
 
-                    Util_Commands.Do(isSfen, "do c4c3", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT == count) { fail = 5; goto gt_EndUnittestSennitite1a; }//2回目
-                    Util_Commands.Do(isSfen, "do a1a2", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT == count) { fail = 6; goto gt_EndUnittestSennitite1a; }
-                    Util_Commands.Do(isSfen, "do c3c4", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT == count) { fail = 7; goto gt_EndUnittestSennitite1a; }
-                    Util_Commands.Do(isSfen, "do a2a1", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT == count) { fail = 8; goto gt_EndUnittestSennitite1a; }
+                    playing.Do(isSfen, "do c4c3", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT == count) { fail = 5; goto gt_EndUnittestSennitite1a; }//2回目
+                    playing.Do(isSfen, "do a1a2", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT == count) { fail = 6; goto gt_EndUnittestSennitite1a; }
+                    playing.Do(isSfen, "do c3c4", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT == count) { fail = 7; goto gt_EndUnittestSennitite1a; }
+                    playing.Do(isSfen, "do a2a1", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT == count) { fail = 8; goto gt_EndUnittestSennitite1a; }
 
-                    Util_Commands.Do(isSfen, "do c4c3", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT != count) { fail = 9; goto gt_EndUnittestSennitite1a; }//3回目 千日手☆（＾▽＾）
+                    playing.Do(isSfen, "do c4c3", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT != count) { fail = 9; goto gt_EndUnittestSennitite1a; }//3回目 千日手☆（＾▽＾）
 
                     gt_EndUnittestSennitite1a:
                     Option_Application.Optionlist.SaidaiFukasa = oldSaidaiFukasa;//設定を元に戻しておくぜ☆
@@ -91,19 +91,19 @@ namespace kifuwarabe_wcsc27.abstracts
                     int oldSaidaiFukasa = Option_Application.Optionlist.SaidaiFukasa;
                     Option_Application.Optionlist.SaidaiFukasa = 1; // ログが出過ぎないように1手読みにするぜ☆
                     int count;
-                    Util_Commands.Do(isSfen, "do c4c3", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT == count) { fail = 1; goto gt_EndUnittestSennitite1b; }// 同一局面から外れた手
+                    playing.Do(isSfen, "do c4c3", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT == count) { fail = 1; goto gt_EndUnittestSennitite1b; }// 同一局面から外れた手
 
-                    Util_Commands.Do(isSfen, "do K*a2", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT == count) { fail = 2; goto gt_EndUnittestSennitite1b; }// 1回目（きりん打）
-                    Util_Commands.Do(isSfen, "do c3c4", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT == count) { fail = 3; goto gt_EndUnittestSennitite1b; }
-                    Util_Commands.Do(isSfen, "do a2a1", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT == count) { fail = 4; goto gt_EndUnittestSennitite1b; }
-                    Util_Commands.Do(isSfen, "do c4c3", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT == count) { fail = 5; goto gt_EndUnittestSennitite1b; }
+                    playing.Do(isSfen, "do K*a2", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT == count) { fail = 2; goto gt_EndUnittestSennitite1b; }// 1回目（きりん打）
+                    playing.Do(isSfen, "do c3c4", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT == count) { fail = 3; goto gt_EndUnittestSennitite1b; }
+                    playing.Do(isSfen, "do a2a1", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT == count) { fail = 4; goto gt_EndUnittestSennitite1b; }
+                    playing.Do(isSfen, "do c4c3", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT == count) { fail = 5; goto gt_EndUnittestSennitite1b; }
 
-                    Util_Commands.Do(isSfen, "do a1a2", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT == count) { fail = 6; goto gt_EndUnittestSennitite1b; }// 2回目（きりん指し）
-                    Util_Commands.Do(isSfen, "do c3c4", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT == count) { fail = 7; goto gt_EndUnittestSennitite1b; }
-                    Util_Commands.Do(isSfen, "do a2a1", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT == count) { fail = 8; goto gt_EndUnittestSennitite1b; }
-                    Util_Commands.Do(isSfen, "do c4c3", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT == count) { fail = 9; goto gt_EndUnittestSennitite1b; }
+                    playing.Do(isSfen, "do a1a2", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT == count) { fail = 6; goto gt_EndUnittestSennitite1b; }// 2回目（きりん指し）
+                    playing.Do(isSfen, "do c3c4", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT == count) { fail = 7; goto gt_EndUnittestSennitite1b; }
+                    playing.Do(isSfen, "do a2a1", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT == count) { fail = 8; goto gt_EndUnittestSennitite1b; }
+                    playing.Do(isSfen, "do c4c3", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT == count) { fail = 9; goto gt_EndUnittestSennitite1b; }
 
-                    Util_Commands.Do(isSfen, "do a1a2", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT != count) { fail = 10; goto gt_EndUnittestSennitite1b; }//3回目 千日手☆（＾▽＾）
+                    playing.Do(isSfen, "do a1a2", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT != count) { fail = 10; goto gt_EndUnittestSennitite1b; }//3回目 千日手☆（＾▽＾）
 
                     gt_EndUnittestSennitite1b:
                     Option_Application.Optionlist.SaidaiFukasa = oldSaidaiFukasa;//設定を元に戻しておくぜ☆
@@ -136,16 +136,16 @@ namespace kifuwarabe_wcsc27.abstracts
                     int oldSaidaiFukasa = Option_Application.Optionlist.SaidaiFukasa;
                     Option_Application.Optionlist.SaidaiFukasa = 1; // ログが出過ぎないように1手読みにするぜ☆
                     mojiretu1.AppendLine("# 1回目");
-                    Util_Commands.Do(isSfen, "do c4c3", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do a1a2", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do c3c4", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do a2a1", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do c4c3", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do a1a2", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do c3c4", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do a2a1", ky, mode, mojiretu1);
 
                     mojiretu1.AppendLine("# 2回目");
-                    Util_Commands.Do(isSfen, "do c4c3", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do a1a2", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do c3c4", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do a2a1", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do c4c3", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do a1a2", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do c3c4", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do a2a1", ky, mode, mojiretu1);
 
                     mojiretu1.AppendLine("# 次に千日手を回避するかだぜ☆（＾▽＾）");
                     playing.Go(isSfen, mode, ky, mojiretu1);
@@ -184,19 +184,19 @@ namespace kifuwarabe_wcsc27.abstracts
                     Option_Application.Optionlist.SaidaiFukasa = 1; // ログが出過ぎないように1手読みにするぜ☆
 
                     mojiretu1.AppendLine("# 同一局面から外れた手");
-                    Util_Commands.Do(isSfen, "do c4c3", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do c4c3", ky, mode, mojiretu1);
 
                     mojiretu1.AppendLine("# 1回目（きりん打）");
-                    Util_Commands.Do(isSfen, "do K*a2", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do c3c4", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do a2a1", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do c4c3", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do K*a2", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do c3c4", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do a2a1", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do c4c3", ky, mode, mojiretu1);
 
                     mojiretu1.AppendLine("# 2回目（きりん指し）");
-                    Util_Commands.Do(isSfen, "do a1a2", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do c3c4", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do a2a1", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do c4c3", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do a1a2", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do c3c4", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do a2a1", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do c4c3", ky, mode, mojiretu1);
 
                     mojiretu1.AppendLine("# 次に千日手を回避するか、指させるぜ☆（＾▽＾）ｗｗ");
                     playing.Go(isSfen, mode, ky, mojiretu1);
@@ -233,14 +233,14 @@ namespace kifuwarabe_wcsc27.abstracts
                     ky.Tekiyo(true, syuturyoku);
                     int oldSaidaiFukasa = Option_Application.Optionlist.SaidaiFukasa;
                     Option_Application.Optionlist.SaidaiFukasa = 1; // ログが出過ぎないように1手読みにするぜ☆
-                    Util_Commands.Do(isSfen, "do c4c3", ky, mode, mojiretu1); //1回目
-                    Util_Commands.Do(isSfen, "do a1a2", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do c3c4", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do a2a1", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do c4c3", ky, mode, mojiretu1); //1回目
+                    playing.Do(isSfen, "do a1a2", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do c3c4", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do a2a1", ky, mode, mojiretu1);
 
-                    Util_Commands.Do(isSfen, "do c4c3", ky, mode, mojiretu1); //2回目
-                    Util_Commands.Do(isSfen, "do a1a2", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do c3c4", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do c4c3", ky, mode, mojiretu1); //2回目
+                    playing.Do(isSfen, "do a1a2", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do c3c4", ky, mode, mojiretu1);
 
                     // 次に千日手の権利を渡すのを回避するかだぜ☆（＾▽＾）
                     playing.Go(isSfen, mode, ky, mojiretu1);
@@ -277,16 +277,16 @@ namespace kifuwarabe_wcsc27.abstracts
                     ky.Tekiyo(true, syuturyoku);
                     int oldSaidaiFukasa = Option_Application.Optionlist.SaidaiFukasa;
                     Option_Application.Optionlist.SaidaiFukasa = 1; // ログが出過ぎないように1手読みにするぜ☆
-                    Util_Commands.Do(isSfen, "do c4c3", ky, mode, mojiretu1); // 同一局面から外れた手
+                    playing.Do(isSfen, "do c4c3", ky, mode, mojiretu1); // 同一局面から外れた手
 
-                    Util_Commands.Do(isSfen, "do K*a2", ky, mode, mojiretu1); // 1回目（きりん打）
-                    Util_Commands.Do(isSfen, "do c3c4", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do a2a1", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do c4c3", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do K*a2", ky, mode, mojiretu1); // 1回目（きりん打）
+                    playing.Do(isSfen, "do c3c4", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do a2a1", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do c4c3", ky, mode, mojiretu1);
 
-                    Util_Commands.Do(isSfen, "do a1a2", ky, mode, mojiretu1); // 2回目（きりん指し）
-                    Util_Commands.Do(isSfen, "do c3c4", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do a2a1", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do a1a2", ky, mode, mojiretu1); // 2回目（きりん指し）
+                    playing.Do(isSfen, "do c3c4", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do a2a1", ky, mode, mojiretu1);
 
                     // 次に千日手の権利を渡すのを回避するかだぜ☆（＾▽＾）
                     playing.Go(isSfen, mode, ky, mojiretu1);
@@ -324,15 +324,15 @@ namespace kifuwarabe_wcsc27.abstracts
                     int oldSaidaiFukasa = Option_Application.Optionlist.SaidaiFukasa;
                     Option_Application.Optionlist.SaidaiFukasa = 1; // ログが出過ぎないように1手読みにするぜ☆
 
-                    Util_Commands.Do(isSfen, "do c4c3", ky, mode, mojiretu1); //1回目
-                    Util_Commands.Do(isSfen, "do a1a2", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do c3c4", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do a2a1", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do c4c3", ky, mode, mojiretu1); //1回目
+                    playing.Do(isSfen, "do a1a2", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do c3c4", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do a2a1", ky, mode, mojiretu1);
 
-                    Util_Commands.Do(isSfen, "do c4c3", ky, mode, mojiretu1); //2回目
-                    Util_Commands.Do(isSfen, "do a1a2", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do c3c4", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do a2a1", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do c4c3", ky, mode, mojiretu1); //2回目
+                    playing.Do(isSfen, "do a1a2", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do c3c4", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do a2a1", ky, mode, mojiretu1);
 
                     // 次に千日手を受け入れるかだぜ☆（＾▽＾）
                     playing.Go(isSfen, mode, ky, mojiretu1);
@@ -372,19 +372,19 @@ namespace kifuwarabe_wcsc27.abstracts
                     Option_Application.Optionlist.SaidaiFukasa = 1; // ログが出過ぎないように1手読みにするぜ☆
 
                     mojiretu1.AppendLine("# 同一局面から外れた手");
-                    Util_Commands.Do(isSfen, "do c4c3", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do c4c3", ky, mode, mojiretu1);
 
                     mojiretu1.AppendLine("# 1回目（きりん打）");
-                    Util_Commands.Do(isSfen, "do K*a2", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do c3c4", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do a2a1", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do c4c3", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do K*a2", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do c3c4", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do a2a1", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do c4c3", ky, mode, mojiretu1);
 
                     mojiretu1.AppendLine("# 2回目（きりん指し）");
-                    Util_Commands.Do(isSfen, "do a1a2", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do c3c4", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do a2a1", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do c4c3", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do a1a2", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do c3c4", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do a2a1", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do c4c3", ky, mode, mojiretu1);
 
                     mojiretu1.AppendLine("# 次に　きりん　を上げて、千日手を受け入れるかだぜ☆（＾▽＾）");
                     Util_Commands.MoveCmd(isSfen, "move seisei", ky, mojiretu1);
@@ -425,15 +425,15 @@ namespace kifuwarabe_wcsc27.abstracts
                     Option_Application.Optionlist.SaidaiFukasa = 2; // 相手に千日手の手番を回したいので、2手読み以上にする必要があるぜ☆（＾▽＾）
 
                     mojiretu1.AppendLine("# 1回目");
-                    Util_Commands.Do(isSfen, "do c4c3", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do a1a2", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do c3c4", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do a2a1", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do c4c3", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do a1a2", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do c3c4", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do a2a1", ky, mode, mojiretu1);
 
                     mojiretu1.AppendLine("# 2回目");
-                    Util_Commands.Do(isSfen, "do c4c3", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do a1a2", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do c3c4", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do c4c3", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do a1a2", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do c3c4", ky, mode, mojiretu1);
 
                     mojiretu1.AppendLine("# ↓次の手に注目だぜ☆　対局者２は　きりん　を引いて、千日手の権利を相手に渡すかだぜ☆（＾▽＾）");
                     playing.Go(isSfen, mode, ky, mojiretu1);// do a2a1 とやることを期待☆
@@ -481,18 +481,18 @@ namespace kifuwarabe_wcsc27.abstracts
                     Option_Application.Optionlist.SaidaiFukasa = 2; // 相手に千日手の手番を回したいので、2手読み以上にする必要があるぜ☆（＾▽＾）
 
                     mojiretu1.AppendLine("# 同一局面から外れた手");
-                    Util_Commands.Do(isSfen, "do c4c3", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do c4c3", ky, mode, mojiretu1);
 
                     mojiretu1.AppendLine("# 1回目（きりん打）");
-                    Util_Commands.Do(isSfen, "do K*a2", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do c3c4", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do a2a1", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do c4c3", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do K*a2", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do c3c4", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do a2a1", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do c4c3", ky, mode, mojiretu1);
 
                     mojiretu1.AppendLine("# 2回目（きりん指し）");
-                    Util_Commands.Do(isSfen, "do a1a2", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do c3c4", ky, mode, mojiretu1);
-                    Util_Commands.Do(isSfen, "do a2a1", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do a1a2", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do c3c4", ky, mode, mojiretu1);
+                    playing.Do(isSfen, "do a2a1", ky, mode, mojiretu1);
 
                     mojiretu1.AppendLine("# ↓次の手に注目だぜ☆　対局者１は　きりん　を上げて、千日手の権利を相手に渡すかだぜ☆（＾▽＾）");
                     playing.Go(isSfen, mode, ky, mojiretu1);// do c4c3 とやることを期待☆

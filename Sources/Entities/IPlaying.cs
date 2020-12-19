@@ -9,5 +9,8 @@
         void Atmark(string commandline);
         void UsiOk(string engineName, string engineAuthor, Mojiretu syuturyoku);
         void Go(bool isSfen, CommandMode mode, Kyokumen ky, Mojiretu syuturyoku);
+
+        void Do(bool isSfen, string commandline, Kyokumen ky, CommandMode commandMode, Mojiretu syuturyoku);
+        void Ky(bool isSfen, string commandline, Kyokumen ky, Mojiretu syuturyoku);
     }
 }

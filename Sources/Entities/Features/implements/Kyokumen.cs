@@ -1,5 +1,6 @@
 ﻿#define WCSC27
 
+using Grayscale.Kifuwarakei.Entities;
 using kifuwarabe_wcsc27.abstracts;
 using kifuwarabe_wcsc27.interfaces;
 using kifuwarabe_wcsc27.machine;
@@ -2312,7 +2313,7 @@ namespace kifuwarabe_wcsc27.implements
         /// 
         /// 第２引数は、動作確認用だぜ☆（＾～＾）使わないならヌルにしろだぜ☆
         /// </summary>
-        public Hyokati SEE(bool isSfen, Masu ms, Mojiretu syuturyokuTestYo_orKarappo)
+        public Hyokati SEE(IPlaying playing, bool isSfen, Masu ms, Mojiretu syuturyokuTestYo_orKarappo)
         {
             // おいしさ☆ その駒を取ったときの確定している損得だぜ☆（＾▽＾） マイナスなら取ってはいけないぜ☆（＾▽＾）ｗｗｗ
             Hyokati oisisa = Hyokati.Hyokati_Rei; // 取り返されることが無かった場合は、0 を返すぜ☆（＾▽＾）
@@ -2370,7 +2371,7 @@ namespace kifuwarabe_wcsc27.implements
                     else
                     {
                         // ここで再帰☆
-                        oisisa = this.SEE(isSfen, ms, syuturyokuTestYo_orKarappo);
+                        oisisa = this.SEE(playing, isSfen, ms, syuturyokuTestYo_orKarappo);
 
                         if (oisisa < 0)
                         {
@@ -2402,7 +2403,7 @@ namespace kifuwarabe_wcsc27.implements
                     if (syuturyokuTestYo_orKarappo.IsHataraku)
                     {
                         // 後ろから遡るように表示されると思うが、そういう仕組みなので仕方ないだろう☆（＾～＾）
-                        Util_Commands.Ky(isSfen, "ky", this, syuturyokuTestYo_orKarappo);//デバッグ用☆
+                        playing.Ky(isSfen, "ky", this, syuturyokuTestYo_orKarappo);//デバッグ用☆
                         syuturyokuTestYo_orKarappo.Append("SEE>tottaKomaHyokati = ");
                         syuturyokuTestYo_orKarappo.AppendLine(((int)tottaKomaHyokati).ToString());
                         syuturyokuTestYo_orKarappo.Append("SEE>SEE = ");
