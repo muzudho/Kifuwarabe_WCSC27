@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using Grayscale.Kifuwarakei.Entities;
 using kifuwarabe_wcsc27.facade;
 using kifuwarabe_wcsc27.implements;
 using kifuwarabe_wcsc27.interfaces;
@@ -16,123 +17,6 @@ namespace kifuwarabe_wcsc27.abstracts
     /// </summary>
     public abstract class Util_Commands
     {
-        /// <summary>
-        /// ビットボードのテスト用だぜ☆（*＾～＾*）
-        /// </summary>
-        /// <param name="commandline"></param>
-        public static void Bitboard(string commandline, Kyokumen ky, Mojiretu syuturyoku)
-        {
-            #region bitboard
-            if (commandline == "bitboard")
-            {
-                // ビットボード表示☆
-
-                // 筋
-                {
-                    for (int iSuji = 0; iSuji < Option_Application.Optionlist.BanYokoHaba; iSuji++)
-                    {
-                        Util_Information.Setumei_1Bitboard("筋" + iSuji, ky.BB_SujiArray[iSuji], syuturyoku);
-                    }
-                    syuturyoku.AppendLine();
-                }
-                // 段
-                {
-                    for (int iDan=0; iDan<Option_Application.Optionlist.BanTateHaba; iDan++)
-                    {
-                        Util_Information.Setumei_1Bitboard("段"+iDan, ky.BB_DanArray[iDan], syuturyoku);
-                    }
-                    syuturyoku.AppendLine();
-                }
-                // トライ
-                {
-                    Util_Information.Setumei_Bitboards(new string[] { "対局者１", "対局者２（トライ）" },
-                        new Bitboard[] { ky.BB_Try[(int)Taikyokusya.T1], ky.BB_Try[(int)Taikyokusya.T2] }, syuturyoku);
-                    syuturyoku.AppendLine();
-                }
-                
-                Util_Information.HyojiKomanoIbasho(ky.Shogiban, syuturyoku);// 駒の居場所☆
-                Util_Information.HyojiKomanoKikiSu(ky.Shogiban, syuturyoku);// 駒の重ね利き数☆
-                Util_Information.HyojiKomanoKiki(ky.Shogiban, syuturyoku);// 駒の利き☆
-                Util_Information.HyojiKomanoUgoki(ky.Shogiban, ky.Sindan.MASU_YOSOSU, syuturyoku);// 駒の動き☆
-                return;
-            }
-            #endregion
-
-            // うしろに続く文字は☆（＾▽＾）
-            int caret = 0;
-            Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "bitboard ");
-
-            if (caret == commandline.IndexOf("kiki", caret))
-            {
-                // 重ね利きビットボード表示☆
-
-                // 駒別
-                {
-                    // 再計算
-                    Shogiban saikeisan = new Shogiban(ky.Sindan);
-                    saikeisan.Tukurinaosi_1_Clear_KikiKomabetu();
-                    saikeisan.Tukurinaosi_2_Input_KikiKomabetu(ky.Sindan);
-                    saikeisan.TukurinaosiBBKikiZenbu();
-
-                    syuturyoku.AppendLine("利き:（再計算）全部、駒別");
-                    Util_Information.HyojiKomanoKiki(saikeisan, syuturyoku);
-
-                    // 現行
-                    syuturyoku.AppendLine("利き:（現行）全部、駒別");
-                    Util_Information.HyojiKomanoKiki(ky.Shogiban, syuturyoku);
-                }
-
-                // 全部
-                {
-                    // 再計算
-                    Shogiban saikeisan = new Shogiban(ky.Sindan);
-                    saikeisan.TukurinaosiKikisuZenbu(ky.Shogiban, ky.Sindan);
-                    saikeisan.TukurinaosiKikisuKomabetu(ky.Shogiban, ky.Sindan);
-
-                    syuturyoku.AppendLine("利き数:（再計算）全部、駒別");
-                    Util_Information.HyojiKomanoKikiSu(saikeisan, syuturyoku);
-
-                    // 現行
-                    syuturyoku.AppendLine("利き数:全部（現行）全部、駒別");
-                    Util_Information.HyojiKomanoKikiSu(ky.Shogiban, syuturyoku);
-                }
-
-                return;
-            }
-            else if (caret == commandline.IndexOf("remake", caret))
-            {
-                // 駒の動き方を作り直し
-                ky.Shogiban.Tukurinaosi_1_Clear_KomanoUgokikata(ky.Sindan.MASU_YOSOSU);
-                ky.Shogiban.Tukurinaosi_2_Input_KomanoUgokikata(ky.Sindan);
-            }
-        }
-
-        public static void CanDo(bool isSfen, string commandline, Kyokumen ky, CommandMode commandMode, Mojiretu syuturyoku)
-        {
-            // うしろに続く文字は☆（＾▽＾）
-            int caret = 0;
-            Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "cando ");
-
-            if (!Med_Parser.TryFenMove(isSfen, commandline, ref caret, ky.Sindan, out Move ss))
-            {
-                throw new Exception("パースエラー [" + commandline + "]");
-            }
-
-#if UNITY
-            syuturyoku.Append("< ");
-#endif
-
-            if (ky.CanDoMove(ss, out MoveMatigaiRiyu riyu))
-            {
-                syuturyoku.AppendLine("cando, true");
-            }
-            else
-            {
-                syuturyoku.Append("cando, false, ");
-                syuturyoku.AppendLine(riyu.ToString());
-            }
-        }
-
         public static void Clear()
         {
             Util_Machine.Clear();
@@ -187,51 +71,6 @@ namespace kifuwarabe_wcsc27.abstracts
             {
 
             }
-        }
-
-        /// <summary>
-        /// USI でも go を受信するぜ☆（＾～＾）
-        /// </summary>
-        /// <param name="mode"></param>
-        /// <param name="ky"></param>
-        /// <param name="syuturyoku"></param>
-        public static void Go(bool isSfen, CommandMode mode, Kyokumen ky, Mojiretu syuturyoku)
-        {
-#if DEBUG
-            Util_Information.Setumei_NingenGameYo(ky, syuturyoku);
-            Ky(isSfen, "ky fen", ky, syuturyoku);// 参考：改造FEN表示
-            MoveCmd(isSfen, "move", ky, syuturyoku);// 参考：指し手表示
-            if (false){
-                Util_Information.HyojiKomanoIbasho(ky.Shogiban, syuturyoku);// 参考：駒の表示
-            }
-            Util_Information.HyojiKomanoKikiSu(ky.Shogiban, syuturyoku);// 参考：利きの数
-            MoveCmd(isSfen, "move seisei", ky, syuturyoku);// 参考：指し手生成表示
-            Util_Machine.Flush(syuturyoku);
-#endif
-
-            Move bestMove = Util_Application.Go(ky, out HyokatiUtiwake best_hyokatiUtiwake, Face_YomisujiJoho.Dlgt_WriteYomisujiJoho, syuturyoku);
-            // 勝敗判定☆（＾▽＾）
-            Util_Kettyaku.JudgeKettyaku(bestMove, ky);
-
-            if (isSfen)
-            {
-                syuturyoku.Append("bestmove ");
-                ConvMove.AppendFenTo(isSfen, bestMove, syuturyoku);
-                syuturyoku.AppendLine();
-                Util_Machine.Flush_USI(syuturyoku);
-            }
-            else if (mode == CommandMode.NigenYoConsoleKaihatu)
-            {
-                // 開発モードでは、指したあとに盤面表示を返すぜ☆（＾▽＾）
-                Util_Information.Setumei_Lines_Kyokumen(ky,syuturyoku);
-            }
-            // ゲームモードでは表示しないぜ☆（＾▽＾）
-
-#if UNITY
-            syuturyoku.Append("< go, ");
-            ConvMove.AppendFenTo(bestMove, syuturyoku);// Unity用に指し手を出力するぜ☆（＾▽＾）
-            syuturyoku.AppendLine();
-#endif
         }
 
         /// <summary>
@@ -1203,56 +1042,6 @@ namespace kifuwarabe_wcsc27.abstracts
                 Util_Machine.Load_Nikoma(syuturyoku);
             }
 #endregion
-        }
-
-        public static void Position(bool isSfen, string commandline, Kyokumen ky, Mojiretu syuturyoku)
-        {
-#if UNITY
-#else
-            // うしろに続く文字は☆（＾▽＾）
-            int caret = 0;
-            Util_String.YomuTangoTobasuMatubiKuhaku(commandline, ref caret, out string token);
-
-            if ("position" == token)
-            {
-                // パース☆！（＾▽＾）
-                if (!ky.ParsePositionvalue(isSfen, commandline, ref caret, true, false, out string moves, syuturyoku))
-                {
-                    string msg = "パースに失敗だぜ☆（＾～＾）！ #黒牛";
-                    syuturyoku.AppendLine(msg);
-                    syuturyoku.Append(syuturyoku.ToContents());
-                    Util_Machine.Flush(syuturyoku);
-                    throw new Exception(msg);
-                }
-
-                // 棋譜を作成するぜ☆（＾▽＾）
-                Kifu kifu = new Kifu();
-
-                // 初期局面
-                {
-                    Mojiretu mojiretu = new MojiretuImpl();
-                    ky.AppendFenTo(isSfen, mojiretu);
-                    kifu.SyokiKyokumenFen = mojiretu.ToContents();
-                }
-
-                // うしろに続く文字は☆（＾▽＾）
-                Util_String.YomuTangoTobasuMatubiKuhaku(commandline, ref caret, out token);
-                if ("" != moves)
-                {
-                    // moves が続いていたら☆（＾～＾）
-
-                    // 頭の moves を取り除くぜ☆（*＾～＾*）
-                    moves = moves.Substring("moves ".Length);
-
-                    kifu.AddMoves(isSfen, moves, ky.Sindan);
-
-                    // positionで渡された最終局面まで進めようぜ☆（＾▽＾）ｗｗｗ
-                    kifu.GoToFinish(isSfen, ky, syuturyoku);
-                }
-
-                // 初回は「position startpos」しか送られてこない☆（＾～＾）
-            }
-#endif
         }
 
         public static void Result( Kyokumen ky, Mojiretu syuturyoku, CommandMode commandMode)
@@ -2768,10 +2557,10 @@ namespace kifuwarabe_wcsc27.abstracts
         /// <summary>
         /// 単体テストだぜ☆（＾▽＾）
         /// </summary>
-        public static void TantaiTest(bool isSfen, Kyokumen ky, Mojiretu syuturyoku)
+        public static void TantaiTest(IPlaying playing, bool isSfen, Kyokumen ky, Mojiretu syuturyoku)
         {
             // （＾～＾）千日手のテストをしようぜ☆
-            Util_TantaiTest.SennitiTe(isSfen, ky, syuturyoku);
+            Util_TantaiTest.SennitiTe(playing, isSfen, ky, syuturyoku);
         }
 
         /// <summary>

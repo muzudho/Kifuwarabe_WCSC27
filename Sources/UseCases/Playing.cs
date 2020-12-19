@@ -5,6 +5,8 @@
     using System.IO;
     using Grayscale.Kifuwarakei.Entities;
     using kifuwarabe_wcsc27.abstracts;
+    using kifuwarabe_wcsc27.facade;
+    using kifuwarabe_wcsc27.implements;
     using kifuwarabe_wcsc27.interfaces;
     using kifuwarabe_wcsc27.machine;
     using Nett;
@@ -66,5 +68,53 @@
 #endif
         }
 
+        public void Quit()
+        {
+
+        }
+
+        public void Position()
+        {
+
+        }
+
+        public void Go(bool isSfen, CommandMode mode, Kyokumen ky, Mojiretu syuturyoku)
+        {
+#if DEBUG
+            Util_Information.Setumei_NingenGameYo(ky, syuturyoku);
+            Ky(isSfen, "ky fen", ky, syuturyoku);// 参考：改造FEN表示
+            MoveCmd(isSfen, "move", ky, syuturyoku);// 参考：指し手表示
+            if (false){
+                Util_Information.HyojiKomanoIbasho(ky.Shogiban, syuturyoku);// 参考：駒の表示
+            }
+            Util_Information.HyojiKomanoKikiSu(ky.Shogiban, syuturyoku);// 参考：利きの数
+            MoveCmd(isSfen, "move seisei", ky, syuturyoku);// 参考：指し手生成表示
+            Util_Machine.Flush(syuturyoku);
+#endif
+
+            Move bestMove = Util_Application.Go(ky, out HyokatiUtiwake best_hyokatiUtiwake, Face_YomisujiJoho.Dlgt_WriteYomisujiJoho, syuturyoku);
+            // 勝敗判定☆（＾▽＾）
+            Util_Kettyaku.JudgeKettyaku(bestMove, ky);
+
+            if (isSfen)
+            {
+                syuturyoku.Append("bestmove ");
+                ConvMove.AppendFenTo(isSfen, bestMove, syuturyoku);
+                syuturyoku.AppendLine();
+                Util_Machine.Flush_USI(syuturyoku);
+            }
+            else if (mode == CommandMode.NigenYoConsoleKaihatu)
+            {
+                // 開発モードでは、指したあとに盤面表示を返すぜ☆（＾▽＾）
+                Util_Information.Setumei_Lines_Kyokumen(ky, syuturyoku);
+            }
+            // ゲームモードでは表示しないぜ☆（＾▽＾）
+
+#if UNITY
+            syuturyoku.Append("< go, ");
+            ConvMove.AppendFenTo(bestMove, syuturyoku);// Unity用に指し手を出力するぜ☆（＾▽＾）
+            syuturyoku.AppendLine();
+#endif
+        }
     }
 }

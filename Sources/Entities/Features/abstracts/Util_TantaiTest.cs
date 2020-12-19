@@ -1,4 +1,5 @@
-﻿using kifuwarabe_wcsc27.facade;
+﻿using Grayscale.Kifuwarakei.Entities;
+using kifuwarabe_wcsc27.facade;
 using kifuwarabe_wcsc27.implements;
 using kifuwarabe_wcsc27.interfaces;
 using kifuwarabe_wcsc27.machine;
@@ -14,7 +15,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// <summary>
         /// 千日手のテストだぜ☆（＾▽＾）
         /// </summary>
-        public static void SennitiTe(bool isSfen, Kyokumen ky, Mojiretu syuturyoku)
+        public static void SennitiTe(IPlaying playing, bool isSfen, Kyokumen ky, Mojiretu syuturyoku)
         {
             Util_Machine.Flush(syuturyoku);// 溜まっているログがあれば、吐き出させておくぜ☆（＾～＾）
 
@@ -147,7 +148,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     Util_Commands.Do(isSfen, "do a2a1", ky, mode, mojiretu1);
 
                     mojiretu1.AppendLine("# 次に千日手を回避するかだぜ☆（＾▽＾）");
-                    Util_Commands.Go(isSfen, mode, ky, mojiretu1);
+                    playing.Go(isSfen, mode, ky, mojiretu1);
                     int count = ky.Konoteme.GetSennititeCount();
                     if (Const_Game.SENNITITE_COUNT == count) { fail = true; goto gt_EndUnittestSennitite2a; }
 
@@ -198,7 +199,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     Util_Commands.Do(isSfen, "do c4c3", ky, mode, mojiretu1);
 
                     mojiretu1.AppendLine("# 次に千日手を回避するか、指させるぜ☆（＾▽＾）ｗｗ");
-                    Util_Commands.Go(isSfen, mode, ky, mojiretu1);
+                    playing.Go(isSfen, mode, ky, mojiretu1);
                     int count = ky.Konoteme.GetSennititeCount();
                     if (Const_Game.SENNITITE_COUNT == count) { fail = true; goto gt_EndUnittestSennitite2b; }
 
@@ -242,7 +243,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     Util_Commands.Do(isSfen, "do c3c4", ky, mode, mojiretu1);
 
                     // 次に千日手の権利を渡すのを回避するかだぜ☆（＾▽＾）
-                    Util_Commands.Go(isSfen, mode, ky, mojiretu1);
+                    playing.Go(isSfen, mode, ky, mojiretu1);
                     int count = ky.Konoteme.GetSennititeCount();
                     if (Const_Game.SENNITITE_COUNT == count) { fail = true; goto gt_EndUnittestSennitite3a; }
 
@@ -288,7 +289,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     Util_Commands.Do(isSfen, "do a2a1", ky, mode, mojiretu1);
 
                     // 次に千日手の権利を渡すのを回避するかだぜ☆（＾▽＾）
-                    Util_Commands.Go(isSfen, mode, ky, mojiretu1);
+                    playing.Go(isSfen, mode, ky, mojiretu1);
                     int count = ky.Konoteme.GetSennititeCount();
                     if (Const_Game.SENNITITE_COUNT == count) { fail = true; goto gt_EndUnittestSennitite3b; }
 
@@ -334,7 +335,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     Util_Commands.Do(isSfen, "do a2a1", ky, mode, mojiretu1);
 
                     // 次に千日手を受け入れるかだぜ☆（＾▽＾）
-                    Util_Commands.Go(isSfen, mode, ky, mojiretu1);
+                    playing.Go(isSfen, mode, ky, mojiretu1);
                     Option_Application.Optionlist.SaidaiFukasa = oldSaidaiFukasa;//設定を元に戻しておくぜ☆
 
                     int count = ky.Konoteme.GetSennititeCount();
@@ -387,7 +388,7 @@ namespace kifuwarabe_wcsc27.abstracts
 
                     mojiretu1.AppendLine("# 次に　きりん　を上げて、千日手を受け入れるかだぜ☆（＾▽＾）");
                     Util_Commands.MoveCmd(isSfen, "move seisei", ky, mojiretu1);
-                    Util_Commands.Go(isSfen, mode, ky, mojiretu1);
+                    playing.Go(isSfen, mode, ky, mojiretu1);
                     Option_Application.Optionlist.SaidaiFukasa = oldSaidaiFukasa;//設定を元に戻しておくぜ☆
 
                     int count = ky.Konoteme.GetSennititeCount();
@@ -435,7 +436,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     Util_Commands.Do(isSfen, "do c3c4", ky, mode, mojiretu1);
 
                     mojiretu1.AppendLine("# ↓次の手に注目だぜ☆　対局者２は　きりん　を引いて、千日手の権利を相手に渡すかだぜ☆（＾▽＾）");
-                    Util_Commands.Go(isSfen, mode, ky, mojiretu1);// do a2a1 とやることを期待☆
+                    playing.Go(isSfen, mode, ky, mojiretu1);// do a2a1 とやることを期待☆
                     Option_Application.Optionlist.SaidaiFukasa = oldSaidaiFukasa;//設定を元に戻しておくぜ☆
 
                     Kyokumen ky2 = new Kyokumen();
@@ -494,7 +495,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     Util_Commands.Do(isSfen, "do a2a1", ky, mode, mojiretu1);
 
                     mojiretu1.AppendLine("# ↓次の手に注目だぜ☆　対局者１は　きりん　を上げて、千日手の権利を相手に渡すかだぜ☆（＾▽＾）");
-                    Util_Commands.Go(isSfen, mode, ky, mojiretu1);// do c4c3 とやることを期待☆
+                    playing.Go(isSfen, mode, ky, mojiretu1);// do c4c3 とやることを期待☆
                     Option_Application.Optionlist.SaidaiFukasa = oldSaidaiFukasa;//設定を元に戻しておくぜ☆
 
                     Kyokumen ky2 = new Kyokumen();

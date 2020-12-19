@@ -249,17 +249,115 @@
                 else if (caret == commandline.IndexOf("bitboard", caret))
                 {
                     // テスト用だぜ☆（＾～＾）
-                    Util_Commands.Bitboard(commandline, ky, syuturyoku);
+                    if (commandline == "bitboard")
+                    {
+                        // ビットボード表示☆
+
+                        // 筋
+                        {
+                            for (int iSuji = 0; iSuji < Option_Application.Optionlist.BanYokoHaba; iSuji++)
+                            {
+                                Util_Information.Setumei_1Bitboard("筋" + iSuji, ky.BB_SujiArray[iSuji], syuturyoku);
+                            }
+                            syuturyoku.AppendLine();
+                        }
+                        // 段
+                        {
+                            for (int iDan = 0; iDan < Option_Application.Optionlist.BanTateHaba; iDan++)
+                            {
+                                Util_Information.Setumei_1Bitboard("段" + iDan, ky.BB_DanArray[iDan], syuturyoku);
+                            }
+                            syuturyoku.AppendLine();
+                        }
+                        // トライ
+                        {
+                            Util_Information.Setumei_Bitboards(new string[] { "対局者１", "対局者２（トライ）" },
+                                new Bitboard[] { ky.BB_Try[(int)Taikyokusya.T1], ky.BB_Try[(int)Taikyokusya.T2] }, syuturyoku);
+                            syuturyoku.AppendLine();
+                        }
+
+                        Util_Information.HyojiKomanoIbasho(ky.Shogiban, syuturyoku);// 駒の居場所☆
+                        Util_Information.HyojiKomanoKikiSu(ky.Shogiban, syuturyoku);// 駒の重ね利き数☆
+                        Util_Information.HyojiKomanoKiki(ky.Shogiban, syuturyoku);// 駒の利き☆
+                        Util_Information.HyojiKomanoUgoki(ky.Shogiban, ky.Sindan.MASU_YOSOSU, syuturyoku);// 駒の動き☆
+                        return;
+                    }
+
+                    // うしろに続く文字は☆（＾▽＾）
+                    int caret2 = 0;
+                    Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret2, "bitboard ");
+
+                    if (caret2 == commandline.IndexOf("kiki", caret2))
+                    {
+                        // 重ね利きビットボード表示☆
+
+                        // 駒別
+                        {
+                            // 再計算
+                            Shogiban saikeisan = new Shogiban(ky.Sindan);
+                            saikeisan.Tukurinaosi_1_Clear_KikiKomabetu();
+                            saikeisan.Tukurinaosi_2_Input_KikiKomabetu(ky.Sindan);
+                            saikeisan.TukurinaosiBBKikiZenbu();
+
+                            syuturyoku.AppendLine("利き:（再計算）全部、駒別");
+                            Util_Information.HyojiKomanoKiki(saikeisan, syuturyoku);
+
+                            // 現行
+                            syuturyoku.AppendLine("利き:（現行）全部、駒別");
+                            Util_Information.HyojiKomanoKiki(ky.Shogiban, syuturyoku);
+                        }
+
+                        // 全部
+                        {
+                            // 再計算
+                            Shogiban saikeisan = new Shogiban(ky.Sindan);
+                            saikeisan.TukurinaosiKikisuZenbu(ky.Shogiban, ky.Sindan);
+                            saikeisan.TukurinaosiKikisuKomabetu(ky.Shogiban, ky.Sindan);
+
+                            syuturyoku.AppendLine("利き数:（再計算）全部、駒別");
+                            Util_Information.HyojiKomanoKikiSu(saikeisan, syuturyoku);
+
+                            // 現行
+                            syuturyoku.AppendLine("利き数:全部（現行）全部、駒別");
+                            Util_Information.HyojiKomanoKikiSu(ky.Shogiban, syuturyoku);
+                        }
+
+                        return;
+                    }
+                    else if (caret2 == commandline.IndexOf("remake", caret2))
+                    {
+                        // 駒の動き方を作り直し
+                        ky.Shogiban.Tukurinaosi_1_Clear_KomanoUgokikata(ky.Sindan.MASU_YOSOSU);
+                        ky.Shogiban.Tukurinaosi_2_Input_KomanoUgokikata(ky.Sindan);
+                    }
+
                     Util_Commandline.IsKyokumenEcho = false;
                 }
                 else if (caret == commandline.IndexOf("cando", caret))
                 {
-                    Util_Commands.CanDo(
-                        Option_Application.Optionlist.USI,
-                        commandline,
-                        ky,
-                        GameMode.Game == Util_Application.GameMode ? CommandMode.NingenYoConsoleGame : CommandMode.NigenYoConsoleKaihatu,
-                        syuturyoku);
+                    // GameMode.Game == Util_Application.GameMode ? CommandMode.NingenYoConsoleGame : CommandMode.NigenYoConsoleKaihatu,
+                    // うしろに続く文字は☆（＾▽＾）
+                    int caret2 = 0;
+                    Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret2, "cando ");
+
+                    if (!Med_Parser.TryFenMove(Option_Application.Optionlist.USI, commandline, ref caret2, ky.Sindan, out Move ss))
+                    {
+                        throw new Exception("パースエラー [" + commandline + "]");
+                    }
+
+#if UNITY
+            syuturyoku.Append("< ");
+#endif
+
+                    if (ky.CanDoMove(ss, out MoveMatigaiRiyu riyu))
+                    {
+                        syuturyoku.AppendLine("cando, true");
+                    }
+                    else
+                    {
+                        syuturyoku.Append("cando, false, ");
+                        syuturyoku.AppendLine(riyu.ToString());
+                    }
                 }
                 else if (caret == commandline.IndexOf("clear", caret))
                 {
@@ -281,13 +379,14 @@
                 }
                 else if (caret == commandline.IndexOf("go", caret))
                 {
-                    Util_Commands.Go(Option_Application.Optionlist.USI,
+                    var isSfen = Option_Application.Optionlist.USI;
 #if UNITY
-                    CommandMode.TusinYo
+                    var mode = CommandMode.TusinYo;
 #else
-                    CommandMode.NigenYoConsoleKaihatu
+                    var mode = CommandMode.NigenYoConsoleKaihatu;
 #endif
-                    , ky, syuturyoku); Util_Commandline.IsKyokumenEcho = false;
+                    playing.Go(isSfen, mode, ky, syuturyoku);
+                    Util_Commandline.IsKyokumenEcho = false;
                 }
                 else if (caret == commandline.IndexOf("hash", caret))
                 {
@@ -390,11 +489,58 @@
                 }
                 else if (caret == commandline.IndexOf("position", caret))
                 {
-                    Util_Commands.Position(Option_Application.Optionlist.USI, commandline, ky, syuturyoku);
+                    playing.Position();
+#if UNITY
+#else
+                    // うしろに続く文字は☆（＾▽＾）
+                    int caret2 = 0;
+                    Util_String.YomuTangoTobasuMatubiKuhaku(commandline, ref caret2, out string token);
+
+                    if ("position" == token)
+                    {
+                        // パース☆！（＾▽＾）
+                        if (!ky.ParsePositionvalue(Option_Application.Optionlist.USI, commandline, ref caret2, true, false, out string moves, syuturyoku))
+                        {
+                            string msg = "パースに失敗だぜ☆（＾～＾）！ #黒牛";
+                            syuturyoku.AppendLine(msg);
+                            syuturyoku.Append(syuturyoku.ToContents());
+                            Util_Machine.Flush(syuturyoku);
+                            throw new Exception(msg);
+                        }
+
+                        // 棋譜を作成するぜ☆（＾▽＾）
+                        Kifu kifu = new Kifu();
+
+                        // 初期局面
+                        {
+                            Mojiretu mojiretu = new MojiretuImpl();
+                            ky.AppendFenTo(Option_Application.Optionlist.USI, mojiretu);
+                            kifu.SyokiKyokumenFen = mojiretu.ToContents();
+                        }
+
+                        // うしろに続く文字は☆（＾▽＾）
+                        Util_String.YomuTangoTobasuMatubiKuhaku(commandline, ref caret2, out token);
+                        if ("" != moves)
+                        {
+                            // moves が続いていたら☆（＾～＾）
+
+                            // 頭の moves を取り除くぜ☆（*＾～＾*）
+                            moves = moves.Substring("moves ".Length);
+
+                            kifu.AddMoves(Option_Application.Optionlist.USI, moves, ky.Sindan);
+
+                            // positionで渡された最終局面まで進めようぜ☆（＾▽＾）ｗｗｗ
+                            kifu.GoToFinish(Option_Application.Optionlist.USI, ky, syuturyoku);
+                        }
+
+                        // 初回は「position startpos」しか送られてこない☆（＾～＾）
+                    }
+#endif
                     Util_Commandline.IsKyokumenEcho = false;
                 }
                 else if (caret == commandline.IndexOf("quit", caret))
                 {
+                    playing.Quit();
                     Util_Commandline.IsQuit = true;
                 }
                 else if (caret == commandline.IndexOf("result", caret))
@@ -465,7 +611,7 @@
                 }
                 else if (caret == commandline.IndexOf("tantaitest", caret))
                 {
-                    Util_Commands.TantaiTest(Option_Application.Optionlist.USI, ky, syuturyoku);
+                    Util_Commands.TantaiTest(playing, Option_Application.Optionlist.USI, ky, syuturyoku);
                     Util_Commandline.IsKyokumenEcho = false;
                 }
                 else if (caret == commandline.IndexOf("tumeshogi", caret))
