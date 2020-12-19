@@ -24,15 +24,5 @@ namespace kifuwarabe_wcsc27.facade
         {
             Util_Application.End_Application(syuturyoku);
         }
-
-        /// <summary>
-        /// 命令を実行するぜ☆（＾▽＾）
-        /// </summary>
-        /// <param name="commandline">コマンドライン☆</param>
-        /// <param name="syuturyoku">実行結果☆</param>
-        public static void Execute(string commandline, Kyokumen ky, Mojiretu syuturyoku)
-        {
-            Util_Application.Execute(commandline, ky, syuturyoku);
-        }
     }
 }

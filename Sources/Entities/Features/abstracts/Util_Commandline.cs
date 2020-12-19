@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using kifuwarabe_wcsc27.implements;
 using Nett;
 using System.IO;
+using Grayscale.Kifuwarakei.Entities;
 
 namespace kifuwarabe_wcsc27.abstracts
 {
@@ -128,7 +129,7 @@ namespace kifuwarabe_wcsc27.abstracts
             }
         }
 
-        public static void DoCommandline(Kyokumen ky, Mojiretu syuturyoku)
+        public static void DoCommandline(IPlaying playing, Kyokumen ky, Mojiretu syuturyoku)
         {
             string commandline = Util_Commandline.Commandline;
             int caret = Util_Commandline.Caret;
@@ -220,7 +221,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
                 var engineAuthor = toml.Get<TomlTable>("Engine").Get<string>("Author");
 
-                Util_Commands.Usi(commandline, $"{engineName} {version.Major}.{version.Minor}.{version.Build}", engineAuthor, syuturyoku);
+                playing.UsiOk($"{engineName} {version.Major}.{version.Minor}.{version.Build}", engineAuthor, syuturyoku);
                 IsKyokumenEcho = false;
             }
             else
