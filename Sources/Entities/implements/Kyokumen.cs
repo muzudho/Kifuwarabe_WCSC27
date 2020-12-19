@@ -617,8 +617,12 @@ namespace kifuwarabe_wcsc27.implements
             for (int i = 0; i < Sindan.MASU_YOSOSU; i++)
             {
                 // 先頭の空白を除いた、駒の部分で埋めるぜ☆（＾▽＾）
-                
-                Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)i, Conv_Koma.ItiranRaionNozoku[Option_Application.Random.Next(Conv_Koma.ItiranRaionNozoku.Length-1)], true, Sindan, syuturyoku);
+
+                var ms1 = (Masu)i;
+                var km1 = Conv_Koma.ItiranRaionNozoku[Option_Application.Random.Next(Conv_Koma.ItiranRaionNozoku.Length - 1)];
+                Debug.Assert(Conv_Koma.IsOk(km1), "");
+                Debug.Assert(Sindan.IsBanjo(ms1), "");
+                Shogiban.N250_OkuBanjoKoma(isSfen, ms1, km1, true, Sindan, syuturyoku);
                 // あとで適用
             }
 
@@ -1953,8 +1957,20 @@ namespace kifuwarabe_wcsc27.implements
 
                     if (Shogiban.ExistsBBKoma(Koma.R,(Masu)iMs1) || Shogiban.ExistsBBKoma(Koma.r,(Masu)iMs1))
                     {
-                        if (tb == Taikyokusya.T1) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.R, true, Sindan, syuturyoku); }
-                        else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.r, true, Sindan, syuturyoku); }
+                        if (tb == Taikyokusya.T1) {
+                            var ms1 = (Masu)iMs1;
+                            var km1 = Koma.R;
+                            Debug.Assert(Conv_Koma.IsOk(km1), "");
+                            Debug.Assert(Sindan.IsBanjo(ms1), "");
+                            Shogiban.N250_OkuBanjoKoma(isSfen, ms1, km1, true, Sindan, syuturyoku);
+                        }
+                        else {
+                            var ms1 = (Masu)iMs1;
+                            var km1 = Koma.r;
+                            Debug.Assert(Conv_Koma.IsOk(km1), "");
+                            Debug.Assert(Sindan.IsBanjo(ms1), "");
+                            Shogiban.N250_OkuBanjoKoma(isSfen, ms1, km1, true, Sindan, syuturyoku);
+                        }
 
                         tb = Conv_Taikyokusya.Hanten(tb);
                     }
@@ -2211,7 +2227,11 @@ namespace kifuwarabe_wcsc27.implements
                         }
                         isPowerupKoma = false;
 
-                        Shogiban.N250_OkuBanjoKoma(isSfen, Conv_Masu.ToMasu(suji, dan), tmp, true, Sindan, syuturyoku);
+                        var ms1 = Conv_Masu.ToMasu(suji, dan);
+                        var km1 = tmp;
+                        Debug.Assert(Conv_Koma.IsOk(km1), "");
+                        Debug.Assert(Sindan.IsBanjo(ms1), "");
+                        Shogiban.N250_OkuBanjoKoma(isSfen, ms1, km1, true, Sindan, syuturyoku);
                         // あとで適用
 
                         suji += 1;

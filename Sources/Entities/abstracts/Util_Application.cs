@@ -1046,7 +1046,6 @@ namespace kifuwarabe_wcsc27.abstracts
 
             for (;;)//メインループ（無限ループ）
             {
-                #region （手順２）ユーザー入力
                 //────────────────────────────────────────
                 // （手順２）ユーザー入力
                 //────────────────────────────────────────
@@ -1084,9 +1083,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     Util_ConsoleGame.ReadCommandline(syuturyoku);// コンソールからのキー入力を受け取るぜ☆（＾▽＾）（コンソール・ゲーム用）
 #endif
                 }
-                #endregion
 
-                #region ゲームセクション
                 if (GameMode.Game == Util_Application.GameMode)
                 {
 #if !UNITY
@@ -1094,7 +1091,6 @@ namespace kifuwarabe_wcsc27.abstracts
                     Util_ConsoleGame.Init_JosekiToroku(ky);
 #endif
 
-                    #region （手順３）人間の手番
                     //────────────────────────────────────────
                     // （手順３）人間の手番
                     //────────────────────────────────────────
@@ -1146,8 +1142,7 @@ namespace kifuwarabe_wcsc27.abstracts
                         }
 #endif
                     }// 人間おわり☆（＾▽＾）
-                    #endregion
-                    #region （手順４）コンピューターの手番
+
                     //────────────────────────────────────────
                     // （手順４）コンピューターの手番
                     //────────────────────────────────────────
@@ -1169,8 +1164,7 @@ namespace kifuwarabe_wcsc27.abstracts
                         Util_ConsoleGame.ShowMessage_KettyakuJi(ky, syuturyoku);// 決着していた場合はメッセージ表示☆（＾～＾）
 #endif
                     }// コンピューターの手番おわり☆（＾～＾）
-                    #endregion
-                    #region （手順５）決着時
+
                     //────────────────────────────────────────
                     // （手順５）決着時
                     //────────────────────────────────────────
@@ -1178,10 +1172,8 @@ namespace kifuwarabe_wcsc27.abstracts
                     {
                         Util_Application.DoTejun5_SyuryoTaikyoku1(ky, syuturyoku);// 対局終了時
                     }
-                    #endregion
                 }
-                #endregion
-                #region （手順６）ゲーム用の指し手以外のコマンドライン実行
+
                 //────────────────────────────────────────
                 // （手順６）ゲーム用の指し手以外のコマンドライン実行
                 //────────────────────────────────────────
@@ -1193,8 +1185,6 @@ namespace kifuwarabe_wcsc27.abstracts
 
                 // 次の入力を促す表示をしてるだけだぜ☆（＾～＾）
                 Util_Commandline.ShowPrompt(Option_Application.Optionlist.USI, ky, syuturyoku);
-
-                #endregion
 
             }//無限ループ
             //gt_EndLoop1:

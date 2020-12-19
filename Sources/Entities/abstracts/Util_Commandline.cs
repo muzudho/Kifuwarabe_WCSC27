@@ -188,7 +188,11 @@ namespace kifuwarabe_wcsc27.abstracts
             else if (caret == commandline.IndexOf("man", caret)) { Util_Commands.Man(syuturyoku); IsKyokumenEcho = false; }// "manual" と同じ☆（＾▽＾）
             else if (caret == commandline.IndexOf("masu", caret)) { Util_Commands.Masu_cmd(commandline, syuturyoku); IsKyokumenEcho = false; }
             else if (caret == commandline.IndexOf("nikoma", caret)) { Util_Commands.Nikoma(Option_Application.Optionlist.USI, commandline, ky, syuturyoku); IsKyokumenEcho = false; }
-            else if (caret == commandline.IndexOf("position", caret)) { Util_Commands.Position(Option_Application.Optionlist.USI, commandline, ky, syuturyoku); IsKyokumenEcho = false; }
+            else if (caret == commandline.IndexOf("position", caret))
+            {
+                Util_Commands.Position(Option_Application.Optionlist.USI, commandline, ky, syuturyoku);
+                IsKyokumenEcho = false;
+            }
             else if (caret == commandline.IndexOf("quit", caret)) { IsQuit = true; }
             else if (caret == commandline.IndexOf("result", caret)) { Util_Commands.Result(ky, syuturyoku, CommandMode.NigenYoConsoleKaihatu); IsKyokumenEcho = false; }
             else if (caret == commandline.IndexOf("rnd", caret)) { Util_Commands.Rnd(ky, syuturyoku); }

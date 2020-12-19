@@ -21,18 +21,21 @@ namespace kifuwarabe_wcsc27.abstracts
             // 頭の「@」を取って、末尾に「.txt」を付けた文字は☆（＾▽＾）
             Util_Commandline.CommandBufferName = commandline.Substring("@".Length);
 
-            StringBuilder sb = new StringBuilder();
-            sb.Append("Command/");
-            sb.Append(Util_Commandline.CommandBufferName);
-            sb.Append(".txt");
-            string file = sb.ToString();
+            var profilePath = System.Configuration.ConfigurationManager.AppSettings["Profile"];
+            var toml = Toml.ReadFile(Path.Combine(profilePath, "Engine.toml"));
+            var commandPath = toml.Get<TomlTable>("Resources").Get<string>("Command");
+            string file = Path.Combine(commandPath, $"{Util_Commandline.CommandBufferName}.txt");
 
             Util_Commandline.CommandBuffer.Clear();
             if (File.Exists(file)) // Visual Studioで「Unity」とか新しい構成を新規作成した場合は、出力パスも合わせろだぜ☆（＾▽＾）
             {
                 Util_Commandline.CommandBuffer.AddRange(new List<string>(File.ReadAllLines(file)));
             }
-            // 該当しないものは無視だぜ☆（＾▽＾）
+            else
+            {
+                // 該当しないものは無視だぜ☆（＾▽＾）
+                throw new Exception($"コマンドが見つかりません。 path={file}");
+            }
         }
 
         /// <summary>
@@ -834,6 +837,8 @@ namespace kifuwarabe_wcsc27.abstracts
                 {
                     // 指定した升に、指定した駒を置くぜ☆（＾▽＾）
                     Util_Machine.Assert_Sabun_Kiki("飛び利き増やす1", ky.Sindan, syuturyoku);
+                    Debug.Assert(Conv_Koma.IsOk(km1), "");
+                    Debug.Assert(ky.Sindan.IsBanjo(ms1), "");
                     ky.Shogiban.N250_OkuBanjoKoma(isSfen, ms1, km1, true, ky.Sindan, syuturyoku);
                     Util_Machine.Assert_Sabun_Kiki("飛び利き増やす2", ky.Sindan, syuturyoku);
 
