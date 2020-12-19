@@ -1,7 +1,9 @@
 ﻿namespace Grayscale.kifuwarakei.Engine
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
+    using System.Text;
     using Grayscale.Kifuwarakei.UseCases;
     using kifuwarabe_wcsc27.abstracts;
     using kifuwarabe_wcsc27.facade;
@@ -234,13 +236,49 @@
                     }
                 }
                 // なるべく、アルファベット順☆（＾▽＾）同じつづりで始まる単語の場合、語句の長い単語を優先にしないと if 文が通らないぜ☆ｗｗｗ
-                else if (caret == commandline.IndexOf("@", caret)) { Util_Commands.Atmark(commandline, syuturyoku); Util_Commandline.IsKyokumenEcho = false; }
-                else if (caret == commandline.IndexOf("#", caret)) { Util_Commandline.IsKyokumenEcho = false; }// 受け付けるが、何もしないぜ☆（＾▽＾）ｗｗｗ
-                else if (caret == commandline.IndexOf("bitboard", caret)) { Util_Commands.Bitboard(commandline, ky, syuturyoku); Util_Commandline.IsKyokumenEcho = false; }// テスト用だぜ☆（＾～＾）
-                else if (caret == commandline.IndexOf("cando", caret)) { Util_Commands.CanDo(Option_Application.Optionlist.USI, commandline, ky, GameMode.Game == Util_Application.GameMode ? CommandMode.NingenYoConsoleGame : CommandMode.NigenYoConsoleKaihatu, syuturyoku); }
-                else if (caret == commandline.IndexOf("clear", caret)) { Util_Commands.Clear(); Util_Commandline.IsKyokumenEcho = false; }
-                else if (caret == commandline.IndexOf("do", caret)) { Util_Commands.Do(Option_Application.Optionlist.USI, commandline, ky, GameMode.Game == Util_Application.GameMode ? CommandMode.NingenYoConsoleGame : CommandMode.NigenYoConsoleKaihatu, syuturyoku); }
-                else if (caret == commandline.IndexOf("gameover", caret)) { Util_Commands.Gameover(commandline, ky, syuturyoku); }
+                else if (caret == commandline.IndexOf("@", caret))
+                {
+                    playing.Atmark(commandline);
+                    Util_Commandline.IsKyokumenEcho = false;
+                }
+                else if (caret == commandline.IndexOf("#", caret))
+                {
+                    // 受け付けるが、何もしないぜ☆（＾▽＾）ｗｗｗ
+                    Util_Commandline.IsKyokumenEcho = false;
+                }
+                else if (caret == commandline.IndexOf("bitboard", caret))
+                {
+                    // テスト用だぜ☆（＾～＾）
+                    Util_Commands.Bitboard(commandline, ky, syuturyoku);
+                    Util_Commandline.IsKyokumenEcho = false;
+                }
+                else if (caret == commandline.IndexOf("cando", caret))
+                {
+                    Util_Commands.CanDo(
+                        Option_Application.Optionlist.USI,
+                        commandline,
+                        ky,
+                        GameMode.Game == Util_Application.GameMode ? CommandMode.NingenYoConsoleGame : CommandMode.NigenYoConsoleKaihatu,
+                        syuturyoku);
+                }
+                else if (caret == commandline.IndexOf("clear", caret))
+                {
+                    Util_Commands.Clear();
+                    Util_Commandline.IsKyokumenEcho = false;
+                }
+                else if (caret == commandline.IndexOf("do", caret))
+                {
+                    Util_Commands.Do(
+                        Option_Application.Optionlist.USI,
+                        commandline,
+                        ky,
+                        GameMode.Game == Util_Application.GameMode ? CommandMode.NingenYoConsoleGame : CommandMode.NigenYoConsoleKaihatu,
+                        syuturyoku);
+                }
+                else if (caret == commandline.IndexOf("gameover", caret))
+                {
+                    Util_Commands.Gameover(commandline, ky, syuturyoku);
+                }
                 else if (caret == commandline.IndexOf("go", caret))
                 {
                     Util_Commands.Go(Option_Application.Optionlist.USI,
@@ -251,52 +289,207 @@
 #endif
                     , ky, syuturyoku); Util_Commandline.IsKyokumenEcho = false;
                 }
-                else if (caret == commandline.IndexOf("hash", caret)) { Util_Commands.Hash(ky, syuturyoku); Util_Commandline.IsKyokumenEcho = false; }
-                else if (caret == commandline.IndexOf("hirate", caret)) { Util_Commands.Hirate(Option_Application.Optionlist.USI, ky, syuturyoku); }
-                else if (caret == commandline.IndexOf("honyaku", caret)) { Util_Commands.Honyaku(commandline, ky, syuturyoku); Util_Commandline.IsKyokumenEcho = false; }
-                else if (caret == commandline.IndexOf("hyoka", caret)) { Util_Commands.Hyoka(commandline, ky, syuturyoku); Util_Commandline.IsKyokumenEcho = false; }
-                else if (caret == commandline.IndexOf("isready", caret)) { Util_Commands.Isready(commandline, syuturyoku); Util_Commandline.IsKyokumenEcho = false; }
-                else if (caret == commandline.IndexOf("jam", caret)) { Util_Commands.Jam(Option_Application.Optionlist.USI, ky, syuturyoku); }
-                else if (caret == commandline.IndexOf("jokyo", caret)) { Util_Commands.Jokyo(commandline, ky, syuturyoku); Util_Commandline.IsKyokumenEcho = false; }
-                else if (caret == commandline.IndexOf("joseki", caret)) { Util_Commands.Joseki(Option_Application.Optionlist.USI, commandline, syuturyoku); Util_Commandline.IsKyokumenEcho = false; }
-                else if (caret == commandline.IndexOf("kansosen", caret)) { Util_Commands.Kansosen(Option_Application.Optionlist.USI, commandline, ky, syuturyoku); Util_Commandline.IsKyokumenEcho = false; }// 駒の場所を表示するぜ☆（＾▽＾）
-                else if (caret == commandline.IndexOf("kifu", caret)) { Util_Commands.Kifu(Option_Application.Optionlist.USI, commandline, ky, syuturyoku); Util_Commandline.IsKyokumenEcho = false; }// 駒の場所を表示するぜ☆（＾▽＾）
-                else if (caret == commandline.IndexOf("kikikazu", caret)) { Util_Commands.KikiKazu(commandline, ky, syuturyoku); Util_Commandline.IsKyokumenEcho = false; }// 利きの数を調べるぜ☆（＾▽＾）
-                else if (caret == commandline.IndexOf("kiki", caret)) { Util_Commands.Kiki(Option_Application.Optionlist.USI, commandline, ky, syuturyoku); Util_Commandline.IsKyokumenEcho = false; }// 利きを調べるぜ☆（＾▽＾）
-                else if (caret == commandline.IndexOf("koma", caret)) { Util_Commands.Koma_cmd(Option_Application.Optionlist.USI, commandline, ky, syuturyoku); Util_Commandline.IsKyokumenEcho = false; }// 駒の場所を表示するぜ☆（＾▽＾）
+                else if (caret == commandline.IndexOf("hash", caret))
+                {
+                    Util_Commands.Hash(ky, syuturyoku);
+                    Util_Commandline.IsKyokumenEcho = false;
+                }
+                else if (caret == commandline.IndexOf("hirate", caret))
+                {
+                    Util_Commands.Hirate(Option_Application.Optionlist.USI, ky, syuturyoku);
+                }
+                else if (caret == commandline.IndexOf("honyaku", caret))
+                {
+                    Util_Commands.Honyaku(commandline, ky, syuturyoku);
+                    Util_Commandline.IsKyokumenEcho = false;
+                }
+                else if (caret == commandline.IndexOf("hyoka", caret))
+                {
+                    Util_Commands.Hyoka(commandline, ky, syuturyoku);
+                    Util_Commandline.IsKyokumenEcho = false;
+                }
+                else if (caret == commandline.IndexOf("isready", caret))
+                {
+                    playing.ReadyOk(syuturyoku);
+                    Util_Commandline.IsKyokumenEcho = false;
+                }
+                else if (caret == commandline.IndexOf("jam", caret))
+                {
+                    Util_Commands.Jam(Option_Application.Optionlist.USI, ky, syuturyoku);
+                }
+                else if (caret == commandline.IndexOf("jokyo", caret))
+                {
+                    Util_Commands.Jokyo(commandline, ky, syuturyoku);
+                    Util_Commandline.IsKyokumenEcho = false;
+                }
+                else if (caret == commandline.IndexOf("joseki", caret))
+                {
+                    Util_Commands.Joseki(Option_Application.Optionlist.USI, commandline, syuturyoku);
+                    Util_Commandline.IsKyokumenEcho = false;
+                }
+                else if (caret == commandline.IndexOf("kansosen", caret))
+                {
+                    // 駒の場所を表示するぜ☆（＾▽＾）
+                    Util_Commands.Kansosen(Option_Application.Optionlist.USI, commandline, ky, syuturyoku);
+                    Util_Commandline.IsKyokumenEcho = false;
+                }
+                else if (caret == commandline.IndexOf("kifu", caret))
+                {
+                    // 駒の場所を表示するぜ☆（＾▽＾）
+                    Util_Commands.Kifu(Option_Application.Optionlist.USI, commandline, ky, syuturyoku);
+                    Util_Commandline.IsKyokumenEcho = false;
+                }                
+                else if (caret == commandline.IndexOf("kikikazu", caret))
+                {
+                    // 利きの数を調べるぜ☆（＾▽＾）
+                    Util_Commands.KikiKazu(commandline, ky, syuturyoku);
+                    Util_Commandline.IsKyokumenEcho = false;
+                }
+                else if (caret == commandline.IndexOf("kiki", caret))
+                {
+                    // 利きを調べるぜ☆（＾▽＾）
+                    Util_Commands.Kiki(Option_Application.Optionlist.USI, commandline, ky, syuturyoku);
+                    Util_Commandline.IsKyokumenEcho = false;
+                }
+                else if (caret == commandline.IndexOf("koma", caret))
+                {
+                    // 駒の場所を表示するぜ☆（＾▽＾）
+                    Util_Commands.Koma_cmd(Option_Application.Optionlist.USI, commandline, ky, syuturyoku);
+                    Util_Commandline.IsKyokumenEcho = false;
+                }
                 else if (caret == commandline.IndexOf("ky", caret))
                 {
-
+                    // 局面を表示するぜ☆（＾▽＾）
                     Util_Machine.Assert_Sabun_Kiki("飛び利き増やす1", ky.Sindan, syuturyoku);
                     Util_Commands.Ky(Option_Application.Optionlist.USI, commandline, ky, syuturyoku);
                     Util_Machine.Assert_Sabun_Kiki("飛び利き増やす2", ky.Sindan, syuturyoku);
 
                     Util_Commandline.IsKyokumenEcho = false;
-                }// 局面を表示するぜ☆（＾▽＾）
-                else if (caret == commandline.IndexOf("manual", caret)) { Util_Commands.Man(syuturyoku); Util_Commandline.IsKyokumenEcho = false; }// "man" と同じ☆（＾▽＾）
-                else if (caret == commandline.IndexOf("man", caret)) { Util_Commands.Man(syuturyoku); Util_Commandline.IsKyokumenEcho = false; }// "manual" と同じ☆（＾▽＾）
-                else if (caret == commandline.IndexOf("masu", caret)) { Util_Commands.Masu_cmd(commandline, syuturyoku); Util_Commandline.IsKyokumenEcho = false; }
-                else if (caret == commandline.IndexOf("nikoma", caret)) { Util_Commands.Nikoma(Option_Application.Optionlist.USI, commandline, ky, syuturyoku); Util_Commandline.IsKyokumenEcho = false; }
+                }
+                else if (caret == commandline.IndexOf("manual", caret))
+                {
+                    // "man" と同じ☆（＾▽＾）
+                    Util_Commands.Man(syuturyoku);
+                    Util_Commandline.IsKyokumenEcho = false;
+                }
+                else if (caret == commandline.IndexOf("man", caret))
+                {
+                    // "manual" と同じ☆（＾▽＾）
+                    Util_Commands.Man(syuturyoku);
+                    Util_Commandline.IsKyokumenEcho = false;
+                }
+                else if (caret == commandline.IndexOf("masu", caret))
+                {
+                    Util_Commands.Masu_cmd(commandline, syuturyoku);
+                    Util_Commandline.IsKyokumenEcho = false;
+                }
+                else if (caret == commandline.IndexOf("nikoma", caret))
+                {
+                    Util_Commands.Nikoma(Option_Application.Optionlist.USI, commandline, ky, syuturyoku);
+                    Util_Commandline.IsKyokumenEcho = false;
+                }
                 else if (caret == commandline.IndexOf("position", caret))
                 {
                     Util_Commands.Position(Option_Application.Optionlist.USI, commandline, ky, syuturyoku);
                     Util_Commandline.IsKyokumenEcho = false;
                 }
-                else if (caret == commandline.IndexOf("quit", caret)) { Util_Commandline.IsQuit = true; }
-                else if (caret == commandline.IndexOf("result", caret)) { Util_Commands.Result(ky, syuturyoku, CommandMode.NigenYoConsoleKaihatu); Util_Commandline.IsKyokumenEcho = false; }
-                else if (caret == commandline.IndexOf("rnd", caret)) { Util_Commands.Rnd(ky, syuturyoku); }
-                else if (caret == commandline.IndexOf("move", caret)) { Util_Commands.MoveCmd(Option_Application.Optionlist.USI, commandline, ky, syuturyoku); Util_Commandline.IsKyokumenEcho = false; }
-                else if (caret == commandline.IndexOf("see", caret)) { Util_Commands.See(Option_Application.Optionlist.USI, commandline, ky, syuturyoku); Util_Commandline.IsKyokumenEcho = false; }
-                else if (caret == commandline.IndexOf("seiseki", caret)) { Util_Commands.Seiseki(Option_Application.Optionlist.USI, commandline, syuturyoku); Util_Commandline.IsKyokumenEcho = false; }
-                else if (caret == commandline.IndexOf("setoption", caret)) { Util_Commands.Setoption(commandline, ky, syuturyoku); Util_Commandline.IsKyokumenEcho = false; }
-                else if (caret == commandline.IndexOf("set", caret)) { Util_Commands.Set(commandline, ky, syuturyoku); Util_Commandline.IsKyokumenEcho = false; }
-                else if (caret == commandline.IndexOf("taikyokusya", caret)) { Util_Commands.Taikyokusya_cmd(commandline, ky, syuturyoku); Util_Commandline.IsKyokumenEcho = false; }
-                else if (caret == commandline.IndexOf("test", caret)) { Util_Commands.Test(Option_Application.Optionlist.USI, commandline, ky, syuturyoku); Util_Commandline.IsKyokumenEcho = false; }
-                else if (caret == commandline.IndexOf("tantaitest", caret)) { Util_Commands.TantaiTest(Option_Application.Optionlist.USI, ky, syuturyoku); Util_Commandline.IsKyokumenEcho = false; }
-                else if (caret == commandline.IndexOf("tumeshogi", caret)) { Util_Commands.TumeShogi(Option_Application.Optionlist.USI, commandline, ky, syuturyoku); Util_Commandline.IsKyokumenEcho = false; }// "tu" と同じ☆（＾▽＾）
-                else if (caret == commandline.IndexOf("tu", caret)) { Util_Commands.TumeShogi(Option_Application.Optionlist.USI, commandline, ky, syuturyoku); Util_Commandline.IsKyokumenEcho = false; }// "tumeshogi" と同じ☆（＾▽＾）
-                else if (caret == commandline.IndexOf("undo", caret)) { Util_Commands.Undo(commandline, ky, syuturyoku); Util_Commandline.IsKyokumenEcho = false; }
-                else if (caret == commandline.IndexOf("usinewgame", caret)) { Util_Commands.Usinewgame(commandline, syuturyoku); Util_Commandline.IsKyokumenEcho = false; }
+                else if (caret == commandline.IndexOf("quit", caret))
+                {
+                    Util_Commandline.IsQuit = true;
+                }
+                else if (caret == commandline.IndexOf("result", caret))
+                {
+                    Util_Commands.Result(ky, syuturyoku, CommandMode.NigenYoConsoleKaihatu);
+                    Util_Commandline.IsKyokumenEcho = false;
+                }
+                else if (caret == commandline.IndexOf("rnd", caret))
+                {
+                    Util_Commands.Rnd(ky, syuturyoku);
+                }
+                else if (caret == commandline.IndexOf("move", caret))
+                {
+                    Util_Commands.MoveCmd(Option_Application.Optionlist.USI, commandline, ky, syuturyoku);
+                    Util_Commandline.IsKyokumenEcho = false;
+                }
+                else if (caret == commandline.IndexOf("see", caret))
+                {
+                    Util_Commands.See(Option_Application.Optionlist.USI, commandline, ky, syuturyoku);
+                    Util_Commandline.IsKyokumenEcho = false;
+                }
+                else if (caret == commandline.IndexOf("seiseki", caret))
+                {
+                    Util_Commands.Seiseki(Option_Application.Optionlist.USI, commandline, syuturyoku);
+                    Util_Commandline.IsKyokumenEcho = false;
+                }
+                else if (caret == commandline.IndexOf("setoption", caret))
+                {
+#if UNITY
+#else
+                    // // とりあえず無視☆（*＾～＾*）
+
+                    // 「setoption name 名前 value 値」といった書式なので、
+                    // 「set 名前 値」に変えたい。
+
+                    // うしろに続く文字は☆（＾▽＾）
+                    int caret2 = 0;
+                    Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret2, "setoption ");
+                    Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret2, "name ");
+                    int end = commandline.IndexOf("value ", caret2);
+                    if (-1 != end)
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        sb.Append("set ");
+                        sb.Append(commandline.Substring(caret2, end - caret2));//名前
+                        caret2 = end + "value ".Length;
+                        sb.Append(commandline.Substring(caret2));//値
+
+                        Util_Commands.Set(sb.ToString(), ky, syuturyoku);
+                    }
+#endif
+                    Util_Commandline.IsKyokumenEcho = false;
+                }
+                else if (caret == commandline.IndexOf("set", caret))
+                {
+                    Util_Commands.Set(commandline, ky, syuturyoku);
+                    Util_Commandline.IsKyokumenEcho = false;
+                }
+                else if (caret == commandline.IndexOf("taikyokusya", caret))
+                {
+                    Util_Commands.Taikyokusya_cmd(commandline, ky, syuturyoku);
+                    Util_Commandline.IsKyokumenEcho = false;
+                }
+                else if (caret == commandline.IndexOf("test", caret))
+                {
+                    Util_Commands.Test(Option_Application.Optionlist.USI, commandline, ky, syuturyoku);
+                    Util_Commandline.IsKyokumenEcho = false;
+                }
+                else if (caret == commandline.IndexOf("tantaitest", caret))
+                {
+                    Util_Commands.TantaiTest(Option_Application.Optionlist.USI, ky, syuturyoku);
+                    Util_Commandline.IsKyokumenEcho = false;
+                }
+                else if (caret == commandline.IndexOf("tumeshogi", caret))
+                {
+                    // "tu" と同じ☆（＾▽＾）
+                    Util_Commands.TumeShogi(Option_Application.Optionlist.USI, commandline, ky, syuturyoku);
+                    Util_Commandline.IsKyokumenEcho = false;
+                }
+                else if (caret == commandline.IndexOf("tu", caret))
+                {
+                    // "tumeshogi" と同じ☆（＾▽＾）
+                    Util_Commands.TumeShogi(Option_Application.Optionlist.USI, commandline, ky, syuturyoku);
+                    Util_Commandline.IsKyokumenEcho = false;
+                }
+                else if (caret == commandline.IndexOf("undo", caret))
+                {
+                    Util_Commands.Undo(commandline, ky, syuturyoku);
+                    Util_Commandline.IsKyokumenEcho = false;
+                }
+                else if (caret == commandline.IndexOf("usinewgame", caret))
+                {
+                    playing.UsiNewGame();
+                    Util_Commandline.IsKyokumenEcho = false;
+                }
                 else if (caret == commandline.IndexOf("usi", caret))
                 {
                     //ここは普通、来ない☆（＾～＾）

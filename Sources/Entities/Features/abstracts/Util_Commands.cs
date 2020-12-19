@@ -16,28 +16,6 @@ namespace kifuwarabe_wcsc27.abstracts
     /// </summary>
     public abstract class Util_Commands
     {
-        public static void Atmark(string commandline, Mojiretu syuturyoku)
-        {
-            // 頭の「@」を取って、末尾に「.txt」を付けた文字は☆（＾▽＾）
-            Util_Commandline.CommandBufferName = commandline.Substring("@".Length);
-
-            var profilePath = System.Configuration.ConfigurationManager.AppSettings["Profile"];
-            var toml = Toml.ReadFile(Path.Combine(profilePath, "Engine.toml"));
-            var commandPath = toml.Get<TomlTable>("Resources").Get<string>("Command");
-            string file = Path.Combine(profilePath, commandPath, $"{Util_Commandline.CommandBufferName}.txt");
-
-            Util_Commandline.CommandBuffer.Clear();
-            if (File.Exists(file)) // Visual Studioで「Unity」とか新しい構成を新規作成した場合は、出力パスも合わせろだぜ☆（＾▽＾）
-            {
-                Util_Commandline.CommandBuffer.AddRange(new List<string>(File.ReadAllLines(file)));
-            }
-            else
-            {
-                // 該当しないものは無視だぜ☆（＾▽＾）
-                throw new Exception($"コマンドが見つかりません。 path={file}");
-            }
-        }
-
         /// <summary>
         /// ビットボードのテスト用だぜ☆（*＾～＾*）
         /// </summary>
@@ -373,15 +351,6 @@ namespace kifuwarabe_wcsc27.abstracts
                 Hyokati hyokati = ky.Nikoma.Get(true);
                 syuturyoku.AppendLine("nikoma hyokati = " + (int)hyokati);
             }
-        }
-
-        public static void Isready(string commandline, Mojiretu syuturyoku)
-        {
-#if UNITY
-#else
-            syuturyoku.AppendLine("readyok");
-            Util_Machine.Flush_USI(syuturyoku);
-#endif
         }
 
         public static void Jam( bool isSfen, Kyokumen ky, Mojiretu syuturyoku)
@@ -1962,33 +1931,6 @@ namespace kifuwarabe_wcsc27.abstracts
             }
         }
 
-        public static void Setoption(string commandline, Kyokumen ky, Mojiretu syuturyoku)
-        {
-#if UNITY
-#else
-            // // とりあえず無視☆（*＾～＾*）
-
-            // 「setoption name 名前 value 値」といった書式なので、
-            // 「set 名前 値」に変えたい。
-
-            // うしろに続く文字は☆（＾▽＾）
-            int caret = 0;
-            Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "setoption ");
-            Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "name ");
-            int end = commandline.IndexOf("value ", caret);
-            if (-1 != end)
-            {
-                StringBuilder sb = new StringBuilder();
-                sb.Append("set ");
-                sb.Append(commandline.Substring(caret, end - caret));//名前
-                caret = end + "value ".Length;
-                sb.Append(commandline.Substring(caret));//値
-
-                Set(sb.ToString(),ky,syuturyoku);
-            }
-#endif
-        }
-
         public static void Set(string commandline, Kyokumen ky, Mojiretu syuturyoku)
         {
             if (commandline == "set")
@@ -2872,15 +2814,6 @@ namespace kifuwarabe_wcsc27.abstracts
 #endif
             //syuturyoku.AppendLine();
             //Util_Machine.Flush(syuturyoku);
-        }
-
-        public static void Usinewgame(string commandline, Mojiretu syuturyoku)
-        {
-#if UNITY
-#else
-            // とりあえず９×９将棋盤にしようぜ☆（*＾～＾*）
-            Util_Commands.Atmark("@USI9x9", syuturyoku);
-#endif
         }
     }
 }

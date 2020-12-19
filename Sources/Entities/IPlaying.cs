@@ -4,6 +4,7 @@ namespace Grayscale.Kifuwarakei.Entities
 {
     public interface IPlaying
     {
+        void Atmark(string commandline);
         void UsiOk(string engineName, string engineAuthor, Mojiretu syuturyoku);
     }
 }
