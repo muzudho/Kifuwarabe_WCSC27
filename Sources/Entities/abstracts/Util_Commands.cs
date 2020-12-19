@@ -24,7 +24,7 @@ namespace kifuwarabe_wcsc27.abstracts
             var profilePath = System.Configuration.ConfigurationManager.AppSettings["Profile"];
             var toml = Toml.ReadFile(Path.Combine(profilePath, "Engine.toml"));
             var commandPath = toml.Get<TomlTable>("Resources").Get<string>("Command");
-            string file = Path.Combine(commandPath, $"{Util_Commandline.CommandBufferName}.txt");
+            string file = Path.Combine(profilePath, commandPath, $"{Util_Commandline.CommandBufferName}.txt");
 
             Util_Commandline.CommandBuffer.Clear();
             if (File.Exists(file)) // Visual Studioで「Unity」とか新しい構成を新規作成した場合は、出力パスも合わせろだぜ☆（＾▽＾）

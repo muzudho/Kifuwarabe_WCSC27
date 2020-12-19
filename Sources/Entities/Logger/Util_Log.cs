@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Nett;
 
 namespace kifuwarabe_wcsc27.Entities.Log
 {
@@ -14,7 +15,22 @@ namespace kifuwarabe_wcsc27.Entities.Log
         /// <summary>
         /// ログ・フォルダー
         /// </summary>
-        readonly static string LogDirectory = "Log" + Path.DirectorySeparatorChar.ToString();
+        static string LogDirectory
+        {
+            get
+            {
+                if (Util_Log.logDirectory == null)
+                {
+                    var profilePath = System.Configuration.ConfigurationManager.AppSettings["Profile"];
+                    var toml = Toml.ReadFile(Path.Combine(profilePath, "Engine.toml"));
+                    var logDirectory = toml.Get<TomlTable>("Resources").Get<string>("LogDirectory");
+                    Util_Log.logDirectory = Path.Combine(profilePath, logDirectory);
+                }
+
+                return Util_Log.logDirectory;
+            }
+        }
+        static string logDirectory;
 
         /// <summary>
         /// ログ・ファイル名　拡張子抜き（without extension）

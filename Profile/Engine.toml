@@ -13,3 +13,4 @@ Author = "Satoshi TAKAHASHI"
 [Resources]
 
 Command = "./Command"
+LogDirectory = "../Logs"
