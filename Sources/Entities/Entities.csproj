@@ -60,7 +60,6 @@
     <Compile Include="Features\abstracts\Util_Application.cs" />
     <Compile Include="Features\abstracts\Util_Bitboard.cs" />
     <Compile Include="Features\abstracts\Util_Commandline.cs" />
-    <Compile Include="Features\abstracts\Util_Commands.cs" />
     <Compile Include="Features\abstracts\Util_CommandSub.cs" />
     <Compile Include="Features\abstracts\Util_ConsoleGame.cs" />
     <Compile Include="Features\abstracts\Util_HiouteCase.cs" />

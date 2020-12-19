@@ -1020,7 +1020,7 @@ namespace kifuwarabe_wcsc27.abstracts
 #if UNITY
                 Util_Commands.Result(syuturyoku, CommandMode.TusinYo);
 #else
-                Util_Commands.Result(ky, syuturyoku, CommandMode.NingenYoConsoleGame);
+                playing.Result(ky, syuturyoku, CommandMode.NingenYoConsoleGame);
 #endif
 #if UNITY
                 syuturyoku.Append("# ");
@@ -1074,7 +1074,7 @@ namespace kifuwarabe_wcsc27.abstracts
 
             if (Option_Application.Optionlist.RandomStartTaikyokusya)
             {
-                Util_Commands.Taikyokusya_cmd("taikyokusya mazeru", ky, syuturyoku);
+                playing.Taikyokusya_cmd("taikyokusya mazeru", ky, syuturyoku);
             }
 
 #if UNITY && !KAIHATU

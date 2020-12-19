@@ -65,7 +65,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// <summary>
         /// 次の入力を促す表示をしてるだけだぜ☆（＾～＾）
         /// </summary>
-        public static void ShowPrompt(bool isSfen, Kyokumen ky, Mojiretu syuturyoku)
+        public static void ShowPrompt(IPlaying playing, bool isSfen, Kyokumen ky, Mojiretu syuturyoku)
         {
             if (0 < Util_Commandline.CommandBuffer.Count)
             {
@@ -97,7 +97,7 @@ namespace kifuwarabe_wcsc27.abstracts
                         Util_Machine.Flush(syuturyoku);
 #endif
 
-                        Util_Commands.Result(ky, syuturyoku, CommandMode.NingenYoConsoleGame);
+                        playing.Result(ky, syuturyoku, CommandMode.NingenYoConsoleGame);
 #endif
                     }
                     Util_Machine.Flush(syuturyoku);

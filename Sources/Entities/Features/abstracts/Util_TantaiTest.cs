@@ -387,7 +387,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     playing.Do(isSfen, "do c4c3", ky, mode, mojiretu1);
 
                     mojiretu1.AppendLine("# 次に　きりん　を上げて、千日手を受け入れるかだぜ☆（＾▽＾）");
-                    Util_Commands.MoveCmd(isSfen, "move seisei", ky, mojiretu1);
+                    playing.MoveCmd(isSfen, "move seisei", ky, mojiretu1);
                     playing.Go(isSfen, mode, ky, mojiretu1);
                     Option_Application.Optionlist.SaidaiFukasa = oldSaidaiFukasa;//設定を元に戻しておくぜ☆
 

@@ -468,23 +468,23 @@
                 else if (caret == commandline.IndexOf("manual", caret))
                 {
                     // "man" と同じ☆（＾▽＾）
-                    Util_Commands.Man(syuturyoku);
+                    playing.Man(syuturyoku);
                     Util_Commandline.IsKyokumenEcho = false;
                 }
                 else if (caret == commandline.IndexOf("man", caret))
                 {
                     // "manual" と同じ☆（＾▽＾）
-                    Util_Commands.Man(syuturyoku);
+                    playing.Man(syuturyoku);
                     Util_Commandline.IsKyokumenEcho = false;
                 }
                 else if (caret == commandline.IndexOf("masu", caret))
                 {
-                    Util_Commands.Masu_cmd(commandline, syuturyoku);
+                    playing.Masu_cmd(commandline, syuturyoku);
                     Util_Commandline.IsKyokumenEcho = false;
                 }
                 else if (caret == commandline.IndexOf("nikoma", caret))
                 {
-                    Util_Commands.Nikoma(Option_Application.Optionlist.USI, commandline, ky, syuturyoku);
+                    playing.Nikoma(Option_Application.Optionlist.USI, commandline, ky, syuturyoku);
                     Util_Commandline.IsKyokumenEcho = false;
                 }
                 else if (caret == commandline.IndexOf("position", caret))
@@ -545,16 +545,16 @@
                 }
                 else if (caret == commandline.IndexOf("result", caret))
                 {
-                    Util_Commands.Result(ky, syuturyoku, CommandMode.NigenYoConsoleKaihatu);
+                    playing.Result(ky, syuturyoku, CommandMode.NigenYoConsoleKaihatu);
                     Util_Commandline.IsKyokumenEcho = false;
                 }
                 else if (caret == commandline.IndexOf("rnd", caret))
                 {
-                    Util_Commands.Rnd(ky, syuturyoku);
+                    playing.Rnd(ky, syuturyoku);
                 }
                 else if (caret == commandline.IndexOf("move", caret))
                 {
-                    Util_Commands.MoveCmd(Option_Application.Optionlist.USI, commandline, ky, syuturyoku);
+                    playing.MoveCmd(Option_Application.Optionlist.USI, commandline, ky, syuturyoku);
                     Util_Commandline.IsKyokumenEcho = false;
                 }
                 else if (caret == commandline.IndexOf("see", caret))
@@ -564,7 +564,7 @@
                 }
                 else if (caret == commandline.IndexOf("seiseki", caret))
                 {
-                    Util_Commands.Seiseki(Option_Application.Optionlist.USI, commandline, syuturyoku);
+                    playing.Seiseki(Option_Application.Optionlist.USI, commandline, syuturyoku);
                     Util_Commandline.IsKyokumenEcho = false;
                 }
                 else if (caret == commandline.IndexOf("setoption", caret))
@@ -589,46 +589,46 @@
                         caret2 = end + "value ".Length;
                         sb.Append(commandline.Substring(caret2));//値
 
-                        Util_Commands.Set(sb.ToString(), ky, syuturyoku);
+                        playing.Set(sb.ToString(), ky, syuturyoku);
                     }
 #endif
                     Util_Commandline.IsKyokumenEcho = false;
                 }
                 else if (caret == commandline.IndexOf("set", caret))
                 {
-                    Util_Commands.Set(commandline, ky, syuturyoku);
+                    playing.Set(commandline, ky, syuturyoku);
                     Util_Commandline.IsKyokumenEcho = false;
                 }
                 else if (caret == commandline.IndexOf("taikyokusya", caret))
                 {
-                    Util_Commands.Taikyokusya_cmd(commandline, ky, syuturyoku);
+                    playing.Taikyokusya_cmd(commandline, ky, syuturyoku);
                     Util_Commandline.IsKyokumenEcho = false;
                 }
                 else if (caret == commandline.IndexOf("test", caret))
                 {
-                    Util_Commands.Test(Option_Application.Optionlist.USI, commandline, ky, syuturyoku);
+                    playing.Test(Option_Application.Optionlist.USI, commandline, ky, syuturyoku);
                     Util_Commandline.IsKyokumenEcho = false;
                 }
                 else if (caret == commandline.IndexOf("tantaitest", caret))
                 {
-                    Util_Commands.TantaiTest(playing, Option_Application.Optionlist.USI, ky, syuturyoku);
+                    playing.TantaiTest(playing, Option_Application.Optionlist.USI, ky, syuturyoku);
                     Util_Commandline.IsKyokumenEcho = false;
                 }
                 else if (caret == commandline.IndexOf("tumeshogi", caret))
                 {
                     // "tu" と同じ☆（＾▽＾）
-                    Util_Commands.TumeShogi(Option_Application.Optionlist.USI, commandline, ky, syuturyoku);
+                    playing.TumeShogi(Option_Application.Optionlist.USI, commandline, ky, syuturyoku);
                     Util_Commandline.IsKyokumenEcho = false;
                 }
                 else if (caret == commandline.IndexOf("tu", caret))
                 {
                     // "tumeshogi" と同じ☆（＾▽＾）
-                    Util_Commands.TumeShogi(Option_Application.Optionlist.USI, commandline, ky, syuturyoku);
+                    playing.TumeShogi(Option_Application.Optionlist.USI, commandline, ky, syuturyoku);
                     Util_Commandline.IsKyokumenEcho = false;
                 }
                 else if (caret == commandline.IndexOf("undo", caret))
                 {
-                    Util_Commands.Undo(commandline, ky, syuturyoku);
+                    playing.Undo(commandline, ky, syuturyoku);
                     Util_Commandline.IsKyokumenEcho = false;
                 }
                 else if (caret == commandline.IndexOf("usinewgame", caret))
@@ -675,7 +675,7 @@
                 }
 
                 // 次の入力を促す表示をしてるだけだぜ☆（＾～＾）
-                Util_Commandline.ShowPrompt(Option_Application.Optionlist.USI, ky, syuturyoku);
+                Util_Commandline.ShowPrompt(playing, Option_Application.Optionlist.USI, ky, syuturyoku);
 
             }//無限ループ
             //gt_EndLoop1:
