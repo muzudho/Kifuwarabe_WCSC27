@@ -99,7 +99,7 @@ namespace kifuwarabe_wcsc27.Entities.Log
         {
             get
             {
-                return $"{Util_Log.LogDirectory}{Util_Log.LogFileStem}{Util_Log.LogFileExt}";
+                return Path.Combine(Util_Log.LogDirectory, $"{Util_Log.LogFileStem}{Util_Log.LogFileExt}");
             }
         }
 
@@ -108,7 +108,7 @@ namespace kifuwarabe_wcsc27.Entities.Log
         /// </summary>
         public static string NumberedLogFilePath(int i)
         {
-            return $"{Util_Log.LogDirectory}{Util_Log.LogFileStem}_{i + 1}{Util_Log.LogFileExt}";
+            return Path.Combine(Util_Log.LogDirectory, $"{Util_Log.LogFileStem}_{i + 1}{Util_Log.LogFileExt}");
         }
 
         /// <summary>
