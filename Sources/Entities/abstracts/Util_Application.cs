@@ -1,4 +1,4 @@
-﻿using kifuwarabe_wcsc27.Entities.Log;
+﻿using Grayscale.Kifuwarakei.Entities.Logging;
 using kifuwarabe_wcsc27.facade;
 using kifuwarabe_wcsc27.implements;
 using kifuwarabe_wcsc27.interfaces;
@@ -1264,7 +1264,7 @@ namespace kifuwarabe_wcsc27.abstracts
             {
                 // 連続対局を止めるぜ☆（＾▽＾）
                 Option_Application.Optionlist.RenzokuTaikyoku = false;
-                syuturyoku.AppendLine(Util_Log.RenzokuTaikyokuStopFile + "> done");
+                syuturyoku.AppendLine(Logger.RenzokuTaikyokuStopFile + "> done");
             }
 #endif
 

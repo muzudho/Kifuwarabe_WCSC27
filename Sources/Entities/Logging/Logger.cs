@@ -1,11 +1,11 @@
 ﻿using System.IO;
 using Nett;
 
-namespace kifuwarabe_wcsc27.Entities.Log
+namespace Grayscale.Kifuwarakei.Entities.Logging
 {
-    public abstract class Util_Log
+    public abstract class Logger
     {
-        static Util_Log()
+        static Logger()
         {
 
         }
@@ -19,15 +19,15 @@ namespace kifuwarabe_wcsc27.Entities.Log
         {
             get
             {
-                if (Util_Log.logDirectory == null)
+                if (Logger.logDirectory == null)
                 {
                     var profilePath = System.Configuration.ConfigurationManager.AppSettings["Profile"];
                     var toml = Toml.ReadFile(Path.Combine(profilePath, "Engine.toml"));
                     var logDirectory = toml.Get<TomlTable>("Resources").Get<string>("LogDirectory");
-                    Util_Log.logDirectory = Path.Combine(profilePath, logDirectory);
+                    Logger.logDirectory = Path.Combine(profilePath, logDirectory);
                 }
 
-                return Util_Log.logDirectory;
+                return Logger.logDirectory;
             }
         }
         static string logDirectory;
@@ -99,7 +99,7 @@ namespace kifuwarabe_wcsc27.Entities.Log
         {
             get
             {
-                return Path.Combine(Util_Log.LogDirectory, $"{Util_Log.LogFileStem}{Util_Log.LogFileExt}");
+                return Path.Combine(Logger.LogDirectory, $"{Logger.LogFileStem}{Logger.LogFileExt}");
             }
         }
 
@@ -108,7 +108,7 @@ namespace kifuwarabe_wcsc27.Entities.Log
         /// </summary>
         public static string NumberedLogFilePath(int i)
         {
-            return Path.Combine(Util_Log.LogDirectory, $"{Util_Log.LogFileStem}_{i + 1}{Util_Log.LogFileExt}");
+            return Path.Combine(Logger.LogDirectory, $"{Logger.LogFileStem}_{i + 1}{Logger.LogFileExt}");
         }
 
         /// <summary>
@@ -116,9 +116,9 @@ namespace kifuwarabe_wcsc27.Entities.Log
         /// </summary>
         public static void LogDirectoryToExists()
         {
-            if (!Directory.Exists(Util_Log.LogDirectory))
+            if (!Directory.Exists(Logger.LogDirectory))
             {
-                Directory.CreateDirectory(Util_Log.LogDirectory);
+                Directory.CreateDirectory(Logger.LogDirectory);
             }
         }
 #endif

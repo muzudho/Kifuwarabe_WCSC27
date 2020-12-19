@@ -118,7 +118,7 @@
     <Compile Include="interfaces\Move.cs" />
     <Compile Include="interfaces\TaikyokuKekka.cs" />
     <Compile Include="interfaces\Taikyokusya.cs" />
-    <Compile Include="Logger\Util_Log.cs" />
+    <Compile Include="Logging\Logger.cs" />
     <Compile Include="machine\Util_Machine.cs" />
     <Compile Include="machine\Util_Test.cs" />
     <Compile Include="Presenter\FenParsers.cs" />
