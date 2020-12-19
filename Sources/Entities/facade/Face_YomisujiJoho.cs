@@ -191,7 +191,7 @@ namespace kifuwarabe_wcsc27.facade
                 if (hint!="UpAlpha" && hint!="UpAlphaRnd")
                 {
                     //詰将棋のときの強力なデバッグ出力だぜ☆（＾▽＾）ｗｗｗ
-                    Face_Commandline.Move_cmd("move seisei", syuturyoku);
+                    Face_Commandline.MoveCmd("move seisei", syuturyoku);
                 }
 #endif
                 // */
@@ -200,8 +200,8 @@ namespace kifuwarabe_wcsc27.facade
                 {
                     // 駒包囲テストのときの強力なデバッグ出力だぜ☆（＾▽＾）ｗｗｗ
                     Util_Commands.Ky(Option_Application.Optionlist.USI, "ky", ky, syuturyoku);
-                    Util_Commands.Move_cmd(Option_Application.Optionlist.USI, "move", ky, syuturyoku);
-                    Util_Commands.Move_cmd(Option_Application.Optionlist.USI, "move seisei", ky, syuturyoku);
+                    Util_Commands.MoveCmd(Option_Application.Optionlist.USI, "move", ky, syuturyoku);
+                    Util_Commands.MoveCmd(Option_Application.Optionlist.USI, "move seisei", ky, syuturyoku);
                 }
 #endif
 

@@ -17,7 +17,7 @@ namespace kifuwarabe_wcsc27.implements
             }
             syuturyoku.AppendLine( "└──────────┘");
 #if DEBUG
-            MoveSeiseiBunseki.Instance.Setumei(syuturyoku);
+            MoveGenBunseki.Instance.Setumei(syuturyoku);
 #endif
         }
     }

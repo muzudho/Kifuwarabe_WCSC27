@@ -24,14 +24,14 @@ namespace kifuwarabe_wcsc27.implements
         }
         public void Clear()
         {
-            SasiteSeiseiWoNuketaBasho = "";
+            MoveGenWoNuketaBasho = "";
             BB_IdosakiBase = null;
         }
 
         /// <summary>
         /// 指し手生成を抜けた場所
         /// </summary>
-        public string SasiteSeiseiWoNuketaBasho { get; set; }
+        public string MoveGenWoNuketaBasho { get; set; }
 
         /// <summary>
         /// 移動先升
@@ -40,7 +40,7 @@ namespace kifuwarabe_wcsc27.implements
 
         public void Setumei(Mojiretu syuturyoku)
         {
-            syuturyoku.AppendLine("指し手生成を抜けた場所：" + MoveGenBunseki.Instance.SasiteSeiseiWoNuketaBasho);
+            syuturyoku.AppendLine("指し手生成を抜けた場所：" + MoveGenBunseki.Instance.MoveGenWoNuketaBasho);
             Util_Information.Setumei_1Bitboard("移動先升", BB_IdosakiBase, syuturyoku);
         }
     }

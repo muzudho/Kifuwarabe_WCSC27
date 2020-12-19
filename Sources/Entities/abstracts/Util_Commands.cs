@@ -219,12 +219,12 @@ namespace kifuwarabe_wcsc27.abstracts
 #if DEBUG
             Util_Information.Setumei_NingenGameYo(ky, syuturyoku);
             Ky(isSfen, "ky fen", ky, syuturyoku);// 参考：改造FEN表示
-            Move_cmd(isSfen, "move", ky, syuturyoku);// 参考：指し手表示
+            MoveCmd(isSfen, "move", ky, syuturyoku);// 参考：指し手表示
             if (false){
                 Util_Information.HyojiKomanoIbasho(ky.Shogiban, syuturyoku);// 参考：駒の表示
             }
             Util_Information.HyojiKomanoKikiSu(ky.Shogiban, syuturyoku);// 参考：利きの数
-            Move_cmd(isSfen, "move seisei", ky, syuturyoku);// 参考：指し手生成表示
+            MoveCmd(isSfen, "move seisei", ky, syuturyoku);// 参考：指し手生成表示
             Util_Machine.Flush(syuturyoku);
 #endif
 

@@ -1335,7 +1335,7 @@ namespace kifuwarabe_wcsc27.abstracts
             if (ky.IsSyobuNasi())
             {
 #if DEBUG
-                MoveSeiseiBunseki.Instance.MoveSeiseiWoNuketaBasho = "無勝負";
+                MoveGenBunseki.Instance.MoveGenWoNuketaBasho = "無勝負";
 #endif
                 return;
             }
@@ -1362,7 +1362,7 @@ namespace kifuwarabe_wcsc27.abstracts
             if (jibunHioute.IsTunderu())
             {
 #if DEBUG
-                MoveSeiseiBunseki.Instance.MoveSeiseiWoNuketaBasho = "詰んでた";
+                MoveGenBunseki.Instance.MoveGenWoNuketaBasho = "詰んでた";
 #endif
                 goto gt_FlushMove; // 空っぽで投了だぜ☆（＾▽＾）
             }
@@ -1397,8 +1397,8 @@ namespace kifuwarabe_wcsc27.abstracts
                 if (!idosakiBB_base.IsEmpty())
                 {
 #if DEBUG
-                    MoveSeiseiBunseki.Instance.MoveSeiseiWoNuketaBasho = "逼迫返討手";
-                    MoveSeiseiBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
+                    MoveGenBunseki.Instance.MoveGenWoNuketaBasho = "逼迫返討手";
+                    MoveGenBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
 #endif
 
                     foreach (Koma km in Conv_Koma.ItiranYowaimonoJun[(int)jibun])// 弱い駒から順
@@ -1447,8 +1447,8 @@ namespace kifuwarabe_wcsc27.abstracts
                 if (!idosakiBB_base.IsEmpty())
                 {
 #if DEBUG
-                    MoveSeiseiBunseki.Instance.MoveSeiseiWoNuketaBasho = "余裕返討手";
-                    MoveSeiseiBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
+                    MoveGenBunseki.Instance.MoveGenWoNuketaBasho = "余裕返討手";
+                    MoveGenBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
 #endif
                     foreach (Koma km in Conv_Koma.ItiranYowaimonoJun[(int)jibun])// 弱い駒から順
                     {
@@ -1503,8 +1503,8 @@ namespace kifuwarabe_wcsc27.abstracts
                 if (!idosakiBB_base.IsEmpty())
                 {
 #if DEBUG
-                    MoveSeiseiBunseki.Instance.MoveSeiseiWoNuketaBasho = "らいおんキャッチ";
-                    MoveSeiseiBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
+                    MoveGenBunseki.Instance.MoveGenWoNuketaBasho = "らいおんキャッチ";
+                    MoveGenBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
 #endif
                     int ssCount_old = AbstractUtilMoveGen.MoveList[fukasa].SslistCount;
 
@@ -1563,8 +1563,8 @@ namespace kifuwarabe_wcsc27.abstracts
                     if (!idosakiBB_base.IsEmpty())
                     {
 #if DEBUG
-                        MoveSeiseiBunseki.Instance.MoveSeiseiWoNuketaBasho = "逃げろ手";
-                        MoveSeiseiBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
+                        MoveGenBunseki.Instance.MoveGenWoNuketaBasho = "逃げろ手";
+                        MoveGenBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
 #endif
                         idosakiBB_copy.Set(idosakiBB_base);
                         while (idosakiBB_copy.Ref_PopNTZ(out Masu ms_ido))
@@ -1592,8 +1592,8 @@ namespace kifuwarabe_wcsc27.abstracts
                 if (!idosakiBB_base.IsEmpty())
                 {
 #if DEBUG
-                    MoveSeiseiBunseki.Instance.MoveSeiseiWoNuketaBasho = "トライ";
-                    MoveSeiseiBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
+                    MoveGenBunseki.Instance.MoveGenWoNuketaBasho = "トライ";
+                    MoveGenBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
 #endif
                     // らいおん
                     ky.Shogiban.ToSet_BBKoma(jibunHioute.KmRaion, bb_ibasho);
@@ -1623,8 +1623,8 @@ namespace kifuwarabe_wcsc27.abstracts
                 if (!idosakiBB_base.IsEmpty())
                 {
 #if DEBUG
-                    MoveSeiseiBunseki.Instance.MoveSeiseiWoNuketaBasho = "駒を取る手";
-                    MoveSeiseiBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
+                    MoveGenBunseki.Instance.MoveGenWoNuketaBasho = "駒を取る手";
+                    MoveGenBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
 #endif
                     foreach (Koma km in Conv_Koma.ItiranYowaimonoJun[(int)jibun])// 弱い駒から順
                     {
@@ -1686,8 +1686,8 @@ namespace kifuwarabe_wcsc27.abstracts
                 if (!idosakiBB_base.IsEmpty())
                 {
 #if DEBUG
-                    MoveSeiseiBunseki.Instance.MoveSeiseiWoNuketaBasho = "紐付王手指";
-                    MoveSeiseiBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
+                    MoveGenBunseki.Instance.MoveGenWoNuketaBasho = "紐付王手指";
+                    MoveGenBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
 #endif
                     foreach (Koma km in Conv_Koma.ItiranYowaimonoJun[(int)jibun])// 弱い駒から順
                     {
@@ -1736,8 +1736,8 @@ namespace kifuwarabe_wcsc27.abstracts
                 if (!idosakiBB_base.IsEmpty())
                 {
 #if DEBUG
-                    MoveSeiseiBunseki.Instance.MoveSeiseiWoNuketaBasho = "捨て王手指";
-                    MoveSeiseiBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
+                    MoveGenBunseki.Instance.MoveGenWoNuketaBasho = "捨て王手指";
+                    MoveGenBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
 #endif
                     // 2016-12-22 捨てだからと言って、紐を付けないとは限らない☆
 
@@ -1791,8 +1791,8 @@ namespace kifuwarabe_wcsc27.abstracts
                     if (!idosakiBB_base.IsEmpty())
                     {
 #if DEBUG
-                        MoveSeiseiBunseki.Instance.MoveSeiseiWoNuketaBasho = "捨て王手打";
-                        MoveSeiseiBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
+                        MoveGenBunseki.Instance.MoveGenWoNuketaBasho = "捨て王手打";
+                        MoveGenBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
 #endif
                         idosakiBB_copy.Set(idosakiBB_base);
                         AbstractUtilMoveGen.GenerateMoveMotiKoma(sasiteType, fukasa, ky, jibun, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku);
@@ -1815,8 +1815,8 @@ namespace kifuwarabe_wcsc27.abstracts
                     if (!idosakiBB_base.IsEmpty())
                     {
 #if DEBUG
-                        MoveSeiseiBunseki.Instance.MoveSeiseiWoNuketaBasho = "紐付王手打";
-                        MoveSeiseiBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
+                        MoveGenBunseki.Instance.MoveGenWoNuketaBasho = "紐付王手打";
+                        MoveGenBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
 #endif
                         idosakiBB_copy.Set(idosakiBB_base);
                         AbstractUtilMoveGen.GenerateMoveMotiKoma(sasiteType, fukasa, ky, jibun, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku);
@@ -1856,8 +1856,8 @@ namespace kifuwarabe_wcsc27.abstracts
                     if (!idosakiBB_base.IsEmpty())
                     {
 #if DEBUG
-                        MoveSeiseiBunseki.Instance.MoveSeiseiWoNuketaBasho = "紐付緩慢打";
-                        MoveSeiseiBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
+                        MoveGenBunseki.Instance.MoveGenWoNuketaBasho = "紐付緩慢打";
+                        MoveGenBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
 #endif
                         idosakiBB_copy.Set(idosakiBB_base);
                         AbstractUtilMoveGen.GenerateMoveMotiKoma(sasiteType, fukasa, ky, jibun, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku);
@@ -1883,8 +1883,8 @@ namespace kifuwarabe_wcsc27.abstracts
                 if (!idosakiBB_base.IsEmpty())
                 {
 #if DEBUG
-                    MoveSeiseiBunseki.Instance.MoveSeiseiWoNuketaBasho = "紐付緩慢指";
-                    MoveSeiseiBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
+                    MoveGenBunseki.Instance.MoveGenWoNuketaBasho = "紐付緩慢指";
+                    MoveGenBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
 #endif
                     foreach (Koma km in Conv_Koma.ItiranYowaimonoJun[(int)jibun])// 弱い駒から順
                     {
@@ -1934,8 +1934,8 @@ namespace kifuwarabe_wcsc27.abstracts
                 if (!idosakiBB_base.IsEmpty())
                 {
 #if DEBUG
-                    MoveSeiseiBunseki.Instance.MoveSeiseiWoNuketaBasho = "ぼっち緩慢指";
-                    MoveSeiseiBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
+                    MoveGenBunseki.Instance.MoveGenWoNuketaBasho = "ぼっち緩慢指";
+                    MoveGenBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
 #endif
                     foreach (Koma km in Conv_Koma.ItiranYowaimonoJun[(int)jibun])// 弱い駒から順
                     {
@@ -1987,8 +1987,8 @@ namespace kifuwarabe_wcsc27.abstracts
                     if (!idosakiBB_base.IsEmpty())
                     {
 #if DEBUG
-                        MoveSeiseiBunseki.Instance.MoveSeiseiWoNuketaBasho = "ぼっち緩慢打";
-                        MoveSeiseiBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
+                        MoveGenBunseki.Instance.MoveGenWoNuketaBasho = "ぼっち緩慢打";
+                        MoveGenBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
 #endif
                         idosakiBB_copy.Set(idosakiBB_base);
                         AbstractUtilMoveGen.GenerateMoveMotiKoma(sasiteType, fukasa, ky, jibun, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku);
@@ -2026,8 +2026,8 @@ namespace kifuwarabe_wcsc27.abstracts
                 if (!idosakiBB_base.IsEmpty())
                 {
 #if DEBUG
-                    MoveSeiseiBunseki.Instance.MoveSeiseiWoNuketaBasho = "捨て緩慢指";
-                    MoveSeiseiBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
+                    MoveGenBunseki.Instance.MoveGenWoNuketaBasho = "捨て緩慢指";
+                    MoveGenBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
 #endif
                     // 2016-12-22 捨てだからと言って、紐を付けないとは限らない☆
 
@@ -2081,8 +2081,8 @@ namespace kifuwarabe_wcsc27.abstracts
                     if (!idosakiBB_base.IsEmpty())
                     {
 #if DEBUG
-                        MoveSeiseiBunseki.Instance.MoveSeiseiWoNuketaBasho = "捨て緩慢打";
-                        MoveSeiseiBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
+                        MoveGenBunseki.Instance.MoveGenWoNuketaBasho = "捨て緩慢打";
+                        MoveGenBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
 #endif
                         idosakiBB_copy.Set(idosakiBB_base);
                         AbstractUtilMoveGen.GenerateMoveMotiKoma(sasiteType, fukasa, ky, jibun, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku);

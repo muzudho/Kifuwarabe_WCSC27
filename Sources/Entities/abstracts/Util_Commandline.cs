@@ -85,12 +85,12 @@ namespace kifuwarabe_wcsc27.abstracts
 
 #if DEBUG
                         Util_Commands.Ky(isSfen, "ky fen", ky, syuturyoku);// 参考：改造FEN表示
-                        Util_Commands.Sasite_cmd(isSfen, "move", ky, syuturyoku);// 参考：指し手表示
+                        Util_Commands.MoveCmd(isSfen, "move", ky, syuturyoku);// 参考：指し手表示
                         if (false){
                             Util_Information.HyojiKomanoIbasho(ky.Shogiban, syuturyoku);// 参考：駒の表示
                             Util_Information.HyojiKomanoKikiSu(ky.Shogiban, syuturyoku);// 参考：利きの数
                         }
-                        Util_Commands.Sasite_cmd(isSfen, "move seisei", ky, syuturyoku);// 参考：指し手表示 詳細
+                        Util_Commands.MoveCmd(isSfen, "move seisei", ky, syuturyoku);// 参考：指し手表示 詳細
                         Util_Machine.Flush(syuturyoku);
 #endif
 
