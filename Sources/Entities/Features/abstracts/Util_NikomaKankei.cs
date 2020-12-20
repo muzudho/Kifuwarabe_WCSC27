@@ -1,9 +1,6 @@
-﻿using kifuwarabe_wcsc27.implements;
+﻿using System.Text;
+using kifuwarabe_wcsc27.implements;
 using kifuwarabe_wcsc27.interfaces;
-using System;
-using System.Diagnostics;
-using System.Text;
-using System.Text.RegularExpressions;
 
 namespace kifuwarabe_wcsc27.abstracts
 {
