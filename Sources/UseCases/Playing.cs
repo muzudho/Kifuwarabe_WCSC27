@@ -151,7 +151,7 @@ usiok");
 
             if (!Med_Parser.TryFenMove(isSfen, commandline, ref caret, ky.Sindan, out Move ss))
             {
-                throw new Exception("パースエラー [" + commandline + "]");
+                throw new Exception($"パースエラー [{commandline}]");
             }
 
             Nanteme nanteme = new Nanteme();
@@ -278,12 +278,12 @@ usiok");
             if (caret == commandline.IndexOf("komawari", caret))
             {
                 Hyokati hyokati = ky.Komawari.Get(ky.Teban);
-                syuturyoku.AppendLine("komawari hyokati = " + (int)hyokati);
+                syuturyoku.AppendLine($"komawari hyokati = { (int)hyokati}");
             }
             else if (caret == commandline.IndexOf("nikoma", caret))
             {
                 Hyokati hyokati = ky.Nikoma.Get(true);
-                syuturyoku.AppendLine("nikoma hyokati = " + (int)hyokati);
+                syuturyoku.AppendLine($"nikoma hyokati = { (int)hyokati}");
             }
         }
 
@@ -1729,7 +1729,7 @@ usiok");
             if (commandline == "seiseki")
             {
                 Util_Application.Seiseki_cmd(out int kyokumenSu, out int sasiteSu);
-                syuturyoku.AppendLine("成績ファイル　局面数[" + kyokumenSu + "]　指し手数[" + sasiteSu + "]");
+                syuturyoku.AppendLine($"成績ファイル　局面数[{ kyokumenSu }]　指し手数[{ sasiteSu }]");
                 return;
             }
 
@@ -1798,11 +1798,11 @@ usiok");
                     countKy_bad++;
                 }
 
-                syuturyoku.AppendLine("成績ファイルの中の指せない手を 削除したぜ☆（＾～＾）保存はまだ☆");
-                syuturyoku.AppendLine("　局面数　　　残った数　／　削除した数　／　　全体の数　（　削除した率）");
-                syuturyoku.AppendLine("　　　　　　" + string.Format("{0,10}", countKy_all - countKy_bad) + "　／　" + string.Format("{0,10}", countKy_bad) + "　／　" + string.Format("{0,10}", countKy_all) + "　（" + string.Format("{0,10}", (float)countKy_bad / (float)countKy_all * 100.0f) + "％）");
-                syuturyoku.AppendLine("　指し手数　　残った数　／　削除した数　／　　全体の数　（　削除した率）");
-                syuturyoku.AppendLine("　　　　　　" + string.Format("{0,10}", countSs_all - countSs_bad) + "　／　" + string.Format("{0,10}", countSs_bad) + "　／　" + string.Format("{0,10}", countSs_all) + "　（" + string.Format("{0,10}", (float)countSs_bad / (float)countSs_all * 100.0f) + "％）");
+                syuturyoku.AppendLine($@"成績ファイルの中の指せない手を 削除したぜ☆（＾～＾）保存はまだ☆
+局面数　　　残った数　／　削除した数　／　　全体の数　（　削除した率）
+　　　　　　{ string.Format("{0,10}", countKy_all - countKy_bad) }　／　{ string.Format("{0,10}", countKy_bad) }　／　{ string.Format("{0,10}", countKy_all) }　（{ string.Format("{0,10}", (float)countKy_bad / (float)countKy_all * 100.0f) }％）
+　指し手数　　残った数　／　削除した数　／　　全体の数　（　削除した率）
+　　　　　　{ string.Format("{0,10}", countSs_all - countSs_bad) }　／　{ string.Format("{0,10}", countSs_bad) }　／　{ string.Format("{0,10}", countSs_all) }　（{ string.Format("{0,10}", (float)countSs_bad / (float)countSs_all * 100.0f) }％）");
                 #endregion
             }
         }
@@ -1815,38 +1815,38 @@ usiok");
 #if UNITY
                 kigo = "# ";
 #endif
-                syuturyoku.AppendLine(kigo + "AspirationFukasa         = " + (int)Option_Application.Optionlist.AspirationFukasa);
-                syuturyoku.AppendLine(kigo + "AspirationWindow         = " + (int)Option_Application.Optionlist.AspirationWindow);
-                syuturyoku.AppendLine(kigo + "BanTateHaba              = " + Option_Application.Optionlist.BanTateHaba);
-                syuturyoku.AppendLine(kigo + "BanYokoHaba              = " + Option_Application.Optionlist.BanYokoHaba);
-                syuturyoku.AppendLine(kigo + "BetaCutPer               = " + Option_Application.Optionlist.BetaCutPer);
-                syuturyoku.AppendLine(kigo + "HanpukuSinkaTansakuTukau = " + Option_Application.Optionlist.HanpukuSinkaTansakuTukau);
-                syuturyoku.AppendLine(kigo + "JohoJikan                = " + Option_Application.Optionlist.JohoJikan);
-                syuturyoku.AppendLine(kigo + "JosekiPer                = " + Option_Application.Optionlist.JosekiPer);
-                syuturyoku.AppendLine(kigo + "JosekiRec                = " + Option_Application.Optionlist.JosekiRec);
-                syuturyoku.AppendLine(kigo + "Learn                    = " + Option_Application.Optionlist.Learn);
-                syuturyoku.AppendLine(kigo + "NikomaHyokaKeisu         = " + Option_Application.Optionlist.NikomaHyokaKeisu);
-                syuturyoku.AppendLine(kigo + "NikomaGakusyuKeisu       = " + Option_Application.Optionlist.NikomaGakusyuKeisu);
-                syuturyoku.AppendLine(kigo + "P1Char                   = " + Option_Application.Optionlist.PNChar[(int)Taikyokusya.T1]);
-                syuturyoku.AppendLine(kigo + "P1Com                    = " + Option_Application.Optionlist.P1Com);
-                syuturyoku.AppendLine(kigo + "P1Name                   = " + Option_Application.Optionlist.PNName[(int)Taikyokusya.T1]);
-                syuturyoku.AppendLine(kigo + "P2Char                   = " + Option_Application.Optionlist.PNChar[(int)Taikyokusya.T2]);
-                syuturyoku.AppendLine(kigo + "P2Com                    = " + Option_Application.Optionlist.P2Com);
-                syuturyoku.AppendLine(kigo + "P2Name                   = " + Option_Application.Optionlist.PNName[(int)Taikyokusya.T2]);
-                syuturyoku.AppendLine(kigo + "RandomCharacter          = " + Option_Application.Optionlist.RandomCharacter);
-                syuturyoku.AppendLine(kigo + "RandomNikoma             = " + Option_Application.Optionlist.RandomNikoma);
-                syuturyoku.AppendLine(kigo + "RandomStart              = " + Option_Application.Optionlist.RandomStart);
-                syuturyoku.AppendLine(kigo + "RandomStartTaikyokusya   = " + Option_Application.Optionlist.RandomStartTaikyokusya);
-                syuturyoku.AppendLine(kigo + "RenzokuTaikyoku          = " + Option_Application.Optionlist.RenzokuTaikyoku);
-                syuturyoku.AppendLine(kigo + "SagareruHiyoko           = " + Option_Application.Optionlist.SagareruHiyoko);
-                syuturyoku.AppendLine(kigo + "SaidaiEda                = " + Option_Application.Optionlist.SaidaiEda);
-                syuturyoku.AppendLine(kigo + "SaidaiFukasa             = " + Option_Application.Optionlist.SaidaiFukasa);
-                syuturyoku.AppendLine(kigo + "SeisekiRec               = " + Option_Application.Optionlist.SeisekiRec);
-                syuturyoku.AppendLine(kigo + "SikoJikan                = " + Option_Application.Optionlist.SikoJikan);
-                syuturyoku.AppendLine(kigo + "SikoJikanRandom          = " + Option_Application.Optionlist.SikoJikanRandom);
-                syuturyoku.AppendLine(kigo + "TranspositionTableTukau  = " + Option_Application.Optionlist.TranspositionTableTukau);
-                syuturyoku.AppendLine(kigo + "UseTimeOver              = " + Option_Application.Optionlist.UseTimeOver);
-                syuturyoku.AppendLine(kigo + "USI                      = " + Option_Application.Optionlist.USI);
+                syuturyoku.AppendLine($@"{kigo}AspirationFukasa         = {Option_Application.Optionlist.AspirationFukasa }
+{kigo}AspirationWindow         = {Option_Application.Optionlist.AspirationWindow}
+{kigo}BanTateHaba              = {Option_Application.Optionlist.BanTateHaba}
+{kigo}BanYokoHaba              = {Option_Application.Optionlist.BanYokoHaba}
+{kigo}BetaCutPer               = {Option_Application.Optionlist.BetaCutPer}
+{kigo}HanpukuSinkaTansakuTukau = {Option_Application.Optionlist.HanpukuSinkaTansakuTukau}
+{kigo}JohoJikan                = {Option_Application.Optionlist.JohoJikan}
+{kigo}JosekiPer                = {Option_Application.Optionlist.JosekiPer}
+{kigo}JosekiRec                = {Option_Application.Optionlist.JosekiRec}
+{kigo}Learn                    = {Option_Application.Optionlist.Learn}
+{kigo}NikomaHyokaKeisu         = {Option_Application.Optionlist.NikomaHyokaKeisu}
+{kigo}NikomaGakusyuKeisu       = {Option_Application.Optionlist.NikomaGakusyuKeisu}
+{kigo}P1Char                   = {Option_Application.Optionlist.PNChar[(int)Taikyokusya.T1]}
+{kigo}P1Com                    = {Option_Application.Optionlist.P1Com}
+{kigo}P1Name                   = {Option_Application.Optionlist.PNName[(int)Taikyokusya.T1]}
+{kigo}P2Char                   = {Option_Application.Optionlist.PNChar[(int)Taikyokusya.T2]}
+{kigo}P2Com                    = {Option_Application.Optionlist.P2Com}
+{kigo}P2Name                   = {Option_Application.Optionlist.PNName[(int)Taikyokusya.T2]}
+{kigo}RandomCharacter          = {Option_Application.Optionlist.RandomCharacter}
+{kigo}RandomNikoma             = {Option_Application.Optionlist.RandomNikoma}
+{kigo}RandomStart              = {Option_Application.Optionlist.RandomStart}
+{kigo}RandomStartTaikyokusya   = {Option_Application.Optionlist.RandomStartTaikyokusya}
+{kigo}RenzokuTaikyoku          = {Option_Application.Optionlist.RenzokuTaikyoku}
+{kigo}SagareruHiyoko           = {Option_Application.Optionlist.SagareruHiyoko}
+{kigo}SaidaiEda                = {Option_Application.Optionlist.SaidaiEda}
+{kigo}SaidaiFukasa             = {Option_Application.Optionlist.SaidaiFukasa}
+{kigo}SeisekiRec               = {Option_Application.Optionlist.SeisekiRec}
+{kigo}SikoJikan                = {Option_Application.Optionlist.SikoJikan}
+{kigo}SikoJikanRandom          = {Option_Application.Optionlist.SikoJikanRandom}
+{kigo}TranspositionTableTukau  = {Option_Application.Optionlist.TranspositionTableTukau}
+{kigo}UseTimeOver              = {Option_Application.Optionlist.UseTimeOver}
+{kigo}USI                      = {Option_Application.Optionlist.USI}");
                 return;
             }
 
@@ -1931,29 +1931,29 @@ usiok");
                 #region ビット演算のテスト☆
                 Bitboard x = new Bitboard();
                 Masu ntz;
-                x.Set(0); x.GetNTZ(out ntz); syuturyoku.AppendLine("    0  0000 0000 0000 0000 の NTZ =[" + ntz + "]");
-                x.Set(1); x.GetNTZ(out ntz); syuturyoku.AppendLine("    1  0000 0000 0000 0001 の NTZ =[" + ntz + "]");
-                x.Set(2); x.GetNTZ(out ntz); syuturyoku.AppendLine("    2  0000 0000 0000 0010 の NTZ =[" + ntz + "]");
-                x.Set(4); x.GetNTZ(out ntz); syuturyoku.AppendLine("    4  0000 0000 0000 0100 の NTZ =[" + ntz + "]");
-                x.Set(8); x.GetNTZ(out ntz); syuturyoku.AppendLine("    8  0000 0000 0000 1000 の NTZ =[" + ntz + "]");
-                x.Set(16); x.GetNTZ(out ntz); syuturyoku.AppendLine("   16  0000 0000 0001 0000 の NTZ =[" + ntz + "]");
-                x.Set(32); x.GetNTZ(out ntz); syuturyoku.AppendLine("   32  0000 0000 0010 0000 の NTZ =[" + ntz + "]");
-                x.Set(64); x.GetNTZ(out ntz); syuturyoku.AppendLine("   64  0000 0000 0100 0000 の NTZ =[" + ntz + "]");
-                x.Set(128); x.GetNTZ(out ntz); syuturyoku.AppendLine("  128  0000 0000 1000 0000 の NTZ =[" + ntz + "]");
-                x.Set(256); x.GetNTZ(out ntz); syuturyoku.AppendLine("  256  0000 0001 0000 0000 の NTZ =[" + ntz + "]");
-                x.Set(512); x.GetNTZ(out ntz); syuturyoku.AppendLine("  512  0000 0010 0000 0000 の NTZ =[" + ntz + "]");
-                x.Set(1024); x.GetNTZ(out ntz); syuturyoku.AppendLine(" 1024  0000 0100 0000 0000 の NTZ =[" + ntz + "]");
-                x.Set(2048); x.GetNTZ(out ntz); syuturyoku.AppendLine(" 2048  0000 1000 0000 0000 の NTZ =[" + ntz + "]");
-                x.Set(4096); x.GetNTZ(out ntz); syuturyoku.AppendLine(" 4096  0001 0000 0000 0000 の NTZ =[" + ntz + "]");
-                x.Set(8192); x.GetNTZ(out ntz); syuturyoku.AppendLine(" 8192  0010 0000 0000 0000 の NTZ =[" + ntz + "]");
-                x.Set(16384); x.GetNTZ(out ntz); syuturyoku.AppendLine("16384  0100 0000 0000 0000 の NTZ =[" + ntz + "]");
-                x.Set(32768); x.GetNTZ(out ntz); syuturyoku.AppendLine("32768  1000 0000 0000 0000 の NTZ =[" + ntz + "]");
+                x.Set(0); x.GetNTZ(out ntz); syuturyoku.AppendLine($"    0  0000 0000 0000 0000 の NTZ =[{ ntz }]");
+                x.Set(1); x.GetNTZ(out ntz); syuturyoku.AppendLine($"    1  0000 0000 0000 0001 の NTZ =[{ ntz }]");
+                x.Set(2); x.GetNTZ(out ntz); syuturyoku.AppendLine($"    2  0000 0000 0000 0010 の NTZ =[{ ntz }]");
+                x.Set(4); x.GetNTZ(out ntz); syuturyoku.AppendLine($"    4  0000 0000 0000 0100 の NTZ =[{ ntz }]");
+                x.Set(8); x.GetNTZ(out ntz); syuturyoku.AppendLine($"    8  0000 0000 0000 1000 の NTZ =[{ ntz }]");
+                x.Set(16); x.GetNTZ(out ntz); syuturyoku.AppendLine($"   16  0000 0000 0001 0000 の NTZ =[{ ntz }]");
+                x.Set(32); x.GetNTZ(out ntz); syuturyoku.AppendLine($"   32  0000 0000 0010 0000 の NTZ =[{ ntz }]");
+                x.Set(64); x.GetNTZ(out ntz); syuturyoku.AppendLine($"   64  0000 0000 0100 0000 の NTZ =[{ ntz }]");
+                x.Set(128); x.GetNTZ(out ntz); syuturyoku.AppendLine($"  128  0000 0000 1000 0000 の NTZ =[{ ntz }]");
+                x.Set(256); x.GetNTZ(out ntz); syuturyoku.AppendLine($"  256  0000 0001 0000 0000 の NTZ =[{ ntz }]");
+                x.Set(512); x.GetNTZ(out ntz); syuturyoku.AppendLine($"  512  0000 0010 0000 0000 の NTZ =[{ ntz }]");
+                x.Set(1024); x.GetNTZ(out ntz); syuturyoku.AppendLine($" 1024  0000 0100 0000 0000 の NTZ =[{ ntz }]");
+                x.Set(2048); x.GetNTZ(out ntz); syuturyoku.AppendLine($" 2048  0000 1000 0000 0000 の NTZ =[{ ntz }]");
+                x.Set(4096); x.GetNTZ(out ntz); syuturyoku.AppendLine($" 4096  0001 0000 0000 0000 の NTZ =[{ ntz }]");
+                x.Set(8192); x.GetNTZ(out ntz); syuturyoku.AppendLine($" 8192  0010 0000 0000 0000 の NTZ =[{ ntz }]");
+                x.Set(16384); x.GetNTZ(out ntz); syuturyoku.AppendLine($"16384  0100 0000 0000 0000 の NTZ =[{ ntz }]");
+                x.Set(32768); x.GetNTZ(out ntz); syuturyoku.AppendLine($"32768  1000 0000 0000 0000 の NTZ =[{ ntz }]");
                 //for (int i = 17; i < 67; i++) // [63]以降は 64 のようだぜ☆（＾▽＾）
                 for (int i = 17; i < 131; i++) // [63]以降は 64 のようだぜ☆（＾▽＾）
                 {
                     x.LeftShift(1);
                     x.GetNTZ(out ntz);
-                    syuturyoku.AppendLine("(" + i + ")                         NTZ =[" + ntz + "] Contents=[" + x.ToContents() + "]");
+                    syuturyoku.AppendLine($"({i})                         NTZ =[{ntz}] Contents=[{x.ToContents()}]");
                 }
                 Util_Machine.Flush(syuturyoku);
                 #endregion
@@ -2078,7 +2078,7 @@ usiok");
                         int max = 64;// 32: 32bit
                         for (int i = 12; i < max; i += 3)
                         {
-                            syuturyoku.AppendLine("i=[" + i + "]");
+                            syuturyoku.AppendLine($"i=[{i}]");
                             syuturyoku.Append("         ");
                             maskBB.Set(0x200);
                             Koma km = Med_Koma.KomasyuruiAndTaikyokusyaToKoma((Komasyurui)iKs, (Taikyokusya)iTb);
@@ -2385,14 +2385,14 @@ usiok");
                 for (ulong x = 0; x < 32UL; x++)
                 {
                     tmp.Set(x);
-                    syuturyoku.AppendLine(Convert.ToString((long)x, 2) + " の PopCnt =[" + tmp.PopCnt() + "]");
+                    syuturyoku.AppendLine($"{Convert.ToString((long)x, 2)} の PopCnt =[{ tmp.PopCnt() }]");
                 }
                 // 64bitあたり
                 tmp.Set(1UL);
                 tmp.LeftShift(63);
                 for (int x = 0; x < 10; x++)
                 {
-                    syuturyoku.AppendLine(Convert.ToString((long)tmp.Value64127, 2) + "_" + Convert.ToString((long)tmp.Value063, 2) + " の PopCnt =[" + tmp.PopCnt() + "]");
+                    syuturyoku.AppendLine($"{Convert.ToString((long)tmp.Value64127, 2)}_{Convert.ToString((long)tmp.Value063, 2)} の PopCnt =[{ tmp.PopCnt() }]");
                     tmp.LeftShift(1);
                 }
                 Util_Machine.Flush(syuturyoku);
@@ -2407,7 +2407,7 @@ usiok");
                 {
                     for (int iDan = 0; iDan < Option_Application.Optionlist.BanTateHaba; iDan++)
                     {
-                        Util_Information.Setumei_1Bitboard("段" + iDan, ky.BB_DanArray[iDan], syuturyoku);
+                        Util_Information.Setumei_1Bitboard($"段{ iDan}", ky.BB_DanArray[iDan], syuturyoku);
                     }
                     syuturyoku.AppendLine();
                 }
@@ -2419,7 +2419,7 @@ usiok");
                 //────────────────────────────────────────
                 // 定跡ファイルの中身を減らす
                 //────────────────────────────────────────
-                syuturyoku.AppendLine("removed bytes = " + Option_Application.Joseki.DownSizeing(1000));
+                syuturyoku.AppendLine($"removed bytes = { Option_Application.Joseki.DownSizeing(1000)}");
             }
 #endif
             else if (caret_1 == commandline.IndexOf("inflation", caret_1))
@@ -2616,22 +2616,22 @@ usiok");
                 Move ss = ConvMove.ToSasite((Masu)7, (Masu)4, Komasyurui.H, Komasyurui.H, Komasyurui.H);
                 Debug.Assert((int)ss != -1, "");
 
-                Util_Logger.WriteLine("> " + ConvMove.Setumei_Fen(ss));
-                Util_Logger.WriteLine("src masu > " + ConvMove.GetSrcMasu(ss));
-                Util_Logger.WriteLine("src suji > " + Conv_Kihon.ToAlphabetLarge(ConvMove.GetSrcSuji(ss)));
-                Util_Logger.WriteLine("src dan  > " + ConvMove.GetSrcDan(ss));
-                Util_Logger.WriteLine("src uttKs> " + Conv_Komasyurui.Setumei(ConvMove.GetUttaKomasyurui(ss)));
-                Util_Logger.WriteLine("dst masu > " + ConvMove.GetDstMasu(ss));
-                Util_Logger.WriteLine("dst suji > " + Conv_Kihon.ToAlphabetLarge(ConvMove.GetDstSuji(ss)));
-                Util_Logger.WriteLine("dst dan  > " + ConvMove.GetDstDan(ss));
-                Util_Logger.WriteLine("torareta > " + Conv_Komasyurui.Setumei(ApplicationImpl.Kyokumen.Konoteme.ToraretaKs));
+                Util_Logger.WriteLine($"> { ConvMove.Setumei_Fen(ss)}");
+                Util_Logger.WriteLine($"src masu > { ConvMove.GetSrcMasu(ss)}");
+                Util_Logger.WriteLine($"src suji > { Conv_Kihon.ToAlphabetLarge(ConvMove.GetSrcSuji(ss))}");
+                Util_Logger.WriteLine($"src dan  > { ConvMove.GetSrcDan(ss)}");
+                Util_Logger.WriteLine($"src uttKs> { Conv_Komasyurui.Setumei(ConvMove.GetUttaKomasyurui(ss))}");
+                Util_Logger.WriteLine($"dst masu > { ConvMove.GetDstMasu(ss)}");
+                Util_Logger.WriteLine($"dst suji > { Conv_Kihon.ToAlphabetLarge(ConvMove.GetDstSuji(ss))}");
+                Util_Logger.WriteLine($"dst dan  > { ConvMove.GetDstDan(ss)}");
+                Util_Logger.WriteLine($"torareta > { Conv_Komasyurui.Setumei(ApplicationImpl.Kyokumen.Konoteme.ToraretaKs)}");
 
                 Nanteme nanteme = new NantemeImpl();
                 ApplicationImpl.Kyokumen.DoSasite(ss, ref nanteme);
                 Util_Logger.WriteLine("DoSasite >");
                 Util_Logger.WriteLine(ApplicationImpl.Kyokumen.Setumei());
 
-                Util_Logger.WriteLine("torareta > " + Conv_Komasyurui.Setumei(ApplicationImpl.Kyokumen.Konoteme.ToraretaKs));
+                Util_Logger.WriteLine($"torareta > { Conv_Komasyurui.Setumei(ApplicationImpl.Kyokumen.Konoteme.ToraretaKs)}");
 
                 Util_Logger.WriteLine("UndoSasite>");
                 ApplicationImpl.Kyokumen.UndoSasite(ss);
