@@ -1105,8 +1105,8 @@ namespace kifuwarabe_wcsc27.abstracts
                     )
                 {
                     // ルールを変えるぜ☆（＾▽＾）
-                    string commandline_2 = "set SagareruHiyoko " + !Option_Application.Optionlist.SagareruHiyoko;
-                    syuturyoku.AppendLine("RenzokuRandomRule> " + commandline_2);
+                    string commandline_2 = $"set SagareruHiyoko {!Option_Application.Optionlist.SagareruHiyoko}";
+                    syuturyoku.AppendLine($"RenzokuRandomRule> {commandline_2}");
                     Util_Machine.Flush(syuturyoku);
 
                     // 表示してから実行しようぜ☆（＾～＾）

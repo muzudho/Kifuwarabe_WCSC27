@@ -40,12 +40,12 @@
         {
 #if UNITY
 #else
-            syuturyoku.AppendLine($"id name {engineName}");
-            syuturyoku.AppendLine($"id author {engineAuthor}");
-            syuturyoku.AppendLine("option name SikoJikan type spin default 500 min 100 max 10000000");
-            syuturyoku.AppendLine("option name SikoJikanRandom type spin default 1000 min 0 max 10000000");
-            syuturyoku.AppendLine("option name Comment type string default Jikan is milli seconds.");
-            syuturyoku.AppendLine("usiok");
+            syuturyoku.AppendLine($@"id name {engineName}
+id author {engineAuthor}
+option name SikoJikan type spin default 500 min 100 max 10000000
+option name SikoJikanRandom type spin default 1000 min 0 max 10000000
+option name Comment type string default Jikan is milli seconds.
+usiok");
             Util_Machine.Flush_USI(syuturyoku);
 #endif
         }
@@ -177,8 +177,7 @@
         {
             ulong saikeisanMae = ky.KyokumenHash.Value;//現行（古いの）
             ky.KyokumenHash.Tukurinaosi(ky);//再計算
-            syuturyoku.Append("Kyokumen Hash 再計算前=["); syuturyoku.Append(saikeisanMae); syuturyoku.AppendLine("]");
-            syuturyoku.Append(" 再計算後-=["); syuturyoku.Append(ky.KyokumenHash.Value); syuturyoku.AppendLine("]");
+            syuturyoku.AppendLine($"Kyokumen Hash 再計算前=[{saikeisanMae}] 再計算後-=[{ ky.KyokumenHash.Value}]");
         }
 
         public void Hirate(bool isSfen, Kyokumen ky, Mojiretu syuturyoku)
@@ -301,9 +300,9 @@
 #if UNITY
                 kigo = "< jokyo, ";
 #endif
-                syuturyoku.AppendLine(kigo + "GameMode = " + Util_Application.GameMode);
-                syuturyoku.AppendLine(kigo + "Kekka    = " + ky.Kekka);
-                syuturyoku.AppendLine(kigo + "Kettyaku = " + Util_Application.IsKettyaku(ky));
+                syuturyoku.AppendLine($@"{kigo}GameMode = {Util_Application.GameMode}
+{kigo}Kekka    = {ky.Kekka}
+{kigo}Kettyaku = {Util_Application.IsKettyaku(ky)}");
                 return;
             }
         }
@@ -313,7 +312,7 @@
             if (commandline == "joseki")
             {
                 Util_Application.Joseki_cmd(out int kyokumenSu, out int sasiteSu);
-                syuturyoku.AppendLine("定跡ファイル　局面数[" + kyokumenSu + "]　指し手数[" + sasiteSu + "]");
+                syuturyoku.AppendLine($"定跡ファイル　局面数[{kyokumenSu}]　指し手数[{sasiteSu}]");
                 return;
             }
 
@@ -335,7 +334,7 @@
                 int out_sasiteSu;
                 {
                     Option_Application.Joseki.Joho(out out_kyokumenSu, out out_sasiteSu);
-                    syuturyoku.AppendLine("定跡ファイル（分割前）　局面数[" + out_kyokumenSu + "]　指し手数[" + out_sasiteSu + "]");
+                    syuturyoku.AppendLine($"定跡ファイル（分割前）　局面数[{out_kyokumenSu}]　指し手数[{out_sasiteSu}]");
                 }
 
                 Option_Application.Joseki.Bunkatu(out Joseki[] bunkatu, out string[] bunkatupartNames, syuturyoku);
@@ -343,7 +342,7 @@
                 for (int i = 0; i < bunkatu.Length; i++)
                 {
                     bunkatu[i].Joho(out out_kyokumenSu, out out_sasiteSu);
-                    syuturyoku.AppendLine("定跡ファイル（分割[" + i + "][" + bunkatupartNames[i] + "]）　局面数[" + out_kyokumenSu + "]　指し手数[" + out_sasiteSu + "]");
+                    syuturyoku.AppendLine($"定跡ファイル（分割[{i}][{bunkatupartNames[i]}]）　局面数[{out_kyokumenSu}]　指し手数[{out_sasiteSu}]");
                 }
 
                 //────────────────────────────────────────
@@ -357,7 +356,7 @@
 
                 {
                     Option_Application.Joseki.Joho(out out_kyokumenSu, out out_sasiteSu);
-                    syuturyoku.AppendLine("定跡ファイル（マージ後）　局面数[" + out_kyokumenSu + "]　指し手数[" + out_sasiteSu + "]");
+                    syuturyoku.AppendLine($"定跡ファイル（マージ後）　局面数[{out_kyokumenSu}]　指し手数[${out_sasiteSu}]");
                 }
             }
 #endif
@@ -422,11 +421,11 @@
                     countKy_bad++;
                 }
 
-                syuturyoku.AppendLine("定跡ファイルの中の指せない手を 削除したぜ☆（＾～＾）保存はまだ☆");
-                syuturyoku.AppendLine("　局面数　　　残った数　／　削除した数　／　　全体の数　（　削除した率）");
-                syuturyoku.AppendLine("　　　　　　" + string.Format("{0,10}", countKy_all - countKy_bad) + "　／　" + string.Format("{0,10}", countKy_bad) + "　／　" + string.Format("{0,10}", countKy_all) + "　（" + string.Format("{0,10}", (float)countKy_bad / (float)countKy_all * 100.0f) + "％）");
-                syuturyoku.AppendLine("　指し手数　　残った数　／　削除した数　／　　全体の数　（　削除した率）");
-                syuturyoku.AppendLine("　　　　　　" + string.Format("{0,10}", countSs_all - countSs_bad) + "　／　" + string.Format("{0,10}", countSs_bad) + "　／　" + string.Format("{0,10}", countSs_all) + "　（" + string.Format("{0,10}", (float)countSs_bad / (float)countSs_all * 100.0f) + "％）");
+                syuturyoku.AppendLine($@"定跡ファイルの中の指せない手を 削除したぜ☆（＾～＾）保存はまだ☆
+　局面数　　　残った数　／　削除した数　／　　全体の数　（　削除した率）
+{string.Format("{0,10}", countKy_all - countKy_bad)}　／　{string.Format("{0,10}", countKy_bad)}　／　{string.Format("{0,10}", countKy_all)}　（{string.Format("{0,10}", (float)countKy_bad / (float)countKy_all * 100.0f)}％）
+　指し手数　　残った数　／　削除した数　／　　全体の数　（　削除した率）
+{string.Format("{0,10}", countSs_all - countSs_bad)}　／　{string.Format("{0,10}", countSs_bad)}　／　{string.Format("{0,10}", countSs_all)}　（{string.Format("{0,10}", (float)countSs_bad / (float)countSs_all * 100.0f)}％）");
                 #endregion
             }
         }
@@ -485,7 +484,7 @@
 #if UNITY
                 kigoComment = "# ";
 #endif
-                syuturyoku.AppendLine(kigoComment + "指定局面図");
+                syuturyoku.AppendLine($"{kigoComment}指定局面図");
                 Util_Information.Setumei_NingenGameYo(ky, syuturyoku);
             }
         }
@@ -721,7 +720,7 @@
                 {
                     if (!Med_Parser.TryParseMs(isSfen, commandline, ky, ref caret_1, out ms1))
                     {
-                        throw new Exception("パースエラー103 commandline=[" + commandline + "]");
+                        throw new Exception($"パースエラー103 commandline=[{commandline}]");
                     }
                     Debug.Assert(ky.Sindan.IsBanjo(ms1), "");
 
@@ -879,127 +878,127 @@
             kigo = "# ";
 #endif
             // なるべく、アルファベット順☆（＾▽＾）
-            syuturyoku.AppendLine(kigo + "(空っぽEnter)   : ゲームモードのフラグを ON にするぜ☆");
-            syuturyoku.AppendLine(kigo + "@例             : 「例.txt」ファイル読込んでコマンド実行だぜ☆(UTF-8 BOM有り)");
-            syuturyoku.AppendLine(kigo + "#コメント       : なんにもしないぜ☆");
-            syuturyoku.AppendLine(kigo + "bitboard        : ビットボードのテスト用だぜ☆");
-            syuturyoku.AppendLine(kigo + "bitboard kiki   : 駒の動きを表示するぜ☆");
-            syuturyoku.AppendLine(kigo + "bitboard remake : 駒の動きを作り直すぜ☆");
-            syuturyoku.AppendLine(kigo + "cando B4B3      : B4にある駒をB3へ動かせるなら true を返すぜ☆");
-            syuturyoku.AppendLine(kigo + "                : 動かせないなら「false, 理由」を返すぜ☆");
-            syuturyoku.AppendLine(kigo + "clear           : コンソールをクリアーするぜ☆");
-            syuturyoku.AppendLine(kigo + "do B4B3         : B4にある駒をB3へ動かしたあと ky するぜ☆");
-            syuturyoku.AppendLine(kigo + "                : アルファベットは小文字でも構わない☆");
-            syuturyoku.AppendLine(kigo + "do Z*A2         : 持ち駒の ぞう をA2へ打ったあと ky するぜ☆");
-            syuturyoku.AppendLine(kigo + "                : Z* ぞう打　K* きりん打　H* ひよこ打☆");
-            syuturyoku.AppendLine(kigo + "do C2C1+        : C2にある駒をC1へ動かしたあと成って ky するぜ☆");
-            syuturyoku.AppendLine(kigo + "do toryo        : 投了するぜ☆");
-            syuturyoku.AppendLine(kigo + "go              : コンピューターが１手指したあと ky するぜ☆");
-            syuturyoku.AppendLine(kigo + "hirate          : 平手初期局面にしたあと ky するぜ☆");
-            syuturyoku.AppendLine(kigo + "honyaku fen sfen startpos : 翻訳☆ どうぶつしょうぎfenから");
-            syuturyoku.AppendLine(kigo + "                          : 本将棋fenへ変換☆ 4単語目以降を☆");
-            syuturyoku.AppendLine(kigo + "hyoka           : 現局面を（読み無しで）形成判断するぜ☆");
-            syuturyoku.AppendLine(kigo + "hyoka komawari  : 現局面を　駒割りだけで　形成判断するぜ☆");
-            syuturyoku.AppendLine(kigo + "hyoka nikoma    : 現局面を　二駒関係と手番で　形成判断するぜ☆");
-            syuturyoku.AppendLine(kigo + "jam             : テスト表示用に空き升をデータで埋めるぜ☆ JAMpacked");
-            syuturyoku.AppendLine(kigo + "jokyo           : 現在の内部の状況を表示☆");
-            syuturyoku.AppendLine(kigo + "joseki          : 定跡ファイルの情報表示☆");
-            syuturyoku.AppendLine(kigo + "joseki bunkatu  : 定跡メモリを分割するぜ☆");
-            syuturyoku.AppendLine(kigo + "joseki cleanup  : 定跡ファイルの中の指せない手を削除するぜ☆");
-            syuturyoku.AppendLine(kigo + "kansosen        : 終わった直後の局面データを復活させるぜ☆（＾～＾）");
-            syuturyoku.AppendLine(kigo + "kifu            : 終わった直後の局面の棋譜を表示するぜ☆");
-            syuturyoku.AppendLine(kigo + "kifu 10         : 終わった直後の局面の10手目までの図を表示するぜ☆");
-            syuturyoku.AppendLine(kigo + "kiki            : 味方の駒の利きを一覧するぜ☆");
-            syuturyoku.AppendLine(kigo + "kiki B3         : 現局面の B3 にある駒の利きを一覧するぜ☆");
-            syuturyoku.AppendLine(kigo + "kiki B3 R 1     : 升と、駒の種類と、手番を指定すると、利きを表示するぜ☆");
-            syuturyoku.AppendLine(kigo + "kikikazu        : 重ね利きの数を一覧するぜ☆");
-            syuturyoku.AppendLine(kigo + "koma            : 対局者１、２の駒の場所を表示☆");
-            syuturyoku.AppendLine(kigo + "koma R          : 対局者１、２の　らいおん　の場所を表示☆");
-            syuturyoku.AppendLine(kigo + "koma +z         : 対局者１、２の　パワーゾウ　の場所を表示☆ 他同様☆");
-            syuturyoku.AppendLine(kigo + "ky              : 将棋盤をグラフィカル表示☆ KYokumen");
-            syuturyoku.AppendLine(kigo + "ky:             : 将棋盤を１行表示☆");
-            syuturyoku.AppendLine(kigo + "                : fen krz/1h1/1H1/ZRK - 1 0 1");
-            syuturyoku.AppendLine(kigo + "                : fen 盤上の駒配置 持ち駒の数 手番の対局者 何手目 同形反復の回数");
-            syuturyoku.AppendLine(kigo + "ky clear        : 将棋盤をクリアーするぜ☆");
-            syuturyoku.AppendLine(kigo + "ky fen krz/1h1/1H1/ZRK - 1 : fen を打ち込んで局面作成☆");
-            syuturyoku.AppendLine(kigo + "ky fen          : 現局面の fen を表示☆");
-            syuturyoku.AppendLine(kigo + "ky hanten       : 将棋盤を１８０度回転☆ 反転☆");
-            syuturyoku.AppendLine(kigo + "ky kesu C4      : C4升に置いてある駒を消すぜ☆");
-            syuturyoku.AppendLine(kigo + "ky mazeru       : 将棋盤をごちゃごちゃに混ぜるぜ☆ シャッフル☆");
-            syuturyoku.AppendLine(kigo + "ky oku K C3     : きりんをC3升に置くぜ☆ 最後に ky tekiyo 必要☆");
-            syuturyoku.AppendLine(kigo + "ky tekiyo       : 編集した盤面を使えるようにするぜ☆");
-            syuturyoku.AppendLine(kigo + "man,manual      : これ");
-            syuturyoku.AppendLine(kigo + "masu 3          : A1,B1升の位置を表す盤を返すぜ☆");
-            syuturyoku.AppendLine(kigo + "nikoma banjo K C4 : 二駒関係 きりん,C4升 評価値出力☆");
-            syuturyoku.AppendLine(kigo + "nikoma kaku     : 二駒関係ファイル書出し☆");
-            syuturyoku.AppendLine(kigo + "nikoma ky       : 現局面の二駒関係評価値出力☆");
-            syuturyoku.AppendLine(kigo + "nikoma miru     : 二駒関係ファイルをコンソール表示☆");
-            syuturyoku.AppendLine(kigo + "nikoma motikoma K : 二駒関係 きりん 評価値出力☆");
-            syuturyoku.AppendLine(kigo + "nikoma random   : 二駒関係をランダム値で増減☆");
-            syuturyoku.AppendLine(kigo + "nikoma setumei  : 二駒関係の説明を書出し☆");
-            syuturyoku.AppendLine(kigo + "nikoma gokei    : パラメーターを全部足した数字を表示☆ 合計☆");
-            syuturyoku.AppendLine(kigo + "nikoma yomu     : 二駒関係ファイル読込み☆");
-            syuturyoku.AppendLine(kigo + "quit            : アプリケーション終了。保存してないものは保存する☆");
-            syuturyoku.AppendLine(kigo + "rnd             : ランダムに１手指すぜ☆");
-            syuturyoku.AppendLine(kigo + "move          : 味方の指し手を一覧するぜ☆");
-            syuturyoku.AppendLine(kigo + "move 1361     : 指し手コード 1361 を翻訳するぜ☆");
-            syuturyoku.AppendLine(kigo + "move seisei   : 指し手生成のテストだぜ☆");
-            syuturyoku.AppendLine(kigo + "move su       : 指し手の件数を出力するぜ☆");
-            syuturyoku.AppendLine(kigo + "see B3          : B3 にある駒を取り合ったときの評価値を返すぜ☆");
-            syuturyoku.AppendLine(kigo + "set             : 設定を一覧表示するぜ☆");
-            syuturyoku.AppendLine(kigo + "set AspirationFukasa 7  : アスピレーション窓探索を使い始める深さ☆（＾～＾）");
-            syuturyoku.AppendLine(kigo + "set AspirationWindow 300: アスピレーション窓探索で使う数字☆（＾～＾）");
-            syuturyoku.AppendLine(kigo + "set BetaCutPer 100      : 100%の確率でベータ・カットを使うぜ☆ 0～100");
-            syuturyoku.AppendLine(kigo + "set HanpukuSinkaTansakuTukau true: 反復深化探索を使うぜ☆");
-            syuturyoku.AppendLine(kigo + "                                 : トランスポジション・テーブルを使う必要あり☆");
-            syuturyoku.AppendLine(kigo + "set JohoJikan 3000      : 読み筋表示を 3000 ミリ秒間隔で行うぜ☆ 負数で表示なし☆");
-            syuturyoku.AppendLine(kigo + "set JosekiPer 50        : 50%の確率で定跡を使うぜ☆ 0～100");
-            syuturyoku.AppendLine(kigo + "set JosekiRec true      : 定跡の登録を行うぜ☆");
-            syuturyoku.AppendLine(kigo + "set Learn true          : 機械学習を行うぜ☆");
-            syuturyoku.AppendLine(kigo + "set NikomaHyokaKeisu 0.2: 二駒関係評価値を 0.2 倍にするぜ☆");
-            syuturyoku.AppendLine(kigo + "set NikomaGakusyuKeisu 0.01: 二駒関係評価値学習の調整量を 0.01 倍☆");
-            syuturyoku.AppendLine(kigo + "set P1Char HyokatiYusen : 対局者１の指し手設定。評価値優先☆");
-            syuturyoku.AppendLine(kigo + "set P1Char SinteYusen   : 対局者１の指し手設定。新手優先☆");
-            syuturyoku.AppendLine(kigo + "set P1Char SinteNomi    : 対局者１の指し手設定。新手最優先☆");
-            syuturyoku.AppendLine(kigo + "set P1Char SyorituYusen : 対局者１の指し手設定。勝率優先☆");
-            syuturyoku.AppendLine(kigo + "set P1Char SyorituNomi  : 対局者１の指し手設定。勝率最優先☆");
-            syuturyoku.AppendLine(kigo + "set P1Char TansakuNomi  : 対局者１の指し手設定。探索のみ☆");
-            syuturyoku.AppendLine(kigo + "set P1Com true          : 対局者１をコンピューターに指させるぜ☆");
-            syuturyoku.AppendLine(kigo + "set P2Char 略           : P1Char 参照☆");
-            syuturyoku.AppendLine(kigo + "set P2Com true          : 対局者２をコンピューターに指させるぜ☆");
-            syuturyoku.AppendLine(kigo + "set P1Name きふわらべ    : 対局者１の表示名を きふわらべ に変更☆");
-            syuturyoku.AppendLine(kigo + "set P2Name きふわらべ    : 対局者２の表示名を きふわらべ に変更☆");
-            syuturyoku.AppendLine(kigo + "set RandomCharacter true: 対局終了時に、COMの指し手の性格を変えるぜ☆");
-            syuturyoku.AppendLine(kigo + "set RandomNikoma true   : 指し手にランダム性を付けるぜ☆");
-            syuturyoku.AppendLine(kigo + "set RandomSei true      : （廃止されたぜ☆）");//指し手にランダム性を付けるぜ☆
             // RandomSei は、思考が弱くなるので廃止☆（＾▽＾）
-            syuturyoku.AppendLine(kigo + "set RandomStart true    : 開始局面をランダムにするぜ☆");
-            syuturyoku.AppendLine(kigo + "set RandomStartTaikyokusya true: 開始先後をランダムにするぜ☆");
-            syuturyoku.AppendLine(kigo + "set RenzokuRandomRule true : 連続対局をランダムにルール変えてやる☆");
-            syuturyoku.AppendLine(kigo + "set RenzokuTaikyoku true: 強制終了するまで連続対局だぜ☆");
-            syuturyoku.AppendLine(kigo + "set SagareruHiyoko true : 下がれるひよこモード☆普通のひよこはいなくなる☆");
-            syuturyoku.AppendLine(kigo + "set SaidaiFukasa 3      : コンピューターの探索深さの最大を3に設定するぜ☆");
-            syuturyoku.AppendLine(kigo + "set SennititeKaihi true : コンピューターが千日手を必ず回避するぜ☆");
-            syuturyoku.AppendLine(kigo + "set SikoJikan 4000      : コンピューターが一手に思考する時間を 4秒 に設定するぜ☆");
-            syuturyoku.AppendLine(kigo + "set SikoJikanRandom 1000: 探索毎に 0～0.999秒 の範囲で思考時間を多めに取るぜ☆");
-            syuturyoku.AppendLine(kigo + "set TranspositionTableTukau true: トランスポジション・テーブル使うぜ☆");
-            syuturyoku.AppendLine(kigo + "set UseTimeOver false   : 思考時間の時間切れ判定を無視するぜ☆");
-            syuturyoku.AppendLine(kigo + "set USI false           : USI通信モードを途中でやめたくなったとき☆");
-            syuturyoku.AppendLine(kigo + "tantaitest        : 色んなテストを一気にするぜ☆");
-            syuturyoku.AppendLine(kigo + "taikyokusya       : 手番を表示するんだぜ☆");
-            syuturyoku.AppendLine(kigo + "taikyokusya hanten: 手番を反転だぜ☆");
-            syuturyoku.AppendLine(kigo + "taikyokusya mazeru: 手番をランダムに決めるぜ☆");
-            syuturyoku.AppendLine(kigo + "test bit-shift    : ビットシフト の動作テスト☆");
-            syuturyoku.AppendLine(kigo + "test bit-ntz      : ビット演算 NTZ の動作テスト☆");
-            syuturyoku.AppendLine(kigo + "test bit-kiki     : ビット演算の利きの動作テスト☆");
-            syuturyoku.AppendLine(kigo + "test bitboard     : 固定ビットボードの確認☆");
-            syuturyoku.AppendLine(kigo + "test downSizing   : 定跡ファイルの内容を減らすテストだぜ☆");
-            syuturyoku.AppendLine(kigo + "test ittedume     : 一手詰めの動作テスト☆");
-            syuturyoku.AppendLine(kigo + "test jisatusyu B3 : B3升に駒を動かすのは自殺手かテスト☆");
-            syuturyoku.AppendLine(kigo + "test tryrule      : トライルールの動作テスト☆");
-            syuturyoku.AppendLine(kigo + "tu                : tumeshogi と同じだぜ☆");
-            syuturyoku.AppendLine(kigo + "tumeshogi         : 詰将棋が用意されるぜ☆");
-            syuturyoku.AppendLine(kigo + "undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
+            syuturyoku.AppendLine($@"{kigo}(空っぽEnter)   : ゲームモードのフラグを ON にするぜ☆
+{kigo}@例             : 「例.txt」ファイル読込んでコマンド実行だぜ☆(UTF-8 BOM有り)
+{kigo}#コメント       : なんにもしないぜ☆
+{kigo}bitboard        : ビットボードのテスト用だぜ☆
+{kigo}bitboard kiki   : 駒の動きを表示するぜ☆
+{kigo}bitboard remake : 駒の動きを作り直すぜ☆
+{kigo}cando B4B3      : B4にある駒をB3へ動かせるなら true を返すぜ☆
+{kigo}                : 動かせないなら「false, 理由」を返すぜ☆
+{kigo}clear           : コンソールをクリアーするぜ☆
+{kigo}do B4B3         : B4にある駒をB3へ動かしたあと ky するぜ☆
+{kigo}                : アルファベットは小文字でも構わない☆
+{kigo}do Z*A2         : 持ち駒の ぞう をA2へ打ったあと ky するぜ☆
+{kigo}                : Z* ぞう打　K* きりん打　H* ひよこ打☆
+{kigo}do C2C1+        : C2にある駒をC1へ動かしたあと成って ky するぜ☆
+{kigo}do toryo        : 投了するぜ☆
+{kigo}go              : コンピューターが１手指したあと ky するぜ☆
+{kigo}hirate          : 平手初期局面にしたあと ky するぜ☆
+{kigo}honyaku fen sfen startpos : 翻訳☆ どうぶつしょうぎfenから
+{kigo}                          : 本将棋fenへ変換☆ 4単語目以降を☆
+{kigo}hyoka           : 現局面を（読み無しで）形成判断するぜ☆
+{kigo}hyoka komawari  : 現局面を　駒割りだけで　形成判断するぜ☆
+{kigo}hyoka nikoma    : 現局面を　二駒関係と手番で　形成判断するぜ☆
+{kigo}jam             : テスト表示用に空き升をデータで埋めるぜ☆ JAMpacked
+{kigo}jokyo           : 現在の内部の状況を表示☆
+{kigo}joseki          : 定跡ファイルの情報表示☆
+{kigo}joseki bunkatu  : 定跡メモリを分割するぜ☆
+{kigo}joseki cleanup  : 定跡ファイルの中の指せない手を削除するぜ☆
+{kigo}kansosen        : 終わった直後の局面データを復活させるぜ☆（＾～＾）
+{kigo}kifu            : 終わった直後の局面の棋譜を表示するぜ☆
+{kigo}kifu 10         : 終わった直後の局面の10手目までの図を表示するぜ☆
+{kigo}kiki            : 味方の駒の利きを一覧するぜ☆
+{kigo}kiki B3         : 現局面の B3 にある駒の利きを一覧するぜ☆
+{kigo}kiki B3 R 1     : 升と、駒の種類と、手番を指定すると、利きを表示するぜ☆
+{kigo}kikikazu        : 重ね利きの数を一覧するぜ☆
+{kigo}koma            : 対局者１、２の駒の場所を表示☆
+{kigo}koma R          : 対局者１、２の　らいおん　の場所を表示☆
+{kigo}koma +z         : 対局者１、２の　パワーゾウ　の場所を表示☆ 他同様☆
+{kigo}ky              : 将棋盤をグラフィカル表示☆ KYokumen
+{kigo}ky:             : 将棋盤を１行表示☆
+{kigo}                : fen krz/1h1/1H1/ZRK - 1 0 1
+{kigo}                : fen 盤上の駒配置 持ち駒の数 手番の対局者 何手目 同形反復の回数
+{kigo}ky clear        : 将棋盤をクリアーするぜ☆
+{kigo}ky fen krz/1h1/1H1/ZRK - 1 : fen を打ち込んで局面作成☆
+{kigo}ky fen          : 現局面の fen を表示☆
+{kigo}ky hanten       : 将棋盤を１８０度回転☆ 反転☆
+{kigo}ky kesu C4      : C4升に置いてある駒を消すぜ☆
+{kigo}ky mazeru       : 将棋盤をごちゃごちゃに混ぜるぜ☆ シャッフル☆
+{kigo}ky oku K C3     : きりんをC3升に置くぜ☆ 最後に ky tekiyo 必要☆
+{kigo}ky tekiyo       : 編集した盤面を使えるようにするぜ☆
+{kigo}man,manual      : これ
+{kigo}masu 3          : A1,B1升の位置を表す盤を返すぜ☆
+{kigo}nikoma banjo K C4 : 二駒関係 きりん,C4升 評価値出力☆
+{kigo}nikoma kaku     : 二駒関係ファイル書出し☆
+{kigo}nikoma ky       : 現局面の二駒関係評価値出力☆
+{kigo}nikoma miru     : 二駒関係ファイルをコンソール表示☆
+{kigo}nikoma motikoma K : 二駒関係 きりん 評価値出力☆
+{kigo}nikoma random   : 二駒関係をランダム値で増減☆
+{kigo}nikoma setumei  : 二駒関係の説明を書出し☆
+{kigo}nikoma gokei    : パラメーターを全部足した数字を表示☆ 合計☆
+{kigo}nikoma yomu     : 二駒関係ファイル読込み☆
+{kigo}quit            : アプリケーション終了。保存してないものは保存する☆
+{kigo}rnd             : ランダムに１手指すぜ☆
+{kigo}move            : 味方の指し手を一覧するぜ☆
+{kigo}move 1361       : 指し手コード 1361 を翻訳するぜ☆
+{kigo}move seisei     : 指し手生成のテストだぜ☆
+{kigo}move su         : 指し手の件数を出力するぜ☆
+{kigo}see B3          : B3 にある駒を取り合ったときの評価値を返すぜ☆
+{kigo}set             : 設定を一覧表示するぜ☆
+{kigo}set AspirationFukasa 7  : アスピレーション窓探索を使い始める深さ☆（＾～＾）
+{kigo}set AspirationWindow 300: アスピレーション窓探索で使う数字☆（＾～＾）
+{kigo}set BetaCutPer 100      : 100%の確率でベータ・カットを使うぜ☆ 0～100
+{kigo}set HanpukuSinkaTansakuTukau true: 反復深化探索を使うぜ☆
+{kigo}                                 : トランスポジション・テーブルを使う必要あり☆
+{kigo}set JohoJikan 3000      : 読み筋表示を 3000 ミリ秒間隔で行うぜ☆ 負数で表示なし☆
+{kigo}set JosekiPer 50        : 50%の確率で定跡を使うぜ☆ 0～100
+{kigo}set JosekiRec true      : 定跡の登録を行うぜ☆
+{kigo}set Learn true          : 機械学習を行うぜ☆
+{kigo}set NikomaHyokaKeisu 0.2: 二駒関係評価値を 0.2 倍にするぜ☆
+{kigo}set NikomaGakusyuKeisu 0.01: 二駒関係評価値学習の調整量を 0.01 倍☆
+{kigo}set P1Char HyokatiYusen : 対局者１の指し手設定。評価値優先☆
+{kigo}set P1Char SinteYusen   : 対局者１の指し手設定。新手優先☆
+{kigo}set P1Char SinteNomi    : 対局者１の指し手設定。新手最優先☆
+{kigo}set P1Char SyorituYusen : 対局者１の指し手設定。勝率優先☆
+{kigo}set P1Char SyorituNomi  : 対局者１の指し手設定。勝率最優先☆
+{kigo}set P1Char TansakuNomi  : 対局者１の指し手設定。探索のみ☆
+{kigo}set P1Com true          : 対局者１をコンピューターに指させるぜ☆
+{kigo}set P2Char 略           : P1Char 参照☆
+{kigo}set P2Com true          : 対局者２をコンピューターに指させるぜ☆
+{kigo}set P1Name きふわらべ    : 対局者１の表示名を きふわらべ に変更☆
+{kigo}set P2Name きふわらべ    : 対局者２の表示名を きふわらべ に変更☆
+{kigo}set RandomCharacter true: 対局終了時に、COMの指し手の性格を変えるぜ☆
+{kigo}set RandomNikoma true   : 指し手にランダム性を付けるぜ☆
+{kigo}set RandomSei true      : （廃止されたぜ☆）//指し手にランダム性を付けるぜ☆
+{kigo}set RandomStart true    : 開始局面をランダムにするぜ☆
+{kigo}set RandomStartTaikyokusya true: 開始先後をランダムにするぜ☆
+{kigo}set RenzokuRandomRule true : 連続対局をランダムにルール変えてやる☆
+{kigo}set RenzokuTaikyoku true: 強制終了するまで連続対局だぜ☆
+{kigo}set SagareruHiyoko true : 下がれるひよこモード☆普通のひよこはいなくなる☆
+{kigo}set SaidaiFukasa 3      : コンピューターの探索深さの最大を3に設定するぜ☆
+{kigo}set SennititeKaihi true : コンピューターが千日手を必ず回避するぜ☆
+{kigo}set SikoJikan 4000      : コンピューターが一手に思考する時間を 4秒 に設定するぜ☆
+{kigo}set SikoJikanRandom 1000: 探索毎に 0～0.999秒 の範囲で思考時間を多めに取るぜ☆
+{kigo}set TranspositionTableTukau true: トランスポジション・テーブル使うぜ☆
+{kigo}set UseTimeOver false   : 思考時間の時間切れ判定を無視するぜ☆
+{kigo}set USI false           : USI通信モードを途中でやめたくなったとき☆
+{kigo}tantaitest        : 色んなテストを一気にするぜ☆
+{kigo}taikyokusya       : 手番を表示するんだぜ☆
+{kigo}taikyokusya hanten: 手番を反転だぜ☆
+{kigo}taikyokusya mazeru: 手番をランダムに決めるぜ☆
+{kigo}test bit-shift    : ビットシフト の動作テスト☆
+{kigo}test bit-ntz      : ビット演算 NTZ の動作テスト☆
+{kigo}test bit-kiki     : ビット演算の利きの動作テスト☆
+{kigo}test bitboard     : 固定ビットボードの確認☆
+{kigo}test downSizing   : 定跡ファイルの内容を減らすテストだぜ☆
+{kigo}test ittedume     : 一手詰めの動作テスト☆
+{kigo}test jisatusyu B3 : B3升に駒を動かすのは自殺手かテスト☆
+{kigo}test tryrule      : トライルールの動作テスト☆
+{kigo}tu                : tumeshogi と同じだぜ☆
+{kigo}tumeshogi         : 詰将棋が用意されるぜ☆
+{kigo}undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
             Util_Machine.Flush(syuturyoku);
         }
 

@@ -365,8 +365,7 @@ namespace kifuwarabe_wcsc27.interfaces
                         {
                             case Hyokati.Sonota_SyobuNasi:
                                 {
-                                    syuturyoku.Append("[SyobuNasi] ");
-                                    syuturyoku.Append(((int)hyokati).ToString());
+                                    syuturyoku.Append($"[SyobuNasi] {(int)hyokati}");
                                 }
                                 break;
                             default:
@@ -374,8 +373,7 @@ namespace kifuwarabe_wcsc27.interfaces
                                     Mojiretu mojiretu1 = new MojiretuImpl();
                                     mojiretu1.Append("[予期しない評価値だぜ☆（＾～＾） ");
                                     Conv_Hyokati.Setumei(hyokati, mojiretu1);
-                                    mojiretu1.Append("] ");
-                                    mojiretu1.Append(((int)hyokati).ToString());
+                                    mojiretu1.Append($"] {(int)hyokati}");
 
                                     syuturyoku.AppendLine(mojiretu1.ToContents());
                                     throw new Exception(mojiretu1.ToContents());
