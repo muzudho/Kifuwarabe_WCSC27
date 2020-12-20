@@ -1,4 +1,5 @@
-﻿using kifuwarabe_wcsc27.abstracts;
+﻿using System.Text;
+using kifuwarabe_wcsc27.abstracts;
 
 namespace kifuwarabe_wcsc27.interfaces
 {
@@ -71,7 +72,7 @@ namespace kifuwarabe_wcsc27.interfaces
         /// </summary>
         /// <param name="ts"></param>
         /// <returns></returns>
-        public static void Setumei_Name(Taikyokusya ts,Mojiretu syuturyoku)
+        public static void Setumei_Name(Taikyokusya ts,StringBuilder syuturyoku)
         {
             switch (ts)
             {
@@ -101,7 +102,7 @@ namespace kifuwarabe_wcsc27.interfaces
             "2",
             "x"
         };
-        public static void TusinYo(Taikyokusya ts, Mojiretu syuturyoku)
+        public static void TusinYo(Taikyokusya ts, StringBuilder syuturyoku)
         {
             syuturyoku.Append(Conv_Taikyokusya.m_tusinYo_[(int)ts]);
         }

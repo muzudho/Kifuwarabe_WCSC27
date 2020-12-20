@@ -1,6 +1,7 @@
 ﻿using kifuwarabe_wcsc27.implements;
 using kifuwarabe_wcsc27.interfaces;
 using System.Collections.Generic;
+using System.Text;
 
 namespace kifuwarabe_wcsc27.abstracts
 {
@@ -62,7 +63,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// </summary>
         /// <param name="erandaSasite">実際に選んだ指し手☆</param>
         /// <param name="erandaHyokati">実際に選んだ手の評価値☆</param>
-        public static void Update(Move erandaSasite, Hyokati erandaHyokati, Kyokumen ky, Mojiretu syuturyoku)
+        public static void Update(Move erandaSasite, Hyokati erandaHyokati, Kyokumen ky, StringBuilder syuturyoku)
         {
             JosekiKyokumen joKy_orNull = Option_Application.Joseki.GetKyokumen(Util_KikaiGakusyu.KaisiKyHash);
             if (null == joKy_orNull)// この局面の定跡データが入っていなければ、そもそも　学習できないぜ☆（＾▽＾）

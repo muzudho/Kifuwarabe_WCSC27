@@ -7,6 +7,7 @@ using kifuwarabe_wcsc27.implements;
 using Nett;
 using System.IO;
 using Grayscale.Kifuwarakei.Entities;
+using System.Text;
 
 namespace kifuwarabe_wcsc27.abstracts
 {
@@ -46,7 +47,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// <summary>
         /// コマンド・バッファーから１行読取り。
         /// </summary>
-        public static void ReadCommandBuffer(Mojiretu syuturyoku)
+        public static void ReadCommandBuffer(StringBuilder syuturyoku)
         {
             if (0 < Util_Commandline.CommandBuffer.Count)
             {
@@ -65,7 +66,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// <summary>
         /// 次の入力を促す表示をしてるだけだぜ☆（＾～＾）
         /// </summary>
-        public static void ShowPrompt(IPlaying playing, bool isSfen, Kyokumen ky, Mojiretu syuturyoku)
+        public static void ShowPrompt(IPlaying playing, bool isSfen, Kyokumen ky, StringBuilder syuturyoku)
         {
             if (0 < Util_Commandline.CommandBuffer.Count)
             {

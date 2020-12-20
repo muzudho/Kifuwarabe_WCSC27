@@ -1,4 +1,6 @@
-﻿namespace kifuwarabe_wcsc27.interfaces
+﻿using System.Text;
+
+namespace kifuwarabe_wcsc27.interfaces
 {
     /// <summary>
     /// 先後付きの盤上の駒だぜ☆（＾▽＾）
@@ -490,8 +492,8 @@
         /// </summary>
         /// <param name="km"></param>
         /// <returns></returns>
-        public static void Setumei(Koma km, Mojiretu syuturyoku) { syuturyoku.Append(Conv_Koma.m_itimojiKoma_[(int)km]); }
-        public static void TusinYo(Koma km, Mojiretu syuturyoku) { syuturyoku.Append(Conv_Koma.m_dfen_[(int)km]); }
+        public static void Setumei(Koma km, StringBuilder syuturyoku) { syuturyoku.Append(Conv_Koma.m_itimojiKoma_[(int)km]); }
+        public static void TusinYo(Koma km, StringBuilder syuturyoku) { syuturyoku.Append(Conv_Koma.m_dfen_[(int)km]); }
 
         /// <summary>
         /// 
@@ -538,7 +540,7 @@
         /// </summary>
         /// <param name="km"></param>
         /// <returns></returns>
-        public static void AppendFenTo(bool isSfen, Koma km, Mojiretu syuturyoku) {
+        public static void AppendFenTo(bool isSfen, Koma km, StringBuilder syuturyoku) {
             syuturyoku.Append(isSfen? m_sfen_[(int)km] : m_dfen_[(int)km]);
         }
         public static string GetFen(bool isSfen, Koma km)
@@ -932,7 +934,7 @@
         /// </summary>
         /// <param name="mk"></param>
         /// <returns></returns>
-        public static void Setumei(MotiKoma mk,Mojiretu syuturyoku)
+        public static void Setumei(MotiKoma mk,StringBuilder syuturyoku)
         {
             syuturyoku.Append(Conv_MotiKoma.m_setumeiMojiretu_[(int)mk]);
         }

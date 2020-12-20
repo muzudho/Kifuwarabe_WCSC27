@@ -1,6 +1,7 @@
 ﻿using kifuwarabe_wcsc27.interfaces;
 using System;
 using kifuwarabe_wcsc27.abstracts;
+using System.Text;
 //using System.Diagnostics;
 
 namespace kifuwarabe_wcsc27.implements
@@ -64,7 +65,7 @@ namespace kifuwarabe_wcsc27.implements
         /// 人間用の文字列表記。計算には使わない
         /// </summary>
         /// <returns></returns>
-        public string ToContents()
+        public override string ToString()
         {
             return $"{m_value64127_}_{m_value063_}";
         }
@@ -261,7 +262,7 @@ namespace kifuwarabe_wcsc27.implements
                 return Value64127 == 0UL && Value063 == (ulong)b;
             }
 
-            throw new Exception("b type is "+b.GetType().Name);
+            throw new Exception($"b type is {b.GetType().Name}");
         }
         public bool Equals(Bitboard b)
         {
@@ -275,7 +276,7 @@ namespace kifuwarabe_wcsc27.implements
             return base.GetHashCode();
         }
 
-        public void AppendSyuturyokuTo(Mojiretu syuturyoku)
+        public void AppendSyuturyokuTo(StringBuilder syuturyoku)
         {
             if (0UL < m_value64127_)
             {

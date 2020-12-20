@@ -22,7 +22,7 @@
         /// <param name="args"></param>
         static void Main(string[] args)
         {
-            Mojiretu syuturyoku = Util_Machine.Syuturyoku;
+            StringBuilder syuturyoku = Util_Machine.Syuturyoku;
 
             var playing = new Playing();
 
@@ -123,8 +123,8 @@ System.Console.WriteLine($"# (~0UL << 1)=[{(~0UL << 1)}]");
             }
 
             // （手順２）きふわらべの応答は、文字列になって　ここに入るぜ☆（＾▽＾）
-            // this.Syuturyoku.ToContents() メソッドで中身を取り出せるぜ☆（＾～＾）
-            // this.Syuturyoku = new MojiretuImpl();
+            // this.Syuturyoku.ToString() メソッドで中身を取り出せるぜ☆（＾～＾）
+            // this.Syuturyoku = new StringBuilder();
 
             // （手順３）アプリケーション開始時設定　を終えた後に　これを呼び出すこと☆（＾～＾）！
             Face_Kifuwarabe.OnApplicationReadied(Option_Application.Kyokumen, syuturyoku);
@@ -612,7 +612,6 @@ System.Console.WriteLine($"# (~0UL << 1)=[{(~0UL << 1)}]");
                         {
                             string msg = "パースに失敗だぜ☆（＾～＾）！ #黒牛";
                             syuturyoku.AppendLine(msg);
-                            syuturyoku.Append(syuturyoku.ToContents());
                             Util_Machine.Flush(syuturyoku);
                             throw new Exception(msg);
                         }
@@ -622,9 +621,9 @@ System.Console.WriteLine($"# (~0UL << 1)=[{(~0UL << 1)}]");
 
                         // 初期局面
                         {
-                            Mojiretu mojiretu = new MojiretuImpl();
+                            StringBuilder mojiretu = new StringBuilder();
                             ky.AppendFenTo(Option_Application.Optionlist.USI, mojiretu);
-                            kifu.SyokiKyokumenFen = mojiretu.ToContents();
+                            kifu.SyokiKyokumenFen = mojiretu.ToString();
                         }
 
                         // うしろに続く文字は☆（＾▽＾）

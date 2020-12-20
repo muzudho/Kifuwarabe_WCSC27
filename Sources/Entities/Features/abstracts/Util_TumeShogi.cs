@@ -1,6 +1,7 @@
 ﻿using kifuwarabe_wcsc27.interfaces;
 using kifuwarabe_wcsc27.machine;
 using kifuwarabe_wcsc27.implements;
+using System.Text;
 
 namespace kifuwarabe_wcsc27.abstracts
 {
@@ -9,7 +10,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// <summary>
         /// 詰将棋を用意するぜ☆
         /// </summary>
-        public static void TumeShogi(bool isSfen, int bango, Kyokumen ky, Mojiretu syuturyoku)
+        public static void TumeShogi(bool isSfen, int bango, Kyokumen ky, StringBuilder syuturyoku)
         {
             // FIXME: 終わったら元に戻したいが☆（＾～＾）
             Option_Application.Optionlist.PNChar[(int)Taikyokusya.T1] = MoveCharacter.TansakuNomi;

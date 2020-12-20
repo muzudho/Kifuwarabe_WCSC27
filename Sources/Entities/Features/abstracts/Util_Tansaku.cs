@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using kifuwarabe_wcsc27.machine;
 using kifuwarabe_wcsc27.facade;
 using Grayscale.Kifuwarakei.Entities;
+using System.Text;
 
 namespace kifuwarabe_wcsc27.abstracts
 {
@@ -86,7 +87,7 @@ namespace kifuwarabe_wcsc27.abstracts
             string yomisuji,
             bool isJoseki,
             Kyokumen ky,
-            Mojiretu syuturyoku
+            StringBuilder syuturyoku
 #if DEBUG
             ,string hint
 #endif
@@ -140,7 +141,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// <returns></returns>
         public static Move Go(
             IPlaying playing,
-            bool isSfen, Kyokumen ky, out HyokatiUtiwake out_kakutei_hyokatiUtiwake, out bool out_isJosekiNoTouri, Util_Tansaku.Dlgt_CreateJoho dlgt_CreateJoho, Mojiretu syuturyoku)
+            bool isSfen, Kyokumen ky, out HyokatiUtiwake out_kakutei_hyokatiUtiwake, out bool out_isJosekiNoTouri, Util_Tansaku.Dlgt_CreateJoho dlgt_CreateJoho, StringBuilder syuturyoku)
         {
 #if DEBUG
             TansakuSyuryoRiyu tansakuSyuryoRiyu = TansakuSyuryoRiyu.Kaisi;
@@ -545,7 +546,7 @@ namespace kifuwarabe_wcsc27.abstracts
 
                         // 深さを変える、または再探索するときにも、強制情報表示
                         {
-                            Mojiretu yomisuji = new MojiretuImpl();
+                            StringBuilder yomisuji = new StringBuilder();
                             if (null != best_yomisuji_orNull)
                             {
                                 best_yomisuji_orNull.Setumei(isSfen, yomisuji);// B3B2 B1B2
@@ -565,7 +566,7 @@ namespace kifuwarabe_wcsc27.abstracts
                                 int.MinValue,//とりあえず、こうして表示を 「-」 にしておくぜ☆
                                              //Util_Tansaku.NekkoKaranoFukasa,
                                 itibanFukaiNekkoKaranoFukasa_JohoNoTameni,
-                                yomisuji.ToContents(),
+                                yomisuji.ToString(),
                                 out_isJosekiNoTouri,
                                 ky,
                                 syuturyoku
@@ -573,7 +574,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     ,"Fukasa"
 #endif
                     );
-                            //Util_Machine.Append(syuturyoku.ToContents());
+                            //Util_Machine.Append(syuturyoku.ToString());
                             Util_TimeManager.DoneShowJoho();
                         }
                     }//ループ
@@ -660,7 +661,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 }
 
                 String2 str1 = new String2Impl();
-                str1.Append(str2.ToContents());
+                str1.Append(str2.ToString());
                 str1.Append("kaisi-対局者=[");
                 Conv_Taikyokusya.Setumei_Nagame(Util_Tansaku.KaisiTaikyokusya,str1);
                 str1.Append("] 自分=[");
@@ -677,7 +678,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     (ms_src != Masu.Yososu && (km_src != Koma.Yososu) && ks_src != Komasyurui.Yososu)//盤上
                     ||
                     (ms_src == Masu.Yososu && ks_src == Komasyurui.Yososu)//打
-                    , str1.ToContents());
+                    , str1.ToString());
             }
 #endif
 */
@@ -689,7 +690,7 @@ namespace kifuwarabe_wcsc27.abstracts
 
             // 指し手が決まったときにも、強制情報表示
             {
-                Mojiretu yomisuji = new MojiretuImpl();
+                StringBuilder yomisuji = new StringBuilder();
                 if (null != best_yomisuji_orNull)
                 {
                     best_yomisuji_orNull.Setumei(isSfen, yomisuji);// B3B2 B1B2
@@ -721,7 +722,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     out_kakutei_hyokatiUtiwake,                    
                     int.MinValue,//とりあえず、こうして表示を 「-」 にしておくぜ☆
                     itibanFukaiNekkoKaranoFukasa_JohoNoTameni,
-                    yomisuji.ToContents(),
+                    yomisuji.ToString(),
                     out_isJosekiNoTouri,
                     ky,
                     syuturyoku
@@ -729,7 +730,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     ,"fin"
 #endif
                     );
-                //Util_Machine.Append(syuturyoku.ToContents());
+                //Util_Machine.Append(syuturyoku.ToString());
                 Util_TimeManager.DoneShowJoho();
             }
 
@@ -752,7 +753,7 @@ namespace kifuwarabe_wcsc27.abstracts
             out Yomisuji out_yomisuji_orNull,
             out HyokatiUtiwake out_hyokatiUtiwake,
             Dlgt_CreateJoho dlgt_CreateJoho,
-            Mojiretu syuturyoku)
+            StringBuilder syuturyoku)
         {
             Debug.Assert(1 <= fukasa && fukasa < AbstractUtilMoveGen.MoveList.Length, "");
 
@@ -800,7 +801,7 @@ namespace kifuwarabe_wcsc27.abstracts
             out Yomisuji out_edaBest_Yomisuji
             , out HyokatiUtiwake out_hyokatiUtiwake
             , Dlgt_CreateJoho dlgt_CreateJoho
-            , Mojiretu syuturyoku // 出力先
+            , StringBuilder syuturyoku // 出力先
             , Move eranda_sasite // 指した手だぜ☆（＾▽＾）
             , MoveType eranda_sasiteType // 指した、指し手のタイプだぜ☆（＾▽＾）
             )
@@ -851,7 +852,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     //────────────────────────────────────────
                     if (Util_TimeManager.CanShowJoho())
                     {
-                        Mojiretu yomisuji = new MojiretuImpl();
+                        StringBuilder yomisuji = new StringBuilder();
                         ky.Konoteme.ScanYomisuji(isSfen,
                             Util_Tansaku.KaisiNantemade + 1, // 現局面の次の手から☆
                             yomisuji);
@@ -865,7 +866,7 @@ namespace kifuwarabe_wcsc27.abstracts
                             out_hyokatiUtiwake,
                             fukasa + 1,// 深さは 0 になっているので、Tansaku していない状態（＝+1 して）に戻すぜ☆
                             Util_Tansaku.NekkoKaranoFukasa,
-                            yomisuji.ToContents(),//読み筋☆
+                            yomisuji.ToString(),//読み筋☆
                             false,
                             ky,
                             syuturyoku
@@ -898,9 +899,9 @@ namespace kifuwarabe_wcsc27.abstracts
                 //────────────────────────────────────────
                 if (Option_Application.Optionlist.Learn && Util_KikaiGakusyu.Recording)
                 {
-                    Mojiretu mojiretu = new MojiretuImpl();
+                    StringBuilder mojiretu = new StringBuilder();
                     ky.AppendFenTo(isSfen, mojiretu);
-                    Util_KikaiGakusyu.AddHappaFen(mojiretu.ToContents());
+                    Util_KikaiGakusyu.AddHappaFen(mojiretu.ToString());
                 }
 
                 out_edaBest_Yomisuji = new Yomisuji();// 読み筋として追加するものは無いぜ☆（＾～＾）
@@ -920,7 +921,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     // 駒を取る手が　葉っぱ　に来たときは、ＳＥＥ（Static Exchange Evaluation）をやりたいぜ☆
                     // おいしさ：この手を指したときに確定している手番の得だぜ☆（＾▽＾）
                     Hyokati oisisa = ky.SEE(playing, isSfen, ConvMove.GetDstMasu_WithoutErrorCheck((int)eranda_sasite),
-                        Util_Machine.KarappoSyuturyoku
+                        Util_Machine.UnusedOutputBuf
                         );
 
                     if (Conv_Hyokati.InHyokati(oisisa))
@@ -960,10 +961,10 @@ namespace kifuwarabe_wcsc27.abstracts
                     }
                     else
                     {
-                        Mojiretu mojiretu = new MojiretuImpl();
+                        StringBuilder mojiretu = new StringBuilder();
                         mojiretu.Append("評価値、詰め手数　以外のものだぜ☆ oisisa=");
                         Conv_Hyokati.Setumei(oisisa, mojiretu);
-                        throw new Exception(mojiretu.ToContents());
+                        throw new Exception(mojiretu.ToString());
                     }
                 }
 
@@ -972,7 +973,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 //────────────────────────────────────────
                 if (Util_TimeManager.CanShowJoho())// 指定秒おきに
                 {
-                    Mojiretu yomisuji = new MojiretuImpl();
+                    StringBuilder yomisuji = new StringBuilder();
                     ky.Konoteme.ScanYomisuji(isSfen,
                         Util_Tansaku.KaisiNantemade + 1, // 現局面の次の手から☆
                         yomisuji);
@@ -986,7 +987,7 @@ namespace kifuwarabe_wcsc27.abstracts
                         out_hyokatiUtiwake,
                         fukasa + 1,// 深さは 0 になっているので、Tansaku していない状態（＝+1 して）に戻すぜ☆
                         Util_Tansaku.NekkoKaranoFukasa,
-                        yomisuji.ToContents(),//読み筋☆
+                        yomisuji.ToString(),//読み筋☆
                         false,
                         ky,
                         syuturyoku
@@ -1047,7 +1048,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 //────────────────────────────────────────
                 if (Util_TimeManager.CanShowJoho())// 指定秒おきに
                 {
-                    Mojiretu yomisuji = new MojiretuImpl();
+                    StringBuilder yomisuji = new StringBuilder();
                     ky.Konoteme.ScanYomisuji(isSfen,
                         Util_Tansaku.KaisiNantemade + 1, // 現局面の次の手から☆
                         yomisuji);
@@ -1061,7 +1062,7 @@ namespace kifuwarabe_wcsc27.abstracts
                         out_hyokatiUtiwake,                        
                         fukasa + 1,// 深さは 0 になっているので、Tansaku していない状態（＝+1 して）に戻すぜ☆
                         Util_Tansaku.NekkoKaranoFukasa,
-                        yomisuji.ToContents(),//読み筋☆
+                        yomisuji.ToString(),//読み筋☆
                         false,
                         ky,
                         syuturyoku
@@ -1142,7 +1143,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     //────────────────────────────────────────
                     if (Util_TimeManager.CanShowJoho())
                     {
-                        Mojiretu yomisuji = new MojiretuImpl();
+                        StringBuilder yomisuji = new StringBuilder();
                         ky.Konoteme.ScanYomisuji(isSfen,
                             Util_Tansaku.KaisiNantemade + 1, // 現局面の次の手から☆
                             yomisuji);
@@ -1157,7 +1158,7 @@ namespace kifuwarabe_wcsc27.abstracts
                             out_hyokatiUtiwake,                            
                             fukasa,
                             Util_Tansaku.NekkoKaranoFukasa,
-                            yomisuji.ToContents(),//読み筋☆
+                            yomisuji.ToString(),//読み筋☆
                             false,
                             ky,
                             syuturyoku
@@ -1330,7 +1331,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     //Util_TimeManager.CanShowJoho()
                         )
                 {
-                    Mojiretu yomisuji = new MojiretuImpl();
+                    StringBuilder yomisuji = new StringBuilder();
                     ky.Konoteme.ScanYomisuji(
                         Util_Tansaku.KaisiNantemade + 1, // 現局面の次の手から☆
                         yomisuji);
@@ -1346,7 +1347,7 @@ namespace kifuwarabe_wcsc27.abstracts
                         "",
                         fukasa + 1,// 深さは 0 になっているので、Tansaku していない状態（＝+1 して）に戻すぜ☆
                         Util_Tansaku.NekkoKaranoFukasa,
-                        yomisuji.ToContents(),//読み筋☆
+                        yomisuji.ToString(),//読み筋☆
                         false,
                         syuturyoku
 #if DEBUG
@@ -1404,7 +1405,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     //────────────────────────────────────────
                     if (Util_TimeManager.CanShowJoho())
                     {
-                        Mojiretu yomisuji = new MojiretuImpl();
+                        StringBuilder yomisuji = new StringBuilder();
                         ky.Konoteme.ScanYomisuji(isSfen,
                             Util_Tansaku.KaisiNantemade + 1, // 現局面の次の手から☆
                             yomisuji);
@@ -1419,7 +1420,7 @@ namespace kifuwarabe_wcsc27.abstracts
                             out_hyokatiUtiwake,                            
                             fukasa,
                             Util_Tansaku.NekkoKaranoFukasa,
-                            yomisuji.ToContents(),//読み筋☆
+                            yomisuji.ToString(),//読み筋☆
                             false,
                             ky,
                             syuturyoku
@@ -1461,7 +1462,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     //────────────────────────────────────────
                     if (Util_TimeManager.CanShowJoho())
                     {
-                        Mojiretu yomisuji = new MojiretuImpl();
+                        StringBuilder yomisuji = new StringBuilder();
                         ky.Konoteme.ScanYomisuji(isSfen,
                             Util_Tansaku.KaisiNantemade + 1, // 現局面の次の手から☆
                             yomisuji);
@@ -1476,7 +1477,7 @@ namespace kifuwarabe_wcsc27.abstracts
                             out_hyokatiUtiwake,                            
                             fukasa,
                             Util_Tansaku.NekkoKaranoFukasa,
-                            yomisuji.ToContents(),//読み筋☆
+                            yomisuji.ToString(),//読み筋☆
                             false,
                             ky,
                             syuturyoku
@@ -1525,13 +1526,13 @@ namespace kifuwarabe_wcsc27.abstracts
 
                     if (Util_TimeManager.CanShowJoho())
                     {
-                        Mojiretu yomisuji = new MojiretuImpl();
+                        StringBuilder yomisuji = new StringBuilder();
                         ky.Konoteme.ScanYomisuji(isSfen,
                             Util_Tansaku.KaisiNantemade + 1, // 現局面の次の手から☆
                             yomisuji);
                         ConvMove.AppendFenTo(isSfen, eda_sasite, yomisuji);// このループで指した手だぜ☆
 
-                        //Mojiretu riyuHosoku = new MojiretuImpl();
+                        //StringBuilder riyuHosoku = new StringBuilder();
                         //riyuHosoku.Append("元alpha=");
                         //Conv_Hyokati.Setumei(old_alpha, riyuHosoku);
 
@@ -1544,7 +1545,7 @@ namespace kifuwarabe_wcsc27.abstracts
                             out_hyokatiUtiwake,
                             fukasa,
                             Util_Tansaku.NekkoKaranoFukasa,
-                            yomisuji.ToContents(),//読み筋☆
+                            yomisuji.ToString(),//読み筋☆
                             false,
                             ky,
                             syuturyoku

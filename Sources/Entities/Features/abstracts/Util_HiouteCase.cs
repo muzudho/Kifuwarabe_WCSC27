@@ -1,6 +1,7 @@
 ﻿using kifuwarabe_wcsc27.facade;
 using kifuwarabe_wcsc27.interfaces;
 using kifuwarabe_wcsc27.implements;
+using System.Text;
 
 namespace kifuwarabe_wcsc27.abstracts
 {
@@ -17,7 +18,7 @@ namespace kifuwarabe_wcsc27.abstracts
         {
         }
 
-        public static void Setumei_Kiki(Kyokumen ky, Masu attackerMs, Mojiretu syuturyoku)
+        public static void Setumei_Kiki(Kyokumen ky, Masu attackerMs, StringBuilder syuturyoku)
         {
             ky.Shogiban.ExistsBBKomaZenbu(attackerMs, out Taikyokusya tai);
             ky.Shogiban.ExistsBBKoma(tai, attackerMs, out Komasyurui ks);

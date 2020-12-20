@@ -1,6 +1,7 @@
 ﻿using kifuwarabe_wcsc27.interfaces;
 using System;
 using kifuwarabe_wcsc27.abstracts;
+using System.Text;
 
 namespace kifuwarabe_wcsc27.implements
 {
@@ -16,7 +17,7 @@ namespace kifuwarabe_wcsc27.implements
         public Move[] SasiteItiran { get; set; }
         public MoveType[] SasiteTypeItiran { get; set; }
 
-        public void Setumei(bool isSfen, Mojiretu syuturyoku)
+        public void Setumei(bool isSfen, StringBuilder syuturyoku)
         {
             for (int i=0; i<this.Size; i++)
             {

@@ -1,6 +1,7 @@
 ﻿using kifuwarabe_wcsc27.machine;
 using kifuwarabe_wcsc27.interfaces;
 using System;
+using System.Text;
 
 namespace kifuwarabe_wcsc27.abstracts
 {
@@ -159,7 +160,7 @@ namespace kifuwarabe_wcsc27.abstracts
         }
 
 
-        public static void Test(Mojiretu syuturyoku)
+        public static void Test(StringBuilder syuturyoku)
         {
 
             //*

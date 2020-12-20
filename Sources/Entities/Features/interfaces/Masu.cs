@@ -1,6 +1,7 @@
 ﻿using kifuwarabe_wcsc27.implements;
 using System.Text.RegularExpressions;
 using kifuwarabe_wcsc27.abstracts;
+using System.Text;
 
 namespace kifuwarabe_wcsc27.interfaces
 {
@@ -21,7 +22,7 @@ namespace kifuwarabe_wcsc27.interfaces
         public const int ERROR_SUJI = 0;
         public const int ERROR_DAN = 0;
 
-        public static void Setumei(Masu ms, Kyokumen ky, Mojiretu syuturyoku)
+        public static void Setumei(Masu ms, Kyokumen ky, StringBuilder syuturyoku)
         {
             syuturyoku.Append(Conv_Kihon.ToAlphabetLarge(ky.ToSuji_WithError(ms)));
             syuturyoku.Append(ky.ToDan_WithError(ms).ToString());

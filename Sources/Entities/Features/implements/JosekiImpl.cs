@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using kifuwarabe_wcsc27.machine;
 using kifuwarabe_wcsc27.abstracts;
+using System.Text;
 
 namespace kifuwarabe_wcsc27.implements
 {
@@ -50,7 +51,7 @@ namespace kifuwarabe_wcsc27.implements
         /// 定跡ファイル
         /// </summary>
         /// <returns></returns>
-        public void ToContentsLine_NotUnity(bool isSfen, Mojiretu syuturyoku)
+        public void ToContentsLine_NotUnity(bool isSfen, StringBuilder syuturyoku)
         {
             ConvMove.AppendFenTo(isSfen, this.Move, syuturyoku);
             syuturyoku.Append(" ");
@@ -157,7 +158,7 @@ namespace kifuwarabe_wcsc27.implements
         /// 定跡ファイル
         /// </summary>
         /// <returns></returns>
-        public void ToContentsLine(bool isSfen, Mojiretu syuturyoku)
+        public void ToContentsLine(bool isSfen, StringBuilder syuturyoku)
         {
             // 局面
             syuturyoku.AppendLine(this.Fen);
@@ -217,7 +218,7 @@ namespace kifuwarabe_wcsc27.implements
         /// データを追加するぜ☆（＾▽＾） 指しながら定跡を追加していくときだぜ☆
         /// </summary>
         /// <param name="ky_before"></param>
-        public JosekiKyokumen AddMove(string kyFen_before, ulong kyHash_before, Taikyokusya kyTb_before, Move bestMove, Hyokati hyokati, int fukasa, int version, Mojiretu syuturyoku)
+        public JosekiKyokumen AddMove(string kyFen_before, ulong kyHash_before, Taikyokusya kyTb_before, Move bestMove, Hyokati hyokati, int fukasa, int version, StringBuilder syuturyoku)
         {
             JosekiKyokumen josekiKy = this.ParseKyokumenLine(kyFen_before, kyHash_before, kyTb_before, syuturyoku);
 
@@ -241,7 +242,7 @@ namespace kifuwarabe_wcsc27.implements
             //                MoveError reason;
             //                if (!ky2.CanDoMove(bestMove, out reason))
             //                {
-            //                    throw new Exception("指せない指し手を定跡に登録しようとしたぜ☆（＾～＾）！："+ConvMove.Setumei(reason));
+            //                    throw new Exception($"指せない指し手を定跡に登録しようとしたぜ☆（＾～＾）！：{ConvMove.Setumei(reason)}");
             //                }
             //            }
 
@@ -280,7 +281,7 @@ namespace kifuwarabe_wcsc27.implements
         /// <param name="kyHash_before">指す前の局面のハッシュ</param>
         /// <param name="kyTb_before">指す前の局面の手番</param>
         /// <returns></returns>
-        public JosekiKyokumen ParseKyokumenLine(string kyFen_before, ulong kyHash_before, Taikyokusya kyTb_before, Mojiretu syuturyoku)
+        public JosekiKyokumen ParseKyokumenLine(string kyFen_before, ulong kyHash_before, Taikyokusya kyTb_before, StringBuilder syuturyoku)
         {
             JosekiKyokumen josekiKy;
             if (this.KyItems.ContainsKey(kyHash_before))
@@ -300,7 +301,7 @@ namespace kifuwarabe_wcsc27.implements
                     ulong newHash = ky2.CreateKyokumenHash();
                     if (newHash != kyHash_before)
                     {
-                        Mojiretu reigai = new MojiretuImpl();
+                        StringBuilder reigai = new StringBuilder();
                         reigai.Append("局面ハッシュが異なるぜ☆（＾～＾）！ kyFen_before=[");
                         reigai.Append(kyFen_before);
                         reigai.Append("] newHash=[");
@@ -308,9 +309,9 @@ namespace kifuwarabe_wcsc27.implements
                         reigai.Append("] kyHash_before=[");
                         reigai.Append(kyHash_before.ToString());
                         reigai.Append("]");
-                        syuturyoku.AppendLine(reigai.ToContents());
+                        syuturyoku.AppendLine(reigai.ToString());
                         Util_Machine.Flush(syuturyoku);
-                        throw new Exception(reigai.ToContents());
+                        throw new Exception(reigai.ToString());
                     }
                 }
 #endif
@@ -328,7 +329,7 @@ namespace kifuwarabe_wcsc27.implements
         /// 定跡ファイルの解析☆（＾～＾）
         /// </summary>
         /// <param name="lines"></param>
-        public void Parse(bool isSfen, string[] lines, Mojiretu syuturyoku)
+        public void Parse(bool isSfen, string[] lines, StringBuilder syuturyoku)
         {
             this.Clear();
             Kyokumen ky_forJoseki = new Kyokumen();//使いまわすぜ☆（＾▽＾）
@@ -351,17 +352,17 @@ namespace kifuwarabe_wcsc27.implements
                     m = Itiran_FenParser.GetJosekiKyPattern(Option_Application.Optionlist.USI).Match(commandline);//, caret
                     if (!m.Success)
                     {
-                        Mojiretu reigai1 = new MojiretuImpl();
-                        reigai1.AppendLine("パースに失敗だぜ☆（＾～＾）！ #寿 定跡ファイル解析失敗");
-                        reigai1.AppendLine($"commandline=[{ commandline }]");
+                        StringBuilder reigai1 = new StringBuilder();
+                        reigai1.AppendLine($@"パースに失敗だぜ☆（＾～＾）！ #寿 定跡ファイル解析失敗
+commandline=[{ commandline }]");
 #if DEBUG
                         reigai1.Append(" [");
                         reigai1.Append(iGyoBango.ToString());
                         reigai1.Append("]行目");
 #endif
-                        syuturyoku.AppendLine(reigai1.ToContents());
+                        syuturyoku.AppendLine(reigai1.ToString());
                         Util_Machine.Flush(syuturyoku);
-                        throw new Exception(reigai1.ToContents());
+                        throw new Exception(reigai1.ToString());
                     }
 
                     // .Value は、該当しないときは空文字列か☆
@@ -395,7 +396,7 @@ namespace kifuwarabe_wcsc27.implements
                     ulong newHash = ky3.CreateKyokumenHash();
                     if (newHash != ky2.KyokumenHash)
                     {
-                        Mojiretu reigai1 = new MojiretuImpl();
+                        StringBuilder reigai1 = new StringBuilder();
                         reigai1.Append("局面ハッシュが異なるぜ☆（＾～＾）！ commandline=[");
                         reigai1.Append(commandline);
                         reigai1.Append("] ky3.AppendFenTo=[");
@@ -413,9 +414,9 @@ namespace kifuwarabe_wcsc27.implements
                         reigai1.Append("] ky2.KyokumenHash=[");
                         reigai1.Append(ky2.KyokumenHash.ToString());
                         reigai1.Append("]");
-                        syuturyoku.AppendLine(reigai1.ToContents());
+                        syuturyoku.AppendLine(reigai1.ToString());
                         Util_Machine.Flush(syuturyoku);
-                        throw new Exception(reigai1.ToContents());
+                        throw new Exception(reigai1.ToString());
                     }
                 }
 #endif
@@ -488,9 +489,9 @@ namespace kifuwarabe_wcsc27.implements
                             str.Append("] 指し手=[");
                             ConvMove.Setumei(josekiSs.Move,str);
                             str.Append("]");
-                            Util_Machine.AppendLine(str.ToContents());
+                            Util_Machine.AppendLine(str.ToString());
                             Util_Machine.Flush();
-                            throw new Exception(str.ToContents());
+                            throw new Exception(str.ToString());
                     }
                     else
                     {
@@ -533,7 +534,7 @@ namespace kifuwarabe_wcsc27.implements
         /// </summary>
         /// <param name="ky"></param>
         /// <returns>なければ投了☆</returns>
-        public Move GetMove(bool isSfen, Kyokumen ky, out Hyokati out_bestHyokati, Mojiretu syuturyoku
+        public Move GetMove(bool isSfen, Kyokumen ky, out Hyokati out_bestHyokati, StringBuilder syuturyoku
 #if DEBUG
             , out string fen_forTest
 #endif
@@ -579,10 +580,10 @@ namespace kifuwarabe_wcsc27.implements
             {
                 Kyokumen ky_forAssert = new Kyokumen();
                 int caret = 0;
-                Mojiretu sindan1 = new MojiretuImpl();
+                StringBuilder sindan1 = new StringBuilder();
                 ky.AppendFenTo(Option_Application.Optionlist.USI, sindan1);
-                //if (!ky2.ParseFen(sindan1.ToContents(), ref caret, false, syuturyoku))
-                if (!ky_forAssert.ParsePositionvalue(isSfen, sindan1.ToContents(),ref caret, true, false, out string moves, syuturyoku))// ビットボードを更新したいので、適用する
+                //if (!ky2.ParseFen(sindan1.ToString(), ref caret, false, syuturyoku))
+                if (!ky_forAssert.ParsePositionvalue(isSfen, sindan1.ToString(),ref caret, true, false, out string moves, syuturyoku))// ビットボードを更新したいので、適用する
                 {
                     string msg = "取得：　パースに失敗だぜ☆（＾～＾）！ #鰯";
                     syuturyoku.AppendLine(msg);
@@ -592,7 +593,7 @@ namespace kifuwarabe_wcsc27.implements
 
                 if (!ky_forAssert.CanDoMove(bestMove, out MoveMatigaiRiyu riyu))
                 {
-                    Mojiretu sindan2 = new MojiretuImpl();
+                    StringBuilder sindan2 = new StringBuilder();
                     sindan2.Append("取得：　指せない指し手を定跡から取り出そうとしたぜ☆（＾～＾）！：");
                     sindan2.Append("理由:"); ConvMove.SetumeiLine(riyu,sindan2);
                     sindan2.Append("指し手:"); ConvMove.SetumeiLine(isSfen, bestMove, sindan2);
@@ -604,9 +605,9 @@ namespace kifuwarabe_wcsc27.implements
                     //str2.Append(this.ToString());
                     //str2.AppendLine("└──────────┘");
 
-                    syuturyoku.AppendLine(sindan2.ToContents());
+                    syuturyoku.AppendLine(sindan2.ToString());
                     Util_Machine.Flush(syuturyoku);
-                    throw new Exception(sindan2.ToContents());
+                    throw new Exception(sindan2.ToString());
                 }
             }
 #endif
@@ -913,7 +914,7 @@ namespace kifuwarabe_wcsc27.implements
         /// 低速にはなるが、たくさん記憶するためのものだぜ☆
         /// </summary>
         /// <returns>分けた残りの定跡</returns>
-        public void Bunkatu(out Joseki[] out_bunkatu, out string[] out_bunkatupartNames, Mojiretu syuturyoku)
+        public void Bunkatu(out Joseki[] out_bunkatu, out string[] out_bunkatupartNames, StringBuilder syuturyoku)
         {
             out_bunkatupartNames = new string[] { "(P1)", "(P2)" };
             Joseki joP2 = new Joseki();
@@ -955,7 +956,7 @@ namespace kifuwarabe_wcsc27.implements
         /// 分けたファイルを吸収するぜ☆ｗｗｗ（＾▽＾）
         /// 重複したデータは、どちらを残すか自動的に判断するぜ☆（＾▽＾）
         /// </summary>
-        public void Merge(Joseki joseki, Mojiretu syuturyoku)
+        public void Merge(Joseki joseki, StringBuilder syuturyoku)
         {
             foreach (KeyValuePair<ulong, JosekiKyokumen> joKy in joseki.KyItems)
             {
@@ -979,16 +980,16 @@ namespace kifuwarabe_wcsc27.implements
         /// 定跡ファイル
         /// </summary>
         /// <returns></returns>
-        public string ToContents(bool isSfen )
+        public string ToString(bool isSfen )
         {
-            Mojiretu mojiretu1 = new MojiretuImpl();
+            StringBuilder mojiretu1 = new StringBuilder();
 
             foreach (KeyValuePair<ulong, JosekiKyokumen> entry1 in this.KyItems)
             {
                 entry1.Value.ToContentsLine(isSfen, mojiretu1);
             }
 
-            return mojiretu1.ToContents();
+            return mojiretu1.ToString();
         }
 #endif
     }

@@ -6,6 +6,7 @@ using kifuwarabe_wcsc27.interfaces;
 using kifuwarabe_wcsc27.machine;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace kifuwarabe_wcsc27.abstracts
@@ -25,7 +26,7 @@ namespace kifuwarabe_wcsc27.abstracts
 
     public abstract class Conv_GameMode
     {
-        public static void TusinYo_Line(GameMode gameMode, Mojiretu syuturyoku)
+        public static void TusinYo_Line(GameMode gameMode, StringBuilder syuturyoku)
         {
 #if UNITY
             syuturyoku.Append("< ");
@@ -88,11 +89,11 @@ namespace kifuwarabe_wcsc27.abstracts
         /// 定跡
         /// </summary>
         public static Joseki Joseki { get { return Option_Application.Joseki; } }
-        public static void LoadJoseki(Mojiretu syuturyoku) { Util_Machine.Load_Joseki(syuturyoku); }
-        public static void LoadSeiseki(Mojiretu syuturyoku) { Util_Machine.Load_Seiseki(syuturyoku); }
-        public static void LoadNikoma(Mojiretu syuturyoku) { Util_Machine.Load_Nikoma(syuturyoku); }
+        public static void LoadJoseki(StringBuilder syuturyoku) { Util_Machine.Load_Joseki(syuturyoku); }
+        public static void LoadSeiseki(StringBuilder syuturyoku) { Util_Machine.Load_Seiseki(syuturyoku); }
+        public static void LoadNikoma(StringBuilder syuturyoku) { Util_Machine.Load_Nikoma(syuturyoku); }
 
-        public static void ResetHirate(bool isSfen, Kyokumen ky, Mojiretu syuturyoku)
+        public static void ResetHirate(bool isSfen, Kyokumen ky, StringBuilder syuturyoku)
         {
             ky.DoHirate(isSfen, syuturyoku);
         }
@@ -120,9 +121,9 @@ namespace kifuwarabe_wcsc27.abstracts
                 //str.Append("] caret=[");
                 //str.Append(caret);
                 //str.Append("]");
-                //syuturyoku.AppendLine(str.ToContents());
+                //syuturyoku.AppendLine(str.ToString());
                 //Util_Machine.Flush();
-                //throw new Exception(str.ToContents());
+                //throw new Exception(str.ToString());
                 return false;
             }
 
@@ -156,7 +157,7 @@ namespace kifuwarabe_wcsc27.abstracts
             ky.Hyoka( out out_hyokatiUtiwake, riyu, randomNaKyokumen);
         }
 
-        public static Move Go(IPlaying playing, Kyokumen ky, out HyokatiUtiwake out_hyokatiUtiwake, Util_Tansaku.Dlgt_CreateJoho dlgt_CreateJoho, Mojiretu syuturyoku)
+        public static Move Go(IPlaying playing, Kyokumen ky, out HyokatiUtiwake out_hyokatiUtiwake, Util_Tansaku.Dlgt_CreateJoho dlgt_CreateJoho, StringBuilder syuturyoku)
         {
             Move move = Util_Tansaku.Go(playing,Option_Application.Optionlist.USI, ky, out out_hyokatiUtiwake, out bool isJosekiTraced, dlgt_CreateJoho, syuturyoku);
 #if !UNITY
@@ -165,7 +166,7 @@ namespace kifuwarabe_wcsc27.abstracts
             return move;
         }
 
-        public static void Jam(bool isSfen, Kyokumen ky, Mojiretu syuturyoku)
+        public static void Jam(bool isSfen, Kyokumen ky, StringBuilder syuturyoku)
         {
             ky.Jampacked(isSfen, syuturyoku);
         }
@@ -275,7 +276,7 @@ namespace kifuwarabe_wcsc27.abstracts
             return kiki;
         }
 
-        public static void Rnd( Kyokumen ky, Mojiretu syuturyoku)
+        public static void Rnd( Kyokumen ky, StringBuilder syuturyoku)
         {
             int fukasa = 0;
             AbstractUtilMoveGen.GenerateMove01(fukasa, ky, MoveType.N21_All,true, syuturyoku);//グローバル変数に指し手がセットされるぜ☆（＾▽＾）
@@ -292,7 +293,7 @@ namespace kifuwarabe_wcsc27.abstracts
             }
         }
 
-        public static List<MoveKakucho> MoveCmd( Kyokumen ky, Mojiretu syuturyoku)
+        public static List<MoveKakucho> MoveCmd( Kyokumen ky, StringBuilder syuturyoku)
         {
             List<MoveKakucho> sslist = new List<MoveKakucho>();
             int fukasa = 0;
@@ -349,7 +350,7 @@ namespace kifuwarabe_wcsc27.abstracts
             }
         }
 
-        public static void Set(string commandline, Kyokumen ky, Mojiretu syuturyoku)
+        public static void Set(string commandline, Kyokumen ky, StringBuilder syuturyoku)
         {
             int caret = 0;
             Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "set ");
@@ -833,7 +834,7 @@ namespace kifuwarabe_wcsc27.abstracts
             // 該当しないものは無視だぜ☆（＾▽＾）
         }
 
-        public static void Undo(string commandline, Kyokumen ky, Mojiretu syuturyoku)
+        public static void Undo(string commandline, Kyokumen ky, StringBuilder syuturyoku)
         {
             // うしろに続く文字は☆（＾▽＾）
             int caret = 0;
@@ -853,7 +854,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// <summary>
         /// アプリケーション開始時☆
         /// </summary>
-        public static void Begin2_Application( Kyokumen ky, Mojiretu syuturyoku)
+        public static void Begin2_Application( Kyokumen ky, StringBuilder syuturyoku)
         {
             TimeManager.Stopwatch_Savefile.Start();// 定跡ファイルの保存間隔の計測
             TimeManager.Stopwatch_RenzokuRandomRule.Start();
@@ -879,7 +880,7 @@ namespace kifuwarabe_wcsc27.abstracts
 //            Util_Application.GameMode = GameMode.Karappo;
 //#endif
         }
-        public static void End_Application(Mojiretu syuturyoku)
+        public static void End_Application(StringBuilder syuturyoku)
         {
 #if !UNITY
             #region （手順７）保存して終了
@@ -917,7 +918,7 @@ namespace kifuwarabe_wcsc27.abstracts
 
 
 #region 成績更新
-        public static void Begin_SeisekiKosin(Mojiretu syuturyoku)
+        public static void Begin_SeisekiKosin(StringBuilder syuturyoku)
         {
             // 成績ファイルを更新するぜ☆（＾～＾）
             if (Option_Application.Optionlist.SeisekiRec)
@@ -926,7 +927,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 Util_Machine.Flush(syuturyoku);
             }
         }
-        public static void InLoop_SeisekiKosin(Move ss_after, Kyokumen ky, Mojiretu syuturyoku)
+        public static void InLoop_SeisekiKosin(Move ss_after, Kyokumen ky, StringBuilder syuturyoku)
         {
             if (Option_Application.Optionlist.SeisekiRec)// 今回指した手全てに、成績を付けたいぜ☆（＾～＾）
             {
@@ -938,10 +939,10 @@ namespace kifuwarabe_wcsc27.abstracts
                     // 一手前の局面と、指したあとの指し手で成績更新☆（＾▽＾）
                     Conv_Seiseki.ResultToCount(ky.Teban, Util_Application.Result(ky), out int kati, out int hikiwake, out int make);
 
-                    Mojiretu kyMojiretu = new MojiretuImpl();
+                    StringBuilder kyMojiretu = new StringBuilder();
                     ky.AppendFenTo(Option_Application.Optionlist.USI, kyMojiretu);
                     Option_Application.Seiseki.AddMove(
-                        kyMojiretu.ToContents(),
+                        kyMojiretu.ToString(),
                         ky.KyokumenHash.Value,
                         ky.Teban,
                         ss_after,
@@ -960,7 +961,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 }
             }//成績の記録☆
         }
-        public static void End_SeisekiKosin(Mojiretu syuturyoku)
+        public static void End_SeisekiKosin(StringBuilder syuturyoku)
         {
             if (Option_Application.Optionlist.SeisekiRec)
             {
@@ -1013,7 +1014,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// <summary>
         /// 対局終了
         /// </summary>
-        public static void DoTejun5_SyuryoTaikyoku1(IPlaying playing, Kyokumen ky, Mojiretu syuturyoku )
+        public static void DoTejun5_SyuryoTaikyoku1(IPlaying playing, Kyokumen ky, StringBuilder syuturyoku )
         {
             // 表示（コンソール・ゲーム用）
             {
@@ -1039,9 +1040,9 @@ namespace kifuwarabe_wcsc27.abstracts
 
             // 棋譜の初期局面を更新☆
             {
-                Mojiretu kyFen_temp = new MojiretuImpl();
+                StringBuilder kyFen_temp = new StringBuilder();
                 ky.AppendFenTo(Option_Application.Optionlist.USI, kyFen_temp);
-                Option_Application.Kifu.SyokiKyokumenFen = kyFen_temp.ToContents();
+                Option_Application.Kifu.SyokiKyokumenFen = kyFen_temp.ToString();
             }
 
 #if !UNITY
@@ -1130,7 +1131,7 @@ namespace kifuwarabe_wcsc27.abstracts
         }
 
 #if !UNITY
-        public static void FlushAll1(Mojiretu syuturyoku)
+        public static void FlushAll1(StringBuilder syuturyoku)
         {
             // 保存間隔調整をしていて、保存をスルーすることはあるぜ☆（＾～＾）
             if (Util_Application.IsOk_SavefileTimeSpan())
@@ -1144,7 +1145,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 Util_Application.Restart_SavefileTimeSpan();// 保存間隔の再調整だぜ☆（＾▽＾）
             }
         }
-        public static void DoTejun7_FlushAll2(Mojiretu syuturyoku)
+        public static void DoTejun7_FlushAll2(StringBuilder syuturyoku)
         {
             // 保存間隔を調整している外部ファイルがあれば強制保存だぜ☆（＾▽＾）
             {

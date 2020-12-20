@@ -1,5 +1,6 @@
 ﻿using kifuwarabe_wcsc27.interfaces;
 using kifuwarabe_wcsc27.abstracts;
+using System.Text;
 
 namespace kifuwarabe_wcsc27.implements
 {
@@ -120,7 +121,7 @@ namespace kifuwarabe_wcsc27.implements
         /// </summary>
         /// <param name="sentoNantemade">初期局面からのリンクリストなので、どの「図はn手まで」戻すか☆</param>
         /// <returns></returns>
-        public void ScanYomisuji(bool isSfen, int sentoNantemade, Mojiretu syuturyoku)
+        public void ScanYomisuji(bool isSfen, int sentoNantemade, StringBuilder syuturyoku)
         {
             // 先頭（投了、初期局面、図は0手まで）まで戻るぜ☆
             Nanteme nanteme = this;

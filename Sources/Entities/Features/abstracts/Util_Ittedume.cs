@@ -3,6 +3,7 @@ using kifuwarabe_wcsc27.implements;
 using System;
 using kifuwarabe_wcsc27.machine;
 using System.Diagnostics;
+using System.Text;
 
 #if DEBUG
 using kifuwarabe_wcsc27.facade;
@@ -35,12 +36,11 @@ namespace kifuwarabe_wcsc27.abstracts
 
             // 動かす駒
             if (!ky.Shogiban.ExistsBBKoma(jibun, ms_t0, out Komasyurui ks_t0)) {
-                Mojiretu reigai1 = new MojiretuImpl();
+                StringBuilder reigai1 = new StringBuilder();
                 reigai1.AppendLine($"盤上の駒じゃないじゃないか☆（＾▽＾）ｗｗｗ jibun=[{ jibun }] ms_src=[{ ms_t0 }] ks_jibun=[{ ks_t0 }]");
                 Util_Information.HyojiKomanoIbasho(ky.Shogiban, reigai1);
-                string errMsg = reigai1.ToContents();
                 Util_Machine.Flush(reigai1);
-                throw new Exception(errMsg);
+                throw new Exception(reigai1.ToString());
             }
             Koma km_t0 = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks_t0, jibun);
             Koma km_t1 = km_t0; // FIXME: 成りを考慮していないぜ☆（＞＿＜）

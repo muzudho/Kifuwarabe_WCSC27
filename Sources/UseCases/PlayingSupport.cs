@@ -1,11 +1,12 @@
-﻿using kifuwarabe_wcsc27.abstracts;
+﻿using System.Text;
+using kifuwarabe_wcsc27.abstracts;
 using kifuwarabe_wcsc27.interfaces;
 
 namespace Grayscale.Kifuwarakei.UseCases
 {
     public abstract class PlayingSupport
     {
-        //public static Taikyokusya Yomu_Player(string commandline, ref int caret, ref bool sippai, Mojiretu syuturyoku)
+        //public static Taikyokusya Yomu_Player(string commandline, ref int caret, ref bool sippai, StringBuilder syuturyoku)
         //{
         //    if (caret == commandline.IndexOf("1", caret))// 視点　対局者１
         //    {
@@ -23,7 +24,7 @@ namespace Grayscale.Kifuwarakei.UseCases
         //    return Taikyokusya.Yososu;
         //}
 
-        public static MotiKoma Yomu_Motikoma(bool isSfen, string commandline, ref int caret, ref bool sippai, Mojiretu syuturyoku)
+        public static MotiKoma Yomu_Motikoma(bool isSfen, string commandline, ref int caret, ref bool sippai, StringBuilder syuturyoku)
         {
             if (sippai)
             {

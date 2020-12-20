@@ -93,7 +93,6 @@
     <Compile Include="Features\implements\Kifu.cs" />
     <Compile Include="Features\implements\Kyokumen.cs" />
     <Compile Include="Features\implements\KyokumenHashImpl.cs" />
-    <Compile Include="Features\implements\MojiretuImpl.cs" />
     <Compile Include="Features\implements\MotiKomaItiranImpl.cs" />
     <Compile Include="Features\implements\MoveGenBunseki.cs" />
     <Compile Include="Features\implements\MoveKakuchoImpl.cs" />
@@ -112,7 +111,6 @@
     <Compile Include="Features\interfaces\Koma.cs" />
     <Compile Include="Features\interfaces\Komasyurui.cs" />
     <Compile Include="Features\interfaces\Masu.cs" />
-    <Compile Include="Features\interfaces\Mojiretu.cs" />
     <Compile Include="Features\interfaces\Move.cs" />
     <Compile Include="Features\interfaces\TaikyokuKekka.cs" />
     <Compile Include="Features\interfaces\Taikyokusya.cs" />

@@ -3,6 +3,7 @@ using kifuwarabe_wcsc27.abstracts;
 using kifuwarabe_wcsc27.machine;
 using System;
 using kifuwarabe_wcsc27.implements;
+using System.Text;
 
 namespace kifuwarabe_wcsc27.interfaces
 {
@@ -324,7 +325,7 @@ namespace kifuwarabe_wcsc27.interfaces
         /// </summary>
         /// <param name="hyokati"></param>
         /// <param name="syuturyoku"></param>
-        public static void Setumei(Hyokati hyokati,Mojiretu syuturyoku)
+        public static void Setumei(Hyokati hyokati,StringBuilder syuturyoku)
         {
             if (Conv_Hyokati.InSyokiti(hyokati))
             {
@@ -335,13 +336,11 @@ namespace kifuwarabe_wcsc27.interfaces
                 }
                 else if (Hyokati.Syokiti_Alpha == hyokati)
                 {
-                    syuturyoku.Append("[α未設定] ");
-                    syuturyoku.Append(((int)hyokati).ToString());
+                    syuturyoku.Append($"[α未設定] {(int)hyokati}");
                 }
                 else if (Hyokati.Syokiti_Beta == hyokati)
                 {
-                    syuturyoku.Append("[β未設定] ");
-                    syuturyoku.Append(((int)hyokati).ToString());
+                    syuturyoku.Append("[β未設定] {(int)hyokati}");
                 }
                 else
                 {
@@ -370,13 +369,13 @@ namespace kifuwarabe_wcsc27.interfaces
                                 break;
                             default:
                                 {
-                                    Mojiretu mojiretu1 = new MojiretuImpl();
+                                    StringBuilder mojiretu1 = new StringBuilder();
                                     mojiretu1.Append("[予期しない評価値だぜ☆（＾～＾） ");
                                     Conv_Hyokati.Setumei(hyokati, mojiretu1);
                                     mojiretu1.Append($"] {(int)hyokati}");
 
-                                    syuturyoku.AppendLine(mojiretu1.ToContents());
-                                    throw new Exception(mojiretu1.ToContents());
+                                    syuturyoku.AppendLine(mojiretu1.ToString());
+                                    throw new Exception(mojiretu1.ToString());
                                 }
                         }
                     }
@@ -448,7 +447,7 @@ namespace kifuwarabe_wcsc27.interfaces
         /// <param name="commandline"></param>
         /// <param name="out_hyokati"></param>
         /// <returns></returns>
-        public static bool TryParse(string commandline, ref int caret, out int out_hyokati, Mojiretu syuturyoku)
+        public static bool TryParse(string commandline, ref int caret, out int out_hyokati, StringBuilder syuturyoku)
         {
             Match m = Itiran_FenParser.HyokatiPattern.Match(commandline,caret);
             if (m.Success)

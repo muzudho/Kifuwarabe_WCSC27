@@ -1,9 +1,10 @@
 ﻿using System.Diagnostics;
+using System.Text;
 using kifuwarabe_wcsc27.interfaces;
 
 namespace kifuwarabe_wcsc27.machine
 {
-    public delegate void TestBlock(Mojiretu syuturyoku);
+    public delegate void TestBlock(StringBuilder syuturyoku);
 
     public abstract class Util_Test
     {
@@ -19,7 +20,7 @@ namespace kifuwarabe_wcsc27.machine
         }
 
         [Conditional("DEBUG")]
-        public static void Append(string line, Mojiretu syuturyoku)
+        public static void Append(string line, StringBuilder syuturyoku)
         {
             if (Util_Test.TestMode)
             {
@@ -27,7 +28,7 @@ namespace kifuwarabe_wcsc27.machine
             }
         }
         [Conditional("DEBUG")]
-        public static void AppendLine(string line, Mojiretu syuturyoku)
+        public static void AppendLine(string line, StringBuilder syuturyoku)
         {
             if (Util_Test.TestMode)
             {
@@ -38,7 +39,7 @@ namespace kifuwarabe_wcsc27.machine
         /// バッファーに溜まっているログを吐き出します。
         /// </summary>
         [Conditional("DEBUG")]
-        public static void Flush(Mojiretu syuturyoku)
+        public static void Flush(StringBuilder syuturyoku)
         {
             if (Util_Test.TestMode)
             {

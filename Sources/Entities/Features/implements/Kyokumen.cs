@@ -6,6 +6,7 @@ using kifuwarabe_wcsc27.interfaces;
 using kifuwarabe_wcsc27.machine;
 using System;
 using System.Diagnostics;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace kifuwarabe_wcsc27.implements
@@ -34,7 +35,7 @@ namespace kifuwarabe_wcsc27.implements
             /// <summary>
             /// FIXME: 緊急用
             /// </summary>
-            public Kyokumen GetHontai(){return Hontai;}
+            public Kyokumen GetHontai() { return Hontai; }
 
             /// <summary>
             /// 将棋盤の盤上なら真だぜ☆（＾▽＾）
@@ -156,14 +157,14 @@ namespace kifuwarabe_wcsc27.implements
 
             public bool EqualsKiki(Koma km, Shogiban sg_hikaku) //KikiKomabetuBitboardItiran kiki_hikaku
             {
-                return Hontai.Shogiban.EqualsKiki(km,sg_hikaku);
+                return Hontai.Shogiban.EqualsKiki(km, sg_hikaku);
             }
             public Hyokati GetKomawari(Taikyokusya tai)
             {
                 return Hontai.Komawari.Get(tai);
             }
 
-            public void Setumei_GenkoKiki(Taikyokusya tai, Mojiretu syuturyoku)
+            public void Setumei_GenkoKiki(Taikyokusya tai, StringBuilder syuturyoku)
             {
                 syuturyoku.AppendLine("利き：（現行）");
                 Util_Information.Setumei_Bitboards(Med_Koma.GetKomasyuruiNamaeItiran(tai), Hontai.Shogiban.WhereBBKiki(tai), syuturyoku);
@@ -178,7 +179,7 @@ namespace kifuwarabe_wcsc27.implements
                 out_discovered = new Koma[Conv_Koma.ItiranTobikiki.Length + 1];
                 foreach (Koma km in Conv_Koma.ItiranTobikiki)
                 {
-                    if (Hontai.Shogiban.ExistsBBKiki(km,ms))
+                    if (Hontai.Shogiban.ExistsBBKiki(km, ms))
                     {
                         out_discovered[iEnd] = km;
                         iEnd++;
@@ -272,7 +273,7 @@ namespace kifuwarabe_wcsc27.implements
         /// 
         /// 適用はこの中に入れないぜ☆（＾～＾）
         /// </summary>
-        public void Clear(Mojiretu syuturyoku)
+        public void Clear(StringBuilder syuturyoku)
         {
             Kekka = TaikyokuKekka.Karappo;
             Teban = Taikyokusya.T1;// 初手だぜ☆（＾▽＾）
@@ -280,7 +281,7 @@ namespace kifuwarabe_wcsc27.implements
             Shogiban.Clear(Sindan.MASU_YOSOSU);
             MotiKomas.Clear();
 
-            if (null==Konoteme)// アンドゥしまくると、ここでヌルだぜ☆
+            if (null == Konoteme)// アンドゥしまくると、ここでヌルだぜ☆
             {
                 // 初手のさらに一手前だぜ☆（＾▽＾）
                 Konoteme = new Nanteme();
@@ -290,7 +291,7 @@ namespace kifuwarabe_wcsc27.implements
                 Konoteme.Clear();
             }
         }
-        
+
         /// <summary>
         /// 盤のサイズを作り直すぜ☆（＾～＾）
         /// </summary>
@@ -371,18 +372,18 @@ namespace kifuwarabe_wcsc27.implements
         /// 利きを作り直すぜ☆（＾～＾）
         /// 駒は既に　置いてあること☆（＾～＾）
         /// </summary>
-        public void TukurinaosiKiki_KomaNarabeNoAto(Mojiretu syuturyoku)
+        public void TukurinaosiKiki_KomaNarabeNoAto(StringBuilder syuturyoku)
         {
-//#if DEBUG
-//            syuturyoku.AppendLine("★利きの作り直し（１）駒の居場所");
-//            Util_Information.HyojiKomanoIbasho(BB_KomaZenbu, BB_Koma, syuturyoku);
-//            Util_Machine.Flush(syuturyoku);
-//#endif
-//#if DEBUG
-//            syuturyoku.AppendLine("★利きの作り直し（２）駒の動き方");
-//            Util_Information.HyojiKomanoUgoki(KomanoUgokikata, Sindan.MASU_YOSOSU, syuturyoku);
-//            Util_Machine.Flush(syuturyoku);
-//#endif
+            //#if DEBUG
+            //            syuturyoku.AppendLine("★利きの作り直し（１）駒の居場所");
+            //            Util_Information.HyojiKomanoIbasho(BB_KomaZenbu, BB_Koma, syuturyoku);
+            //            Util_Machine.Flush(syuturyoku);
+            //#endif
+            //#if DEBUG
+            //            syuturyoku.AppendLine("★利きの作り直し（２）駒の動き方");
+            //            Util_Information.HyojiKomanoUgoki(KomanoUgokikata, Sindan.MASU_YOSOSU, syuturyoku);
+            //            Util_Machine.Flush(syuturyoku);
+            //#endif
 
             // 駒の動き方（ベース）はあるので、
             // 駒の動き方（飛び利き）を足したい。
@@ -417,7 +418,7 @@ namespace kifuwarabe_wcsc27.implements
         /// とても重い処理☆　ゲームが始まったら、これは使わないはず☆（＾～＾）
         /// </summary>
         /// <param name="isRuleChanged">盤のサイズや、駒の種類、駒の数が変わるというレベルで変化したとき☆（＾～＾）駒を動かしたぐらいでは指定してはいけない☆（＾～＾）</param>
-        public void Tekiyo(bool isRuleChanged, Mojiretu syuturyoku)
+        public void Tekiyo(bool isRuleChanged, StringBuilder syuturyoku)
         {
             if (isRuleChanged)
             {
@@ -466,7 +467,7 @@ namespace kifuwarabe_wcsc27.implements
             m_sitaHaji_dan_ = banTateHaba;
 
             // ビットを立てていく。
-            if (0<m_masus_)
+            if (0 < m_masus_)
             {
                 BB_BoardArea.Set(1);
                 for (int i = 1; i < m_masus_; i++)
@@ -608,7 +609,7 @@ namespace kifuwarabe_wcsc27.implements
         /// <summary>
         /// テスト表示用に将棋盤を、ランダムな駒で全埋めするぜ☆（＾▽＾）
         /// </summary>
-        public void Jampacked(bool isSfen, Mojiretu syuturyoku)
+        public void Jampacked(bool isSfen, StringBuilder syuturyoku)
         {
             // まず空っぽにします。
             Clear(syuturyoku);
@@ -632,7 +633,7 @@ namespace kifuwarabe_wcsc27.implements
             {
                 // 先頭の空白を除いた、駒の部分で埋めるぜ☆（＾▽＾）
 
-                if (0<Option_Application.Random.Next(3))
+                if (0 < Option_Application.Random.Next(3))
                 {
                     Shogiban.N250_TorinozokuBanjoKoma(isSfen, (Masu)i, GetBanjoKoma((Masu)i), Sindan.MASU_ERROR, true, Sindan, syuturyoku);
                 }
@@ -646,7 +647,7 @@ namespace kifuwarabe_wcsc27.implements
                 // あとで適用
 
                 // 後手らいおん
-                Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)((iMs+ Option_Application.Random.Next(Sindan.MASU_YOSOSU - 2)) % Sindan.MASU_YOSOSU), Koma.r, true, Sindan, syuturyoku);
+                Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)((iMs + Option_Application.Random.Next(Sindan.MASU_YOSOSU - 2)) % Sindan.MASU_YOSOSU), Koma.r, true, Sindan, syuturyoku);
                 // あとで適用
             }
 
@@ -673,7 +674,7 @@ namespace kifuwarabe_wcsc27.implements
         /// 
         /// クリアーしない（もうクリアーしてあるはず）。適用しない。利きを更新しない。
         /// </summary>
-        public void DoHirate_KomaNarabe( bool isSfen, Mojiretu syuturyoku)
+        public void DoHirate_KomaNarabe(bool isSfen, StringBuilder syuturyoku)
         {
             bool updateKiki = false;
 
@@ -697,7 +698,7 @@ namespace kifuwarabe_wcsc27.implements
         /// <summary>
         /// 平手初期局面に変更するぜ☆（＾▽＾）
         /// </summary>
-        public void DoHirate(bool isSfen, Mojiretu syuturyoku)
+        public void DoHirate(bool isSfen, StringBuilder syuturyoku)
         {
             Clear(syuturyoku);
 
@@ -716,13 +717,13 @@ namespace kifuwarabe_wcsc27.implements
                 // 盤を作ってないと、ゾブリスト・ハッシュを作成できない。
                 Util_ZobristHashing.Tukurinaosi(Sindan);
             }
-//#if DEBUG
-//            syuturyoku.AppendLine($"Option_Application.Optionlist.BanYokoHaba=[{Option_Application.Optionlist.BanYokoHaba}]");
-//#endif
+            //#if DEBUG
+            //            syuturyoku.AppendLine($"Option_Application.Optionlist.BanYokoHaba=[{Option_Application.Optionlist.BanYokoHaba}]");
+            //#endif
             Tekiyo(false, syuturyoku);
-//#if DEBUG
-//            Util_Commands.Kiki("kiki", this, syuturyoku);
-//#endif
+            //#if DEBUG
+            //            Util_Commands.Kiki("kiki", this, syuturyoku);
+            //#endif
         }
         /// <summary>
         /// "キラゾ"
@@ -732,7 +733,7 @@ namespace kifuwarabe_wcsc27.implements
         /// といった書式で盤上を設定。
         /// </summary>
         /// <param name="text"></param>
-        public void SetBanjo(bool isSfen, string text, bool isTekiyo, Mojiretu syuturyoku)
+        public void SetBanjo(bool isSfen, string text, bool isTekiyo, StringBuilder syuturyoku)
         {
             Clear(syuturyoku);
             //Med_KomaBB.Clear( BB_KomaZenbu, BB_Koma, BB_KikiZenbu, BB_Kiki, CB_KikisuZenbu, CB_KikisuKomabetu, Sindan.MASU_YOSOSU);
@@ -742,7 +743,7 @@ namespace kifuwarabe_wcsc27.implements
             {
                 for (int iMs = 0; iMs < this.Sindan.MASU_YOSOSU; iMs++)
                 {
-                    if(Conv_Koma.TryParseZenkakuKanaNyuryoku(text.ToCharArray()[iMs].ToString(), out Koma km))
+                    if (Conv_Koma.TryParseZenkakuKanaNyuryoku(text.ToCharArray()[iMs].ToString(), out Koma km))
                     {
                         throw new Exception("盤面カナ入力パースエラー");
                     }
@@ -762,7 +763,7 @@ namespace kifuwarabe_wcsc27.implements
         /// fen(盤上の駒配置、持ち駒の数、手番の対局者) 何手目 同形反復の回数
         /// </summary>
         /// <param name="syuturyoku"></param>
-        public void TusinYo_Line(bool isSfen, Mojiretu syuturyoku)
+        public void TusinYo_Line(bool isSfen, StringBuilder syuturyoku)
         {
             // まず、fen を返すぜ☆（＾▽＾）
             // 盤上の駒配置、持ち駒の数、手番の対局者☆
@@ -786,7 +787,7 @@ namespace kifuwarabe_wcsc27.implements
         ///// 通信用（簡易）
         ///// </summary>
         ///// <param name="syuturyoku"></param>
-        //public void TusinYo_Kani(Mojiretu syuturyoku)
+        //public void TusinYo_Kani(StringBuilder syuturyoku)
         //{
         //    // 盤上の駒（[0]文字目～[11]文字目）１桁という前提だぜ☆（＾▽＾）
         //    for (int iMs=0; iMs<KyokumenImpl.MASUS; iMs++)
@@ -848,7 +849,7 @@ namespace kifuwarabe_wcsc27.implements
                 reason = MoveMatigaiRiyu.BangaiIdo;
                 return false;
             }
-            Koma km_dst = GetBanjoKoma( ms_dst);
+            Koma km_dst = GetBanjoKoma(ms_dst);
             Taikyokusya tai_dstKm = Med_Koma.KomaToTaikyokusya(km_dst);
             if (km_dst != Koma.Kuhaku && Teban == tai_dstKm)
             {
@@ -874,7 +875,7 @@ namespace kifuwarabe_wcsc27.implements
             else
             {
                 Masu ms_src = ConvMove.GetSrcMasu_WithoutErrorCheck((int)ss); // 移動先升
-                km_src = GetBanjoKoma( ms_src);
+                km_src = GetBanjoKoma(ms_src);
                 Taikyokusya tai_srcKm = Med_Koma.KomaToTaikyokusya(km_src);
                 if (km_src == Koma.Kuhaku)
                 {
@@ -906,7 +907,7 @@ namespace kifuwarabe_wcsc27.implements
 
 
             // 成り調べ
-            if (ConvMove.IsNatta(ss) && Med_Koma.KomaToKomasyurui(km_src)!=Komasyurui.H)
+            if (ConvMove.IsNatta(ss) && Med_Koma.KomaToKomasyurui(km_src) != Komasyurui.H)
             {
                 // ひよこ以外が、にわとりになろうとしました☆
                 reason = MoveMatigaiRiyu.NarenaiNari;
@@ -922,7 +923,7 @@ namespace kifuwarabe_wcsc27.implements
         /// ハッシュも差分変更するぜ☆
         /// </summary>
         /// <param name="ss">指し手☆</param>
-        public void DoMove(bool isSfen, Move ss , MoveType ssType, ref Nanteme konoTeme, Taikyokusya jibun, Mojiretu syuturyoku)
+        public void DoMove(bool isSfen, Move ss, MoveType ssType, ref Nanteme konoTeme, Taikyokusya jibun, StringBuilder syuturyoku)
         {
             // bool endMethodFlag;
 
@@ -967,7 +968,8 @@ namespace kifuwarabe_wcsc27.implements
 
 
             // endMethodFlag = false;
-            if (Move.Toryo == ss) {
+            if (Move.Toryo == ss)
+            {
                 goto gt_EndMethod;
             }// 投了なら、なにも更新せず終了☆（＾▽＾）
 
@@ -1130,7 +1132,7 @@ namespace kifuwarabe_wcsc27.implements
 
                 Util_Machine.Assert_Sabun_Kiki("ＤｏＢ103", Sindan, syuturyoku);
 
-                Mojiretu sindan1 = new MojiretuImpl();
+                StringBuilder sindan1 = new StringBuilder();
 
                 Util_Machine.Assert_Sabun_Kiki("ＤｏＢ104", Sindan, syuturyoku);
 
@@ -1151,10 +1153,10 @@ namespace kifuwarabe_wcsc27.implements
                 safe = aiteKomaSuOld - 1 == aiteKomaSuNew;// 相手の駒を１個減らすぜ☆
                 if (!safe)
                 {
-                    syuturyoku.Append(sindan1.ToContents());
+                    syuturyoku.Append(sindan1.ToString());
                     Util_Machine.Flush(syuturyoku);
                 }
-                Debug.Assert(safe, "#狒々 診断 "+sindan1.ToContents());
+                Debug.Assert(safe, $"#狒々 診断 {sindan1.ToString()}");
 #endif
 
                 // エラー・チェック
@@ -1228,7 +1230,7 @@ namespace kifuwarabe_wcsc27.implements
             jibunKomaSuNew = Shogiban.GetBBKomaZenbu(jibun).PopCnt();
             bb_jibunKomaNew = Shogiban.GetBBKomaZenbu(jibun);
 
-            Mojiretu sindan3 = new MojiretuImpl();
+            StringBuilder sindan3 = new StringBuilder();
             sindan3.AppendLine("#鮫 診断 もしかして：対局者１用に作った指し手が、対局者２に回ってくるエラー☆？");
             sindan3.Append("jibunKomaSuOld - 1=["); sindan3.Append(jibunKomaSuOld - 1); sindan3.AppendLine("]");
             sindan3.Append("jibunKomaSuNew    =["); sindan3.Append(jibunKomaSuNew); sindan3.AppendLine("]");
@@ -1247,10 +1249,10 @@ namespace kifuwarabe_wcsc27.implements
             safe = jibunKomaSuOld - 1 == jibunKomaSuNew;
             if (!safe)
             {
-                syuturyoku.AppendLine(sindan3.ToContents());
+                syuturyoku.AppendLine(sindan3.ToString());
                 Util_Machine.Flush(syuturyoku);
             }
-            Debug.Assert(safe, sindan3.ToContents());
+            Debug.Assert(safe, sindan3.ToString());
 #endif
 
 
@@ -1297,7 +1299,7 @@ namespace kifuwarabe_wcsc27.implements
             jibunKomaSuNew = Shogiban.GetBBKomaZenbu(jibun).PopCnt();
             bb_jibunKomaNew = Shogiban.GetBBKomaZenbu(jibun);
 
-            Mojiretu sindan2 = new MojiretuImpl();
+            StringBuilder sindan2 = new StringBuilder();
             sindan2.Append("#巨人 診断");
             sindan2.Append("jibunKomaSuOld + 1 =["); sindan2.Append(jibunKomaSuOld + 1); sindan2.AppendLine("]");
             sindan2.Append("jibunKomaSuNew     =["); sindan2.Append(jibunKomaSuNew); sindan2.AppendLine("]");
@@ -1314,10 +1316,10 @@ namespace kifuwarabe_wcsc27.implements
             safe = jibunKomaSuOld + 1 == jibunKomaSuNew;//移動先に手番の駒が増え、移動元の手番の駒がまだ消えていない状態☆（＾～＾）
             if (!safe)
             {
-                syuturyoku.Append(sindan2.ToContents());
+                syuturyoku.Append(sindan2.ToString());
                 Util_Machine.Flush(syuturyoku);
             }
-            Debug.Assert(safe, sindan2.ToContents());
+            Debug.Assert(safe, sindan2.ToString());
 #endif
 
 
@@ -1333,7 +1335,7 @@ namespace kifuwarabe_wcsc27.implements
             Util_Machine.Assert_Sabun_Nikoma("Ｄｏ終", this, syuturyoku);
             Util_Machine.Assert_Sabun_Kiki("Ｄｏ終", Sindan, syuturyoku);
 
-            gt_EndMethod:
+        gt_EndMethod:
 
             Konoteme.SennititeHash = KyokumenHash.Value;// 千日手用に局面ハッシュを覚えておくぜ☆（＾▽＾）
             Konoteme.Move = ss;// 指し手の成績表を作るために、指し手を覚えておくぜ☆（＾▽＾）
@@ -1361,17 +1363,17 @@ namespace kifuwarabe_wcsc27.implements
         /// 指定した指し手をやりなおす動きをするぜ☆（＾▽＾）
         /// </summary>
         /// <param name="ss"></param>
-        public void UndoMove(bool isSfen, Move ss, Mojiretu syuturyoku)
+        public void UndoMove(bool isSfen, Move ss, StringBuilder syuturyoku)
         {
             //────────────────────────────────────────
             // 手番
             //────────────────────────────────────────
             // 事前に戻すぜ☆（＾▽＾）
             {
-                KyokumenHash.SetXor( Util_ZobristHashing.GetTaikyokusyaKey(Teban, Sindan));
+                KyokumenHash.SetXor(Util_ZobristHashing.GetTaikyokusyaKey(Teban, Sindan));
                 Teban = Conv_Taikyokusya.Hanten(Teban);
                 Nikoma.Hanten();
-                KyokumenHash.SetXor( Util_ZobristHashing.GetTaikyokusyaKey(Teban, Sindan));
+                KyokumenHash.SetXor(Util_ZobristHashing.GetTaikyokusyaKey(Teban, Sindan));
             }
 
             if (Move.Toryo == ss) { goto gt_EndMethod; }// なにも更新せず終了☆（＾▽＾）
@@ -1452,7 +1454,7 @@ namespace kifuwarabe_wcsc27.implements
 
             if (!Shogiban.ExistsBBKomaZenbu(ms_t1))
             {
-                Mojiretu str_move = new MojiretuImpl();
+                StringBuilder str_move = new StringBuilder();
                 str_move.Append("指し手に該当する戻せる駒が無かったぜ☆（＾～＾） move=");
                 ConvMove.AppendFenTo(isSfen, ss, str_move);
                 str_move.AppendLine();
@@ -1460,7 +1462,7 @@ namespace kifuwarabe_wcsc27.implements
                 syuturyoku.AppendLine("駒全部");
                 Util_Commands.Koma_cmd(isSfen, "koma", this, str_move);
 
-                throw new Exception( str_move.ToContents());
+                throw new Exception( str_move.ToString());
             }
 #endif
 
@@ -1480,7 +1482,7 @@ namespace kifuwarabe_wcsc27.implements
             //────────────────────────────────────────
             //  Ｔ１　［遷移］   移動先の　手番の駒　を除外する
             //────────────────────────────────────────
-            KyokumenHash.SetXor( Util_ZobristHashing.GetBanjoKey(ms_t1, km_t1, Sindan));
+            KyokumenHash.SetXor(Util_ZobristHashing.GetBanjoKey(ms_t1, km_t1, Sindan));
             Komawari.Herasu(jibun, km_t1);
             Nikoma.HerasuBanjoKoma(this, km_t1, ms_t1);
 
@@ -1507,16 +1509,16 @@ namespace kifuwarabe_wcsc27.implements
             komaSuNew = Shogiban.GetBBKomaZenbu(jibun).PopCnt();
             Debug.Assert(komaSuOld - 1 == komaSuNew, "ＵｎｄｏＴ１ 移動先_綺麗さっぱり消す #雪");
 
-            Mojiretu sindan1 = new MojiretuImpl();
+            StringBuilder sindan1 = new StringBuilder();
             sindan1.AppendLine("ＵｎｄｏＴ１");
             sindan1.Append("tb1=["); Conv_Taikyokusya.Setumei_Name(jibun, sindan1); sindan1.AppendLine("]");
             sindan1.Append("km2=["); Conv_Koma.Setumei(km_t1, sindan1); sindan1.AppendLine("]");
             sindan1.Append("ms2=[");Conv_Masu.Setumei(ms_t1, this, sindan1);sindan1.AppendLine("]");
-            Util_Machine.Assert_Sabun_Kiki(sindan1.ToContents(), Sindan, syuturyoku);
-            Util_Machine.Assert_Sabun_Komawari(sindan1.ToContents(), Sindan, syuturyoku);
-            Util_Machine.Assert_Sabun_Nikoma(sindan1.ToContents(), this, syuturyoku);
-            Util_Machine.Assert_Sabun_KyHash(sindan1.ToContents(), this, syuturyoku);
-            Util_Machine.Assert_Genkou_Bitboard(sindan1.ToContents(), this, syuturyoku);
+            Util_Machine.Assert_Sabun_Kiki(sindan1.ToString(), Sindan, syuturyoku);
+            Util_Machine.Assert_Sabun_Komawari(sindan1.ToString(), Sindan, syuturyoku);
+            Util_Machine.Assert_Sabun_Nikoma(sindan1.ToString(), this, syuturyoku);
+            Util_Machine.Assert_Sabun_KyHash(sindan1.ToString(), this, syuturyoku);
+            Util_Machine.Assert_Genkou_Bitboard(sindan1.ToString(), this, syuturyoku);
 #endif
 
 
@@ -1527,16 +1529,16 @@ namespace kifuwarabe_wcsc27.implements
             //  Ｔ０  ［１］     移動元に　駒　が無い
             //────────────────────────────────────────
 #if DEBUG
-            Mojiretu sindan2 = new MojiretuImpl();
+            StringBuilder sindan2 = new StringBuilder();
             sindan2.AppendLine("ＵｎｄｏＴ０");
             sindan2.Append("tb1=["); Conv_Taikyokusya.Setumei_Name(jibun, sindan2); sindan2.AppendLine("]");
             sindan2.Append("ms =["); Conv_Masu.Setumei(ms_t0, this, sindan2); sindan2.AppendLine("]");
             sindan2.Append("ks1=["); Conv_Komasyurui.GetNingenyoMijikaiFugo(ks_t0, sindan2); sindan2.AppendLine("]");
-            Util_Machine.Assert_Sabun_Kiki(sindan2.ToContents(), Sindan, syuturyoku);
-            Util_Machine.Assert_Sabun_Komawari(sindan2.ToContents(), Sindan, syuturyoku);
-            Util_Machine.Assert_Sabun_Nikoma(sindan2.ToContents(), this, syuturyoku);
-            Util_Machine.Assert_Sabun_KyHash(sindan2.ToContents(), this, syuturyoku);
-            Util_Machine.Assert_Genkou_Bitboard(sindan2.ToContents(), this, syuturyoku);
+            Util_Machine.Assert_Sabun_Kiki(sindan2.ToString(), Sindan, syuturyoku);
+            Util_Machine.Assert_Sabun_Komawari(sindan2.ToString(), Sindan, syuturyoku);
+            Util_Machine.Assert_Sabun_Nikoma(sindan2.ToString(), this, syuturyoku);
+            Util_Machine.Assert_Sabun_KyHash(sindan2.ToString(), this, syuturyoku);
+            Util_Machine.Assert_Genkou_Bitboard(sindan2.ToString(), this, syuturyoku);
 
             // 後で使う変数。駒が増える前に一時退避
             komaSuOld = Shogiban.GetBBKomaZenbu(jibun).PopCnt();
@@ -1579,17 +1581,17 @@ namespace kifuwarabe_wcsc27.implements
             komaSuNew = Shogiban.GetBBKomaZenbu(jibun).PopCnt();
             Debug.Assert(komaSuOld + 1 == komaSuNew, "ＵｎｄｏＴ０ #嵐");
 
-            Mojiretu sindan3 = new MojiretuImpl();
+            StringBuilder sindan3 = new StringBuilder();
             sindan3.Append("ＵｎｄｏＴ０ 盤上_駒戻しＢ 現局面");
             Util_Information.Setumei_Lines_Kyokumen(this, sindan3);
-            sindan3.Append("ss=["); ConvMove.AppendFenTo(isSfen, ss, sindan3); sindan3.Append(sindan3.ToContents()); sindan3.AppendLine("]");
+            sindan3.Append("ss=["); ConvMove.AppendFenTo(isSfen, ss, sindan3); sindan3.Append(sindan3.ToString()); sindan3.AppendLine("]");
             sindan3.Append("tb1=["); Conv_Taikyokusya.Setumei_Name(jibun, sindan3); sindan3.AppendLine("]");
             sindan3.Append("ms=["); Conv_Masu.Setumei(ms_t0, this, sindan3); sindan3.AppendLine("]");
             sindan3.Append("ks1=["); Conv_Komasyurui.GetNingenyoMijikaiFugo(ks_t0, sindan3); sindan3.AppendLine("]");
-            Util_Machine.Assert_Sabun_Komawari(sindan3.ToContents(), Sindan, syuturyoku);
-            Util_Machine.Assert_Sabun_Nikoma(sindan3.ToContents(), this, syuturyoku);
-            Util_Machine.Assert_Sabun_KyHash(sindan3.ToContents(), this, syuturyoku);
-            Util_Machine.Assert_Genkou_Bitboard(sindan3.ToContents(), this, syuturyoku);
+            Util_Machine.Assert_Sabun_Komawari(sindan3.ToString(), Sindan, syuturyoku);
+            Util_Machine.Assert_Sabun_Nikoma(sindan3.ToString(), this, syuturyoku);
+            Util_Machine.Assert_Sabun_KyHash(sindan3.ToString(), this, syuturyoku);
+            Util_Machine.Assert_Genkou_Bitboard(sindan3.ToString(), this, syuturyoku);
 #endif
 
 
@@ -1609,14 +1611,14 @@ namespace kifuwarabe_wcsc27.implements
                     //  Ｃ   [遷移]    取った　持駒　を除外する
                     //────────────────────────────────────────
                     // 消して
-                    KyokumenHash.SetXor( Util_ZobristHashing.GetMotiKey(Sindan, mk_c));
+                    KyokumenHash.SetXor(Util_ZobristHashing.GetMotiKey(Sindan, mk_c));
                     Nikoma.KesuMotiKoma(this, mk_c);
 
                     // 増やす
                     MotiKomas.Herasu(mk_c);
                     Nikoma.HaneiMotiKoma(this, mk_c);
                     Komawari.Hetta(jibun, mk_c);
-                    KyokumenHash.SetXor( Util_ZobristHashing.GetMotiKey(Sindan, mk_c));
+                    KyokumenHash.SetXor(Util_ZobristHashing.GetMotiKey(Sindan, mk_c));
 
                     //────────────────────────────────────────
                     // Ｃ   ［２］     戻したあとの　持駒の数　の駒台が在る
@@ -1643,7 +1645,7 @@ namespace kifuwarabe_wcsc27.implements
 
                 Komawari.Fuyasu(aite, km_c);
                 Nikoma.FuyasuBanjoKoma(this, km_c, ms_t1);
-                KyokumenHash.SetXor( Util_ZobristHashing.GetBanjoKey(ms_t1, km_c, Sindan));
+                KyokumenHash.SetXor(Util_ZobristHashing.GetBanjoKey(ms_t1, km_c, Sindan));
 
                 //────────────────────────────────────────
                 // Ｔ１Ｃ  ［２］
@@ -1659,20 +1661,20 @@ namespace kifuwarabe_wcsc27.implements
 #endif
             }
 
-            //────────────────────────────────────────
-            // 最後に一括更新
-            //────────────────────────────────────────
+        //────────────────────────────────────────
+        // 最後に一括更新
+        //────────────────────────────────────────
 #if DEBUG
-            Mojiretu sindan4 = new MojiretuImpl();
+            StringBuilder sindan4 = new StringBuilder();
             sindan4.AppendLine("Ｕｎｄｏ終");
             sindan4.Append("tb1=["); Conv_Taikyokusya.Setumei_Name(jibun, sindan4); sindan4.AppendLine("]");
             sindan4.Append("ms2=["); Conv_Masu.Setumei(ms_t1, this, sindan4); sindan4.AppendLine("]");
-            Util_Machine.Assert_Sabun_Kiki(sindan4.ToContents(), Sindan, syuturyoku);
-            Util_Machine.Assert_Sabun_Komawari(sindan4.ToContents(), Sindan, syuturyoku);
-            Util_Machine.Assert_Sabun_Nikoma(sindan4.ToContents(), this, syuturyoku);
+            Util_Machine.Assert_Sabun_Kiki(sindan4.ToString(), Sindan, syuturyoku);
+            Util_Machine.Assert_Sabun_Komawari(sindan4.ToString(), Sindan, syuturyoku);
+            Util_Machine.Assert_Sabun_Nikoma(sindan4.ToString(), this, syuturyoku);
 #endif
 
-            gt_EndMethod:
+        gt_EndMethod:
             Util_Machine.Assert_Sabun_KyHash("Ｕｎｄｏ終", this, syuturyoku);
             Util_Machine.Assert_Genkou_Bitboard("Ｕｎｄｏ終", this, syuturyoku);
 
@@ -1692,7 +1694,7 @@ namespace kifuwarabe_wcsc27.implements
         {
             for (int iMs = 0; iMs < Sindan.MASU_YOSOSU; iMs++)
             {
-                if (GetBanjoKoma( (Masu)iMs) == km)
+                if (GetBanjoKoma((Masu)iMs) == km)
                 {
                     return (Masu)iMs;
                 }
@@ -1709,14 +1711,14 @@ namespace kifuwarabe_wcsc27.implements
         {
             //IbasyoKomabetuBitboardItiran komaBB, 
             //KomaZenbuIbasyoBitboardItiran komaZenbuBB
-            Debug.Assert( MotiKomas.GetArrayLength()==motiKomas1.Length, "局面の一致判定");
+            Debug.Assert(MotiKomas.GetArrayLength() == motiKomas1.Length, "局面の一致判定");
 
             // 盤上の一致判定
-            for (int iTai=0; iTai<Conv_Taikyokusya.Itiran.Length; iTai++)
+            for (int iTai = 0; iTai < Conv_Taikyokusya.Itiran.Length; iTai++)
             {
                 Taikyokusya tai = (Taikyokusya)iTai;
 
-                if(Shogiban.GetBBKomaZenbu(tai) != shogiban_hikaku.GetBBKomaZenbu(tai)) { return false; }
+                if (Shogiban.GetBBKomaZenbu(tai) != shogiban_hikaku.GetBBKomaZenbu(tai)) { return false; }
 
                 for (int iKs = 0; iKs < Conv_Komasyurui.Itiran.Length; iKs++)
                 {
@@ -1755,11 +1757,11 @@ namespace kifuwarabe_wcsc27.implements
                 Shogiban.GetBBKomaZenbu(Taikyokusya.T1).Set(Shogiban.GetBBKomaZenbu(Taikyokusya.T2).Bitflip128());
                 Shogiban.GetBBKomaZenbu(Taikyokusya.T2).Set(tmp);
 
-                for (int iKs=0; iKs<Conv_Komasyurui.Itiran.Length; iKs++)
+                for (int iKs = 0; iKs < Conv_Komasyurui.Itiran.Length; iKs++)
                 {
                     Komasyurui ks = Conv_Komasyurui.Itiran[iKs];
 
-                    tmp.Set(Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks,Taikyokusya.T1)).Bitflip128());
+                    tmp.Set(Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, Taikyokusya.T1)).Bitflip128());
                     Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, Taikyokusya.T1)).Set(Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, Taikyokusya.T2)).Bitflip128());
                     Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, Taikyokusya.T2)).Set(tmp);
                 }
@@ -1772,7 +1774,7 @@ namespace kifuwarabe_wcsc27.implements
                 {
                     MotiKomasyurui mks = Med_Koma.MotiKomaToMotiKomasyrui(mk);
                     Taikyokusya tai = Med_Koma.MotiKomaToTaikyokusya(mk);
-                    MotiKoma hantenMotikoma = Med_Koma.MotiKomasyuruiAndTaikyokusyaToMotiKoma(mks,Conv_Taikyokusya.Hanten(tai));
+                    MotiKoma hantenMotikoma = Med_Koma.MotiKomasyuruiAndTaikyokusyaToMotiKoma(mks, Conv_Taikyokusya.Hanten(tai));
                     tmp.Set(mk, MotiKomas.Get(hantenMotikoma));
                 }
                 MotiKomas.Set(tmp);
@@ -1783,7 +1785,7 @@ namespace kifuwarabe_wcsc27.implements
         /// 将棋盤の駒を適当に動かすぜ☆（＾▽＾）ｗｗｗ
         /// 主にテスト用だぜ☆（＾▽＾）
         /// </summary>
-        public void Mazeru(bool isSfen, Mojiretu syuturyoku)
+        public void Mazeru(bool isSfen, StringBuilder syuturyoku)
         {
             int r;//ランダム値☆
             Koma tmpKm;
@@ -1792,7 +1794,7 @@ namespace kifuwarabe_wcsc27.implements
             int nokori = 10000;
 
             // 50回もやれば混ざるだろ☆（＾▽＾）
-            for (int i=0; i< 50; i++)
+            for (int i = 0; i < 50; i++)
             {
                 int kakuritu = Sindan.MASU_YOSOSU + Conv_MotiKoma.Itiran.Length;//適当☆（＾～＾）
                 Komasyurui tmpKs;
@@ -1803,10 +1805,10 @@ namespace kifuwarabe_wcsc27.implements
                     for (int iMs2 = 0; iMs2 < Sindan.MASU_YOSOSU; iMs2++)
                     {
                         r = Option_Application.Random.Next(kakuritu);
-                        if (3==r||4==r|| 5 == r||6==r)// 確率
+                        if (3 == r || 4 == r || 5 == r || 6 == r)// 確率
                         {
                             // 位置交換成立☆（＾～＾）空白同士の交換とか意味ないこともするぜ☆（＾▽＾）
-                            tmpKm = GetBanjoKoma( (Masu)iMs1);
+                            tmpKm = GetBanjoKoma((Masu)iMs1);
                             if (3 == r || 5 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Conv_Koma.Hanten(GetBanjoKoma((Masu)iMs2)), true, Sindan, syuturyoku); }
                             else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, GetBanjoKoma((Masu)iMs2), true, Sindan, syuturyoku); }
 
@@ -1815,7 +1817,7 @@ namespace kifuwarabe_wcsc27.implements
 
                             nokori--;
                         }
-                        else if ((1==r|| 2 == r) && this.Shogiban.ExistsBBKomaZenbu((Masu)iMs1))
+                        else if ((1 == r || 2 == r) && this.Shogiban.ExistsBBKomaZenbu((Masu)iMs1))
                         {
                             // 持駒交換成立☆（＾▽＾）
                             Koma km_tmp = GetBanjoKoma((Masu)iMs1);
@@ -1824,7 +1826,7 @@ namespace kifuwarabe_wcsc27.implements
                             //Taikyokusya tai_tmp = Med_Koma.KomaToTaikyokusya(km_tmp);
 
                             // どちらの持駒にするかはランダムで☆（＾～＾）
-                            MotiKoma mk = Med_Koma.KomasyuruiAndTaikyokusyaToMotiKoma(tmpKs, 1==r?Taikyokusya.T1:Taikyokusya.T2);
+                            MotiKoma mk = Med_Koma.KomasyuruiAndTaikyokusyaToMotiKoma(tmpKs, 1 == r ? Taikyokusya.T1 : Taikyokusya.T2);
 
                             switch (tmpKs)
                             {
@@ -1850,9 +1852,9 @@ namespace kifuwarabe_wcsc27.implements
                     // ひんぱんに、ひよこ／にわとりの入れ替えだぜ☆（＾▽＾）ｗｗｗ
                     {
                         r = Option_Application.Random.Next(kakuritu);
-                        if (r%5<2)
+                        if (r % 5 < 2)
                         {
-                            if (Shogiban.ExistsBBKoma(Koma.H,(Masu)iMs1) || Shogiban.ExistsBBKoma(Koma.h,(Masu)iMs1))
+                            if (Shogiban.ExistsBBKoma(Koma.H, (Masu)iMs1) || Shogiban.ExistsBBKoma(Koma.h, (Masu)iMs1))
                             {
                                 if (0 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.PH, true, Sindan, syuturyoku); }
                                 else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.ph, true, Sindan, syuturyoku); }
@@ -1868,7 +1870,7 @@ namespace kifuwarabe_wcsc27.implements
                     for (int iMk2 = 0; iMk2 < Conv_MotiKoma.Itiran.Length; iMk2++)
                     {
                         r = Option_Application.Random.Next(kakuritu);
-                        if ((1 == r|| 2 == r) && Shogiban.ExistsBBKomaZenbu((Masu)iMs1) &&
+                        if ((1 == r || 2 == r) && Shogiban.ExistsBBKomaZenbu((Masu)iMs1) &&
                             MotiKomas.HasMotiKoma((MotiKoma)iMk2))
                         {
                             // 持駒交換成立☆（＾▽＾）
@@ -1915,7 +1917,7 @@ namespace kifuwarabe_wcsc27.implements
                 // 手番もひっくり返そうぜ☆（＾▽＾）
                 {
                     r = Option_Application.Random.Next(Conv_Taikyokusya.Itiran.Length);
-                    if (0==r)
+                    if (0 == r)
                     {
                         this.Teban = Conv_Taikyokusya.Hanten(this.Teban);
                     }
@@ -1956,16 +1958,18 @@ namespace kifuwarabe_wcsc27.implements
                     }
                     */
 
-                    if (Shogiban.ExistsBBKoma(Koma.R,(Masu)iMs1) || Shogiban.ExistsBBKoma(Koma.r,(Masu)iMs1))
+                    if (Shogiban.ExistsBBKoma(Koma.R, (Masu)iMs1) || Shogiban.ExistsBBKoma(Koma.r, (Masu)iMs1))
                     {
-                        if (tb == Taikyokusya.T1) {
+                        if (tb == Taikyokusya.T1)
+                        {
                             var ms1 = (Masu)iMs1;
                             var km1 = Koma.R;
                             Debug.Assert(Conv_Koma.IsOk(km1), "");
                             Debug.Assert(Sindan.IsBanjo(ms1), "");
                             Shogiban.N250_OkuBanjoKoma(isSfen, ms1, km1, true, Sindan, syuturyoku);
                         }
-                        else {
+                        else
+                        {
                             var ms1 = (Masu)iMs1;
                             var km1 = Koma.r;
                             Debug.Assert(Conv_Koma.IsOk(km1), "");
@@ -1986,9 +1990,9 @@ namespace kifuwarabe_wcsc27.implements
         /// 例： fen kr1/1h1/1H1/1R1 K2z 1
         /// 盤上の駒配置、持ち駒の数、手番の対局者
         /// </summary>
-        public void AppendFenTo(bool isSfen, Mojiretu syuturyoku)//, bool syuturyokuMoves
+        public void AppendFenTo(bool isSfen, StringBuilder syuturyoku)//, bool syuturyokuMoves
         {
-            syuturyoku.Append(isSfen?"sfen ":"fen ");
+            syuturyoku.Append(isSfen ? "sfen " : "fen ");
 
             // 盤上
             {
@@ -2039,7 +2043,7 @@ namespace kifuwarabe_wcsc27.implements
             }
             else
             {
-                for (int iMk=0; iMk<Conv_MotiKoma.Itiran.Length; iMk++)
+                for (int iMk = 0; iMk < Conv_MotiKoma.Itiran.Length; iMk++)
                 {
                     int cnt = MotiKomas.Get((MotiKoma)iMk);
                     if (0 < cnt)
@@ -2074,7 +2078,7 @@ namespace kifuwarabe_wcsc27.implements
         /// <param name="commandline">頭に「fen 」を付けておかないと、パースに失敗する☆</param>
         /// <param name="isTekiyo">適用。局面ハッシュや、ビットボードを作り直すなら真。</param>
         /// <returns>解析の成否</returns>
-        public bool ParsePositionvalue(bool isSfen, string commandline, ref int caret, bool isTekiyo, bool isRuleChanged, out string out_moves, Mojiretu syuturyoku)
+        public bool ParsePositionvalue(bool isSfen, string commandline, ref int caret, bool isTekiyo, bool isRuleChanged, out string out_moves, StringBuilder syuturyoku)
         {
             out_moves = "";
 
@@ -2138,7 +2142,7 @@ namespace kifuwarabe_wcsc27.implements
             string[] danMojiretu, // [0～3]1段目～4段目、[0～2]1筋目～3筋目
             string motigoma,
             string tb_Mojis,  //手番
-            Mojiretu syuturyoku
+            StringBuilder syuturyoku
             )
         {
             Clear(syuturyoku);
@@ -2150,7 +2154,7 @@ namespace kifuwarabe_wcsc27.implements
             // 持ち駒パース
             {
                 this.MotiKomas.Clear();
-                if ("-"!=motigoma)// '-' は持ち駒無し
+                if ("-" != motigoma)// '-' は持ち駒無し
                 {
                     int maisu = 0;
                     for (int caret = 0; caret < motigoma.Length; caret++)
@@ -2161,7 +2165,7 @@ namespace kifuwarabe_wcsc27.implements
                         {
                             maisu = maisu * 10 + numeric;
                         }
-                        else if(Conv_MotiKoma.TryParseFen(isSfen, ch, out MotiKoma mk))
+                        else if (Conv_MotiKoma.TryParseFen(isSfen, ch, out MotiKoma mk))
                         {
                             // 枚数の指定がなかったとき（=0）は、1。
                             this.MotiKomas.Set(mk, maisu == 0 ? 1 : maisu);
@@ -2185,13 +2189,13 @@ namespace kifuwarabe_wcsc27.implements
                     caret < danMojiretu[dan - 1].Length // 可変長配列☆
                     ; caret++)
                 {
-                    char moji = danMojiretu[dan-1][caret];
+                    char moji = danMojiretu[dan - 1][caret];
 
-                    if ('+'==moji)
+                    if ('+' == moji)
                     {
                         isPowerupKoma = true;
                     }
-                    else if(int.TryParse(moji.ToString(),out int kuhaku))
+                    else if (int.TryParse(moji.ToString(), out int kuhaku))
                     {
                         // 数字は空き升の個数なので、筋を進めるぜ☆（＾▽＾）
                         // とりあえず 1～9 まで対応できるだろうなんだぜ☆（＾～＾）
@@ -2200,18 +2204,18 @@ namespace kifuwarabe_wcsc27.implements
                         ruikeiKuhakuSu = ruikeiKuhakuSu * 10 + kuhaku;
                         //}
 
-                        //Mojiretu reigai1 = new MojiretuImpl();
+                        //StringBuilder reigai1 = new StringBuilder();
                         //reigai1.AppendLine($"未定義の空白の数 moji=[{moji}]");
                         //reigai1.AppendLine($"dan   =[{dan}]");
                         //reigai1.AppendLine($"caret =[{caret}]");
                         //reigai1.AppendLine($"danMojiretu[dan-1] =[{danMojiretu[dan - 1]}]");
 
-                        //throw new Exception(reigai1.ToContents());
+                        //throw new Exception(reigai1.ToString());
                     }
                     else
                     {
                         // 駒でした。
-                        if (0< ruikeiKuhakuSu)
+                        if (0 < ruikeiKuhakuSu)
                         {
                             // 空白は置かなくていいのでは？
                             //Masu ms = Conv_Masu.ToMasu(suji, dan);
@@ -2222,7 +2226,7 @@ namespace kifuwarabe_wcsc27.implements
                             ruikeiKuhakuSu = 0;
                         }
 
-                        if (!Conv_Koma.TryParseFen(isSfen,(isPowerupKoma ? $"+{moji}" : moji.ToString()), out Koma tmp))
+                        if (!Conv_Koma.TryParseFen(isSfen, (isPowerupKoma ? $"+{moji}" : moji.ToString()), out Koma tmp))
                         {
                             throw new Exception($"未定義の駒 fen moji=[{moji}]");
                         }
@@ -2254,7 +2258,7 @@ namespace kifuwarabe_wcsc27.implements
             if (!Med_Parser.TryTaikyokusya(isSfen, tb_Mojis, out Taikyokusya tai))
             {
 #if DEBUG
-                Mojiretu reigai1 = new MojiretuImpl();
+                StringBuilder reigai1 = new StringBuilder();
                 reigai1.AppendLine("未定義の手番☆");
                 reigai1.AppendLine($"tb_Mojis=[{tb_Mojis}]");
                 reigai1.AppendLine($"ky.Teban=[{Teban}]");
@@ -2267,7 +2271,7 @@ namespace kifuwarabe_wcsc27.implements
                 }
 
                 Util_Machine.Flush(reigai1);
-                Debug.Fail(reigai1.ToContents());
+                Debug.Fail(reigai1.ToString());
 #endif
                 throw new Exception($"対局者のパースエラー tb_Mojis=[{tb_Mojis}]");
             }
@@ -2313,7 +2317,7 @@ namespace kifuwarabe_wcsc27.implements
         /// 
         /// 第２引数は、動作確認用だぜ☆（＾～＾）使わないならヌルにしろだぜ☆
         /// </summary>
-        public Hyokati SEE(IPlaying playing, bool isSfen, Masu ms, Mojiretu syuturyokuTestYo_orKarappo)
+        public Hyokati SEE(IPlaying playing, bool isSfen, Masu ms, StringBuilder syuturyokuTestYo_orKarappo)
         {
             // おいしさ☆ その駒を取ったときの確定している損得だぜ☆（＾▽＾） マイナスなら取ってはいけないぜ☆（＾▽＾）ｗｗｗ
             Hyokati oisisa = Hyokati.Hyokati_Rei; // 取り返されることが無かった場合は、0 を返すぜ☆（＾▽＾）
@@ -2325,11 +2329,11 @@ namespace kifuwarabe_wcsc27.implements
             // ひよこ→きりん→ぞう→にわとり→らいおん　の順にアタックするぜ☆（＾▽＾）
             Komasyurui[] junbanKs = new Komasyurui[] { Komasyurui.H, Komasyurui.K, Komasyurui.Z, Komasyurui.PH, Komasyurui.R };
             Masu ms_src;
-            for(int iKs=0; iKs< junbanKs.Length; iKs++)
+            for (int iKs = 0; iKs < junbanKs.Length; iKs++)
             {
                 Bitboard semegomaBB = new Bitboard();// msから相手番の利きを伸ばせば、攻撃を掛けれる場所にいる自駒が分かるぜ☆（＾▽＾）
                 Shogiban.ToSet_BBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(junbanKs[iKs], jibun), semegomaBB);
-                semegomaBB.Select(this.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma( junbanKs[iKs], aite), ms));
+                semegomaBB.Select(this.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(junbanKs[iKs], aite), ms));
                 if (semegomaBB.Ref_PopNTZ(out Masu ms_semegoma))// 最初の１個だけ処理するぜ☆（＾～＾）
                 {
                     ms_src = (Masu)ms_semegoma;
@@ -2363,10 +2367,7 @@ namespace kifuwarabe_wcsc27.implements
                         // らいおん　を取ったのなら、決着だぜ☆（＾～＾）
                         oisisa = Hyokati.TumeTesu_SeiNoSu_ReiTeDume;
 
-                        if (syuturyokuTestYo_orKarappo.IsHataraku)
-                        {
-                            syuturyokuTestYo_orKarappo.AppendLine("SEE>らいおん捕まえた☆");
-                        }
+                        syuturyokuTestYo_orKarappo.AppendLine("SEE>らいおん捕まえた☆");
                     }
                     else
                     {
@@ -2378,15 +2379,12 @@ namespace kifuwarabe_wcsc27.implements
                             // マイナスのときは、駒を取る動きはしないと想定し、ここから計算をし直すぜ☆（＾～＾）
                             oisisa = Hyokati.Hyokati_Rei;
 
-                            
-                            if (syuturyokuTestYo_orKarappo.IsHataraku)
-                            {
-                                syuturyokuTestYo_orKarappo.AppendLine("SEE>このあとの手を指すと損するぜ☆（＾～＾）；；；　取り合いは");
-                                syuturyokuTestYo_orKarappo.AppendLine("SEE>ここまで止めると想定し、SEEを 0 から計算しなおすぜ☆(＾◇＾)");
-                                syuturyokuTestYo_orKarappo.Append("SEE>SEE = ");
-                                Conv_Hyokati.Setumei(oisisa, syuturyokuTestYo_orKarappo);
-                                syuturyokuTestYo_orKarappo.AppendLine();
-                            }
+
+                            syuturyokuTestYo_orKarappo.AppendLine($@"SEE>このあとの手を指すと損するぜ☆（＾～＾）；；；　取り合いは
+SEE>ここまで止めると想定し、SEEを 0 から計算しなおすぜ☆(＾◇＾)");
+                            syuturyokuTestYo_orKarappo.Append("SEE>SEE = ");
+                            Conv_Hyokati.Setumei(oisisa, syuturyokuTestYo_orKarappo);
+                            syuturyokuTestYo_orKarappo.AppendLine();
                         }
 
                         if (Conv_Hyokati.InHyokati(oisisa))
@@ -2400,17 +2398,14 @@ namespace kifuwarabe_wcsc27.implements
                         }
                     }
 
-                    if (syuturyokuTestYo_orKarappo.IsHataraku)
-                    {
-                        // 後ろから遡るように表示されると思うが、そういう仕組みなので仕方ないだろう☆（＾～＾）
-                        playing.Ky(isSfen, "ky", this, syuturyokuTestYo_orKarappo);//デバッグ用☆
-                        syuturyokuTestYo_orKarappo.Append("SEE>tottaKomaHyokati = ");
-                        syuturyokuTestYo_orKarappo.AppendLine(((int)tottaKomaHyokati).ToString());
-                        syuturyokuTestYo_orKarappo.Append("SEE>SEE = ");
-                        Conv_Hyokati.Setumei(oisisa, syuturyokuTestYo_orKarappo);
-                        syuturyokuTestYo_orKarappo.AppendLine();
-                        syuturyokuTestYo_orKarappo.AppendLine("SEE>────────────────────");
-                    }
+                    // 後ろから遡るように表示されると思うが、そういう仕組みなので仕方ないだろう☆（＾～＾）
+                    playing.Ky(isSfen, "ky", this, syuturyokuTestYo_orKarappo);//デバッグ用☆
+                    syuturyokuTestYo_orKarappo.Append("SEE>tottaKomaHyokati = ");
+                    syuturyokuTestYo_orKarappo.AppendLine(((int)tottaKomaHyokati).ToString());
+                    syuturyokuTestYo_orKarappo.Append("SEE>SEE = ");
+                    Conv_Hyokati.Setumei(oisisa, syuturyokuTestYo_orKarappo);
+                    syuturyokuTestYo_orKarappo.AppendLine();
+                    syuturyokuTestYo_orKarappo.AppendLine("SEE>────────────────────");
 
                     this.UndoMove(isSfen, ss, syuturyokuTestYo_orKarappo);
 
@@ -2419,11 +2414,11 @@ namespace kifuwarabe_wcsc27.implements
 
             }// for 文
 
-            // おっと、この駒は取り返されなかったようだな☆（＾▽＾）
-            // この関数を呼び出したところは、取り返されることのない最後の駒だぜ、ラッキー☆（＾▽＾）
-            // SEE=0点を返すぜ☆（＾▽＾）
+        // おっと、この駒は取り返されなかったようだな☆（＾▽＾）
+        // この関数を呼び出したところは、取り返されることのない最後の駒だぜ、ラッキー☆（＾▽＾）
+        // SEE=0点を返すぜ☆（＾▽＾）
 
-            gt_EndLoop:
+        gt_EndLoop:
             ;
 
             return oisisa;
@@ -2525,10 +2520,10 @@ namespace kifuwarabe_wcsc27.implements
 #endif
 
             out_hyokatiUtiwake = new HyokatiUtiwake(
-                (Hyokati)(Komawari.Get(Teban)+ (int)Nikoma.Get(true)+ ((int)Hyokati.Hyokati_Rei + (int)kikiScore)),
+                (Hyokati)(Komawari.Get(Teban) + (int)Nikoma.Get(true) + ((int)Hyokati.Hyokati_Rei + (int)kikiScore)),
                 Komawari.Get(Teban),
                 Nikoma.Get(true),
-                (Hyokati)((int)Hyokati.Hyokati_Rei+ (int)kikiScore),
+                (Hyokati)((int)Hyokati.Hyokati_Rei + (int)kikiScore),
                 hyokaRiyu,
                 ""
                 );

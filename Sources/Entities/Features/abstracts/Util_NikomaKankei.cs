@@ -2,6 +2,7 @@
 using kifuwarabe_wcsc27.interfaces;
 using System;
 using System.Diagnostics;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace kifuwarabe_wcsc27.abstracts
@@ -629,7 +630,7 @@ namespace kifuwarabe_wcsc27.abstracts
         }
 
 #if !Unity
-        public static void ToContents(Mojiretu mojiretu)
+        public static void ToString(StringBuilder mojiretu)
         {
             ///// ▲ら×１２　▲ぞ×１２　▲き×１２　▲ひ×１２　▲に×１２
             ///// △ら×１２　△ぞ×１２　△き×１２　△ひ×１２　△に×１２
@@ -648,7 +649,7 @@ namespace kifuwarabe_wcsc27.abstracts
             //        {
             //            if (0 != Util_NikomaKankei.GetHyokaNumber_KikaiGakusyuYou(iRetuKoumoku, iGyoKoumoku))
             //            {
-            //                Mojiretu mojiretu2 = new MojiretuImpl();
+            //                StringBuilder mojiretu2 = new StringBuilder();
             //                mojiretu2.AppendLine("二駒関係評価値表の使ってないところに、評価値が入っているぜ☆A（＾～＾）！学習は大丈夫か☆！");
             //                mojiretu2.Append("iRetuKoumoku=[");
             //                mojiretu2.Append(iRetuKoumoku);
@@ -659,7 +660,7 @@ namespace kifuwarabe_wcsc27.abstracts
             //                mojiretu2.Append("評価値=[");
             //                mojiretu2.Append(Util_NikomaKankei.GetHyokaNumber_KikaiGakusyuYou(iRetuKoumoku, iGyoKoumoku));
             //                mojiretu2.AppendLine("]");
-            //                throw new Exception(mojiretu2.ToContents());
+            //                throw new Exception(mojiretu2.ToString());
             //            }
 
             //            //重なっているところも、１駒関係＝絶対評価として利用できそうだが☆（＾▽＾）
@@ -669,7 +670,7 @@ namespace kifuwarabe_wcsc27.abstracts
             //        {
             //            if (0 != Util_NikomaKankei.GetHyokaNumber_KikaiGakusyuYou(iRetuKoumoku, iGyoKoumoku))
             //            {
-            //                Mojiretu mojiretu2 = new MojiretuImpl();
+            //                StringBuilder mojiretu2 = new StringBuilder();
             //                mojiretu2.AppendLine("二駒関係評価値表の使ってないところに、評価値が入っているぜ☆B（＾～＾）！学習は大丈夫か☆！");
             //                mojiretu2.Append("iRetuKoumoku=[");
             //                mojiretu2.Append(iRetuKoumoku);
@@ -680,7 +681,7 @@ namespace kifuwarabe_wcsc27.abstracts
             //                mojiretu2.Append("評価値=[");
             //                mojiretu2.Append(Util_NikomaKankei.GetHyokaNumber_KikaiGakusyuYou(iRetuKoumoku, iGyoKoumoku));
             //                mojiretu2.AppendLine("]");
-            //                throw new Exception(mojiretu2.ToContents());
+            //                throw new Exception(mojiretu2.ToString());
             //            }
 
             //            //mojiretu.Append("    0.00000000");
@@ -700,7 +701,7 @@ namespace kifuwarabe_wcsc27.abstracts
         public static string ToSetumei()
         {
             return "";
-            //Mojiretu mojiretu = new MojiretuImpl();
+            //StringBuilder mojiretu = new StringBuilder();
 
             //// ▲ら×１２　▲ぞ×１２　▲き×１２　▲ひ×１２　▲に×１２
             //// △ら×１２　△ぞ×１２　△き×１２　△ひ×１２　△に×１２
@@ -732,7 +733,7 @@ namespace kifuwarabe_wcsc27.abstracts
             //    mojiretu.AppendLine();// 改行区切り
             //}
 
-            //return mojiretu.ToContents();
+            //return mojiretu.ToString();
         }
 #endif
     }

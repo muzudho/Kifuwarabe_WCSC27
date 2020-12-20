@@ -1,6 +1,7 @@
 ﻿using kifuwarabe_wcsc27.abstracts;
 using kifuwarabe_wcsc27.interfaces;
 using System.Diagnostics;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace kifuwarabe_wcsc27.implements
@@ -71,7 +72,7 @@ namespace kifuwarabe_wcsc27.implements
         /// 改造FEN符号表記
         /// </summary>
         /// <returns></returns>
-        public static void AppendFenTo(bool isSfen, Move ss, Mojiretu syuturyoku)
+        public static void AppendFenTo(bool isSfen, Move ss, StringBuilder syuturyoku)
         {
             if (Move.Toryo == ss) { syuturyoku.Append(Itiran_FenParser.GetToryo(isSfen)); return; }
 
@@ -133,11 +134,11 @@ namespace kifuwarabe_wcsc27.implements
         /// 指し手符号の解説。
         /// </summary>
         /// <returns></returns>
-        public static void Setumei(bool isSfen, Move ss, Mojiretu syuturyoku)
+        public static void Setumei(bool isSfen, Move ss, StringBuilder syuturyoku)
         {
             AppendFenTo(isSfen, ss, syuturyoku);
         }
-        public static void SetumeiLine(bool isSfen, Move ss, Mojiretu syuturyoku)
+        public static void SetumeiLine(bool isSfen, Move ss, StringBuilder syuturyoku)
         {
             AppendFenTo(isSfen, ss, syuturyoku);
             syuturyoku.AppendLine();

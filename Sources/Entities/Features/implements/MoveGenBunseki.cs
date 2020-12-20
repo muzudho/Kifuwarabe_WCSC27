@@ -1,5 +1,6 @@
 ﻿using kifuwarabe_wcsc27.interfaces;
 using kifuwarabe_wcsc27.abstracts;
+using System.Text;
 
 namespace kifuwarabe_wcsc27.implements
 {
@@ -38,7 +39,7 @@ namespace kifuwarabe_wcsc27.implements
         /// </summary>
         public Bitboard BB_IdosakiBase { get; set; }
 
-        public void Setumei(Mojiretu syuturyoku)
+        public void Setumei(StringBuilder syuturyoku)
         {
             syuturyoku.AppendLine($"指し手生成を抜けた場所：{MoveGenBunseki.Instance.MoveGenWoNuketaBasho}");
             Util_Information.Setumei_1Bitboard("移動先升", BB_IdosakiBase, syuturyoku);

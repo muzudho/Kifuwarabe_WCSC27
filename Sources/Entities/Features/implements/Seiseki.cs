@@ -3,7 +3,7 @@ using kifuwarabe_wcsc27.interfaces;
 using kifuwarabe_wcsc27.machine;
 using System;
 using System.Collections.Generic;
-
+using System.Text;
 
 namespace kifuwarabe_wcsc27.implements
 {
@@ -50,7 +50,7 @@ namespace kifuwarabe_wcsc27.implements
         public int Make { get { return this.m_make_; } set { this.m_make_ = value; this.Owner.Owner.Edited = true; } }
         private int m_make_;
 
-        public static bool TryParse(Kyokumen ky,string commandline, ref int caret, out SeisekiMove out_result, SeisekiKyokumen owner, Mojiretu syuturyoku)
+        public static bool TryParse(Kyokumen ky,string commandline, ref int caret, out SeisekiMove out_result, SeisekiKyokumen owner, StringBuilder syuturyoku)
         {
             bool successfule = true;
             // 指し手☆
@@ -105,7 +105,7 @@ namespace kifuwarabe_wcsc27.implements
 
 #if UNITY && !KAIHATU
 #else
-        public void ToContents_NotUnity(bool isSfen, Mojiretu syuturyoku)
+        public void ToContents_NotUnity(bool isSfen, StringBuilder syuturyoku)
         {
             ConvMove.AppendFenTo(isSfen, Move, syuturyoku);
             syuturyoku.Append(" ");
@@ -157,7 +157,7 @@ namespace kifuwarabe_wcsc27.implements
         public string Fen { get; private set; }
         public Taikyokusya TbTaikyokusya { get; private set; }
 
-        public SeisekiMove AddSasite(Kyokumen ky,string sasiteRecordStr, Mojiretu syuturyoku)
+        public SeisekiMove AddSasite(Kyokumen ky,string sasiteRecordStr, StringBuilder syuturyoku)
         {
             int caret = 0;
             if (SeisekiMove.TryParse(ky, sasiteRecordStr, ref caret, out SeisekiMove josekiSs, this, syuturyoku))
@@ -212,7 +212,7 @@ namespace kifuwarabe_wcsc27.implements
         /// 定跡ファイル
         /// </summary>
         /// <returns></returns>
-        public void ToContents_NotUnity(bool isSfen, Mojiretu syuturyoku)
+        public void ToContents_NotUnity(bool isSfen, StringBuilder syuturyoku)
         {
             // 局面
             syuturyoku.AppendLine(this.Fen);
@@ -295,7 +295,7 @@ namespace kifuwarabe_wcsc27.implements
             return josekiKy;
         }
 
-        public void Parse(bool isSfen, string[] lines, Mojiretu syuturyoku)
+        public void Parse(bool isSfen, string[] lines, StringBuilder syuturyoku)
         {
             this.Clear();
             Kyokumen ky2 = new Kyokumen();
@@ -607,14 +607,14 @@ namespace kifuwarabe_wcsc27.implements
         /// <returns></returns>
         public string ToContents_NotUnity(bool isSfen )
         {
-            Mojiretu mojiretu = new MojiretuImpl();
+            StringBuilder mojiretu = new StringBuilder();
 
             foreach (KeyValuePair<ulong, SeisekiKyokumen> entry1 in this.KyItems)
             {
                 entry1.Value.ToContents_NotUnity(isSfen, mojiretu);
             }
 
-            return mojiretu.ToContents();
+            return mojiretu.ToString();
         }
 #endif
     }

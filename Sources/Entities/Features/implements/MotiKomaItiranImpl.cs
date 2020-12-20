@@ -37,10 +37,10 @@ namespace kifuwarabe_wcsc27.implements
 #if DEBUG
             if (ValueMk[(int)mk] < 0)
             {
-                Mojiretu reigai1 = new MojiretuImpl();
+                StringBuilder reigai1 = new StringBuilder();
                 reigai1.AppendLine("error 持駒の数にマイナスをセットした☆");
                 Util_Machine.Flush(reigai1);
-                throw new Exception(reigai1.ToContents());
+                throw new Exception(reigai1.ToString());
             }
 #endif
 
@@ -73,10 +73,10 @@ namespace kifuwarabe_wcsc27.implements
 #if DEBUG
             if (ValueMk[(int)mk] < 0)
             {
-                Mojiretu reigai1 = new MojiretuImpl();
+                StringBuilder reigai1 = new StringBuilder();
                 reigai1.AppendLine("error 持駒の数がマイナス");
                 Util_Machine.Flush(reigai1);
-                throw new Exception(reigai1.ToContents());
+                throw new Exception(reigai1.ToString());
             }
 #endif
             return this;

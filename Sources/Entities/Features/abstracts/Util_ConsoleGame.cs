@@ -3,6 +3,7 @@ using kifuwarabe_wcsc27.implements;
 using kifuwarabe_wcsc27.interfaces;
 using kifuwarabe_wcsc27.machine;
 using System;
+using System.Text;
 
 namespace kifuwarabe_wcsc27.abstracts
 {
@@ -14,7 +15,7 @@ namespace kifuwarabe_wcsc27.abstracts
 #if UNITY && !KAIHATU
         // Unityのリリース・モードではコマンドライン読取りはしないぜ☆（＾▽＾）
 #else
-        public static void ReadCommandline(Mojiretu syuturyoku)
+        public static void ReadCommandline(StringBuilder syuturyoku)
         {
             Util_Machine.Flush(syuturyoku);
             Util_Commandline.SetCommandline(Util_Machine.ReadLine());
@@ -27,7 +28,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// <summary>
         /// タイトル画面表示☆（＾～＾）
         /// </summary>
-        public static void WriteMessage_TitleGamen(Mojiretu syuturyoku)
+        public static void WriteMessage_TitleGamen(StringBuilder syuturyoku)
         {
 #if UNITY
             syuturyoku.AppendLine("# Title");
@@ -70,7 +71,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// <summary>
         /// コンピューター思考中表示☆（＾～＾）
         /// </summary>
-        public static void AppendMessage_ComputerSikochu(Kyokumen ky, Mojiretu syuturyoku)
+        public static void AppendMessage_ComputerSikochu(Kyokumen ky, StringBuilder syuturyoku)
         {
 #if UNITY
             syuturyoku.Append("# ");
@@ -91,7 +92,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// <summary>
         /// 決着時のメッセージ表示☆
         /// </summary>
-        public static void ShowMessage_KettyakuJi( Kyokumen ky, Mojiretu syuturyoku)
+        public static void ShowMessage_KettyakuJi( Kyokumen ky, StringBuilder syuturyoku)
         {
             if (TaikyokuKekka.Karappo != Util_Application.Result(ky))
             {
@@ -165,9 +166,9 @@ namespace kifuwarabe_wcsc27.abstracts
             KyTaikyokusya_before = Taikyokusya.Yososu;
             if (Util_Machine.IsEnableBoardSize() && Option_Application.Optionlist.JosekiRec)
             {
-                Mojiretu fenMojiretu = new MojiretuImpl();
+                StringBuilder fenMojiretu = new StringBuilder();
                 ky.AppendFenTo(Option_Application.Optionlist.USI, fenMojiretu);
-                KyFen_before = fenMojiretu.ToContents();
+                KyFen_before = fenMojiretu.ToString();
                 KyHash_before = ky.KyokumenHash.Value;
                 KyTaikyokusya_before = ky.Teban;
             }
@@ -175,7 +176,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// <summary>
         /// 定跡更新（ゲームセクション内）
         /// </summary>
-        public static void Update1_JosekiToroku(Move inputMove, Kyokumen ky, Mojiretu syuturyoku)
+        public static void Update1_JosekiToroku(Move inputMove, Kyokumen ky, StringBuilder syuturyoku)
         {
             if (Util_Machine.IsEnableBoardSize() && Option_Application.Optionlist.JosekiRec)
             {
@@ -194,7 +195,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// <summary>
         /// 定跡更新（ゲームセクション内）
         /// </summary>
-        public static void Update2_JosekiToroku(Move bestMove, Hyokati bestHyokati, Kyokumen ky, Mojiretu syuturyoku)
+        public static void Update2_JosekiToroku(Move bestMove, Hyokati bestHyokati, Kyokumen ky, StringBuilder syuturyoku)
         {
             if (Util_Machine.IsEnableBoardSize() && Option_Application.Optionlist.JosekiRec)
             {
@@ -215,7 +216,7 @@ namespace kifuwarabe_wcsc27.abstracts
 
                         if (!ky_forAssert.CanDoMove(bestMove, out MoveMatigaiRiyu riyu))
                         {
-                            Mojiretu reigai1 = new MojiretuImpl();
+                            StringBuilder reigai1 = new StringBuilder();
                             reigai1.AppendLine("指せない指し手を定跡に登録しようとしたぜ☆（＾～＾）！：");
                             reigai1.Append("理由:"); ConvMove.SetumeiLine(riyu, reigai1);
                             reigai1.Append("指し手:"); ConvMove.SetumeiLine(Option_Application.Optionlist.USI, bestMove, reigai1);
@@ -224,9 +225,9 @@ namespace kifuwarabe_wcsc27.abstracts
                             reigai1.AppendLine();
                             reigai1.Append("１手後は、現局面");
                             Util_Information.Setumei_Lines_Kyokumen(ky,reigai1);
-                            syuturyoku.AppendLine(reigai1.ToContents());
+                            syuturyoku.AppendLine(reigai1.ToString());
                             Util_Machine.Flush(syuturyoku);
-                            throw new Exception(reigai1.ToContents());
+                            throw new Exception(reigai1.ToString());
                         }
                     }
 #endif

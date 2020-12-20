@@ -1,6 +1,7 @@
 ﻿using kifuwarabe_wcsc27.interfaces;
 using System.Collections.Generic;
 using kifuwarabe_wcsc27.abstracts;
+using System.Text;
 
 #if DEBUG
 using kifuwarabe_wcsc27.machine;
@@ -48,7 +49,7 @@ namespace kifuwarabe_wcsc27.implements
             }
         }
 
-        public void Setumei(bool isSfen, Mojiretu syuturyoku)
+        public void Setumei(bool isSfen, StringBuilder syuturyoku)
         {
             // 初期局面を作成
             Kyokumen ky2 = new Kyokumen();
@@ -72,7 +73,7 @@ namespace kifuwarabe_wcsc27.implements
             syuturyoku.AppendLine();
         }
 
-        public void TusinYo(bool isSfen, Mojiretu syuturyoku)
+        public void TusinYo(bool isSfen, StringBuilder syuturyoku)
         {
             // 初期局面を作成
             Kyokumen ky2 = new Kyokumen();
@@ -102,7 +103,7 @@ namespace kifuwarabe_wcsc27.implements
         /// </summary>
         /// <param name="ky"></param>
         /// <param name="syuturyoku"></param>
-        public void GoToFinish(bool isSfen, Kyokumen ky, Mojiretu syuturyoku)
+        public void GoToFinish(bool isSfen, Kyokumen ky, StringBuilder syuturyoku)
         {
             ky.Clear(syuturyoku);
 
@@ -131,7 +132,7 @@ namespace kifuwarabe_wcsc27.implements
         /// <param name="temeMade"></param>
         /// <param name="ky"></param>
         /// <param name="syuturyoku"></param>
-        public void GoToTememade(bool isSfen, int temeMade, Kyokumen ky, Mojiretu syuturyoku)
+        public void GoToTememade(bool isSfen, int temeMade, Kyokumen ky, StringBuilder syuturyoku)
         {
             // 棋譜を元に、局面データを再現するぜ☆
             ky.Clear(syuturyoku);
@@ -153,7 +154,7 @@ namespace kifuwarabe_wcsc27.implements
             }
         }
 
-        public void AppendMovesTo(bool isSfen, Mojiretu syuturyoku)
+        public void AppendMovesTo(bool isSfen, StringBuilder syuturyoku)
         {
             foreach (Move ss in SsList)
             {

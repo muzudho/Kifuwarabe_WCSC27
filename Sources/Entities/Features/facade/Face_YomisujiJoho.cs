@@ -3,6 +3,7 @@ using kifuwarabe_wcsc27.interfaces;
 using kifuwarabe_wcsc27.machine;
 using System;
 using kifuwarabe_wcsc27.implements;
+using System.Text;
 
 namespace kifuwarabe_wcsc27.facade
 {
@@ -26,7 +27,7 @@ namespace kifuwarabe_wcsc27.facade
             string yomisuji,
             bool isJoseki,
             Kyokumen ky,
-            Mojiretu syuturyoku
+            StringBuilder syuturyoku
 #if DEBUG
             ,string hint
 #endif
@@ -49,7 +50,7 @@ namespace kifuwarabe_wcsc27.facade
             string yomisuji,
             bool isJoseki,
             Kyokumen ky,
-            Mojiretu syuturyoku
+            StringBuilder syuturyoku
 #if DEBUG
             ,string hint
 #endif

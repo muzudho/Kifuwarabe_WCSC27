@@ -2,6 +2,7 @@
 using kifuwarabe_wcsc27.interfaces;
 using kifuwarabe_wcsc27.machine;
 using System;
+using System.Text;
 
 namespace kifuwarabe_wcsc27.abstracts
 {
@@ -33,7 +34,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// <param name="tb">手番</param>
         /// <param name="ms1">手番らいおんがいる升</param>
         /// <returns></returns>
-        public static Bitboard GetTrySaki(Kyokumen ky, Bitboard kikiBB, Taikyokusya tb, Masu ms1, Mojiretu syuturyoku)
+        public static Bitboard GetTrySaki(Kyokumen ky, Bitboard kikiBB, Taikyokusya tb, Masu ms1, StringBuilder syuturyoku)
         {
             Util_Test.AppendLine("テスト：　トライルール", syuturyoku);
             m_trySakiBB_.Clear();
@@ -53,7 +54,7 @@ namespace kifuwarabe_wcsc27.abstracts
 
             m_trySakiBB_.Set(kikiBB);
             m_trySakiBB_.Select(ky.BB_Try[(int)tb]);
-            Util_Test.TestCode((Mojiretu syuturyoku2) => { Util_Information.Setumei_Bitboards(new string[] { "らいおんの利き", "１段目に移動できる升" },
+            Util_Test.TestCode((StringBuilder syuturyoku2) => { Util_Information.Setumei_Bitboards(new string[] { "らいおんの利き", "１段目に移動できる升" },
                 new Bitboard[] { kikiBB, m_trySakiBB_ }, syuturyoku2); });
 
             // 味方の駒がないところ☆
@@ -61,7 +62,7 @@ namespace kifuwarabe_wcsc27.abstracts
             spaceBB.Set(ky.BB_BoardArea);
             spaceBB.Sitdown( ky.Shogiban.GetBBKomaZenbu(tb));
             m_trySakiBB_.Select( spaceBB);
-            Util_Test.TestCode((Mojiretu str) => { Util_Information.Setumei_Bitboards(new string[] { "味方駒無い所", "トライ先" },
+            Util_Test.TestCode((StringBuilder str) => { Util_Information.Setumei_Bitboards(new string[] { "味方駒無い所", "トライ先" },
                 new Bitboard[] { spaceBB, m_trySakiBB_ }, str); });
             if (m_trySakiBB_.IsEmpty())
             {
@@ -76,7 +77,7 @@ namespace kifuwarabe_wcsc27.abstracts
             safeBB.Set(ky.BB_BoardArea);
             ky.Shogiban.ToSitdown_BBKikiZenbu(tb2, safeBB);
             m_trySakiBB_.Select( safeBB);
-            Util_Test.TestCode((Mojiretu syuturyoku2) => { Util_Information.Setumei_Bitboards(new string[] { "相手利き無い所", "トライ先" },
+            Util_Test.TestCode((StringBuilder syuturyoku2) => { Util_Information.Setumei_Bitboards(new string[] { "相手利き無い所", "トライ先" },
                 new Bitboard[] { safeBB, m_trySakiBB_ }, syuturyoku2); });
             if (m_trySakiBB_.IsEmpty())
             {

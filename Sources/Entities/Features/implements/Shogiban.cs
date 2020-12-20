@@ -13,6 +13,7 @@ using kifuwarabe_wcsc27.abstracts;
 using System;
 using System.Diagnostics;
 using kifuwarabe_wcsc27.machine;
+using System.Text;
 #endif
 
 
@@ -1288,7 +1289,7 @@ namespace kifuwarabe_wcsc27.implements
         /// <param name="ms_t1"></param>
         /// <param name="km_t1"></param>
         /// <param name="updateKiki">利きを先に作るか、駒を先に並べるか、という循環が発生するのを防ぐために</param>
-        public void N250_OkuBanjoKoma(bool isSfen, Masu ms_t1, Koma km_t1, bool updateKiki, Kyokumen.Sindanyo kys, Mojiretu syuturyoku)
+        public void N250_OkuBanjoKoma(bool isSfen, Masu ms_t1, Koma km_t1, bool updateKiki, Kyokumen.Sindanyo kys, StringBuilder syuturyoku)
         {
             Debug.Assert(Conv_Koma.IsOk(km_t1), "");
             Debug.Assert(kys.IsBanjo(ms_t1), "");
@@ -1342,7 +1343,7 @@ namespace kifuwarabe_wcsc27.implements
 
 
 
-        public void N250_TorinozokuBanjoKoma_1(bool isSfen, Masu ms_t0, Koma km_t0, bool updateKiki, Kyokumen.Sindanyo kys, Mojiretu syuturyoku)
+        public void N250_TorinozokuBanjoKoma_1(bool isSfen, Masu ms_t0, Koma km_t0, bool updateKiki, Kyokumen.Sindanyo kys, StringBuilder syuturyoku)
         {
             Debug.Assert(Conv_Koma.IsOk(km_t0), "");
             Debug.Assert(kys.IsBanjo(ms_t0), "");
@@ -1389,7 +1390,7 @@ namespace kifuwarabe_wcsc27.implements
         /// <param name="updateKiki"></param>
         /// <param name="kys"></param>
         /// <param name="syuturyoku"></param>
-        public void N250_TorinozokuBanjoKoma(bool isSfen, Masu ms_t0, Koma km_t0, Masu ms_mirainiKomagaAru, bool updateKiki, Kyokumen.Sindanyo kys,  Mojiretu syuturyoku)
+        public void N250_TorinozokuBanjoKoma(bool isSfen, Masu ms_t0, Koma km_t0, Masu ms_mirainiKomagaAru, bool updateKiki, Kyokumen.Sindanyo kys,  StringBuilder syuturyoku)
         {
 
             N250_TorinozokuBanjoKoma_1( isSfen, ms_t0, km_t0, updateKiki, kys, syuturyoku);
@@ -1415,7 +1416,7 @@ namespace kifuwarabe_wcsc27.implements
 
             N250_TorinozokuBanjoKoma_2(isSfen, ms_t0, km_t0, updateKiki, kys, syuturyoku);
         }
-        public void N250_TorinozokuBanjoKoma_2(bool isSfen, Masu ms_t0, Koma km_t0, bool updateKiki, Kyokumen.Sindanyo kys, Mojiretu syuturyoku)
+        public void N250_TorinozokuBanjoKoma_2(bool isSfen, Masu ms_t0, Koma km_t0, bool updateKiki, Kyokumen.Sindanyo kys, StringBuilder syuturyoku)
         {
             ////#if DEBUG
             //{
@@ -1458,7 +1459,7 @@ namespace kifuwarabe_wcsc27.implements
         }
 
 
-        public void N230_TukurinaosiTonarikikiTobikiki_Discovered_1(bool isSfen, Masu ms_moved, Kyokumen.Sindanyo kys, Mojiretu syuturyoku, out Koma[] kmHairetu_control, out Bitboard[] bbHairetu_tobikikiKomaIbasho)
+        public void N230_TukurinaosiTonarikikiTobikiki_Discovered_1(bool isSfen, Masu ms_moved, Kyokumen.Sindanyo kys, StringBuilder syuturyoku, out Koma[] kmHairetu_control, out Bitboard[] bbHairetu_tobikikiKomaIbasho)
         {
             // 置いたか除けた駒を指定して、関連する飛び利き駒を探すぜ☆（＾～＾）
             kys.TryInControl(ms_moved, out kmHairetu_control);
@@ -1479,7 +1480,7 @@ namespace kifuwarabe_wcsc27.implements
 
                 ////#if DEBUG
                 //                // 飛び利きを再計算する駒
-                //                syuturyoku.AppendLine("(TryDis1)飛び利きを再計算する駒=["+km_tobikiki+"]");
+                //                syuturyoku.AppendLine($"(TryDis1)飛び利きを再計算する駒=[{km_tobikiki}]");
                 //                Util_Machine.Flush(syuturyoku);
                 //                //#endif
 
@@ -1512,7 +1513,7 @@ namespace kifuwarabe_wcsc27.implements
                 i++;
             }
         }
-        public void N230_TukurinaosiTonarikikiTobikiki_Discovered_2(bool isSfen, Masu ms_moved, Kyokumen.Sindanyo kys, Mojiretu syuturyoku)
+        public void N230_TukurinaosiTonarikikiTobikiki_Discovered_2(bool isSfen, Masu ms_moved, Kyokumen.Sindanyo kys, StringBuilder syuturyoku)
         {
 
         }
@@ -1520,7 +1521,7 @@ namespace kifuwarabe_wcsc27.implements
         /// <summary>
         /// 駒を置くか除けたことで、飛び利きが切れそう、伸びそうな駒の利きを再計算するぜ☆（＾～＾）
         /// </summary>
-        public void N230_TukurinaosiTonarikikiTobikiki_Discovered(bool isSfen, Masu ms_korekaraInakunaru, Masu ms_mirainiKomagaAru, Kyokumen.Sindanyo kys, Mojiretu syuturyoku, Koma[] kmHairetu_control, Bitboard[] bbHairetu_tobikikiKomaIbasho)
+        public void N230_TukurinaosiTonarikikiTobikiki_Discovered(bool isSfen, Masu ms_korekaraInakunaru, Masu ms_mirainiKomagaAru, Kyokumen.Sindanyo kys, StringBuilder syuturyoku, Koma[] kmHairetu_control, Bitboard[] bbHairetu_tobikikiKomaIbasho)
         {
             //N230_TukurinaosiTonarikikiTobikiki_Discovered_1( isSfen,  ms_moved,  kys,  syuturyoku, out kmHairetu_control, out bbHairetu_tobikikiKomaIbasho);
 
@@ -1552,7 +1553,7 @@ namespace kifuwarabe_wcsc27.implements
         }
 
 
-        public void N150_FuyasuHajimetenoKiki_1(Koma km_t1, Masu ms_t1, Masu ms_mirainiKomagaAru, Kyokumen.Sindanyo kys, Mojiretu syuturyoku, out Bitboard bb_oekaki)
+        public void N150_FuyasuHajimetenoKiki_1(Koma km_t1, Masu ms_t1, Masu ms_mirainiKomagaAru, Kyokumen.Sindanyo kys, StringBuilder syuturyoku, out Bitboard bb_oekaki)
         {
             Debug.Assert(Conv_Koma.IsOk(km_t1), "");
             Debug.Assert(kys.IsBanjo(ms_t1), "");
@@ -1605,16 +1606,16 @@ namespace kifuwarabe_wcsc27.implements
         /// 隣利き、飛び利き　を増やす。
         /// 飛び利きは　一手指した後、一手戻した後　のタイミングで　差分更新だぜ☆（＾～＾）
         /// </summary>
-        public void N150_FuyasuHajimetenoKiki(Koma km_t1, Masu ms_t1, Kyokumen.Sindanyo kys, Mojiretu syuturyoku, Bitboard bb_oekaki)
+        public void N150_FuyasuHajimetenoKiki(Koma km_t1, Masu ms_t1, Kyokumen.Sindanyo kys, StringBuilder syuturyoku, Bitboard bb_oekaki)
         {
             // ここで利きを増やそうぜ☆（＾～＾）
             N100_FuyasuKiki(km_t1, bb_oekaki, kys);
         }
-        public void N150_FuyasuHajimetenoKiki_2(Koma km_t1, Masu ms_t1, Kyokumen.Sindanyo kys, Mojiretu syuturyoku)
+        public void N150_FuyasuHajimetenoKiki_2(Koma km_t1, Masu ms_t1, Kyokumen.Sindanyo kys, StringBuilder syuturyoku)
         {
 
         }
-        public void N150_HerasuTonarikikiTobikiki(Koma km_t0, Masu ms_t0, Masu ms_mirainiKomagaAru, Kyokumen.Sindanyo kys, Mojiretu syuturyoku)
+        public void N150_HerasuTonarikikiTobikiki(Koma km_t0, Masu ms_t0, Masu ms_mirainiKomagaAru, Kyokumen.Sindanyo kys, StringBuilder syuturyoku)
         {
             Debug.Assert(Conv_Koma.IsOk(km_t0), "");
             Debug.Assert(kys.IsBanjo(ms_t0), "");

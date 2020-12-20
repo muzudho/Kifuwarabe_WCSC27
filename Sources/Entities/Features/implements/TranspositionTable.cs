@@ -1,6 +1,7 @@
 ﻿using kifuwarabe_wcsc27.interfaces;
 using System;
 using kifuwarabe_wcsc27.abstracts;
+using System.Text;
 
 namespace kifuwarabe_wcsc27.implements
 {
@@ -20,7 +21,7 @@ namespace kifuwarabe_wcsc27.implements
             this.m_okimariHyokati_forJoho_ = hyokatiUtiwake.Okimari;
         }
 
-        public void Setumei_Description(bool isSfen, Mojiretu syuturyoku)
+        public void Setumei_Description(bool isSfen, StringBuilder syuturyoku)
         {
             syuturyoku.Append($"key=[{Key}] move=[");
             ConvMove.Setumei(isSfen, Move,syuturyoku);

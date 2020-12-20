@@ -1,5 +1,6 @@
 ﻿using kifuwarabe_wcsc27.interfaces;
 using kifuwarabe_wcsc27.implements;
+using System.Text;
 
 namespace kifuwarabe_wcsc27.abstracts
 {
@@ -12,7 +13,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// 
         /// の作成も混ざっている☆（＾～＾）
         /// </summary>
-        public static void TukuruKifu(bool isSfen, Kyokumen ky, Mojiretu syuturyoku)
+        public static void TukuruKifu(bool isSfen, Kyokumen ky, StringBuilder syuturyoku)
         {
             // 指した後の手☆（成績　登録用）
             Move ss_after = Move.Toryo; // 未使用時の初期値

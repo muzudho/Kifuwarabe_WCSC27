@@ -42,7 +42,7 @@ namespace kifuwarabe_wcsc27.abstracts
             }
             return sb.ToString();
         }
-        public static void AppendLine_Middle(int banSu, Mojiretu syuturyoku)
+        public static void AppendLine_Middle(int banSu, StringBuilder syuturyoku)
         {
             for (int ban = 0; ban < banSu; ban++)
             {
@@ -61,7 +61,7 @@ namespace kifuwarabe_wcsc27.abstracts
             }
             syuturyoku.AppendLine();
         }
-        public static void AppendLine_Data(Bitboard[] bbHairetu, int ms_hidariHasi, Mojiretu syuturyoku)
+        public static void AppendLine_Data(Bitboard[] bbHairetu, int ms_hidariHasi, StringBuilder syuturyoku)
         {
             for (int iBb = 0; iBb < bbHairetu.Length; iBb++)
             {
@@ -76,7 +76,7 @@ namespace kifuwarabe_wcsc27.abstracts
             }
             syuturyoku.AppendLine();
         }
-        public static void AppendLine_Bottom(int banSu, Mojiretu syuturyoku)
+        public static void AppendLine_Bottom(int banSu, StringBuilder syuturyoku)
         {
             for (int ban = 0; ban < banSu; ban++)
             {
@@ -101,7 +101,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// ログに向いた、シンプルな表示☆
         /// </summary>
         /// <returns></returns>
-        public static void Setumei_1Bitboard(string header, Bitboard bitboard_tb1, Mojiretu syuturyoku)
+        public static void Setumei_1Bitboard(string header, Bitboard bitboard_tb1, StringBuilder syuturyoku)
         {
             Debug.Assert(null != bitboard_tb1, "");
 
@@ -112,7 +112,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// 将棋盤の見出しをコンソールへ出力するぜ☆（＾▽＾）
         /// </summary>
         /// <returns></returns>
-        public static void Setumei_Headers(string[] headers, Mojiretu syuturyoku)
+        public static void Setumei_Headers(string[] headers, StringBuilder syuturyoku)
         {
             foreach (string header in headers)
             {
@@ -126,7 +126,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// 見出し有り
         /// </summary>
         /// <returns></returns>
-        public static void Setumei_Bitboards(string[] headers, Bitboard[] bbHairetu, Mojiretu syuturyoku)
+        public static void Setumei_Bitboards(string[] headers, Bitboard[] bbHairetu, StringBuilder syuturyoku)
         {
             Debug.Assert(0<bbHairetu.Length && null!=bbHairetu[0], "");
 
@@ -152,7 +152,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// 見出し無し☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public static void Setumei_Bitboards(Bitboard[] bbHairetu, Mojiretu syuturyoku)
+        public static void Setumei_Bitboards(Bitboard[] bbHairetu, StringBuilder syuturyoku)
         {
             Util_Information.AppendLine_Top_Kyokumen(bbHairetu.Length, syuturyoku);
             for (int dan = 0; dan < Option_Application.Optionlist.BanTateHaba; dan++)
@@ -168,7 +168,7 @@ namespace kifuwarabe_wcsc27.abstracts
         }
 
 
-        public static void AppendLine_Top_Kyokumen(int banSu, Mojiretu syuturyoku)
+        public static void AppendLine_Top_Kyokumen(int banSu, StringBuilder syuturyoku)
         {
             for (int ban = 0; ban < banSu; ban++)
             {
@@ -188,7 +188,7 @@ namespace kifuwarabe_wcsc27.abstracts
             syuturyoku.AppendLine();
         }
 
-        public static void AppendLine_SujiFugo_Kyokumen(Mojiretu syuturyoku)
+        public static void AppendLine_SujiFugo_Kyokumen(StringBuilder syuturyoku)
         {
             syuturyoku.Append("   ");
             for (int iSuji = 0; iSuji < Option_Application.Optionlist.BanYokoHaba; iSuji++)
@@ -206,7 +206,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// ログに向いた、シンプルな表示☆
         /// </summary>
         /// <returns></returns>
-        public static void Setumei_Lines_Kyokumen(Kyokumen ky, Mojiretu syuturyoku)
+        public static void Setumei_Lines_Kyokumen(Kyokumen ky, StringBuilder syuturyoku)
         {
             // 1行目
             {
@@ -332,7 +332,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// コンソールでゲームするのに向いた表示☆
         /// </summary>
         /// <returns></returns>
-        public static void Setumei_NingenGameYo(Kyokumen ky, Mojiretu syuturyoku)
+        public static void Setumei_NingenGameYo(Kyokumen ky, StringBuilder syuturyoku)
         {
             // 1行目
             {
@@ -463,7 +463,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 syuturyoku.AppendLine();
             }
         }
-        public static void AppendLine_Data_Kyokumen(Kyokumen ky, int dan, Mojiretu syuturyoku)
+        public static void AppendLine_Data_Kyokumen(Kyokumen ky, int dan, StringBuilder syuturyoku)
         {
             syuturyoku.Append("│");
             for (int iMs_offset = 0; iMs_offset < Option_Application.Optionlist.BanYokoHaba; iMs_offset++)
@@ -476,7 +476,7 @@ namespace kifuwarabe_wcsc27.abstracts
             syuturyoku.AppendLine();
         }
 
-        public static void AppendLine_Data_Countboard(Shogiban sg, int ms_hidariHasi, Mojiretu syuturyoku)
+        public static void AppendLine_Data_Countboard(Shogiban sg, int ms_hidariHasi, StringBuilder syuturyoku)
         {
             for (int iTai = 0; iTai < Conv_Taikyokusya.Itiran.Length; iTai++)
             {
@@ -490,7 +490,7 @@ namespace kifuwarabe_wcsc27.abstracts
             }
             syuturyoku.AppendLine();
         }
-        public static void AppendLine_Data_Countboard(Taikyokusya tai, Shogiban sg, int ms_hidariHasi, Mojiretu syuturyoku)
+        public static void AppendLine_Data_Countboard(Taikyokusya tai, Shogiban sg, int ms_hidariHasi, StringBuilder syuturyoku)
         {
             for (int iKs = 0; iKs < Conv_Komasyurui.Itiran.Length; iKs++)
             {
@@ -510,7 +510,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// 駒の居場所
         /// </summary>
         /// <param name="syuturyoku"></param>
-        public static void HyojiKomanoIbasho(Shogiban shogiban, Mojiretu syuturyoku)
+        public static void HyojiKomanoIbasho(Shogiban shogiban, StringBuilder syuturyoku)
         {
             //IbasyoKomabetuBitboardItiran bb_koma, 
             //  KomaZenbuIbasyoBitboardItiran bb_komaZenbu
@@ -550,7 +550,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// 駒の利き数☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public static void HyojiKomanoKikiSu(Shogiban shogiban, Mojiretu syuturyoku)
+        public static void HyojiKomanoKikiSu(Shogiban shogiban, StringBuilder syuturyoku)
         {
             //, KikisuKomabetuCountboardItiran kikiKomabetuCB
             // KikisuZenbuCountboardItiran kikiZenbuCB
@@ -602,7 +602,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// <param name="bbItiran_kikiZenbu"></param>
         /// <param name="bbItiran_kikiKomabetu"></param>
         /// <param name="syuturyoku"></param>
-        public static void HyojiKomanoKiki(Shogiban shogiban, Mojiretu syuturyoku)
+        public static void HyojiKomanoKiki(Shogiban shogiban, StringBuilder syuturyoku)
         {
             Debug.Assert(shogiban.IsActiveBBKiki(), "");
 
@@ -637,7 +637,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// </summary>
         /// <param name="komanoUgokikata"></param>
         /// <param name="syuturyoku"></param>
-        public static void HyojiKomanoUgoki(Shogiban shogiban, int masuYososu, Mojiretu syuturyoku)
+        public static void HyojiKomanoUgoki(Shogiban shogiban, int masuYososu, StringBuilder syuturyoku)
         {
             // KomanoUgokikata komanoUgokikata
             for (int ms = 0; ms < masuYososu; ms++)
@@ -657,7 +657,7 @@ namespace kifuwarabe_wcsc27.abstracts
             }
         }
 
-        public static void HyojiKomaHairetuYososuMade(Masu ms, Koma[] kmHairetu, Mojiretu syuturyoku)
+        public static void HyojiKomaHairetuYososuMade(Masu ms, Koma[] kmHairetu, StringBuilder syuturyoku)
         {
             syuturyoku.Append($"置くか除けるかした升=[{(Masu)ms}] 関連する飛び利き駒一覧=[");
             foreach (Koma km in kmHairetu)
@@ -671,7 +671,7 @@ namespace kifuwarabe_wcsc27.abstracts
             syuturyoku.AppendLine("]");
         }
 
-        public static void Setumei_Discovered(Masu ms_removed, Kyokumen.Sindanyo kys, Mojiretu syuturyoku)
+        public static void Setumei_Discovered(Masu ms_removed, Kyokumen.Sindanyo kys, StringBuilder syuturyoku)
         {
             kys.TryInControl(ms_removed, out Koma[] kmHairetu_control);
 

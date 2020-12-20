@@ -1,4 +1,6 @@
-﻿namespace kifuwarabe_wcsc27.interfaces
+﻿using System.Text;
+
+namespace kifuwarabe_wcsc27.interfaces
 {
     /// <summary>
     /// 先後を付けない、盤上の駒だぜ☆（＾▽＾）
@@ -242,7 +244,7 @@
         /// </summary>
         /// <param name="ks"></param>
         /// <returns></returns>
-        public static void GetNingenyoMijikaiFugo(Komasyurui ks, Mojiretu syuturyoku)
+        public static void GetNingenyoMijikaiFugo(Komasyurui ks, StringBuilder syuturyoku)
         {
             syuturyoku.Append(Conv_Komasyurui.m_ningenyoMijikaiFugo_[(int)ks]);
         }
@@ -289,7 +291,7 @@
         /// </summary>
         /// <param name="ks"></param>
         /// <returns></returns>
-        public static void AppendFenTo(bool isSfen, Komasyurui ks, Mojiretu syuturyoku)
+        public static void AppendFenTo(bool isSfen, Komasyurui ks, StringBuilder syuturyoku)
         {
             if (isSfen)
             {
@@ -361,7 +363,7 @@
         /// </summary>
         /// <param name="ks"></param>
         /// <returns></returns>
-        public static void AppendFenTo(bool isSfen, MotiKomasyurui mks, Mojiretu syuturyoku)
+        public static void AppendFenTo(bool isSfen, MotiKomasyurui mks, StringBuilder syuturyoku)
         {
             if (isSfen)
             {

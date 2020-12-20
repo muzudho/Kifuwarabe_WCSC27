@@ -3,6 +3,7 @@ using kifuwarabe_wcsc27.interfaces;
 using kifuwarabe_wcsc27.machine;
 using System;
 using System.Diagnostics;
+using System.Text;
 
 namespace kifuwarabe_wcsc27.abstracts
 {
@@ -344,7 +345,7 @@ namespace kifuwarabe_wcsc27.abstracts
         }
 
         #region ビットボードを使った指し手生成
-        public static void GenerateMove02Raion(Koma km, MoveType sasiteType, int fukasa, Kyokumen ky, Masu ms_src, HiouteJoho jibunHioute, HiouteJoho aiteHioute, Bitboard idosakiBB, Mojiretu syuturyoku)
+        public static void GenerateMove02Raion(Koma km, MoveType sasiteType, int fukasa, Kyokumen ky, Masu ms_src, HiouteJoho jibunHioute, HiouteJoho aiteHioute, Bitboard idosakiBB, StringBuilder syuturyoku)
         {
             Debug.Assert(Conv_Koma.IsOk(km), "");
             Komasyurui ks = Med_Koma.KomaToKomasyurui(km);
@@ -453,7 +454,7 @@ namespace kifuwarabe_wcsc27.abstracts
         }
 
 
-        public static void GenerateMove02ZouKirinNado(Koma km, MoveType sasiteType, int fukasa, Kyokumen ky, Masu ms_src, HiouteJoho jibunHioute, HiouteJoho aiteHioute, Bitboard idosakiBB, Mojiretu syuturyoku)
+        public static void GenerateMove02ZouKirinNado(Koma km, MoveType sasiteType, int fukasa, Kyokumen ky, Masu ms_src, HiouteJoho jibunHioute, HiouteJoho aiteHioute, Bitboard idosakiBB, StringBuilder syuturyoku)
         {
             Debug.Assert(Conv_Koma.IsOk(km), "");
             Komasyurui ks = Med_Koma.KomaToKomasyurui(km);
@@ -607,7 +608,7 @@ namespace kifuwarabe_wcsc27.abstracts
         }
 
 
-        public static void GenerateMove02HiyokoNado(Koma km, MoveType sasiteType, int fukasa, Kyokumen ky, Masu ms_src, HiouteJoho jibunHioute, HiouteJoho aiteHioute, Bitboard bb_idosakiCopy, Mojiretu syuturyoku)
+        public static void GenerateMove02HiyokoNado(Koma km, MoveType sasiteType, int fukasa, Kyokumen ky, Masu ms_src, HiouteJoho jibunHioute, HiouteJoho aiteHioute, Bitboard bb_idosakiCopy, StringBuilder syuturyoku)
         {
             Debug.Assert(Conv_Koma.IsOk(km), "");
             Komasyurui ks = Med_Koma.KomaToKomasyurui(km);
@@ -800,7 +801,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     break;
             }
         }
-        public static void GenerateMove02NiwatoriNado(Koma km, MoveType sasiteType, int fukasa, Kyokumen ky, Masu ms_src, HiouteJoho jibunHioute, HiouteJoho aiteHioute, Bitboard bb_idosakiCopy, Mojiretu syuturyoku)
+        public static void GenerateMove02NiwatoriNado(Koma km, MoveType sasiteType, int fukasa, Kyokumen ky, Masu ms_src, HiouteJoho jibunHioute, HiouteJoho aiteHioute, Bitboard bb_idosakiCopy, StringBuilder syuturyoku)
         {
             Debug.Assert(Conv_Koma.IsOk(km), "");
             Komasyurui ks = Med_Koma.KomaToKomasyurui(km);
@@ -976,7 +977,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// <param name="ky"></param>
         /// <param name="tai"></param>
         /// <param name="hioute"></param>
-        public static void GenerateMoveMotiKoma(MoveType sasiteType, int fukasa, Kyokumen ky, Taikyokusya tai, HiouteJoho hioute, HiouteJoho aiteHioute, Bitboard utuBB_base, Mojiretu syuturyoku)
+        public static void GenerateMoveMotiKoma(MoveType sasiteType, int fukasa, Kyokumen ky, Taikyokusya tai, HiouteJoho hioute, HiouteJoho aiteHioute, Bitboard utuBB_base, StringBuilder syuturyoku)
         {
             Bitboard utuBB_copy = new Bitboard();
             Masu ms_ido;
@@ -1320,7 +1321,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// <param name="fukasa">配列の添え字に使っているぜ☆</param>
         /// <param name="ky"></param>
         /// <param name="flag"></param>
-        public static void GenerateMove01(int fukasa, Kyokumen ky, MoveType flag, bool sasitelistMerge, Mojiretu syuturyoku)
+        public static void GenerateMove01(int fukasa, Kyokumen ky, MoveType flag, bool sasitelistMerge, StringBuilder syuturyoku)
         {
             #region 前準備
             Debug.Assert(0 <= fukasa && fukasa < AbstractUtilMoveGen.MoveList.Length, "");

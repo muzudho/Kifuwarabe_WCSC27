@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
+    using System.Text;
     using Grayscale.Kifuwarakei.Entities;
     using kifuwarabe_wcsc27.abstracts;
     using kifuwarabe_wcsc27.facade;
@@ -36,7 +37,7 @@
             }
         }
 
-        public void UsiOk(string engineName, string engineAuthor, Mojiretu syuturyoku)
+        public void UsiOk(string engineName, string engineAuthor, StringBuilder syuturyoku)
         {
 #if UNITY
 #else
@@ -50,7 +51,7 @@ usiok");
 #endif
         }
 
-        public void ReadyOk(Mojiretu syuturyoku)
+        public void ReadyOk(StringBuilder syuturyoku)
         {
 #if UNITY
 #else
@@ -79,7 +80,7 @@ usiok");
 
         }
 
-        public void Go(bool isSfen, CommandMode mode, Kyokumen ky, Mojiretu syuturyoku)
+        public void Go(bool isSfen, CommandMode mode, Kyokumen ky, StringBuilder syuturyoku)
         {
 #if DEBUG
             Util_Information.Setumei_NingenGameYo(ky, syuturyoku);
@@ -118,7 +119,7 @@ usiok");
 #endif
         }
 
-        public void Gameover(string commandline, Kyokumen ky, Mojiretu syuturyoku)
+        public void Gameover(string commandline, Kyokumen ky, StringBuilder syuturyoku)
         {
             // うしろに続く文字は☆（＾▽＾）
             int caret = 0;
@@ -143,7 +144,7 @@ usiok");
             }
         }
 
-        public void Do(bool isSfen, string commandline, Kyokumen ky, CommandMode commandMode, Mojiretu syuturyoku)
+        public void Do(bool isSfen, string commandline, Kyokumen ky, CommandMode commandMode, StringBuilder syuturyoku)
         {
             // うしろに続く文字は☆（＾▽＾）
             int caret = 0;
@@ -173,14 +174,14 @@ usiok");
         /// 局面ハッシュを再計算し、画面に表示するぜ☆（＾～＾）
         /// </summary>
         /// <param name="syuturyoku"></param>
-        public void Hash(Kyokumen ky, Mojiretu syuturyoku)
+        public void Hash(Kyokumen ky, StringBuilder syuturyoku)
         {
             ulong saikeisanMae = ky.KyokumenHash.Value;//現行（古いの）
             ky.KyokumenHash.Tukurinaosi(ky);//再計算
             syuturyoku.AppendLine($"Kyokumen Hash 再計算前=[{saikeisanMae}] 再計算後-=[{ ky.KyokumenHash.Value}]");
         }
 
-        public void Hirate(bool isSfen, Kyokumen ky, Mojiretu syuturyoku)
+        public void Hirate(bool isSfen, Kyokumen ky, StringBuilder syuturyoku)
         {
             if (GameMode.Kansosen == Util_Application.GameMode)
             {
@@ -195,7 +196,7 @@ usiok");
 #endif
         }
 
-        public void Honyaku(string commandline, Kyokumen ky, Mojiretu syuturyoku)
+        public void Honyaku(string commandline, Kyokumen ky, StringBuilder syuturyoku)
         {
             // うしろに続く文字は☆（＾▽＾）
             int caret = 0;
@@ -217,7 +218,7 @@ usiok");
                     //kifu2.AddMoves(isSfen, m.Groups[5].Value, this.Sindan);
                     //kifu2.GoToFinish(isSfen, this, syuturyoku);
 
-                    Mojiretu sfen = new MojiretuImpl();
+                    StringBuilder sfen = new StringBuilder();
                     ky2.AppendFenTo(true, sfen);
                     sfen.AppendLine();
                     Util_Machine.Flush(sfen);
@@ -234,7 +235,7 @@ usiok");
                     int caret2 = 0;
                     ky2.ParsePositionvalue(true, positionvalue, ref caret2, false, false, out string moves, syuturyoku);
 
-                    Mojiretu sfen = new MojiretuImpl();
+                    StringBuilder sfen = new StringBuilder();
                     ky2.AppendFenTo(false, sfen);// 局面は、棋譜を持っていない
 
                     if ("" != moves)
@@ -252,7 +253,7 @@ usiok");
             }
         }
 
-        public void Hyoka(string commandline, Kyokumen ky, Mojiretu syuturyoku)
+        public void Hyoka(string commandline, Kyokumen ky, StringBuilder syuturyoku)
         {
             if (commandline == "hyoka")
             {
@@ -287,12 +288,12 @@ usiok");
             }
         }
 
-        public void Jam(bool isSfen, Kyokumen ky, Mojiretu syuturyoku)
+        public void Jam(bool isSfen, Kyokumen ky, StringBuilder syuturyoku)
         {
             Util_Application.Jam(isSfen, ky, syuturyoku);
         }
 
-        public void Jokyo(string commandline, Kyokumen ky, Mojiretu syuturyoku)
+        public void Jokyo(string commandline, Kyokumen ky, StringBuilder syuturyoku)
         {
             if (commandline == "jokyo")
             {
@@ -307,7 +308,7 @@ usiok");
             }
         }
 
-        public void Joseki(bool isSfen, string commandline, Mojiretu syuturyoku)
+        public void Joseki(bool isSfen, string commandline, StringBuilder syuturyoku)
         {
             if (commandline == "joseki")
             {
@@ -430,7 +431,7 @@ usiok");
             }
         }
 
-        public void Kansosen(bool isSfen, string commandline, Kyokumen ky, Mojiretu syuturyoku)
+        public void Kansosen(bool isSfen, string commandline, Kyokumen ky, StringBuilder syuturyoku)
         {
             if (commandline == "kansosen")
             {
@@ -462,7 +463,7 @@ usiok");
             }
         }
 
-        public void Kifu(bool isSfen, string commandline, Kyokumen ky, Mojiretu syuturyoku)
+        public void Kifu(bool isSfen, string commandline, Kyokumen ky, StringBuilder syuturyoku)
         {
             if (commandline == "kifu")
             {
@@ -493,7 +494,7 @@ usiok");
         /// 駒の利きの数
         /// </summary>
         /// <param name="commandline"></param>
-        public void KikiKazu(string commandline, Kyokumen ky, Mojiretu syuturyoku)
+        public void KikiKazu(string commandline, Kyokumen ky, StringBuilder syuturyoku)
         {
             if (commandline == "kikikazu")
             {
@@ -508,7 +509,7 @@ usiok");
         /// 駒の利き全集
         /// </summary>
         /// <param name="commandline"></param>
-        public void Kiki(bool isSfen, string commandline, Kyokumen ky, Mojiretu syuturyoku)
+        public void Kiki(bool isSfen, string commandline, Kyokumen ky, StringBuilder syuturyoku)
         {
             if (commandline == "kiki")
             {
@@ -593,7 +594,7 @@ usiok");
             }
         }
 
-        public void Koma_cmd(bool isSfen, string commandline, Kyokumen ky, Mojiretu syuturyoku)
+        public void Koma_cmd(bool isSfen, string commandline, Kyokumen ky, StringBuilder syuturyoku)
         {
             if (commandline == "koma")
             {
@@ -624,7 +625,7 @@ usiok");
             }
         }
 
-        public void Ky(bool isSfen, string commandline, Kyokumen ky, Mojiretu syuturyoku)
+        public void Ky(bool isSfen, string commandline, Kyokumen ky, StringBuilder syuturyoku)
         {
             if (commandline == "ky:")
             {
@@ -657,7 +658,7 @@ usiok");
                 {
                     string msg = "パースに失敗だぜ☆（＾～＾）！ #河馬";
                     syuturyoku.AppendLine(msg);
-                    syuturyoku.Append(syuturyoku.ToContents());
+                    syuturyoku.Append(syuturyoku.ToString());
                     Util_Machine.Flush(syuturyoku);
                     throw new Exception(msg);
                 }
@@ -769,7 +770,7 @@ usiok");
             }
         }
 
-        public void See(bool isSfen, string commandline, Kyokumen ky, Mojiretu syuturyoku)
+        public void See(bool isSfen, string commandline, Kyokumen ky, StringBuilder syuturyoku)
         {
             // うしろに続く文字は☆（＾▽＾）
             int caret_1 = 0;
@@ -871,7 +872,7 @@ usiok");
             }
         }
 
-        public void Man(Mojiretu syuturyoku)
+        public void Man(StringBuilder syuturyoku)
         {
             string kigo = "";//記号
 #if UNITY
@@ -1002,7 +1003,7 @@ usiok");
             Util_Machine.Flush(syuturyoku);
         }
 
-        public void Masu_cmd(string commandline, Mojiretu syuturyoku)
+        public void Masu_cmd(string commandline, StringBuilder syuturyoku)
         {
             // うしろに続く文字は☆（＾▽＾）
             int caret_1 = 0;
@@ -1021,7 +1022,7 @@ usiok");
             }
         }
 
-        public void Nikoma(bool isSfen, string commandline, Kyokumen ky, Mojiretu syuturyoku)
+        public void Nikoma(bool isSfen, string commandline, Kyokumen ky, StringBuilder syuturyoku)
         {
             if (commandline == "nikoma")
             {
@@ -1121,15 +1122,11 @@ usiok");
                     {
                         int koumoku2 = hairetu.Hairetu[i];
                         double hyokati1 = Util_NikomaKankei.NikomaKankeiHyokatiHyo.Get(koumoku1, koumoku2);
-                        syuturyoku.Append("[");
-                        syuturyoku.Append(Conv_NikomaKankei.AllNames[koumoku2]);
-                        syuturyoku.Append("] ");
-                        syuturyoku.AppendLine(hyokati1);
+                        syuturyoku.AppendLine($"[{Conv_NikomaKankei.AllNames[koumoku2]}] {hyokati1}");
                         hyoka += hyokati1;
                     }
                     syuturyoku.AppendLine("└────────────────────┘");
-                    syuturyoku.Append("hyoka = ");
-                    syuturyoku.AppendLine(hyoka);
+                    syuturyoku.AppendLine($"hyoka = {hyoka}");
                 }
             }
             #endregion
@@ -1147,25 +1144,21 @@ usiok");
 
                 NikomaHyokati saikeisan = new NikomaHyokati();
                 saikeisan.KeisanSinaosi(ky);
-                syuturyoku.Append("nikoma hyokati current=");
-                syuturyoku.Append((int)current);
-
-                syuturyoku.Append(" remake=");
-                syuturyoku.AppendLine((int)saikeisan.Hyokati);
+                syuturyoku.AppendLine($"nikoma hyokati current={(int)current} remake={(int)saikeisan.Hyokati}");
 
                 if (2 < Math.Abs(current - saikeisan.Hyokati))
                 {
                     syuturyoku.Append(" 評価値がずれているぜ☆！");
-                    //syuturyoku.AppendLine(syuturyoku.ToContents());
+                    //syuturyoku.AppendLine(syuturyoku.ToString());
                     //Util_Machine.Flush();
-                    //throw new Exception(syuturyoku.ToContents());
+                    //throw new Exception(syuturyoku.ToString());
                 }
             }
             #endregion
             #region nikoma miru
             else if (caret_1 == commandline.IndexOf("miru", caret_1))
             {
-                Util_NikomaKankei.ToContents(syuturyoku);
+                Util_NikomaKankei.ToString(syuturyoku);
             }
             #endregion
             #region nikoma motikoma
@@ -1198,15 +1191,11 @@ usiok");
                     {
                         int koumoku2 = hairetu.Hairetu[i];
                         double hyokati1 = Util_NikomaKankei.NikomaKankeiHyokatiHyo.Get(koumoku1, koumoku2);
-                        syuturyoku.Append("[");
-                        syuturyoku.Append(Conv_NikomaKankei.AllNames[koumoku2]);
-                        syuturyoku.Append("] ");
-                        syuturyoku.AppendLine(hyokati1);
+                        syuturyoku.Append($"[{Conv_NikomaKankei.AllNames[koumoku2]}] {hyokati1}");
                         hyoka += hyokati1;
                     }
                     syuturyoku.AppendLine("└────────────────────┘");
-                    syuturyoku.Append("hyoka = ");
-                    syuturyoku.AppendLine(hyoka);
+                    syuturyoku.AppendLine($"hyoka = {hyoka}");
                 }
             }
             #endregion
@@ -1225,8 +1214,7 @@ usiok");
             #region nikoma gokei
             else if (caret_1 == commandline.IndexOf("gokei", caret_1))
             {
-                syuturyoku.Append("gokei = ");
-                syuturyoku.AppendLine(Util_NikomaKankei.ScanGokei());
+                syuturyoku.AppendLine($"gokei = {Util_NikomaKankei.ScanGokei()}");
             }
             #endregion
             #region nikoma yomu
@@ -1237,7 +1225,7 @@ usiok");
             #endregion
         }
 
-        public void Result(Kyokumen ky, Mojiretu syuturyoku, CommandMode commandMode)
+        public void Result(Kyokumen ky, StringBuilder syuturyoku, CommandMode commandMode)
         {
             switch (commandMode)
             {
@@ -1311,13 +1299,13 @@ usiok");
             }
         }
 
-        public void Rnd(Kyokumen ky, Mojiretu syuturyoku)
+        public void Rnd(Kyokumen ky, StringBuilder syuturyoku)
         {
             Util_Application.Rnd(ky, syuturyoku);
             Util_Machine.Flush(syuturyoku);
         }
 
-        public void MoveCmd(bool isSfen, string commandline, Kyokumen ky, Mojiretu syuturyoku)
+        public void MoveCmd(bool isSfen, string commandline, Kyokumen ky, StringBuilder syuturyoku)
         {
             if (commandline == "move")
             {
@@ -1724,7 +1712,7 @@ usiok");
             }
         }
 
-        public void Seiseki(bool isSfen, string commandline, Mojiretu syuturyoku)
+        public void Seiseki(bool isSfen, string commandline, StringBuilder syuturyoku)
         {
             if (commandline == "seiseki")
             {
@@ -1807,7 +1795,7 @@ usiok");
             }
         }
 
-        public void Set(string commandline, Kyokumen ky, Mojiretu syuturyoku)
+        public void Set(string commandline, Kyokumen ky, StringBuilder syuturyoku)
         {
             if (commandline == "set")
             {
@@ -1853,7 +1841,7 @@ usiok");
             Util_Application.Set(commandline, ky, syuturyoku);
         }
 
-        public void Taikyokusya_cmd(string commandline, Kyokumen ky, Mojiretu syuturyoku)
+        public void Taikyokusya_cmd(string commandline, Kyokumen ky, StringBuilder syuturyoku)
         {
             if (commandline == "taikyokusya")
             {
@@ -1888,7 +1876,7 @@ usiok");
             }
         }
 
-        public void Test(bool isSfen, string commandline, Kyokumen ky, Mojiretu syuturyoku)
+        public void Test(bool isSfen, string commandline, Kyokumen ky, StringBuilder syuturyoku)
         {
             if (commandline == "test")
             {
@@ -1953,7 +1941,7 @@ usiok");
                 {
                     x.LeftShift(1);
                     x.GetNTZ(out ntz);
-                    syuturyoku.AppendLine($"({i})                         NTZ =[{ntz}] Contents=[{x.ToContents()}]");
+                    syuturyoku.AppendLine($"({i})                         NTZ =[{ntz}] Contents=[{x.ToString()}]");
                 }
                 Util_Machine.Flush(syuturyoku);
                 #endregion
@@ -2644,7 +2632,7 @@ usiok");
         /// <summary>
         /// 単体テストだぜ☆（＾▽＾）
         /// </summary>
-        public void TantaiTest(IPlaying playing, bool isSfen, Kyokumen ky, Mojiretu syuturyoku)
+        public void TantaiTest(IPlaying playing, bool isSfen, Kyokumen ky, StringBuilder syuturyoku)
         {
             // （＾～＾）千日手のテストをしようぜ☆
             Util_TantaiTest.SennitiTe(playing, isSfen, ky, syuturyoku);
@@ -2653,7 +2641,7 @@ usiok");
         /// <summary>
         /// 詰将棋だぜ☆（＾▽＾）
         /// </summary>
-        public void TumeShogi(bool isSfen, string commandline, Kyokumen ky, Mojiretu syuturyoku)
+        public void TumeShogi(bool isSfen, string commandline, Kyokumen ky, StringBuilder syuturyoku)
         {
             // "tu" に統一するぜ☆（＾▽＾）
             commandline = commandline.Replace("tumeshogi", "tu");
@@ -2680,7 +2668,7 @@ usiok");
             Util_TumeShogi.TumeShogi(isSfen, bango, ky, syuturyoku);
         }
 
-        public void Undo(string commandline, Kyokumen ky, Mojiretu syuturyoku)
+        public void Undo(string commandline, Kyokumen ky, StringBuilder syuturyoku)
         {
             Util_Application.Undo(commandline, ky, syuturyoku);
 #if UNITY

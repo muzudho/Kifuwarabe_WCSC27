@@ -1,4 +1,5 @@
-﻿using Grayscale.Kifuwarakei.Entities;
+﻿using System.Text;
+using Grayscale.Kifuwarakei.Entities;
 using kifuwarabe_wcsc27.facade;
 using kifuwarabe_wcsc27.implements;
 using kifuwarabe_wcsc27.interfaces;
@@ -15,12 +16,12 @@ namespace kifuwarabe_wcsc27.abstracts
         /// <summary>
         /// 千日手のテストだぜ☆（＾▽＾）
         /// </summary>
-        public static void SennitiTe(IPlaying playing, bool isSfen, Kyokumen ky, Mojiretu syuturyoku)
+        public static void SennitiTe(IPlaying playing, bool isSfen, Kyokumen ky, StringBuilder syuturyoku)
         {
             Util_Machine.Flush(syuturyoku);// 溜まっているログがあれば、吐き出させておくぜ☆（＾～＾）
 
             CommandMode mode = CommandMode.NigenYoConsoleKaihatu;
-            Mojiretu sippaiZenbu = new MojiretuImpl();
+            StringBuilder sippaiZenbu = new StringBuilder();
             bool seikou = true;//成功☆
 
             // 準備
@@ -41,7 +42,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 #region （０１） 対局者１が千日手を認識するかのテストだぜ☆
                 //if(false)
                 {
-                    Mojiretu mojiretu1 = new MojiretuImpl();
+                    StringBuilder mojiretu1 = new StringBuilder();
                     mojiretu1.AppendLine("# （０１） 対局者１が千日手を認識するかのテストだぜ☆");
                     int fail = 0;
                     ky.DoHirate(isSfen, syuturyoku);
@@ -66,7 +67,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     {
                         if (seikou)
                         {
-                            sippaiZenbu.Append(mojiretu1.ToContents());
+                            sippaiZenbu.Append(mojiretu1.ToString());
                         }
                         seikou = false;
                         sippaiZenbu.AppendLine($"# 失敗（０１）：　対局者１に、千日手が見えなかったぜ☆（／＿＼） fail=[{fail}] count=[{count}]");
@@ -77,7 +78,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 #region （０２） 対局者２が千日手を認識するかのテストだぜ☆
                 //if (false)
                 {
-                    Mojiretu mojiretu1 = new MojiretuImpl();
+                    StringBuilder mojiretu1 = new StringBuilder();
                     mojiretu1.AppendLine("# （０２） 対局者２が千日手を認識するかのテストだぜ☆");
                     int fail = 0;
                     ky.SetBanjo(isSfen,
@@ -111,7 +112,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     {
                         if (seikou)
                         {
-                            sippaiZenbu.Append(mojiretu1.ToContents());
+                            sippaiZenbu.Append(mojiretu1.ToString());
                         }
                         seikou = false;
                         sippaiZenbu.AppendLine($"# 失敗（０２）：　対局者２に、千日手が見えなかったぜ☆（／＿＼） fail=[{fail}] count=[{count}]");
@@ -122,7 +123,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 #region （０３）対局者１が、勝っているときは　千日手を回避するかのテストだぜ☆
                 //if (false)
                 {
-                    Mojiretu mojiretu1 = new MojiretuImpl();
+                    StringBuilder mojiretu1 = new StringBuilder();
                     mojiretu1.AppendLine("# （０３）対局者１が、勝っているときは　千日手を回避するかのテストだぜ☆");
                     bool fail = false;
                     ky.SetBanjo(isSfen,
@@ -158,7 +159,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     {
                         if (seikou)
                         {
-                            sippaiZenbu.Append(mojiretu1.ToContents());
+                            sippaiZenbu.Append(mojiretu1.ToString());
                         }
                         seikou = false;
                         sippaiZenbu.AppendLine("# 失敗（０３）：　対局者１が、勝っているときに　千日手を回避しなかったぜ☆（／＿＼）");
@@ -169,7 +170,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 #region （０４）対局者２が、勝っているときは　千日手を回避するかのテストだぜ☆
                 //if (false)
                 {
-                    Mojiretu mojiretu1 = new MojiretuImpl();
+                    StringBuilder mojiretu1 = new StringBuilder();
                     mojiretu1.AppendLine("# （０４）対局者２が、勝っているときは　千日手を回避するかのテストだぜ☆");
                     bool fail = false;
                     ky.SetBanjo(isSfen,
@@ -209,7 +210,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     {
                         if (seikou)
                         {
-                            sippaiZenbu.Append(mojiretu1.ToContents());
+                            sippaiZenbu.Append(mojiretu1.ToString());
                         }
                         seikou = false;
                         sippaiZenbu.AppendLine("# 失敗（０４）：　対局者２が、勝っているときに　千日手を回避しなかったぜ☆（／＿＼）");
@@ -220,7 +221,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 #region （０５）対局者１が、勝っているときは　千日手の権利を渡さないテストだぜ☆
                 //if (false)
                 {
-                    Mojiretu mojiretu1 = new MojiretuImpl();
+                    StringBuilder mojiretu1 = new StringBuilder();
                     mojiretu1.AppendLine("# （０５）対局者１が、勝っているときは　千日手の権利を渡さないテストだぜ☆");
                     bool fail = false;
                     ky.SetBanjo(isSfen,
@@ -253,7 +254,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     {
                         if (seikou)
                         {
-                            sippaiZenbu.Append(mojiretu1.ToContents());
+                            sippaiZenbu.Append(mojiretu1.ToString());
                         }
                         seikou = false;
                         sippaiZenbu.AppendLine("# 失敗（０５）：　対局者１が、勝っているときに　千日手の権利を渡さないことをしなかったんだぜ☆（／＿＼）");
@@ -264,7 +265,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 #region （０６）対局者２が、勝っているときは　千日手の権利を渡さないテストだぜ☆
                 //if (false)
                 {
-                    Mojiretu mojiretu1 = new MojiretuImpl();
+                    StringBuilder mojiretu1 = new StringBuilder();
                     mojiretu1.AppendLine("# （０６）対局者２が、勝っているときは　千日手の権利を渡さないテストだぜ☆");
                     bool fail = false;
                     ky.SetBanjo(isSfen,
@@ -299,7 +300,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     {
                         if (seikou)
                         {
-                            sippaiZenbu.Append(mojiretu1.ToContents());
+                            sippaiZenbu.Append(mojiretu1.ToString());
                         }
                         seikou = false;
                         sippaiZenbu.AppendLine("# 失敗（０６）：　対局者２が、勝っているときに　千日手の権利を渡さないことをしなかったんだぜ☆（／＿＼）");
@@ -310,7 +311,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 #region （０７）対局者１が、負けているときは　千日手を受け入れるテストだぜ☆
                 //if (false)
                 {
-                    Mojiretu mojiretu1 = new MojiretuImpl();
+                    StringBuilder mojiretu1 = new StringBuilder();
                     mojiretu1.AppendLine("# （０７）対局者１が、負けているときは　千日手を受け入れるテストだぜ☆");
                     bool fail = false;
                     ky.SetBanjo(isSfen,
@@ -346,7 +347,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     {
                         if (seikou)
                         {
-                            sippaiZenbu.Append(mojiretu1.ToContents());
+                            sippaiZenbu.Append(mojiretu1.ToString());
                         }
                         seikou = false;
                         sippaiZenbu.AppendLine("# 失敗（０７）：　対局者１が、負けているときに　千日手を受け入れなかったんだぜ☆（／＿＼）");
@@ -357,7 +358,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 #region （０８）対局者２が、負けているときは　千日手を受け入れるテストだぜ☆
                 //if (false)
                 {
-                    Mojiretu mojiretu1 = new MojiretuImpl();
+                    StringBuilder mojiretu1 = new StringBuilder();
                     mojiretu1.AppendLine("# （０８）対局者２が、負けているときは　千日手を受け入れるテストだぜ☆");
                     bool fail = false;
                     ky.SetBanjo(isSfen,
@@ -399,7 +400,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     {
                         if (seikou)
                         {
-                            sippaiZenbu.Append(mojiretu1.ToContents());
+                            sippaiZenbu.Append(mojiretu1.ToString());
                         }
                         seikou = false;
                         sippaiZenbu.AppendLine("# 失敗（０８）：　対局者２が、負けているときに　千日手を受け入れなかったんだぜ☆（／＿＼）");
@@ -410,7 +411,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 #region （０９）対局者２が、負けているときは　千日手の権利を相手に渡すテストだぜ☆
                 //if (false)
                 {
-                    Mojiretu mojiretu1 = new MojiretuImpl();
+                    StringBuilder mojiretu1 = new StringBuilder();
                     mojiretu1.AppendLine("# （０９）対局者２が、負けているときは　千日手の権利を相手に渡すテストだぜ☆");
                     bool fail = false;
                     ky.SetBanjo(isSfen,
@@ -455,7 +456,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     {
                         if (seikou)
                         {
-                            sippaiZenbu.Append(mojiretu1.ToContents());
+                            sippaiZenbu.Append(mojiretu1.ToString());
                         }
                         seikou = false;
                         sippaiZenbu.AppendLine("# 失敗（０９）：　対局者２が、負けているときに　千日手の権利を相手に渡さなかったんだぜ☆（／＿＼）");
@@ -466,7 +467,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 #region （１０）対局者１が、負けているときは　千日手の権利を相手に渡すテストだぜ☆
                 //if (false)
                 {
-                    Mojiretu mojiretu1 = new MojiretuImpl();
+                    StringBuilder mojiretu1 = new StringBuilder();
                     mojiretu1.AppendLine("# （１０）対局者１が、負けているときは　千日手の権利を相手に渡すテストだぜ☆");
                     bool fail = false;
                     ky.SetBanjo(isSfen,
@@ -514,7 +515,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     {
                         if (seikou)
                         {
-                            sippaiZenbu.Append(mojiretu1.ToContents());
+                            sippaiZenbu.Append(mojiretu1.ToString());
                         }
                         seikou = false;
                         sippaiZenbu.AppendLine("# 失敗（１０）：　対局者１が、負けているときに、千日手の権利を相手に渡さなかったんだぜ☆（／＿＼）");
@@ -540,7 +541,7 @@ namespace kifuwarabe_wcsc27.abstracts
             }
             else
             {
-                syuturyoku.Append(sippaiZenbu.ToContents()); // 失敗した過程のログ☆
+                syuturyoku.Append(sippaiZenbu.ToString()); // 失敗した過程のログ☆
             }
             Util_Machine.Flush(syuturyoku);
         }
