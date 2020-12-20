@@ -536,8 +536,8 @@ namespace kifuwarabe_wcsc27.implements
             /// <returns></returns>
             public Bitboard GetBb(Koma km, Masu ms)
             {
-                Debug.Assert(-1 < (int)km && (int)km < ValueKmMs.Length, "ValueKmMs.Length=[" + ValueKmMs.Length + "] km=[" + (int)km + "]");
-                Debug.Assert(-1 < (int)ms && (int)ms < ValueKmMs[(int)km].Length, "ValueKmMs[(int)km]=[" + ValueKmMs[(int)km] + "] ms=[" + (int)ms + "]");
+                Debug.Assert(-1 < (int)km && (int)km < ValueKmMs.Length, $"ValueKmMs.Length=[{ValueKmMs.Length}] km=[{(int)km}]");
+                Debug.Assert(-1 < (int)ms && (int)ms < ValueKmMs[(int)km].Length, $"ValueKmMs[(int)km]=[{ValueKmMs[(int)km]}] ms=[{(int)ms}]");
                 return ValueKmMs[(int)km][(int)ms];
             }
 
@@ -1573,8 +1573,8 @@ namespace kifuwarabe_wcsc27.implements
             if (!bb_oekaki.IsEmpty())
             {
 #if DEBUG
-                syuturyoku.AppendLine("ms_t1=[" + ms_t1 + "]");
-                syuturyoku.AppendLine("ms_mirainiKomagaAru=["+ ms_mirainiKomagaAru + "]");
+                syuturyoku.AppendLine($"ms_t1=[{ms_t1}]");
+                syuturyoku.AppendLine($"ms_mirainiKomagaAru=[{ms_mirainiKomagaAru}]");
                 Util_Information.Setumei_NingenGameYo(kys.GetHontai(), syuturyoku);
                 Util_Information.Setumei_1Bitboard("増やしたい利き(0) 飛び利き", bb_oekaki, syuturyoku);
                 Util_Machine.Flush(syuturyoku);
@@ -1596,7 +1596,7 @@ namespace kifuwarabe_wcsc27.implements
             // 隣接利きを調査☆（＾～＾）
             bb_oekaki.Standup(kys.CloneKomanoUgoki(km_t1, ms_t1));
 //#if DEBUG
-//            syuturyoku.AppendLine("増やしたい利き(2) 隣接利き km=[" + km_t1 + "] ms_ibasho=[" + ms_t1 + "]");
+//            syuturyoku.AppendLine($"増やしたい利き(2) 隣接利き km=[{km_t1}] ms_ibasho=[{ms_t1}]");
 //            Util_Information.Setumei_1Bitboard("増やしたい利き(2)", bb_oekaki, syuturyoku);
 //            Util_Machine.Flush(syuturyoku);
 //#endif
@@ -1632,8 +1632,8 @@ namespace kifuwarabe_wcsc27.implements
             // ★↑作るデータが悪い☆（＾～＾）
 
 #if DEBUG
-            syuturyoku.AppendLine("ms_t1=[" + ms_t0 + "]");
-            syuturyoku.AppendLine("ms_mirainiKomagaAru=[" + ms_mirainiKomagaAru + "]");
+            syuturyoku.AppendLine($"ms_t1=[{ms_t0}]");
+            syuturyoku.AppendLine($"ms_mirainiKomagaAru=[{ms_mirainiKomagaAru}]");
             Util_Information.Setumei_1Bitboard("増やしたい利き(0) 飛び利き", bb_oekaki, syuturyoku);
             Util_Machine.Flush(syuturyoku);
 #endif

@@ -68,13 +68,14 @@ namespace kifuwarabe_wcsc27.implements
             if (Conv_Hyokati.InHyokati(EdaBest))
             {
                 Debug.Assert((int)EdaBest == (int)Komawari + (int)Nikoma + (int)Okimari,
-                    "評価値の整合性エラー☆\n" +
-                    "hyokatiUtiwake.EdaBest =[" + EdaBest + "]\n" +
-                    "hyokatiUtiwake.Komawari=[" + Komawari + "]\n" +
-                    "hyokatiUtiwake.Nikoma  =[" + Nikoma + "]\n" +
-                    "hyokatiUtiwake.Okimari =[" + Okimari + "]\n" +
-                    "riyu                   =[" + Riyu + "]\n" +
-                    "riyuHosoku             =[" + RiyuHosoku + "]\n"
+                    $@"評価値の整合性エラー☆
+hyokatiUtiwake.EdaBest =[{EdaBest}]
+hyokatiUtiwake.Komawari=[{Komawari}]
+hyokatiUtiwake.Nikoma  =[{Nikoma}]
+hyokatiUtiwake.Okimari =[{Okimari}]
+riyu                   =[{Riyu}]
+riyuHosoku             =[{RiyuHosoku}]
+"
                     );
             }
         }

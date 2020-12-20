@@ -30,16 +30,16 @@
 #if DEBUG
 // いろいろテスト☆
 System.Console.WriteLine("# デバッグ");
-System.Console.WriteLine("# (1L<<31)=[" + (1L << 31) + "]");
-System.Console.WriteLine("# (1L<<32)=[" + (1L << 32) + "]");
-System.Console.WriteLine("# (1L<<33)=[" + (1L << 33) + "]");
-System.Console.WriteLine("# (1L<<62)=[" + (1L << 62) + "]");
-System.Console.WriteLine("# (1L<<63)=[" + (1L << 63) + "]");
-System.Console.WriteLine("# (1L<<64)=[" + (1L << 64) + "]");
-System.Console.WriteLine("# (1L<<65)=[" + (1L << 65) + "]");
-System.Console.WriteLine("# (long.MinValue << 1)=[" + (long.MinValue << 1) + "]");
-System.Console.WriteLine("# (~0UL)=[" + (~0UL) + "]");
-System.Console.WriteLine("# (~0UL << 1)=[" + (~0UL << 1) + "]");
+System.Console.WriteLine($"# (1L<<31)=[{(1L << 31)}]");
+System.Console.WriteLine($"# (1L<<32)=[{(1L << 32)}]");
+System.Console.WriteLine($"# (1L<<33)=[{(1L << 33)}]");
+System.Console.WriteLine($"# (1L<<62)=[{(1L << 62)}]");
+System.Console.WriteLine($"# (1L<<63)=[{(1L << 63)}]");
+System.Console.WriteLine($"# (1L<<64)=[{(1L << 64)}]");
+System.Console.WriteLine($"# (1L<<65)=[{(1L << 65)}]");
+System.Console.WriteLine($"# (long.MinValue << 1)=[{(long.MinValue << 1)}]");
+System.Console.WriteLine($"# (~0UL)=[{(~0UL)}]");
+System.Console.WriteLine($"# (~0UL << 1)=[{(~0UL << 1)}]");
 #endif
 */
 #if UNITY
@@ -366,7 +366,7 @@ System.Console.WriteLine("# (~0UL << 1)=[" + (~0UL << 1) + "]");
                         {
                             for (int iSuji = 0; iSuji < Option_Application.Optionlist.BanYokoHaba; iSuji++)
                             {
-                                Util_Information.Setumei_1Bitboard("筋" + iSuji, ky.BB_SujiArray[iSuji], syuturyoku);
+                                Util_Information.Setumei_1Bitboard($"筋{iSuji}", ky.BB_SujiArray[iSuji], syuturyoku);
                             }
                             syuturyoku.AppendLine();
                         }
@@ -374,7 +374,7 @@ System.Console.WriteLine("# (~0UL << 1)=[" + (~0UL << 1) + "]");
                         {
                             for (int iDan = 0; iDan < Option_Application.Optionlist.BanTateHaba; iDan++)
                             {
-                                Util_Information.Setumei_1Bitboard("段" + iDan, ky.BB_DanArray[iDan], syuturyoku);
+                                Util_Information.Setumei_1Bitboard($"段{iDan}", ky.BB_DanArray[iDan], syuturyoku);
                             }
                             syuturyoku.AppendLine();
                         }
@@ -451,7 +451,7 @@ System.Console.WriteLine("# (~0UL << 1)=[" + (~0UL << 1) + "]");
 
                     if (!Med_Parser.TryFenMove(Option_Application.Optionlist.USI, commandline, ref caret2, ky.Sindan, out Move ss))
                     {
-                        throw new Exception("パースエラー [" + commandline + "]");
+                        throw new Exception($"パースエラー [{commandline}]");
                     }
 
 #if UNITY

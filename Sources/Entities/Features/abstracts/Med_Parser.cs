@@ -87,7 +87,7 @@ namespace kifuwarabe_wcsc27.abstracts
             {
                 if (!int.TryParse(suji, out int iSuji))
                 {
-                    throw new Exception("パース失敗 suji=[" + suji + "]");
+                    throw new Exception($"パース失敗 suji=[{suji}]");
                 }
                 return Option_Application.Optionlist.BanYokoHaba + 1 - iSuji;
             }
@@ -112,7 +112,7 @@ namespace kifuwarabe_wcsc27.abstracts
             {
                 if (!int.TryParse(dan, out int iDan))
                 {
-                    throw new Exception("パース失敗 dan=[" + dan + "]");
+                    throw new Exception($"パース失敗 dan=[{ dan }]");
                 }
                 return iDan;
             }
@@ -175,7 +175,7 @@ namespace kifuwarabe_wcsc27.abstracts
             if (!m.Success)
             {
                 //// 「B4B3」形式ではなかった☆（＾△＾）！？　次の一手が読めない☆
-                //string msg = "指し手のパースに失敗だぜ☆（＾～＾）！ commandline=[" + commandline + "] caret=[" + caret + "] m.Groups.Count=["+ m.Groups.Count + "]";
+                //string msg = $"指し手のパースに失敗だぜ☆（＾～＾）！ commandline=[{ commandline }] caret=[{ caret }] m.Groups.Count=[{ m.Groups.Count }]";
                 //Util_Machine.AppendLine(msg);
                 //Util_Machine.Flush();
                 //throw new Exception(msg);

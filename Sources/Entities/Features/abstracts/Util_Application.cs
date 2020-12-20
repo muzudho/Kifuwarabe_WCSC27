@@ -733,7 +733,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     if (AbstractUtilMoveGen.SAIDAI_SASITE_FUKASA - 1 < Option_Application.Optionlist.SaidaiFukasa)
                     {
                         Option_Application.Optionlist.SaidaiFukasa = AbstractUtilMoveGen.SAIDAI_SASITE_FUKASA - 1;
-                        syuturyoku.AppendLine("(^q^)実装の上限の [" + (AbstractUtilMoveGen.SAIDAI_SASITE_FUKASA - 1) + "] に下げたぜ☆");
+                        syuturyoku.AppendLine($"(^q^)実装の上限の [{ (AbstractUtilMoveGen.SAIDAI_SASITE_FUKASA - 1) }] に下げたぜ☆");
                     }
                 }
             }
@@ -841,7 +841,7 @@ namespace kifuwarabe_wcsc27.abstracts
 
             if (!Med_Parser.TryFenMove(Option_Application.Optionlist.USI, commandline, ref caret, ky.Sindan, out Move ss))
             {
-                throw new Exception("パースエラー [" + commandline + "]");
+                throw new Exception($"パースエラー [{ commandline }]");
             }
             ky.UndoMove(Option_Application.Optionlist.USI, ss, syuturyoku); // このムーブには取った駒は含まれないのでは。
         }

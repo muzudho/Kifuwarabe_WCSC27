@@ -194,10 +194,10 @@ namespace kifuwarabe_wcsc27.implements
         {
             SikoJikan_KonkaiNoTansaku = SikoJikan + Option_Application.Random.Next(SikoJikanRandom);
 
-            Debug.Assert(0<Option_Application.Optionlist.SikoJikan_KonkaiNoTansaku, "思考時間が1ミリ秒も無いぜ☆（＾～＾）！\n"+
-                "SikoJikan="+ SikoJikan + "\n" +
-                "SikoJikan_KonkaiNoTansaku=" + SikoJikan_KonkaiNoTansaku + "\n" +
-                "");
+            Debug.Assert(0<Option_Application.Optionlist.SikoJikan_KonkaiNoTansaku, $@"思考時間が1ミリ秒も無いぜ☆（＾～＾）！
+SikoJikan={SikoJikan}
+SikoJikan_KonkaiNoTansaku={SikoJikan_KonkaiNoTansaku}
+");
         }
 
         /// <summary>

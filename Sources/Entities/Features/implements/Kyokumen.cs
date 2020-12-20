@@ -148,8 +148,8 @@ namespace kifuwarabe_wcsc27.implements
             }
             public Bitboard CloneKomanoUgoki(Koma km, Masu ms_ibasho)
             {
-                Debug.Assert(Conv_Koma.IsOk(km), "km=[" + (int)km + "]");
-                Debug.Assert(-1 < (int)ms_ibasho, "ms_ibasho=[" + (int)ms_ibasho + "]");
+                Debug.Assert(Conv_Koma.IsOk(km), $"km=[{ (int)km }]");
+                Debug.Assert(-1 < (int)ms_ibasho, $"ms_ibasho=[{ (int)ms_ibasho }]");
 
                 return Hontai.Shogiban.GetKomanoUgokikata(km, ms_ibasho).Clone();
             }
@@ -717,7 +717,7 @@ namespace kifuwarabe_wcsc27.implements
                 Util_ZobristHashing.Tukurinaosi(Sindan);
             }
 //#if DEBUG
-//            syuturyoku.AppendLine("Option_Application.Optionlist.BanYokoHaba=[" + Option_Application.Optionlist.BanYokoHaba + "]");
+//            syuturyoku.AppendLine($"Option_Application.Optionlist.BanYokoHaba=[{Option_Application.Optionlist.BanYokoHaba}]");
 //#endif
             Tekiyo(false, syuturyoku);
 //#if DEBUG
@@ -1029,7 +1029,7 @@ namespace kifuwarabe_wcsc27.implements
                     Util_Machine.Flush(syuturyoku);
                 }
 #endif
-                Debug.Assert(MotiKomas.HasMotiKoma(mk_t0), "持っていない駒を打つのか☆（＾～＾）！？ jibun=[" + jibun + "] mks_src=[" + mks_t0 + "] mk_utu=[" + mk_t0 + "]");
+                Debug.Assert(MotiKomas.HasMotiKoma(mk_t0), $"持っていない駒を打つのか☆（＾～＾）！？ jibun=[{jibun}] mks_src=[{mks_t0}] mk_utu=[{mk_t0}]");
             }
 
 
@@ -2201,10 +2201,10 @@ namespace kifuwarabe_wcsc27.implements
                         //}
 
                         //Mojiretu reigai1 = new MojiretuImpl();
-                        //reigai1.AppendLine("未定義の空白の数 moji=[" + moji + "]");
-                        //reigai1.AppendLine("dan   =[" + dan + "]");
-                        //reigai1.AppendLine("caret =[" + caret + "]");
-                        //reigai1.AppendLine("danMojiretu[dan-1] =[" + danMojiretu[dan - 1] + "]");
+                        //reigai1.AppendLine($"未定義の空白の数 moji=[{moji}]");
+                        //reigai1.AppendLine($"dan   =[{dan}]");
+                        //reigai1.AppendLine($"caret =[{caret}]");
+                        //reigai1.AppendLine($"danMojiretu[dan-1] =[{danMojiretu[dan - 1]}]");
 
                         //throw new Exception(reigai1.ToContents());
                     }
@@ -2222,9 +2222,9 @@ namespace kifuwarabe_wcsc27.implements
                             ruikeiKuhakuSu = 0;
                         }
 
-                        if (!Conv_Koma.TryParseFen(isSfen,(isPowerupKoma ? "+" + moji : moji.ToString()), out Koma tmp))
+                        if (!Conv_Koma.TryParseFen(isSfen,(isPowerupKoma ? $"+{moji}" : moji.ToString()), out Koma tmp))
                         {
-                            throw new Exception("未定義の駒 fen moji=[" + moji + "]");
+                            throw new Exception($"未定義の駒 fen moji=[{moji}]");
                         }
                         isPowerupKoma = false;
 
@@ -2256,20 +2256,20 @@ namespace kifuwarabe_wcsc27.implements
 #if DEBUG
                 Mojiretu reigai1 = new MojiretuImpl();
                 reigai1.AppendLine("未定義の手番☆");
-                reigai1.AppendLine("tb_Mojis=[" + tb_Mojis + "]");
-                reigai1.AppendLine("ky.Teban=[" + Teban + "]");
-                reigai1.AppendLine("BanTateHaba=[" + Option_Application.Optionlist.BanTateHaba + "]");
-                reigai1.AppendLine("danMojiretu.Length=[" + danMojiretu.Length + "]");
+                reigai1.AppendLine($"tb_Mojis=[{tb_Mojis}]");
+                reigai1.AppendLine($"ky.Teban=[{Teban}]");
+                reigai1.AppendLine($"BanTateHaba=[{Option_Application.Optionlist.BanTateHaba}]");
+                reigai1.AppendLine($"danMojiretu.Length=[{danMojiretu.Length}]");
 
                 foreach (MotiKoma mk in Conv_MotiKoma.Itiran)
                 {
-                    reigai1.AppendLine(mk + "=[" + this.MotiKomas.Get(mk) + "]");
+                    reigai1.AppendLine($"{mk}=[{this.MotiKomas.Get(mk)}]");
                 }
 
                 Util_Machine.Flush(reigai1);
                 Debug.Fail(reigai1.ToContents());
 #endif
-                throw new Exception("対局者のパースエラー tb_Mojis=["+tb_Mojis+"]");
+                throw new Exception($"対局者のパースエラー tb_Mojis=[{tb_Mojis}]");
             }
             this.Teban = tai;
 

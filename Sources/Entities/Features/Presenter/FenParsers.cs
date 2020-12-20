@@ -17,11 +17,11 @@ namespace kifuwarabe_wcsc27.abstracts
             public string Startpos { get { return "krz/1h1/1H1/ZRK"; } }
             public string MotigomaT1 { get { return "ZKHINUS"; } }
             public string MotigomaT2 { get { return "zkhinus"; } }
-            public string BanjoT1 { get { return "R" + MotigomaT1; } }
-            public string BanjoT2 { get { return "r" + MotigomaT2; } }
+            public string BanjoT1 { get { return $"R{MotigomaT1}"; } }
+            public string BanjoT2 { get { return $"r{MotigomaT2}"; } }
             public string Suji { get { return "ABCDEFGHIabcdefghi"; } }
             public string Dan { get { return "123456789"; } }
-            //public string Position { get { return "(" + STARTPOS_LABEL + ")|(?:" + Fen + " ([" + SPACE + BanjoT1 + BanjoT2 + "+/]+) " + MotigomaPos + " " + TebanPos + ")"; } }
+            //public string Position { get { return $"({STARTPOS_LABEL})|(?:{Fen}([{SPACE}{BanjoT1}{BanjoT2}+/]+) {MotigomaPos} {TebanPos})"; } }
             public string Position { get { return "(?:(" + STARTPOS_LABEL + ")|(?:"+Fen+" ([" + SPACE + BanjoT1 + BanjoT2 + "+/]+) " + MotigomaPos + " " + TebanPos + "))"; } }
             public string MotigomaPos { get { return "(["+ MotigomaNasi+@"\d" + MotigomaT1 + MotigomaT2 + "]+)"; } }
             public string MotigomaNasi { get { return "-"; } }

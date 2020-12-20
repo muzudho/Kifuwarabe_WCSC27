@@ -69,7 +69,7 @@ namespace kifuwarabe_wcsc27.abstracts
                             sippaiZenbu.Append(mojiretu1.ToContents());
                         }
                         seikou = false;
-                        sippaiZenbu.AppendLine("# 失敗（０１）：　対局者１に、千日手が見えなかったぜ☆（／＿＼） fail=[" + fail + "] count=[" + count + "]");
+                        sippaiZenbu.AppendLine($"# 失敗（０１）：　対局者１に、千日手が見えなかったぜ☆（／＿＼） fail=[{fail}] count=[{count}]");
                         //goto gt_EndUnitTest;
                     }
                 }
@@ -114,7 +114,7 @@ namespace kifuwarabe_wcsc27.abstracts
                             sippaiZenbu.Append(mojiretu1.ToContents());
                         }
                         seikou = false;
-                        sippaiZenbu.AppendLine("# 失敗（０２）：　対局者２に、千日手が見えなかったぜ☆（／＿＼） fail=[" + fail + "] count=[" + count + "]");
+                        sippaiZenbu.AppendLine($"# 失敗（０２）：　対局者２に、千日手が見えなかったぜ☆（／＿＼） fail=[{fail}] count=[{count}]");
                         //goto gt_EndUnitTest;
                     }
                 }

@@ -280,7 +280,7 @@ namespace kifuwarabe_wcsc27.implements
             {
                 // 駒の位置（評価関数の項目番号）☆ 持ち駒が 0 枚で、-1 の場合もあり☆
                 int koumokuNo = Util_NikomaKankei.GetKoumokuBango_MotiKoma(ky, mk);
-                // Debug.Assert(koumokuNo != -1, "mk=[" + mk + "]");
+                // Debug.Assert(koumokuNo != -1, $"mk=[{mk}]");
 
                 // 減点するぜ☆（＾▽＾）
                 if (-1 != koumokuNo)

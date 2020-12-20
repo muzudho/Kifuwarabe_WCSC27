@@ -40,7 +40,7 @@ namespace kifuwarabe_wcsc27.implements
 
         public void Setumei(Mojiretu syuturyoku)
         {
-            syuturyoku.AppendLine("指し手生成を抜けた場所：" + MoveGenBunseki.Instance.MoveGenWoNuketaBasho);
+            syuturyoku.AppendLine($"指し手生成を抜けた場所：{MoveGenBunseki.Instance.MoveGenWoNuketaBasho}");
             Util_Information.Setumei_1Bitboard("移動先升", BB_IdosakiBase, syuturyoku);
         }
     }

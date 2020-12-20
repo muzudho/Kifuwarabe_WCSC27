@@ -642,7 +642,7 @@ namespace kifuwarabe_wcsc27.abstracts
             // KomanoUgokikata komanoUgokikata
             for (int ms = 0; ms < masuYososu; ms++)
             {
-                syuturyoku.AppendLine("ます" + ms);
+                syuturyoku.AppendLine($"ます{ms}");
                 foreach (Taikyokusya tai in Conv_Taikyokusya.Itiran)
                 {
                     // 盤上
@@ -659,7 +659,7 @@ namespace kifuwarabe_wcsc27.abstracts
 
         public static void HyojiKomaHairetuYososuMade(Masu ms, Koma[] kmHairetu, Mojiretu syuturyoku)
         {
-            syuturyoku.Append("置くか除けるかした升=["+(Masu)ms+"] 関連する飛び利き駒一覧=[");
+            syuturyoku.Append($"置くか除けるかした升=[{(Masu)ms}] 関連する飛び利き駒一覧=[");
             foreach (Koma km in kmHairetu)
             {
                 if (Koma.Yososu == km)

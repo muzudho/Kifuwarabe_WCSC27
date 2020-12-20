@@ -320,12 +320,11 @@ namespace kifuwarabe_wcsc27.machine
                 //#if DEBUG
                 //                // ロードした直後にダンプして中身を目視確認だぜ☆（＾～＾）
                 //                Util_Machine.AppendLine(
-                //                        "以下、定跡メモリのダンプ\n" +
-                //                        "┌──────────┐\n" +
-                //                        Option_Application.Joseki.ToString() +
-                //                        "└──────────┘\n" +
-                //                        ""
-                //                    );
+                //                        $@"以下、定跡メモリのダンプ
+                //┌──────────┐
+//{ Option_Application.Joseki.ToString()}
+                //└──────────┘
+                //");
                 //                Util_Machine.Flush();
                 //#endif
             }
@@ -432,7 +431,7 @@ namespace kifuwarabe_wcsc27.machine
             // 容量を制限するぜ☆
             if (Joseki.Capacity < josekiStr.Length)
             {
-                syuturyoku.AppendLine("joseki removed ( ascii characters size ) = " + jo.DownSizeing(josekiStr.Length - Joseki.Capacity));
+                syuturyoku.AppendLine($"joseki removed ( ascii characters size ) = { jo.DownSizeing(josekiStr.Length - Joseki.Capacity)}");
                 Util_Machine.Flush(syuturyoku);
 
                 syuturyoku.Append(".");
@@ -711,7 +710,7 @@ namespace kifuwarabe_wcsc27.machine
             // 容量を制限するぜ☆
             if (Seiseki.Capacity < seisekiStr.Length)
             {
-                syuturyoku.AppendLine("seiseki removed bytes = " + se.DownSizeing(seisekiStr.Length - Seiseki.Capacity));
+                syuturyoku.AppendLine($"seiseki removed bytes = { se.DownSizeing(seisekiStr.Length - Seiseki.Capacity)}");
 
                 syuturyoku.Append(".");
                 Util_Machine.Flush(syuturyoku);
@@ -814,9 +813,7 @@ namespace kifuwarabe_wcsc27.machine
             saikeisan.KeisanSinaosi(ky);
 
             bool safe = Math.Abs(current - saikeisan.Hyokati) < 2; // 差分更新で 誤差 が出ると、どんどん溜まっていくぜ☆（＾▽＾）ｗｗｗ
-            string msg = message +
-                " 二駒評価値 差分更新 current =[" + current +
-                "] 再計算=[" + saikeisan + "]";
+            string msg = $"{message} 二駒評価値 差分更新 current =[{ current }] 再計算=[{ saikeisan }]";
             if (!safe)
             {
                 syuturyoku.AppendLine(msg);
@@ -840,13 +837,12 @@ namespace kifuwarabe_wcsc27.machine
                 &&
                 hyokati2 == saikeisan.Get(Taikyokusya.T2)
                 ;
-            string msg = message +
-                "#河馬 診断 駒割り評価値\n" +
-                "P1差分  =[" + hyokati1 + "]\n" +
-                "  再計算=[" + saikeisan.Get(Taikyokusya.T1) + "]\n" +
-                "P2差分  =[" + hyokati2 + "]\n" +
-                "  再計算=[" + saikeisan.Get(Taikyokusya.T2) + "]\n" +
-                "";
+            string msg = $@"{message}#河馬 診断 駒割り評価値
+P1差分  =[{hyokati1}]
+  再計算=[{saikeisan.Get(Taikyokusya.T1)}]
+P2差分  =[{hyokati2}]
+  再計算=[{saikeisan.Get(Taikyokusya.T2)}]
+";
             if (!safe)
             {
                 syuturyoku.AppendLine(msg);
@@ -891,7 +887,7 @@ namespace kifuwarabe_wcsc27.machine
                 Mojiretu sindan1 = new MojiretuImpl();
                 sindan1.Append(message); sindan1.AppendLine(" ビットボード診断");
                 Util_Information.HyojiKomanoIbasho(ky.Shogiban, sindan1);
-                sindan1.AppendLine("Util_Tansaku.TansakuTyakusyuEdas=[" + Util_Tansaku.TansakuTyakusyuEdas + "]");
+                sindan1.AppendLine($"Util_Tansaku.TansakuTyakusyuEdas=[{Util_Tansaku.TansakuTyakusyuEdas}]");
 
                 Flush(sindan1);
                 Debug.Fail(sindan1.ToContents());
@@ -943,7 +939,7 @@ namespace kifuwarabe_wcsc27.machine
                     //    sindan1.Append(message);
                     //    sindan1.AppendLine("参考：駒の居場所");
                     //    Util_Information.HyojiKomanoIbasho(ky.BB_KomaZenbu, ky.BB_Koma, sindan1);
-                    //    sindan1.AppendLine("Util_Tansaku.TansakuTyakusyuEdas=[" + Util_Tansaku.TansakuTyakusyuEdas + "]");
+                    //    sindan1.AppendLine($"Util_Tansaku.TansakuTyakusyuEdas=[{Util_Tansaku.TansakuTyakusyuEdas}]");
                     //}
 
                     sindan1.Append(message); sindan1.Append("【エラー】"); Conv_Taikyokusya.Setumei_Name(tai, sindan1); sindan1.AppendLine();

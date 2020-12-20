@@ -457,7 +457,7 @@ namespace kifuwarabe_wcsc27.interfaces
                 //{
                 //    //*
                 //    // FIXME:
-                //    string msg = "パースに失敗だぜ☆（＾～＾）！  commandline=[" + commandline + "]caret(" + caret + ") .Value=[" + m.Groups[1].Value + "] m.Index=["+ m.Index+ "] m.Length=["+ m.Length + "]";
+                //    string msg = $"パースに失敗だぜ☆（＾～＾）！  commandline=[{commandline}]caret({caret}) .Value=[{m.Groups[1].Value}] m.Index=[{m.Index}] m.Length=[{m.Length}]";
                 //    Util_Machine.AppendLine(msg);
                 //    Util_Machine.Flush();
                 //    throw new Exception(msg);
@@ -476,7 +476,7 @@ namespace kifuwarabe_wcsc27.interfaces
                 {
                     //*
                     // FIXME:
-                    string msg = "パースに失敗だぜ☆（＾～＾）！ #鱒 commandline=[" + commandline + "]caret(" + caret + ") .Value=["+ m.Groups[1].Value + "]";
+                    string msg = $"パースに失敗だぜ☆（＾～＾）！ #鱒 commandline=[{commandline}]caret({caret}) .Value=[{m.Groups[1].Value}]";
                     syuturyoku.AppendLine(msg);
                     Util_Machine.Flush(syuturyoku);
                     throw new Exception(msg);
@@ -487,7 +487,7 @@ namespace kifuwarabe_wcsc27.interfaces
             /*
             {
                 // FIXME:
-                string msg = "パースに失敗だぜ☆（＾～＾）！  commandline=[" + commandline + "]caret(" + caret + ")";
+                string msg = $"パースに失敗だぜ☆（＾～＾）！  commandline=[{commandline}]caret({caret})";
                 Util_Machine.AppendLine(msg);
                 Util_Machine.Flush();
                 throw new Exception(msg);

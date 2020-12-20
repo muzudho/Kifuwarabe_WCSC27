@@ -183,31 +183,31 @@ namespace kifuwarabe_wcsc27.abstracts
                 {
                     float alpha = alphas[iA];
                     float nazo = nazos[iA];
-                    syuturyoku.AppendLine("nazo = ["+nazo+"]    alpha = [" + alpha + "]");
+                    syuturyoku.AppendLine($"nazo = [{nazo}]    alpha = [{ alpha }]");
                     // nazo が 7 の時に合わせて x を入れてあるぜ☆（＾～＾）
-                    syuturyoku.AppendLine("sisu(-256.0000) → [" + string.Format("{0,12:F9}", Sisu(alpha ,- 256.0000f)) + "] y=Sigmoid("+ string.Format("{0,12:F9}", Sigmoid(alpha,-256.0000f))+")");//[7]
-                    syuturyoku.AppendLine("sisu(-255.0000) → [" + string.Format("{0,12:F9}", Sisu(alpha, -255.0000f)) + "] y=Sigmoid(" + string.Format("{0,12:F9}", Sigmoid(alpha, -255.0000f)) + ")");//
-                    syuturyoku.AppendLine("sisu(-219.4285) → [" + string.Format("{0,12:F9}", Sisu(alpha, -219.4285f)) + "] y=Sigmoid(" + string.Format("{0,12:F9}", Sigmoid(alpha, -219.4285f)) + ")");//[5.999998]
-                    syuturyoku.AppendLine("sisu(-192.0000) → [" + string.Format("{0,12:F9}", Sisu(alpha, -192.0000f)) + "] y=Sigmoid(" + string.Format("{0,12:F9}", Sigmoid(alpha, -192.0000f)) + ")");//[5.25]
-                    syuturyoku.AppendLine("sisu(-182.8571) → [" + string.Format("{0,12:F9}", Sisu(alpha, -182.8571f)) + "] y=Sigmoid(" + string.Format("{0,12:F9}", Sigmoid(alpha, -182.8571f)) + ")");//[4.999999]
-                    syuturyoku.AppendLine("sisu(-146.2857) → [" + string.Format("{0,12:F9}", Sisu(alpha, -146.2857f)) + "] y=Sigmoid(" + string.Format("{0,12:F9}", Sigmoid(alpha, -146.2857f)) + ")");//[4]
-                    syuturyoku.AppendLine("sisu(-128.0000) → [" + string.Format("{0,12:F9}", Sisu(alpha, -128.0000f)) + "] y=Sigmoid(" + string.Format("{0,12:F9}", Sigmoid(alpha, -128.0000f)) + ")");//[3.5]
-                    syuturyoku.AppendLine("sisu(-109.7142) → [" + string.Format("{0,12:F9}", Sisu(alpha, -109.7142f)) + "] y=Sigmoid(" + string.Format("{0,12:F9}", Sigmoid(alpha, -109.7142f)) + ")");//[2.999998]
-                    syuturyoku.AppendLine("sisu(- 73.1428) → [" + string.Format("{0,12:F9}", Sisu(alpha, -73.1428f)) + "] y=Sigmoid(" + string.Format("{0,12:F9}", Sigmoid(alpha, -73.1428f)) + ")");//[1.999998]
-                    syuturyoku.AppendLine("sisu(- 36.5714) → [" + string.Format("{0,12:F9}", Sisu(alpha, -36.5714f)) + "] y=Sigmoid(" + string.Format("{0,12:F9}", Sigmoid(alpha, -36.5714f)) + ")");//[0.9999992]
-                    syuturyoku.AppendLine("sisu(-  1.0000) → [" + string.Format("{0,12:F9}", Sisu(alpha, -1.0000f)) + "] y=Sigmoid(" + string.Format("{0,12:F9}", Sigmoid(alpha, -1.0000f)) + ")");//[0.02734375]
-                    syuturyoku.AppendLine("sisu(   0.0000) → [" + string.Format("{0,12:F9}", Sisu(alpha, 0.0000f)) + "] y=Sigmoid(" + string.Format("{0,12:F9}", Sigmoid(alpha, 0.0000f)) + ")");//[0]
-                    syuturyoku.AppendLine("sisu(   1.0000) → [" + string.Format("{0,12:F9}", Sisu(alpha, 1.0000f)) + "] y=Sigmoid(" + string.Format("{0,12:F9}", Sigmoid(alpha, 1.0000f)) + ")");//[-0.02734375]
-                    syuturyoku.AppendLine("sisu(  36.5714) → [" + string.Format("{0,12:F9}", Sisu(alpha, 36.5714f)) + "] y=Sigmoid(" + string.Format("{0,12:F9}", Sigmoid(alpha, 36.5714f)) + ")");//[-0.9999992]
-                    syuturyoku.AppendLine("sisu(  73.1428) → [" + string.Format("{0,12:F9}", Sisu(alpha, 73.1428f)) + "] y=Sigmoid(" + string.Format("{0,12:F9}", Sigmoid(alpha, 73.1428f)) + ")");//[-1.999998]
-                    syuturyoku.AppendLine("sisu( 109.7142) → [" + string.Format("{0,12:F9}", Sisu(alpha, 109.7142f)) + "] y=Sigmoid(" + string.Format("{0,12:F9}", Sigmoid(alpha, 109.7142f)) + ")");//[-2.999998]
-                    syuturyoku.AppendLine("sisu( 128.0000) → [" + string.Format("{0,12:F9}", Sisu(alpha, 128.0000f)) + "] y=Sigmoid(" + string.Format("{0,12:F9}", Sigmoid(alpha, 128.0000f)) + ")");//[-3.5]
-                    syuturyoku.AppendLine("sisu( 146.2857) → [" + string.Format("{0,12:F9}", Sisu(alpha, 146.2857f)) + "] y=Sigmoid(" + string.Format("{0,12:F9}", Sigmoid(alpha, 146.2857f)) + ")");//[-4]
-                    syuturyoku.AppendLine("sisu( 182.8571) → [" + string.Format("{0,12:F9}", Sisu(alpha, 182.8571f)) + "] y=Sigmoid(" + string.Format("{0,12:F9}", Sigmoid(alpha, 182.8571f)) + ")");//[-4.999999]
-                    syuturyoku.AppendLine("sisu( 192.0000) → [" + string.Format("{0,12:F9}", Sisu(alpha, 192.0000f)) + "] y=Sigmoid(" + string.Format("{0,12:F9}", Sigmoid(alpha, 192.0000f)) + ")");//[-5.25]
-                    syuturyoku.AppendLine("sisu( 219.4285) → [" + string.Format("{0,12:F9}", Sisu(alpha, 219.4285f)) + "] y=Sigmoid(" + string.Format("{0,12:F9}", Sigmoid(alpha, 219.4285f)) + ")");//[-5.999998]
-                    syuturyoku.AppendLine("sisu( 255.0000) → [" + string.Format("{0,12:F9}", Sisu(alpha, 255.0000f)) + "] y=Sigmoid(" + string.Format("{0,12:F9}", Sigmoid(alpha, 255.0000f)) + ")");//
-                    syuturyoku.AppendLine("sisu( 256.0000) → [" + string.Format("{0,12:F9}", Sisu(alpha, 256.0000f)) + "] y=Sigmoid(" + string.Format("{0,12:F9}", Sigmoid(alpha, 256.0000f)) + ")");//[-7]
+                    syuturyoku.AppendLine($"sisu(-256.0000) → [{ string.Format("{0,12:F9}", Sisu(alpha ,- 256.0000f)) }] y=Sigmoid({ string.Format("{0,12:F9}", Sigmoid(alpha,-256.0000f)) })");//[7]
+                    syuturyoku.AppendLine($"sisu(-255.0000) → [{ string.Format("{0,12:F9}", Sisu(alpha, -255.0000f)) }] y=Sigmoid({ string.Format("{0,12:F9}", Sigmoid(alpha, -255.0000f)) })");//
+                    syuturyoku.AppendLine($"sisu(-219.4285) → [{ string.Format("{0,12:F9}", Sisu(alpha, -219.4285f)) }] y=Sigmoid({ string.Format("{0,12:F9}", Sigmoid(alpha, -219.4285f)) })");//[5.999998]
+                    syuturyoku.AppendLine($"sisu(-192.0000) → [{ string.Format("{0,12:F9}", Sisu(alpha, -192.0000f)) }] y=Sigmoid({ string.Format("{0,12:F9}", Sigmoid(alpha, -192.0000f)) })");//[5.25]
+                    syuturyoku.AppendLine($"sisu(-182.8571) → [{ string.Format("{0,12:F9}", Sisu(alpha, -182.8571f)) }] y=Sigmoid({ string.Format("{0,12:F9}", Sigmoid(alpha, -182.8571f)) })");//[4.999999]
+                    syuturyoku.AppendLine($"sisu(-146.2857) → [{ string.Format("{0,12:F9}", Sisu(alpha, -146.2857f)) }] y=Sigmoid({ string.Format("{0,12:F9}", Sigmoid(alpha, -146.2857f)) })");//[4]
+                    syuturyoku.AppendLine($"sisu(-128.0000) → [{ string.Format("{0,12:F9}", Sisu(alpha, -128.0000f)) }] y=Sigmoid({ string.Format("{0,12:F9}", Sigmoid(alpha, -128.0000f)) })");//[3.5]
+                    syuturyoku.AppendLine($"sisu(-109.7142) → [{ string.Format("{0,12:F9}", Sisu(alpha, -109.7142f)) }] y=Sigmoid({ string.Format("{0,12:F9}", Sigmoid(alpha, -109.7142f)) })");//[2.999998]
+                    syuturyoku.AppendLine($"sisu(- 73.1428) → [{ string.Format("{0,12:F9}", Sisu(alpha, -73.1428f)) }] y=Sigmoid({ string.Format("{0,12:F9}", Sigmoid(alpha, -73.1428f)) })");//[1.999998]
+                    syuturyoku.AppendLine($"sisu(- 36.5714) → [{ string.Format("{0,12:F9}", Sisu(alpha, -36.5714f)) }] y=Sigmoid({ string.Format("{0,12:F9}", Sigmoid(alpha, -36.5714f)) })");//[0.9999992]
+                    syuturyoku.AppendLine($"sisu(-  1.0000) → [{ string.Format("{0,12:F9}", Sisu(alpha, -1.0000f)) }] y=Sigmoid({ string.Format("{0,12:F9}", Sigmoid(alpha, -1.0000f)) })");//[0.02734375]
+                    syuturyoku.AppendLine($"sisu(   0.0000) → [{ string.Format("{0,12:F9}", Sisu(alpha, 0.0000f)) }] y=Sigmoid({ string.Format("{0,12:F9}", Sigmoid(alpha, 0.0000f)) })");//[0]
+                    syuturyoku.AppendLine($"sisu(   1.0000) → [{ string.Format("{0,12:F9}", Sisu(alpha, 1.0000f)) }] y=Sigmoid({ string.Format("{0,12:F9}", Sigmoid(alpha, 1.0000f)) })");//[-0.02734375]
+                    syuturyoku.AppendLine($"sisu(  36.5714) → [{ string.Format("{0,12:F9}", Sisu(alpha, 36.5714f)) }] y=Sigmoid({ string.Format("{0,12:F9}", Sigmoid(alpha, 36.5714f)) })");//[-0.9999992]
+                    syuturyoku.AppendLine($"sisu(  73.1428) → [{ string.Format("{0,12:F9}", Sisu(alpha, 73.1428f)) }] y=Sigmoid({ string.Format("{0,12:F9}", Sigmoid(alpha, 73.1428f)) })");//[-1.999998]
+                    syuturyoku.AppendLine($"sisu( 109.7142) → [{ string.Format("{0,12:F9}", Sisu(alpha, 109.7142f)) }] y=Sigmoid({ string.Format("{0,12:F9}", Sigmoid(alpha, 109.7142f)) })");//[-2.999998]
+                    syuturyoku.AppendLine($"sisu( 128.0000) → [{ string.Format("{0,12:F9}", Sisu(alpha, 128.0000f)) }] y=Sigmoid({ string.Format("{0,12:F9}", Sigmoid(alpha, 128.0000f)) })");//[-3.5]
+                    syuturyoku.AppendLine($"sisu( 146.2857) → [{ string.Format("{0,12:F9}", Sisu(alpha, 146.2857f)) }] y=Sigmoid({ string.Format("{0,12:F9}", Sigmoid(alpha, 146.2857f)) })");//[-4]
+                    syuturyoku.AppendLine($"sisu( 182.8571) → [{ string.Format("{0,12:F9}", Sisu(alpha, 182.8571f)) }] y=Sigmoid({ string.Format("{0,12:F9}", Sigmoid(alpha, 182.8571f)) })");//[-4.999999]
+                    syuturyoku.AppendLine($"sisu( 192.0000) → [{ string.Format("{0,12:F9}", Sisu(alpha, 192.0000f)) }] y=Sigmoid({ string.Format("{0,12:F9}", Sigmoid(alpha, 192.0000f)) })");//[-5.25]
+                    syuturyoku.AppendLine($"sisu( 219.4285) → [{ string.Format("{0,12:F9}", Sisu(alpha, 219.4285f)) }] y=Sigmoid({ string.Format("{0,12:F9}", Sigmoid(alpha, 219.4285f)) })");//[-5.999998]
+                    syuturyoku.AppendLine($"sisu( 255.0000) → [{ string.Format("{0,12:F9}", Sisu(alpha, 255.0000f)) }] y=Sigmoid({ string.Format("{0,12:F9}", Sigmoid(alpha, 255.0000f)) })");//
+                    syuturyoku.AppendLine($"sisu( 256.0000) → [{ string.Format("{0,12:F9}", Sisu(alpha, 256.0000f)) }] y=Sigmoid({ string.Format("{0,12:F9}", Sigmoid(alpha, 256.0000f)) })");//[-7]
                     syuturyoku.AppendLine();
                 }
             }

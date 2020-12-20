@@ -311,7 +311,7 @@ namespace kifuwarabe_wcsc27.implements
                     // キャレットは進めずに続行だぜ☆（＾▽＾）
                     if (!ky2.ParsePositionvalue(isSfen, commandline,ref caret, false, false, out string moves, syuturyoku))
                     {
-                        string msg = "パースに失敗だぜ☆（＾～＾）！ #寒鰤 定跡ファイル解析失敗 [" + gyoBango + "]行目";
+                        string msg = $"パースに失敗だぜ☆（＾～＾）！ #寒鰤 定跡ファイル解析失敗 {gyoBango}]行目";
                         syuturyoku.AppendLine(msg);
                         Util_Machine.Flush(syuturyoku);
                         throw new Exception(msg);

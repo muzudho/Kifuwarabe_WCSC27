@@ -701,13 +701,13 @@ namespace kifuwarabe_wcsc27.abstracts
                     if (0 == itibanFukaiNekkoKaranoFukasa_JohoNoTameni)
                     {
 #if DEBUG
-                        throw new Exception("0手投了してないかだぜ☆？（＾～＾）\n"+
-                            " tansakuSyuryoRiyu=["+ tansakuSyuryoRiyu + "]\n"+
-                            "Option_Application.Optionlist.SaidaiFukasa=["+ Option_Application.Optionlist.SaidaiFukasa + "]\n"+
-                            "Option_Application.Optionlist.SikoJikan_KonkaiNoTansaku=["+ Option_Application.Optionlist.SikoJikan_KonkaiNoTansaku + "]\n" +
-                            "Option_Application.Optionlist.SikoJikan=[" + Option_Application.Optionlist.SikoJikan + "]\n"+
-                            "Option_Application.Optionlist.SikoJikanRandom=[" + Option_Application.Optionlist.SikoJikanRandom + "]\n"+
-                            "");
+                        throw new Exception($@"0手投了してないかだぜ☆？（＾～＾）
+ tansakuSyuryoRiyu=[{tansakuSyuryoRiyu}]
+ Option_Application.Optionlist.SaidaiFukasa=[{Option_Application.Optionlist.SaidaiFukasa}]
+ Option_Application.Optionlist.SikoJikan_KonkaiNoTansaku=[{Option_Application.Optionlist.SikoJikan_KonkaiNoTansaku}]
+ Option_Application.Optionlist.SikoJikan=[{Option_Application.Optionlist.SikoJikan}]
+ Option_Application.Optionlist.SikoJikanRandom=[{Option_Application.Optionlist.SikoJikanRandom}]
+ ");
 #endif
                     }
                 }
@@ -833,7 +833,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 {
                     // もっと深い探索で調べた点をすぐ返すぜ☆（＾▽＾）
                     //logger.AppendLine("トランスポジション・カット☆");
-                    //Util_Logger.AppendLine("トランスポジション・カット☆ beta=[" + beta + "]＜tt=[" + ttEntry.Hyokati + "]点 ttEntry=" + ttEntry.Setumei_Description());
+                    //Util_Logger.AppendLine($"トランスポジション・カット☆ beta=[{beta}]＜tt=[{ttEntry.Hyokati}]点 ttEntry={ttEntry.Setumei_Description()}");
 
                     out_edaBest_Yomisuji = new Yomisuji();
                     out_edaBest_Yomisuji.Add(ttEntry.Move, ttEntry.MoveType); // 先頭に今回の指し手を置くぜ☆
@@ -1175,7 +1175,7 @@ namespace kifuwarabe_wcsc27.abstracts
 
                 ky.DoMove(isSfen, eda_sasite, eda_sasiteType, ref nanteme,ky.Teban, syuturyoku);
                 //{
-                //    Util_Logger.AppendLine("do後 " + ConvMove.Setumei_Fen(ss));
+                //    Util_Logger.AppendLine($"do後 {ConvMove.Setumei_Fen(ss)}");
                 //    Util_Logger.AppendLine(ApplicationImpl.Kyokumen.Setumei());
                 //}
 

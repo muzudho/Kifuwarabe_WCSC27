@@ -251,8 +251,8 @@ namespace kifuwarabe_wcsc27.implements
             //                //     fen .../.../.../ - 1 
             //                //     B1A1 .....
             //                Util_Machine.AppendLine("定跡登録");
-            //                Util_Machine.AppendLine("    " + kyFen_before);
-            //                Util_Machine.AppendLine("    " + ConvMove.ToFen(bestMove));
+            //                Util_Machine.AppendLine($"    {kyFen_before}");
+            //                Util_Machine.AppendLine($"    {ConvMove.ToFen(bestMove)}");
             //            }
             //#endif
 
@@ -261,11 +261,11 @@ namespace kifuwarabe_wcsc27.implements
 //#if DEBUG
 //            // 定跡を追加した直後にダンプして中身を目視確認だぜ☆（＾～＾）
 //            Util_Machine.AppendLine(
-//                    "定跡を追加した直後にダンプして中身を目視確認だぜ☆（＾～＾）\n" +
-//                    "┌──────────┐\n" +
-//                    this.ToString() +
-//                    "└──────────┘\n" +
-//                    ""
+//                    $@"定跡を追加した直後にダンプして中身を目視確認だぜ☆（＾～＾）
+//┌──────────┐
+//{this.ToString()}
+//└──────────┘
+//"
 //                );
 //            Util_Machine.Flush();
 //#endif
@@ -437,7 +437,7 @@ namespace kifuwarabe_wcsc27.implements
                     {
                         //*
                         // FIXME:
-                        string msg = "パースに失敗だぜ☆（＾～＾）！ #鮪 commandline=[" + commandline + "]";
+                        string msg = $"パースに失敗だぜ☆（＾～＾）！ #鮪 commandline=[{ commandline }]";
                         syuturyoku.AppendLine(msg);
                         Util_Machine.Flush(syuturyoku);
                         throw new Exception(msg);
@@ -516,7 +516,7 @@ namespace kifuwarabe_wcsc27.implements
                     //                    MoveError reason;
                     //                    if (!ky2.CanDoMove( bestMove, out reason))
                     //                    {
-                    //                        throw new Exception("新規：　指せない指し手を定跡に登録しようとしたぜ☆（＾～＾）！：" + ConvMove.Setumei(reason));
+                    //                        throw new Exception($"新規：　指せない指し手を定跡に登録しようとしたぜ☆（＾～＾）！：{ConvMove.Setumei(reason)}");
                     //                    }
                     //                }
                     //#endif

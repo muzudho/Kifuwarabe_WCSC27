@@ -66,7 +66,7 @@ namespace kifuwarabe_wcsc27.implements
         /// <returns></returns>
         public string ToContents()
         {
-            return m_value64127_.ToString() + "_" + m_value063_.ToString();
+            return $"{m_value64127_}_{m_value063_}";
         }
 
         public Bitboard Clear() {

@@ -36,7 +36,7 @@ namespace kifuwarabe_wcsc27.abstracts
             // 動かす駒
             if (!ky.Shogiban.ExistsBBKoma(jibun, ms_t0, out Komasyurui ks_t0)) {
                 Mojiretu reigai1 = new MojiretuImpl();
-                reigai1.AppendLine("盤上の駒じゃないじゃないか☆（＾▽＾）ｗｗｗ jibun=[" + jibun + "] ms_src=[" + ms_t0 + "] ks_jibun=[" + ks_t0 + "]");
+                reigai1.AppendLine($"盤上の駒じゃないじゃないか☆（＾▽＾）ｗｗｗ jibun=[{ jibun }] ms_src=[{ ms_t0 }] ks_jibun=[{ ks_t0 }]");
                 Util_Information.HyojiKomanoIbasho(ky.Shogiban, reigai1);
                 string errMsg = reigai1.ToContents();
                 Util_Machine.Flush(reigai1);

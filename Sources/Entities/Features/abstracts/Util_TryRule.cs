@@ -41,7 +41,7 @@ namespace kifuwarabe_wcsc27.abstracts
             // 自分はＮ段目にいる☆
             int dan = Conv_Masu.ToDan_JibunSiten(tb, ms1, ky.Sindan);
             bool nidanme = 2 == dan;
-            Util_Test.AppendLine("２段目にいるか☆？[" + nidanme + "]　わたしは[" + dan + "]段目にいるぜ☆", syuturyoku);
+            Util_Test.AppendLine("２段目にいるか☆？[{ nidanme }]　わたしは[{ dan }]段目にいるぜ☆", syuturyoku);
             if (!nidanme)
             {
                 Util_Test.AppendLine("むりだぜ☆", syuturyoku);

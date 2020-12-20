@@ -296,7 +296,7 @@ namespace kifuwarabe_wcsc27.abstracts
             {
                 /*
 #if DEBUG
-                Util_Machine.AppendLine("指し手リストのGood,Bad をマージするぜ☆（＾～＾）hint=[" + hint + "]");
+                Util_Machine.AppendLine($"指し手リストのGood,Bad をマージするぜ☆（＾～＾）hint=[{hint}]");
                 Util_Machine.Flush();
 #endif
                 // */

@@ -113,8 +113,8 @@ namespace kifuwarabe_wcsc27.abstracts
                     syuturyoku.Append("# ");
 #endif
                     syuturyoku.Append(
-                        "指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ" + Environment.NewLine +
-                        "> ");
+                        @"指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+> ");
                     Util_Machine.Flush(syuturyoku);
                 }
             }
