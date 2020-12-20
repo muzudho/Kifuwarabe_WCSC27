@@ -42,7 +42,7 @@ namespace kifuwarabe_wcsc27.implements
                 int caret = 0;
                 if(!Med_Parser.TryFenMove(isSfen, fugo, ref caret,kys,out Move move))
                 {
-                    throw new System.Exception("指し手のパースエラー fugo=["+ fugo + "]");
+                    throw new System.Exception($"指し手のパースエラー fugo=[{ fugo }]");
                 }
                 SsList.Add(move);
             }

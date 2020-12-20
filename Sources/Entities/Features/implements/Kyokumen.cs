@@ -352,7 +352,7 @@ namespace kifuwarabe_wcsc27.implements
                         BB_DanArray[iDan].Set(BB_DanArray[iDan - 1]);
                         BB_DanArray[iDan].LeftShift(Option_Application.Optionlist.BanYokoHaba);
                         //#if DEBUG
-                        //                    Util_Machine.Syuturyoku.AppendLine("iDan=["+ iDan + "] KyokumenImpl.BB_DanArray[iDan]=["+ KyokumenImpl.BB_DanArray[iDan].Value + "] Option_Application.Optionlist.BanTateHaba=["+ Option_Application.Optionlist.BanTateHaba + "] Option_Application.Optionlist.BanYokoHaba=["+ Option_Application.Optionlist.BanYokoHaba + "]");
+                        //                    Util_Machine.Syuturyoku.AppendLine($"iDan=[{ iDan }] KyokumenImpl.BB_DanArray[iDan]=[{ KyokumenImpl.BB_DanArray[iDan].Value }] Option_Application.Optionlist.BanTateHaba=[{ Option_Application.Optionlist.BanTateHaba }] Option_Application.Optionlist.BanYokoHaba=[{ Option_Application.Optionlist.BanYokoHaba }]");
                         //                    Util_Machine.Flush(Util_Machine.Syuturyoku);
                         //#endif
                     }
@@ -897,7 +897,7 @@ namespace kifuwarabe_wcsc27.implements
                     // その駒の種類からは、ありえない動きをしたぜ☆（＾▽＾）
 #if DEBUG
                     
-                    throw new Exception("その駒の種類からは、ありえない動きをしたぜ☆（＾▽＾） ms1=["+ ms_src + "] ms2=["+ ms_dst + "]");
+                    throw new Exception($"その駒の種類からは、ありえない動きをしたぜ☆（＾▽＾） ms1=[{ ms_src }] ms2=[{ ms_dst }]");
 #endif
                     reason = MoveMatigaiRiyu.SonoKomasyuruiKarahaArienaiUgoki;
                     return false;
@@ -1551,7 +1551,7 @@ namespace kifuwarabe_wcsc27.implements
                 KyokumenHash.SetXor(Util_ZobristHashing.GetBanjoKey(ms_t0, km_t0, Sindan));
 
                 Shogiban.N250_OkuBanjoKoma(isSfen, ms_t0, km_t0, true, Sindan, syuturyoku);
-                Util_Machine.Assert_Sabun_Kiki("ＵｎｄｏＴ０[遷移]508★ ms_t0=["+ ms_t0 + "] km_t0=["+ km_t0 + "]", Sindan, syuturyoku);
+                Util_Machine.Assert_Sabun_Kiki($"ＵｎｄｏＴ０[遷移]508★ ms_t0=[{ ms_t0 } km_t0={ km_t0 }]", Sindan, syuturyoku);
 
                 Komawari.Fuyasu(jibun, km_t0);
                 Nikoma.FuyasuBanjoKoma(this, km_t1, ms_t0);
@@ -2121,7 +2121,7 @@ namespace kifuwarabe_wcsc27.implements
 
             {
                 // FIXME:
-                string msg = "パースに失敗だぜ☆（＾～＾）！ #麒麟 commandline=["+ commandline + "] caret=["+ caret + "]";
+                string msg = $"パースに失敗だぜ☆（＾～＾）！ #麒麟 commandline=[{ commandline }] caret=[{ caret }]";
                 syuturyoku.AppendLine(msg);
                 Util_Machine.Flush(syuturyoku);
                 throw new Exception(msg);

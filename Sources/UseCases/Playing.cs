@@ -1058,7 +1058,7 @@ usiok");
                     bool hit = false;
                     foreach (Koma km in Conv_Koma.Itiran)
                     {
-                        string fen = Conv_Koma.GetFen(isSfen, km) + " ";
+                        string fen = $"{Conv_Koma.GetFen(isSfen, km)} ";
                         if (caret_1 == commandline.IndexOf(fen))
                         {
                             Komasyurui ks = Med_Koma.KomaToKomasyurui(km);

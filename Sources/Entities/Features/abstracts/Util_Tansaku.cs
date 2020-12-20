@@ -350,7 +350,7 @@ namespace kifuwarabe_wcsc27.abstracts
 #if UNITY
                                 kigoComment = "# ";
 #endif
-                                syuturyoku.Append(kigoComment + "この深さからアスピレーション窓探索開始な☆（＾▽＾）　根からの深さ");
+                                syuturyoku.Append(${kigoComment}この深さからアスピレーション窓探索開始な☆（＾▽＾）　根からの深さ");
                                 syuturyoku.Append(Util_Tansaku.NekkoKaranoFukasa);
                                 syuturyoku.Append("　確定評価値");
                                 Conv_Hyokati.Setumei(out_kakutei_hyokatiUtiwake.EdaBest, Util_Machine.Syuturyoku);
@@ -437,7 +437,7 @@ namespace kifuwarabe_wcsc27.abstracts
 #if UNITY
                                         kigoComment = "# ";
 #endif
-                                        syuturyoku.Append(kigoComment + "アスピレーション諦めようぜ☆（＾▽＾） 失敗");
+                                        syuturyoku.Append(${kigoComment}アスピレーション諦めようぜ☆（＾▽＾） 失敗");
                                         syuturyoku.Append(aspirationWindowSearchSippai);
                                         syuturyoku.Append("回目");
                                         syuturyoku.AppendLine();
@@ -488,7 +488,7 @@ namespace kifuwarabe_wcsc27.abstracts
 #if UNITY
                                         kigoComment = "# ";
 #endif
-                                        syuturyoku.Append(kigoComment + "アスピレーション窓幅広げようぜ☆（＾▽＾）失敗");
+                                        syuturyoku.Append(${kigoComment}アスピレーション窓幅広げようぜ☆（＾▽＾）失敗");
                                         syuturyoku.Append(aspirationWindowSearchSippai);
                                         syuturyoku.Append("回　前の深さの評価値");
                                         Conv_Hyokati.Setumei(maenoFukasaNoHyokati, Util_Machine.Syuturyoku);
@@ -1453,7 +1453,7 @@ namespace kifuwarabe_wcsc27.abstracts
                         Hyokati.Hyokati_Rei,
                         beta,
                         eda_hyokatiUtiwake.Riyu,
-                        "best=["+ eda_hyokatiUtiwake.EdaBest + "] beta=["+ beta + "]"
+                        $"best=[{ eda_hyokatiUtiwake.EdaBest }] beta=[{ beta }]"
                         );
 
                     //────────────────────────────────────────

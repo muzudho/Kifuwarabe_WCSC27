@@ -282,7 +282,7 @@ namespace kifuwarabe_wcsc27.machine
                 Util_Machine.Flush(syuturyoku);
 
                 // まず、既存ファイル名を列挙するぜ☆（＾▽＾）
-                string filenamePattern = Logger.JosekiFileStem + (Option_Application.Optionlist.SagareruHiyoko ? Logger.LocalRuleSagareruHiyoko : Logger.LocalRuleHonshogi) + "*";
+                string filenamePattern = $"{Logger.JosekiFileStem}{(Option_Application.Optionlist.SagareruHiyoko ? Logger.LocalRuleSagareruHiyoko : Logger.LocalRuleHonshogi)}*";
                 string[] filepaths = Directory.GetFiles(".", filenamePattern);
 
                 // どんどんマージしていくぜ☆（＾▽＾）
@@ -362,7 +362,7 @@ namespace kifuwarabe_wcsc27.machine
                 List<string> removeFilepaths = new List<string>();
                 {
                     // まず、既存ファイル名を列挙するぜ☆（＾▽＾）
-                    string filenamePattern = Logger.JosekiFileStem + (Option_Application.Optionlist.SagareruHiyoko ? Logger.LocalRuleSagareruHiyoko : Logger.LocalRuleHonshogi) + "*";
+                    string filenamePattern = $"{Logger.JosekiFileStem}{(Option_Application.Optionlist.SagareruHiyoko ? Logger.LocalRuleSagareruHiyoko : Logger.LocalRuleHonshogi)}*";
                     string[] filepaths = Directory.GetFiles(".", filenamePattern);
 
                     foreach (string filepath in filepaths)
@@ -387,7 +387,7 @@ namespace kifuwarabe_wcsc27.machine
                 foreach (string filepath in removeFilepaths)
                 {
                     File.Delete(filepath);
-                    syuturyoku.AppendLine(filepath + "を削除したぜ☆（＾～＾）");
+                    syuturyoku.AppendLine($"{filepath}を削除したぜ☆（＾～＾）");
                 }
 
                 syuturyoku.Append(".");
@@ -572,7 +572,7 @@ namespace kifuwarabe_wcsc27.machine
                 Util_Machine.Flush(syuturyoku);
 
                 // まず、既存ファイル名を列挙するぜ☆（＾▽＾）
-                string filenamePattern = Logger.SeisekiFileStem + (Option_Application.Optionlist.SagareruHiyoko ? Logger.LocalRuleSagareruHiyoko : Logger.LocalRuleHonshogi) + "*";
+                string filenamePattern = $"{Logger.SeisekiFileStem}{ (Option_Application.Optionlist.SagareruHiyoko ? Logger.LocalRuleSagareruHiyoko : Logger.LocalRuleHonshogi)}*";
                 string[] filepaths = Directory.GetFiles(".", filenamePattern);
 
                 // どんどんマージしていくぜ☆（＾▽＾）
@@ -641,7 +641,7 @@ namespace kifuwarabe_wcsc27.machine
                 List<string> removeFilepaths = new List<string>();
                 {
                     // まず、既存ファイル名を列挙するぜ☆（＾▽＾）
-                    string filenamePattern = Logger.SeisekiFileStem + (Option_Application.Optionlist.SagareruHiyoko ? Logger.LocalRuleSagareruHiyoko : Logger.LocalRuleHonshogi) + "*";
+                    string filenamePattern = $"{Logger.SeisekiFileStem }{ (Option_Application.Optionlist.SagareruHiyoko ? Logger.LocalRuleSagareruHiyoko : Logger.LocalRuleHonshogi) }*";
                     string[] filepaths = Directory.GetFiles(".", filenamePattern);
 
                     foreach (string filepath in filepaths)
@@ -666,7 +666,7 @@ namespace kifuwarabe_wcsc27.machine
                 foreach (string filepath in removeFilepaths)
                 {
                     File.Delete(filepath);
-                    syuturyoku.AppendLine(filepath + "を削除したぜ☆（＾～＾）");
+                    syuturyoku.AppendLine($"{filepath}を削除したぜ☆（＾～＾）");
                 }
 
                 syuturyoku.Append(".");
@@ -943,7 +943,7 @@ P2差分  =[{hyokati2}]
                     //}
 
                     sindan1.Append(message); sindan1.Append("【エラー】"); Conv_Taikyokusya.Setumei_Name(tai, sindan1); sindan1.AppendLine();
-                    sindan1.AppendLine("iKm=["+ iKm + "]");
+                    sindan1.AppendLine($"iKm=[{iKm}]");
 
                     sindan1.AppendLine("利き：（再計算）");
                     Util_Information.Setumei_Bitboards(Med_Koma.GetKomasyuruiNamaeItiran(tai), saikeisan.WhereBBKiki(tai), sindan1);

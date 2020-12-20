@@ -70,7 +70,7 @@ namespace kifuwarabe_wcsc27.abstracts
             if (0 < Util_Commandline.CommandBuffer.Count)
             {
                 // コマンド・バッファーの実行中だぜ☆（＾▽＾）
-                syuturyoku.Append(Util_Commandline.CommandBufferName + "> ");
+                syuturyoku.Append($"{Util_Commandline.CommandBufferName }> ");
                 Util_Machine.Flush(syuturyoku);
             }
             else if (GameMode.Game == Util_Application.GameMode)

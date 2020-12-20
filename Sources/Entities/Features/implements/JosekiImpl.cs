@@ -353,7 +353,7 @@ namespace kifuwarabe_wcsc27.implements
                     {
                         Mojiretu reigai1 = new MojiretuImpl();
                         reigai1.AppendLine("パースに失敗だぜ☆（＾～＾）！ #寿 定跡ファイル解析失敗");
-                        reigai1.AppendLine("commandline=["+ commandline + "]");
+                        reigai1.AppendLine($"commandline=[{ commandline }]");
 #if DEBUG
                         reigai1.Append(" [");
                         reigai1.Append(iGyoBango.ToString());

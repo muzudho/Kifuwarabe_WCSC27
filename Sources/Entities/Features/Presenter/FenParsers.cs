@@ -40,7 +40,7 @@ namespace kifuwarabe_wcsc27.abstracts
             public string Suji { get { return "123456789"; } }
             public string Dan { get { return "ABCDEFGHIabcdefghi"; } }
             public string Position { get { return $"(?:({STARTPOS_LABEL})|(?:{Fen} ([{SPACE}{BanjoT1}{BanjoT2}+/]+) {MotigomaPos} {TebanPos}))"; } }
-            public string MotigomaPos { get { return "([" + MotigomaNasi + @"\d" + MotigomaT1 + MotigomaT2 + "]+)"; } }
+            public string MotigomaPos { get { return $@"([{ MotigomaNasi }\d{ MotigomaT1 }{ MotigomaT2 }]+)"; } }
             public string MotigomaNasi { get { return "-"; } }
             public string TebanPos { get { return "(b|w)"; } }
             public string Toryo { get { return "resign"; } }

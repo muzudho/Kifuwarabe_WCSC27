@@ -105,7 +105,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 syuturyoku.Append("< kettyaku, 決着図, ");
                 ky.TusinYo_Line(syuturyoku);
 #else
-                syuturyoku.AppendLine(kigo + "決着図");
+                syuturyoku.AppendLine($"{kigo}決着図");
                 Util_Information.Setumei_NingenGameYo(ky,syuturyoku);
 #endif
 
@@ -115,26 +115,26 @@ namespace kifuwarabe_wcsc27.abstracts
                     case TaikyokuKekka.Taikyokusya1NoKati:
                         if (Option_Application.Optionlist.P2Com)
                         {
-                            syuturyoku.AppendLine(kigo + "まいったぜ☆（＞＿＜）");
+                            syuturyoku.AppendLine($"{kigo}まいったぜ☆（＞＿＜）");
                             Util_Machine.Flush(syuturyoku);
                         }
                         break;
                     case TaikyokuKekka.Taikyokusya2NoKati:
                         if (Option_Application.Optionlist.P2Com)
                         {
-                            syuturyoku.AppendLine(kigo + "やったぜ☆（＾▽＾）！");
+                            syuturyoku.AppendLine($"{kigo}やったぜ☆（＾▽＾）！");
                             Util_Machine.Flush(syuturyoku);
                         }
                         break;
                     case TaikyokuKekka.Hikiwake:
                         {
-                            syuturyoku.AppendLine(kigo + "決着を付けたかったぜ☆（＾～＾）");
+                            syuturyoku.AppendLine($"{kigo}決着を付けたかったぜ☆（＾～＾）");
                             Util_Machine.Flush(syuturyoku);
                         }
                         break;
                     case TaikyokuKekka.Sennitite:
                         {
-                            syuturyoku.AppendLine(kigo + "まあ、良しとするかだぜ☆（＾＿＾）");
+                            syuturyoku.AppendLine($"{kigo}まあ、良しとするかだぜ☆（＾＿＾）");
                             Util_Machine.Flush(syuturyoku);
                         }
                         break;

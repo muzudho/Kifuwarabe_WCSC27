@@ -220,7 +220,7 @@ namespace kifuwarabe_wcsc27.abstracts
 
                     if (!Med_Parser.TryTaikyokusya(Option_Application.Optionlist.USI, moji4, out Taikyokusya tai))
                     {
-                        throw new Exception("対局者のパースエラー moji4=["+ moji4 + "]");
+                        throw new Exception($"対局者のパースエラー moji4=[{ moji4 }]");
                     }
                     out_kikiBB = Util_Application.Kiki_BB(Med_Koma.KomasyuruiAndTaikyokusyaToKoma( Med_Parser.Moji_Komasyurui(Option_Application.Optionlist.USI, moji3),tai), Med_Parser.FenSujiDan_Masu(Option_Application.Optionlist.USI, moji1, moji2), ky.Shogiban);// komanoUgokikata
                 }
@@ -1055,8 +1055,8 @@ namespace kifuwarabe_wcsc27.abstracts
 
             // TODO: 成績は保存しないにしても、棋譜は欲しいときもあるぜ☆（＾～＾）
             // 棋譜を作ろうぜ☆
-            syuturyoku.AppendLine(kigoComment + "感想戦を行う場合は kansosen と打てだぜ☆（＾▽＾）　そのあと kifu 1 とか打て☆（＾▽＾）");
-            syuturyoku.AppendLine(kigoComment + "終わるときは hirate な☆（＾▽＾）");
+            syuturyoku.AppendLine($@"{kigoComment}感想戦を行う場合は kansosen と打てだぜ☆（＾▽＾）　そのあと kifu 1 とか打て☆（＾▽＾）
+{kigoComment}終わるときは hirate な☆（＾▽＾）");
             Util_Machine.Flush(syuturyoku);
 
 #if !UNITY
@@ -1083,7 +1083,7 @@ namespace kifuwarabe_wcsc27.abstracts
             {
                 // 連続対局を止めるぜ☆（＾▽＾）
                 Option_Application.Optionlist.RenzokuTaikyoku = false;
-                syuturyoku.AppendLine(Logger.RenzokuTaikyokuStopFile + "> done");
+                syuturyoku.AppendLine($"{Logger.RenzokuTaikyokuStopFile }> done");
             }
 #endif
 
