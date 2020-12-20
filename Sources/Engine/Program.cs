@@ -255,16 +255,14 @@ System.Console.WriteLine("# (~0UL << 1)=[" + (~0UL << 1) + "]");
                         else if (!Util_Application.ParseDoMove(ky, out Move inputSasite))
                         {
                             // do コマンドのパースエラー表示（コンソール・ゲーム用）☆（＾～＾）
-                            ConvMove.Setumei(MoveMatigaiRiyu.ParameterSyosikiMatigai, syuturyoku);
-                            syuturyoku.AppendLine();
+                            syuturyoku.AppendLine(ConvMove.Setumei(MoveMatigaiRiyu.ParameterSyosikiMatigai));
                             Util_Machine.Flush(syuturyoku);
                             Util_Commandline.CommentCommandline();// コマンドの誤発動防止
                         }
                         else if (!ky.CanDoMove(inputSasite, out MoveMatigaiRiyu reason))// 指し手の合否チェック
                         {
                             // イリーガル・ムーブなどの、エラー理由表示☆（＾～＾）
-                            ConvMove.Setumei(reason, syuturyoku);
-                            syuturyoku.AppendLine();
+                            syuturyoku.AppendLine(ConvMove.Setumei(reason));
                             Util_Machine.Flush(syuturyoku);
                         }
                         else

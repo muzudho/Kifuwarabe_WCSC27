@@ -93,7 +93,7 @@ namespace kifuwarabe_wcsc27.implements
                 //------------------------------------------------------------
                 // (自)筋
                 //------------------------------------------------------------
-                if (Option_Application.Optionlist.USI) {  syuturyoku.Append(Option_Application.Optionlist.BanYokoHaba + 1 - GetSrcSuji_WithoutErrorCheck(v)); }
+                if (Option_Application.Optionlist.USI) { syuturyoku.Append(Option_Application.Optionlist.BanYokoHaba + 1 - GetSrcSuji_WithoutErrorCheck(v)); }
                 else { syuturyoku.Append(Conv_Kihon.ToAlphabetLarge(GetSrcSuji_WithoutErrorCheck(v))); }
 
                 //------------------------------------------------------------
@@ -133,7 +133,7 @@ namespace kifuwarabe_wcsc27.implements
         /// 指し手符号の解説。
         /// </summary>
         /// <returns></returns>
-        public static void Setumei(bool isSfen, Move ss,Mojiretu syuturyoku)
+        public static void Setumei(bool isSfen, Move ss, Mojiretu syuturyoku)
         {
             AppendFenTo(isSfen, ss, syuturyoku);
         }
@@ -154,7 +154,7 @@ namespace kifuwarabe_wcsc27.implements
         /// <returns></returns>
         public static Move ToMove01aNarazuSasi(Masu ms_src, Masu ms_dst, Kyokumen.Sindanyo kys)
         {
-            Debug.Assert(kys.IsBanjoOrError(ms_src), "ms_src=["+ ms_src + "] kys.MASUS=[" + kys.MASU_YOSOSU+"]");
+            Debug.Assert(kys.IsBanjoOrError(ms_src), $"ms_src=[{ms_src}] kys.MASUS=[{kys.MASU_YOSOSU}]");
             Debug.Assert(kys.IsBanjo(ms_dst), "盤外に指したぜ☆？");
 
             // バリュー
@@ -214,7 +214,7 @@ namespace kifuwarabe_wcsc27.implements
         /// <returns></returns>
         public static Move ToMove01cUtta(Masu ms_dst, MotiKomasyurui mkUtta)
         {
-            Debug.Assert(MotiKomasyurui.Yososu != mkUtta,"");
+            Debug.Assert(MotiKomasyurui.Yososu != mkUtta, "");
 
             // バリュー
             int v = 0;
@@ -235,7 +235,7 @@ namespace kifuwarabe_wcsc27.implements
                 // いのしし 6 → 7
                 // なし 7 → 0
                 // 1 足して 8 で割った余り☆
-                v |= (((int)mkUtta+1)% Conv_MotiKomasyurui.SETS_LENGTH) << (int)MoveShift.UttaKomasyurui;
+                v |= (((int)mkUtta + 1) % Conv_MotiKomasyurui.SETS_LENGTH) << (int)MoveShift.UttaKomasyurui;
             }
 
             // 打ったときは成れないぜ☆（＾▽＾）
@@ -292,27 +292,22 @@ namespace kifuwarabe_wcsc27.implements
             return MotiKomasyurui.Yososu != ConvMove.GetUttaKomasyurui(ss);//指定があれば
         }
 
-        public static void Setumei(MoveMatigaiRiyu err,Mojiretu syuturyoku)
+        public static string Setumei(MoveMatigaiRiyu err)
         {
             switch (err)
             {
-                case MoveMatigaiRiyu.Karappo: syuturyoku.Append(""); break;// エラーなし
-                case MoveMatigaiRiyu.ParameterSyosikiMatigai: syuturyoku.Append("doコマンドのパラメーターの書式が間違っていました。"); break;
-                case MoveMatigaiRiyu.NaiMotiKomaUti: syuturyoku.Append("持ち駒が無いのに駒を打とうとしました。"); break;
-                case MoveMatigaiRiyu.BangaiIdo: syuturyoku.Append("盤外に駒を動かそうとしました。"); break;
-                case MoveMatigaiRiyu.TebanKomaNoTokoroheIdo: syuturyoku.Append("自分の駒が置いてあるところに、駒を動かそうとしました。"); break;
-                case MoveMatigaiRiyu.KomaGaAruTokoroheUti: syuturyoku.Append("駒が置いてあるところに、駒を打ち込もうとしました。"); break;
-                case MoveMatigaiRiyu.KuhakuWoIdo: syuturyoku.Append("空き升に駒が置いてあると思って、動かそうとしました。"); break;
-                case MoveMatigaiRiyu.AiteNoKomaIdo: syuturyoku.Append("相手の駒を、動かそうとしました。"); break;
-                case MoveMatigaiRiyu.NarenaiNari: syuturyoku.Append("ひよこ以外が、にわとりになろうとしました。"); break;
-                case MoveMatigaiRiyu.SonoKomasyuruiKarahaArienaiUgoki: syuturyoku.Append("その駒の種類からは、ありえない動きをしました。"); break;
-                default: syuturyoku.Append("未定義のエラーです。"); break;
+                case MoveMatigaiRiyu.Karappo: return "";// エラーなし
+                case MoveMatigaiRiyu.ParameterSyosikiMatigai: return "doコマンドのパラメーターの書式が間違っていました。";
+                case MoveMatigaiRiyu.NaiMotiKomaUti: return "持ち駒が無いのに駒を打とうとしました。";
+                case MoveMatigaiRiyu.BangaiIdo: return "盤外に駒を動かそうとしました。";
+                case MoveMatigaiRiyu.TebanKomaNoTokoroheIdo: return "自分の駒が置いてあるところに、駒を動かそうとしました。";
+                case MoveMatigaiRiyu.KomaGaAruTokoroheUti: return "駒が置いてあるところに、駒を打ち込もうとしました。";
+                case MoveMatigaiRiyu.KuhakuWoIdo: return "空き升に駒が置いてあると思って、動かそうとしました。";
+                case MoveMatigaiRiyu.AiteNoKomaIdo: return "相手の駒を、動かそうとしました。";
+                case MoveMatigaiRiyu.NarenaiNari: return "ひよこ以外が、にわとりになろうとしました。";
+                case MoveMatigaiRiyu.SonoKomasyuruiKarahaArienaiUgoki: return "その駒の種類からは、ありえない動きをしました。";
+                default: return "未定義のエラーです。";
             }
-        }
-        public static void SetumeiLine(MoveMatigaiRiyu err, Mojiretu syuturyoku)
-        {
-            Setumei(err, syuturyoku);
-            syuturyoku.AppendLine();
         }
     }
 
@@ -332,32 +327,32 @@ namespace kifuwarabe_wcsc27.implements
         public static MoveCharacter Parse(string commandline, ref int caret_1)
         {
             // うしろに続く文字は☆（＾▽＾）
-            if (caret_1 == commandline.IndexOf("HyokatiYusen",caret_1))
+            if (caret_1 == commandline.IndexOf("HyokatiYusen", caret_1))
             {
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret_1, "HyokatiYusen");
                 return MoveCharacter.HyokatiYusen;
             }
-            else if (caret_1 == commandline.IndexOf("SyorituYusen",caret_1))
+            else if (caret_1 == commandline.IndexOf("SyorituYusen", caret_1))
             {
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret_1, "SyorituYusen");
                 return MoveCharacter.SyorituYusen;
             }
-            else if (caret_1 == commandline.IndexOf("SyorituNomi",caret_1))
+            else if (caret_1 == commandline.IndexOf("SyorituNomi", caret_1))
             {
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret_1, "SyorituNomi");
                 return MoveCharacter.SinteYusen;
             }
-            else if (caret_1 == commandline.IndexOf("SinteYusen",caret_1))
+            else if (caret_1 == commandline.IndexOf("SinteYusen", caret_1))
             {
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret_1, "SinteYusen");
                 return MoveCharacter.SinteYusen;
             }
-            else if (caret_1 == commandline.IndexOf("SinteNomi",caret_1))
+            else if (caret_1 == commandline.IndexOf("SinteNomi", caret_1))
             {
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret_1, "SinteNomi");
                 return MoveCharacter.SinteNomi;
             }
-            else if (caret_1 == commandline.IndexOf("TansakuNomi",caret_1))
+            else if (caret_1 == commandline.IndexOf("TansakuNomi", caret_1))
             {
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret_1, "TansakuNomi");
                 return MoveCharacter.TansakuNomi;

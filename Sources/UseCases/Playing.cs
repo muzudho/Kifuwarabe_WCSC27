@@ -1247,38 +1247,38 @@ usiok");
                         {
                             case TaikyokuKekka.Sennitite:
                                 {
-                                    syuturyoku.AppendLine("┌─────────────────結　果─────────────────┐");
-                                    syuturyoku.AppendLine("│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　│");
-                                    syuturyoku.AppendLine("│　　　　　　　　　　　　　　　　　千日手　　　　　　　　　　　　　　　　　│");
-                                    syuturyoku.AppendLine("│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　│");
-                                    syuturyoku.AppendLine("└─────────────────────────────────────┘");
+                                    syuturyoku.AppendLine(@"┌─────────────────結　果─────────────────┐
+│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　│
+│　　　　　　　　　　　　　　　　　千日手　　　　　　　　　　　　　　　　　│
+│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　│
+└─────────────────────────────────────┘");
                                 }
                                 break;
                             case TaikyokuKekka.Hikiwake:
                                 {
-                                    syuturyoku.AppendLine("┌─────────────────結　果─────────────────┐");
-                                    syuturyoku.AppendLine("│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　│");
-                                    syuturyoku.AppendLine("│　　　　　　　　　　　　　　　　 引き分け 　　　　　　　　　　　　　　　　　│");
-                                    syuturyoku.AppendLine("│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　│");
-                                    syuturyoku.AppendLine("└─────────────────────────────────────┘");
+                                    syuturyoku.AppendLine(@"┌─────────────────結　果─────────────────┐
+│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　│
+│　　　　　　　　　　　　　　　　 引き分け 　　　　　　　　　　　　　　　　　│
+│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　│
+└─────────────────────────────────────┘");
                                 }
                                 break;
                             case TaikyokuKekka.Taikyokusya1NoKati:
                                 {
-                                    syuturyoku.AppendLine("┌─────────────────結　果─────────────────┐");
-                                    syuturyoku.AppendLine("│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　│");
-                                    syuturyoku.AppendLine("│　　　　　　　　　　　　　　　対局者１の勝ち　　　　　　　　　　　　　　　│");
-                                    syuturyoku.AppendLine("│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　│");
-                                    syuturyoku.AppendLine("└─────────────────────────────────────┘");
+                                    syuturyoku.AppendLine(@"┌─────────────────結　果─────────────────┐
+│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　│
+│　　　　　　　　　　　　　　　対局者１の勝ち　　　　　　　　　　　　　　　│
+│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　│
+└─────────────────────────────────────┘");
                                 }
                                 break;
                             case TaikyokuKekka.Taikyokusya2NoKati:
                                 {
-                                    syuturyoku.AppendLine("┌─────────────────結　果─────────────────┐");
-                                    syuturyoku.AppendLine("│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　│");
-                                    syuturyoku.AppendLine("│　　　　　　　　　　　　　　　対局者２の勝ち　　　　　　　　　　　　　　　│");
-                                    syuturyoku.AppendLine("│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　│");
-                                    syuturyoku.AppendLine("└─────────────────────────────────────┘");
+                                    syuturyoku.AppendLine(@"┌─────────────────結　果─────────────────┐
+│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　│
+│　　　　　　　　　　　　　　　対局者２の勝ち　　　　　　　　　　　　　　　│
+│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　│
+└─────────────────────────────────────┘");
                                 }
                                 break;
                             case TaikyokuKekka.Karappo://thru
@@ -1290,8 +1290,7 @@ usiok");
                 case CommandMode.TusinYo:
                     {
                         // 列挙型をそのまま出力するぜ☆（＾▽＾）
-                        syuturyoku.Append("< result, kekka = ");
-                        syuturyoku.AppendLine(ky.Kekka.ToString());
+                        syuturyoku.AppendLine($"< result, kekka = {ky.Kekka.ToString()}");
                     }
                     break;
                 default://thru
@@ -1335,7 +1334,7 @@ usiok");
             if (caret_1 == commandline.IndexOf("su", caret_1))// 指し手の件数出力
             {
                 List<MoveKakucho> sslist = Util_Application.MoveCmd(ky, syuturyoku);
-                syuturyoku.AppendLine("指し手 件数=[" + sslist.Count + "]");
+                syuturyoku.AppendLine($"指し手 件数=[{sslist.Count}]");
                 return;
             }
 
@@ -1717,10 +1716,7 @@ usiok");
                 if (Util_Application.MoveCmd(commandline, ky.Sindan, out Move ss))// move 912 とか☆
                 {
                     ConvMove.Setumei(isSfen, ss, syuturyoku);
-                    syuturyoku.Append(" (");
-                    syuturyoku.Append((int)ss);
-                    syuturyoku.Append(")");
-                    syuturyoku.AppendLine();
+                    syuturyoku.AppendLine($" ({(int)ss})");
                     return;
                 }
                 // パース・エラー時

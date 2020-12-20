@@ -22,23 +22,9 @@ namespace kifuwarabe_wcsc27.implements
 
         public void Setumei_Description(bool isSfen, Mojiretu syuturyoku)
         {
-            syuturyoku.Append("key=[");
-            syuturyoku.Append(Key.ToString());
-            syuturyoku.Append("] move=[");
+            syuturyoku.Append($"key=[{Key}] move=[");
             ConvMove.Setumei(isSfen, Move,syuturyoku);
-            syuturyoku.Append("] sasiteType=[");
-            AbstractConvMoveType.Setumei(MoveType, syuturyoku);
-            syuturyoku.Append("] fukasa=[");
-            syuturyoku.Append(Fukasa.ToString());
-            syuturyoku.Append("] hyokati=[");
-            syuturyoku.Append(((int)Hyokati).ToString());
-            syuturyoku.Append("] komawariHyokati_forJoho=[");
-            syuturyoku.Append(((int)KomawariHyokati_ForJoho).ToString());
-            syuturyoku.Append("] nikomaHyokati_forJoho=[");
-            syuturyoku.Append(((int)NikomaHyokati_ForJoho).ToString());
-            syuturyoku.Append("] okimariHyokati_forJoho=[");
-            syuturyoku.Append(((int)OkimariHyokati_ForJoho).ToString());
-            syuturyoku.Append("]");
+            syuturyoku.Append($"] sasiteType=[{AbstractConvMoveType.Setumei(MoveType)}] fukasa=[{Fukasa}] hyokati=[{(int)Hyokati}] komawariHyokati_forJoho=[{(int)KomawariHyokati_ForJoho}] nikomaHyokati_forJoho=[{(int)NikomaHyokati_ForJoho}] okimariHyokati_forJoho=[${(int)OkimariHyokati_ForJoho}]");
         }
 
         public Move Move { get { return m_move_; } }

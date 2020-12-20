@@ -86,13 +86,13 @@ namespace kifuwarabe_wcsc27.interfaces
         /// </summary>
         /// <param name="ts"></param>
         /// <returns></returns>
-        public static void Setumei_Sankaku(Taikyokusya ts, Mojiretu syuturyoku)
+        public static string Setumei_Sankaku(Taikyokusya ts)
         {
             switch (ts)
             {
-                case Taikyokusya.T2: syuturyoku.Append("△"); break;
-                case Taikyokusya.T1: syuturyoku.Append("▲"); break;
-                default: syuturyoku.Append("×"); break;
+                case Taikyokusya.T2: return "△";
+                case Taikyokusya.T1: return "▲";
+                default: return "×";
             }
         }
         private static string[] m_tusinYo_ = new string[]
@@ -186,13 +186,13 @@ namespace kifuwarabe_wcsc27.interfaces
         /// </summary>
         /// <param name="tb"></param>
         /// <returns></returns>
-        public static void Setumei_Nagame(Ninsyo tb, Mojiretu syuturyoku)
+        public static string Setumei_Nagame(Ninsyo tb)
         {
             switch (tb)
             {
-                case Ninsyo.Watasi: syuturyoku.Append("手番"); break;
-                case Ninsyo.Anata: syuturyoku.Append("相手番"); break;
-                default: syuturyoku.Append("×"); break;
+                case Ninsyo.Watasi: return "手番";
+                case Ninsyo.Anata: return "相手番";
+                default: return "×";
             }
         }
 

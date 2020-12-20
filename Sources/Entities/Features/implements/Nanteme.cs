@@ -137,17 +137,15 @@ namespace kifuwarabe_wcsc27.implements
                 if (sentoNantemade <= zuhaNantemade)
                 {
 #if !UNITY
-                    syuturyoku.Append("(");
-                    syuturyoku.Append(zuhaNantemade.ToString());// 「図はn手まで」の数字
-                    syuturyoku.Append(")");
+                    // 「図はn手まで」の数字
+                    syuturyoku.Append($"({zuhaNantemade})");
 #endif
                     ConvMove.AppendFenTo(isSfen, nanteme.Move, syuturyoku);
                     syuturyoku.Append(" ");
 
 #if !UNITY
                     // おまけ
-                    AbstractConvMoveType.Setumei(nanteme.MoveType, syuturyoku);
-                    syuturyoku.Append(" ");
+                    syuturyoku.Append($"{AbstractConvMoveType.Setumei(nanteme.MoveType)} ");
 #endif
                 }
                 zuhaNantemade++;
