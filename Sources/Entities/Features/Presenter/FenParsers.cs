@@ -21,9 +21,8 @@ namespace kifuwarabe_wcsc27.abstracts
             public string BanjoT2 { get { return $"r{MotigomaT2}"; } }
             public string Suji { get { return "ABCDEFGHIabcdefghi"; } }
             public string Dan { get { return "123456789"; } }
-            //public string Position { get { return $"({STARTPOS_LABEL})|(?:{Fen}([{SPACE}{BanjoT1}{BanjoT2}+/]+) {MotigomaPos} {TebanPos})"; } }
-            public string Position { get { return "(?:(" + STARTPOS_LABEL + ")|(?:"+Fen+" ([" + SPACE + BanjoT1 + BanjoT2 + "+/]+) " + MotigomaPos + " " + TebanPos + "))"; } }
-            public string MotigomaPos { get { return "(["+ MotigomaNasi+@"\d" + MotigomaT1 + MotigomaT2 + "]+)"; } }
+            public string Position { get { return $"(?:({STARTPOS_LABEL})|(?:{Fen} ([{SPACE}{BanjoT1}{BanjoT2}+/]+) {MotigomaPos} {TebanPos}))"; } }
+            public string MotigomaPos { get { return $@"([{MotigomaNasi}\d{MotigomaT1}{MotigomaT2}]+)"; } }
             public string MotigomaNasi { get { return "-"; } }
             public string TebanPos { get { return "(1|2)"; } }
             public string Toryo { get { return "toryo"; } }
@@ -36,12 +35,11 @@ namespace kifuwarabe_wcsc27.abstracts
             public string Startpos { get { return "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL"; } }
             public string MotigomaT1 { get { return "BRPGSNL"; } }
             public string MotigomaT2 { get { return "brpgsnl"; } }
-            public string BanjoT1 { get { return "K" + MotigomaT1; } }
-            public string BanjoT2 { get { return "k" + MotigomaT2; } }
+            public string BanjoT1 { get { return $"K{MotigomaT1}"; } }
+            public string BanjoT2 { get { return $"k{MotigomaT2}"; } }
             public string Suji { get { return "123456789"; } }
             public string Dan { get { return "ABCDEFGHIabcdefghi"; } }
-            //public string Position { get { return "(" + STARTPOS_LABEL + ")|(?:" + Fen + " ([" + SPACE + BanjoT1 + BanjoT2 + "+/]+) " + MotigomaPos + " " + TebanPos + ")"; } }
-            public string Position { get { return "(?:(" + STARTPOS_LABEL + ")|(?:" + Fen + " ([" + SPACE + BanjoT1 + BanjoT2 + "+/]+) " + MotigomaPos + " " + TebanPos + "))"; } }
+            public string Position { get { return $"(?:({STARTPOS_LABEL})|(?:{Fen} ([{SPACE}{BanjoT1}{BanjoT2}+/]+) {MotigomaPos} {TebanPos}))"; } }
             public string MotigomaPos { get { return "([" + MotigomaNasi + @"\d" + MotigomaT1 + MotigomaT2 + "]+)"; } }
             public string MotigomaNasi { get { return "-"; } }
             public string TebanPos { get { return "(b|w)"; } }
@@ -132,7 +130,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     // 9×9 へも拡張。
                     // 1文字目の ZKH は打てる持ち駒だが、ひよこのHが、筋番号のHと区別できない
                     sasitePattern_sfen_ = new Regex(
-                        @"([" + Sfen.Suji + Sfen.MotigomaT1 + @"])([" + Sfen.Dan + @"\*])([" + Sfen.Suji + @"])([" + Sfen.Dan + @"])(\+)?"
+                        $@"([{Sfen.Suji}{Sfen.MotigomaT1}])([{Sfen.Dan}\*])([{Sfen.Suji}])([{Sfen.Dan}])(\+)?"
 #if !UNITY
                         , RegexOptions.Compiled
 #endif
@@ -148,7 +146,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     // 9×9 へも拡張。
                     // 1文字目の ZKH は打てる持ち駒だが、ひよこのHが、筋番号のHと区別できない
                     sasitePattern_dfen_ = new Regex(
-                        @"([" + Dfen.Suji + Dfen.MotigomaT1 + @"])([" + Dfen.Dan + @"\*])([" + Dfen.Suji + @"])([" + Dfen.Dan + @"])(\+)?"
+                        $@"([{Dfen.Suji}{Dfen.MotigomaT1}])([{Dfen.Dan}\*])([{Dfen.Suji}])([{Dfen.Dan}])(\+)?"
 #if !UNITY
                         , RegexOptions.Compiled
 #endif
@@ -167,7 +165,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 if(null== masSasitePattern_sfen_)
                 {
                     masSasitePattern_sfen_ = new Regex(
-                    "([" + Sfen.Suji + Sfen.MotigomaT1 + "])([" + Sfen.Dan + @"\*])"
+                    $@"([{Sfen.Suji}{Sfen.MotigomaT1}])([{Sfen.Dan}\*])"
 #if !UNITY
                         , RegexOptions.Compiled
 #endif
@@ -180,7 +178,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 if (null == masSasitePattern_dfen_)
                 {
                     masSasitePattern_dfen_ = new Regex(
-                    "([" + Dfen.Suji + Dfen.MotigomaT1 + "])([" + Dfen.Dan + @"\*])"
+                    $@"([{Dfen.Suji}{Dfen.MotigomaT1}])([{Dfen.Dan}\*])"
 #if !UNITY
                         , RegexOptions.Compiled
 #endif
@@ -199,7 +197,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 if (null == masPattern_sfen_)
                 {
                     masPattern_sfen_ = new Regex(
-                        @"([" + Sfen.Suji + @"])([" + Sfen.Dan + @"])"
+                        $@"([{Sfen.Suji}])([{Sfen.Dan}])"
 #if !UNITY
                         , RegexOptions.Compiled
 #endif
@@ -212,7 +210,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 if (null == masPattern_dfen_)
                 {
                     masPattern_dfen_ = new Regex(
-                        @"([" + Dfen.Suji + @"])([" + Dfen.Dan + @"])"
+                        $@"([{Dfen.Suji}])([{ Dfen.Dan}])"
 #if !UNITY
                         , RegexOptions.Compiled
 #endif
@@ -232,7 +230,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 {
                     // kiki B3 R 1  : 升と、駒の種類と、手番を指定すると、利きを表示するぜ☆（＾▽＾）
                     kikiCommandPattern_sfen_ = new Regex(
-                        @"([" + Sfen.Suji + @"])([" + Sfen.Dan + @"\*])\s+([" + Sfen.MotigomaT1 + Sfen.MotigomaT2 + @"])\s+"+Sfen.TebanPos
+                        $@"([{Sfen.Suji}])([{Sfen.Dan}\*])\s+([{Sfen.MotigomaT1}{Sfen.MotigomaT2}])\s+{Sfen.TebanPos}"
 #if !UNITY
                         , RegexOptions.Compiled
 #endif
@@ -246,7 +244,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 {
                     // kiki B3 R 1  : 升と、駒の種類と、手番を指定すると、利きを表示するぜ☆（＾▽＾）
                     kikiCommandPattern_dfen_ = new Regex(
-                        @"([" + Sfen.Suji + @"])([" + Sfen.Dan + @"\*])\s+([" + Sfen.MotigomaT1 + Sfen.MotigomaT2 + @"])\s+" + Sfen.TebanPos
+                        $@"([{Sfen.Suji}])([{Sfen.Dan}\*])\s+([{Sfen.MotigomaT1}{Sfen.MotigomaT2}])\s+{Sfen.TebanPos}"
 #if !UNITY
                         , RegexOptions.Compiled
 #endif
@@ -304,9 +302,9 @@ namespace kifuwarabe_wcsc27.abstracts
                 {
                     josekiSsPattern_sfen_ = new Regex(
                         // 指し手 (1:グループ,2:指し手全体,3～7:指し手各部,8:投了)
-                        @"((([" + Sfen.Suji + Sfen.MotigomaT1 + @"])([" + Sfen.Dan + @"\*])([" + Sfen.Suji + @"])([" + Sfen.Dan + @"])(\+)?)|("+Sfen.Toryo+")) " +
+                        $@"((([{Sfen.Suji}{Sfen.MotigomaT1}])([{ Sfen.Dan}\*])([{ Sfen.Suji}])([{ Sfen.Dan}])(\+)?)|({ Sfen.Toryo})) " +
                         // 応手 (9:グループ,10:none,11:指し手全体,12～16:指し手各部,17:投了)
-                        @"((none)|(([" + Sfen.Suji + Sfen.MotigomaT1 + @"])([" + Sfen.Dan + @"\*])([" + Sfen.Suji + @"])([" + Sfen.Dan + @"])(\+)?)|(" + Sfen.Toryo + ")) " +
+                        $@"((none)|(([{Sfen.Suji}{Sfen.MotigomaT1}])([{Sfen.Dan}\*])([{Sfen.Suji}])([{Sfen.Dan}])(\+)?)|({Sfen.Toryo})) " +
                         // 評価値 (18)
                         @"(-?\d+) " +
                         // 深さ (19)
@@ -326,9 +324,9 @@ namespace kifuwarabe_wcsc27.abstracts
                 {
                     josekiSsPattern_dfen_ = new Regex(
                         // 指し手 (1:グループ,2:指し手全体,3～7:指し手各部,8:投了)
-                        @"((([" + Dfen.Suji + Dfen.MotigomaT1 + @"])([" + Dfen.Dan + @"\*])([" + Dfen.Suji + @"])([" + Dfen.Dan + @"])(\+)?)|(" + Sfen.Toryo + ")) " +
+                        $@"((([{Dfen.Suji}{Dfen.MotigomaT1}])([{Dfen.Dan}\*])([{ Dfen.Suji}])([{ Dfen.Dan}])(\+)?)|({ Sfen.Toryo })) " +
                         // 応手 (9:グループ,10:none,11:指し手全体,12～16:指し手各部,17:投了)
-                        @"((none)|(([" + Dfen.Suji + Dfen.MotigomaT1 + @"])([" + Dfen.Dan + @"\*])([" + Dfen.Suji + @"])([" + Dfen.Dan + @"])(\+)?)|(" + Sfen.Toryo + ")) " +
+                        $@"((none)|(([{ Dfen.Suji }{ Dfen.MotigomaT1 }])([{ Dfen.Dan }\*])([{ Dfen.Suji }])([{ Dfen.Dan }])(\+)?)|({ Sfen.Toryo })) " +
                         // 評価値 (18)
                         @"(-?\d+) " +
                         // 深さ (19)
