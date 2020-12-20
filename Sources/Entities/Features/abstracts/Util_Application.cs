@@ -871,18 +871,9 @@ namespace kifuwarabe_wcsc27.abstracts
 
             // ゲームモード設定☆
             Util_Application.GameMode = GameMode.Karappo;
-//#if UNITY // && !KAIHATU
-//            // Unityライブラリ・モード
-//            Util_Application.GameMode = GameMode.Game;// ライブラリでは、ゲーム・モードから始め☆
-//#else
-//            // PC開発モード
-//            // Unityライブラリ開発モード
-//            Util_Application.GameMode = GameMode.Karappo;
-//#endif
         }
         public static void End_Application(StringBuilder syuturyoku)
         {
-#if !UNITY
             #region （手順７）保存して終了
             //────────────────────────────────────────
             // （手順７）保存して終了
@@ -890,7 +881,6 @@ namespace kifuwarabe_wcsc27.abstracts
             // 保存していないものを保存するぜ☆（＾▽＾）
             Util_Application.DoTejun7_FlushAll2(syuturyoku);
             #endregion
-#endif
         }
 
         /// <summary>

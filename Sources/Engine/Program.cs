@@ -113,13 +113,6 @@ System.Console.WriteLine($"# (~0UL << 1)=[{(~0UL << 1)}]");
                 Option_Application.Optionlist.SikoJikanRandom = 5000;// 1501;// 追加で増えるランダム時間の最大（この値未満）。 期待値を考えて設定しろだぜ☆（＾～＾）例： ( 500 + 1500 ) / 2 = 1000
                 //Option_Application.Optionlist.TranspositionTableTukau = true;
                 //Option_Application.Optionlist.UseTimeOver = true;
-
-                // 追加で変更☆（＾▽＾）
-#if UNITY && !KAIHATU
-                // Unity用ライブラリ・モード
-                Option_Application.Optionlist.JohoJikan = -1; // Unityの本番モードで、読み筋情報出力無しにしたいなら☆
-#else
-#endif
             }
 
             // （手順２）きふわらべの応答は、文字列になって　ここに入るぜ☆（＾▽＾）
@@ -128,17 +121,6 @@ System.Console.WriteLine($"# (~0UL << 1)=[{(~0UL << 1)}]");
 
             // （手順３）アプリケーション開始時設定　を終えた後に　これを呼び出すこと☆（＾～＾）！
             Face_Kifuwarabe.OnApplicationReadied(Option_Application.Kyokumen, syuturyoku);
-
-#if UNITY && !KAIHATU
-            // Unityライブラリ・モード
-            // （手順４）ライブラリとして使うときは、コマンドラインを入力しろだぜ☆（＾～＾）
-            // 例： Face_Kifuwarabe.Execute("", this.Syuturyoku); // 空打ちで、ゲームモードに入るぜ☆（＾▽＾）
-            // 例： Face_Kifuwarabe.Execute("cando b3b2", this.Syuturyoku);
-            // 例： Face_Kifuwarabe.Execute("do b3b2", this.Syuturyoku);
-#else
-            // Unity以外はこっち。
-            // PC開発モードもこっち。
-#endif
 
             // まず最初に「USI\n」が届くかどうかを判定☆（＾～＾）
             Util_ConsoleGame.ReadCommandline(syuturyoku);
@@ -195,14 +177,6 @@ System.Console.WriteLine($"# (~0UL << 1)=[{(~0UL << 1)}]");
                 Util_Commandline.InitCommandline();// コマンド・ライン初期化☆
                 Util_Commandline.ReadCommandBuffer(syuturyoku);// コマンド・バッファー読取り☆
 
-#if UNITY && !KAIHATU
-                // Unityの本番モードでは、コマンド・バッファーは使わないものとするぜ☆（＾～＾）
-                if(null!= commandline)
-                {
-                    Util_Commandline.CommandBuffer.AddRange(new List<string>(new string[] { commandline }));
-                    commandline = null;
-                }
-#endif
                 if (Util_Commandline.Commandline != null)
                 {
                     // コマンド・バッファーにコマンドラインが残っていたようなら、そのまま使うぜ☆（＾▽＾）
@@ -217,33 +191,19 @@ System.Console.WriteLine($"# (~0UL << 1)=[{(~0UL << 1)}]");
                 }
                 else
                 {
-
-#if UNITY
-#if KAIHATU
                     Util_ConsoleGame.ReadCommandline(syuturyoku);// コンソールからのキー入力を受け取るぜ☆（＾▽＾）（コンソール・ゲーム用）
-#else
-                    break; // Unity のリリース・モードなら、次のコマンドを待たずにメインループを抜けるぜ☆（＾▽＾）
-#endif
-#else
-                    Util_ConsoleGame.ReadCommandline(syuturyoku);// コンソールからのキー入力を受け取るぜ☆（＾▽＾）（コンソール・ゲーム用）
-#endif
                 }
 
                 if (GameMode.Game == Util_Application.GameMode)
                 {
-#if !UNITY
                     // 指す前の局面☆（定跡　登録用）
                     Util_ConsoleGame.Init_JosekiToroku(ky);
-#endif
 
                     //────────────────────────────────────────
                     // （手順３）人間の手番
                     //────────────────────────────────────────
                     if (Util_Application.IsNingenNoBan(ky)) // 人間の手番
                     {
-#if UNITY && !KAIHATU
-                        // Unityの本番では実装し直す必要があるぜ☆（＾～＾）
-#else
                         // ゲームモードでの人間の手番では、さらにコマンド解析
 
                         // ここで do コマンド（do b3b2 等）を先行して解析するぜ☆（＾▽＾）
@@ -276,18 +236,9 @@ System.Console.WriteLine($"# (~0UL << 1)=[{(~0UL << 1)}]");
                             Util_Application.JudgeKettyaku(inputSasite, ky);// 勝敗判定☆（＾▽＾）
 
                             // 局面出力
-#if UNITY
-                            syuturyoku.Append("< ");
-                            ky.TusinYo_Line(syuturyoku);
-#else
                             Util_Information.Setumei_NingenGameYo(ky, syuturyoku);
-#endif
-
-#if !UNITY
                             Util_ConsoleGame.Update1_JosekiToroku(inputSasite, ky, syuturyoku);// やるなら、定跡更新☆（＾▽＾）
-#endif
                         }
-#endif
                     }// 人間おわり☆（＾▽＾）
 
                     //────────────────────────────────────────
@@ -298,18 +249,10 @@ System.Console.WriteLine($"# (~0UL << 1)=[{(~0UL << 1)}]");
                         Util_ConsoleGame.AppendMessage_ComputerSikochu(ky, syuturyoku);// 表示（コンピューター思考中☆）
 
                         Move bestSasite = Util_Application.Go(playing, ky, out HyokatiUtiwake best_hyokatiUTiwake, Face_YomisujiJoho.Dlgt_WriteYomisujiJoho, syuturyoku);// コンピューターに１手指させるぜ☆
-#if UNITY
-                        syuturyoku.Append("< done ");
-                        ConvMove.AppendFenTo(bestSasite, syuturyoku);// Unity用に指し手を出力するぜ☆（＾▽＾）
-                        syuturyoku.AppendLine();
-#endif
                         Util_Application.JudgeKettyaku(bestSasite, ky);// 勝敗判定☆（＾▽＾）
 
-#if UNITY && !KAIHATU
-#else
                         Util_ConsoleGame.Update2_JosekiToroku(bestSasite, best_hyokatiUTiwake.EdaBest, ky, syuturyoku);// やるなら、定跡更新☆（＾▽＾）
                         Util_ConsoleGame.ShowMessage_KettyakuJi(ky, syuturyoku);// 決着していた場合はメッセージ表示☆（＾～＾）
-#endif
                     }// コンピューターの手番おわり☆（＾～＾）
 
                     //────────────────────────────────────────

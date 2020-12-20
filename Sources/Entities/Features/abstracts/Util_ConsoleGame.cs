@@ -1,20 +1,15 @@
-﻿using kifuwarabe_wcsc27.facade;
+﻿using System.Text;
 using kifuwarabe_wcsc27.implements;
 using kifuwarabe_wcsc27.interfaces;
 using kifuwarabe_wcsc27.machine;
-using System;
-using System.Text;
 
 namespace kifuwarabe_wcsc27.abstracts
 {
     /// <summary>
-    /// Unityでは使わないだろうもの☆（＾～＾）
+    /// コンソール画面用☆（＾～＾）
     /// </summary>
     public abstract class Util_ConsoleGame
     {
-#if UNITY && !KAIHATU
-        // Unityのリリース・モードではコマンドライン読取りはしないぜ☆（＾▽＾）
-#else
         public static void ReadCommandline(StringBuilder syuturyoku)
         {
             Util_Machine.Flush(syuturyoku);
@@ -22,17 +17,12 @@ namespace kifuwarabe_wcsc27.abstracts
             syuturyoku.AppendLine(Util_Commandline.Commandline);
             Util_Machine.Flush_NoEcho(syuturyoku);
         }
-#endif
-
 
         /// <summary>
         /// タイトル画面表示☆（＾～＾）
         /// </summary>
         public static void WriteMessage_TitleGamen(StringBuilder syuturyoku)
         {
-#if UNITY
-            syuturyoku.AppendLine("# Title");
-#else
             syuturyoku.Append(@"┌─────────────────────────────────────┐
 │ら　ぞ　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　き　ぞ│
 │　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　│
@@ -63,7 +53,6 @@ namespace kifuwarabe_wcsc27.abstracts
             syuturyoku.Append("**デバッグ・モード**");//注意喚起☆（＾▽＾）
 #else
 #endif
-#endif
             syuturyoku.Append("> ");
             Util_Machine.Flush(syuturyoku);
         }
@@ -73,10 +62,6 @@ namespace kifuwarabe_wcsc27.abstracts
         /// </summary>
         public static void AppendMessage_ComputerSikochu(Kyokumen ky, StringBuilder syuturyoku)
         {
-#if UNITY
-            syuturyoku.Append("# ");
-#endif
-
 #if DEBUG
             syuturyoku.Append("**デバッグ・モード** ");//注意喚起☆（＾▽＾）
 #endif
@@ -87,28 +72,18 @@ namespace kifuwarabe_wcsc27.abstracts
             Util_Machine.Flush(syuturyoku);
         }
 
-#if UNITY && !KAIHATU
-#else
         /// <summary>
         /// 決着時のメッセージ表示☆
         /// </summary>
-        public static void ShowMessage_KettyakuJi( Kyokumen ky, StringBuilder syuturyoku)
+        public static void ShowMessage_KettyakuJi(Kyokumen ky, StringBuilder syuturyoku)
         {
             if (TaikyokuKekka.Karappo != Util_Application.Result(ky))
             {
                 string kigo = "";
-#if UNITY
-                kigo = "# ";
-#endif
 
                 // 表示（コンソール・ゲーム用）　勝敗☆（＾～＾）”””
-#if UNITY
-                syuturyoku.Append("< kettyaku, 決着図, ");
-                ky.TusinYo_Line(syuturyoku);
-#else
                 syuturyoku.AppendLine($"{kigo}決着図");
-                Util_Information.Setumei_NingenGameYo(ky,syuturyoku);
-#endif
+                Util_Information.Setumei_NingenGameYo(ky, syuturyoku);
 
                 // 表示（コンソール・ゲーム用）　勝敗☆（＾～＾）”””
                 switch (Util_Application.Result(ky))
@@ -146,7 +121,7 @@ namespace kifuwarabe_wcsc27.abstracts
             }
         }
 
-                #region 定跡登録
+        #region 定跡登録
         /// <summary>
         /// 定跡の通り指したとき、真☆
         /// </summary>
@@ -158,7 +133,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// <summary>
         /// 定跡登録　初期化（ゲームセクション内）
         /// </summary>
-        public static void Init_JosekiToroku(Kyokumen ky )
+        public static void Init_JosekiToroku(Kyokumen ky)
         {
             IsJosekiTraced = false;//毎回リセット☆（＾▽＾）
             KyFen_before = null;
@@ -236,7 +211,6 @@ namespace kifuwarabe_wcsc27.abstracts
                 }
             }
         }
-                #endregion
-#endif
-            }
+        #endregion
+    }
 }

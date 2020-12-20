@@ -1,25 +1,12 @@
-﻿using kifuwarabe_wcsc27.implements;
-using System;
-using Grayscale.Kifuwarakei.Entities.Logging;
-using System.Text;
-
-#if UNITY && !KAIHATU // Unity本番用だぜ☆
-using kifuwarabe_wcsc27.abstracts;
-using kifuwarabe_wcsc27.interfaces;
-using kifuwarabe_wcsc27.facade;
-using System.Diagnostics;
-
-#else // PC用だぜ☆
-using kifuwarabe_wcsc27.abstracts;
-using kifuwarabe_wcsc27.interfaces;
-using System.Diagnostics;
+﻿using System;
 using System.Collections.Generic;
-// Unityでは使えないぜ☆（／＿＼）
+using System.Diagnostics;
 using System.IO;
-//using System.Text;
-//using System.Windows.Forms;
-
-#endif
+using System.Text;
+using Grayscale.Kifuwarakei.Entities.Logging;
+using kifuwarabe_wcsc27.abstracts;
+using kifuwarabe_wcsc27.implements;
+using kifuwarabe_wcsc27.interfaces;
 
 namespace kifuwarabe_wcsc27.machine
 {
@@ -33,9 +20,6 @@ namespace kifuwarabe_wcsc27.machine
         {
             Syuturyoku = new StringBuilder();
             UnusedOutputBuf = new StringBuilder();
-#if UNITY
-            Option_Application.Optionlist.JosekiRec = false;//定跡の登録はできないぜ☆（＾▽＾）
-#else
             System.Console.Title = "きふわらべ";
 
             // ログ・ファイルがあれば削除するぜ☆
@@ -43,7 +27,6 @@ namespace kifuwarabe_wcsc27.machine
             {
                 File.Delete(Logger.LogFilePath);
             }
-#endif
 
             // 254文字までしか入力できない。（Console.DefaultConsoleBufferSize = 256 引く CRLF 2文字）
             // そこで文字数を拡張する。400手の棋譜を読めるようにしておけば大丈夫か☆（＾～＾）
@@ -81,11 +64,7 @@ namespace kifuwarabe_wcsc27.machine
 
         public static void Clear()
         {
-#if UNITY
-            // Unityではコンソール画面のクリアー・メソッドが無いぜ☆（＾▽＾）
-#else
             System.Console.Clear();
-#endif
         }
         /// <summary>
         /// バッファーに溜まっているログを吐き出します。
@@ -120,9 +99,6 @@ namespace kifuwarabe_wcsc27.machine
                     System.Console.Out.Write(syuturyoku.ToString());
                 }
 
-#if UNITY
-                // Unityではログ書出しを一切扱わないぜ☆（＾▽＾）
-#else
                 // ログの書き込み
                 // _1 ～ _10 等のファイル名末尾を付けて、ログをローテーションするぜ☆（＾▽＾）
                 string bestFile;
@@ -162,7 +138,7 @@ namespace kifuwarabe_wcsc27.machine
 
                             existFileCount++;
                         }
-                        else if(-1==noExistsFileIndex)
+                        else if (-1 == noExistsFileIndex)
                         {
                             noExistsFileIndex = i;
                         }
@@ -209,7 +185,7 @@ namespace kifuwarabe_wcsc27.machine
                     }
                 }
 
-                for (int retry=0; retry<2; retry++)
+                for (int retry = 0; retry < 2; retry++)
                 {
                     try
                     {
@@ -218,7 +194,7 @@ namespace kifuwarabe_wcsc27.machine
                     }
                     catch (Exception)
                     {
-                        if (0==retry)
+                        if (0 == retry)
                         {
                             // 書き込みに失敗することもあるぜ☆（＾～＾）
                             // 10秒待機して　再挑戦しようぜ☆（＾▽＾）
@@ -234,7 +210,6 @@ namespace kifuwarabe_wcsc27.machine
                     }
                 }
                 // ログ書き出し、ここまで☆（＾▽＾）
-#endif
                 syuturyoku.Clear();
             }
         }
@@ -244,9 +219,6 @@ namespace kifuwarabe_wcsc27.machine
             return System.Console.In.ReadLine();
         }
 
-#if UNITY
-        // Unityには System.Console.ReadKey は無いぜ☆（＾～＾）
-#else
         /// <summary>
         /// デバッグ・ウィンドウからの行入力
         /// </summary>
@@ -255,7 +227,6 @@ namespace kifuwarabe_wcsc27.machine
         {
             System.Console.ReadKey();
         }
-#endif
 
         /// <summary>
         /// 定跡、二駒、成績ファイルが 3x4の盤サイズしか対応していないので、
@@ -273,10 +244,6 @@ namespace kifuwarabe_wcsc27.machine
         /// </summary>
         public static void Load_Joseki(StringBuilder syuturyoku)
         {
-#if UNITY
-            // Unityでは定跡の外部ファイルを読めないので、ソースファイル中に定跡を入れておくぜ☆（＾▽＾）
-            Option_Application.Joseki.Parse(Face_Joseki.GetKumikomiJoseki(), syuturyoku);
-#else
             if (IsEnableBoardSize())
             {
                 syuturyoku.Append("定跡ファイル読込中");
@@ -303,9 +270,8 @@ namespace kifuwarabe_wcsc27.machine
                 syuturyoku.AppendLine("☆");
                 Util_Machine.Flush(syuturyoku);
             }
-#endif
         }
-#if !UNITY
+
         /// <summary>
         /// 定跡を読込むぜ☆（＾▽＾）
         /// </summary>
@@ -323,7 +289,7 @@ namespace kifuwarabe_wcsc27.machine
                 //                Util_Machine.AppendLine(
                 //                        $@"以下、定跡メモリのダンプ
                 //┌──────────┐
-//{ Option_Application.Joseki.ToString()}
+                //{ Option_Application.Joseki.ToString()}
                 //└──────────┘
                 //");
                 //                Util_Machine.Flush();
@@ -332,15 +298,12 @@ namespace kifuwarabe_wcsc27.machine
 
             return jo;
         }
-#endif
+
         /// <summary>
         /// 定跡を書き出すぜ☆（＾▽＾）
         /// </summary>
         public static void Flush_Joseki(StringBuilder syuturyoku)
         {
-#if UNITY
-            // Unityでは定跡の外部ファイルを一切扱わないぜ☆（＾▽＾）
-#else
             if (IsEnableBoardSize() && Option_Application.Optionlist.JosekiRec && Option_Application.Joseki.Edited)
             {
                 syuturyoku.Append("定跡ファイル書出中");
@@ -395,8 +358,8 @@ namespace kifuwarabe_wcsc27.machine
                 Util_Machine.Flush(syuturyoku);
 
                 // 分割したファイルをマージするぜ☆（＾▽＾）
-                for (int i=1;//[0]にマージしていくぜ☆（＾▽＾）
-                    i<bunkatu.Length; i++)
+                for (int i = 1;//[0]にマージしていくぜ☆（＾▽＾）
+                    i < bunkatu.Length; i++)
                 {
                     Option_Application.Joseki.Merge(bunkatu[i], syuturyoku);
                 }
@@ -405,9 +368,8 @@ namespace kifuwarabe_wcsc27.machine
                 Util_Machine.Flush(syuturyoku);
                 Option_Application.Joseki.Edited = false;
             }
-#endif
         }
-#if !UNITY
+
         /// <summary>
         /// 定跡を書き出すぜ☆（＾▽＾）
         /// </summary>
@@ -445,16 +407,12 @@ namespace kifuwarabe_wcsc27.machine
             // 上書き☆
             System.IO.File.WriteAllText(file, josekiStr);
         }
-#endif
+
         /// <summary>
         /// 二駒関係を読込むぜ☆（＾▽＾）
         /// </summary>
         public static void Load_Nikoma(StringBuilder syuturyoku)
         {
-#if UNITY
-            // Unityでは外部ファイルを読めないので、ソースファイル中に定跡を入れておくぜ☆（＾▽＾）
-            Util_NikomaKankei.Parse(Face_Nikoma.GetKumikomiNikoma());
-#else
             if (IsEnableBoardSize())
             {
                 syuturyoku.Append("二駒関係ファイル読込中");
@@ -474,16 +432,13 @@ namespace kifuwarabe_wcsc27.machine
                 syuturyoku.AppendLine("☆");
                 Util_Machine.Flush(syuturyoku);
             }
-#endif
         }
+
         /// <summary>
         /// 二駒関係を書き出すぜ☆（＾▽＾）
         /// </summary>
         public static void Flush_Nikoma(StringBuilder syuturyoku)
         {
-#if UNITY
-            // Unityでは外部ファイルを一切扱わないぜ☆（＾▽＾）
-#else
             if (IsEnableBoardSize() && Util_NikomaKankei.Edited)
             {
                 syuturyoku.Append("二駒関係ファイル書出中");
@@ -517,16 +472,13 @@ namespace kifuwarabe_wcsc27.machine
                 Util_Machine.Flush(syuturyoku);
                 Util_NikomaKankei.Edited = false;
             }
-#endif
         }
+
         /// <summary>
         /// 二駒関係の説明を書き出すぜ☆（＾▽＾）
         /// </summary>
         public static void Flush_NikomaSetumei(StringBuilder syuturyoku)
         {
-#if UNITY
-            // Unityでは外部ファイルを一切扱わないぜ☆（＾▽＾）
-#else
             syuturyoku.Append("二駒関係説明ファイル書出中");
             Util_Machine.Flush(syuturyoku);
 
@@ -556,17 +508,13 @@ namespace kifuwarabe_wcsc27.machine
             syuturyoku.AppendLine("☆");
             Util_Machine.Flush(syuturyoku);
             Util_NikomaKankei.Edited = false;
-#endif
         }
+
         /// <summary>
         /// 成績を読込むぜ☆（＾▽＾）
         /// </summary>
         public static void Load_Seiseki(StringBuilder syuturyoku)
         {
-#if UNITY
-            // Unityでは成績の外部ファイルを読めないぜ☆（＾▽＾）
-            Option_Application.Seiseki.Parse(Face_Seiseki.GetKumikomiSeiseki(), syuturyoku);
-#else
             if (IsEnableBoardSize())
             {
                 syuturyoku.Append("成績ファイル読込中");
@@ -593,9 +541,8 @@ namespace kifuwarabe_wcsc27.machine
                 syuturyoku.AppendLine("☆");
                 Util_Machine.Flush(syuturyoku);
             }
-#endif
         }
-#if !UNITY
+
         /// <summary>
         /// 成績を読込むぜ☆（＾▽＾）
         /// </summary>
@@ -611,15 +558,12 @@ namespace kifuwarabe_wcsc27.machine
 
             return se;
         }
-#endif
+
         /// <summary>
         /// 成績を書き出すぜ☆（＾▽＾）
         /// </summary>
         public static void Flush_Seiseki(StringBuilder syuturyoku)
         {
-#if UNITY
-            // Unityでは定跡の外部ファイルを一切扱わないぜ☆（＾▽＾）
-#else
             if (IsEnableBoardSize() && Option_Application.Optionlist.SeisekiRec && Option_Application.Seiseki.Edited)
             {
                 syuturyoku.Append("成績ファイル書出中");
@@ -684,9 +628,8 @@ namespace kifuwarabe_wcsc27.machine
                 Util_Machine.Flush(syuturyoku);
                 Option_Application.Seiseki.Edited = false;
             }
-#endif
         }
-#if !UNITY
+
         /// <summary>
         /// 成績を書き出すぜ☆（＾▽＾）
         /// </summary>
@@ -723,11 +666,7 @@ namespace kifuwarabe_wcsc27.machine
             // 上書き☆
             System.IO.File.WriteAllText(file, seisekiStr);
         }
-#endif
 
-#if UNITY
-        // Unityには ReadKeyメソッドが無いぜ☆（＾～＾）
-#else
         /// <summary>
         /// デバッグ・ウィンドウからのキー入力
         /// </summary>
@@ -736,10 +675,7 @@ namespace kifuwarabe_wcsc27.machine
             System.ConsoleKeyInfo keyInfo = System.Console.ReadKey();
             return keyInfo.KeyChar;
         }
-#endif
 
-#if UNITY && !KAIHATU
-#else
         /// <summary>
         /// 連続対局をストップさせる場合、真☆（＾▽＾）
         /// </summary>
@@ -749,8 +685,6 @@ namespace kifuwarabe_wcsc27.machine
             // ファイルがあれば、連続対局をストップさせるぜ☆（＾▽＾）
             return File.Exists(Logger.RenzokuTaikyokuStopFile);
         }
-#endif
-
 
         /// <summary>
         /// デバッグ・モード用診断。
@@ -760,17 +694,13 @@ namespace kifuwarabe_wcsc27.machine
         [Conditional("DEBUG")]
         public static void Assert(bool condition, string message, StringBuilder syuturyoku)
         {
-#if UNITY
-            // 何もしない☆（＾▽＾）
-#else
             if (!condition)
             {
-                syuturyoku.Append( message);
+                syuturyoku.Append(message);
                 string message2 = syuturyoku.ToString();
                 Util_Machine.Flush(syuturyoku);
                 Debug.Assert(condition, message2);
             }
-#endif
         }
 
         /// <summary>
@@ -780,8 +710,6 @@ namespace kifuwarabe_wcsc27.machine
         [Conditional("DEBUG")]
         public static void DoKakushiJikken(Dlgt_KakushiJikken kakushiJikken)
         {
-            // TODO: Unityで使うなら、このメソッドの中身は消そうぜ☆（＾▽＾）
-
             kakushiJikken();
         }
 
@@ -792,14 +720,10 @@ namespace kifuwarabe_wcsc27.machine
         [Conditional("DEBUG")]
         public static void Fail(StringBuilder syuturyoku)
         {
-#if UNITY
-// 何もしない☆（＾▽＾）
-#else
             string message = syuturyoku.ToString();
             Util_Machine.Flush(syuturyoku);
             Debug.Fail(message);
             throw new System.Exception(message);
-#endif
         }
 
         /// <summary>
@@ -820,7 +744,7 @@ namespace kifuwarabe_wcsc27.machine
                 syuturyoku.AppendLine(msg);
                 Flush(syuturyoku);
             }
-            Debug.Assert(safe,msg);
+            Debug.Assert(safe, msg);
         }
 
         /// <summary>
@@ -849,7 +773,7 @@ P2差分  =[{hyokati2}]
                 syuturyoku.AppendLine(msg);
                 Flush(syuturyoku);
             }
-            Debug.Assert(safe,msg);
+            Debug.Assert(safe, msg);
         }
 
         /// <summary>
@@ -858,9 +782,6 @@ P2差分  =[{hyokati2}]
         [Conditional("DEBUG")]
         public static void Assert_Sabun_KyHash(string message, Kyokumen ky, StringBuilder syuturyoku)
         {
-#if UNITY
-// 何もしない☆（＾▽＾）
-#else
             ulong saikeisanMae = ky.KyokumenHash.Value;//再計算前
             ky.KyokumenHash.Tukurinaosi(ky);//再計算
             bool safe = saikeisanMae == ky.KyokumenHash.Value;
@@ -871,7 +792,6 @@ P2差分  =[{hyokati2}]
                 Flush(sindan1);
                 Debug.Fail(sindan1.ToString());
             }
-#endif
         }
         /// <summary>
         /// 診断。ビットボード。現行版の中だけの整合性
@@ -879,11 +799,8 @@ P2差分  =[{hyokati2}]
         [Conditional("DEBUG")]
         public static void Assert_Genkou_Bitboard(string message, Kyokumen ky, StringBuilder syuturyoku)
         {
-#if UNITY
-// 何もしない☆（＾▽＾）
-#else
             bool safe = ky.Shogiban.Assert();
-            if(!safe)
+            if (!safe)
             {
                 StringBuilder sindan1 = new StringBuilder();
                 sindan1.Append(message); sindan1.AppendLine(" ビットボード診断");
@@ -893,8 +810,8 @@ P2差分  =[{hyokati2}]
                 Flush(sindan1);
                 Debug.Fail(sindan1.ToString());
             }
-#endif
         }
+
         /// <summary>
         /// 診断。利き。現行と再計算の一致
         /// </summary>
@@ -905,10 +822,6 @@ P2差分  =[{hyokati2}]
         [Conditional("DEBUG")]
         public static void Assert_Sabun_Kiki(string message, Kyokumen.Sindanyo kys, StringBuilder syuturyoku)
         {
-#if UNITY
-// 何もしない☆（＾▽＾）
-#else
-
             // 駒の利き☆
             bool safe = true;
 
@@ -931,7 +844,7 @@ P2差分  =[{hyokati2}]
                 }
 
                 // ダイアログボックスに収まるように分けるぜ☆            
-                if(!safe)
+                if (!safe)
                 {
                     StringBuilder sindan1 = new StringBuilder();
 
@@ -948,14 +861,13 @@ P2差分  =[{hyokati2}]
 
                     sindan1.AppendLine("利き：（再計算）");
                     Util_Information.Setumei_Bitboards(Med_Koma.GetKomasyuruiNamaeItiran(tai), saikeisan.WhereBBKiki(tai), sindan1);
-                    
+
                     kys.Setumei_GenkoKiki(tai, sindan1); // 利き：（現行）
 
                     Flush(sindan1);
                     Debug.Assert(safe, sindan1.ToString());
                 }
             }
-#endif // 非Unity
         }
     }
 }

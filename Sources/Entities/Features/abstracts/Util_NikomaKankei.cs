@@ -629,7 +629,6 @@ namespace kifuwarabe_wcsc27.abstracts
             //return komakaiGokei;
         }
 
-#if !Unity
         public static void ToString(StringBuilder mojiretu)
         {
             ///// ▲ら×１２　▲ぞ×１２　▲き×１２　▲ひ×１２　▲に×１２
@@ -735,7 +734,6 @@ namespace kifuwarabe_wcsc27.abstracts
 
             //return mojiretu.ToString();
         }
-#endif
     }
 
     public abstract class Conv_NikomaKankei

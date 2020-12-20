@@ -111,12 +111,6 @@ usiok");
                 Util_Information.Setumei_Lines_Kyokumen(ky, syuturyoku);
             }
             // ゲームモードでは表示しないぜ☆（＾▽＾）
-
-#if UNITY
-            syuturyoku.Append("< go, ");
-            ConvMove.AppendFenTo(bestMove, syuturyoku);// Unity用に指し手を出力するぜ☆（＾▽＾）
-            syuturyoku.AppendLine();
-#endif
         }
 
         public void Gameover(string commandline, Kyokumen ky, StringBuilder syuturyoku)
@@ -1273,12 +1267,6 @@ usiok");
                             default:
                                 break;
                         }
-                    }
-                    break;
-                case CommandMode.TusinYo:
-                    {
-                        // 列挙型をそのまま出力するぜ☆（＾▽＾）
-                        syuturyoku.AppendLine($"< result, kekka = {ky.Kekka.ToString()}");
                     }
                     break;
                 default://thru
