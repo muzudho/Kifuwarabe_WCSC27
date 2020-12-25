@@ -10,8 +10,6 @@ namespace Grayscale.Kifuwarakei.Entities.Logging
 
         }
 
-#if UNITY && !KAIHATU
-#else
         /// <summary>
         /// ログ・フォルダー
         /// </summary>
@@ -121,6 +119,5 @@ namespace Grayscale.Kifuwarakei.Entities.Logging
                 Directory.CreateDirectory(Logger.LogDirectory);
             }
         }
-#endif
     }
 }

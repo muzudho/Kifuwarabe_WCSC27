@@ -341,9 +341,7 @@ sisu( 256.0000) → [-9.000000000] y=Sigmoid( 0.999876600)
             */
 
             Util_Machine.Flush(syuturyoku);
-#if !UNITY
             Util_Machine.ReadKey();
-#endif
         }
 
         /// <summary>

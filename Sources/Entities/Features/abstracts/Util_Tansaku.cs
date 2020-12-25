@@ -348,9 +348,6 @@ namespace kifuwarabe_wcsc27.abstracts
                                 if (Hyokati.Hyokati_Saidai < beta) { beta = Hyokati.Hyokati_Saidai; }
 #if DEBUG
                                 string kigoComment = "";
-#if UNITY
-                                kigoComment = "# ";
-#endif
                                 syuturyoku.Append(${kigoComment}この深さからアスピレーション窓探索開始な☆（＾▽＾）　根からの深さ");
                                 syuturyoku.Append(Util_Tansaku.NekkoKaranoFukasa);
                                 syuturyoku.Append("　確定評価値");
@@ -435,9 +432,6 @@ namespace kifuwarabe_wcsc27.abstracts
                                     {
 #if DEBUG
                                         string kigoComment = "";
-#if UNITY
-                                        kigoComment = "# ";
-#endif
                                         syuturyoku.Append(${kigoComment}アスピレーション諦めようぜ☆（＾▽＾） 失敗");
                                         syuturyoku.Append(aspirationWindowSearchSippai);
                                         syuturyoku.Append("回目");
@@ -486,9 +480,6 @@ namespace kifuwarabe_wcsc27.abstracts
 
 #if DEBUG
                                         string kigoComment = "";
-#if UNITY
-                                        kigoComment = "# ";
-#endif
                                         syuturyoku.Append(${kigoComment}アスピレーション窓幅広げようぜ☆（＾▽＾）失敗");
                                         syuturyoku.Append(aspirationWindowSearchSippai);
                                         syuturyoku.Append("回　前の深さの評価値");

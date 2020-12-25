@@ -71,9 +71,7 @@ namespace kifuwarabe_wcsc27.abstracts
 
             HyokatiPattern = new Regex(
                 @"(-?\s*\d+)"
-#if !UNITY
                 , RegexOptions.Compiled
-#endif
             );
 
             // -0.001000 といった　かたまりを高速で探し出すぜ☆（＾▽＾）
@@ -81,9 +79,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 //@"\s*(-?\d*\.?\d+)",
                 // 旧1 @"\s*(-?\d+\.\d+)",
                 @"\s*((?:-?\d*\.?\d+)|(?:-------------)|(?:xxxxxxxxxxxxx))"
-#if !UNITY
                 , RegexOptions.Compiled
-#endif
             );
         }
 
@@ -95,9 +91,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     kyokumenPattern_sfen_ = new Regex(
                         Sfen.Position +// とりあえず　ごっそりマッチ。123～はスペース数。+は成りゴマ。
                         "(?: (moves.*))?"//棋譜
-#if !UNITY
                         , RegexOptions.Compiled
-#endif
                     );
                 }
                 return kyokumenPattern_sfen_;
@@ -109,9 +103,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     kyokumenPattern_dfen_ = new Regex(
                         Dfen.Position +// とりあえず　ごっそりマッチ。123～はスペース数。+は成りゴマ。
                         "(?: (moves.*))?"//棋譜
-#if !UNITY
                         , RegexOptions.Compiled
-#endif
                     );
                 }
                 return kyokumenPattern_dfen_;
@@ -131,9 +123,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     // 1文字目の ZKH は打てる持ち駒だが、ひよこのHが、筋番号のHと区別できない
                     sasitePattern_sfen_ = new Regex(
                         $@"([{Sfen.Suji}{Sfen.MotigomaT1}])([{Sfen.Dan}\*])([{Sfen.Suji}])([{Sfen.Dan}])(\+)?"
-#if !UNITY
                         , RegexOptions.Compiled
-#endif
                     );
                 }
                 return sasitePattern_sfen_;
@@ -147,9 +137,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     // 1文字目の ZKH は打てる持ち駒だが、ひよこのHが、筋番号のHと区別できない
                     sasitePattern_dfen_ = new Regex(
                         $@"([{Dfen.Suji}{Dfen.MotigomaT1}])([{Dfen.Dan}\*])([{Dfen.Suji}])([{Dfen.Dan}])(\+)?"
-#if !UNITY
                         , RegexOptions.Compiled
-#endif
                     );
                 }
                 return sasitePattern_dfen_;
@@ -166,9 +154,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 {
                     masSasitePattern_sfen_ = new Regex(
                     $@"([{Sfen.Suji}{Sfen.MotigomaT1}])([{Sfen.Dan}\*])"
-#if !UNITY
                         , RegexOptions.Compiled
-#endif
                     );
                 }
                 return masSasitePattern_sfen_;
@@ -179,9 +165,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 {
                     masSasitePattern_dfen_ = new Regex(
                     $@"([{Dfen.Suji}{Dfen.MotigomaT1}])([{Dfen.Dan}\*])"
-#if !UNITY
                         , RegexOptions.Compiled
-#endif
                     );
                 }
                 return masSasitePattern_dfen_;
@@ -198,9 +182,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 {
                     masPattern_sfen_ = new Regex(
                         $@"([{Sfen.Suji}])([{Sfen.Dan}])"
-#if !UNITY
                         , RegexOptions.Compiled
-#endif
                     );
                 }
                 return masPattern_sfen_;
@@ -211,9 +193,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 {
                     masPattern_dfen_ = new Regex(
                         $@"([{Dfen.Suji}])([{ Dfen.Dan}])"
-#if !UNITY
                         , RegexOptions.Compiled
-#endif
                     );
                 }
                 return masPattern_dfen_;
@@ -231,9 +211,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     // kiki B3 R 1  : 升と、駒の種類と、手番を指定すると、利きを表示するぜ☆（＾▽＾）
                     kikiCommandPattern_sfen_ = new Regex(
                         $@"([{Sfen.Suji}])([{Sfen.Dan}\*])\s+([{Sfen.MotigomaT1}{Sfen.MotigomaT2}])\s+{Sfen.TebanPos}"
-#if !UNITY
                         , RegexOptions.Compiled
-#endif
                     );
                 }
                 return kikiCommandPattern_sfen_;
@@ -245,9 +223,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     // kiki B3 R 1  : 升と、駒の種類と、手番を指定すると、利きを表示するぜ☆（＾▽＾）
                     kikiCommandPattern_dfen_ = new Regex(
                         $@"([{Sfen.Suji}])([{Sfen.Dan}\*])\s+([{Sfen.MotigomaT1}{Sfen.MotigomaT2}])\s+{Sfen.TebanPos}"
-#if !UNITY
                         , RegexOptions.Compiled
-#endif
                     );
                 }
                 return kikiCommandPattern_dfen_;
@@ -267,9 +243,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     josekiKyPattern_sfen_ = new Regex(
                         Sfen.Position +// とりあえず　ごっそりマッチ。123～はスペース数。+は成りゴマ。
                         @"( moves.*)?"//棋譜
-#if !UNITY
                         , RegexOptions.Compiled
-#endif
                     );
                 }
                 return josekiKyPattern_sfen_;
@@ -283,9 +257,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     josekiKyPattern_dfen_ = new Regex(
                         Dfen.Position +// とりあえず　ごっそりマッチ。123～はスペース数。+は成りゴマ。
                         @"( moves.*)?"//棋譜
-#if !UNITY
                         , RegexOptions.Compiled
-#endif
                     );
                 }
                 return josekiKyPattern_dfen_;
@@ -311,9 +283,7 @@ namespace kifuwarabe_wcsc27.abstracts
                         @"(\d+) " +
                         // バージョン (20)
                         @"(\d+)"
-#if !UNITY
                         , RegexOptions.Compiled
-#endif
                     );
                 }
                 return josekiSsPattern_sfen_;
@@ -333,9 +303,7 @@ namespace kifuwarabe_wcsc27.abstracts
                         @"(\d+) " +
                         // バージョン (20)
                         @"(\d+)"
-#if !UNITY
                         , RegexOptions.Compiled
-#endif
                     );
                 }
                 return josekiSsPattern_dfen_;

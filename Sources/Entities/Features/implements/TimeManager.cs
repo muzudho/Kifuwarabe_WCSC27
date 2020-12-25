@@ -23,12 +23,7 @@ namespace kifuwarabe_wcsc27.implements
         public Stopwatch Stopwatch_Tansaku { get; set; }
         public void RestartStopwatch_Tansaku()
         {
-#if UNITY
-            this.Stopwatch_Tansaku.Reset();
-            this.Stopwatch_Tansaku.Start();
-#else
             this.Stopwatch_Tansaku.Restart();
-#endif
         }
         /// <summary>
         /// ストップウォッチ（定跡読み書き用）
@@ -41,12 +36,7 @@ namespace kifuwarabe_wcsc27.implements
         public Stopwatch Stopwatch_Savefile { get; set; }
         public void RestartStopwatch_Savefile()
         {
-#if UNITY
-            this.Stopwatch_Savefile.Reset();
-            this.Stopwatch_Savefile.Start();
-#else
             this.Stopwatch_Savefile.Restart();
-#endif
         }
         /// <summary>
         /// ストップウォッチ（自動対局時、ルール変更用）
@@ -54,12 +44,7 @@ namespace kifuwarabe_wcsc27.implements
         public Stopwatch Stopwatch_RenzokuRandomRule { get; set; }
         public void RestartStopwatch_RenzokuRandomRule()
         {
-#if UNITY
-            this.Stopwatch_RenzokuRandomRule.Reset();
-            this.Stopwatch_RenzokuRandomRule.Start();
-#else
             this.Stopwatch_RenzokuRandomRule.Restart();
-#endif
         }
 
         /// <summary>

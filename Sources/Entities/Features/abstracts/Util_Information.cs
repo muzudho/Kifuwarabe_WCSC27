@@ -214,17 +214,11 @@ namespace kifuwarabe_wcsc27.abstracts
                 int sennitite = ky.Konoteme.GetSennititeCount();
                 if (Const_Game.SENNITITE_COUNT == sennitite)
                 {
-#if UNITY
-                    syuturyoku.Append("# ");
-#endif
                     Conv_Taikyokusya.Setumei_Name(Conv_Taikyokusya.Hanten(ky.Teban), syuturyoku);
                     syuturyoku.AppendLine("の着手にて　千日手");
                 }
                 else if (1 < sennitite)
                 {
-#if UNITY
-                    syuturyoku.Append("# ");
-#endif
                     syuturyoku.Append("同一局面反復 ");
                     syuturyoku.Append(sennitite.ToString());
                     syuturyoku.AppendLine(" 回目");
@@ -233,9 +227,6 @@ namespace kifuwarabe_wcsc27.abstracts
 
             // 2行目
             {
-#if UNITY
-                syuturyoku.Append("# ");
-#endif
                 // 何手目
                 syuturyoku.Append("図は");
                 syuturyoku.Append(string.Format("{0,3}", ky.Konoteme.ScanNantemadeBango()));
@@ -256,9 +247,6 @@ namespace kifuwarabe_wcsc27.abstracts
 
             // 3行目 後手の持ち駒
             {
-#if UNITY
-                syuturyoku.Append("# ");
-#endif
                 // 後手の持ち駒の数
                 foreach (MotiKomasyurui mks in Conv_MotiKomasyurui.Itiran)
                 {
@@ -280,42 +268,27 @@ namespace kifuwarabe_wcsc27.abstracts
 
             // 盤上
             {
-#if UNITY
-                syuturyoku.Append("# ");
-#endif
                 syuturyoku.Append("  ");
                 Util_Information.AppendLine_Top_Kyokumen(1, syuturyoku);// ┌──┬──┬──┐
 
                 for (int dan = 0; dan < Option_Application.Optionlist.BanTateHaba; dan++)
                 {
-#if UNITY
-                    syuturyoku.Append("# ");
-#endif
                     syuturyoku.Append(Conv_Kihon.ToZenkakuInteger(dan + 1));
                     Util_Information.AppendLine_Data_Kyokumen(ky, dan, syuturyoku);
 
                     if (dan + 1 < Option_Application.Optionlist.BanTateHaba)
                     {
-#if UNITY
-                        syuturyoku.Append("# ");
-#endif
                         syuturyoku.Append("  ");
                         AppendLine_Middle(1, syuturyoku);//├──┼──┼──┤
                     }
                 }
 
-#if UNITY
-                syuturyoku.Append("# ");
-#endif
                 syuturyoku.Append("  ");
                 AppendLine_Bottom(1, syuturyoku);//└──┴──┴──┘
             }
 
             // 先手の持ち駒の数
             {
-#if UNITY
-                syuturyoku.Append("# ");
-#endif
                 foreach (MotiKomasyurui mks in Conv_MotiKomasyurui.Itiran)
                 {
                     MotiKoma mk = Med_Koma.MotiKomasyuruiAndTaikyokusyaToMotiKoma(mks, Taikyokusya.T1);
@@ -336,9 +309,6 @@ namespace kifuwarabe_wcsc27.abstracts
         {
             // 1行目
             {
-#if UNITY
-                syuturyoku.Append("# ");
-#endif
                 // 千日手
                 int sennitite = ky.Konoteme.GetSennititeCount();
                 if (Const_Game.SENNITITE_COUNT == sennitite)
@@ -361,9 +331,6 @@ namespace kifuwarabe_wcsc27.abstracts
 
             // 2行目
             {
-#if UNITY
-                syuturyoku.Append("# ");
-#endif
                 // 何手目
                 syuturyoku.Append("図は");
                 syuturyoku.Append(string.Format("{0,3}", ky.Konoteme.ScanNantemadeBango()));
@@ -384,9 +351,6 @@ namespace kifuwarabe_wcsc27.abstracts
 
             // 3行目 後手の持ち駒の数
             {
-#if UNITY
-                syuturyoku.Append("# ");
-#endif
                 foreach (MotiKomasyurui mks in Conv_MotiKomasyurui.Itiran)
                 {
                     MotiKoma mk = Med_Koma.MotiKomasyuruiAndTaikyokusyaToMotiKoma(mks, Taikyokusya.T2);
@@ -400,9 +364,6 @@ namespace kifuwarabe_wcsc27.abstracts
 
             // 4行目
             {
-#if UNITY
-                syuturyoku.Append("# ");
-#endif
                 syuturyoku.Append("  ");
                 AppendLine_SujiFugo_Kyokumen(syuturyoku);
                 //syuturyoku.AppendLine("　　 Ａ 　 Ｂ 　 Ｃ 　");
@@ -412,45 +373,30 @@ namespace kifuwarabe_wcsc27.abstracts
             // 盤上
             {
                 // 5行目
-#if UNITY
-                syuturyoku.Append("# ");
-#endif
                 syuturyoku.Append("  ");
                 Util_Information.AppendLine_Top_Kyokumen(1, syuturyoku); // ┌──┬──┬──┐
 
                 for (int dan = 0; dan < Option_Application.Optionlist.BanTateHaba; dan++)
                 {
                     // 6,8,10,12行目
-#if UNITY
-                    syuturyoku.Append("# ");
-#endif
                     syuturyoku.Append(Conv_Kihon.ToZenkakuInteger(dan + 1));
                     AppendLine_Data_Kyokumen(ky, dan, syuturyoku);
 
                     if (dan + 1 < Option_Application.Optionlist.BanTateHaba)
                     {
                         // 7,9,11行目
-#if UNITY
-                        syuturyoku.Append("# ");
-#endif
                         syuturyoku.Append("  ");
                         AppendLine_Middle(1, syuturyoku);//├──┼──┼──┤
                     }
                 }
 
                 // 13行目
-#if UNITY
-                syuturyoku.Append("# ");
-#endif
                 syuturyoku.Append("  ");
                 AppendLine_Bottom(1, syuturyoku);//└──┴──┴──┘
             }
 
             // 14行目
             {
-#if UNITY
-                syuturyoku.Append("# ");
-#endif
                 // 先手の持ち駒の数
                 foreach (MotiKomasyurui mks in Conv_MotiKomasyurui.Itiran)
                 {

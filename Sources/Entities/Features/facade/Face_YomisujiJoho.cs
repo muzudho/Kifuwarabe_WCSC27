@@ -66,10 +66,6 @@ namespace kifuwarabe_wcsc27.facade
                 hyokatiUtiwake = hyokatiUtiwake.ToHanten();
             }
 
-#if UNITY
-            syuturyoku.Append("< ");
-#endif
-
             if (isJoseki)
             {
                 //────────────────────
@@ -140,7 +136,7 @@ namespace kifuwarabe_wcsc27.facade
 
                 syuturyoku.Append(Option_Application.Optionlist.USI ? " score ":" hyokati ");
                 Conv_Hyokati.Setumei(hyokatiUtiwake.EdaBest, syuturyoku);
-#if !UNITY
+
                 // 内訳
                 if (!Option_Application.Optionlist.USI)
                 {
@@ -162,9 +158,7 @@ namespace kifuwarabe_wcsc27.facade
                     }
                     syuturyoku.Append(")");
                 }
-#endif
 
-#if !UNITY
                 // アスピレーション・サーチが動いているかどうか☆
                 if (!Option_Application.Optionlist.USI
                     &&
@@ -173,7 +167,6 @@ namespace kifuwarabe_wcsc27.facade
                 {
                     syuturyoku.Append(" (aspi)");
                 }
-#endif
 
                 //──────────
                 // 読み筋

@@ -42,20 +42,6 @@ System.Console.WriteLine($"# (~0UL)=[{(~0UL)}]");
 System.Console.WriteLine($"# (~0UL << 1)=[{(~0UL << 1)}]");
 #endif
 */
-#if UNITY
-            System.Console.WriteLine("# ユニティ");
-#endif
-#if KAIHATU
-            System.Console.WriteLine("# カイハツ");
-#endif
-#if UNITY && KAIHATU
-            System.Console.WriteLine("# ユニティ＆カイハツ(&&)");
-#endif
-#if UNITY
-#if KAIHATU
-            System.Console.WriteLine("# ユニティ＆カイハツ(nest)");
-#endif
-#endif
 
 
             //────────────────────────────────────────
@@ -76,10 +62,7 @@ System.Console.WriteLine($"# (~0UL << 1)=[{(~0UL << 1)}]");
                 //──────────
                 Option_Application.Optionlist.JosekiPer = 0;// 定跡を利用する確率。0～100。
                 Option_Application.Optionlist.JosekiRec = false;// 定跡は記録しない
-#if UNITY && !KAIHATU
-#else// 開発用モード
                 //Option_Application.Optionlist.JosekiRec = true;// 定跡を記録する☆
-#endif
 
                 //Option_Application.Optionlist.Learn = false;
                 //Option_Application.Optionlist.NikomaHyokaKeisu = 1.0d;
@@ -99,10 +82,7 @@ System.Console.WriteLine($"# (~0UL << 1)=[{(~0UL << 1)}]");
                 // 成績
                 //──────────
                 Option_Application.Optionlist.SeisekiRec = false;// 成績は記録しない
-#if UNITY && !KAIHATU
-#else// 開発用モード
                 //Option_Application.Optionlist.SeisekiRec = true;// 成績を記録する☆
-#endif
 
                 //Option_Application.Optionlist.SennititeKaihi = false;
 
@@ -282,9 +262,6 @@ System.Console.WriteLine($"# (~0UL << 1)=[{(~0UL << 1)}]");
                     {
                         // ゲームモード（対局開始）
                         Util_Application.GameMode = GameMode.Game;
-#if UNITY
-                    Conv_GameMode.TusinYo_Line(Util_Application.GameMode, syuturyoku);
-#endif
                     }
                 }
                 // なるべく、アルファベット順☆（＾▽＾）同じつづりで始まる単語の場合、語句の長い単語を優先にしないと if 文が通らないぜ☆ｗｗｗ
@@ -397,10 +374,6 @@ System.Console.WriteLine($"# (~0UL << 1)=[{(~0UL << 1)}]");
                         throw new Exception($"パースエラー [{commandline}]");
                     }
 
-#if UNITY
-            syuturyoku.Append("< ");
-#endif
-
                     if (ky.CanDoMove(ss, out MoveMatigaiRiyu riyu))
                     {
                         syuturyoku.AppendLine("cando, true");
@@ -432,11 +405,7 @@ System.Console.WriteLine($"# (~0UL << 1)=[{(~0UL << 1)}]");
                 else if (caret == commandline.IndexOf("go", caret))
                 {
                     var isSfen = Option_Application.Optionlist.USI;
-#if UNITY
-                    var mode = CommandMode.TusinYo;
-#else
                     var mode = CommandMode.NigenYoConsoleKaihatu;
-#endif
                     playing.Go(isSfen, mode, ky, syuturyoku);
                     Util_Commandline.IsKyokumenEcho = false;
                 }
@@ -542,8 +511,7 @@ System.Console.WriteLine($"# (~0UL << 1)=[{(~0UL << 1)}]");
                 else if (caret == commandline.IndexOf("position", caret))
                 {
                     playing.Position();
-#if UNITY
-#else
+
                     // うしろに続く文字は☆（＾▽＾）
                     int caret2 = 0;
                     Util_String.YomuTangoTobasuMatubiKuhaku(commandline, ref caret2, out string token);
@@ -586,7 +554,6 @@ System.Console.WriteLine($"# (~0UL << 1)=[{(~0UL << 1)}]");
 
                         // 初回は「position startpos」しか送られてこない☆（＾～＾）
                     }
-#endif
                     Util_Commandline.IsKyokumenEcho = false;
                 }
                 else if (caret == commandline.IndexOf("quit", caret))
@@ -620,8 +587,6 @@ System.Console.WriteLine($"# (~0UL << 1)=[{(~0UL << 1)}]");
                 }
                 else if (caret == commandline.IndexOf("setoption", caret))
                 {
-#if UNITY
-#else
                     // // とりあえず無視☆（*＾～＾*）
 
                     // 「setoption name 名前 value 値」といった書式なので、
@@ -642,7 +607,7 @@ System.Console.WriteLine($"# (~0UL << 1)=[{(~0UL << 1)}]");
 
                         playing.Set(sb.ToString(), ky, syuturyoku);
                     }
-#endif
+
                     Util_Commandline.IsKyokumenEcho = false;
                 }
                 else if (caret == commandline.IndexOf("set", caret))
@@ -703,21 +668,12 @@ System.Console.WriteLine($"# (~0UL << 1)=[{(~0UL << 1)}]");
                 else
                 {
                     // 表示（コンソール・ゲーム用）
-#if UNITY
-                syuturyoku.Append("# ");
-#endif
                     syuturyoku.Append("「");
                     syuturyoku.Append(commandline);
                     syuturyoku.AppendLine("」☆？（＾▽＾）");
 
-#if UNITY
-                syuturyoku.Append("# ");
-#endif
                     syuturyoku.AppendLine("そんなコマンドは無いぜ☆（＞＿＜） man で調べろだぜ☆（＾▽＾）");
                     Util_Machine.Flush(syuturyoku);
-#if UNITY
-                syuturyoku.AppendLine("< Warning: Command not found.");
-#endif
                 }
 
                 if (Util_Commandline.IsQuit)

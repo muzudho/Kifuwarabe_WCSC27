@@ -25,9 +25,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 ss_after = ky.Konoteme.Move;// アンドゥする前に指し手を残しておくぜ☆（＾▽＾）
                 Option_Application.Kifu.AddFirst(ss_after);
                 ky.UndoMove(isSfen, ss_after, syuturyoku);// 指し手を頼りにアンドゥするぜ☆（＾▽＾）
-#if !UNITY
                 Util_Application.InLoop_SeisekiKosin(ss_after, ky, syuturyoku);// 成績更新☆（＾▽＾）
-#endif
                 fukasa++;
             }
         }

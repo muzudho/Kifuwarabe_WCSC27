@@ -44,9 +44,6 @@ namespace kifuwarabe_wcsc27.implements
         /// </summary>
         public int Version { get; private set; }
 
-#if UNITY && !KAIHATU
-
-#else
         /// <summary>
         /// 定跡ファイル
         /// </summary>
@@ -71,7 +68,6 @@ namespace kifuwarabe_wcsc27.implements
             syuturyoku.Append(" ");
             syuturyoku.AppendLine(this.Version.ToString());
         }
-#endif
     }
 
     /// <summary>
@@ -151,9 +147,6 @@ namespace kifuwarabe_wcsc27.implements
             return josekiSs;
         }
 
-#if UNITY && !KAIHATU
-
-#else
         /// <summary>
         /// 定跡ファイル
         /// </summary>
@@ -169,7 +162,6 @@ namespace kifuwarabe_wcsc27.implements
                 entry2.Value.ToContentsLine_NotUnity(isSfen, syuturyoku);
             }
         }
-#endif
     }
 
     /// <summary>
@@ -668,7 +660,6 @@ commandline=[{ commandline }]");
             }
         }
 
-#if !UNITY
         /// <summary>
         /// 定跡ファイルの容量を小さくしたいときに、定跡を削っていくぜ☆（＾～＾）
         /// </summary>
@@ -991,6 +982,5 @@ commandline=[{ commandline }]");
 
             return mojiretu1.ToString();
         }
-#endif
     }
 }

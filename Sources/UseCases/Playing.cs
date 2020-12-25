@@ -39,8 +39,6 @@
 
         public void UsiOk(string engineName, string engineAuthor, StringBuilder syuturyoku)
         {
-#if UNITY
-#else
             syuturyoku.AppendLine($@"id name {engineName}
 id author {engineAuthor}
 option name SikoJikan type spin default 500 min 100 max 10000000
@@ -48,26 +46,19 @@ option name SikoJikanRandom type spin default 1000 min 0 max 10000000
 option name Comment type string default Jikan is milli seconds.
 usiok");
             Util_Machine.Flush_USI(syuturyoku);
-#endif
         }
 
         public void ReadyOk(StringBuilder syuturyoku)
         {
-#if UNITY
-#else
             syuturyoku.AppendLine("readyok");
             Util_Machine.Flush_USI(syuturyoku);
-#endif
 
         }
 
         public void UsiNewGame()
         {
-#if UNITY
-#else
             // とりあえず９×９将棋盤にしようぜ☆（*＾～＾*）
             this.Atmark("@USI9x9");
-#endif
         }
 
         public void Quit()
@@ -152,16 +143,11 @@ usiok");
             Nanteme nanteme = new Nanteme();
             ky.DoMove(isSfen, ss, MoveType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
 
-#if UNITY
-            syuturyoku.Append("< do, ");
-            ky.TusinYo_Line(syuturyoku);
-#else
             switch (commandMode)
             {
                 case CommandMode.NigenYoConsoleKaihatu: Util_Information.Setumei_Lines_Kyokumen(ky, syuturyoku); break;
                 case CommandMode.NingenYoConsoleGame: Util_Information.Setumei_NingenGameYo(ky, syuturyoku); break;
             }
-#endif
         }
 
         /// <summary>
@@ -183,11 +169,7 @@ usiok");
             }
             ky.DoHirate(isSfen, syuturyoku);
 
-#if UNITY
-            syuturyoku.AppendLine("< hirate, ok");
-#else
             Util_Information.Setumei_Lines_Kyokumen(ky, syuturyoku);
-#endif
         }
 
         public void Honyaku(string commandline, Kyokumen ky, StringBuilder syuturyoku)
@@ -292,9 +274,6 @@ usiok");
             if (commandline == "jokyo")
             {
                 string kigo = "";
-#if UNITY
-                kigo = "< jokyo, ";
-#endif
                 syuturyoku.AppendLine($@"{kigo}GameMode = {Util_Application.GameMode}
 {kigo}Kekka    = {ky.Kekka}
 {kigo}Kettyaku = {Util_Application.IsKettyaku(ky)}");
@@ -319,7 +298,6 @@ usiok");
             {
 
             }
-#if !UNITY
             else if (caret_1 == commandline.IndexOf("bunkatu", caret_1))
             {
                 //────────────────────────────────────────
@@ -354,7 +332,6 @@ usiok");
                     syuturyoku.AppendLine($"定跡ファイル（マージ後）　局面数[{out_kyokumenSu}]　指し手数[${out_sasiteSu}]");
                 }
             }
-#endif
             else if (caret_1 == commandline.IndexOf("cleanup", caret_1))
             {
                 //────────────────────────────────────────
@@ -431,11 +408,7 @@ usiok");
             {
                 if ("" == Option_Application.Kifu.SyokiKyokumenFen)
                 {
-#if UNITY
-                    syuturyoku.AppendLine("< kansosen, false, Game not kettyakued.");
-#else
                     syuturyoku.AppendLine("棋譜がないぜ☆（＞＿＜）");
-#endif
                     return;
                 }
                 Util_Application.GameMode = GameMode.Kansosen;
@@ -443,15 +416,9 @@ usiok");
                 // 終局図まで進めるぜ☆（＾～＾）
                 Option_Application.Kifu.GoToFinish(isSfen, ky, syuturyoku);
 
-#if UNITY
-                Option_Application.Kifu.TusinYo(syuturyoku);
-                syuturyoku.Append("< kansosen, 終局図, ");
-                ky.TusinYo_Line(syuturyoku);
-#else
                 Option_Application.Kifu.Setumei(isSfen, syuturyoku);
                 syuturyoku.AppendLine("終局図");
                 Util_Information.Setumei_NingenGameYo(ky, syuturyoku);
-#endif
 
                 return;
             }
@@ -476,9 +443,6 @@ usiok");
                 Option_Application.Kifu.GoToTememade(isSfen, temeMade, ky, syuturyoku);
 
                 string kigoComment = "";
-#if UNITY
-                kigoComment = "# ";
-#endif
                 syuturyoku.AppendLine($"{kigoComment}指定局面図");
                 Util_Information.Setumei_NingenGameYo(ky, syuturyoku);
             }
@@ -623,9 +587,6 @@ usiok");
         {
             if (commandline == "ky:")
             {
-#if UNITY
-                syuturyoku.Append("< ky:, ");
-#endif
                 ky.TusinYo_Line(isSfen, syuturyoku);
                 return;
             }
@@ -752,11 +713,7 @@ usiok");
             {
                 // 駒配置を適当に入れ替えるぜ☆
                 ky.Mazeru(isSfen, syuturyoku);
-#if UNITY
-                syuturyoku.AppendLine("< mazeru, ok");
-#else
                 Util_Information.Setumei_Lines_Kyokumen(ky, syuturyoku);
-#endif
             }
             else if (caret_1 == commandline.IndexOf("tekiyo", caret_1))
             {
@@ -869,9 +826,6 @@ usiok");
         public void Man(StringBuilder syuturyoku)
         {
             string kigo = "";//記号
-#if UNITY
-            kigo = "# ";
-#endif
             // なるべく、アルファベット順☆（＾▽＾）
             // RandomSei は、思考が弱くなるので廃止☆（＾▽＾）
             syuturyoku.AppendLine($@"{kigo}(空っぽEnter)   : ゲームモードのフラグを ON にするぜ☆
@@ -1788,9 +1742,6 @@ usiok");
             if (commandline == "set")
             {
                 string kigo = "";
-#if UNITY
-                kigo = "# ";
-#endif
                 syuturyoku.AppendLine($@"{kigo}AspirationFukasa         = {Option_Application.Optionlist.AspirationFukasa }
 {kigo}AspirationWindow         = {Option_Application.Optionlist.AspirationWindow}
 {kigo}BanTateHaba              = {Option_Application.Optionlist.BanTateHaba}
@@ -2389,7 +2340,6 @@ usiok");
                 }
                 Util_Machine.Flush(syuturyoku);
             }
-#if !UNITY
             else if (caret_1 == commandline.IndexOf("downSizing", caret_1))
             {
                 //────────────────────────────────────────
@@ -2397,7 +2347,6 @@ usiok");
                 //────────────────────────────────────────
                 syuturyoku.AppendLine($"removed bytes = { Option_Application.Joseki.DownSizeing(1000)}");
             }
-#endif
             else if (caret_1 == commandline.IndexOf("inflation", caret_1))
             {
                 //────────────────────────────────────────
@@ -2659,11 +2608,7 @@ usiok");
         public void Undo(string commandline, Kyokumen ky, StringBuilder syuturyoku)
         {
             Util_Application.Undo(commandline, ky, syuturyoku);
-#if UNITY
-            syuturyoku.AppendLine("< undo, ok");
-#else
             Util_Information.Setumei_Lines_Kyokumen(ky, syuturyoku);
-#endif
             //syuturyoku.AppendLine();
             //Util_Machine.Flush(syuturyoku);
         }

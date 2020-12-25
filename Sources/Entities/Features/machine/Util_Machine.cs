@@ -39,9 +39,6 @@ namespace kifuwarabe_wcsc27.machine
         /// </summary>
         public delegate void Dlgt_KakushiJikken();
 
-
-#if UNITY && !KAIHATU
-#else
         /// <summary>
         /// ログファイルの最大容量☆
         /// 目安として、64KB 以下なら快適、200KB にもなると遅さが目立つ感じ☆
@@ -52,7 +49,7 @@ namespace kifuwarabe_wcsc27.machine
         /// １つのファイルにたくさん書けないのなら、ファイル数を増やせばいいんだぜ☆（＾▽＾）
         /// </summary>
         public const int LogFileBunkatsuSu = 50;
-#endif
+
         /// <summary>
         /// 出力する文字列を蓄えておくものだぜ☆（＾▽＾）
         /// </summary>

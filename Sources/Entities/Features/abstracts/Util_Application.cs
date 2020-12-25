@@ -28,9 +28,6 @@ namespace kifuwarabe_wcsc27.abstracts
     {
         public static void TusinYo_Line(GameMode gameMode, StringBuilder syuturyoku)
         {
-#if UNITY
-            syuturyoku.Append("< ");
-#endif
             syuturyoku.Append("gameMode, ");
             syuturyoku.AppendLine(gameMode.ToString());
         }
@@ -160,9 +157,7 @@ namespace kifuwarabe_wcsc27.abstracts
         public static Move Go(IPlaying playing, Kyokumen ky, out HyokatiUtiwake out_hyokatiUtiwake, Util_Tansaku.Dlgt_CreateJoho dlgt_CreateJoho, StringBuilder syuturyoku)
         {
             Move move = Util_Tansaku.Go(playing,Option_Application.Optionlist.USI, ky, out out_hyokatiUtiwake, out bool isJosekiTraced, dlgt_CreateJoho, syuturyoku);
-#if !UNITY
             Util_ConsoleGame.IsJosekiTraced = isJosekiTraced;
-#endif
             return move;
         }
 
@@ -676,7 +671,6 @@ namespace kifuwarabe_wcsc27.abstracts
                         (Option_Application.Optionlist.SagareruHiyoko && !val)// 普通のひよこ　モードにチェンジ☆
                         )
                     {
-#if !UNITY
                         Util_Machine.Flush_Joseki(syuturyoku);// 定跡を書き出し（あとで読込むので、書き込み強制）
                         Util_Machine.Flush_Seiseki(syuturyoku);// 成績を書き出し（あとで読込むので、書き込み強制）
                         if (Option_Application.Optionlist.Learn)
@@ -684,7 +678,6 @@ namespace kifuwarabe_wcsc27.abstracts
                             Util_Machine.Flush_Nikoma(syuturyoku);// 二駒関係を書き出し（あとで読込むので、書き込み強制）
                         }
                         Util_Application.Restart_SavefileTimeSpan();// 保存間隔の再調整だぜ☆（＾▽＾）
-#endif
 
                         // フラグ変更☆
                         Option_Application.Optionlist.SagareruHiyoko = val;
@@ -961,8 +954,6 @@ namespace kifuwarabe_wcsc27.abstracts
         }
 #endregion
 
-#if UNITY && !KAIHATU
-#else
         /// <summary>
         /// 定跡等外部ファイルの保存間隔の調整だぜ☆　もう保存していいなら真だぜ☆（＾▽＾）
         /// </summary>
@@ -978,7 +969,6 @@ namespace kifuwarabe_wcsc27.abstracts
         {
             Option_Application.TimeManager.RestartStopwatch_Savefile();
         }
-#endif
 
         /// <summary>
         /// 連続対局時のルール変更間隔の調整だぜ☆　もう変更していいなら真だぜ☆（＾▽＾）
@@ -1008,22 +998,12 @@ namespace kifuwarabe_wcsc27.abstracts
         {
             // 表示（コンソール・ゲーム用）
             {
-#if UNITY
-                Util_Commands.Result(syuturyoku, CommandMode.TusinYo);
-#else
                 playing.Result(ky, syuturyoku, CommandMode.NingenYoConsoleGame);
-#endif
-#if UNITY
-                syuturyoku.Append("# ");
-#endif
                 syuturyoku.AppendLine("終わったぜ☆（＾▽＾）");
                 Util_Machine.Flush(syuturyoku);
             }
 
-
-#if !UNITY
             Util_Application.Begin_SeisekiKosin(syuturyoku);
-#endif
 
             // 決着から初期局面まで、逆順で戻しながら棋譜を記録するぜ☆（＾▽＾）
             Med_Kyokumen.TukuruKifu(Option_Application.Optionlist.USI, ky, syuturyoku);
@@ -1035,14 +1015,8 @@ namespace kifuwarabe_wcsc27.abstracts
                 Option_Application.Kifu.SyokiKyokumenFen = kyFen_temp.ToString();
             }
 
-#if !UNITY
             Util_Application.End_SeisekiKosin(syuturyoku);
-#endif
-
             string kigoComment = "";
-#if UNITY
-            kigoComment = "# ";
-#endif
 
             // TODO: 成績は保存しないにしても、棋譜は欲しいときもあるぜ☆（＾～＾）
             // 棋譜を作ろうぜ☆
@@ -1050,10 +1024,8 @@ namespace kifuwarabe_wcsc27.abstracts
 {kigoComment}終わるときは hirate な☆（＾▽＾）");
             Util_Machine.Flush(syuturyoku);
 
-#if !UNITY
             // 保存していないものを保存だぜ☆（＾▽＾）
             Util_Application.FlushAll1(syuturyoku);
-#endif
 
             // 初期局面に戻すぜ☆（＾▽＾）
             Util_Taikyoku.Clear();
@@ -1068,15 +1040,12 @@ namespace kifuwarabe_wcsc27.abstracts
                 playing.Taikyokusya_cmd("taikyokusya mazeru", ky, syuturyoku);
             }
 
-#if UNITY && !KAIHATU
-#else
             if (Util_Machine.IsRenzokuTaikyokuStop())
             {
                 // 連続対局を止めるぜ☆（＾▽＾）
                 Option_Application.Optionlist.RenzokuTaikyoku = false;
                 syuturyoku.AppendLine($"{Logger.RenzokuTaikyokuStopFile }> done");
             }
-#endif
 
             if (!Option_Application.Optionlist.RenzokuTaikyoku)
             {
@@ -1120,7 +1089,6 @@ namespace kifuwarabe_wcsc27.abstracts
             Util_Commandline.CommentCommandline();
         }
 
-#if !UNITY
         public static void FlushAll1(StringBuilder syuturyoku)
         {
             // 保存間隔調整をしていて、保存をスルーすることはあるぜ☆（＾～＾）
@@ -1153,7 +1121,5 @@ namespace kifuwarabe_wcsc27.abstracts
                 Util_Machine.Flush(syuturyoku);
             }
         }
-#endif
-
     }
 }

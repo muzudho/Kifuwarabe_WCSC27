@@ -103,8 +103,6 @@ namespace kifuwarabe_wcsc27.implements
             return (float)this.Kati / (float)(this.Kati + this.Hikiwake + this.Make);
         }
 
-#if UNITY && !KAIHATU
-#else
         public void ToContents_NotUnity(bool isSfen, StringBuilder syuturyoku)
         {
             ConvMove.AppendFenTo(isSfen, Move, syuturyoku);
@@ -128,7 +126,6 @@ namespace kifuwarabe_wcsc27.implements
             syuturyoku.Append(" ");
             syuturyoku.AppendLine(Make.ToString());
         }
-#endif
     }
 
     /// <summary>
@@ -206,8 +203,6 @@ namespace kifuwarabe_wcsc27.implements
             return seisekiSs;
         }
 
-#if UNITY && !KAIHATU
-#else
         /// <summary>
         /// 定跡ファイル
         /// </summary>
@@ -223,7 +218,6 @@ namespace kifuwarabe_wcsc27.implements
                 entry2.Value.ToContents_NotUnity(isSfen, syuturyoku);
             }
         }
-#endif
     }
 
     /// <summary>
@@ -406,8 +400,6 @@ namespace kifuwarabe_wcsc27.implements
             return false;
         }
 
-
-#if !UNITY
         /// <summary>
         /// 定跡ファイルの容量を小さくしたいときに、定跡を削っていくぜ☆（＾～＾）
         /// </summary>
@@ -616,7 +608,6 @@ namespace kifuwarabe_wcsc27.implements
 
             return mojiretu.ToString();
         }
-#endif
     }
 
     public abstract class Conv_Seiseki

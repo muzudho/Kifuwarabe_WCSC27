@@ -80,11 +80,6 @@ namespace kifuwarabe_wcsc27.abstracts
                 {
                     if (Util_Commandline.IsKyokumenEcho)
                     {
-#if UNITY
-                        syuturyoku.Append("< kyokumen, ");
-                        ky.TusinYo_Line(syuturyoku);
-                        Util_Commands.Result(syuturyoku, CommandMode.TusinYo);
-#else
                         Util_Information.Setumei_NingenGameYo(ky, syuturyoku);
 
 #if DEBUG
@@ -99,7 +94,6 @@ namespace kifuwarabe_wcsc27.abstracts
 #endif
 
                         playing.Result(ky, syuturyoku, CommandMode.NingenYoConsoleGame);
-#endif
                     }
                     Util_Machine.Flush(syuturyoku);
                 }
@@ -110,9 +104,6 @@ namespace kifuwarabe_wcsc27.abstracts
                     )
                 {
                     // 人間の手番が始まるところで☆
-#if UNITY
-                    syuturyoku.Append("# ");
-#endif
                     syuturyoku.Append(
                         @"指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
 > ");
@@ -122,9 +113,6 @@ namespace kifuwarabe_wcsc27.abstracts
             else
             {
                 // 表示（コンソール・ゲーム用）
-//#if UNITY
-//                syuturyoku.Append("# ");
-//#endif
                 syuturyoku.Append("> ");
                 Util_Machine.Flush(syuturyoku);
             }
