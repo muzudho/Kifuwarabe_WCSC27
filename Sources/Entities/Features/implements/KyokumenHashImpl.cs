@@ -1,4 +1,6 @@
-﻿namespace Grayscale.Kifuwarakei.Entities.Features
+﻿using Grayscale.Kifuwarakei.Entities.Game;
+
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     /// <summary>
     /// 局面ハッシュ
@@ -22,11 +24,11 @@
             Bitboard komaBB = new Bitboard();
             for (int iTai = 0; iTai < Conv_Taikyokusya.Itiran.Length; iTai++)
             {
-                Taikyokusya tai = Conv_Taikyokusya.Itiran[iTai];
+                Phase phase = Conv_Taikyokusya.Itiran[iTai];
                 for (int iKs = 0; iKs < Conv_Komasyurui.Itiran.Length; iKs++)
                 {
                     Komasyurui ks = Conv_Komasyurui.Itiran[iKs];
-                    Koma km = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, tai);
+                    Koma km = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, phase);
 
                     ky.Shogiban.ToSet_BBKoma(km, komaBB);
                     while (komaBB.Ref_PopNTZ(out Masu ms))

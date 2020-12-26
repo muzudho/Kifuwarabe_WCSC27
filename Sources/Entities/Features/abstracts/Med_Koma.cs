@@ -428,7 +428,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         #region 持駒→駒
         public static Koma MotiKomaToKoma(MotiKoma mk)
         {
-            return MotiKomasyuruiAndTaikyokusyaToKoma(MotiKomaToMotiKomasyrui(mk), MotiKomaToTaikyokusya(mk));
+            return MotiKomasyuruiAndTaikyokusyaToKoma(MotiKomaToMotiKomasyrui(mk), MotiKomaToTaikyokusya(mk).Unwrap());
         }
         #endregion
 
