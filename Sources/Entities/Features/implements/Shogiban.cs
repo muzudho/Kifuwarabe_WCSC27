@@ -4,6 +4,7 @@
 #if DEBUG
 using System;
 using System.Diagnostics;
+using System.Text;
 using kifuwarabe_wcsc27.abstracts;
 using kifuwarabe_wcsc27.interfaces;
 using kifuwarabe_wcsc27.machine;
@@ -1325,7 +1326,7 @@ namespace kifuwarabe_wcsc27.implements
                 //Util_Machine.Assert_Sabun_Kiki("飛び利き増やす2", Sindan, syuturyoku);
 #if DEBUG
                 kys.Setumei_GenkoKiki(jibun, syuturyoku); // 利き：（現行）
-                Util_Machine.Flush(syuturyoku);
+                Logger.Flush(syuturyoku);
 #endif
 
                 Koma[] kmHairetu_control;
@@ -1364,7 +1365,7 @@ namespace kifuwarabe_wcsc27.implements
             //{
             //    syuturyoku.AppendLine("（＾～＾）減らす盤上の駒3★");
             //    Util_Commands.MoveCmd(isSfen, "move su", this, syuturyoku);
-            //    Util_Machine.Flush(syuturyoku);
+            //    Logger.Flush(syuturyoku);
             //}
             ////#endif
 
@@ -1377,7 +1378,7 @@ namespace kifuwarabe_wcsc27.implements
             //{
             //    syuturyoku.AppendLine("（＾～＾）減らす盤上の駒4★");
             //    Util_Commands.MoveCmd(isSfen, "move su", this, syuturyoku);
-            //    Util_Machine.Flush(syuturyoku);
+            //    Logger.Flush(syuturyoku);
             //}
             ////#endif
         }
@@ -1422,7 +1423,7 @@ namespace kifuwarabe_wcsc27.implements
             //{
             //    syuturyoku.AppendLine("（＾～＾）減らす盤上の駒5★");
             //    Util_Commands.MoveCmd(isSfen, "move su", this, syuturyoku);
-            //    Util_Machine.Flush(syuturyoku);
+            //    Logger.Flush(syuturyoku);
             //}
             ////#endif
 
@@ -1469,7 +1470,7 @@ namespace kifuwarabe_wcsc27.implements
 #if DEBUG
             // 関連する飛び利き駒
             Util_Information.HyojiKomaHairetuYososuMade(ms_moved, kmHairetu_control, syuturyoku);
-            Util_Machine.Flush(syuturyoku);
+            Logger.Flush(syuturyoku);
 #endif
 
             // 飛び利きを計算し直す
@@ -1481,7 +1482,7 @@ namespace kifuwarabe_wcsc27.implements
                 ////#if DEBUG
                 //                // 飛び利きを再計算する駒
                 //                syuturyoku.AppendLine($"(TryDis1)飛び利きを再計算する駒=[{km_tobikiki}]");
-                //                Util_Machine.Flush(syuturyoku);
+                //                Logger.Flush(syuturyoku);
                 //                //#endif
 
                 // 再計算する駒をクリアー
@@ -1489,7 +1490,7 @@ namespace kifuwarabe_wcsc27.implements
                 ////#if DEBUG
                 //syuturyoku.AppendLine("(TryDis2)利きの引き算する前");
                 //Util_Information.HyojiKomanoKikiSu(update_shogiban, syuturyoku);
-                //Util_Machine.Flush(syuturyoku);
+                //Logger.Flush(syuturyoku);
                 ////#endif
                 // 全体のカウントから、駒別のカウントを　引き算します。駒別のカウントは　ゼロにします。
                 SubstructFromKikisuZenbu(km_tobikiki);
@@ -1497,7 +1498,7 @@ namespace kifuwarabe_wcsc27.implements
                 ////#if DEBUG
                 //syuturyoku.AppendLine("(TryDis3)利きを引き算した後");
                 //Util_Information.HyojiKomanoKikiSu(update_shogiban, syuturyoku);
-                //Util_Machine.Flush(syuturyoku);
+                //Logger.Flush(syuturyoku);
                 ////#endif
 
                 // 飛び利き駒駒の居場所
@@ -1507,7 +1508,7 @@ namespace kifuwarabe_wcsc27.implements
                 ////#if DEBUG
                 //syuturyoku.AppendLine("(TryDis4)駒の居場所");
                 //Util_Information.Setumei_1Bitboard(km_tobikiki.ToString(), bb_tobikikiKomaIbasho, syuturyoku);
-                //Util_Machine.Flush(syuturyoku);
+                //Logger.Flush(syuturyoku);
                 ////#endif
 
                 i++;
@@ -1545,7 +1546,7 @@ namespace kifuwarabe_wcsc27.implements
                 ////#if DEBUG
                 //syuturyoku.AppendLine("(TryDis5)隣利き、飛び利きを増やした後");
                 //Util_Information.HyojiKomanoKikiSu(update_shogiban, syuturyoku);
-                //Util_Machine.Flush(syuturyoku);
+                //Logger.Flush(syuturyoku);
                 ////#endif
             }
 
@@ -1578,7 +1579,7 @@ namespace kifuwarabe_wcsc27.implements
                 syuturyoku.AppendLine($"ms_mirainiKomagaAru=[{ms_mirainiKomagaAru}]");
                 Util_Information.Setumei_NingenGameYo(kys.GetHontai(), syuturyoku);
                 Util_Information.Setumei_1Bitboard("増やしたい利き(0) 飛び利き", bb_oekaki, syuturyoku);
-                Util_Machine.Flush(syuturyoku);
+                Logger.Flush(syuturyoku);
 #endif
 
                 // ★こいつは悪くない☆（＾～＾）　bb_oekaki が間違ったデータなんだぜ☆（＾～＾）
@@ -1587,19 +1588,19 @@ namespace kifuwarabe_wcsc27.implements
 //#if DEBUG
 //                syuturyoku.AppendLine("駒の動きを拡張したぜ☆（＾～＾）");
 //                Util_Information.HyojiKomanoUgoki(this, kys.MASU_YOSOSU, syuturyoku);
-//                Util_Machine.Flush(syuturyoku);
+//                Logger.Flush(syuturyoku);
 //#endif
             }
 //#if DEBUG
 //            Util_Information.Setumei_1Bitboard("増やしたい利き(1) 飛び利き", bb_oekaki, syuturyoku);
-//            Util_Machine.Flush(syuturyoku);
+//            Logger.Flush(syuturyoku);
 //#endif
             // 隣接利きを調査☆（＾～＾）
             bb_oekaki.Standup(kys.CloneKomanoUgoki(km_t1, ms_t1));
 //#if DEBUG
 //            syuturyoku.AppendLine($"増やしたい利き(2) 隣接利き km=[{km_t1}] ms_ibasho=[{ms_t1}]");
 //            Util_Information.Setumei_1Bitboard("増やしたい利き(2)", bb_oekaki, syuturyoku);
-//            Util_Machine.Flush(syuturyoku);
+//            Logger.Flush(syuturyoku);
 //#endif
         }
         /// <summary>
@@ -1636,7 +1637,7 @@ namespace kifuwarabe_wcsc27.implements
             syuturyoku.AppendLine($"ms_t1=[{ms_t0}]");
             syuturyoku.AppendLine($"ms_mirainiKomagaAru=[{ms_mirainiKomagaAru}]");
             Util_Information.Setumei_1Bitboard("増やしたい利き(0) 飛び利き", bb_oekaki, syuturyoku);
-            Util_Machine.Flush(syuturyoku);
+            Logger.Flush(syuturyoku);
 #endif
 
             if (!bb_oekaki.IsEmpty())
@@ -1647,13 +1648,13 @@ namespace kifuwarabe_wcsc27.implements
 //#if DEBUG
 //            syuturyoku.AppendLine("飛び利き駒の動きを減らした");
 //            Util_Information.HyojiKomanoUgoki(this, kys.MASU_YOSOSU, syuturyoku);
-//            Util_Machine.Flush(syuturyoku);
+//            Logger.Flush(syuturyoku);
 //#endif
 
             bb_oekaki.Standup(kys.CloneKomanoUgoki(km_t0, ms_t0));
 //#if DEBUG
 //            Util_Information.Setumei_1Bitboard("減らしたい利き", bb_oekaki, syuturyoku);
-//            Util_Machine.Flush(syuturyoku);
+//            Logger.Flush(syuturyoku);
 //#endif
             N100_HerasuKiki(km_t0, bb_oekaki, kys); // 元升に駒があるうちに、利きを減らそうぜ☆（＾▽＾）
         }

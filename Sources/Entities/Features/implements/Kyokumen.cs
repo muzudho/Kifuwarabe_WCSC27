@@ -1,6 +1,7 @@
 ﻿#define WCSC27
 
 using Grayscale.Kifuwarakei.Entities;
+using Grayscale.Kifuwarakei.Entities.Logging;
 using kifuwarabe_wcsc27.abstracts;
 using kifuwarabe_wcsc27.interfaces;
 using kifuwarabe_wcsc27.machine;
@@ -354,7 +355,7 @@ namespace kifuwarabe_wcsc27.implements
                         BB_DanArray[iDan].LeftShift(Option_Application.Optionlist.BanYokoHaba);
                         //#if DEBUG
                         //                    Util_Machine.Syuturyoku.AppendLine($"iDan=[{ iDan }] KyokumenImpl.BB_DanArray[iDan]=[{ KyokumenImpl.BB_DanArray[iDan].Value }] Option_Application.Optionlist.BanTateHaba=[{ Option_Application.Optionlist.BanTateHaba }] Option_Application.Optionlist.BanYokoHaba=[{ Option_Application.Optionlist.BanYokoHaba }]");
-                        //                    Util_Machine.Flush(Util_Machine.Syuturyoku);
+                        //                    Logger.Flush(Util_Machine.Syuturyoku);
                         //#endif
                     }
                 }
@@ -377,12 +378,12 @@ namespace kifuwarabe_wcsc27.implements
             //#if DEBUG
             //            syuturyoku.AppendLine("★利きの作り直し（１）駒の居場所");
             //            Util_Information.HyojiKomanoIbasho(BB_KomaZenbu, BB_Koma, syuturyoku);
-            //            Util_Machine.Flush(syuturyoku);
+            //            Logger.Flush(syuturyoku);
             //#endif
             //#if DEBUG
             //            syuturyoku.AppendLine("★利きの作り直し（２）駒の動き方");
             //            Util_Information.HyojiKomanoUgoki(KomanoUgokikata, Sindan.MASU_YOSOSU, syuturyoku);
-            //            Util_Machine.Flush(syuturyoku);
+            //            Logger.Flush(syuturyoku);
             //#endif
 
             // 駒の動き方（ベース）はあるので、
@@ -393,7 +394,7 @@ namespace kifuwarabe_wcsc27.implements
             //#if DEBUG
             //            syuturyoku.AppendLine("★利きの作り直し（３）駒の利き（作り直し１後）");
             //            Util_Information.HyojiKomanoKiki(BB_KikiZenbu, BB_Kiki, syuturyoku);
-            //            Util_Machine.Flush(syuturyoku);
+            //            Logger.Flush(syuturyoku);
             //#endif
 
             Shogiban.Tukurinaosi_2_Input_KikiKomabetu(Sindan);
@@ -401,7 +402,7 @@ namespace kifuwarabe_wcsc27.implements
             //#if DEBUG
             //            syuturyoku.AppendLine("★利きの作り直し（４）駒の利き（作り直し２後。飛び利きを含めたい）");
             //            Util_Information.HyojiKomanoKiki(BB_KikiZenbu, BB_Kiki, syuturyoku);
-            //            Util_Machine.Flush(syuturyoku);
+            //            Logger.Flush(syuturyoku);
             //#endif
 
             Shogiban.TukurinaosiBBKikiZenbu();
@@ -1025,11 +1026,11 @@ namespace kifuwarabe_wcsc27.implements
                 ks_t0 = Med_Koma.MotiKomasyuruiToKomasyrui(mks_t0);//おまとめ☆（＾～＾）
 
 #if DEBUG
-                if (!MotiKomas.HasMotiKoma(mk_t0))
-                {
-                    Util_Commands.Ky(isSfen, "ky", this, syuturyoku);
-                    Util_Machine.Flush(syuturyoku);
-                }
+                //if (!MotiKomas.HasMotiKoma(mk_t0))
+                //{
+                //    Util_Commands.Ky(isSfen, "ky", this, syuturyoku);
+                //    Logger.Flush(syuturyoku);
+                //}
 #endif
                 Debug.Assert(MotiKomas.HasMotiKoma(mk_t0), $"持っていない駒を打つのか☆（＾～＾）！？ jibun=[{jibun}] mks_src=[{mks_t0}] mk_utu=[{mk_t0}]");
             }
@@ -1154,7 +1155,7 @@ namespace kifuwarabe_wcsc27.implements
                 if (!safe)
                 {
                     syuturyoku.Append(sindan1.ToString());
-                    Util_Machine.Flush(syuturyoku);
+                    Logger.Flush(syuturyoku);
                 }
                 Debug.Assert(safe, $"#狒々 診断 {sindan1.ToString()}");
 #endif
@@ -1250,7 +1251,7 @@ namespace kifuwarabe_wcsc27.implements
             if (!safe)
             {
                 syuturyoku.AppendLine(sindan3.ToString());
-                Util_Machine.Flush(syuturyoku);
+                Logger.Flush(syuturyoku);
             }
             Debug.Assert(safe, sindan3.ToString());
 #endif
@@ -1317,7 +1318,7 @@ namespace kifuwarabe_wcsc27.implements
             if (!safe)
             {
                 syuturyoku.Append(sindan2.ToString());
-                Util_Machine.Flush(syuturyoku);
+                Logger.Flush(syuturyoku);
             }
             Debug.Assert(safe, sindan2.ToString());
 #endif
@@ -1460,7 +1461,7 @@ namespace kifuwarabe_wcsc27.implements
                 str_move.AppendLine();
 
                 syuturyoku.AppendLine("駒全部");
-                Util_Commands.Koma_cmd(isSfen, "koma", this, str_move);
+                // Util_Commands.Koma_cmd(isSfen, "koma", this, str_move);
 
                 throw new Exception( str_move.ToString());
             }
@@ -1488,7 +1489,7 @@ namespace kifuwarabe_wcsc27.implements
 
 #if DEBUG
             Util_Information.HyojiKomanoKiki(Shogiban, syuturyoku);//BB_KikiZenbu
-            Util_Machine.Flush(syuturyoku);
+            Logger.Flush(syuturyoku);
 #endif
             Shogiban.N250_TorinozokuBanjoKoma(isSfen, ms_t1, km_t1,
                 ms_t0,//(2017-05-02 22:44 Add) 未来に駒があるのは、元の場所なのでここなんだが☆（＾～＾）？
@@ -1498,7 +1499,7 @@ namespace kifuwarabe_wcsc27.implements
                 true, Sindan, syuturyoku);
 #if DEBUG
             Util_Information.HyojiKomanoKiki(Shogiban, syuturyoku);//BB_KikiZenbu
-            Util_Machine.Flush(syuturyoku);
+            Logger.Flush(syuturyoku);
 #endif
             Util_Machine.Assert_Sabun_Kiki("ＵｎｄｏＴ１-309★", Sindan, syuturyoku);
 
@@ -2127,7 +2128,7 @@ namespace kifuwarabe_wcsc27.implements
                 // FIXME:
                 string msg = $"パースに失敗だぜ☆（＾～＾）！ #麒麟 commandline=[{ commandline }] caret=[{ caret }]";
                 syuturyoku.AppendLine(msg);
-                Util_Machine.Flush(syuturyoku);
+                Logger.Flush(syuturyoku);
                 throw new Exception(msg);
             }
         }
@@ -2270,7 +2271,7 @@ namespace kifuwarabe_wcsc27.implements
                     reigai1.AppendLine($"{mk}=[{this.MotiKomas.Get(mk)}]");
                 }
 
-                Util_Machine.Flush(reigai1);
+                Logger.Flush(reigai1);
                 Debug.Fail(reigai1.ToString());
 #endif
                 throw new Exception($"対局者のパースエラー tb_Mojis=[{tb_Mojis}]");

@@ -1,10 +1,18 @@
-﻿using System.Text;
-using kifuwarabe_wcsc27.implements;
+﻿namespace kifuwarabe_wcsc27.abstracts
+{
+    using System;
+#if DEBUG
+    using System.Text;
+    using kifuwarabe_wcsc27.implements;
+    using kifuwarabe_wcsc27.interfaces;
+    using kifuwarabe_wcsc27.machine;
+#else
+using System.Text;
+    using Grayscale.Kifuwarakei.Entities.Logging;
+    using kifuwarabe_wcsc27.implements;
 using kifuwarabe_wcsc27.interfaces;
 using kifuwarabe_wcsc27.machine;
-
-namespace kifuwarabe_wcsc27.abstracts
-{
+#endif
     /// <summary>
     /// コンソール画面用☆（＾～＾）
     /// </summary>
@@ -12,10 +20,10 @@ namespace kifuwarabe_wcsc27.abstracts
     {
         public static void ReadCommandline(StringBuilder syuturyoku)
         {
-            Util_Machine.Flush(syuturyoku);
+            Logger.Flush(syuturyoku);
             Util_Commandline.SetCommandline(Util_Machine.ReadLine());
             syuturyoku.AppendLine(Util_Commandline.Commandline);
-            Util_Machine.Flush_NoEcho(syuturyoku);
+            Logger.Flush_NoEcho(syuturyoku);
         }
 
         /// <summary>
@@ -54,7 +62,7 @@ namespace kifuwarabe_wcsc27.abstracts
 #else
 #endif
             syuturyoku.Append("> ");
-            Util_Machine.Flush(syuturyoku);
+            Logger.Flush(syuturyoku);
         }
 
         /// <summary>
@@ -69,7 +77,7 @@ namespace kifuwarabe_wcsc27.abstracts
             syuturyoku.Append("（");
             syuturyoku.Append(Option_Application.Optionlist.PNChar[(int)ky.Teban].ToString());
             syuturyoku.Append("）の思考中（＾～＾）");
-            Util_Machine.Flush(syuturyoku);
+            Logger.Flush(syuturyoku);
         }
 
         /// <summary>
@@ -92,26 +100,26 @@ namespace kifuwarabe_wcsc27.abstracts
                         if (Option_Application.Optionlist.P2Com)
                         {
                             syuturyoku.AppendLine($"{kigo}まいったぜ☆（＞＿＜）");
-                            Util_Machine.Flush(syuturyoku);
+                            Logger.Flush(syuturyoku);
                         }
                         break;
                     case TaikyokuKekka.Taikyokusya2NoKati:
                         if (Option_Application.Optionlist.P2Com)
                         {
                             syuturyoku.AppendLine($"{kigo}やったぜ☆（＾▽＾）！");
-                            Util_Machine.Flush(syuturyoku);
+                            Logger.Flush(syuturyoku);
                         }
                         break;
                     case TaikyokuKekka.Hikiwake:
                         {
                             syuturyoku.AppendLine($"{kigo}決着を付けたかったぜ☆（＾～＾）");
-                            Util_Machine.Flush(syuturyoku);
+                            Logger.Flush(syuturyoku);
                         }
                         break;
                     case TaikyokuKekka.Sennitite:
                         {
                             syuturyoku.AppendLine($"{kigo}まあ、良しとするかだぜ☆（＾＿＾）");
-                            Util_Machine.Flush(syuturyoku);
+                            Logger.Flush(syuturyoku);
                         }
                         break;
                     case TaikyokuKekka.Karappo://thru
@@ -121,7 +129,7 @@ namespace kifuwarabe_wcsc27.abstracts
             }
         }
 
-        #region 定跡登録
+#region 定跡登録
         /// <summary>
         /// 定跡の通り指したとき、真☆
         /// </summary>
@@ -185,7 +193,7 @@ namespace kifuwarabe_wcsc27.abstracts
                         {
                             string msg = "パースに失敗だぜ☆（＾～＾）！ #鯰";
                             syuturyoku.AppendLine(msg);
-                            Util_Machine.Flush(syuturyoku);
+                            Logger.Flush(syuturyoku);
                             throw new Exception(msg);
                         }
 
@@ -193,7 +201,7 @@ namespace kifuwarabe_wcsc27.abstracts
                         {
                             StringBuilder reigai1 = new StringBuilder();
                             reigai1.AppendLine("指せない指し手を定跡に登録しようとしたぜ☆（＾～＾）！：");
-                            reigai1.Append("理由:"); ConvMove.SetumeiLine(riyu, reigai1);
+                            // reigai1.Append("理由:"); ConvMove.SetumeiLine(riyu, reigai1);
                             reigai1.Append("指し手:"); ConvMove.SetumeiLine(Option_Application.Optionlist.USI, bestMove, reigai1);
                             reigai1.Append("定跡にする１手前の局面　（"); reigai1.Append(KyFen_before); reigai1.AppendLine("）");
                             Util_Information.Setumei_Lines_Kyokumen(ky_forAssert,reigai1);
@@ -201,7 +209,7 @@ namespace kifuwarabe_wcsc27.abstracts
                             reigai1.Append("１手後は、現局面");
                             Util_Information.Setumei_Lines_Kyokumen(ky,reigai1);
                             syuturyoku.AppendLine(reigai1.ToString());
-                            Util_Machine.Flush(syuturyoku);
+                            Logger.Flush(syuturyoku);
                             throw new Exception(reigai1.ToString());
                         }
                     }
@@ -211,6 +219,6 @@ namespace kifuwarabe_wcsc27.abstracts
                 }
             }
         }
-        #endregion
+#endregion
     }
 }

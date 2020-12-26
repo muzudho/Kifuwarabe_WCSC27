@@ -22,10 +22,8 @@ namespace kifuwarabe_wcsc27.machine
             UnusedOutputBuf = new StringBuilder();
             System.Console.Title = "きふわらべ";
 
-            // ログ・ファイルがあれば削除するぜ☆
-            if (File.Exists(Logger.LogFilePath))
+            // TODO ログ・ファイルがあれば削除するぜ☆
             {
-                File.Delete(Logger.LogFilePath);
             }
 
             // 254文字までしか入力できない。（Console.DefaultConsoleBufferSize = 256 引く CRLF 2文字）
@@ -63,153 +61,6 @@ namespace kifuwarabe_wcsc27.machine
         {
             System.Console.Clear();
         }
-        /// <summary>
-        /// バッファーに溜まっているログを吐き出します。
-        /// </summary>
-        public static void Flush(StringBuilder syuturyoku)
-        {
-            bool echo = true;
-            if (Option_Application.Optionlist.USI)
-            {
-                echo = false;
-            }
-            Util_Machine.Flush(echo, syuturyoku);
-        }
-        public static void Flush_NoEcho(StringBuilder syuturyoku)
-        {
-            Util_Machine.Flush(false, syuturyoku);
-        }
-        public static void Flush_USI(StringBuilder syuturyoku)
-        {
-            Util_Machine.Flush(true, syuturyoku);
-        }
-        /// <summary>
-        /// バッファーに溜まっているログを吐き出します。
-        /// </summary>
-        public static void Flush(bool echo, StringBuilder syuturyoku)
-        {
-            if (0 < syuturyoku.Length)
-            {
-                if (echo)
-                {
-                    // コンソールに表示
-                    System.Console.Out.Write(syuturyoku.ToString());
-                }
-
-                // ログの書き込み
-                // _1 ～ _10 等のファイル名末尾を付けて、ログをローテーションするぜ☆（＾▽＾）
-                string bestFile;
-                {
-                    int maxFileSize = Util_Machine.LogFileSaidaiYoryo;
-                    int maxFileCount = Util_Machine.LogFileBunkatsuSu;
-                    long newestFileSize = 0;
-                    int oldestFileIndex = -1;
-                    DateTime oldestFileTime = DateTime.MaxValue;
-                    int newestFileIndex = -1;
-                    DateTime newestFileTime = DateTime.MinValue;
-                    int noExistsFileIndex = -1;
-                    int existFileCount = 0;
-                    // まず、ログファイルがあるか、Ｎ個確認するぜ☆（＾▽＾）
-                    for (int i = 0; i < maxFileCount; i++)
-                    {
-                        string file = Logger.NumberedLogFilePath(i);
-
-                        // ファイルがあるか☆
-                        if (File.Exists(file))
-                        {
-                            FileInfo fi = new FileInfo(file);
-                            DateTime fileTime = fi.LastWriteTimeUtc;
-
-                            if (fileTime < oldestFileTime)
-                            {
-                                oldestFileIndex = i;
-                                oldestFileTime = fileTime;
-                            }
-
-                            if (newestFileTime < fileTime)
-                            {
-                                newestFileIndex = i;
-                                newestFileTime = fileTime;
-                                newestFileSize = fi.Length;
-                            }
-
-                            existFileCount++;
-                        }
-                        else if (-1 == noExistsFileIndex)
-                        {
-                            noExistsFileIndex = i;
-                        }
-                    }
-
-                    if (existFileCount < 1)
-                    {
-                        // ログ・ファイルが１つも無ければ、新規作成するぜ☆（＾▽＾）
-                        Logger.LogDirectoryToExists();
-
-                        bestFile = Logger.NumberedLogFilePath(0); // 番号は 1 足される。
-
-                        FileStream fs = File.Create(bestFile);
-                        fs.Close(); // File.Create したあとは、必ず Close() しないと、ロックがかかったままになる☆（＾▽＾）
-                    }
-                    else
-                    {
-                        // ファイルがある場合は、一番新しいファイルに書き足すぜ☆（＾▽＾）
-
-                        bestFile = Logger.NumberedLogFilePath(newestFileIndex);
-                        // 一番新しいファイルのサイズが n バイト を超えている場合は、
-                        // 新しいファイルを新規作成するぜ☆（＾▽＾）
-                        if (maxFileSize < newestFileSize) // n バイト以上なら
-                        {
-
-                            if (maxFileCount <= existFileCount)
-                            {
-                                // ファイルが全部ある場合は、一番古いファイルを消して、一から書き込むぜ☆
-                                bestFile = Logger.NumberedLogFilePath(oldestFileIndex);
-                                File.Delete(bestFile);
-
-                                FileStream fs = File.Create(bestFile);
-                                fs.Close(); // File.Create したあとは、必ず Close() しないと、ロックがかかったままになる☆（＾▽＾）
-                            }
-                            else
-                            {
-                                // まだ作っていないファイルを作って、書き込むぜ☆（＾▽＾）
-                                bestFile = Logger.NumberedLogFilePath(noExistsFileIndex);
-
-                                FileStream fs = File.Create(bestFile);
-                                fs.Close(); // File.Create したあとは、必ず Close() しないと、ロックがかかったままになる☆（＾▽＾）
-                            }
-                        }
-                    }
-                }
-
-                for (int retry = 0; retry < 2; retry++)
-                {
-                    try
-                    {
-                        System.IO.File.AppendAllText(bestFile, syuturyoku.ToString());
-                        break;
-                    }
-                    catch (Exception)
-                    {
-                        if (0 == retry)
-                        {
-                            // 書き込みに失敗することもあるぜ☆（＾～＾）
-                            // 10秒待機して　再挑戦しようぜ☆（＾▽＾）
-                            syuturyoku.AppendLine("ログ書き込み失敗、10秒待機☆");
-                            // フラッシュは、できないぜ☆（＾▽＾）この関数だぜ☆（＾▽＾）ｗｗｗｗ
-                            System.Threading.Thread.Sleep(10000);
-                        }
-                        else
-                        {
-                            // 無理☆（＾▽＾）ｗｗｗ
-                            throw;
-                        }
-                    }
-                }
-                // ログ書き出し、ここまで☆（＾▽＾）
-                syuturyoku.Clear();
-            }
-        }
         public static string ReadLine()
         {
             // コンソールからのキー入力を受け取るぜ☆（＾▽＾）
@@ -244,10 +95,10 @@ namespace kifuwarabe_wcsc27.machine
             if (IsEnableBoardSize())
             {
                 syuturyoku.Append("定跡ファイル読込中");
-                Util_Machine.Flush(syuturyoku);
+                Logger.Flush(syuturyoku);
 
                 // まず、既存ファイル名を列挙するぜ☆（＾▽＾）
-                string filenamePattern = $"{Logger.JosekiFileStem}{(Option_Application.Optionlist.SagareruHiyoko ? Logger.LocalRuleSagareruHiyoko : Logger.LocalRuleHonshogi)}*";
+                string filenamePattern = $"_auto_joseki{(Option_Application.Optionlist.SagareruHiyoko ? Logger.LocalRuleSagareruHiyoko : Logger.LocalRuleHonshogi)}*";
                 string[] filepaths = Directory.GetFiles(".", filenamePattern);
 
                 // どんどんマージしていくぜ☆（＾▽＾）
@@ -255,7 +106,7 @@ namespace kifuwarabe_wcsc27.machine
                 for (int index = 0; index < filepaths.Length; index++)
                 {
                     syuturyoku.Append(".");
-                    Util_Machine.Flush(syuturyoku);// これが重たいのは仕方ないぜ☆（＾～＾）
+                    Logger.Flush(syuturyoku);// これが重たいのは仕方ないぜ☆（＾～＾）
 
                     Joseki jo = Util_Machine.Load_Joseki_1file(filepaths[index], syuturyoku);
                     if (null != jo)
@@ -265,7 +116,7 @@ namespace kifuwarabe_wcsc27.machine
                 }
 
                 syuturyoku.AppendLine("☆");
-                Util_Machine.Flush(syuturyoku);
+                Logger.Flush(syuturyoku);
             }
         }
 
@@ -289,7 +140,7 @@ namespace kifuwarabe_wcsc27.machine
                 //{ Option_Application.Joseki.ToString()}
                 //└──────────┘
                 //");
-                //                Util_Machine.Flush();
+                //                Logger.Flush();
                 //#endif
             }
 
@@ -304,7 +155,7 @@ namespace kifuwarabe_wcsc27.machine
             if (IsEnableBoardSize() && Option_Application.Optionlist.JosekiRec && Option_Application.Joseki.Edited)
             {
                 syuturyoku.Append("定跡ファイル書出中");
-                Util_Machine.Flush(syuturyoku);
+                Logger.Flush(syuturyoku);
 
                 // 容量がでかくなったので、複数のファイルに分割して保存するぜ☆（＾▽＾）
                 Option_Application.Joseki.Bunkatu(out Joseki[] bunkatu, out string[] bunkatupartNames, syuturyoku);
@@ -314,7 +165,7 @@ namespace kifuwarabe_wcsc27.machine
                 {
                     foreach (string bunkatupartName in bunkatupartNames)
                     {
-                        expectedFiles.Add(Logger.JosekiFileStem + (Option_Application.Optionlist.SagareruHiyoko ? Logger.LocalRuleSagareruHiyoko : Logger.LocalRuleHonshogi) + bunkatupartName + Logger.JosekiFileExt);
+                        expectedFiles.Add($"_auto_joseki{(Option_Application.Optionlist.SagareruHiyoko ? Logger.LocalRuleSagareruHiyoko : Logger.LocalRuleHonshogi)}{bunkatupartName}.txt");
                     }
                 }
 
@@ -323,7 +174,7 @@ namespace kifuwarabe_wcsc27.machine
                 List<string> removeFilepaths = new List<string>();
                 {
                     // まず、既存ファイル名を列挙するぜ☆（＾▽＾）
-                    string filenamePattern = $"{Logger.JosekiFileStem}{(Option_Application.Optionlist.SagareruHiyoko ? Logger.LocalRuleSagareruHiyoko : Logger.LocalRuleHonshogi)}*";
+                    string filenamePattern = $"_auto_joseki{(Option_Application.Optionlist.SagareruHiyoko ? Logger.LocalRuleSagareruHiyoko : Logger.LocalRuleHonshogi)}*";
                     string[] filepaths = Directory.GetFiles(".", filenamePattern);
 
                     foreach (string filepath in filepaths)
@@ -331,7 +182,7 @@ namespace kifuwarabe_wcsc27.machine
                         string filename = Path.GetFileName(filepath);
                         if (!expectedFiles.Contains(filename))
                         {
-                            Util_Machine.Flush(syuturyoku);
+                            Logger.Flush(syuturyoku);
                             removeFilepaths.Add(filepath);
                         }
                     }
@@ -352,7 +203,7 @@ namespace kifuwarabe_wcsc27.machine
                 }
 
                 syuturyoku.Append(".");
-                Util_Machine.Flush(syuturyoku);
+                Logger.Flush(syuturyoku);
 
                 // 分割したファイルをマージするぜ☆（＾▽＾）
                 for (int i = 1;//[0]にマージしていくぜ☆（＾▽＾）
@@ -362,7 +213,7 @@ namespace kifuwarabe_wcsc27.machine
                 }
 
                 syuturyoku.AppendLine("☆");
-                Util_Machine.Flush(syuturyoku);
+                Logger.Flush(syuturyoku);
                 Option_Application.Joseki.Edited = false;
             }
         }
@@ -380,22 +231,22 @@ namespace kifuwarabe_wcsc27.machine
             }
 
             syuturyoku.Append(".");
-            Util_Machine.Flush(syuturyoku);
+            Logger.Flush(syuturyoku);
 
             // 定跡の文字列化☆
             string josekiStr = jo.ToString(Option_Application.Optionlist.USI);
 
             syuturyoku.Append(".");
-            Util_Machine.Flush(syuturyoku);
+            Logger.Flush(syuturyoku);
 
             // 容量を制限するぜ☆
             if (Joseki.Capacity < josekiStr.Length)
             {
                 syuturyoku.AppendLine($"joseki removed ( ascii characters size ) = { jo.DownSizeing(josekiStr.Length - Joseki.Capacity)}");
-                Util_Machine.Flush(syuturyoku);
+                Logger.Flush(syuturyoku);
 
                 syuturyoku.Append(".");
-                Util_Machine.Flush(syuturyoku);
+                Logger.Flush(syuturyoku);
 
                 // もう１回取得☆
                 josekiStr = jo.ToString(Option_Application.Optionlist.USI);
@@ -413,13 +264,13 @@ namespace kifuwarabe_wcsc27.machine
             if (IsEnableBoardSize())
             {
                 syuturyoku.Append("二駒関係ファイル読込中");
-                Util_Machine.Flush(syuturyoku);
+                Logger.Flush(syuturyoku);
 
                 // ファイル名☆（＾▽＾）
-                string file = Logger.NikomaFileStem + (Option_Application.Optionlist.SagareruHiyoko ? Logger.LocalRuleSagareruHiyoko : Logger.LocalRuleHonshogi) + Logger.NikomaFileExt;
+                string file = $"_auto_nikoma{(Option_Application.Optionlist.SagareruHiyoko ? Logger.LocalRuleSagareruHiyoko : Logger.LocalRuleHonshogi)}.txt";
 
                 syuturyoku.Append(".");
-                Util_Machine.Flush(syuturyoku);
+                Logger.Flush(syuturyoku);
 
                 if (File.Exists(file))//定跡ファイルがある場合のみ、定跡を使うぜ☆（＾▽＾）
                 {
@@ -427,7 +278,7 @@ namespace kifuwarabe_wcsc27.machine
                 }
 
                 syuturyoku.AppendLine("☆");
-                Util_Machine.Flush(syuturyoku);
+                Logger.Flush(syuturyoku);
             }
         }
 
@@ -439,12 +290,12 @@ namespace kifuwarabe_wcsc27.machine
             if (IsEnableBoardSize() && Util_NikomaKankei.Edited)
             {
                 syuturyoku.Append("二駒関係ファイル書出中");
-                Util_Machine.Flush(syuturyoku);
+                Logger.Flush(syuturyoku);
 
                 // 容量がでかくなったので、複数のファイルに分割して保存するぜ☆（＾▽＾）
 
                 // 残すべきファイル名☆（＾▽＾）
-                string file = Logger.NikomaFileStem + (Option_Application.Optionlist.SagareruHiyoko ? Logger.LocalRuleSagareruHiyoko : Logger.LocalRuleHonshogi) + Logger.NikomaFileExt;
+                string file = $"_auto_nikoma{(Option_Application.Optionlist.SagareruHiyoko ? Logger.LocalRuleSagareruHiyoko : Logger.LocalRuleHonshogi)}.txt";
                 if (!File.Exists(file))
                 {
                     // ファイルが無ければ作成します。
@@ -453,20 +304,20 @@ namespace kifuwarabe_wcsc27.machine
                 }
 
                 syuturyoku.Append(".");
-                Util_Machine.Flush(syuturyoku);
+                Logger.Flush(syuturyoku);
 
                 // 定跡の文字列化☆
                 StringBuilder nikomaMojiretu = new StringBuilder();
                 Util_NikomaKankei.ToString(nikomaMojiretu);
 
                 syuturyoku.Append(".");
-                Util_Machine.Flush(syuturyoku);
+                Logger.Flush(syuturyoku);
 
                 // 上書き☆
                 System.IO.File.WriteAllText(file, nikomaMojiretu.ToString());
 
                 syuturyoku.AppendLine("☆");
-                Util_Machine.Flush(syuturyoku);
+                Logger.Flush(syuturyoku);
                 Util_NikomaKankei.Edited = false;
             }
         }
@@ -477,12 +328,12 @@ namespace kifuwarabe_wcsc27.machine
         public static void Flush_NikomaSetumei(StringBuilder syuturyoku)
         {
             syuturyoku.Append("二駒関係説明ファイル書出中");
-            Util_Machine.Flush(syuturyoku);
+            Logger.Flush(syuturyoku);
 
             // 容量がでかくなったので、複数のファイルに分割して保存するぜ☆（＾▽＾）
 
             // 残すべきファイル名☆（＾▽＾）
-            string file = Logger.NikomaSetumeiFileStem + (Option_Application.Optionlist.SagareruHiyoko ? Logger.LocalRuleSagareruHiyoko : Logger.LocalRuleHonshogi) + Logger.NikomaSetumeiFileExt;
+            string file = $"_auto_nikomaSetumei{(Option_Application.Optionlist.SagareruHiyoko ? Logger.LocalRuleSagareruHiyoko : Logger.LocalRuleHonshogi)}.txt";
             if (!File.Exists(file))
             {
                 // ファイルが無ければ作成します。
@@ -491,19 +342,19 @@ namespace kifuwarabe_wcsc27.machine
             }
 
             syuturyoku.Append(".");
-            Util_Machine.Flush(syuturyoku);
+            Logger.Flush(syuturyoku);
 
             // 定跡の文字列化☆
             string contents = Util_NikomaKankei.ToSetumei();
 
             syuturyoku.Append(".");
-            Util_Machine.Flush(syuturyoku);
+            Logger.Flush(syuturyoku);
 
             // 上書き☆
             System.IO.File.WriteAllText(file, contents);
 
             syuturyoku.AppendLine("☆");
-            Util_Machine.Flush(syuturyoku);
+            Logger.Flush(syuturyoku);
             Util_NikomaKankei.Edited = false;
         }
 
@@ -515,10 +366,10 @@ namespace kifuwarabe_wcsc27.machine
             if (IsEnableBoardSize())
             {
                 syuturyoku.Append("成績ファイル読込中");
-                Util_Machine.Flush(syuturyoku);
+                Logger.Flush(syuturyoku);
 
                 // まず、既存ファイル名を列挙するぜ☆（＾▽＾）
-                string filenamePattern = $"{Logger.SeisekiFileStem}{ (Option_Application.Optionlist.SagareruHiyoko ? Logger.LocalRuleSagareruHiyoko : Logger.LocalRuleHonshogi)}*";
+                string filenamePattern = $"_auto_seiseki{ (Option_Application.Optionlist.SagareruHiyoko ? Logger.LocalRuleSagareruHiyoko : Logger.LocalRuleHonshogi)}*";
                 string[] filepaths = Directory.GetFiles(".", filenamePattern);
 
                 // どんどんマージしていくぜ☆（＾▽＾）
@@ -526,7 +377,7 @@ namespace kifuwarabe_wcsc27.machine
                 for (int index = 0; index < filepaths.Length; index++)
                 {
                     syuturyoku.Append(".");
-                    Util_Machine.Flush(syuturyoku);
+                    Logger.Flush(syuturyoku);
 
                     Seiseki se = Util_Machine.Load_Seiseki_1file(filepaths[index], syuturyoku);
                     if (null != se)
@@ -536,7 +387,7 @@ namespace kifuwarabe_wcsc27.machine
                 }
 
                 syuturyoku.AppendLine("☆");
-                Util_Machine.Flush(syuturyoku);
+                Logger.Flush(syuturyoku);
             }
         }
 
@@ -564,7 +415,7 @@ namespace kifuwarabe_wcsc27.machine
             if (IsEnableBoardSize() && Option_Application.Optionlist.SeisekiRec && Option_Application.Seiseki.Edited)
             {
                 syuturyoku.Append("成績ファイル書出中");
-                Util_Machine.Flush(syuturyoku);
+                Logger.Flush(syuturyoku);
 
                 // 容量がでかくなったので、複数のファイルに分割して保存するぜ☆（＾▽＾）
                 Option_Application.Seiseki.Bunkatu(out Seiseki[] bunkatu, out string[] bunkatupartNames);
@@ -574,7 +425,7 @@ namespace kifuwarabe_wcsc27.machine
                 {
                     foreach (string bunkatupartName in bunkatupartNames)
                     {
-                        expectedFiles.Add(Logger.SeisekiFileStem + (Option_Application.Optionlist.SagareruHiyoko ? Logger.LocalRuleSagareruHiyoko : Logger.LocalRuleHonshogi) + bunkatupartName + Logger.SeisekiFileExt);
+                        expectedFiles.Add($"_auto_seiseki{(Option_Application.Optionlist.SagareruHiyoko ? Logger.LocalRuleSagareruHiyoko : Logger.LocalRuleHonshogi)}{bunkatupartName}.txt");
                     }
                 }
 
@@ -583,7 +434,7 @@ namespace kifuwarabe_wcsc27.machine
                 List<string> removeFilepaths = new List<string>();
                 {
                     // まず、既存ファイル名を列挙するぜ☆（＾▽＾）
-                    string filenamePattern = $"{Logger.SeisekiFileStem }{ (Option_Application.Optionlist.SagareruHiyoko ? Logger.LocalRuleSagareruHiyoko : Logger.LocalRuleHonshogi) }*";
+                    string filenamePattern = $"_auto_seiseki{ (Option_Application.Optionlist.SagareruHiyoko ? Logger.LocalRuleSagareruHiyoko : Logger.LocalRuleHonshogi) }*";
                     string[] filepaths = Directory.GetFiles(".", filenamePattern);
 
                     foreach (string filepath in filepaths)
@@ -591,7 +442,7 @@ namespace kifuwarabe_wcsc27.machine
                         string filename = Path.GetFileName(filepath);
                         if (!expectedFiles.Contains(filename))
                         {
-                            Util_Machine.Flush(syuturyoku);
+                            Logger.Flush(syuturyoku);
                             removeFilepaths.Add(filepath);
                         }
                     }
@@ -612,7 +463,7 @@ namespace kifuwarabe_wcsc27.machine
                 }
 
                 syuturyoku.Append(".");
-                Util_Machine.Flush(syuturyoku);
+                Logger.Flush(syuturyoku);
 
                 // 分割したファイルをマージするぜ☆（＾▽＾）
                 for (int i = 1;//[0]にマージしていくぜ☆（＾▽＾）
@@ -622,7 +473,7 @@ namespace kifuwarabe_wcsc27.machine
                 }
 
                 syuturyoku.AppendLine("☆");
-                Util_Machine.Flush(syuturyoku);
+                Logger.Flush(syuturyoku);
                 Option_Application.Seiseki.Edited = false;
             }
         }
@@ -640,13 +491,13 @@ namespace kifuwarabe_wcsc27.machine
             }
 
             syuturyoku.Append(".");
-            Util_Machine.Flush(syuturyoku);
+            Logger.Flush(syuturyoku);
 
             // 成績の文字列化☆
             string seisekiStr = se.ToContents_NotUnity(Option_Application.Optionlist.USI);
 
             syuturyoku.Append(".");
-            Util_Machine.Flush(syuturyoku);
+            Logger.Flush(syuturyoku);
 
             // 容量を制限するぜ☆
             if (Seiseki.Capacity < seisekiStr.Length)
@@ -654,7 +505,7 @@ namespace kifuwarabe_wcsc27.machine
                 syuturyoku.AppendLine($"seiseki removed bytes = { se.DownSizeing(seisekiStr.Length - Seiseki.Capacity)}");
 
                 syuturyoku.Append(".");
-                Util_Machine.Flush(syuturyoku);
+                Logger.Flush(syuturyoku);
 
                 // もう１回取得☆
                 seisekiStr = se.ToContents_NotUnity(Option_Application.Optionlist.USI);
@@ -695,7 +546,7 @@ namespace kifuwarabe_wcsc27.machine
             {
                 syuturyoku.Append(message);
                 string message2 = syuturyoku.ToString();
-                Util_Machine.Flush(syuturyoku);
+                Logger.Flush(syuturyoku);
                 Debug.Assert(condition, message2);
             }
         }
@@ -718,7 +569,7 @@ namespace kifuwarabe_wcsc27.machine
         public static void Fail(StringBuilder syuturyoku)
         {
             string message = syuturyoku.ToString();
-            Util_Machine.Flush(syuturyoku);
+            Logger.Flush(syuturyoku);
             Debug.Fail(message);
             throw new System.Exception(message);
         }
@@ -739,7 +590,7 @@ namespace kifuwarabe_wcsc27.machine
             if (!safe)
             {
                 syuturyoku.AppendLine(msg);
-                Flush(syuturyoku);
+                Logger.Flush(syuturyoku);
             }
             Debug.Assert(safe, msg);
         }
@@ -768,7 +619,7 @@ P2差分  =[{hyokati2}]
             if (!safe)
             {
                 syuturyoku.AppendLine(msg);
-                Flush(syuturyoku);
+                Logger.Flush(syuturyoku);
             }
             Debug.Assert(safe, msg);
         }
@@ -786,7 +637,7 @@ P2差分  =[{hyokati2}]
             {
                 StringBuilder sindan1 = new StringBuilder();
                 sindan1.Append(message); sindan1.AppendLine(" 局面ハッシュ");
-                Flush(sindan1);
+                Logger.Flush(sindan1);
                 Debug.Fail(sindan1.ToString());
             }
         }
@@ -804,7 +655,7 @@ P2差分  =[{hyokati2}]
                 Util_Information.HyojiKomanoIbasho(ky.Shogiban, sindan1);
                 sindan1.AppendLine($"Util_Tansaku.TansakuTyakusyuEdas=[{Util_Tansaku.TansakuTyakusyuEdas}]");
 
-                Flush(sindan1);
+                Logger.Flush(sindan1);
                 Debug.Fail(sindan1.ToString());
             }
         }
@@ -861,7 +712,7 @@ P2差分  =[{hyokati2}]
 
                     kys.Setumei_GenkoKiki(tai, sindan1); // 利き：（現行）
 
-                    Flush(sindan1);
+                    Logger.Flush(sindan1);
                     Debug.Assert(safe, sindan1.ToString());
                 }
             }

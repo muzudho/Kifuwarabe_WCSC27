@@ -1,5 +1,6 @@
 ﻿using System;
 using Grayscale.Kifuwarakei.Entities.Configuration;
+using Grayscale.Kifuwarakei.Entities.Logging;
 
 namespace Grayscale.Kifuwarakei.Entities
 {
@@ -12,7 +13,7 @@ namespace Grayscale.Kifuwarakei.Entities
         public static void Implement(IEngineConf engineConf)
         {
             //SpecifiedFiles.Init(engineConf);
-            //Logger.Init(engineConf);
+            Logger.Init(engineConf);
             // Util_KifuTreeLogWriter.Init(engineConf);
         }
     }

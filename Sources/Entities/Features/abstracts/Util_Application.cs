@@ -119,7 +119,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 //str.Append(caret);
                 //str.Append("]");
                 //syuturyoku.AppendLine(str.ToString());
-                //Util_Machine.Flush();
+                //Logger.Flush();
                 //throw new Exception(str.ToString());
                 return false;
             }
@@ -907,7 +907,7 @@ namespace kifuwarabe_wcsc27.abstracts
             if (Option_Application.Optionlist.SeisekiRec)
             {
                 syuturyoku.Append("成績更新中");
-                Util_Machine.Flush(syuturyoku);
+                Logger.Flush(syuturyoku);
             }
         }
         public static void InLoop_SeisekiKosin(Move ss_after, Kyokumen ky, StringBuilder syuturyoku)
@@ -935,12 +935,12 @@ namespace kifuwarabe_wcsc27.abstracts
                         make
                     );
                     syuturyoku.Append("|");
-                    Util_Machine.Flush(syuturyoku);
+                    Logger.Flush(syuturyoku);
                 }
                 else
                 {
                     syuturyoku.Append(".");
-                    Util_Machine.Flush(syuturyoku);
+                    Logger.Flush(syuturyoku);
                 }
             }//成績の記録☆
         }
@@ -949,7 +949,7 @@ namespace kifuwarabe_wcsc27.abstracts
             if (Option_Application.Optionlist.SeisekiRec)
             {
                 syuturyoku.AppendLine("☆");
-                Util_Machine.Flush(syuturyoku);
+                Logger.Flush(syuturyoku);
             }
         }
 #endregion
@@ -1000,7 +1000,7 @@ namespace kifuwarabe_wcsc27.abstracts
             {
                 playing.Result(ky, syuturyoku, CommandMode.NingenYoConsoleGame);
                 syuturyoku.AppendLine("終わったぜ☆（＾▽＾）");
-                Util_Machine.Flush(syuturyoku);
+                Logger.Flush(syuturyoku);
             }
 
             Util_Application.Begin_SeisekiKosin(syuturyoku);
@@ -1022,7 +1022,7 @@ namespace kifuwarabe_wcsc27.abstracts
             // 棋譜を作ろうぜ☆
             syuturyoku.AppendLine($@"{kigoComment}感想戦を行う場合は kansosen と打てだぜ☆（＾▽＾）　そのあと kifu 1 とか打て☆（＾▽＾）
 {kigoComment}終わるときは hirate な☆（＾▽＾）");
-            Util_Machine.Flush(syuturyoku);
+            Logger.Flush(syuturyoku);
 
             // 保存していないものを保存だぜ☆（＾▽＾）
             Util_Application.FlushAll1(syuturyoku);
@@ -1067,7 +1067,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     // ルールを変えるぜ☆（＾▽＾）
                     string commandline_2 = $"set SagareruHiyoko {!Option_Application.Optionlist.SagareruHiyoko}";
                     syuturyoku.AppendLine($"RenzokuRandomRule> {commandline_2}");
-                    Util_Machine.Flush(syuturyoku);
+                    Logger.Flush(syuturyoku);
 
                     // 表示してから実行しようぜ☆（＾～＾）
                     Util_Application.Set(commandline_2, ky, syuturyoku);
@@ -1118,7 +1118,7 @@ namespace kifuwarabe_wcsc27.abstracts
             // 表示・ログ出力（コンソール・ゲーム用）
             {
                 // ファイルに書き出していないログが溜まっていれば、これで全部書き出します。
-                Util_Machine.Flush(syuturyoku);
+                Logger.Flush(syuturyoku);
             }
         }
     }

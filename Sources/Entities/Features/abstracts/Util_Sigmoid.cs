@@ -2,6 +2,7 @@
 using kifuwarabe_wcsc27.interfaces;
 using System;
 using System.Text;
+using Grayscale.Kifuwarakei.Entities.Logging;
 
 namespace kifuwarabe_wcsc27.abstracts
 {
@@ -340,7 +341,7 @@ sisu( 255.0000) → [-8.964844000] y=Sigmoid( 0.999872200)
 sisu( 256.0000) → [-9.000000000] y=Sigmoid( 0.999876600)
             */
 
-            Util_Machine.Flush(syuturyoku);
+            Logger.Flush(syuturyoku);
             Util_Machine.ReadKey();
         }
 

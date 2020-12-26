@@ -4,6 +4,7 @@
     using System.Text;
     using Grayscale.Kifuwarakei.Engine.Configuration;
     using Grayscale.Kifuwarakei.Entities;
+    using Grayscale.Kifuwarakei.Entities.Logging;
     using Grayscale.Kifuwarakei.UseCases;
     using kifuwarabe_wcsc27.abstracts;
     using kifuwarabe_wcsc27.facade;
@@ -196,14 +197,14 @@ System.Console.WriteLine($"# (~0UL << 1)=[{(~0UL << 1)}]");
                         {
                             // do コマンドのパースエラー表示（コンソール・ゲーム用）☆（＾～＾）
                             syuturyoku.AppendLine(ConvMove.Setumei(MoveMatigaiRiyu.ParameterSyosikiMatigai));
-                            Util_Machine.Flush(syuturyoku);
+                            Logger.Flush(syuturyoku);
                             Util_Commandline.CommentCommandline();// コマンドの誤発動防止
                         }
                         else if (!ky.CanDoMove(inputSasite, out MoveMatigaiRiyu reason))// 指し手の合否チェック
                         {
                             // イリーガル・ムーブなどの、エラー理由表示☆（＾～＾）
                             syuturyoku.AppendLine(ConvMove.Setumei(reason));
-                            Util_Machine.Flush(syuturyoku);
+                            Logger.Flush(syuturyoku);
                         }
                         else
                         {
@@ -523,7 +524,7 @@ System.Console.WriteLine($"# (~0UL << 1)=[{(~0UL << 1)}]");
                         {
                             string msg = "パースに失敗だぜ☆（＾～＾）！ #黒牛";
                             syuturyoku.AppendLine(msg);
-                            Util_Machine.Flush(syuturyoku);
+                            Logger.Flush(syuturyoku);
                             throw new Exception(msg);
                         }
 
@@ -670,7 +671,7 @@ System.Console.WriteLine($"# (~0UL << 1)=[{(~0UL << 1)}]");
                     syuturyoku.AppendLine("」☆？（＾▽＾）");
 
                     syuturyoku.AppendLine("そんなコマンドは無いぜ☆（＞＿＜） man で調べろだぜ☆（＾▽＾）");
-                    Util_Machine.Flush(syuturyoku);
+                    Logger.Flush(syuturyoku);
                 }
 
                 if (Util_Commandline.IsQuit)

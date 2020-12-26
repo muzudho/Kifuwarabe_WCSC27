@@ -1,4 +1,5 @@
-﻿using kifuwarabe_wcsc27.abstracts;
+﻿using Grayscale.Kifuwarakei.Entities.Logging;
+using kifuwarabe_wcsc27.abstracts;
 using kifuwarabe_wcsc27.interfaces;
 using kifuwarabe_wcsc27.machine;
 using System;
@@ -307,7 +308,7 @@ namespace kifuwarabe_wcsc27.implements
                     {
                         string msg = $"パースに失敗だぜ☆（＾～＾）！ #寒鰤 定跡ファイル解析失敗 {gyoBango}]行目";
                         syuturyoku.AppendLine(msg);
-                        Util_Machine.Flush(syuturyoku);
+                        Logger.Flush(syuturyoku);
                         throw new Exception(msg);
                     }
 

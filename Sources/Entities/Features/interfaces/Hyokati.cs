@@ -4,6 +4,7 @@ using kifuwarabe_wcsc27.machine;
 using System;
 using kifuwarabe_wcsc27.implements;
 using System.Text;
+using Grayscale.Kifuwarakei.Entities.Logging;
 
 namespace kifuwarabe_wcsc27.interfaces
 {
@@ -458,7 +459,7 @@ namespace kifuwarabe_wcsc27.interfaces
                 //    // FIXME:
                 //    string msg = $"パースに失敗だぜ☆（＾～＾）！  commandline=[{commandline}]caret({caret}) .Value=[{m.Groups[1].Value}] m.Index=[{m.Index}] m.Length=[{m.Length}]";
                 //    Util_Machine.AppendLine(msg);
-                //    Util_Machine.Flush();
+                //    Logger.Flush();
                 //    throw new Exception(msg);
                 //    // */
                 //}
@@ -477,7 +478,7 @@ namespace kifuwarabe_wcsc27.interfaces
                     // FIXME:
                     string msg = $"パースに失敗だぜ☆（＾～＾）！ #鱒 commandline=[{commandline}]caret({caret}) .Value=[{m.Groups[1].Value}]";
                     syuturyoku.AppendLine(msg);
-                    Util_Machine.Flush(syuturyoku);
+                    Logger.Flush(syuturyoku);
                     throw new Exception(msg);
                     // */
                 }
@@ -488,7 +489,7 @@ namespace kifuwarabe_wcsc27.interfaces
                 // FIXME:
                 string msg = $"パースに失敗だぜ☆（＾～＾）！  commandline=[{commandline}]caret({caret})";
                 Util_Machine.AppendLine(msg);
-                Util_Machine.Flush();
+                Logger.Flush();
                 throw new Exception(msg);
             }
             // */

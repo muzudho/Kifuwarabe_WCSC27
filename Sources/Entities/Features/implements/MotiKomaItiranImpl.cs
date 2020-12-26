@@ -1,10 +1,18 @@
-﻿using kifuwarabe_wcsc27.interfaces;
+﻿namespace kifuwarabe_wcsc27.implements
+{
+#if DEBUG
+    using kifuwarabe_wcsc27.interfaces;
+    using System;
+    using kifuwarabe_wcsc27.machine;
+    using System.Diagnostics;
+    using System.Text;
+#else
+using kifuwarabe_wcsc27.interfaces;
 using System;
 using kifuwarabe_wcsc27.machine;
 using System.Diagnostics;
+#endif
 
-namespace kifuwarabe_wcsc27.implements
-{
     public class MotiKomaItiranImpl
     {
         public MotiKomaItiranImpl()
@@ -39,7 +47,7 @@ namespace kifuwarabe_wcsc27.implements
             {
                 StringBuilder reigai1 = new StringBuilder();
                 reigai1.AppendLine("error 持駒の数にマイナスをセットした☆");
-                Util_Machine.Flush(reigai1);
+                Logger.Flush(reigai1);
                 throw new Exception(reigai1.ToString());
             }
 #endif
@@ -75,7 +83,7 @@ namespace kifuwarabe_wcsc27.implements
             {
                 StringBuilder reigai1 = new StringBuilder();
                 reigai1.AppendLine("error 持駒の数がマイナス");
-                Util_Machine.Flush(reigai1);
+                Logger.Flush(reigai1);
                 throw new Exception(reigai1.ToString());
             }
 #endif

@@ -8,6 +8,7 @@ using Nett;
 using System.IO;
 using Grayscale.Kifuwarakei.Entities;
 using System.Text;
+using Grayscale.Kifuwarakei.Entities.Logging;
 
 namespace kifuwarabe_wcsc27.abstracts
 {
@@ -72,7 +73,7 @@ namespace kifuwarabe_wcsc27.abstracts
             {
                 // コマンド・バッファーの実行中だぜ☆（＾▽＾）
                 syuturyoku.Append($"{Util_Commandline.CommandBufferName }> ");
-                Util_Machine.Flush(syuturyoku);
+                Logger.Flush(syuturyoku);
             }
             else if (GameMode.Game == Util_Application.GameMode)
             {
@@ -83,19 +84,19 @@ namespace kifuwarabe_wcsc27.abstracts
                         Util_Information.Setumei_NingenGameYo(ky, syuturyoku);
 
 #if DEBUG
-                        Util_Commands.Ky(isSfen, "ky fen", ky, syuturyoku);// 参考：改造FEN表示
-                        Util_Commands.MoveCmd(isSfen, "move", ky, syuturyoku);// 参考：指し手表示
-                        if (false){
-                            Util_Information.HyojiKomanoIbasho(ky.Shogiban, syuturyoku);// 参考：駒の表示
-                            Util_Information.HyojiKomanoKikiSu(ky.Shogiban, syuturyoku);// 参考：利きの数
-                        }
-                        Util_Commands.MoveCmd(isSfen, "move seisei", ky, syuturyoku);// 参考：指し手表示 詳細
-                        Util_Machine.Flush(syuturyoku);
+                        //Util_Commands.Ky(isSfen, "ky fen", ky, syuturyoku);// 参考：改造FEN表示
+                        //Util_Commands.MoveCmd(isSfen, "move", ky, syuturyoku);// 参考：指し手表示
+                        //if (false){
+                        //    Util_Information.HyojiKomanoIbasho(ky.Shogiban, syuturyoku);// 参考：駒の表示
+                        //    Util_Information.HyojiKomanoKikiSu(ky.Shogiban, syuturyoku);// 参考：利きの数
+                        //}
+                        //Util_Commands.MoveCmd(isSfen, "move seisei", ky, syuturyoku);// 参考：指し手表示 詳細
+                        //Logger.Flush(syuturyoku);
 #endif
 
                         playing.Result(ky, syuturyoku, CommandMode.NingenYoConsoleGame);
                     }
-                    Util_Machine.Flush(syuturyoku);
+                    Logger.Flush(syuturyoku);
                 }
 
                 if ((ky.Teban == Taikyokusya.T1 && !Option_Application.Optionlist.P1Com)
@@ -107,14 +108,14 @@ namespace kifuwarabe_wcsc27.abstracts
                     syuturyoku.Append(
                         @"指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
 > ");
-                    Util_Machine.Flush(syuturyoku);
+                    Logger.Flush(syuturyoku);
                 }
             }
             else
             {
                 // 表示（コンソール・ゲーム用）
                 syuturyoku.Append("> ");
-                Util_Machine.Flush(syuturyoku);
+                Logger.Flush(syuturyoku);
             }
         }
     }

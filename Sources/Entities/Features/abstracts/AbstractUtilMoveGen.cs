@@ -298,7 +298,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 /*
 #if DEBUG
                 Util_Machine.AppendLine($"指し手リストのGood,Bad をマージするぜ☆（＾～＾）hint=[{hint}]");
-                Util_Machine.Flush();
+                Logger.Flush();
 #endif
                 // */
 
@@ -465,7 +465,7 @@ namespace kifuwarabe_wcsc27.abstracts
             idosakiBB.Select(ky.Shogiban.GetKomanoUgokikata(km, ms_src));
 #if DEBUG
             Util_Information.HyojiKomanoUgoki(ky.Shogiban, ky.Sindan.MASU_YOSOSU, syuturyoku);
-            Util_Machine.Flush(syuturyoku);
+            Logger.Flush(syuturyoku);
 #endif
 
             switch (sasiteType)

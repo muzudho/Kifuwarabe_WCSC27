@@ -4,6 +4,7 @@ using kifuwarabe_wcsc27.machine;
 using System;
 using kifuwarabe_wcsc27.implements;
 using System.Text;
+using Grayscale.Kifuwarakei.Entities.Logging;
 
 namespace kifuwarabe_wcsc27.facade
 {
@@ -190,23 +191,23 @@ namespace kifuwarabe_wcsc27.facade
 #endif
                 // */
 #if DEBUG
-                if (hint == "Stalemate")
-                {
-                    // 駒包囲テストのときの強力なデバッグ出力だぜ☆（＾▽＾）ｗｗｗ
-                    Util_Commands.Ky(Option_Application.Optionlist.USI, "ky", ky, syuturyoku);
-                    Util_Commands.MoveCmd(Option_Application.Optionlist.USI, "move", ky, syuturyoku);
-                    Util_Commands.MoveCmd(Option_Application.Optionlist.USI, "move seisei", ky, syuturyoku);
-                }
+                //if (hint == "Stalemate")
+                //{
+                //    // 駒包囲テストのときの強力なデバッグ出力だぜ☆（＾▽＾）ｗｗｗ
+                //    Util_Commands.Ky(Option_Application.Optionlist.USI, "ky", ky, syuturyoku);
+                //    Util_Commands.MoveCmd(Option_Application.Optionlist.USI, "move", ky, syuturyoku);
+                //    Util_Commands.MoveCmd(Option_Application.Optionlist.USI, "move seisei", ky, syuturyoku);
+                //}
 #endif
 
                 if (Option_Application.Optionlist.USI)
                 {
-                    Util_Machine.Flush_USI(syuturyoku);
+                    Logger.Flush_USI(syuturyoku);
                 }
                 else
                 {
                     // 出力先がコンソールなら、すぐ表示してしまおうぜ☆（＾▽＾）
-                    Util_Machine.Flush(syuturyoku);
+                    Logger.Flush(syuturyoku);
                 }
             }
         };

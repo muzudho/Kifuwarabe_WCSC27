@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using kifuwarabe_wcsc27.machine;
 using kifuwarabe_wcsc27.abstracts;
 using System.Text;
+using Grayscale.Kifuwarakei.Entities.Logging;
 
 namespace kifuwarabe_wcsc27.implements
 {
@@ -260,7 +261,7 @@ namespace kifuwarabe_wcsc27.implements
 //└──────────┘
 //"
 //                );
-//            Util_Machine.Flush();
+//            Logger.Flush();
 //#endif
 
             return josekiKy;
@@ -302,7 +303,7 @@ namespace kifuwarabe_wcsc27.implements
                         reigai.Append(kyHash_before.ToString());
                         reigai.Append("]");
                         syuturyoku.AppendLine(reigai.ToString());
-                        Util_Machine.Flush(syuturyoku);
+                        Logger.Flush(syuturyoku);
                         throw new Exception(reigai.ToString());
                     }
                 }
@@ -353,7 +354,7 @@ commandline=[{ commandline }]");
                         reigai1.Append("]行目");
 #endif
                         syuturyoku.AppendLine(reigai1.ToString());
-                        Util_Machine.Flush(syuturyoku);
+                        Logger.Flush(syuturyoku);
                         throw new Exception(reigai1.ToString());
                     }
 
@@ -407,7 +408,7 @@ commandline=[{ commandline }]");
                         reigai1.Append(ky2.KyokumenHash.ToString());
                         reigai1.Append("]");
                         syuturyoku.AppendLine(reigai1.ToString());
-                        Util_Machine.Flush(syuturyoku);
+                        Logger.Flush(syuturyoku);
                         throw new Exception(reigai1.ToString());
                     }
                 }
@@ -432,7 +433,7 @@ commandline=[{ commandline }]");
                         // FIXME:
                         string msg = $"パースに失敗だぜ☆（＾～＾）！ #鮪 commandline=[{ commandline }]";
                         syuturyoku.AppendLine(msg);
-                        Util_Machine.Flush(syuturyoku);
+                        Logger.Flush(syuturyoku);
                         throw new Exception(msg);
                         // */
                     }
@@ -482,7 +483,7 @@ commandline=[{ commandline }]");
                             ConvMove.Setumei(josekiSs.Move,str);
                             str.Append("]");
                             Util_Machine.AppendLine(str.ToString());
-                            Util_Machine.Flush();
+                            Logger.Flush();
                             throw new Exception(str.ToString());
                     }
                     else
@@ -579,7 +580,7 @@ commandline=[{ commandline }]");
                 {
                     string msg = "取得：　パースに失敗だぜ☆（＾～＾）！ #鰯";
                     syuturyoku.AppendLine(msg);
-                    Util_Machine.Flush(syuturyoku);
+                    Logger.Flush(syuturyoku);
                     throw new Exception(msg);
                 }
 
@@ -587,7 +588,7 @@ commandline=[{ commandline }]");
                 {
                     StringBuilder sindan2 = new StringBuilder();
                     sindan2.Append("取得：　指せない指し手を定跡から取り出そうとしたぜ☆（＾～＾）！：");
-                    sindan2.Append("理由:"); ConvMove.SetumeiLine(riyu,sindan2);
+                    // sindan2.Append("理由:"); ConvMove.SetumeiLine(riyu,sindan2);
                     sindan2.Append("指し手:"); ConvMove.SetumeiLine(isSfen, bestMove, sindan2);
                     sindan2.Append("定跡局面　（"); ky_forAssert.AppendFenTo(Option_Application.Optionlist.USI, sindan2); sindan2.AppendLine("）");
                     Util_Information.Setumei_Lines_Kyokumen(ky_forAssert, sindan2);
@@ -598,7 +599,7 @@ commandline=[{ commandline }]");
                     //str2.AppendLine("└──────────┘");
 
                     syuturyoku.AppendLine(sindan2.ToString());
-                    Util_Machine.Flush(syuturyoku);
+                    Logger.Flush(syuturyoku);
                     throw new Exception(sindan2.ToString());
                 }
             }

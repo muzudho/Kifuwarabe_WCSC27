@@ -348,7 +348,7 @@ namespace kifuwarabe_wcsc27.abstracts
                                 if (Hyokati.Hyokati_Saidai < beta) { beta = Hyokati.Hyokati_Saidai; }
 #if DEBUG
                                 string kigoComment = "";
-                                syuturyoku.Append(${kigoComment}この深さからアスピレーション窓探索開始な☆（＾▽＾）　根からの深さ");
+                                syuturyoku.Append($"{kigoComment}この深さからアスピレーション窓探索開始な☆（＾▽＾）　根からの深さ");
                                 syuturyoku.Append(Util_Tansaku.NekkoKaranoFukasa);
                                 syuturyoku.Append("　確定評価値");
                                 Conv_Hyokati.Setumei(out_kakutei_hyokatiUtiwake.EdaBest, Util_Machine.Syuturyoku);
@@ -358,7 +358,7 @@ namespace kifuwarabe_wcsc27.abstracts
                                 Conv_Hyokati.Setumei(beta, Util_Machine.Syuturyoku);
                                 syuturyoku.AppendLine();
 
-                                Util_Machine.Flush(syuturyoku);
+                                Logger.Flush(syuturyoku);
 #endif
                             }
                         }
@@ -432,12 +432,12 @@ namespace kifuwarabe_wcsc27.abstracts
                                     {
 #if DEBUG
                                         string kigoComment = "";
-                                        syuturyoku.Append(${kigoComment}アスピレーション諦めようぜ☆（＾▽＾） 失敗");
+                                        syuturyoku.Append($"{kigoComment}アスピレーション諦めようぜ☆（＾▽＾） 失敗");
                                         syuturyoku.Append(aspirationWindowSearchSippai);
                                         syuturyoku.Append("回目");
                                         syuturyoku.AppendLine();
 
-                                        Util_Machine.Flush(syuturyoku);
+                                        Logger.Flush(syuturyoku);
 #endif
 
                                         // 3回失敗していれば、アスピレーション・ウィンドウ・サーチを諦めようぜ☆（＾▽＾）ｗｗｗ
@@ -480,7 +480,7 @@ namespace kifuwarabe_wcsc27.abstracts
 
 #if DEBUG
                                         string kigoComment = "";
-                                        syuturyoku.Append(${kigoComment}アスピレーション窓幅広げようぜ☆（＾▽＾）失敗");
+                                        syuturyoku.Append($"{kigoComment}アスピレーション窓幅広げようぜ☆（＾▽＾）失敗");
                                         syuturyoku.Append(aspirationWindowSearchSippai);
                                         syuturyoku.Append("回　前の深さの評価値");
                                         Conv_Hyokati.Setumei(maenoFukasaNoHyokati, Util_Machine.Syuturyoku);
@@ -488,7 +488,7 @@ namespace kifuwarabe_wcsc27.abstracts
                                         syuturyoku.Append(henkoryo);
                                         syuturyoku.AppendLine();
 
-                                        Util_Machine.Flush(syuturyoku);
+                                        Logger.Flush(syuturyoku);
 #endif
 
                                         // 読みを深めないぜ☆（＾～＾）
@@ -507,7 +507,7 @@ namespace kifuwarabe_wcsc27.abstracts
                                         syuturyoku.Append("　β");
                                         Conv_Hyokati.Setumei(beta, Util_Machine.Syuturyoku);
                                         syuturyoku.AppendLine();
-                                        Util_Machine.Flush(syuturyoku);
+                                        Logger.Flush(syuturyoku);
 #endif
 
                                         // 次の反復で使う　ウィンドウ　を初回と同じに戻すぜ☆（＾▽＾）

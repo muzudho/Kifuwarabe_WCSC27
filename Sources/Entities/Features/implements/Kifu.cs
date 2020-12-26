@@ -120,9 +120,9 @@ namespace kifuwarabe_wcsc27.implements
                 ky.DoMove(isSfen, ss, MoveType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
 
 #if DEBUG
-                Util_Commands.Ky(isSfen, "ky", ky, syuturyoku);
-                //Util_Machine.Flush(syuturyoku);
-                Util_Machine.Flush_USI(syuturyoku);
+                //Util_Commands.Ky(isSfen, "ky", ky, syuturyoku);
+                ////Logger.Flush(syuturyoku);
+                //Logger.Flush_USI(syuturyoku);
 #endif
             }
         }

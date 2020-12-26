@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using Grayscale.Kifuwarakei.Entities;
+using Grayscale.Kifuwarakei.Entities.Logging;
 using kifuwarabe_wcsc27.facade;
 using kifuwarabe_wcsc27.implements;
 using kifuwarabe_wcsc27.interfaces;
@@ -18,7 +19,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// </summary>
         public static void SennitiTe(IPlaying playing, bool isSfen, Kyokumen ky, StringBuilder syuturyoku)
         {
-            Util_Machine.Flush(syuturyoku);// 溜まっているログがあれば、吐き出させておくぜ☆（＾～＾）
+            Logger.Flush(syuturyoku);// 溜まっているログがあれば、吐き出させておくぜ☆（＾～＾）
 
             CommandMode mode = CommandMode.NigenYoConsoleKaihatu;
             StringBuilder sippaiZenbu = new StringBuilder();
@@ -543,7 +544,7 @@ namespace kifuwarabe_wcsc27.abstracts
             {
                 syuturyoku.Append(sippaiZenbu.ToString()); // 失敗した過程のログ☆
             }
-            Util_Machine.Flush(syuturyoku);
+            Logger.Flush(syuturyoku);
         }
     }
 }

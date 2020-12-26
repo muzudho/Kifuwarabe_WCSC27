@@ -177,7 +177,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 //// 「B4B3」形式ではなかった☆（＾△＾）！？　次の一手が読めない☆
                 //string msg = $"指し手のパースに失敗だぜ☆（＾～＾）！ commandline=[{ commandline }] caret=[{ caret }] m.Groups.Count=[{ m.Groups.Count }]";
                 //Util_Machine.AppendLine(msg);
-                //Util_Machine.Flush();
+                //Logger.Flush();
                 //throw new Exception(msg);
 
                 out_sasite = Move.Toryo;

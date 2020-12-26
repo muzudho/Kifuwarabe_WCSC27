@@ -4,6 +4,7 @@ using System;
 using kifuwarabe_wcsc27.machine;
 using System.Diagnostics;
 using System.Text;
+using Grayscale.Kifuwarakei.Entities.Logging;
 
 #if DEBUG
 using kifuwarabe_wcsc27.facade;
@@ -39,7 +40,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 StringBuilder reigai1 = new StringBuilder();
                 reigai1.AppendLine($"盤上の駒じゃないじゃないか☆（＾▽＾）ｗｗｗ jibun=[{ jibun }] ms_src=[{ ms_t0 }] ks_jibun=[{ ks_t0 }]");
                 Util_Information.HyojiKomanoIbasho(ky.Shogiban, reigai1);
-                Util_Machine.Flush(reigai1);
+                Logger.Flush(reigai1);
                 throw new Exception(reigai1.ToString());
             }
             Koma km_t0 = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks_t0, jibun);
