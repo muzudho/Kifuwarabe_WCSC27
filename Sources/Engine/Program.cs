@@ -26,8 +26,6 @@
 
                 var playing = new Playing(engineConf);
 
-                StringBuilder syuturyoku = Util_Machine.Syuturyoku;
-
                 /*
     #if DEBUG
     // いろいろテスト☆
@@ -97,12 +95,24 @@
                                                                          //Option_Application.Optionlist.UseTimeOver = true;
                 }
 
-                // （手順２）きふわらべの応答は、文字列になって　ここに入るぜ☆（＾▽＾）
-                // this.Syuturyoku.ToString() メソッドで中身を取り出せるぜ☆（＾～＾）
-                // this.Syuturyoku = new StringBuilder();
+                StringBuilder syuturyoku = Util_Machine.Syuturyoku;
 
                 // （手順３）アプリケーション開始時設定　を終えた後に　これを呼び出すこと☆（＾～＾）！
-                Face_Kifuwarabe.OnApplicationReadied(Option_Application.Kyokumen, syuturyoku);
+                Option_Application.TimeManager.Stopwatch_Savefile.Start();// 定跡ファイルの保存間隔の計測
+                Option_Application.TimeManager.Stopwatch_RenzokuRandomRule.Start();
+
+                // 平手初期局面を作るぜ☆（*＾～＾*）
+                Option_Application.Kyokumen.DoHirate(Option_Application.Optionlist.USI, syuturyoku);
+
+                Util_Machine.Assert_Sabun_Kiki("アプリケーション始30", Option_Application.Kyokumen.Sindan, syuturyoku);
+                /*
+                Util_Application.LoadJoseki(syuturyoku);// 定跡ファイルの読込み
+                Util_Application.LoadSeiseki(syuturyoku);// 成績ファイルの読込み
+                Util_Application.LoadNikoma(syuturyoku);// 二駒関係ファイルの読込み
+                 */
+
+                // ゲームモード設定☆
+                Util_Application.GameMode = GameMode.Karappo;
 
                 // まず最初に「USI\n」が届くかどうかを判定☆（＾～＾）
                 Util_ConsoleGame.ReadCommandline(syuturyoku);

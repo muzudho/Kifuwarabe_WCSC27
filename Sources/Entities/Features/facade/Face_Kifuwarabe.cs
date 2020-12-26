@@ -8,14 +8,6 @@ namespace Grayscale.Kifuwarakei.Entities.Features
     public abstract class Face_Kifuwarabe
     {
         /// <summary>
-        /// アプリケーション設定完了時に呼び出せだぜ☆（＾▽＾）！
-        /// </summary>
-        public static void OnApplicationReadied(Kyokumen ky, StringBuilder syuturyoku)
-        {
-            Util_Application.Begin2_Application(ky, syuturyoku);
-        }
-
-        /// <summary>
         /// アプリケーション終了時に呼び出せだぜ☆（＾▽＾）！
         /// </summary>
         public static void OnApplicationFinished(StringBuilder syuturyoku)

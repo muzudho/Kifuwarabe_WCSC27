@@ -73,7 +73,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 #endif
                 syuturyoku.Append("joseki");
                 syuturyoku.Append(" jikan ");
-                syuturyoku.Append(Util_Application.TimeManager.Stopwatch_Tansaku.ElapsedMilliseconds.ToString());
+                syuturyoku.Append(Option_Application.TimeManager.Stopwatch_Tansaku.ElapsedMilliseconds.ToString());
                 syuturyoku.Append(" yomisuji ");
                 syuturyoku.Append(yomisuji);
                 syuturyoku.AppendLine();
@@ -92,7 +92,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 // 思考した時間（ミリ秒）
                 //──────────
                 syuturyoku.Append(Option_Application.Optionlist.USI ? "time " : "jikan ");
-                syuturyoku.Append(Util_Application.TimeManager.Stopwatch_Tansaku.ElapsedMilliseconds.ToString());
+                syuturyoku.Append(Option_Application.TimeManager.Stopwatch_Tansaku.ElapsedMilliseconds.ToString());
 
                 //──────────
                 // 深さ

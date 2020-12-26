@@ -606,7 +606,7 @@ usiok");
 
             if (caret_1 == commandline.IndexOf("clear", caret_1)) // 局面のクリアー☆
             {
-                ky.Clear(syuturyoku);
+                ky.Clear();
                 ky.Tekiyo(false, syuturyoku);
                 Util_Information.Setumei_Lines_Kyokumen(ky, syuturyoku);
             }

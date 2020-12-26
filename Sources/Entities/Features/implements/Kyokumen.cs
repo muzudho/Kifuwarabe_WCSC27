@@ -270,7 +270,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// 
         /// 適用はこの中に入れないぜ☆（＾～＾）
         /// </summary>
-        public void Clear(StringBuilder syuturyoku)
+        public void Clear()
         {
             Kekka = TaikyokuKekka.Karappo;
             Teban = Taikyokusya.T1;// 初手だぜ☆（＾▽＾）
@@ -609,7 +609,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         public void Jampacked(bool isSfen, StringBuilder syuturyoku)
         {
             // まず空っぽにします。
-            Clear(syuturyoku);
+            Clear();
             Tekiyo(false, syuturyoku);
 
             // 盤上の駒
@@ -697,7 +697,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// </summary>
         public void DoHirate(bool isSfen, StringBuilder syuturyoku)
         {
-            Clear(syuturyoku);
+            Clear();
 
             // ゾブリスト・ハッシュのサイズを先に準備
             {
@@ -732,7 +732,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <param name="text"></param>
         public void SetBanjo(bool isSfen, string text, bool isTekiyo, StringBuilder syuturyoku)
         {
-            Clear(syuturyoku);
+            Clear();
             //Med_KomaBB.Clear( BB_KomaZenbu, BB_Koma, BB_KikiZenbu, BB_Kiki, CB_KikisuZenbu, CB_KikisuKomabetu, Sindan.MASU_YOSOSU);
 
             text = text.Replace("\n", "");
@@ -2142,7 +2142,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             StringBuilder syuturyoku
             )
         {
-            Clear(syuturyoku);
+            Clear();
             if (isTekiyo)
             {
                 Tekiyo(false, syuturyoku);

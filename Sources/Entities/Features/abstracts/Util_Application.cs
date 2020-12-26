@@ -74,10 +74,6 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
         public static GameMode GameMode { get; set; }
         /// <summary>
-        /// 時間管理
-        /// </summary>
-        public static TimeManager TimeManager { get { return Option_Application.TimeManager; } }
-        /// <summary>
         /// 定跡
         /// </summary>
         public static Joseki Joseki { get { return Option_Application.Joseki; } }
@@ -839,27 +835,6 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
 
         #region コンソールゲーム用の機能☆
-        /// <summary>
-        /// アプリケーション開始時☆
-        /// </summary>
-        public static void Begin2_Application(Kyokumen ky, StringBuilder syuturyoku)
-        {
-            TimeManager.Stopwatch_Savefile.Start();// 定跡ファイルの保存間隔の計測
-            TimeManager.Stopwatch_RenzokuRandomRule.Start();
-
-            // 平手初期局面を作るぜ☆（*＾～＾*）
-            ky.DoHirate(Option_Application.Optionlist.USI, syuturyoku);
-
-            Util_Machine.Assert_Sabun_Kiki("アプリケーション始30", ky.Sindan, syuturyoku);
-            /*
-            Util_Application.LoadJoseki(syuturyoku);// 定跡ファイルの読込み
-            Util_Application.LoadSeiseki(syuturyoku);// 成績ファイルの読込み
-            Util_Application.LoadNikoma(syuturyoku);// 二駒関係ファイルの読込み
-             */
-
-            // ゲームモード設定☆
-            Util_Application.GameMode = GameMode.Karappo;
-        }
         public static void End_Application(StringBuilder syuturyoku)
         {
             #region （手順７）保存して終了

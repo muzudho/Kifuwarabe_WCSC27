@@ -103,7 +103,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <param name="syuturyoku"></param>
         public void GoToFinish(bool isSfen, Kyokumen ky, StringBuilder syuturyoku)
         {
-            ky.Clear(syuturyoku);
+            ky.Clear();
 
             int caret = 0;
             ky.ParsePositionvalue(isSfen, SyokiKyokumenFen, ref caret,
@@ -133,7 +133,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         public void GoToTememade(bool isSfen, int temeMade, Kyokumen ky, StringBuilder syuturyoku)
         {
             // 棋譜を元に、局面データを再現するぜ☆
-            ky.Clear(syuturyoku);
+            ky.Clear();
             int caret = 0;
             ky.ParsePositionvalue(isSfen, SyokiKyokumenFen, ref caret,
                 true//適用
