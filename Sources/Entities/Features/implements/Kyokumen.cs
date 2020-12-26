@@ -7,6 +7,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
     using System.Diagnostics;
     using System.Text;
     using System.Text.RegularExpressions;
+    using Grayscale.Kifuwarakei.Entities.Game;
     using Grayscale.Kifuwarakei.Entities.Logging;
 #else
     using System;
@@ -859,7 +860,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 return false;
             }
             Koma km_dst = GetBanjoKoma(ms_dst);
-            var (isExists1, tai_dstKm) = Med_Koma.KomaToTaikyokusya(km_dst).Match;
+            var (isExists1, tai_dstKm) = Med_Koma.PhaseOf(km_dst).Match;
             if (!isExists1)
             {
                 throw new Exception($"km_dst={km_dst}");
@@ -889,7 +890,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 Masu ms_src = ConvMove.GetSrcMasu_WithoutErrorCheck((int)ss); // 移動先升
                 km_src = GetBanjoKoma(ms_src);
-                var (isExists2, tai_srcKm) = Med_Koma.KomaToTaikyokusya(km_src).Match;
+                var (isExists2, tai_srcKm) = Med_Koma.PhaseOf(km_src).Match;
                 if (!isExists2)
                 {
                     throw new Exception($"km_src={km_src}");
@@ -1475,7 +1476,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             long komaSuOld;
             long komaSuNew;
 
-            if (!Shogiban.ExistsBBKomaZenbu(ms_t1))
+            var (isExists, _phase) = Shogiban.ExistsBBKomaZenbu(ms_t1).Match;
+            if (!isExists)
             {
                 StringBuilder str_move = new StringBuilder();
                 str_move.Append("指し手に該当する戻せる駒が無かったぜ☆（＾～＾） move=");

@@ -3,6 +3,7 @@
     using System;
 #if DEBUG
     using System.Text;
+    using Grayscale.Kifuwarakei.Entities.Game;
     using Grayscale.Kifuwarakei.Entities.Logging;
 #else
     using System.Text;

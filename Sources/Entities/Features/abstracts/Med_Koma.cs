@@ -171,17 +171,18 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// </summary>
         /// <param name="km"></param>
         /// <returns></returns>
-        public static OptionalPhase KomaToTaikyokusya(Koma km)
+        public static OptionalPhase PhaseOf(Koma km)
         {
-            // FIXME: 範囲外の引数を指定できるのがそもそもダメ☆（＾～＾）
-            //if (-1 < (int)km && (int)km < m_KomaToTaikyokusya_.Length)
-            //{
-            return m_KomaToTaikyokusya_[(int)km];
-            //}
-            //else
-            //{
-            //    throw new Exception($"km={(int)km} < m_KomaToTaikyokusya_.Length={m_KomaToTaikyokusya_.Length}");
-            //}
+            if (-1 < (int)km && (int)km < m_KomaToTaikyokusya_.Length)
+            {
+                // 盤上にある駒をつまみ上げたときなど、こちらに来るぜ☆（＾～＾）
+                return m_KomaToTaikyokusya_[(int)km];
+            }
+            else
+            {
+                // 盤上に駒がないマスを選んだとき、こちらに来るぜ☆（＾～＾）
+                return OptionalPhase.None;
+            }
         }
         #endregion
 
