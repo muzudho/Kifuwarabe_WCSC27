@@ -1,10 +1,18 @@
-﻿using System;
+﻿namespace Grayscale.Kifuwarakei.Entities.Features
+{
+#if DEBUG
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Text;
+    using Grayscale.Kifuwarakei.Entities.Logging;
+#else
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+#endif
 
-namespace Grayscale.Kifuwarakei.Entities.Features
-{
     /// <summary>
     /// 探索打ち切りフラグ☆
     /// </summary>
@@ -84,7 +92,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             Kyokumen ky,
             StringBuilder syuturyoku
 #if DEBUG
-            ,string hint
+            , string hint
 #endif
             );
 
@@ -557,7 +565,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                                 ky,
                                 syuturyoku
 #if DEBUG
-                    ,"Fukasa"
+                    , "Fukasa"
 #endif
                     );
                             //Util_Machine.Append(syuturyoku.ToString());
@@ -713,7 +721,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     ky,
                     syuturyoku
 #if DEBUG
-                    ,"fin"
+                    , "fin"
 #endif
                     );
                 //Util_Machine.Append(syuturyoku.ToString());
@@ -857,7 +865,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                             ky,
                             syuturyoku
 #if DEBUG
-                            ,"TT"
+                            , "TT"
 #endif
                             );
                         Util_TimeManager.DoneShowJoho();
@@ -1149,7 +1157,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                             ky,
                             syuturyoku
 #if DEBUG
-                            ,"RCatch"
+                            , "RCatch"
 #endif
                             );
                         Util_TimeManager.DoneShowJoho();
@@ -1411,7 +1419,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                             ky,
                             syuturyoku
 #if DEBUG
-                            ,"Cut"
+                            , "Cut"
 #endif
                             );
                         Util_TimeManager.DoneShowJoho();
@@ -1468,7 +1476,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                             ky,
                             syuturyoku
 #if DEBUG
-                            ,"BetaCut"
+                            , "BetaCut"
 #endif
                             );
                         Util_TimeManager.DoneShowJoho();

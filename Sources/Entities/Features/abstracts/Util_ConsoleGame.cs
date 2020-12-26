@@ -1,10 +1,9 @@
 ﻿namespace Grayscale.Kifuwarakei.Entities.Features
 {
+    using System;
 #if DEBUG
     using System.Text;
-    using Grayscale.Kifuwarakei.Entities.Features;
-    using Grayscale.Kifuwarakei.Entities.Features;
-    using Grayscale.Kifuwarakei.Entities.Features;
+    using Grayscale.Kifuwarakei.Entities.Logging;
 #else
     using System.Text;
     using Grayscale.Kifuwarakei.Entities.Logging;
@@ -200,10 +199,10 @@
                             // reigai1.Append("理由:"); ConvMove.SetumeiLine(riyu, reigai1);
                             reigai1.Append("指し手:"); ConvMove.SetumeiLine(Option_Application.Optionlist.USI, bestMove, reigai1);
                             reigai1.Append("定跡にする１手前の局面　（"); reigai1.Append(KyFen_before); reigai1.AppendLine("）");
-                            Util_Information.Setumei_Lines_Kyokumen(ky_forAssert,reigai1);
+                            Util_Information.Setumei_Lines_Kyokumen(ky_forAssert, reigai1);
                             reigai1.AppendLine();
                             reigai1.Append("１手後は、現局面");
-                            Util_Information.Setumei_Lines_Kyokumen(ky,reigai1);
+                            Util_Information.Setumei_Lines_Kyokumen(ky, reigai1);
                             syuturyoku.AppendLine(reigai1.ToString());
                             Logger.Flush(syuturyoku);
                             throw new Exception(reigai1.ToString());

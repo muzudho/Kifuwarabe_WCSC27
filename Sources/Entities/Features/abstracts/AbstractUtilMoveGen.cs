@@ -286,7 +286,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         }
         public static void MergeMoveListGoodBad(int fukasa
 #if DEBUG
-            ,string hint
+            , string hint
 #endif
             )
         {
@@ -461,8 +461,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
             idosakiBB.Select(ky.Shogiban.GetKomanoUgokikata(km, ms_src));
 #if DEBUG
-            Util_Information.HyojiKomanoUgoki(ky.Shogiban, ky.Sindan.MASU_YOSOSU, syuturyoku);
-            Logger.Flush(syuturyoku);
+            //Util_Information.HyojiKomanoUgoki(ky.Shogiban, ky.Sindan.MASU_YOSOSU, syuturyoku);
+            //Logger.Flush(syuturyoku);
 #endif
 
             switch (sasiteType)

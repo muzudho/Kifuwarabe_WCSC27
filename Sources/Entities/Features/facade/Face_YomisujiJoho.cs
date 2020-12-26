@@ -25,7 +25,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             Kyokumen ky,
             StringBuilder syuturyoku
 #if DEBUG
-            ,string hint
+            , string hint
 #endif
             ) =>
         {
@@ -48,7 +48,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             Kyokumen ky,
             StringBuilder syuturyoku
 #if DEBUG
-            ,string hint
+            , string hint
 #endif
             ) =>
         {

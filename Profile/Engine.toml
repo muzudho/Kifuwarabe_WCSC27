@@ -14,3 +14,13 @@ Author = "Satoshi TAKAHASHI"
 
 CommandDirectory = "./Command"
 LogDirectory = "../Logs"
+
+[Logs]
+
+Trace = "Trace.log"
+Debug = "Debug.log"
+Info = "Info.log"
+Notice = "Notice.log"
+Warn = "Warn.log"
+Error = "Error.log"
+Fatal = "Fatal.log"

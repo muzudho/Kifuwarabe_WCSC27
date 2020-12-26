@@ -572,7 +572,7 @@ commandline=[{ commandline }]");
                 StringBuilder sindan1 = new StringBuilder();
                 ky.AppendFenTo(Option_Application.Optionlist.USI, sindan1);
                 //if (!ky2.ParseFen(sindan1.ToString(), ref caret, false, syuturyoku))
-                if (!ky_forAssert.ParsePositionvalue(isSfen, sindan1.ToString(),ref caret, true, false, out string moves, syuturyoku))// ビットボードを更新したいので、適用する
+                if (!ky_forAssert.ParsePositionvalue(isSfen, sindan1.ToString(), ref caret, true, false, out string moves, syuturyoku))// ビットボードを更新したいので、適用する
                 {
                     string msg = "取得：　パースに失敗だぜ☆（＾～＾）！ #鰯";
                     syuturyoku.AppendLine(msg);

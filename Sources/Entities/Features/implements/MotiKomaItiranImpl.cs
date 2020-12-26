@@ -1,11 +1,10 @@
 ﻿namespace Grayscale.Kifuwarakei.Entities.Features
 {
 #if DEBUG
-    using Grayscale.Kifuwarakei.Entities.Features;
     using System;
-    using Grayscale.Kifuwarakei.Entities.Features;
     using System.Diagnostics;
     using System.Text;
+    using Grayscale.Kifuwarakei.Entities.Logging;
 #else
     using System;
     using System.Diagnostics;

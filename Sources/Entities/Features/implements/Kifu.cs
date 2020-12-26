@@ -2,7 +2,6 @@
 using System.Text;
 
 #if DEBUG
-using Grayscale.Kifuwarakei.Entities.Features;
 #endif
 
 namespace Grayscale.Kifuwarakei.Entities.Features

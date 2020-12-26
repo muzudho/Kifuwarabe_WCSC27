@@ -5,9 +5,6 @@
 using System;
 using System.Diagnostics;
 using System.Text;
-using Grayscale.Kifuwarakei.Entities.Features;
-using Grayscale.Kifuwarakei.Entities.Features;
-using Grayscale.Kifuwarakei.Entities.Features;
 #else
 using System;
 using System.Diagnostics;
@@ -1287,7 +1284,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <param name="ms_t1"></param>
         /// <param name="km_t1"></param>
         /// <param name="updateKiki">利きを先に作るか、駒を先に並べるか、という循環が発生するのを防ぐために</param>
-        public void N250_OkuBanjoKoma(bool isSfen, Masu ms_t1, Koma km_t1, bool updateKiki, Kyokumen.Sindanyo kys, StringBuilder syuturyoku)
+        public void N250_OkuBanjoKoma(bool isSfen, Masu ms_t1, Koma km_t1, bool updateKiki, Kyokumen.Sindanyo kys)
         {
             Debug.Assert(Conv_Koma.IsOk(km_t1), "");
             Debug.Assert(kys.IsBanjo(ms_t1), "");
@@ -1317,23 +1314,23 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 Bitboard bb_oekaki;
                 N150_FuyasuHajimetenoKiki_1(km_t1, ms_t1,
                     ms_t1,//(2017-05-02 22:59 Add) kys.MASU_ERROR,
-                    kys, syuturyoku, out bb_oekaki);
-                N150_FuyasuHajimetenoKiki(km_t1, ms_t1, kys, syuturyoku, bb_oekaki);
-                N150_FuyasuHajimetenoKiki_2(km_t1, ms_t1, kys, syuturyoku);
+                    kys, out bb_oekaki);
+                N150_FuyasuHajimetenoKiki(km_t1, ms_t1, kys, bb_oekaki);
+                N150_FuyasuHajimetenoKiki_2(km_t1, ms_t1, kys);
                 //Util_Machine.Assert_Sabun_Kiki("飛び利き増やす2", Sindan, syuturyoku);
 #if DEBUG
-                kys.Setumei_GenkoKiki(jibun, syuturyoku); // 利き：（現行）
-                Logger.Flush(syuturyoku);
+                //kys.Setumei_GenkoKiki(jibun, syuturyoku); // 利き：（現行）
+                //Logger.Flush(syuturyoku);
 #endif
 
                 Koma[] kmHairetu_control;
                 Bitboard[] bbHairetu_tobikikiKomaIbasho;
-                N230_TukurinaosiTonarikikiTobikiki_Discovered_1(isSfen, ms_t1, kys, syuturyoku, out kmHairetu_control, out bbHairetu_tobikikiKomaIbasho);
+                N230_TukurinaosiTonarikikiTobikiki_Discovered_1(isSfen, ms_t1, kys, out kmHairetu_control, out bbHairetu_tobikikiKomaIbasho);
 
                 // 駒が増えたことにより、カバーが発生することがあるぜ☆（＾▽＾）
-                N230_TukurinaosiTonarikikiTobikiki_Discovered(isSfen, ms_t1, kys.MASU_ERROR, kys, syuturyoku, kmHairetu_control, bbHairetu_tobikikiKomaIbasho);
+                N230_TukurinaosiTonarikikiTobikiki_Discovered(isSfen, ms_t1, kys.MASU_ERROR, kys, kmHairetu_control, bbHairetu_tobikikiKomaIbasho);
 
-                N230_TukurinaosiTonarikikiTobikiki_Discovered_2(isSfen, ms_t1, kys, syuturyoku);
+                N230_TukurinaosiTonarikikiTobikiki_Discovered_2(isSfen, ms_t1, kys);
 
                 //Util_Machine.Assert_Sabun_Kiki("飛び利き増やす3", Sindan, syuturyoku);
             }
@@ -1352,8 +1349,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             //──────────
             if (updateKiki)
             {
-                Util_Machine.Assert_Sabun_Kiki("利き減らす1", kys, syuturyoku);
-                N150_HerasuTonarikikiTobikiki(km_t0, ms_t0, kys.MASU_ERROR, kys, syuturyoku);
+                Util_Machine.Assert_Sabun_Kiki("利き減らす1", kys);
+                N150_HerasuTonarikikiTobikiki(km_t0, ms_t0, kys.MASU_ERROR, kys);
                 // 駒をまだ取ってないんで、ここで駒の位置を元に利きを再計算すると、差分の利きの数と合わないぜ☆（＾～＾）
                 // Util_Machine.Assert_Sabun_Kiki("利き減らす2", kys, syuturyoku);
             }
@@ -1387,8 +1384,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <param name="km_t0"></param>
         /// <param name="updateKiki"></param>
         /// <param name="kys"></param>
-        /// <param name="syuturyoku"></param>
-        public void N250_TorinozokuBanjoKoma(bool isSfen, Masu ms_t0, Koma km_t0, Masu ms_mirainiKomagaAru, bool updateKiki, Kyokumen.Sindanyo kys, StringBuilder syuturyoku)
+        public void N250_TorinozokuBanjoKoma(bool isSfen, Masu ms_t0, Koma km_t0, Masu ms_mirainiKomagaAru,
+            bool updateKiki, Kyokumen.Sindanyo kys, StringBuilder syuturyoku)
         {
 
             N250_TorinozokuBanjoKoma_1(isSfen, ms_t0, km_t0, updateKiki, kys, syuturyoku);
@@ -1400,16 +1397,16 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 Koma[] kmHairetu_control;
                 Bitboard[] bbHairetu_tobikikiKomaIbasho;
-                N230_TukurinaosiTonarikikiTobikiki_Discovered_1(isSfen, ms_t0, kys, syuturyoku, out kmHairetu_control, out bbHairetu_tobikikiKomaIbasho);
+                N230_TukurinaosiTonarikikiTobikiki_Discovered_1(isSfen, ms_t0, kys, out kmHairetu_control, out bbHairetu_tobikikiKomaIbasho);
 
                 // この下の TukurinaosiTonarikikiTobikiki_Discovered で指し手件数が大きく変わるようだ。
 
                 //  駒を除外したので、ディスカバード・アタックが発生することがあるぜ☆（＾▽＾）
                 N230_TukurinaosiTonarikikiTobikiki_Discovered(isSfen, ms_t0,
                     ms_mirainiKomagaAru,// (2017-05-02 22:30 Add) ここに将来の駒を指定することが必要☆（＾～＾） //  kys.MASU_ERROR,// FIXME: TODO:あとで設計し直すこと ms_mirainiKomagaAru,
-                    kys, syuturyoku, kmHairetu_control, bbHairetu_tobikikiKomaIbasho);
+                    kys, kmHairetu_control, bbHairetu_tobikikiKomaIbasho);
 
-                N230_TukurinaosiTonarikikiTobikiki_Discovered_2(isSfen, ms_t0, kys, syuturyoku);
+                N230_TukurinaosiTonarikikiTobikiki_Discovered_2(isSfen, ms_t0, kys);
             }
 
             N250_TorinozokuBanjoKoma_2(isSfen, ms_t0, km_t0, updateKiki, kys, syuturyoku);
@@ -1427,7 +1424,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 #if DEBUG
             if (updateKiki)
             {
-                Util_Machine.Assert_Sabun_Kiki("飛び利き減らす3", kys, syuturyoku);
+                Util_Machine.Assert_Sabun_Kiki("飛び利き減らす3", kys);
             }
 #endif
         }
@@ -1457,7 +1454,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         }
 
 
-        public void N230_TukurinaosiTonarikikiTobikiki_Discovered_1(bool isSfen, Masu ms_moved, Kyokumen.Sindanyo kys, StringBuilder syuturyoku, out Koma[] kmHairetu_control, out Bitboard[] bbHairetu_tobikikiKomaIbasho)
+        public void N230_TukurinaosiTonarikikiTobikiki_Discovered_1(
+            bool isSfen, Masu ms_moved, Kyokumen.Sindanyo kys, out Koma[] kmHairetu_control, out Bitboard[] bbHairetu_tobikikiKomaIbasho)
         {
             // 置いたか除けた駒を指定して、関連する飛び利き駒を探すぜ☆（＾～＾）
             kys.TryInControl(ms_moved, out kmHairetu_control);
@@ -1465,9 +1463,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             bbHairetu_tobikikiKomaIbasho = new Bitboard[kmHairetu_control.Length];
 
 #if DEBUG
-            // 関連する飛び利き駒
-            Util_Information.HyojiKomaHairetuYososuMade(ms_moved, kmHairetu_control, syuturyoku);
-            Logger.Flush(syuturyoku);
+            //// 関連する飛び利き駒
+            //Util_Information.HyojiKomaHairetuYososuMade(ms_moved, kmHairetu_control, syuturyoku);
+            //Logger.Flush(syuturyoku);
 #endif
 
             // 飛び利きを計算し直す
@@ -1511,7 +1509,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 i++;
             }
         }
-        public void N230_TukurinaosiTonarikikiTobikiki_Discovered_2(bool isSfen, Masu ms_moved, Kyokumen.Sindanyo kys, StringBuilder syuturyoku)
+        public void N230_TukurinaosiTonarikikiTobikiki_Discovered_2(bool isSfen, Masu ms_moved, Kyokumen.Sindanyo kys)
         {
 
         }
@@ -1519,7 +1517,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <summary>
         /// 駒を置くか除けたことで、飛び利きが切れそう、伸びそうな駒の利きを再計算するぜ☆（＾～＾）
         /// </summary>
-        public void N230_TukurinaosiTonarikikiTobikiki_Discovered(bool isSfen, Masu ms_korekaraInakunaru, Masu ms_mirainiKomagaAru, Kyokumen.Sindanyo kys, StringBuilder syuturyoku, Koma[] kmHairetu_control, Bitboard[] bbHairetu_tobikikiKomaIbasho)
+        public void N230_TukurinaosiTonarikikiTobikiki_Discovered(
+            bool isSfen, Masu ms_korekaraInakunaru, Masu ms_mirainiKomagaAru, Kyokumen.Sindanyo kys,
+            Koma[] kmHairetu_control, Bitboard[] bbHairetu_tobikikiKomaIbasho)
         {
             //N230_TukurinaosiTonarikikiTobikiki_Discovered_1( isSfen,  ms_moved,  kys,  syuturyoku, out kmHairetu_control, out bbHairetu_tobikikiKomaIbasho);
 
@@ -1535,9 +1535,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 {
                     // 新たに　隣利き、飛び利き　を増やす
                     Bitboard bb_oekaki;
-                    N150_FuyasuHajimetenoKiki_1(km_tobikiki, ms_tobikikiKomaIbasho, ms_mirainiKomagaAru, kys, syuturyoku, out bb_oekaki);
-                    N150_FuyasuHajimetenoKiki(km_tobikiki, ms_tobikikiKomaIbasho, kys, syuturyoku, bb_oekaki);
-                    N150_FuyasuHajimetenoKiki_2(km_tobikiki, ms_tobikikiKomaIbasho, kys, syuturyoku);
+                    N150_FuyasuHajimetenoKiki_1(km_tobikiki, ms_tobikikiKomaIbasho, ms_mirainiKomagaAru, kys, out bb_oekaki);
+                    N150_FuyasuHajimetenoKiki(km_tobikiki, ms_tobikikiKomaIbasho, kys, bb_oekaki);
+                    N150_FuyasuHajimetenoKiki_2(km_tobikiki, ms_tobikikiKomaIbasho, kys);
                 }
 
                 ////#if DEBUG
@@ -1551,7 +1551,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         }
 
 
-        public void N150_FuyasuHajimetenoKiki_1(Koma km_t1, Masu ms_t1, Masu ms_mirainiKomagaAru, Kyokumen.Sindanyo kys, StringBuilder syuturyoku, out Bitboard bb_oekaki)
+        public void N150_FuyasuHajimetenoKiki_1(
+            Koma km_t1, Masu ms_t1, Masu ms_mirainiKomagaAru, Kyokumen.Sindanyo kys, out Bitboard bb_oekaki)
         {
             Debug.Assert(Conv_Koma.IsOk(km_t1), "");
             Debug.Assert(kys.IsBanjo(ms_t1), "");
@@ -1572,11 +1573,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             if (!bb_oekaki.IsEmpty())
             {
 #if DEBUG
-                syuturyoku.AppendLine($"ms_t1=[{ms_t1}]");
-                syuturyoku.AppendLine($"ms_mirainiKomagaAru=[{ms_mirainiKomagaAru}]");
-                Util_Information.Setumei_NingenGameYo(kys.GetHontai(), syuturyoku);
-                Util_Information.Setumei_1Bitboard("増やしたい利き(0) 飛び利き", bb_oekaki, syuturyoku);
-                Logger.Flush(syuturyoku);
+                //syuturyoku.AppendLine($"ms_t1=[{ms_t1}]");
+                //syuturyoku.AppendLine($"ms_mirainiKomagaAru=[{ms_mirainiKomagaAru}]");
+                //Util_Information.Setumei_NingenGameYo(kys.GetHontai(), syuturyoku);
+                //Util_Information.Setumei_1Bitboard("増やしたい利き(0) 飛び利き", bb_oekaki, syuturyoku);
+                //Logger.Flush(syuturyoku);
 #endif
 
                 // ★こいつは悪くない☆（＾～＾）　bb_oekaki が間違ったデータなんだぜ☆（＾～＾）
@@ -1604,16 +1605,16 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// 隣利き、飛び利き　を増やす。
         /// 飛び利きは　一手指した後、一手戻した後　のタイミングで　差分更新だぜ☆（＾～＾）
         /// </summary>
-        public void N150_FuyasuHajimetenoKiki(Koma km_t1, Masu ms_t1, Kyokumen.Sindanyo kys, StringBuilder syuturyoku, Bitboard bb_oekaki)
+        public void N150_FuyasuHajimetenoKiki(Koma km_t1, Masu ms_t1, Kyokumen.Sindanyo kys, Bitboard bb_oekaki)
         {
             // ここで利きを増やそうぜ☆（＾～＾）
             N100_FuyasuKiki(km_t1, bb_oekaki, kys);
         }
-        public void N150_FuyasuHajimetenoKiki_2(Koma km_t1, Masu ms_t1, Kyokumen.Sindanyo kys, StringBuilder syuturyoku)
+        public void N150_FuyasuHajimetenoKiki_2(Koma km_t1, Masu ms_t1, Kyokumen.Sindanyo kys)
         {
 
         }
-        public void N150_HerasuTonarikikiTobikiki(Koma km_t0, Masu ms_t0, Masu ms_mirainiKomagaAru, Kyokumen.Sindanyo kys, StringBuilder syuturyoku)
+        public void N150_HerasuTonarikikiTobikiki(Koma km_t0, Masu ms_t0, Masu ms_mirainiKomagaAru, Kyokumen.Sindanyo kys)
         {
             Debug.Assert(Conv_Koma.IsOk(km_t0), "");
             Debug.Assert(kys.IsBanjo(ms_t0), "");
@@ -1631,10 +1632,10 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             // ★↑作るデータが悪い☆（＾～＾）
 
 #if DEBUG
-            syuturyoku.AppendLine($"ms_t1=[{ms_t0}]");
-            syuturyoku.AppendLine($"ms_mirainiKomagaAru=[{ms_mirainiKomagaAru}]");
-            Util_Information.Setumei_1Bitboard("増やしたい利き(0) 飛び利き", bb_oekaki, syuturyoku);
-            Logger.Flush(syuturyoku);
+            //syuturyoku.AppendLine($"ms_t1=[{ms_t0}]");
+            //syuturyoku.AppendLine($"ms_mirainiKomagaAru=[{ms_mirainiKomagaAru}]");
+            //Util_Information.Setumei_1Bitboard("増やしたい利き(0) 飛び利き", bb_oekaki, syuturyoku);
+            //Logger.Flush(syuturyoku);
 #endif
 
             if (!bb_oekaki.IsEmpty())

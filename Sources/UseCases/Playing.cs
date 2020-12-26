@@ -81,7 +81,8 @@ usiok");
             Util_Information.Setumei_NingenGameYo(ky, syuturyoku);
             Ky(isSfen, "ky fen", ky, syuturyoku);// 参考：改造FEN表示
             MoveCmd(isSfen, "move", ky, syuturyoku);// 参考：指し手表示
-            if (false){
+            if (false)
+            {
                 Util_Information.HyojiKomanoIbasho(ky.Shogiban, syuturyoku);// 参考：駒の表示
             }
             Util_Information.HyojiKomanoKikiSu(ky.Shogiban, syuturyoku);// 参考：利きの数
@@ -695,11 +696,11 @@ usiok");
                 else
                 {
                     // 指定した升に、指定した駒を置くぜ☆（＾▽＾）
-                    Util_Machine.Assert_Sabun_Kiki("飛び利き増やす1", ky.Sindan, syuturyoku);
+                    Util_Machine.Assert_Sabun_Kiki("飛び利き増やす1", ky.Sindan);
                     Debug.Assert(Conv_Koma.IsOk(km1), "");
                     Debug.Assert(ky.Sindan.IsBanjo(ms1), "");
-                    ky.Shogiban.N250_OkuBanjoKoma(isSfen, ms1, km1, true, ky.Sindan, syuturyoku);
-                    Util_Machine.Assert_Sabun_Kiki("飛び利き増やす2", ky.Sindan, syuturyoku);
+                    ky.Shogiban.N250_OkuBanjoKoma(isSfen, ms1, km1, true, ky.Sindan);
+                    Util_Machine.Assert_Sabun_Kiki("飛び利き増やす2", ky.Sindan);
 
                     /*
                     if (false)

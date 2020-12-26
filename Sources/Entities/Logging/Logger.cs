@@ -167,14 +167,17 @@ namespace Grayscale.Kifuwarakei.Entities.Logging
         public static void Flush(StringBuilder syuturyoku)
         {
             Logger.XWrite(NoticeRecord, "Notice", syuturyoku.ToString(), Echo, null);
+            syuturyoku.Clear();
         }
         public static void Flush_NoEcho(StringBuilder syuturyoku)
         {
             Logger.XWrite(NoticeRecord, "Notice", syuturyoku.ToString(), false, null);
+            syuturyoku.Clear();
         }
         public static void Flush_USI(StringBuilder syuturyoku)
         {
             Logger.XWrite(NoticeRecord, "Notice", syuturyoku.ToString(), true, null);
+            syuturyoku.Clear();
         }
         /// <summary>
         /// バッファーに溜まっているログを吐き出します。

@@ -104,7 +104,7 @@
                 // 平手初期局面を作るぜ☆（*＾～＾*）
                 Option_Application.Kyokumen.DoHirate(Option_Application.Optionlist.USI, syuturyoku);
 
-                Util_Machine.Assert_Sabun_Kiki("アプリケーション始30", Option_Application.Kyokumen.Sindan, syuturyoku);
+                Util_Machine.Assert_Sabun_Kiki("アプリケーション始30", Option_Application.Kyokumen.Sindan);
                 /*
                 Util_Application.LoadJoseki(syuturyoku);// 定跡ファイルの読込み
                 Util_Application.LoadSeiseki(syuturyoku);// 成績ファイルの読込み
@@ -489,9 +489,9 @@
                     else if (caret == commandline.IndexOf("ky", caret))
                     {
                         // 局面を表示するぜ☆（＾▽＾）
-                        Util_Machine.Assert_Sabun_Kiki("飛び利き増やす1", ky.Sindan, syuturyoku);
+                        Util_Machine.Assert_Sabun_Kiki("飛び利き増やす1", ky.Sindan);
                         playing.Ky(Option_Application.Optionlist.USI, commandline, ky, syuturyoku);
-                        Util_Machine.Assert_Sabun_Kiki("飛び利き増やす2", ky.Sindan, syuturyoku);
+                        Util_Machine.Assert_Sabun_Kiki("飛び利き増やす2", ky.Sindan);
 
                         Util_Commandline.IsKyokumenEcho = false;
                     }
@@ -706,9 +706,7 @@
                 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
                 // どうにもできないので  ログだけ取って無視します。
-                var buf = new StringBuilder();
-                buf.AppendLine($"(^ー^)「大外枠でキャッチ」：{ex}");
-                Logger.Flush(buf);
+                Logger.Fatal($"(^ー^)「大外枠でキャッチ」：{ex}");
                 Console.Out.WriteLine("bestmove resign");
                 //throw;//追加
             }

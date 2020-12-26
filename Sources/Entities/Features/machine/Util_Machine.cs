@@ -625,7 +625,7 @@ P2差分  =[{hyokati2}]
         /// 診断。局面ハッシュ。現行と再計算の一致
         /// </summary>
         [Conditional("DEBUG")]
-        public static void Assert_Sabun_KyHash(string message, Kyokumen ky, StringBuilder syuturyoku)
+        public static void Assert_Sabun_KyHash(string message, Kyokumen ky)
         {
             ulong saikeisanMae = ky.KyokumenHash.Value;//再計算前
             ky.KyokumenHash.Tukurinaosi(ky);//再計算
@@ -642,7 +642,7 @@ P2差分  =[{hyokati2}]
         /// 診断。ビットボード。現行版の中だけの整合性
         /// </summary>
         [Conditional("DEBUG")]
-        public static void Assert_Genkou_Bitboard(string message, Kyokumen ky, StringBuilder syuturyoku)
+        public static void Assert_Genkou_Bitboard(string message, Kyokumen ky)
         {
             bool safe = ky.Shogiban.Assert();
             if (!safe)
@@ -663,9 +663,8 @@ P2差分  =[{hyokati2}]
         /// <param name="message"></param>
         /// <param name="isAssert">診断しないときは偽</param>
         /// <param name="isKyoseiSyuturyoku">出力を強制するときは真</param>
-        /// <param name="syuturyoku"></param>
         [Conditional("DEBUG")]
-        public static void Assert_Sabun_Kiki(string message, Kyokumen.Sindanyo kys, StringBuilder syuturyoku)
+        public static void Assert_Sabun_Kiki(string message, Kyokumen.Sindanyo kys)
         {
             // 駒の利き☆
             bool safe = true;

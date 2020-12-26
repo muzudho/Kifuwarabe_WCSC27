@@ -1,13 +1,21 @@
 ﻿#define WCSC27
 
+namespace Grayscale.Kifuwarakei.Entities.Features
+{
+#if DEBUG
+    using System;
+    using System.Diagnostics;
+    using System.Text;
+    using System.Text.RegularExpressions;
+    using Grayscale.Kifuwarakei.Entities.Logging;
+#else
 using System;
 using System.Diagnostics;
 using System.Text;
 using System.Text.RegularExpressions;
 using Grayscale.Kifuwarakei.Entities.Logging;
+#endif
 
-namespace Grayscale.Kifuwarakei.Entities.Features
-{
     /// <summary>
     /// 棋譜データは持ってないぜ☆（＾～＾）
     /// </summary>
@@ -369,7 +377,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// 利きを作り直すぜ☆（＾～＾）
         /// 駒は既に　置いてあること☆（＾～＾）
         /// </summary>
-        public void TukurinaosiKiki_KomaNarabeNoAto(StringBuilder syuturyoku)
+        public void TukurinaosiKiki_KomaNarabeNoAto()
         {
             //#if DEBUG
             //            syuturyoku.AppendLine("★利きの作り直し（１）駒の居場所");
@@ -429,7 +437,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
 
             // 盤上の利き（駒の種類別、全部、升の利きの数）を作り直し。
-            TukurinaosiKiki_KomaNarabeNoAto(syuturyoku);
+            TukurinaosiKiki_KomaNarabeNoAto();
 
             // ゾブリストハッシュを作り直し
             Util_ZobristHashing.Dirty = true;
@@ -621,7 +629,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 var km1 = Conv_Koma.ItiranRaionNozoku[Option_Application.Random.Next(Conv_Koma.ItiranRaionNozoku.Length - 1)];
                 Debug.Assert(Conv_Koma.IsOk(km1), "");
                 Debug.Assert(Sindan.IsBanjo(ms1), "");
-                Shogiban.N250_OkuBanjoKoma(isSfen, ms1, km1, true, Sindan, syuturyoku);
+                Shogiban.N250_OkuBanjoKoma(isSfen, ms1, km1, true, Sindan);
                 // あとで適用
             }
 
@@ -640,11 +648,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 // 先手らいおん
                 int iMs = Option_Application.Random.Next(Sindan.MASU_YOSOSU - 1);
-                Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs, Koma.R, true, Sindan, syuturyoku);
+                Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs, Koma.R, true, Sindan);
                 // あとで適用
 
                 // 後手らいおん
-                Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)((iMs + Option_Application.Random.Next(Sindan.MASU_YOSOSU - 2)) % Sindan.MASU_YOSOSU), Koma.r, true, Sindan, syuturyoku);
+                Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)((iMs + Option_Application.Random.Next(Sindan.MASU_YOSOSU - 2)) % Sindan.MASU_YOSOSU), Koma.r, true, Sindan);
                 // あとで適用
             }
 
@@ -682,7 +690,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     Koma km = DefaultHirateSyokiKyokumen[iMs];
                     if (Koma.Kuhaku != km)
                     {
-                        Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs, km, updateKiki, Sindan, syuturyoku);
+                        Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs, km, updateKiki, Sindan);
                     }
                 }
                 else
@@ -708,8 +716,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
                 Shogiban.Tukurinaosi_2_Input_KomanoUgokikata(Sindan);
 
-                TukurinaosiKiki_KomaNarabeNoAto(syuturyoku);
-                Util_Machine.Assert_Sabun_Kiki("アプリケーション始20", Sindan, syuturyoku);
+                TukurinaosiKiki_KomaNarabeNoAto();
+                Util_Machine.Assert_Sabun_Kiki("アプリケーション始20", Sindan);
 
                 // 盤を作ってないと、ゾブリスト・ハッシュを作成できない。
                 Util_ZobristHashing.Tukurinaosi(Sindan);
@@ -744,7 +752,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     {
                         throw new Exception("盤面カナ入力パースエラー");
                     }
-                    Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs, km, true, Sindan, syuturyoku);
+                    Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs, km, true, Sindan);
                     //Med_KomaBB.PutKoma((Masu)iMs, km, BB_KomaZenbu, BB_Koma);
                 }
             }
@@ -894,7 +902,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 {
                     // その駒の種類からは、ありえない動きをしたぜ☆（＾▽＾）
 #if DEBUG
-                    
+
                     throw new Exception($"その駒の種類からは、ありえない動きをしたぜ☆（＾▽＾） ms1=[{ ms_src }] ms2=[{ ms_dst }]");
 #endif
                     reason = MoveMatigaiRiyu.SonoKomasyuruiKarahaArienaiUgoki;
@@ -971,11 +979,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             }// 投了なら、なにも更新せず終了☆（＾▽＾）
 
             // エラー・チェック
-            Util_Machine.Assert_Sabun_Kiki("Ｄｏ始", Sindan, syuturyoku);
+            Util_Machine.Assert_Sabun_Kiki("Ｄｏ始", Sindan);
             Util_Machine.Assert_Sabun_Komawari("Ｄｏ始", Sindan, syuturyoku);
             Util_Machine.Assert_Sabun_Nikoma("Ｄｏ始", this, syuturyoku);
-            Util_Machine.Assert_Sabun_KyHash("Ｄｏ始", this, syuturyoku);
-            Util_Machine.Assert_Genkou_Bitboard("Ｄｏ始", this, syuturyoku);
+            Util_Machine.Assert_Sabun_KyHash("Ｄｏ始", this);
+            Util_Machine.Assert_Genkou_Bitboard("Ｄｏ始", this);
 
             //
             // 動かす駒を t0 と呼ぶとする。
@@ -1039,11 +1047,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
 
 
-            Util_Machine.Assert_Sabun_Kiki("Ｄｏ始2", Sindan, syuturyoku);
+            Util_Machine.Assert_Sabun_Kiki("Ｄｏ始2", Sindan);
             Util_Machine.Assert_Sabun_Komawari("Ｄｏ始2", Sindan, syuturyoku);
             Util_Machine.Assert_Sabun_Nikoma("Ｄｏ始2", this, syuturyoku);
-            Util_Machine.Assert_Sabun_KyHash("Ｄｏ始2", this, syuturyoku);
-            Util_Machine.Assert_Genkou_Bitboard("Ｄｏ始2", this, syuturyoku);
+            Util_Machine.Assert_Sabun_KyHash("Ｄｏ始2", this);
+            Util_Machine.Assert_Genkou_Bitboard("Ｄｏ始2", this);
 
             //────────────────────────────────────────
             // 状況：
@@ -1060,7 +1068,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     //────────────────────────────────────────
                     // Ｃ    ［１］     取る前の　持ち駒が増える前の　駒台が在る
                     //────────────────────────────────────────
-                    Util_Machine.Assert_Sabun_Kiki("ＤｏＣ1", Sindan, syuturyoku);
+                    Util_Machine.Assert_Sabun_Kiki("ＤｏＣ1", Sindan);
                     Util_Machine.Assert_Sabun_Nikoma("ＤｏＣ1", this, syuturyoku);
 
                     //────────────────────────────────────────
@@ -1078,17 +1086,17 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     //────────────────────────────────────────
                     // Ｃ   ［３］  取った後の　持駒が１つ増えた　駒台が在る
                     //────────────────────────────────────────
-                    Util_Machine.Assert_Sabun_Kiki("ＤｏＣ2", Sindan, syuturyoku);
+                    Util_Machine.Assert_Sabun_Kiki("ＤｏＣ2", Sindan);
                     Util_Machine.Assert_Sabun_Komawari("ＤｏＣ2", Sindan, syuturyoku);
                     Util_Machine.Assert_Sabun_Nikoma("ＤｏＣ2", this, syuturyoku);
-                    Util_Machine.Assert_Sabun_KyHash("ＤｏＣ2", this, syuturyoku);
-                    Util_Machine.Assert_Genkou_Bitboard("ＤｏＣ2", this, syuturyoku);
+                    Util_Machine.Assert_Sabun_KyHash("ＤｏＣ2", this);
+                    Util_Machine.Assert_Genkou_Bitboard("ＤｏＣ2", this);
                 }
 
                 //────────────────────────────────────────
                 // Ｔ２Ｃ  ［１］ 移動先に　相手の駒　が在る
                 //────────────────────────────────────────
-                Util_Machine.Assert_Sabun_Kiki("ＤｏＴ２Ｃ", Sindan, syuturyoku);
+                Util_Machine.Assert_Sabun_Kiki("ＤｏＴ２Ｃ", Sindan);
                 Util_Machine.Assert_Sabun_Nikoma("ＤｏＴ２Ｃ", this, syuturyoku);
 #if DEBUG
                 // 相手の駒の数と配置を覚えておく
@@ -1101,11 +1109,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 //────────────────────────────────────────
                 KyokumenHash.SetXor(Util_ZobristHashing.GetBanjoKey(ms_t1, km_c, Sindan));
 
-                Util_Machine.Assert_Sabun_Kiki("ＤｏＢ196", Sindan, syuturyoku);
+                Util_Machine.Assert_Sabun_Kiki("ＤｏＢ196", Sindan);
 
                 Shogiban.N250_TorinozokuBanjoKoma(isSfen, ms_t1, km_c, Sindan.MASU_ERROR, true, Sindan, syuturyoku);
 
-                Util_Machine.Assert_Sabun_Kiki("ＤｏＢ197★", Sindan, syuturyoku);
+                Util_Machine.Assert_Sabun_Kiki("ＤｏＢ197★", Sindan);
 
                 Komawari.Herasu(aite, km_c);
                 Nikoma.HerasuBanjoKoma(this, km_c, ms_t1);
@@ -1113,25 +1121,25 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 //────────────────────────────────────────
                 // Ｔ２Ｃ  ［２］     移動先に　相手の駒　が無い
                 //────────────────────────────────────────
-                Util_Machine.Assert_Sabun_Kiki("ＤｏＢ199", Sindan, syuturyoku);
+                Util_Machine.Assert_Sabun_Kiki("ＤｏＢ199", Sindan);
                 Util_Machine.Assert_Sabun_Komawari("ＤｏＢ", Sindan, syuturyoku);
                 Util_Machine.Assert_Sabun_Nikoma("ＤｏＢ", this, syuturyoku);
-                Util_Machine.Assert_Sabun_KyHash("ＤｏＢ", this, syuturyoku);
+                Util_Machine.Assert_Sabun_KyHash("ＤｏＢ", this);
 
                 // ビットボードの駒の数は合っていないからチェックしないぜ☆
                 // 取った駒の種類を覚えておくぜ☆（＾▽＾）
                 Konoteme.ToraretaKs = ks_c;
 #if DEBUG
-                Util_Machine.Assert_Sabun_Kiki("ＤｏＢ101", Sindan, syuturyoku);
+                Util_Machine.Assert_Sabun_Kiki("ＤｏＢ101", Sindan);
 
                 aiteKomaSuNew = Shogiban.GetBBKomaZenbu(aite).PopCnt();
                 bb_aiteKomaNew = Shogiban.GetBBKomaZenbu(aite);
 
-                Util_Machine.Assert_Sabun_Kiki("ＤｏＢ103", Sindan, syuturyoku);
+                Util_Machine.Assert_Sabun_Kiki("ＤｏＢ103", Sindan);
 
                 StringBuilder sindan1 = new StringBuilder();
 
-                Util_Machine.Assert_Sabun_Kiki("ＤｏＢ104", Sindan, syuturyoku);
+                Util_Machine.Assert_Sabun_Kiki("ＤｏＢ104", Sindan);
 
                 sindan1.Append("banjoAiteKomaSuOld - 1=["); sindan1.Append(aiteKomaSuOld - 1); sindan1.AppendLine("]");
                 sindan1.Append("banjoAiteKomaSuNew    =["); sindan1.Append(aiteKomaSuNew); sindan1.AppendLine("]");
@@ -1146,7 +1154,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 Util_Information.Setumei_1Bitboard("手番の駒全部BB", Shogiban.GetBBKomaZenbu(jibun), sindan1);
                 Util_Information.Setumei_1Bitboard("相手の駒全部BB", Shogiban.GetBBKomaZenbu(aite), sindan1);
                 sindan1.AppendLine("現局面");
-                Util_Information.Setumei_Lines_Kyokumen(this,sindan1);
+                Util_Information.Setumei_Lines_Kyokumen(this, sindan1);
                 safe = aiteKomaSuOld - 1 == aiteKomaSuNew;// 相手の駒を１個減らすぜ☆
                 if (!safe)
                 {
@@ -1157,17 +1165,17 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 #endif
 
                 // エラー・チェック
-                Util_Machine.Assert_Sabun_Kiki("ＤｏＢ2", Sindan, syuturyoku);
+                Util_Machine.Assert_Sabun_Kiki("ＤｏＢ2", Sindan);
                 Util_Machine.Assert_Sabun_Komawari("ＤｏＢ2", Sindan, syuturyoku);
                 Util_Machine.Assert_Sabun_Nikoma("ＤｏＢ2", this, syuturyoku);
-                Util_Machine.Assert_Sabun_KyHash("ＤｏＢ2", this, syuturyoku);
+                Util_Machine.Assert_Sabun_KyHash("ＤｏＢ2", this);
             }
             #endregion
 
             //────────────────────────────────────────
             // Ｔ１   ［１］  移動元に　手番の駒　が在る
             //────────────────────────────────────────
-            Util_Machine.Assert_Sabun_Kiki("ＤｏＴ１［１］", Sindan, syuturyoku);
+            Util_Machine.Assert_Sabun_Kiki("ＤｏＴ１［１］", Sindan);
             Util_Machine.Assert_Sabun_Nikoma("ＤｏＴ１［１］", this, syuturyoku);
 #if DEBUG
             // 自分の駒の数を、減らす前に覚えておく
@@ -1218,10 +1226,10 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             //────────────────────────────────────────
             // Ｔ１   ［２］      移動元に　手番の駒　が無い
             //────────────────────────────────────────
-            Util_Machine.Assert_Sabun_Kiki("ＤｏＴ１［２］", Sindan, syuturyoku);
+            Util_Machine.Assert_Sabun_Kiki("ＤｏＴ１［２］", Sindan);
             Util_Machine.Assert_Sabun_Komawari("ＤｏＴ１［２］", Sindan, syuturyoku);
             Util_Machine.Assert_Sabun_Nikoma("ＤｏＴ１［２］", this, syuturyoku);
-            Util_Machine.Assert_Sabun_KyHash("ＤｏＴ１［２］", this, syuturyoku);
+            Util_Machine.Assert_Sabun_KyHash("ＤｏＴ１［２］", this);
             // ビットボードの図形は新旧一致しないからチェックしないぜ☆
 #if DEBUG
             jibunKomaSuNew = Shogiban.GetBBKomaZenbu(jibun).PopCnt();
@@ -1261,10 +1269,10 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             //────────────────────────────────────────
             // Ｔ２    [１］    移動先に　手番の駒　が無い
             //────────────────────────────────────────
-            Util_Machine.Assert_Sabun_Kiki("ＤｏＴ２ [１］", Sindan, syuturyoku);
+            Util_Machine.Assert_Sabun_Kiki("ＤｏＴ２ [１］", Sindan);
             Util_Machine.Assert_Sabun_Komawari("ＤｏＴ２ [１］", Sindan, syuturyoku);
             Util_Machine.Assert_Sabun_Nikoma("ＤｏＴ２ [１］", this, syuturyoku);
-            Util_Machine.Assert_Sabun_KyHash("ＤｏＴ２ [１］", this, syuturyoku);
+            Util_Machine.Assert_Sabun_KyHash("ＤｏＴ２ [１］", this);
             // ビットボードの数は合ってないのでチェックしないぜ☆
 #if DEBUG
             // 自分の駒が増える前に、覚えておく
@@ -1275,10 +1283,10 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             //────────────────────────────────────────
             // Ｔ２    [遷移］   移動先に　手番の駒　を増やす
             //────────────────────────────────────────
-            Util_Machine.Assert_Sabun_Kiki("ＤｏＴ２［遷移］147", Sindan, syuturyoku);
+            Util_Machine.Assert_Sabun_Kiki("ＤｏＴ２［遷移］147", Sindan);
 
-            Shogiban.N250_OkuBanjoKoma(isSfen, ms_t1, km_t1, true, Sindan, syuturyoku); // FIXME:(2017-05-02 23:14)
-            Util_Machine.Assert_Sabun_Kiki("ＤｏＴ２［遷移］148★", Sindan, syuturyoku);
+            Shogiban.N250_OkuBanjoKoma(isSfen, ms_t1, km_t1, true, Sindan); // FIXME:(2017-05-02 23:14)
+            Util_Machine.Assert_Sabun_Kiki("ＤｏＴ２［遷移］148★", Sindan);
 
             Komawari.Fuyasu(jibun, km_t1);
             Nikoma.FuyasuBanjoKoma(this, km_t1, ms_t1);
@@ -1287,10 +1295,10 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             //────────────────────────────────────────
             // Ｔ２   ［２］     移動先に　手番の駒　が在る
             //────────────────────────────────────────
-            Util_Machine.Assert_Sabun_Kiki("ＤｏＴ２［２］", Sindan, syuturyoku);
+            Util_Machine.Assert_Sabun_Kiki("ＤｏＴ２［２］", Sindan);
             Util_Machine.Assert_Sabun_Komawari("ＤｏＴ２［２］", Sindan, syuturyoku);
             Util_Machine.Assert_Sabun_Nikoma("ＤｏＴ２［２］", this, syuturyoku);
-            Util_Machine.Assert_Sabun_KyHash("ＤｏＴ２［２］", this, syuturyoku);
+            Util_Machine.Assert_Sabun_KyHash("ＤｏＴ２［２］", this);
             // 移動先に手番の駒が増え、移動元の手番の駒がまだ消えていない状態なのでビットボードはチェックしないぜ☆
 #if DEBUG
             jibunKomaSuNew = Shogiban.GetBBKomaZenbu(jibun).PopCnt();
@@ -1330,7 +1338,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             //────────────────────────────────────────
             #region おわりに
             Util_Machine.Assert_Sabun_Nikoma("Ｄｏ終", this, syuturyoku);
-            Util_Machine.Assert_Sabun_Kiki("Ｄｏ終", Sindan, syuturyoku);
+            Util_Machine.Assert_Sabun_Kiki("Ｄｏ終", Sindan);
 
         gt_EndMethod:
 
@@ -1350,8 +1358,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
             Util_Machine.Assert_Sabun_Komawari("Ｄｏ終 (手番進めた後)", Sindan, syuturyoku);
             Util_Machine.Assert_Sabun_Nikoma("Ｄｏ終 (手番進めた後)", this, syuturyoku);
-            Util_Machine.Assert_Sabun_KyHash("Ｄｏ終 (手番進めた後)", this, syuturyoku);
-            Util_Machine.Assert_Genkou_Bitboard("Ｄｏ終 (手番進めた後)", this, syuturyoku);
+            Util_Machine.Assert_Sabun_KyHash("Ｄｏ終 (手番進めた後)", this);
+            Util_Machine.Assert_Genkou_Bitboard("Ｄｏ終 (手番進めた後)", this);
             #endregion
 
         }
@@ -1375,11 +1383,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
             if (Move.Toryo == ss) { goto gt_EndMethod; }// なにも更新せず終了☆（＾▽＾）
 
-            Util_Machine.Assert_Sabun_Kiki("Ｕｎｄｏ始", Sindan, syuturyoku);
+            Util_Machine.Assert_Sabun_Kiki("Ｕｎｄｏ始", Sindan);
             Util_Machine.Assert_Sabun_Komawari("Ｕｎｄｏ始", Sindan, syuturyoku);
             Util_Machine.Assert_Sabun_Nikoma("Ｕｎｄｏ始", this, syuturyoku);
-            Util_Machine.Assert_Sabun_KyHash("Ｕｎｄｏ始", this, syuturyoku);
-            Util_Machine.Assert_Genkou_Bitboard("Ｕｎｄｏ始", this, syuturyoku);
+            Util_Machine.Assert_Sabun_KyHash("Ｕｎｄｏ始", this);
+            Util_Machine.Assert_Genkou_Bitboard("Ｕｎｄｏ始", this);
 
             //
             // 動かす駒を t0 と呼ぶとする。
@@ -1459,18 +1467,18 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 syuturyoku.AppendLine("駒全部");
                 // Util_Commands.Koma_cmd(isSfen, "koma", this, str_move);
 
-                throw new Exception( str_move.ToString());
+                throw new Exception(str_move.ToString());
             }
 #endif
 
             //────────────────────────────────────────
             //  Ｔ１　［１］      移動先に　手番の駒　が在る
             //────────────────────────────────────────
-            Util_Machine.Assert_Sabun_Kiki("ＵｎｄｏＴ１", Sindan, syuturyoku);
+            Util_Machine.Assert_Sabun_Kiki("ＵｎｄｏＴ１", Sindan);
             Util_Machine.Assert_Sabun_Komawari("ＵｎｄｏＴ１", Sindan, syuturyoku);
             Util_Machine.Assert_Sabun_Nikoma("ＵｎｄｏＴ１", this, syuturyoku);
-            Util_Machine.Assert_Sabun_KyHash("ＵｎｄｏＴ１", this, syuturyoku);
-            Util_Machine.Assert_Genkou_Bitboard("ＵｎｄｏＴ１", this, syuturyoku);
+            Util_Machine.Assert_Sabun_KyHash("ＵｎｄｏＴ１", this);
+            Util_Machine.Assert_Genkou_Bitboard("ＵｎｄｏＴ１", this);
 #if DEBUG
             // 後で使う変数。駒が減る前に一時退避
             komaSuOld = Shogiban.GetBBKomaZenbu(jibun).PopCnt();
@@ -1497,7 +1505,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             Util_Information.HyojiKomanoKiki(Shogiban, syuturyoku);//BB_KikiZenbu
             Logger.Flush(syuturyoku);
 #endif
-            Util_Machine.Assert_Sabun_Kiki("ＵｎｄｏＴ１-309★", Sindan, syuturyoku);
+            Util_Machine.Assert_Sabun_Kiki("ＵｎｄｏＴ１-309★", Sindan);
 
             //────────────────────────────────────────
             //  Ｔ１　［２］     移動先に　手番の駒　が無い
@@ -1510,12 +1518,12 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             sindan1.AppendLine("ＵｎｄｏＴ１");
             sindan1.Append("tb1=["); Conv_Taikyokusya.Setumei_Name(jibun, sindan1); sindan1.AppendLine("]");
             sindan1.Append("km2=["); Conv_Koma.Setumei(km_t1, sindan1); sindan1.AppendLine("]");
-            sindan1.Append("ms2=[");Conv_Masu.Setumei(ms_t1, this, sindan1);sindan1.AppendLine("]");
-            Util_Machine.Assert_Sabun_Kiki(sindan1.ToString(), Sindan, syuturyoku);
+            sindan1.Append("ms2=["); Conv_Masu.Setumei(ms_t1, this, sindan1); sindan1.AppendLine("]");
+            Util_Machine.Assert_Sabun_Kiki(sindan1.ToString(), Sindan);
             Util_Machine.Assert_Sabun_Komawari(sindan1.ToString(), Sindan, syuturyoku);
             Util_Machine.Assert_Sabun_Nikoma(sindan1.ToString(), this, syuturyoku);
-            Util_Machine.Assert_Sabun_KyHash(sindan1.ToString(), this, syuturyoku);
-            Util_Machine.Assert_Genkou_Bitboard(sindan1.ToString(), this, syuturyoku);
+            Util_Machine.Assert_Sabun_KyHash(sindan1.ToString(), this);
+            Util_Machine.Assert_Genkou_Bitboard(sindan1.ToString(), this);
 #endif
 
 
@@ -1531,11 +1539,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             sindan2.Append("tb1=["); Conv_Taikyokusya.Setumei_Name(jibun, sindan2); sindan2.AppendLine("]");
             sindan2.Append("ms =["); Conv_Masu.Setumei(ms_t0, this, sindan2); sindan2.AppendLine("]");
             sindan2.Append("ks1=["); Conv_Komasyurui.GetNingenyoMijikaiFugo(ks_t0, sindan2); sindan2.AppendLine("]");
-            Util_Machine.Assert_Sabun_Kiki(sindan2.ToString(), Sindan, syuturyoku);
+            Util_Machine.Assert_Sabun_Kiki(sindan2.ToString(), Sindan);
             Util_Machine.Assert_Sabun_Komawari(sindan2.ToString(), Sindan, syuturyoku);
             Util_Machine.Assert_Sabun_Nikoma(sindan2.ToString(), this, syuturyoku);
-            Util_Machine.Assert_Sabun_KyHash(sindan2.ToString(), this, syuturyoku);
-            Util_Machine.Assert_Genkou_Bitboard(sindan2.ToString(), this, syuturyoku);
+            Util_Machine.Assert_Sabun_KyHash(sindan2.ToString(), this);
+            Util_Machine.Assert_Genkou_Bitboard(sindan2.ToString(), this);
 
             // 後で使う変数。駒が増える前に一時退避
             komaSuOld = Shogiban.GetBBKomaZenbu(jibun).PopCnt();
@@ -1549,8 +1557,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 // ハッシュを差分更新
                 KyokumenHash.SetXor(Util_ZobristHashing.GetBanjoKey(ms_t0, km_t0, Sindan));
 
-                Shogiban.N250_OkuBanjoKoma(isSfen, ms_t0, km_t0, true, Sindan, syuturyoku);
-                Util_Machine.Assert_Sabun_Kiki($"ＵｎｄｏＴ０[遷移]508★ ms_t0=[{ ms_t0 } km_t0={ km_t0 }]", Sindan, syuturyoku);
+                Shogiban.N250_OkuBanjoKoma(isSfen, ms_t0, km_t0, true, Sindan);
+                Util_Machine.Assert_Sabun_Kiki($"ＵｎｄｏＴ０[遷移]508★ ms_t0=[{ ms_t0 } km_t0={ km_t0 }]", Sindan);
 
                 Komawari.Fuyasu(jibun, km_t0);
                 Nikoma.FuyasuBanjoKoma(this, km_t1, ms_t0);
@@ -1569,11 +1577,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             //────────────────────────────────────────
             //  Ｔ０  ［２］     移動元に　駒　が在る
             //────────────────────────────────────────
-            Util_Machine.Assert_Sabun_Kiki("ＵｎｄｏＴ０", Sindan, syuturyoku);
+            Util_Machine.Assert_Sabun_Kiki("ＵｎｄｏＴ０", Sindan);
             Util_Machine.Assert_Sabun_Komawari("ＵｎｄｏＴ０", Sindan, syuturyoku);
             Util_Machine.Assert_Sabun_Nikoma("ＵｎｄｏＴ０", this, syuturyoku);
-            Util_Machine.Assert_Sabun_KyHash("ＵｎｄｏＴ０ #吹雪", this, syuturyoku);
-            Util_Machine.Assert_Genkou_Bitboard("ＵｎｄｏＴ０ #吹雪", this, syuturyoku);
+            Util_Machine.Assert_Sabun_KyHash("ＵｎｄｏＴ０ #吹雪", this);
+            Util_Machine.Assert_Genkou_Bitboard("ＵｎｄｏＴ０ #吹雪", this);
 #if DEBUG
             komaSuNew = Shogiban.GetBBKomaZenbu(jibun).PopCnt();
             Debug.Assert(komaSuOld + 1 == komaSuNew, "ＵｎｄｏＴ０ #嵐");
@@ -1587,8 +1595,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             sindan3.Append("ks1=["); Conv_Komasyurui.GetNingenyoMijikaiFugo(ks_t0, sindan3); sindan3.AppendLine("]");
             Util_Machine.Assert_Sabun_Komawari(sindan3.ToString(), Sindan, syuturyoku);
             Util_Machine.Assert_Sabun_Nikoma(sindan3.ToString(), this, syuturyoku);
-            Util_Machine.Assert_Sabun_KyHash(sindan3.ToString(), this, syuturyoku);
-            Util_Machine.Assert_Genkou_Bitboard(sindan3.ToString(), this, syuturyoku);
+            Util_Machine.Assert_Sabun_KyHash(sindan3.ToString(), this);
+            Util_Machine.Assert_Genkou_Bitboard(sindan3.ToString(), this);
 #endif
 
 
@@ -1620,11 +1628,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     //────────────────────────────────────────
                     // Ｃ   ［２］     戻したあとの　持駒の数　の駒台が在る
                     //────────────────────────────────────────
-                    Util_Machine.Assert_Sabun_Kiki("ＵｎｄｏＣ", Sindan, syuturyoku);
+                    Util_Machine.Assert_Sabun_Kiki("ＵｎｄｏＣ", Sindan);
                     Util_Machine.Assert_Sabun_Komawari("ＵｎｄｏＣ", Sindan, syuturyoku);
                     Util_Machine.Assert_Sabun_Nikoma("ＵｎｄｏＣ", this, syuturyoku);
-                    Util_Machine.Assert_Sabun_KyHash("ＵｎｄｏＣ #颱風", this, syuturyoku);
-                    Util_Machine.Assert_Genkou_Bitboard("ＵｎｄｏＣ #颱風", this, syuturyoku);
+                    Util_Machine.Assert_Sabun_KyHash("ＵｎｄｏＣ #颱風", this);
+                    Util_Machine.Assert_Genkou_Bitboard("ＵｎｄｏＣ #颱風", this);
                 }
 
                 //────────────────────────────────────────
@@ -1638,7 +1646,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 //────────────────────────────────────────
                 // Ｔ１Ｃ  ［遷移］     駒が増える
                 //────────────────────────────────────────
-                Shogiban.N250_OkuBanjoKoma(isSfen, ms_t1, km_c, true, Sindan, syuturyoku);
+                Shogiban.N250_OkuBanjoKoma(isSfen, ms_t1, km_c, true, Sindan);
 
                 Komawari.Fuyasu(aite, km_c);
                 Nikoma.FuyasuBanjoKoma(this, km_c, ms_t1);
@@ -1647,33 +1655,33 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 //────────────────────────────────────────
                 // Ｔ１Ｃ  ［２］
                 //────────────────────────────────────────
-                Util_Machine.Assert_Sabun_Kiki("ＵｎｄｏＴ１Ｃ", Sindan, syuturyoku);
+                Util_Machine.Assert_Sabun_Kiki("ＵｎｄｏＴ１Ｃ", Sindan);
                 Util_Machine.Assert_Sabun_Komawari("ＵｎｄｏＴ１Ｃ", Sindan, syuturyoku);
                 Util_Machine.Assert_Sabun_Nikoma("ＵｎｄｏＴ１Ｃ", this, syuturyoku);
-                Util_Machine.Assert_Sabun_KyHash("ＵｎｄｏＴ１Ｃ #鷹", this, syuturyoku);
-                Util_Machine.Assert_Genkou_Bitboard("ＵｎｄｏＴ１Ｃ #鷹", this, syuturyoku);
+                Util_Machine.Assert_Sabun_KyHash("ＵｎｄｏＴ１Ｃ #鷹", this);
+                Util_Machine.Assert_Genkou_Bitboard("ＵｎｄｏＴ１Ｃ #鷹", this);
 #if DEBUG
                 komaSuNew = Shogiban.GetBBKomaZenbu(aite).PopCnt();
                 Debug.Assert(komaSuOld + 1 == komaSuNew, "ＵｎｄｏＴ１Ｃ #露");
 #endif
             }
 
-        //────────────────────────────────────────
-        // 最後に一括更新
-        //────────────────────────────────────────
+            //────────────────────────────────────────
+            // 最後に一括更新
+            //────────────────────────────────────────
 #if DEBUG
             StringBuilder sindan4 = new StringBuilder();
             sindan4.AppendLine("Ｕｎｄｏ終");
             sindan4.Append("tb1=["); Conv_Taikyokusya.Setumei_Name(jibun, sindan4); sindan4.AppendLine("]");
             sindan4.Append("ms2=["); Conv_Masu.Setumei(ms_t1, this, sindan4); sindan4.AppendLine("]");
-            Util_Machine.Assert_Sabun_Kiki(sindan4.ToString(), Sindan, syuturyoku);
+            Util_Machine.Assert_Sabun_Kiki(sindan4.ToString(), Sindan);
             Util_Machine.Assert_Sabun_Komawari(sindan4.ToString(), Sindan, syuturyoku);
             Util_Machine.Assert_Sabun_Nikoma(sindan4.ToString(), this, syuturyoku);
 #endif
 
         gt_EndMethod:
-            Util_Machine.Assert_Sabun_KyHash("Ｕｎｄｏ終", this, syuturyoku);
-            Util_Machine.Assert_Genkou_Bitboard("Ｕｎｄｏ終", this, syuturyoku);
+            Util_Machine.Assert_Sabun_KyHash("Ｕｎｄｏ終", this);
+            Util_Machine.Assert_Genkou_Bitboard("Ｕｎｄｏ終", this);
 
             // 何手目データの更新
             Konoteme = Konoteme.Ittemae; // 「今の一手前」が、「この手目」にやってくるぜ☆（＾▽＾）
@@ -1806,11 +1814,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                         {
                             // 位置交換成立☆（＾～＾）空白同士の交換とか意味ないこともするぜ☆（＾▽＾）
                             tmpKm = GetBanjoKoma((Masu)iMs1);
-                            if (3 == r || 5 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Conv_Koma.Hanten(GetBanjoKoma((Masu)iMs2)), true, Sindan, syuturyoku); }
-                            else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, GetBanjoKoma((Masu)iMs2), true, Sindan, syuturyoku); }
+                            if (3 == r || 5 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Conv_Koma.Hanten(GetBanjoKoma((Masu)iMs2)), true, Sindan); }
+                            else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, GetBanjoKoma((Masu)iMs2), true, Sindan); }
 
-                            if (4 == r || 5 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs2, Conv_Koma.Hanten(tmpKm), true, Sindan, syuturyoku); }
-                            else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs2, tmpKm, true, Sindan, syuturyoku); }
+                            if (4 == r || 5 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs2, Conv_Koma.Hanten(tmpKm), true, Sindan); }
+                            else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs2, tmpKm, true, Sindan); }
 
                             nokori--;
                         }
@@ -1853,13 +1861,13 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                         {
                             if (Shogiban.ExistsBBKoma(Koma.H, (Masu)iMs1) || Shogiban.ExistsBBKoma(Koma.h, (Masu)iMs1))
                             {
-                                if (0 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.PH, true, Sindan, syuturyoku); }
-                                else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.ph, true, Sindan, syuturyoku); }
+                                if (0 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.PH, true, Sindan); }
+                                else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.ph, true, Sindan); }
                             }
                             else if (Shogiban.GetBBKoma(Koma.PH).IsOn((Masu)iMs1) || Shogiban.GetBBKoma(Koma.ph).IsOn((Masu)iMs1))
                             {
-                                if (0 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.H, true, Sindan, syuturyoku); }
-                                else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.h, true, Sindan, syuturyoku); }
+                                if (0 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.H, true, Sindan); }
+                                else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.h, true, Sindan); }
                             }
                         }
                     }
@@ -1875,33 +1883,33 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                             {
                                 case MotiKoma.Z:
                                     MotiKomas.Herasu(MotiKoma.Z);
-                                    if (1 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.Z, true, Sindan, syuturyoku); }
-                                    else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.z, true, Sindan, syuturyoku); }
+                                    if (1 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.Z, true, Sindan); }
+                                    else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.z, true, Sindan); }
                                     break;
                                 case MotiKoma.K:
                                     MotiKomas.Herasu(MotiKoma.K);
-                                    if (1 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.K, true, Sindan, syuturyoku); }
-                                    else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.k, true, Sindan, syuturyoku); }
+                                    if (1 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.K, true, Sindan); }
+                                    else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.k, true, Sindan); }
                                     break;
                                 case MotiKoma.H:
                                     MotiKomas.Herasu(MotiKoma.H);
-                                    if (1 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.H, true, Sindan, syuturyoku); }
-                                    else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.h, true, Sindan, syuturyoku); }
+                                    if (1 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.H, true, Sindan); }
+                                    else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.h, true, Sindan); }
                                     break;
                                 case MotiKoma.z:
                                     MotiKomas.Herasu(MotiKoma.z);
-                                    if (1 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.z, true, Sindan, syuturyoku); }
-                                    else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.Z, true, Sindan, syuturyoku); }
+                                    if (1 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.z, true, Sindan); }
+                                    else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.Z, true, Sindan); }
                                     break;
                                 case MotiKoma.k:
                                     MotiKomas.Herasu(MotiKoma.k);
-                                    if (1 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.k, true, Sindan, syuturyoku); }
-                                    else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.K, true, Sindan, syuturyoku); }
+                                    if (1 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.k, true, Sindan); }
+                                    else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.K, true, Sindan); }
                                     break;
                                 case MotiKoma.h:
                                     MotiKomas.Herasu(MotiKoma.h);
-                                    if (1 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.h, true, Sindan, syuturyoku); }
-                                    else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.H, true, Sindan, syuturyoku); }
+                                    if (1 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.h, true, Sindan); }
+                                    else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.H, true, Sindan); }
                                     break;
                             }
                             nokori--;
@@ -1963,7 +1971,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                             var km1 = Koma.R;
                             Debug.Assert(Conv_Koma.IsOk(km1), "");
                             Debug.Assert(Sindan.IsBanjo(ms1), "");
-                            Shogiban.N250_OkuBanjoKoma(isSfen, ms1, km1, true, Sindan, syuturyoku);
+                            Shogiban.N250_OkuBanjoKoma(isSfen, ms1, km1, true, Sindan);
                         }
                         else
                         {
@@ -1971,7 +1979,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                             var km1 = Koma.r;
                             Debug.Assert(Conv_Koma.IsOk(km1), "");
                             Debug.Assert(Sindan.IsBanjo(ms1), "");
-                            Shogiban.N250_OkuBanjoKoma(isSfen, ms1, km1, true, Sindan, syuturyoku);
+                            Shogiban.N250_OkuBanjoKoma(isSfen, ms1, km1, true, Sindan);
                         }
 
                         tb = Conv_Taikyokusya.Hanten(tb);
@@ -2233,7 +2241,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                         var km1 = tmp;
                         Debug.Assert(Conv_Koma.IsOk(km1), "");
                         Debug.Assert(Sindan.IsBanjo(ms1), "");
-                        Shogiban.N250_OkuBanjoKoma(isSfen, ms1, km1, true, Sindan, syuturyoku);
+                        Shogiban.N250_OkuBanjoKoma(isSfen, ms1, km1, true, Sindan);
                         // あとで適用
 
                         suji += 1;

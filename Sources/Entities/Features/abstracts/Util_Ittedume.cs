@@ -4,7 +4,6 @@ using System.Text;
 using Grayscale.Kifuwarakei.Entities.Logging;
 
 #if DEBUG
-using Grayscale.Kifuwarakei.Entities.Features;
 #endif
 
 namespace Grayscale.Kifuwarakei.Entities.Features
