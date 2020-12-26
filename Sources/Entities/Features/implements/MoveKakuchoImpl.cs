@@ -1,7 +1,4 @@
-﻿using kifuwarabe_wcsc27.interfaces;
-using kifuwarabe_wcsc27.abstracts;
-
-namespace kifuwarabe_wcsc27.implements
+﻿namespace Grayscale.Kifuwarakei.Entities.Features
 {
     /// <summary>
     /// 指し手拡張。

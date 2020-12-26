@@ -1,9 +1,7 @@
-﻿using kifuwarabe_wcsc27.interfaces;
-using System;
-using kifuwarabe_wcsc27.abstracts;
+﻿using System;
 using System.Text;
 
-namespace kifuwarabe_wcsc27.implements
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     public class TTEntry
     {
@@ -24,7 +22,7 @@ namespace kifuwarabe_wcsc27.implements
         public void Setumei_Description(bool isSfen, StringBuilder syuturyoku)
         {
             syuturyoku.Append($"key=[{Key}] move=[");
-            ConvMove.Setumei(isSfen, Move,syuturyoku);
+            ConvMove.Setumei(isSfen, Move, syuturyoku);
             syuturyoku.Append($"] sasiteType=[{AbstractConvMoveType.Setumei(MoveType)}] fukasa=[{Fukasa}] hyokati=[{(int)Hyokati}] komawariHyokati_forJoho=[{(int)KomawariHyokati_ForJoho}] nikomaHyokati_forJoho=[{(int)NikomaHyokati_ForJoho}] okimariHyokati_forJoho=[${(int)OkimariHyokati_ForJoho}]");
         }
 

@@ -1,4 +1,4 @@
-﻿namespace kifuwarabe_wcsc27
+﻿namespace Grayscale.Kifuwarakei.Entities.Features
 {
     public static class DebugOptions
     {

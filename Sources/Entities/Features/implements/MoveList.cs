@@ -1,8 +1,6 @@
-﻿using kifuwarabe_wcsc27.abstracts;
-using kifuwarabe_wcsc27.interfaces;
-using System;
+﻿using System;
 
-namespace kifuwarabe_wcsc27.implements
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     /// <summary>
     /// 指し手のリスト☆（＾▽＾）
@@ -32,7 +30,7 @@ namespace kifuwarabe_wcsc27.implements
             }
             catch (Exception)
             {
-                throw ;
+                throw;
             }
         }
         public void ClearSslist()
@@ -45,7 +43,7 @@ namespace kifuwarabe_wcsc27.implements
             }
             catch (Exception)
             {
-                throw ;
+                throw;
             }
         }
     }

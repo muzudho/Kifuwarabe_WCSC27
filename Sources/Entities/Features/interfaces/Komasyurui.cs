@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace kifuwarabe_wcsc27.interfaces
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     /// <summary>
     /// 先後を付けない、盤上の駒だぜ☆（＾▽＾）

@@ -1,7 +1,6 @@
 ﻿using System.Text.RegularExpressions;
-using kifuwarabe_wcsc27.interfaces;
 
-namespace kifuwarabe_wcsc27.abstracts
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     /// <summary>
     /// FEN のパーサー一覧。
@@ -83,10 +82,11 @@ namespace kifuwarabe_wcsc27.abstracts
             );
         }
 
-        public static Regex GetKyokumenPattern(bool isSfen) {
+        public static Regex GetKyokumenPattern(bool isSfen)
+        {
             if (isSfen)
             {
-                if(null== kyokumenPattern_sfen_)
+                if (null == kyokumenPattern_sfen_)
                 {
                     kyokumenPattern_sfen_ = new Regex(
                         Sfen.Position +// とりあえず　ごっそりマッチ。123～はスペース数。+は成りゴマ。
@@ -150,7 +150,7 @@ namespace kifuwarabe_wcsc27.abstracts
         {
             if (isSfen)
             {
-                if(null== masSasitePattern_sfen_)
+                if (null == masSasitePattern_sfen_)
                 {
                     masSasitePattern_sfen_ = new Regex(
                     $@"([{Sfen.Suji}{Sfen.MotigomaT1}])([{Sfen.Dan}\*])"

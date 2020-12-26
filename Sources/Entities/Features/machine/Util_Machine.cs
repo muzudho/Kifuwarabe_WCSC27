@@ -4,11 +4,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using Grayscale.Kifuwarakei.Entities.Logging;
-using kifuwarabe_wcsc27.abstracts;
-using kifuwarabe_wcsc27.implements;
-using kifuwarabe_wcsc27.interfaces;
 
-namespace kifuwarabe_wcsc27.machine
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     /// <summary>
     /// Unity で使えない関数は、これで包（くる）むぜ☆（＾▽＾）

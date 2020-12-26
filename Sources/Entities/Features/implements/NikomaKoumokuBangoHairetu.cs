@@ -1,6 +1,4 @@
-﻿using kifuwarabe_wcsc27.abstracts;
-
-namespace kifuwarabe_wcsc27.implements
+﻿namespace Grayscale.Kifuwarakei.Entities.Features
 {
     /// <summary>
     /// 配列を持っていて、「使用中の長さ」というプロパティーを別途持っているぜ☆（＾～＾）

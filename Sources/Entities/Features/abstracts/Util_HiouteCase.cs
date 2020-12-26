@@ -1,9 +1,6 @@
-﻿using kifuwarabe_wcsc27.facade;
-using kifuwarabe_wcsc27.interfaces;
-using kifuwarabe_wcsc27.implements;
-using System.Text;
+﻿using System.Text;
 
-namespace kifuwarabe_wcsc27.abstracts
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     /// <summary>
     /// TODO: ビットボードに置き換えたいぜ☆（＾～＾）
@@ -45,7 +42,7 @@ namespace kifuwarabe_wcsc27.abstracts
         public static bool InKiki(Kyokumen ky, Masu attackerMs, Masu targetMs)
         {
             Taikyokusya aite = Conv_Taikyokusya.Hanten(ky.Teban);
-            if (ky.Shogiban.ExistsBBKomaZenbu(aite,attackerMs)) // 指定の場所に相手の駒があることを確認
+            if (ky.Shogiban.ExistsBBKomaZenbu(aite, attackerMs)) // 指定の場所に相手の駒があることを確認
             {
                 if (ky.Shogiban.ExistsBBKoma(aite, attackerMs, out Komasyurui ks))// 攻撃側の駒の種類
                 {
@@ -66,7 +63,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// <returns></returns>
         public static bool IsJisatusyu(Kyokumen ky, Masu targetMs)
         {
-            return  ky.Shogiban.GetBBKikiZenbu(Conv_Taikyokusya.Hanten(ky.Teban)).IsIntersect(// 相手の駒の利き☆
+            return ky.Shogiban.GetBBKikiZenbu(Conv_Taikyokusya.Hanten(ky.Teban)).IsIntersect(// 相手の駒の利き☆
                 targetMs//調べる升
                 );
         }

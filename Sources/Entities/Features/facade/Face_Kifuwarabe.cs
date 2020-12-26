@@ -1,9 +1,6 @@
-﻿using kifuwarabe_wcsc27.interfaces;
-using kifuwarabe_wcsc27.abstracts;
-using kifuwarabe_wcsc27.implements;
-using System.Text;
+﻿using System.Text;
 
-namespace kifuwarabe_wcsc27.facade
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     /// <summary>
     /// きふわらべだぜ☆（＾▽＾）

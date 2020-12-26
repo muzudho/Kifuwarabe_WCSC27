@@ -1,4 +1,4 @@
-﻿namespace kifuwarabe_wcsc27.abstracts
+﻿namespace Grayscale.Kifuwarakei.Entities.Features
 {
     public enum CommandMode
     {

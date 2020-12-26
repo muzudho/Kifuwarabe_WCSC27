@@ -1,8 +1,6 @@
-﻿using kifuwarabe_wcsc27.interfaces;
-using kifuwarabe_wcsc27.abstracts;
-using System.Text;
+﻿using System.Text;
 
-namespace kifuwarabe_wcsc27.implements
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     /// <summary>
     /// 局面状況。１方向のリンクリストになっているぜ☆（＾▽＾）
@@ -54,9 +52,9 @@ namespace kifuwarabe_wcsc27.implements
             ulong expected = this.SennititeHash;
             int count = 1;// 同じ局面が出た回数☆
 
-            for (Nanteme nanteme = this.Ittemae; null !=nanteme; nanteme = nanteme.Ittemae)
+            for (Nanteme nanteme = this.Ittemae; null != nanteme; nanteme = nanteme.Ittemae)
             {
-                if(nanteme.SennititeHash == expected)
+                if (nanteme.SennititeHash == expected)
                 {
                     count++;
                     if (Const_Game.SENNITITE_COUNT <= count)// 千日手だぜ☆（＾～＾）数えるのを止めるぜ☆

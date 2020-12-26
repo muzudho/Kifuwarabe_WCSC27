@@ -1,17 +1,13 @@
-﻿namespace kifuwarabe_wcsc27.abstracts
+﻿namespace Grayscale.Kifuwarakei.Entities.Features
 {
-    using System;
 #if DEBUG
     using System.Text;
-    using kifuwarabe_wcsc27.implements;
-    using kifuwarabe_wcsc27.interfaces;
-    using kifuwarabe_wcsc27.machine;
+    using Grayscale.Kifuwarakei.Entities.Features;
+    using Grayscale.Kifuwarakei.Entities.Features;
+    using Grayscale.Kifuwarakei.Entities.Features;
 #else
-using System.Text;
+    using System.Text;
     using Grayscale.Kifuwarakei.Entities.Logging;
-    using kifuwarabe_wcsc27.implements;
-using kifuwarabe_wcsc27.interfaces;
-using kifuwarabe_wcsc27.machine;
 #endif
     /// <summary>
     /// コンソール画面用☆（＾～＾）
@@ -129,7 +125,7 @@ using kifuwarabe_wcsc27.machine;
             }
         }
 
-#region 定跡登録
+        #region 定跡登録
         /// <summary>
         /// 定跡の通り指したとき、真☆
         /// </summary>
@@ -219,6 +215,6 @@ using kifuwarabe_wcsc27.machine;
                 }
             }
         }
-#endregion
+        #endregion
     }
 }

@@ -1,7 +1,4 @@
-﻿using kifuwarabe_wcsc27.interfaces;
-using kifuwarabe_wcsc27.implements;
-
-namespace kifuwarabe_wcsc27.abstracts
+﻿namespace Grayscale.Kifuwarakei.Entities.Features
 {
     /// <summary>
     /// mediator.
@@ -11,7 +8,7 @@ namespace kifuwarabe_wcsc27.abstracts
         static Med_Koma()
         {
             komasyuruiNamaeItiran = new string[Conv_Taikyokusya.Itiran.Length][];
-            for (int iTai=0; iTai<Conv_Taikyokusya.Itiran.Length;iTai++)
+            for (int iTai = 0; iTai < Conv_Taikyokusya.Itiran.Length; iTai++)
             {
                 komasyuruiNamaeItiran[iTai] = new string[Conv_Komasyurui.Itiran.Length];
                 int iKs = 0;
@@ -288,7 +285,7 @@ namespace kifuwarabe_wcsc27.abstracts
             // どの駒の種類にも当てはまらない場合に、Yososu と書くことがある☆（＾▽＾）ｗｗｗ
             { MotiKoma.Yososu, MotiKoma.Yososu },
         };
-        public static MotiKoma KomasyuruiAndTaikyokusyaToMotiKoma(Komasyurui ks, Taikyokusya tai) { return Med_Koma.m_KomasyuruiAndTaikyokusyaToMotiKoma_[(int)ks,(int)tai]; }
+        public static MotiKoma KomasyuruiAndTaikyokusyaToMotiKoma(Komasyurui ks, Taikyokusya tai) { return Med_Koma.m_KomasyuruiAndTaikyokusyaToMotiKoma_[(int)ks, (int)tai]; }
         #endregion
 
         #region 駒種類と手番→駒
@@ -310,8 +307,9 @@ namespace kifuwarabe_wcsc27.abstracts
             { Koma.PS, Koma.ps },// パワーアップいのしし
             { Koma.Kuhaku, Koma.Kuhaku },// らいおん～にわとり　までの要素の個数になるぜ☆（＾▽＾）どの駒の種類にも当てはまらない場合に、Yososu と書くことがある☆（＾▽＾）ｗｗｗ
         };
-        public static Koma KomasyuruiAndTaikyokusyaToKoma(Komasyurui ks, Taikyokusya tb) {
-            return Med_Koma.m_KomasyuruiAndTaikyokusyaToKoma_[(int)ks,(int)tb];
+        public static Koma KomasyuruiAndTaikyokusyaToKoma(Komasyurui ks, Taikyokusya tb)
+        {
+            return Med_Koma.m_KomasyuruiAndTaikyokusyaToKoma_[(int)ks, (int)tb];
         }
         #endregion
 

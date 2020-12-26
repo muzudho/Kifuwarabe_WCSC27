@@ -1,15 +1,10 @@
-﻿using Grayscale.Kifuwarakei.Entities;
-using Grayscale.Kifuwarakei.Entities.Logging;
-using kifuwarabe_wcsc27.facade;
-using kifuwarabe_wcsc27.implements;
-using kifuwarabe_wcsc27.interfaces;
-using kifuwarabe_wcsc27.machine;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
+using Grayscale.Kifuwarakei.Entities.Logging;
 
-namespace kifuwarabe_wcsc27.abstracts
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     public enum GameMode
     {
@@ -95,11 +90,11 @@ namespace kifuwarabe_wcsc27.abstracts
             ky.DoHirate(isSfen, syuturyoku);
         }
 
-        public static TaikyokuKekka Result( Kyokumen ky)
+        public static TaikyokuKekka Result(Kyokumen ky)
         {
             return ky.Kekka;
         }
-        public static bool ParseDoMove( Kyokumen ky, out Move out_sasite)
+        public static bool ParseDoMove(Kyokumen ky, out Move out_sasite)
         {
             // コンソールからのキー入力を解析するぜ☆（＾▽＾）
             int caret = Util_Commandline.Caret;
@@ -142,21 +137,21 @@ namespace kifuwarabe_wcsc27.abstracts
         /// 決着
         /// </summary>
         /// <returns></returns>
-        public static bool IsKettyaku( Kyokumen ky)
+        public static bool IsKettyaku(Kyokumen ky)
         {
             return ky.Kekka != TaikyokuKekka.Karappo;
         }
 
 
 
-        public static void Hyoka( Kyokumen ky, out HyokatiUtiwake out_hyokatiUtiwake, HyokaRiyu riyu, bool randomNaKyokumen)
+        public static void Hyoka(Kyokumen ky, out HyokatiUtiwake out_hyokatiUtiwake, HyokaRiyu riyu, bool randomNaKyokumen)
         {
-            ky.Hyoka( out out_hyokatiUtiwake, riyu, randomNaKyokumen);
+            ky.Hyoka(out out_hyokatiUtiwake, riyu, randomNaKyokumen);
         }
 
         public static Move Go(IPlaying playing, Kyokumen ky, out HyokatiUtiwake out_hyokatiUtiwake, Util_Tansaku.Dlgt_CreateJoho dlgt_CreateJoho, StringBuilder syuturyoku)
         {
-            Move move = Util_Tansaku.Go(playing,Option_Application.Optionlist.USI, ky, out out_hyokatiUtiwake, out bool isJosekiTraced, dlgt_CreateJoho, syuturyoku);
+            Move move = Util_Tansaku.Go(playing, Option_Application.Optionlist.USI, ky, out out_hyokatiUtiwake, out bool isJosekiTraced, dlgt_CreateJoho, syuturyoku);
             Util_ConsoleGame.IsJosekiTraced = isJosekiTraced;
             return move;
         }
@@ -218,7 +213,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     {
                         throw new Exception($"対局者のパースエラー moji4=[{ moji4 }]");
                     }
-                    out_kikiBB = Util_Application.Kiki_BB(Med_Koma.KomasyuruiAndTaikyokusyaToKoma( Med_Parser.Moji_Komasyurui(Option_Application.Optionlist.USI, moji3),tai), Med_Parser.FenSujiDan_Masu(Option_Application.Optionlist.USI, moji1, moji2), ky.Shogiban);// komanoUgokikata
+                    out_kikiBB = Util_Application.Kiki_BB(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Med_Parser.Moji_Komasyurui(Option_Application.Optionlist.USI, moji3), tai), Med_Parser.FenSujiDan_Masu(Option_Application.Optionlist.USI, moji1, moji2), ky.Shogiban);// komanoUgokikata
                 }
                 else
                 {
@@ -237,14 +232,14 @@ namespace kifuwarabe_wcsc27.abstracts
         /// <param name="ks"></param>
         /// <param name="attackerMs"></param>
         /// <returns></returns>
-        public static bool[] Kiki(Koma km, Masu attackerMs, Kyokumen.Sindanyo kys, Shogiban shogiban )//KomanoUgokikata komanoUgokikata
+        public static bool[] Kiki(Koma km, Masu attackerMs, Kyokumen.Sindanyo kys, Shogiban shogiban)//KomanoUgokikata komanoUgokikata
         {
             bool[] kiki = new bool[kys.MASU_YOSOSU];
 
             // 盤上
             for (int iDan = 0; iDan < Option_Application.Optionlist.BanTateHaba; iDan++)
             {
-                for (int iSuji=0; iSuji< Option_Application.Optionlist.BanYokoHaba; iSuji++ )
+                for (int iSuji = 0; iSuji < Option_Application.Optionlist.BanYokoHaba; iSuji++)
                 {
                     kiki[iDan * Option_Application.Optionlist.BanYokoHaba + iSuji] = Util_HiouteCase.IsLegalMove(km, (Masu)(iDan * Option_Application.Optionlist.BanYokoHaba + iSuji), attackerMs, shogiban);
                 }
@@ -271,10 +266,10 @@ namespace kifuwarabe_wcsc27.abstracts
             return kiki;
         }
 
-        public static void Rnd( Kyokumen ky, StringBuilder syuturyoku)
+        public static void Rnd(Kyokumen ky, StringBuilder syuturyoku)
         {
             int fukasa = 0;
-            AbstractUtilMoveGen.GenerateMove01(fukasa, ky, MoveType.N21_All,true, syuturyoku);//グローバル変数に指し手がセットされるぜ☆（＾▽＾）
+            AbstractUtilMoveGen.GenerateMove01(fukasa, ky, MoveType.N21_All, true, syuturyoku);//グローバル変数に指し手がセットされるぜ☆（＾▽＾）
             if (AbstractUtilMoveGen.MoveList[fukasa].SslistCount < 1)
             {
                 Nanteme nanteme = new Nanteme();
@@ -288,15 +283,15 @@ namespace kifuwarabe_wcsc27.abstracts
             }
         }
 
-        public static List<MoveKakucho> MoveCmd( Kyokumen ky, StringBuilder syuturyoku)
+        public static List<MoveKakucho> MoveCmd(Kyokumen ky, StringBuilder syuturyoku)
         {
             List<MoveKakucho> sslist = new List<MoveKakucho>();
             int fukasa = 0;
-            AbstractUtilMoveGen.GenerateMove01(fukasa, ky, MoveType.N21_All,true, syuturyoku);//グローバル変数に指し手がセットされるぜ☆（＾▽＾）
+            AbstractUtilMoveGen.GenerateMove01(fukasa, ky, MoveType.N21_All, true, syuturyoku);//グローバル変数に指し手がセットされるぜ☆（＾▽＾）
 
             for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
             {
-                sslist.Add(new MoveKakuchoImpl( AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
+                sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
             }
 
             return sslist;
@@ -317,7 +312,7 @@ namespace kifuwarabe_wcsc27.abstracts
             }
 
             // 数字でなければ、 move B2B3 といった文字列か☆（＾～＾）
-            if(Med_Parser.TryFenMove(Option_Application.Optionlist.USI, commandline, ref caret, kys, out out_sasite))
+            if (Med_Parser.TryFenMove(Option_Application.Optionlist.USI, commandline, ref caret, kys, out out_sasite))
             {
                 return true;
             }
@@ -351,7 +346,7 @@ namespace kifuwarabe_wcsc27.abstracts
             Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "set ");
             // うしろに続く文字は☆（＾▽＾）
 
-#region AspirationWindow
+            #region AspirationWindow
             if (caret == commandline.IndexOf("AspirationFukasa ", caret))
             {
                 // うしろに続く文字は☆（＾▽＾）
@@ -363,8 +358,8 @@ namespace kifuwarabe_wcsc27.abstracts
                     Option_Application.Optionlist.AspirationFukasa = val;
                 }
             }
-#endregion
-#region AspirationWindow
+            #endregion
+            #region AspirationWindow
             if (caret == commandline.IndexOf("AspirationWindow ", caret))
             {
                 // うしろに続く文字は☆（＾▽＾）
@@ -424,8 +419,8 @@ namespace kifuwarabe_wcsc27.abstracts
                     Option_Application.Optionlist.BetaCutPer = val;
                 }
             }
-#endregion
-#region HanpukuSinkaTansakuTukau
+            #endregion
+            #region HanpukuSinkaTansakuTukau
             else if (caret == commandline.IndexOf("HanpukuSinkaTansakuTukau ", caret))
             {
                 // うしろに続く文字は☆（＾▽＾）
@@ -437,8 +432,8 @@ namespace kifuwarabe_wcsc27.abstracts
                     Option_Application.Optionlist.HanpukuSinkaTansakuTukau = val;
                 }
             }
-#endregion
-#region JohoJikan
+            #endregion
+            #region JohoJikan
             else if (caret == commandline.IndexOf("JohoJikan ", caret))
             {
                 // うしろに続く文字は☆（＾▽＾）
@@ -450,9 +445,9 @@ namespace kifuwarabe_wcsc27.abstracts
                     Option_Application.Optionlist.JohoJikan = val;
                 }
             }
-#endregion
-#region JosekiPer
-            else if (caret == commandline.IndexOf("JosekiPer ",caret))
+            #endregion
+            #region JosekiPer
+            else if (caret == commandline.IndexOf("JosekiPer ", caret))
             {
                 // うしろに続く文字は☆（＾▽＾）
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "JosekiPer ");
@@ -465,9 +460,9 @@ namespace kifuwarabe_wcsc27.abstracts
                     Option_Application.Optionlist.JosekiPer = val;
                 }
             }
-#endregion
-#region JosekiRec
-            else if (caret == commandline.IndexOf("JosekiRec ",caret))
+            #endregion
+            #region JosekiRec
+            else if (caret == commandline.IndexOf("JosekiRec ", caret))
             {
                 // うしろに続く文字は☆（＾▽＾）
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "JosekiRec ");
@@ -478,9 +473,9 @@ namespace kifuwarabe_wcsc27.abstracts
                     Option_Application.Optionlist.JosekiRec = val;
                 }
             }
-#endregion
-#region Learn
-            else if (caret == commandline.IndexOf("Learn ",caret))
+            #endregion
+            #region Learn
+            else if (caret == commandline.IndexOf("Learn ", caret))
             {
                 // うしろに続く文字は☆（＾▽＾）
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "Learn ");
@@ -491,8 +486,8 @@ namespace kifuwarabe_wcsc27.abstracts
                     Option_Application.Optionlist.Learn = val;
                 }
             }
-#endregion
-#region NikomaHyokaKeisu
+            #endregion
+            #region NikomaHyokaKeisu
             else if (caret == commandline.IndexOf("NikomaHyokaKeisu ", caret))
             {
                 // うしろに続く文字は☆（＾▽＾）
@@ -504,8 +499,8 @@ namespace kifuwarabe_wcsc27.abstracts
                     Option_Application.Optionlist.NikomaHyokaKeisu = val;
                 }
             }
-#endregion
-#region NikomaGakusyuKeisu
+            #endregion
+            #region NikomaGakusyuKeisu
             else if (caret == commandline.IndexOf("NikomaGakusyuKeisu ", caret))
             {
                 // うしろに続く文字は☆（＾▽＾）
@@ -517,17 +512,17 @@ namespace kifuwarabe_wcsc27.abstracts
                     Option_Application.Optionlist.NikomaGakusyuKeisu = val;
                 }
             }
-#endregion
-#region P1Char
-            else if (caret == commandline.IndexOf("P1Char ",caret))
+            #endregion
+            #region P1Char
+            else if (caret == commandline.IndexOf("P1Char ", caret))
             {
                 // うしろに続く文字は☆（＾▽＾）
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "P1Char ");
-                Option_Application.Optionlist.PNChar[(int)Taikyokusya.T1] = AbstractConvMoveCharacter.Parse(commandline,ref caret);
+                Option_Application.Optionlist.PNChar[(int)Taikyokusya.T1] = AbstractConvMoveCharacter.Parse(commandline, ref caret);
             }
-#endregion
-#region P1Com
-            else if (caret == commandline.IndexOf("P1Com ",caret))
+            #endregion
+            #region P1Com
+            else if (caret == commandline.IndexOf("P1Com ", caret))
             {
                 // うしろに続く文字は☆（＾▽＾）
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "P1Com ");
@@ -538,25 +533,25 @@ namespace kifuwarabe_wcsc27.abstracts
                     Option_Application.Optionlist.P1Com = val;
                 }
             }
-#endregion
-#region P1Name
+            #endregion
+            #region P1Name
             else if (caret == commandline.IndexOf("P1Name ", caret))
             {
                 // うしろに続く文字は☆（＾▽＾）
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "P1Name ");
                 Option_Application.Optionlist.PNName[(int)Taikyokusya.T1] = commandline.Substring(caret);
             }
-#endregion
-#region P2Char
-            else if (caret == commandline.IndexOf("P2Char ",caret))
+            #endregion
+            #region P2Char
+            else if (caret == commandline.IndexOf("P2Char ", caret))
             {
                 // うしろに続く文字は☆（＾▽＾）
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "P2Char ");
-                Option_Application.Optionlist.PNChar[(int)Taikyokusya.T2] = AbstractConvMoveCharacter.Parse(commandline,ref caret);
+                Option_Application.Optionlist.PNChar[(int)Taikyokusya.T2] = AbstractConvMoveCharacter.Parse(commandline, ref caret);
             }
-#endregion
-#region P2Com
-            else if (caret == commandline.IndexOf("P2Com ",caret))
+            #endregion
+            #region P2Com
+            else if (caret == commandline.IndexOf("P2Com ", caret))
             {
                 // うしろに続く文字は☆（＾▽＾）
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "P2Com ");
@@ -567,17 +562,17 @@ namespace kifuwarabe_wcsc27.abstracts
                     Option_Application.Optionlist.P2Com = val;
                 }
             }
-#endregion
-#region P2Name
+            #endregion
+            #region P2Name
             else if (caret == commandline.IndexOf("P2Name ", caret))
             {
                 // うしろに続く文字は☆（＾▽＾）
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "P2Name ");
                 Option_Application.Optionlist.PNName[(int)Taikyokusya.T2] = commandline.Substring(caret);
             }
-#endregion
-#region RandomCharacter
-            else if (caret == commandline.IndexOf("RandomCharacter ",caret))
+            #endregion
+            #region RandomCharacter
+            else if (caret == commandline.IndexOf("RandomCharacter ", caret))
             {
                 // うしろに続く文字は☆（＾▽＾）
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "RandomCharacter ");
@@ -588,9 +583,9 @@ namespace kifuwarabe_wcsc27.abstracts
                     Option_Application.Optionlist.RandomCharacter = val;
                 }
             }
-#endregion
-#region RandomNikoma
-            else if (caret == commandline.IndexOf("RandomNikoma ",caret))
+            #endregion
+            #region RandomNikoma
+            else if (caret == commandline.IndexOf("RandomNikoma ", caret))
             {
                 // うしろに続く文字は☆（＾▽＾）
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "RandomNikoma ");
@@ -601,9 +596,9 @@ namespace kifuwarabe_wcsc27.abstracts
                     Option_Application.Optionlist.RandomNikoma = val;
                 }
             }
-#endregion
+            #endregion
             // RandomSei は 廃止されたぜ☆（＾▽＾）ｗｗｗ
-#region RandomStart
+            #region RandomStart
             else if (caret == commandline.IndexOf("RandomStart ", caret))
             {
                 // うしろに続く文字は☆（＾▽＾）
@@ -615,8 +610,8 @@ namespace kifuwarabe_wcsc27.abstracts
                     Option_Application.Optionlist.RandomStart = val;
                 }
             }
-#endregion
-#region RandomStartTaikyokusya
+            #endregion
+            #region RandomStartTaikyokusya
             else if (caret == commandline.IndexOf("RandomStartTaikyokusya ", caret))
             {
                 // うしろに続く文字は☆（＾▽＾）
@@ -628,9 +623,9 @@ namespace kifuwarabe_wcsc27.abstracts
                     Option_Application.Optionlist.RandomStartTaikyokusya = val;
                 }
             }
-#endregion
-#region RenzokuRandomRule
-            else if (caret == commandline.IndexOf("RenzokuRandomRule ",caret))
+            #endregion
+            #region RenzokuRandomRule
+            else if (caret == commandline.IndexOf("RenzokuRandomRule ", caret))
             {
                 // うしろに続く文字は☆（＾▽＾）
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "RenzokuRandomRule ");
@@ -641,9 +636,9 @@ namespace kifuwarabe_wcsc27.abstracts
                     Option_Application.Optionlist.RenzokuRandomRule = val;
                 }
             }
-#endregion
-#region RenzokuTaikyoku
-            else if (caret == commandline.IndexOf("RenzokuTaikyoku ",caret))
+            #endregion
+            #region RenzokuTaikyoku
+            else if (caret == commandline.IndexOf("RenzokuTaikyoku ", caret))
             {
                 // うしろに続く文字は☆（＾▽＾）
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "RenzokuTaikyoku ");
@@ -654,9 +649,9 @@ namespace kifuwarabe_wcsc27.abstracts
                     Option_Application.Optionlist.RenzokuTaikyoku = val;
                 }
             }
-#endregion
-#region SagareruHiyoko
-            else if (caret == commandline.IndexOf("SagareruHiyoko ",caret))
+            #endregion
+            #region SagareruHiyoko
+            else if (caret == commandline.IndexOf("SagareruHiyoko ", caret))
             {
                 // うしろに続く文字は☆（＾▽＾）
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "SagareruHiyoko ");
@@ -714,7 +709,7 @@ namespace kifuwarabe_wcsc27.abstracts
             }
             #endregion
             #region SaidaiFukasa
-            else if (caret == commandline.IndexOf("SaidaiFukasa ",caret))
+            else if (caret == commandline.IndexOf("SaidaiFukasa ", caret))
             {
                 // うしろに続く文字は☆（＾▽＾）
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "SaidaiFukasa ");
@@ -731,9 +726,9 @@ namespace kifuwarabe_wcsc27.abstracts
                     }
                 }
             }
-#endregion
-#region SeisekiRec
-            else if (caret == commandline.IndexOf("SeisekiRec ",caret))
+            #endregion
+            #region SeisekiRec
+            else if (caret == commandline.IndexOf("SeisekiRec ", caret))
             {
                 // うしろに続く文字は☆（＾▽＾）
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "SeisekiRec ");
@@ -744,9 +739,9 @@ namespace kifuwarabe_wcsc27.abstracts
                     Option_Application.Optionlist.SeisekiRec = val;
                 }
             }
-#endregion
-#region SennititeKaihi
-            else if (caret == commandline.IndexOf("SennititeKaihi ",caret))
+            #endregion
+            #region SennititeKaihi
+            else if (caret == commandline.IndexOf("SennititeKaihi ", caret))
             {
                 // うしろに続く文字は☆（＾▽＾）
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "SennititeKaihi ");
@@ -757,9 +752,9 @@ namespace kifuwarabe_wcsc27.abstracts
                     Option_Application.Optionlist.SennititeKaihi = val;
                 }
             }
-#endregion
-#region SikoJikan
-            else if (caret == commandline.IndexOf("SikoJikan ",caret))
+            #endregion
+            #region SikoJikan
+            else if (caret == commandline.IndexOf("SikoJikan ", caret))
             {
                 // うしろに続く文字は☆（＾▽＾）
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "SikoJikan ");
@@ -770,8 +765,8 @@ namespace kifuwarabe_wcsc27.abstracts
                     Option_Application.Optionlist.SikoJikan = val;
                 }
             }
-#endregion
-#region SikoJikanRandom
+            #endregion
+            #region SikoJikanRandom
             else if (caret == commandline.IndexOf("SikoJikanRandom ", caret))
             {
                 // うしろに続く文字は☆（＾▽＾）
@@ -783,8 +778,8 @@ namespace kifuwarabe_wcsc27.abstracts
                     Option_Application.Optionlist.SikoJikanRandom = val;
                 }
             }
-#endregion
-#region TranspositionTableTukau
+            #endregion
+            #region TranspositionTableTukau
             else if (caret == commandline.IndexOf("TranspositionTableTukau ", caret))
             {
                 // うしろに続く文字は☆（＾▽＾）
@@ -796,9 +791,9 @@ namespace kifuwarabe_wcsc27.abstracts
                     Option_Application.Optionlist.TranspositionTableTukau = val;
                 }
             }
-#endregion
-#region UseTimeOver
-            else if (caret == commandline.IndexOf("UseTimeOver ",caret))
+            #endregion
+            #region UseTimeOver
+            else if (caret == commandline.IndexOf("UseTimeOver ", caret))
             {
                 // うしろに続く文字は☆（＾▽＾）
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "UseTimeOver ");
@@ -843,11 +838,11 @@ namespace kifuwarabe_wcsc27.abstracts
 
 
 
-#region コンソールゲーム用の機能☆
+        #region コンソールゲーム用の機能☆
         /// <summary>
         /// アプリケーション開始時☆
         /// </summary>
-        public static void Begin2_Application( Kyokumen ky, StringBuilder syuturyoku)
+        public static void Begin2_Application(Kyokumen ky, StringBuilder syuturyoku)
         {
             TimeManager.Stopwatch_Savefile.Start();// 定跡ファイルの保存間隔の計測
             TimeManager.Stopwatch_RenzokuRandomRule.Start();
@@ -900,7 +895,7 @@ namespace kifuwarabe_wcsc27.abstracts
         }
 
 
-#region 成績更新
+        #region 成績更新
         public static void Begin_SeisekiKosin(StringBuilder syuturyoku)
         {
             // 成績ファイルを更新するぜ☆（＾～＾）
@@ -952,7 +947,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 Logger.Flush(syuturyoku);
             }
         }
-#endregion
+        #endregion
 
         /// <summary>
         /// 定跡等外部ファイルの保存間隔の調整だぜ☆　もう保存していいなら真だぜ☆（＾▽＾）
@@ -994,7 +989,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// <summary>
         /// 対局終了
         /// </summary>
-        public static void DoTejun5_SyuryoTaikyoku1(IPlaying playing, Kyokumen ky, StringBuilder syuturyoku )
+        public static void DoTejun5_SyuryoTaikyoku1(IPlaying playing, Kyokumen ky, StringBuilder syuturyoku)
         {
             // 表示（コンソール・ゲーム用）
             {

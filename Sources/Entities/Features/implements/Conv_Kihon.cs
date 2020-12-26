@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace kifuwarabe_wcsc27.implements
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     public abstract class Conv_Kihon
     {
@@ -19,7 +19,7 @@ namespace kifuwarabe_wcsc27.implements
         /// <returns></returns>
         public static string ToAlphabetSmall(int num)
         {
-            if (0<=num && num<=9)
+            if (0 <= num && num <= 9)
             {
                 return Conv_Kihon.m_SmallAlphabets_[num];
             }
@@ -68,7 +68,7 @@ namespace kifuwarabe_wcsc27.implements
 
         public static string ToZenkakuInteger(int value)
         {
-            if(-1 < value && value < ZenkakuInteger.Length)
+            if (-1 < value && value < ZenkakuInteger.Length)
             {
                 return ZenkakuInteger[value];
             }

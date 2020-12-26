@@ -1,9 +1,6 @@
-﻿using kifuwarabe_wcsc27.implements;
-using System.Text.RegularExpressions;
-using kifuwarabe_wcsc27.abstracts;
-using System.Text;
+﻿using System.Text;
 
-namespace kifuwarabe_wcsc27.interfaces
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     /// <summary>
     /// 升のことだぜ☆（＾▽＾）
@@ -74,7 +71,7 @@ namespace kifuwarabe_wcsc27.interfaces
         //    return Option_Application.Optionlist.BanTateHaba - (dan - 1);
         //}
 
-        public static Masu ToMasu( int suji, int dan)
+        public static Masu ToMasu(int suji, int dan)
         {
             return (Masu)(Option_Application.Optionlist.BanYokoHaba * (dan - 1) + (suji - 1));
         }

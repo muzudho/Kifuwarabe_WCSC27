@@ -1,10 +1,7 @@
-﻿using kifuwarabe_wcsc27.interfaces;
-using kifuwarabe_wcsc27.implements;
-using kifuwarabe_wcsc27.abstracts;
+﻿using System.Diagnostics;
 using System.Text;
-using System.Diagnostics;
 
-namespace kifuwarabe_wcsc27.abstracts
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     /// <summary>
     /// 何かと情報を出力するのに使うぜ☆（＾～＾）
@@ -128,7 +125,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// <returns></returns>
         public static void Setumei_Bitboards(string[] headers, Bitboard[] bbHairetu, StringBuilder syuturyoku)
         {
-            Debug.Assert(0<bbHairetu.Length && null!=bbHairetu[0], "");
+            Debug.Assert(0 < bbHairetu.Length && null != bbHairetu[0], "");
 
             // 見出し
             Setumei_Headers(headers, syuturyoku);
@@ -444,7 +441,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 for (int iMs_offset = 0; iMs_offset < Option_Application.Optionlist.BanYokoHaba; iMs_offset++)
                 {
                     int kikisuKomabetu = sg.CountKikisuKomabetu(Med_Koma.KomasyuruiAndTaikyokusyaToKoma((Komasyurui)iKs, tai), (Masu)(ms_hidariHasi + iMs_offset));
-                    syuturyoku.Append( 0 < kikisuKomabetu ? string.Format(" {0,2} ", kikisuKomabetu) : "　　");
+                    syuturyoku.Append(0 < kikisuKomabetu ? string.Format(" {0,2} ", kikisuKomabetu) : "　　");
                     syuturyoku.Append("│");
                 }
             }
@@ -595,7 +592,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     Bitboard[] bbHairetu = new Bitboard[Conv_Komasyurui.Itiran.Length];
                     foreach (Komasyurui ks in Conv_Komasyurui.Itiran)
                     {
-                        bbHairetu[(int)ks] = shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma( ks, tai), (Masu)ms);
+                        bbHairetu[(int)ks] = shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, tai), (Masu)ms);
                     }
                     Util_Information.Setumei_Bitboards(Med_Koma.GetKomasyuruiNamaeItiran(tai), bbHairetu, syuturyoku);
                     syuturyoku.AppendLine();

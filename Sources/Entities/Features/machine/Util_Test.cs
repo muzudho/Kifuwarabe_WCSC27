@@ -1,9 +1,8 @@
 ﻿using System.Diagnostics;
 using System.Text;
 using Grayscale.Kifuwarakei.Entities.Logging;
-using kifuwarabe_wcsc27.interfaces;
 
-namespace kifuwarabe_wcsc27.machine
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     public delegate void TestBlock(StringBuilder syuturyoku);
 

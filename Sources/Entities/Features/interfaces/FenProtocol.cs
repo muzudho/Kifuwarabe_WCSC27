@@ -1,4 +1,4 @@
-﻿namespace kifuwarabe_wcsc27.interfaces
+﻿namespace Grayscale.Kifuwarakei.Entities.Features
 {
     public interface FenProtocol
     {

@@ -1,16 +1,8 @@
-﻿using kifuwarabe_wcsc27.facade;
-using kifuwarabe_wcsc27.machine;
-using kifuwarabe_wcsc27.interfaces;
-using System;
-using System.Collections.Generic;
-using kifuwarabe_wcsc27.implements;
-using Nett;
-using System.IO;
-using Grayscale.Kifuwarakei.Entities;
+﻿using System.Collections.Generic;
 using System.Text;
 using Grayscale.Kifuwarakei.Entities.Logging;
 
-namespace kifuwarabe_wcsc27.abstracts
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     public abstract class Util_Commandline
     {

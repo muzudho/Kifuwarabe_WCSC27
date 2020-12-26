@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace kifuwarabe_wcsc27.interfaces
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     /// <summary>
     /// 先後付きの盤上の駒だぜ☆（＾▽＾）
@@ -10,72 +10,72 @@ namespace kifuwarabe_wcsc27.interfaces
         /// <summary>
         /// らいおん（対局者１，２）
         /// </summary>
-        R,r,
+        R, r,
 
         /// <summary>
         /// ぞう
         /// </summary>
-        Z,z,
+        Z, z,
 
         /// <summary>
         /// パワーアップぞう
         /// </summary>
-        PZ,pz,
+        PZ, pz,
 
         /// <summary>
         /// きりん
         /// </summary>
-        K,k,
+        K, k,
 
         /// <summary>
         /// パワーアップきりん
         /// </summary>
-        PK,pk,
+        PK, pk,
 
         /// <summary>
         /// ひよこ
         /// </summary>
-        H,h,
+        H, h,
 
         /// <summary>
         /// にわとり
         /// </summary>
-        PH,ph,
+        PH, ph,
 
         /// <summary>
         /// いぬ
         /// </summary>
-        I,i,
+        I, i,
 
         /// <summary>
         /// ねこ
         /// </summary>
-        Neko,neko,
+        Neko, neko,
 
         /// <summary>
         /// 成りねこ
         /// </summary>
-        PNeko,pneko,
+        PNeko, pneko,
 
         /// <summary>
         /// うさぎ
         /// </summary>
-        U,u,
+        U, u,
 
         /// <summary>
         /// 成りうさぎ
         /// </summary>
-        PU,pu,
+        PU, pu,
 
         /// <summary>
         /// いのしし
         /// </summary>
-        S,s,
+        S, s,
 
         /// <summary>
         /// 成りいのしし
         /// </summary>
-        PS,ps,
+        PS, ps,
 
         /// <summary>
         /// 空白☆ 駒のない升だぜ☆（＾▽＾）
@@ -95,37 +95,37 @@ namespace kifuwarabe_wcsc27.interfaces
         /// <summary>
         /// ぞう（対局者１、対局者２）
         /// </summary>
-        Z,z,
+        Z, z,
 
         /// <summary>
         /// きりん
         /// </summary>
-        K,k,
+        K, k,
 
         /// <summary>
         /// ひよこ
         /// </summary>
-        H,h,
+        H, h,
 
         /// <summary>
         /// いぬ
         /// </summary>
-        I,i,
+        I, i,
 
         /// <summary>
         /// ねこ
         /// </summary>
-        Neko,neko,
+        Neko, neko,
 
         /// <summary>
         /// うさぎ
         /// </summary>
-        U,u,
+        U, u,
 
         /// <summary>
         /// しし
         /// </summary>
-        S,s,
+        S, s,
 
         /// <summary>
         /// 先手のぞう～後手のひよこ　までの要素の個数になるぜ☆（＾▽＾）
@@ -540,8 +540,9 @@ namespace kifuwarabe_wcsc27.interfaces
         /// </summary>
         /// <param name="km"></param>
         /// <returns></returns>
-        public static void AppendFenTo(bool isSfen, Koma km, StringBuilder syuturyoku) {
-            syuturyoku.Append(isSfen? m_sfen_[(int)km] : m_dfen_[(int)km]);
+        public static void AppendFenTo(bool isSfen, Koma km, StringBuilder syuturyoku)
+        {
+            syuturyoku.Append(isSfen ? m_sfen_[(int)km] : m_dfen_[(int)km]);
         }
         public static string GetFen(bool isSfen, Koma km)
         {
@@ -916,7 +917,7 @@ namespace kifuwarabe_wcsc27.interfaces
         };
         public static string GetFen(bool isSfen, MotiKoma mk)
         {
-            return isSfen ? m_sfen_[(int)mk]: m_dfen_[(int)mk];
+            return isSfen ? m_sfen_[(int)mk] : m_dfen_[(int)mk];
         }
 
         private static string[] m_setumeiMojiretu_ = {
@@ -934,7 +935,7 @@ namespace kifuwarabe_wcsc27.interfaces
         /// </summary>
         /// <param name="mk"></param>
         /// <returns></returns>
-        public static void Setumei(MotiKoma mk,StringBuilder syuturyoku)
+        public static void Setumei(MotiKoma mk, StringBuilder syuturyoku)
         {
             syuturyoku.Append(Conv_MotiKoma.m_setumeiMojiretu_[(int)mk]);
         }

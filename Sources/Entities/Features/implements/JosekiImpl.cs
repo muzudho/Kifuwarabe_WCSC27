@@ -1,14 +1,10 @@
-﻿using kifuwarabe_wcsc27.facade;
-using kifuwarabe_wcsc27.interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using kifuwarabe_wcsc27.machine;
-using kifuwarabe_wcsc27.abstracts;
 using System.Text;
+using System.Text.RegularExpressions;
 using Grayscale.Kifuwarakei.Entities.Logging;
 
-namespace kifuwarabe_wcsc27.implements
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     public class JosekiMove
     {
@@ -195,7 +191,7 @@ namespace kifuwarabe_wcsc27.implements
         /// <summary>
         /// ハッシュを使うので、データが消えるかも……☆（＾～＾）
         /// </summary>
-        public Dictionary<ulong,JosekiKyokumen> KyItems { get; }
+        public Dictionary<ulong, JosekiKyokumen> KyItems { get; }
 
         public void Clear()
         {
@@ -252,17 +248,17 @@ namespace kifuwarabe_wcsc27.implements
 
             josekiKy.AddMove(bestMove, hyokati, fukasa, version);
 
-//#if DEBUG
-//            // 定跡を追加した直後にダンプして中身を目視確認だぜ☆（＾～＾）
-//            Util_Machine.AppendLine(
-//                    $@"定跡を追加した直後にダンプして中身を目視確認だぜ☆（＾～＾）
-//┌──────────┐
-//{this.ToString()}
-//└──────────┘
-//"
-//                );
-//            Logger.Flush();
-//#endif
+            //#if DEBUG
+            //            // 定跡を追加した直後にダンプして中身を目視確認だぜ☆（＾～＾）
+            //            Util_Machine.AppendLine(
+            //                    $@"定跡を追加した直後にダンプして中身を目視確認だぜ☆（＾～＾）
+            //┌──────────┐
+            //{this.ToString()}
+            //└──────────┘
+            //"
+            //                );
+            //            Logger.Flush();
+            //#endif
 
             return josekiKy;
         }
@@ -330,7 +326,7 @@ namespace kifuwarabe_wcsc27.implements
             JosekiMove josekiSs;
             Match m;
             string commandline;
-            for (int iGyoBango = 0; iGyoBango<lines.Length; iGyoBango++)
+            for (int iGyoBango = 0; iGyoBango < lines.Length; iGyoBango++)
             {
                 commandline = lines[iGyoBango];
 
@@ -339,7 +335,7 @@ namespace kifuwarabe_wcsc27.implements
                     // 空行は無視☆
                     // 半角空白とか、全角空白とか、タブとか　入れてるやつは考慮しないぜ☆（＾～＾）！
                 }
-                else if ('f'==commandline[0])// fen で始まれば局面データ☆（＾▽＾）// caret == commandline.IndexOf("fen ", caret)
+                else if ('f' == commandline[0])// fen で始まれば局面データ☆（＾▽＾）// caret == commandline.IndexOf("fen ", caret)
                 {
                     // キャレットは進めずに続行だぜ☆（＾▽＾）
                     m = Itiran_FenParser.GetJosekiKyPattern(Option_Application.Optionlist.USI).Match(commandline);//, caret
@@ -415,12 +411,12 @@ commandline=[{ commandline }]");
 #endif
                     */
 
-                    josekiKy = this.ParseKyokumenLine(commandline,ky_forJoseki.KyokumenHash.Value, ky_forJoseki.Teban, syuturyoku);
+                    josekiKy = this.ParseKyokumenLine(commandline, ky_forJoseki.KyokumenHash.Value, ky_forJoseki.Teban, syuturyoku);
                 }
                 else
                 {
                     // それ以外は手筋☆（＾▽＾）
-                    if (null== josekiKy)
+                    if (null == josekiKy)
                     {
                         throw new Exception("定跡ファイル解析失敗 定跡局面の指定なし☆");
                     }
@@ -871,7 +867,7 @@ commandline=[{ commandline }]");
                 }
             }
 
-            gt_FinishRemove:
+        gt_FinishRemove:
             //────────────────────────────────────────
             // （最後に）指し手を持たない局面を削る☆
             //────────────────────────────────────────
@@ -915,7 +911,7 @@ commandline=[{ commandline }]");
             List<ulong> removeKeys = new List<ulong>();
             foreach (KeyValuePair<ulong, JosekiKyokumen> joKy in this.KyItems)
             {
-                if (joKy.Value.TbTaikyokusya==Taikyokusya.T2)
+                if (joKy.Value.TbTaikyokusya == Taikyokusya.T2)
                 {
                     removeKeys.Add(joKy.Key);
 
@@ -941,7 +937,7 @@ commandline=[{ commandline }]");
             }
 
             out_bunkatu = new Joseki[] { this,//[0]はthisにしろだぜ☆（＾▽＾）
-                joP2 } ;
+                joP2 };
         }
 
         /// <summary>
@@ -972,7 +968,7 @@ commandline=[{ commandline }]");
         /// 定跡ファイル
         /// </summary>
         /// <returns></returns>
-        public string ToString(bool isSfen )
+        public string ToString(bool isSfen)
         {
             StringBuilder mojiretu1 = new StringBuilder();
 

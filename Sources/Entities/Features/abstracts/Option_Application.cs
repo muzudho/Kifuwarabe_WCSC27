@@ -1,8 +1,6 @@
-﻿using kifuwarabe_wcsc27.implements;
-using kifuwarabe_wcsc27.interfaces;
-using System;
+﻿using System;
 
-namespace kifuwarabe_wcsc27.abstracts
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     public abstract class Option_Application
     {

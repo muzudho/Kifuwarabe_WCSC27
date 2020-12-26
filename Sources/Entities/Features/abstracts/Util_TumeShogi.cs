@@ -1,9 +1,6 @@
-﻿using kifuwarabe_wcsc27.interfaces;
-using kifuwarabe_wcsc27.machine;
-using kifuwarabe_wcsc27.implements;
-using System.Text;
+﻿using System.Text;
 
-namespace kifuwarabe_wcsc27.abstracts
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     public abstract class Util_TumeShogi
     {
@@ -72,7 +69,7 @@ namespace kifuwarabe_wcsc27.abstracts
                             "　　　" +
                             "ぞ　　" +
                             "ら　　", false, syuturyoku);
-                        ky.MotiKomas.Clear().Set(MotiKoma.Z, 1).Set(MotiKoma.H,1);// = new int[] { 1, 0, 1, 0, 0, 0 };
+                        ky.MotiKomas.Clear().Set(MotiKoma.Z, 1).Set(MotiKoma.H, 1);// = new int[] { 1, 0, 1, 0, 0, 0 };
                         ky.Tekiyo(true, syuturyoku);
                         Util_Information.Setumei_Lines_Kyokumen(ky, syuturyoku);
                         syuturyoku.AppendLine();

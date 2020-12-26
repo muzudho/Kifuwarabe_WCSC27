@@ -1,12 +1,9 @@
-﻿using System.Text.RegularExpressions;
-using kifuwarabe_wcsc27.abstracts;
-using kifuwarabe_wcsc27.machine;
-using System;
-using kifuwarabe_wcsc27.implements;
+﻿using System;
 using System.Text;
+using System.Text.RegularExpressions;
 using Grayscale.Kifuwarakei.Entities.Logging;
 
-namespace kifuwarabe_wcsc27.interfaces
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     /// <summary>
     /// 評価値☆
@@ -326,7 +323,7 @@ namespace kifuwarabe_wcsc27.interfaces
         /// </summary>
         /// <param name="hyokati"></param>
         /// <param name="syuturyoku"></param>
-        public static void Setumei(Hyokati hyokati,StringBuilder syuturyoku)
+        public static void Setumei(Hyokati hyokati, StringBuilder syuturyoku)
         {
             if (Conv_Hyokati.InSyokiti(hyokati))
             {
@@ -450,7 +447,7 @@ namespace kifuwarabe_wcsc27.interfaces
         /// <returns></returns>
         public static bool TryParse(string commandline, ref int caret, out int out_hyokati, StringBuilder syuturyoku)
         {
-            Match m = Itiran_FenParser.HyokatiPattern.Match(commandline,caret);
+            Match m = Itiran_FenParser.HyokatiPattern.Match(commandline, caret);
             if (m.Success)
             {
                 //if(""== m.Groups[1].Value)
@@ -555,7 +552,7 @@ namespace kifuwarabe_wcsc27.interfaces
         /// <returns></returns>
         public static bool InSyokiti(Hyokati hyokati)
         {
-            return Hyokati.Syokiti_Alpha == hyokati || Hyokati.Syokiti_Beta == hyokati ;
+            return Hyokati.Syokiti_Alpha == hyokati || Hyokati.Syokiti_Beta == hyokati;
         }
     }
 }

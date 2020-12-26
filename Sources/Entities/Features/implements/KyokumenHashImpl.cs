@@ -1,7 +1,4 @@
-﻿using kifuwarabe_wcsc27.abstracts;
-using kifuwarabe_wcsc27.interfaces;
-
-namespace kifuwarabe_wcsc27.implements
+﻿namespace Grayscale.Kifuwarakei.Entities.Features
 {
     /// <summary>
     /// 局面ハッシュ

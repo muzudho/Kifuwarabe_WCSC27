@@ -1,8 +1,6 @@
-﻿using kifuwarabe_wcsc27.interfaces;
-using kifuwarabe_wcsc27.abstracts;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
-namespace kifuwarabe_wcsc27.implements
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     public class Optionlist
     {
@@ -194,7 +192,7 @@ namespace kifuwarabe_wcsc27.implements
         {
             SikoJikan_KonkaiNoTansaku = SikoJikan + Option_Application.Random.Next(SikoJikanRandom);
 
-            Debug.Assert(0<Option_Application.Optionlist.SikoJikan_KonkaiNoTansaku, $@"思考時間が1ミリ秒も無いぜ☆（＾～＾）！
+            Debug.Assert(0 < Option_Application.Optionlist.SikoJikan_KonkaiNoTansaku, $@"思考時間が1ミリ秒も無いぜ☆（＾～＾）！
 SikoJikan={SikoJikan}
 SikoJikan_KonkaiNoTansaku={SikoJikan_KonkaiNoTansaku}
 ");

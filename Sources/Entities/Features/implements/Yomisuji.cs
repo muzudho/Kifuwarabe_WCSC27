@@ -1,9 +1,7 @@
-﻿using kifuwarabe_wcsc27.interfaces;
-using System;
-using kifuwarabe_wcsc27.abstracts;
+﻿using System;
 using System.Text;
 
-namespace kifuwarabe_wcsc27.implements
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     public class Yomisuji
     {
@@ -19,13 +17,13 @@ namespace kifuwarabe_wcsc27.implements
 
         public void Setumei(bool isSfen, StringBuilder syuturyoku)
         {
-            for (int i=0; i<this.Size; i++)
+            for (int i = 0; i < this.Size; i++)
             {
-                ConvMove.AppendFenTo(isSfen, this.SasiteItiran[i],syuturyoku);
+                ConvMove.AppendFenTo(isSfen, this.SasiteItiran[i], syuturyoku);
 
                 if (i + 1 < this.Size)
                 {
-                    syuturyoku.Append( " ");
+                    syuturyoku.Append(" ");
                 }
             }
         }
@@ -50,7 +48,7 @@ namespace kifuwarabe_wcsc27.implements
 
         public Move GetBestSasite()
         {
-            if (this.Size<1)
+            if (this.Size < 1)
             {
                 return Move.Toryo;
             }

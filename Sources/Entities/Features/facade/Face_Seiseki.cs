@@ -1,4 +1,4 @@
-﻿namespace kifuwarabe_wcsc27.facade
+﻿namespace Grayscale.Kifuwarakei.Entities.Features
 {
     /// <summary>
     /// スマホで外部ファイルを読込む方法が分からないので、埋め込むならこれを使うんだぜ☆（＾▽＾）

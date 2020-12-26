@@ -1,4 +1,4 @@
-﻿namespace kifuwarabe_wcsc27.interfaces
+﻿namespace Grayscale.Kifuwarakei.Entities.Features
 {
     /// <summary>
     /// 対局結果

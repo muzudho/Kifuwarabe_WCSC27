@@ -1,8 +1,6 @@
-﻿using kifuwarabe_wcsc27.interfaces;
-using System;
-using kifuwarabe_wcsc27.implements;
+﻿using System;
 
-namespace kifuwarabe_wcsc27.abstracts
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     public abstract class Util_Kettyaku
     {

@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace kifuwarabe_wcsc27.abstracts
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     public abstract class Util_String
     {
@@ -64,7 +64,7 @@ namespace kifuwarabe_wcsc27.abstracts
             // 空白にカーソルがある限り、カーソルを次に進めるぜ☆（＾～＾）
             while (caret + 1 < text.Length//既に範囲外かもしれないので、先にチェックするぜ☆（＾▽＾）
                 &&
-                text[caret]==' ')
+                text[caret] == ' ')
             {
                 caret++;
             }

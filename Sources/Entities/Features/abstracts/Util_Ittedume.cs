@@ -1,16 +1,13 @@
-﻿using kifuwarabe_wcsc27.interfaces;
-using kifuwarabe_wcsc27.implements;
-using System;
-using kifuwarabe_wcsc27.machine;
+﻿using System;
 using System.Diagnostics;
 using System.Text;
 using Grayscale.Kifuwarakei.Entities.Logging;
 
 #if DEBUG
-using kifuwarabe_wcsc27.facade;
+using Grayscale.Kifuwarakei.Entities.Features;
 #endif
 
-namespace kifuwarabe_wcsc27.abstracts
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     public abstract class Util_Ittedume
     {
@@ -36,7 +33,8 @@ namespace kifuwarabe_wcsc27.abstracts
             Taikyokusya aite = Conv_Taikyokusya.Hanten(jibun);
 
             // 動かす駒
-            if (!ky.Shogiban.ExistsBBKoma(jibun, ms_t0, out Komasyurui ks_t0)) {
+            if (!ky.Shogiban.ExistsBBKoma(jibun, ms_t0, out Komasyurui ks_t0))
+            {
                 StringBuilder reigai1 = new StringBuilder();
                 reigai1.AppendLine($"盤上の駒じゃないじゃないか☆（＾▽＾）ｗｗｗ jibun=[{ jibun }] ms_src=[{ ms_t0 }] ks_jibun=[{ ks_t0 }]");
                 Util_Information.HyojiKomanoIbasho(ky.Shogiban, reigai1);
@@ -92,7 +90,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 }
             }
 
-            return 
+            return
                 aiteHioute.FriendRaion8KinboBB.Clone()// 相手らいおん　が逃げれる、相手らいおんの周りの空白
                 .Sitdown(ky.Shogiban.GetBBKomaZenbu(aite))// 相手の駒がない升
                 .Sitdown(bb_idogoKikiNew)// こっちの利きがない升

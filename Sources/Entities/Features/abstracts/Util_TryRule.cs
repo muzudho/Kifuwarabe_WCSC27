@@ -1,10 +1,7 @@
-﻿using kifuwarabe_wcsc27.implements;
-using kifuwarabe_wcsc27.interfaces;
-using kifuwarabe_wcsc27.machine;
-using System;
+﻿using System;
 using System.Text;
 
-namespace kifuwarabe_wcsc27.abstracts
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     public abstract class Util_TryRule
     {
@@ -21,8 +18,8 @@ namespace kifuwarabe_wcsc27.abstracts
         {
             switch (ts)
             {
-                case Taikyokusya.T1: return ky.BB_DanArray[0].IsIntersect( ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, ts)));
-                case Taikyokusya.T2: return ky.BB_DanArray[Option_Application.Optionlist.BanTateHaba-1].IsIntersect( ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, ts)));
+                case Taikyokusya.T1: return ky.BB_DanArray[0].IsIntersect(ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, ts)));
+                case Taikyokusya.T2: return ky.BB_DanArray[Option_Application.Optionlist.BanTateHaba - 1].IsIntersect(ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, ts)));
                 default: throw new Exception("未定義の手番");
             }
         }
@@ -54,16 +51,22 @@ namespace kifuwarabe_wcsc27.abstracts
 
             m_trySakiBB_.Set(kikiBB);
             m_trySakiBB_.Select(ky.BB_Try[(int)tb]);
-            Util_Test.TestCode((StringBuilder syuturyoku2) => { Util_Information.Setumei_Bitboards(new string[] { "らいおんの利き", "１段目に移動できる升" },
-                new Bitboard[] { kikiBB, m_trySakiBB_ }, syuturyoku2); });
+            Util_Test.TestCode((StringBuilder syuturyoku2) =>
+            {
+                Util_Information.Setumei_Bitboards(new string[] { "らいおんの利き", "１段目に移動できる升" },
+new Bitboard[] { kikiBB, m_trySakiBB_ }, syuturyoku2);
+            });
 
             // 味方の駒がないところ☆
             Bitboard spaceBB = new Bitboard();
             spaceBB.Set(ky.BB_BoardArea);
-            spaceBB.Sitdown( ky.Shogiban.GetBBKomaZenbu(tb));
-            m_trySakiBB_.Select( spaceBB);
-            Util_Test.TestCode((StringBuilder str) => { Util_Information.Setumei_Bitboards(new string[] { "味方駒無い所", "トライ先" },
-                new Bitboard[] { spaceBB, m_trySakiBB_ }, str); });
+            spaceBB.Sitdown(ky.Shogiban.GetBBKomaZenbu(tb));
+            m_trySakiBB_.Select(spaceBB);
+            Util_Test.TestCode((StringBuilder str) =>
+            {
+                Util_Information.Setumei_Bitboards(new string[] { "味方駒無い所", "トライ先" },
+new Bitboard[] { spaceBB, m_trySakiBB_ }, str);
+            });
             if (m_trySakiBB_.IsEmpty())
             {
                 Util_Test.AppendLine("むりだぜ☆", syuturyoku);
@@ -76,9 +79,12 @@ namespace kifuwarabe_wcsc27.abstracts
             Bitboard safeBB = new Bitboard();
             safeBB.Set(ky.BB_BoardArea);
             ky.Shogiban.ToSitdown_BBKikiZenbu(tb2, safeBB);
-            m_trySakiBB_.Select( safeBB);
-            Util_Test.TestCode((StringBuilder syuturyoku2) => { Util_Information.Setumei_Bitboards(new string[] { "相手利き無い所", "トライ先" },
-                new Bitboard[] { safeBB, m_trySakiBB_ }, syuturyoku2); });
+            m_trySakiBB_.Select(safeBB);
+            Util_Test.TestCode((StringBuilder syuturyoku2) =>
+            {
+                Util_Information.Setumei_Bitboards(new string[] { "相手利き無い所", "トライ先" },
+new Bitboard[] { safeBB, m_trySakiBB_ }, syuturyoku2);
+            });
             if (m_trySakiBB_.IsEmpty())
             {
                 Util_Test.AppendLine("むりだぜ☆", syuturyoku);

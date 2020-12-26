@@ -1,10 +1,8 @@
-﻿using kifuwarabe_wcsc27.interfaces;
-using kifuwarabe_wcsc27.implements;
-using System;
-using System.Text.RegularExpressions;
+﻿using System;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 
-namespace kifuwarabe_wcsc27.abstracts
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     public abstract class Med_Parser
     {

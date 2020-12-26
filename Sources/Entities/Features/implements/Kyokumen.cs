@@ -1,16 +1,12 @@
 ﻿#define WCSC27
 
-using Grayscale.Kifuwarakei.Entities;
-using Grayscale.Kifuwarakei.Entities.Logging;
-using kifuwarabe_wcsc27.abstracts;
-using kifuwarabe_wcsc27.interfaces;
-using kifuwarabe_wcsc27.machine;
 using System;
 using System.Diagnostics;
 using System.Text;
 using System.Text.RegularExpressions;
+using Grayscale.Kifuwarakei.Entities.Logging;
 
-namespace kifuwarabe_wcsc27.implements
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     /// <summary>
     /// 棋譜データは持ってないぜ☆（＾～＾）

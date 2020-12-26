@@ -1,10 +1,7 @@
-﻿using kifuwarabe_wcsc27.abstracts;
-using kifuwarabe_wcsc27.interfaces;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Text;
-using System.Text.RegularExpressions;
 
-namespace kifuwarabe_wcsc27.implements
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     public abstract class ConvMove
     {

@@ -1,6 +1,5 @@
 ﻿using System.Text;
-using kifuwarabe_wcsc27.abstracts;
-using kifuwarabe_wcsc27.interfaces;
+using Grayscale.Kifuwarakei.Entities.Features;
 
 namespace Grayscale.Kifuwarakei.UseCases
 {
@@ -34,7 +33,7 @@ namespace Grayscale.Kifuwarakei.UseCases
 
             foreach (MotiKoma mk in Conv_MotiKoma.Itiran)
             {
-                if (caret == commandline.IndexOf(Conv_MotiKoma.GetFen(isSfen,mk), caret))
+                if (caret == commandline.IndexOf(Conv_MotiKoma.GetFen(isSfen, mk), caret))
                 {
                     Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, Conv_MotiKoma.GetFen(isSfen, mk));
                     return mk;

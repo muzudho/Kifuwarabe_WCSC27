@@ -7,13 +7,8 @@
     using System.Text;
     using Grayscale.Kifuwarakei.Entities;
     using Grayscale.Kifuwarakei.Entities.Configuration;
+    using Grayscale.Kifuwarakei.Entities.Features;
     using Grayscale.Kifuwarakei.Entities.Logging;
-    using kifuwarabe_wcsc27.abstracts;
-    using kifuwarabe_wcsc27.facade;
-    using kifuwarabe_wcsc27.implements;
-    using kifuwarabe_wcsc27.interfaces;
-    using kifuwarabe_wcsc27.machine;
-    using Nett;
 
     public class Playing : IPlaying
     {

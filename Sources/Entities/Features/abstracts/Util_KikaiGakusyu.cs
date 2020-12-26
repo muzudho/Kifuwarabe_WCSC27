@@ -1,15 +1,13 @@
-﻿using kifuwarabe_wcsc27.implements;
-using kifuwarabe_wcsc27.interfaces;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 
-namespace kifuwarabe_wcsc27.abstracts
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     public abstract class Util_KikaiGakusyu
     {
         static Util_KikaiGakusyu()
         {
-            Util_KikaiGakusyu.FirstAndHappaFens = new Dictionary<Move,List<string>>();
+            Util_KikaiGakusyu.FirstAndHappaFens = new Dictionary<Move, List<string>>();
         }
 
         /// <summary>
@@ -165,7 +163,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     // この局面の２駒関係を、シグモイドの y 点分、下げるぜ☆
                     sumSigmoidY += Util_NikomaKankei.DecrementParamerter_KikaiGakusyu(
                         happaKy,
-                        (Util_Tansaku.KaisiTaikyokusya == happaKy.Teban)?-sigmoidY: sigmoidY//自分の手番なら 引く☆
+                        (Util_Tansaku.KaisiTaikyokusya == happaKy.Teban) ? -sigmoidY : sigmoidY//自分の手番なら 引く☆
                     );
                 }
             }
@@ -181,7 +179,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 // 各葉に　山分けだぜ☆（＾～＾）
                 Util_NikomaKankei.IncrementParamerter_KikaiGakusyu(
                     happaKy,
-                    (Util_Tansaku.KaisiTaikyokusya == happaKy.Teban)? -yamawake : yamawake//自分の手番なら 足すぜ☆
+                    (Util_Tansaku.KaisiTaikyokusya == happaKy.Teban) ? -yamawake : yamawake//自分の手番なら 足すぜ☆
                 );
             }
 

@@ -1,8 +1,6 @@
 ﻿using System.Text;
-using kifuwarabe_wcsc27.implements;
-using kifuwarabe_wcsc27.interfaces;
 
-namespace kifuwarabe_wcsc27.abstracts
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     /// <summary>
     /// 二駒関係評価値表（パラメーターズ）
@@ -84,8 +82,8 @@ namespace kifuwarabe_wcsc27.abstracts
             get
             {
                 return 0;
-                    //10 * KyokumenImpl.MASUS // 盤上10の駒×升の数
-                    //+ 12; // 駒台
+                //10 * KyokumenImpl.MASUS // 盤上10の駒×升の数
+                //+ 12; // 駒台
             }
         }
         public static NikomaKoumokuBangoHairetu KoumokuBangoHairetu1 { get; set; }
@@ -100,7 +98,7 @@ namespace kifuwarabe_wcsc27.abstracts
         public const int SAISYO_HYOKATI_SABUNKOSINYOU = (int)Hyokati.Hyokati_Saisyo;
         public const double SAIDAI_HYOKATI_KIKAIGAKUSYUYOU = (double)Hyokati.Hyokati_Saidai;
         public const double SAISYO_HYOKATI_KIKAIGAKUSYUYOU = (double)Hyokati.Hyokati_Saisyo;
-                                                      
+
 
         public static bool Edited;
 
@@ -127,7 +125,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// <param name="retuKoumoku"></param>
         /// <param name="gyoKoumoku"></param>
         /// <returns></returns>
-        public static int GetHyokaNumber_SabunKosinYou(int retuKoumoku,int gyoKoumoku)
+        public static int GetHyokaNumber_SabunKosinYou(int retuKoumoku, int gyoKoumoku)
         {
             return 0;
             //Debug.Assert(retuKoumoku<gyoKoumoku, "二駒評価取得");
@@ -735,7 +733,7 @@ namespace kifuwarabe_wcsc27.abstracts
 
     public abstract class Conv_NikomaKankei
     {
-#region PieceNames
+        #region PieceNames
         /// <summary>
         /// ▲ら×１２　▲ぞ×１２　▲き×１２　▲ひ×１２　▲に×１２
         /// △ら×１２　△ぞ×１２　△き×１２　△ひ×１２　△に×１２
@@ -1022,9 +1020,9 @@ namespace kifuwarabe_wcsc27.abstracts
             Koma.Yososu,// [130]
             Koma.Yososu,// [131]
         };
-#endregion
+        #endregion
 
-#region MotiKomas
+        #region MotiKomas
         /// <summary>
         /// 盤上の駒除く☆
         /// ▲ら×１２　▲ぞ×１２　▲き×１２　▲ひ×１２　▲に×１２
@@ -1167,9 +1165,9 @@ namespace kifuwarabe_wcsc27.abstracts
             MotiKoma.h,// [130]
             MotiKoma.h,// [131]
         };
-#endregion
+        #endregion
 
-#region AllNames
+        #region AllNames
         /// <summary>
         /// ▲ら×１２　▲ぞ×１２　▲き×１２　▲ひ×１２　▲に×１２
         /// △ら×１２　△ぞ×１２　△き×１２　△ひ×１２　△に×１２
@@ -1443,6 +1441,6 @@ namespace kifuwarabe_wcsc27.abstracts
             "P2▽ひM1",
             "P2▽ひM2",// [263]
         };
-#endregion
+        #endregion
     }
 }

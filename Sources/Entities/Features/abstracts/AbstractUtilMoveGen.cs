@@ -1,11 +1,8 @@
-﻿using kifuwarabe_wcsc27.implements;
-using kifuwarabe_wcsc27.interfaces;
-using kifuwarabe_wcsc27.machine;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Text;
 
-namespace kifuwarabe_wcsc27.abstracts
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     /// <summary>
     /// ２進数各桁

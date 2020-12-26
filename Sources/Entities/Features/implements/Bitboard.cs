@@ -1,10 +1,8 @@
-﻿using kifuwarabe_wcsc27.interfaces;
-using System;
-using kifuwarabe_wcsc27.abstracts;
+﻿using System;
 using System.Text;
 //using System.Diagnostics;
 
-namespace kifuwarabe_wcsc27.implements
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     /// <summary>
     /// ビット演算
@@ -70,7 +68,8 @@ namespace kifuwarabe_wcsc27.implements
             return $"{m_value64127_}_{m_value063_}";
         }
 
-        public Bitboard Clear() {
+        public Bitboard Clear()
+        {
             m_value64127_ = 0UL;
             m_value063_ = 0UL;
             return this;
@@ -87,15 +86,18 @@ namespace kifuwarabe_wcsc27.implements
         /// </summary>
         /// <param name="value64127"></param>
         /// <param name="value063"></param>
-        public void Set(ulong value64127, ulong value063) {
+        public void Set(ulong value64127, ulong value063)
+        {
             m_value64127_ = value64127;
             m_value063_ = value063;
         }
-        public void Set(ulong value063) {
+        public void Set(ulong value063)
+        {
             m_value64127_ = 0UL;
             m_value063_ = value063;
         }
-        public void Set(Bitboard bb) {
+        public void Set(Bitboard bb)
+        {
             m_value64127_ = bb.Value64127;
             m_value063_ = bb.Value063;
         }
@@ -146,7 +148,7 @@ namespace kifuwarabe_wcsc27.implements
             }
             else
             {
-                m_value64127_ &= ~0UL ^ (1UL << ((int)ms- MASU64));// 全ビット立ってるのが ~0UL
+                m_value64127_ &= ~0UL ^ (1UL << ((int)ms - MASU64));// 全ビット立ってるのが ~0UL
             }
         }
         /// <summary>
@@ -176,7 +178,7 @@ namespace kifuwarabe_wcsc27.implements
 
             // はみ出た分を、左端に移動して、
             // 下位のビットの上の方へ、コピーしてみよう。
-            m_value063_ |= hamideru << (BIT64- shift);
+            m_value063_ |= hamideru << (BIT64 - shift);
             return this;
         }
         /// <summary>
@@ -212,7 +214,7 @@ namespace kifuwarabe_wcsc27.implements
             }
             else
             {
-                return 0UL != (Value64127 & (1UL << ((int)ms-MASU64)));
+                return 0UL != (Value64127 & (1UL << ((int)ms - MASU64)));
             }
         }
 
@@ -224,7 +226,7 @@ namespace kifuwarabe_wcsc27.implements
             }
             else
             {
-                return 0UL == (Value64127 & (1UL << ((int)ms- MASU64)));
+                return 0UL == (Value64127 & (1UL << ((int)ms - MASU64)));
             }
         }
         public bool IsEmpty()
@@ -299,7 +301,7 @@ namespace kifuwarabe_wcsc27.implements
 
                 int low = PopCnt64_(m_value063_);
 
-                return  high + low;
+                return high + low;
             }
             return PopCnt64_(m_value063_);
         }
@@ -350,7 +352,7 @@ namespace kifuwarabe_wcsc27.implements
             if (0UL < this.Value063)
             {
                 //ulong bbRight = (this.Value063 & -this.Value063);
-                ulong bbRight = (Value063 & (~Value063+1));
+                ulong bbRight = (Value063 & (~Value063 + 1));
                 ulong i = (bbRight * 0x03F566ED27179461UL) >> 58;
 
                 out_result = (Masu)m_ntzTable_[i];
@@ -360,12 +362,12 @@ namespace kifuwarabe_wcsc27.implements
 
             {
                 //ulong bbRight = (ulong)(this.Value64127 & -this.Value64127);
-                ulong bbRight = (Value64127 & (~Value64127+1));
+                ulong bbRight = (Value64127 & (~Value64127 + 1));
                 ulong i = (bbRight * 0x03F566ED27179461UL) >> 58;
 
                 //out_result = (Masu)m_ntzTable_[i]; // FIXME: 64 足し忘れてないか？
                 out_result = (Masu)m_ntzTable_[i] + MASU64; // FIXME: 64 足し忘れてないか？
-                Sitdown(out_result+MASU64);
+                Sitdown(out_result + MASU64);
                 return true;
             }
         }
@@ -378,7 +380,7 @@ namespace kifuwarabe_wcsc27.implements
         /// <returns>立っているビットがあれば真☆</returns>
         public bool GetNTZ(out Masu out_ms)
         {
-            if (0< m_value063_ || ~0UL == m_value063_) // 全部のビットが立っているときはマイナスの最大値なので個別に一致判定☆ ~0UL☆
+            if (0 < m_value063_ || ~0UL == m_value063_) // 全部のビットが立っているときはマイナスの最大値なので個別に一致判定☆ ~0UL☆
             {
                 return GetNTZ_(m_value063_, 0, out out_ms);
             }
@@ -411,7 +413,7 @@ namespace kifuwarabe_wcsc27.implements
             // 0 の方は 64 に変えている☆（＾～＾）
 
             //ulong y = (ulong)(x & -x); // FIXME:
-            ulong y = (x & (~x+1)); // FIXME:
+            ulong y = (x & (~x + 1)); // FIXME:
             // 「-x」は、0と1を反転させて、1を足したもの。
             // 仮に4桁で説明すると、
             //           x                               -x 

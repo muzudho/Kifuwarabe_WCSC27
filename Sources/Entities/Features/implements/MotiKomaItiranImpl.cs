@@ -1,16 +1,14 @@
-﻿namespace kifuwarabe_wcsc27.implements
+﻿namespace Grayscale.Kifuwarakei.Entities.Features
 {
 #if DEBUG
-    using kifuwarabe_wcsc27.interfaces;
+    using Grayscale.Kifuwarakei.Entities.Features;
     using System;
-    using kifuwarabe_wcsc27.machine;
+    using Grayscale.Kifuwarakei.Entities.Features;
     using System.Diagnostics;
     using System.Text;
 #else
-using kifuwarabe_wcsc27.interfaces;
-using System;
-using kifuwarabe_wcsc27.machine;
-using System.Diagnostics;
+    using System;
+    using System.Diagnostics;
 #endif
 
     public class MotiKomaItiranImpl
@@ -21,7 +19,7 @@ using System.Diagnostics;
         }
         public MotiKomaItiranImpl Clear()
         {
-            Array.Clear(ValueMk,0,ValueMk.Length);
+            Array.Clear(ValueMk, 0, ValueMk.Length);
             return this;
         }
 
@@ -61,8 +59,8 @@ using System.Diagnostics;
         /// <returns></returns>
         public MotiKomaItiranImpl Set(MotiKomaItiranImpl copy)
         {
-            Debug.Assert(ValueMk.Length==copy.ValueMk.Length,"持ち駒配列の長さが違う☆");
-            Array.Copy(copy.ValueMk,ValueMk,ValueMk.Length);
+            Debug.Assert(ValueMk.Length == copy.ValueMk.Length, "持ち駒配列の長さが違う☆");
+            Array.Copy(copy.ValueMk, ValueMk, ValueMk.Length);
             return this;
         }
         public MotiKomaItiranImpl Add(MotiKoma mk, int count)
@@ -72,7 +70,7 @@ using System.Diagnostics;
         }
         public MotiKomaItiranImpl Fuyasu(MotiKoma mk)
         {
-            ValueMk[(int)mk] ++;
+            ValueMk[(int)mk]++;
             return this;
         }
         public MotiKomaItiranImpl Herasu(MotiKoma mk)
@@ -100,9 +98,9 @@ using System.Diagnostics;
         }
         public bool IsEmpty()
         {
-            for (int i=0; i<ValueMk.Length;i++)
+            for (int i = 0; i < ValueMk.Length; i++)
             {
-                if (0<ValueMk[i])
+                if (0 < ValueMk[i])
                 {
                     return false;
                 }

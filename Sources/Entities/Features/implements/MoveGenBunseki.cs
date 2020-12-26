@@ -1,8 +1,6 @@
-﻿using kifuwarabe_wcsc27.interfaces;
-using kifuwarabe_wcsc27.abstracts;
-using System.Text;
+﻿using System.Text;
 
-namespace kifuwarabe_wcsc27.implements
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     /// <summary>
     /// 指し手生成分析（開発中用）

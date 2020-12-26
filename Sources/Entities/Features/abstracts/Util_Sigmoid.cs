@@ -1,10 +1,8 @@
-﻿using kifuwarabe_wcsc27.machine;
-using kifuwarabe_wcsc27.interfaces;
-using System;
+﻿using System;
 using System.Text;
 using Grayscale.Kifuwarakei.Entities.Logging;
 
-namespace kifuwarabe_wcsc27.abstracts
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     /// <summary>
     /// シグモイド曲線とは☆（＾▽＾）
@@ -91,7 +89,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// x の枠の横幅をいっぱい使ったときに、どれぐらいの桁まで細かく見るかという数字だな☆
         /// で、7 が選ばれているのは人力調整数字だろう☆（＾～＾）
         /// </summary>
-        private const float ALPHA = 1.0f / ( WINDOW / 7.0f );
+        private const float ALPHA = 1.0f / (WINDOW / 7.0f);
 
         /// <summary>
         /// 微分した値で三駒関係のパラメーター（feature vector）の修正を行うには
@@ -187,7 +185,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     float nazo = nazos[iA];
                     syuturyoku.AppendLine($"nazo = [{nazo}]    alpha = [{ alpha }]");
                     // nazo が 7 の時に合わせて x を入れてあるぜ☆（＾～＾）
-                    syuturyoku.AppendLine($"sisu(-256.0000) → [{ string.Format("{0,12:F9}", Sisu(alpha ,- 256.0000f)) }] y=Sigmoid({ string.Format("{0,12:F9}", Sigmoid(alpha,-256.0000f)) })");//[7]
+                    syuturyoku.AppendLine($"sisu(-256.0000) → [{ string.Format("{0,12:F9}", Sisu(alpha, -256.0000f)) }] y=Sigmoid({ string.Format("{0,12:F9}", Sigmoid(alpha, -256.0000f)) })");//[7]
                     syuturyoku.AppendLine($"sisu(-255.0000) → [{ string.Format("{0,12:F9}", Sisu(alpha, -255.0000f)) }] y=Sigmoid({ string.Format("{0,12:F9}", Sigmoid(alpha, -255.0000f)) })");//
                     syuturyoku.AppendLine($"sisu(-219.4285) → [{ string.Format("{0,12:F9}", Sisu(alpha, -219.4285f)) }] y=Sigmoid({ string.Format("{0,12:F9}", Sigmoid(alpha, -219.4285f)) })");//[5.999998]
                     syuturyoku.AppendLine($"sisu(-192.0000) → [{ string.Format("{0,12:F9}", Sisu(alpha, -192.0000f)) }] y=Sigmoid({ string.Format("{0,12:F9}", Sigmoid(alpha, -192.0000f)) })");//[5.25]
@@ -564,7 +562,7 @@ sisu( 256.0000) → [-9.000000000] y=Sigmoid( 0.999876600)
             // コンピューター将棋で使う分には a は掛けなくてもいいらしい☆（＾～＾）
             const float a = 7.0f / WINDOW;
 
-		    return a * (1 - Sigmoid(x)) * Sigmoid(x);
+            return a * (1 - Sigmoid(x)) * Sigmoid(x);
 
             // ボナンザ6.0 での微分の仕方は、なんか分からなかったぜ☆（＾～＾）
             //

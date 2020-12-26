@@ -1,13 +1,11 @@
-﻿using kifuwarabe_wcsc27.interfaces;
-using System.Collections.Generic;
-using kifuwarabe_wcsc27.abstracts;
+﻿using System.Collections.Generic;
 using System.Text;
 
 #if DEBUG
-using kifuwarabe_wcsc27.machine;
+using Grayscale.Kifuwarakei.Entities.Features;
 #endif
 
-namespace kifuwarabe_wcsc27.implements
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     /// <summary>
     /// 対局終了時の記録用だぜ☆
@@ -38,10 +36,10 @@ namespace kifuwarabe_wcsc27.implements
         {
             string[] fugoItiran = moves.Split(' ');
 
-            foreach(string fugo in fugoItiran)
+            foreach (string fugo in fugoItiran)
             {
                 int caret = 0;
-                if(!Med_Parser.TryFenMove(isSfen, fugo, ref caret,kys,out Move move))
+                if (!Med_Parser.TryFenMove(isSfen, fugo, ref caret, kys, out Move move))
                 {
                     throw new System.Exception($"指し手のパースエラー fugo=[{ fugo }]");
                 }
@@ -54,11 +52,11 @@ namespace kifuwarabe_wcsc27.implements
             // 初期局面を作成
             Kyokumen ky2 = new Kyokumen();
             int caret = 0;
-            ky2.ParsePositionvalue(isSfen,  SyokiKyokumenFen,ref caret, false, false, out string moves, syuturyoku);
+            ky2.ParsePositionvalue(isSfen, SyokiKyokumenFen, ref caret, false, false, out string moves, syuturyoku);
 
             // 初期局面を出力
             syuturyoku.AppendLine("初期局面");
-            Util_Information.Setumei_NingenGameYo(ky2,syuturyoku);
+            Util_Information.Setumei_NingenGameYo(ky2, syuturyoku);
 
             int temeMade = 1;
             foreach (Move ss in this.SsList)
@@ -108,7 +106,7 @@ namespace kifuwarabe_wcsc27.implements
             ky.Clear(syuturyoku);
 
             int caret = 0;
-            ky.ParsePositionvalue(isSfen,  SyokiKyokumenFen, ref caret,
+            ky.ParsePositionvalue(isSfen, SyokiKyokumenFen, ref caret,
                 true//適用
                 , false, out string moves, syuturyoku
                 );

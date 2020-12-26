@@ -1,9 +1,7 @@
-﻿using kifuwarabe_wcsc27.interfaces;
-using System;
+﻿using System;
 using System.Diagnostics;
-using kifuwarabe_wcsc27.implements;
 
-namespace kifuwarabe_wcsc27.abstracts
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     /// <summary>
     /// ゾブリスト・ハッシュ・テーブルを作成します。
@@ -51,9 +49,9 @@ namespace kifuwarabe_wcsc27.abstracts
                 foreach (Komasyurui ks in Conv_Komasyurui.Itiran)
                 {
                     // 対局者１
-                    m_banjoKeys_[iMs, (int)Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks,Taikyokusya.T1)] = (ulong)(Option_Application.Random.NextDouble() * ulong.MaxValue);
+                    m_banjoKeys_[iMs, (int)Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, Taikyokusya.T1)] = (ulong)(Option_Application.Random.NextDouble() * ulong.MaxValue);
                     // 対局者２
-                    m_banjoKeys_[iMs, (int)Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks,Taikyokusya.T2)] = (ulong)(Option_Application.Random.NextDouble() * ulong.MaxValue);
+                    m_banjoKeys_[iMs, (int)Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, Taikyokusya.T2)] = (ulong)(Option_Application.Random.NextDouble() * ulong.MaxValue);
                 }
             }
 

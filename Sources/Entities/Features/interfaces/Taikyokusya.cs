@@ -1,7 +1,6 @@
 ﻿using System.Text;
-using kifuwarabe_wcsc27.abstracts;
 
-namespace kifuwarabe_wcsc27.interfaces
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     /// <summary>
     /// 対局者☆
@@ -65,14 +64,14 @@ namespace kifuwarabe_wcsc27.interfaces
         /// </summary>
         static string[] m_dfen_ = { "1", "2", "-1" };
         static string[] m_sfen_ = { "b", "w", "x" };
-        public static string ToFen(bool isSfen, Taikyokusya tb) { return isSfen? Conv_Taikyokusya.m_sfen_[(int)tb] : Conv_Taikyokusya.m_dfen_[(int)tb]; }
+        public static string ToFen(bool isSfen, Taikyokusya tb) { return isSfen ? Conv_Taikyokusya.m_sfen_[(int)tb] : Conv_Taikyokusya.m_dfen_[(int)tb]; }
 
         /// <summary>
         /// 先後。
         /// </summary>
         /// <param name="ts"></param>
         /// <returns></returns>
-        public static void Setumei_Name(Taikyokusya ts,StringBuilder syuturyoku)
+        public static void Setumei_Name(Taikyokusya ts, StringBuilder syuturyoku)
         {
             switch (ts)
             {

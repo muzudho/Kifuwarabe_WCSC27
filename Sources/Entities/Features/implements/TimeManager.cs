@@ -1,8 +1,6 @@
-﻿using kifuwarabe_wcsc27.abstracts;
-using kifuwarabe_wcsc27.interfaces;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
-namespace kifuwarabe_wcsc27.implements
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     /// <summary>
     /// 思考時間を管理したり、

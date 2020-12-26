@@ -1,10 +1,6 @@
-﻿
-using kifuwarabe_wcsc27.interfaces;
-using kifuwarabe_wcsc27.abstracts;
-using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
-namespace kifuwarabe_wcsc27.implements
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     /// <summary>
     /// 駒割り評価値差分一覧
@@ -60,10 +56,10 @@ namespace kifuwarabe_wcsc27.implements
                 {
                     Komasyurui ks = Conv_Komasyurui.Itiran[iKs];
 
-                    kys.ToSetIbasho(Med_Koma.KomasyuruiAndTaikyokusyaToKoma( ks, tai), komaBB);
+                    kys.ToSetIbasho(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, tai), komaBB);
                     while (komaBB.Ref_PopNTZ(out Masu ms_jissai))
                     {
-                        hyokati[iTai] += Conv_Koma.BanjoKomaHyokatiNumber[(int)Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks,tai)];
+                        hyokati[iTai] += Conv_Koma.BanjoKomaHyokatiNumber[(int)Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, tai)];
                     }
                 }
             }

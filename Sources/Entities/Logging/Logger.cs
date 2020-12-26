@@ -2,9 +2,7 @@
 using System.IO;
 using System.Text;
 using Grayscale.Kifuwarakei.Entities.Configuration;
-using kifuwarabe_wcsc27.abstracts;
-using kifuwarabe_wcsc27.machine;
-using Nett;
+using Grayscale.Kifuwarakei.Entities.Features;
 
 namespace Grayscale.Kifuwarakei.Entities.Logging
 {

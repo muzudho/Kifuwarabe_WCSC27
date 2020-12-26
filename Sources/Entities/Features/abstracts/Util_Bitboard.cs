@@ -1,8 +1,4 @@
-﻿using kifuwarabe_wcsc27.interfaces;
-using System.Diagnostics;
-using kifuwarabe_wcsc27.implements;
-
-namespace kifuwarabe_wcsc27.abstracts
+﻿namespace Grayscale.Kifuwarakei.Entities.Features
 {
     public abstract class Util_Bitboard
     {
@@ -59,7 +55,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 {
                     if (ms_nozoku != ms)//この駒を除く
                     {
-                        ky.Shogiban.ToStandup_KomanoUgokikata( km, ms, kikiZenbuBB);
+                        ky.Shogiban.ToStandup_KomanoUgokikata(km, ms, kikiZenbuBB);
                     }
                 }
 

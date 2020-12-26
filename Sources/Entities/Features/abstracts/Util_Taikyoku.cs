@@ -1,6 +1,4 @@
-﻿using kifuwarabe_wcsc27.interfaces;
-
-namespace kifuwarabe_wcsc27.abstracts
+﻿namespace Grayscale.Kifuwarakei.Entities.Features
 {
     public abstract class Util_Taikyoku
     {
@@ -27,7 +25,7 @@ namespace kifuwarabe_wcsc27.abstracts
             {
                 // 詰め手数が表示されているぜ☆
 
-                if (Util_Taikyoku.PNNantedume_Teme[(int)taikyokusya]==int.MaxValue)
+                if (Util_Taikyoku.PNNantedume_Teme[(int)taikyokusya] == int.MaxValue)
                 {
                     // 詰め手数が新たに表示されたようだぜ☆
                     Util_Taikyoku.PNNantedume_Teme[(int)taikyokusya] = teme;

@@ -1,12 +1,9 @@
-﻿using Grayscale.Kifuwarakei.Entities.Logging;
-using kifuwarabe_wcsc27.abstracts;
-using kifuwarabe_wcsc27.interfaces;
-using kifuwarabe_wcsc27.machine;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Grayscale.Kifuwarakei.Entities.Logging;
 
-namespace kifuwarabe_wcsc27.implements
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     public class SeisekiMove
     {
@@ -51,7 +48,7 @@ namespace kifuwarabe_wcsc27.implements
         public int Make { get { return this.m_make_; } set { this.m_make_ = value; this.Owner.Owner.Edited = true; } }
         private int m_make_;
 
-        public static bool TryParse(Kyokumen ky,string commandline, ref int caret, out SeisekiMove out_result, SeisekiKyokumen owner, StringBuilder syuturyoku)
+        public static bool TryParse(Kyokumen ky, string commandline, ref int caret, out SeisekiMove out_result, SeisekiKyokumen owner, StringBuilder syuturyoku)
         {
             bool successfule = true;
             // 指し手☆
@@ -91,7 +88,7 @@ namespace kifuwarabe_wcsc27.implements
                 successfule = false;
             }
 
-            out_result = new SeisekiMove(ss, ss2, version, kati, hikiwake, make, owner );
+            out_result = new SeisekiMove(ss, ss2, version, kati, hikiwake, make, owner);
             return successfule;
         }
 
@@ -155,7 +152,7 @@ namespace kifuwarabe_wcsc27.implements
         public string Fen { get; private set; }
         public Taikyokusya TbTaikyokusya { get; private set; }
 
-        public SeisekiMove AddSasite(Kyokumen ky,string sasiteRecordStr, StringBuilder syuturyoku)
+        public SeisekiMove AddSasite(Kyokumen ky, string sasiteRecordStr, StringBuilder syuturyoku)
         {
             int caret = 0;
             if (SeisekiMove.TryParse(ky, sasiteRecordStr, ref caret, out SeisekiMove josekiSs, this, syuturyoku))
@@ -165,7 +162,7 @@ namespace kifuwarabe_wcsc27.implements
 
             if (!this.SsItems.ContainsKey(josekiSs.Move))
             {
-                this.SsItems.Add(josekiSs.Move,josekiSs);
+                this.SsItems.Add(josekiSs.Move, josekiSs);
                 this.Owner.Edited = true;
             }
             else
@@ -184,7 +181,7 @@ namespace kifuwarabe_wcsc27.implements
                 // 無ければ問答無用で追加☆（＾▽＾）
                 seisekiSs = new SeisekiMove(bestSasite, Move.Toryo, version, kati, hikiwake, make, this);
 
-                if (null!= seisekiSs)
+                if (null != seisekiSs)
                 {
                     this.SsItems.Add(bestSasite, seisekiSs);
                     this.Owner.Edited = true;
@@ -262,7 +259,7 @@ namespace kifuwarabe_wcsc27.implements
         {
             SeisekiKyokumen josekiKy = this.Parse_AddKyLine(kyFen_before, kyHash_before, kyTb_before);
 
-            josekiKy.AddSasite(kyTb_before, bestSasite,　version, kati, hikiwake, make);
+            josekiKy.AddSasite(kyTb_before, bestSasite, version, kati, hikiwake, make);
             return josekiKy;
         }
         /// <summary>
@@ -282,7 +279,7 @@ namespace kifuwarabe_wcsc27.implements
             }
             else
             {
-                josekiKy = new SeisekiKyokumen(fen_before, tb_before,this);
+                josekiKy = new SeisekiKyokumen(fen_before, tb_before, this);
                 this.KyItems.Add(kyHash_before, josekiKy);
                 this.Edited = true;
             }
@@ -304,7 +301,7 @@ namespace kifuwarabe_wcsc27.implements
                 if (caret == commandline.IndexOf("fen ", caret))// fen で始まれば局面データ☆（＾▽＾）
                 {
                     // キャレットは進めずに続行だぜ☆（＾▽＾）
-                    if (!ky2.ParsePositionvalue(isSfen, commandline,ref caret, false, false, out string moves, syuturyoku))
+                    if (!ky2.ParsePositionvalue(isSfen, commandline, ref caret, false, false, out string moves, syuturyoku))
                     {
                         string msg = $"パースに失敗だぜ☆（＾～＾）！ #寒鰤 定跡ファイル解析失敗 {gyoBango}]行目";
                         syuturyoku.AppendLine(msg);
@@ -317,7 +314,7 @@ namespace kifuwarabe_wcsc27.implements
                         //ky2.KyokumenHash = ky2.CreateKyokumenHash();//必要最低限、ハッシュだけ適用しておくぜ☆（＾▽＾）
                     }
 
-                    josekiKy = this.Parse_AddKyLine(commandline,ky2.KyokumenHash.Value, ky2.Teban);
+                    josekiKy = this.Parse_AddKyLine(commandline, ky2.KyokumenHash.Value, ky2.Teban);
                 }
                 else if (commandline.Trim().Length < 1)
                 {
@@ -327,12 +324,12 @@ namespace kifuwarabe_wcsc27.implements
                 else
                 {
                     // それ以外は手筋☆（＾▽＾）
-                    if (null== josekiKy)
+                    if (null == josekiKy)
                     {
                         throw new Exception("定跡ファイル解析失敗 定跡局面の指定なし☆");
                     }
 
-                    josekiKy.AddSasite(ky2,commandline, syuturyoku);
+                    josekiKy.AddSasite(ky2, commandline, syuturyoku);
                 }
 
                 gyoBango++;
@@ -498,7 +495,7 @@ namespace kifuwarabe_wcsc27.implements
                 }
             }
 
-            gt_FinishRemove:
+        gt_FinishRemove:
             //────────────────────────────────────────
             // （最後に）指し手を持たない局面を削る☆
             //────────────────────────────────────────
@@ -598,7 +595,7 @@ namespace kifuwarabe_wcsc27.implements
         /// 定跡ファイル
         /// </summary>
         /// <returns></returns>
-        public string ToContents_NotUnity(bool isSfen )
+        public string ToContents_NotUnity(bool isSfen)
         {
             StringBuilder mojiretu = new StringBuilder();
 

@@ -1,7 +1,4 @@
-﻿using kifuwarabe_wcsc27.abstracts;
-using kifuwarabe_wcsc27.interfaces;
-
-namespace kifuwarabe_wcsc27.implements
+﻿namespace Grayscale.Kifuwarakei.Entities.Features
 {
     /// <summary>
     /// 王手されるのはいやだな☆（＾▽＾）ｗｗｗ
@@ -157,7 +154,7 @@ namespace kifuwarabe_wcsc27.implements
                     goto gt_EndLoop;
                 }
             }
-            gt_EndLoop:
+        gt_EndLoop:
             ;
 
             // 重ね利きの数の差分更新を、元に戻すぜ☆（＾▽＾）

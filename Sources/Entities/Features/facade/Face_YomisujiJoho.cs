@@ -1,12 +1,7 @@
-﻿using kifuwarabe_wcsc27.abstracts;
-using kifuwarabe_wcsc27.interfaces;
-using kifuwarabe_wcsc27.machine;
-using System;
-using kifuwarabe_wcsc27.implements;
-using System.Text;
+﻿using System.Text;
 using Grayscale.Kifuwarakei.Entities.Logging;
 
-namespace kifuwarabe_wcsc27.facade
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     /// <summary>
     /// 読み筋情報表示☆（＾～＾）
@@ -72,7 +67,7 @@ namespace kifuwarabe_wcsc27.facade
                 //────────────────────
                 // 定跡のとき
                 //────────────────────
-                syuturyoku.Append(Option_Application.Optionlist.USI?"info ": "joho ");
+                syuturyoku.Append(Option_Application.Optionlist.USI ? "info " : "joho ");
 #if DEBUG
                 syuturyoku.Append("Debug["); syuturyoku.Append(hint); syuturyoku.Append("] ");
 #endif
@@ -88,7 +83,7 @@ namespace kifuwarabe_wcsc27.facade
                 //────────────────────
                 // 定跡じゃないとき
                 //────────────────────
-                syuturyoku.Append(Option_Application.Optionlist.USI?"info ":"joho ");
+                syuturyoku.Append(Option_Application.Optionlist.USI ? "info " : "joho ");
 #if DEBUG
                 syuturyoku.Append("Debug["); syuturyoku.Append(hint); syuturyoku.Append("] ");
 #endif
@@ -102,7 +97,7 @@ namespace kifuwarabe_wcsc27.facade
                 //──────────
                 // 深さ
                 //──────────
-                syuturyoku.Append(Option_Application.Optionlist.USI ? " depth ":" fukasa ");
+                syuturyoku.Append(Option_Application.Optionlist.USI ? " depth " : " fukasa ");
                 if (fukasa != int.MinValue)// fukasa に int.MinValue を指定していた場合は、「-」表記。
                 {
                     // 深さは 1 スタート☆
@@ -122,7 +117,7 @@ namespace kifuwarabe_wcsc27.facade
                 //──────────
                 // 探索ノード数
                 //──────────
-                syuturyoku.Append(Option_Application.Optionlist.USI?" nodes ":" eda ");
+                syuturyoku.Append(Option_Application.Optionlist.USI ? " nodes " : " eda ");
                 syuturyoku.Append(Util_Tansaku.TansakuTyakusyuEdas.ToString());
 
                 //──────────
@@ -135,7 +130,7 @@ namespace kifuwarabe_wcsc27.facade
                 Conv_Hyokati.Setumei(beta, syuturyoku);
 #endif
 
-                syuturyoku.Append(Option_Application.Optionlist.USI ? " score ":" hyokati ");
+                syuturyoku.Append(Option_Application.Optionlist.USI ? " score " : " hyokati ");
                 Conv_Hyokati.Setumei(hyokatiUtiwake.EdaBest, syuturyoku);
 
                 // 内訳
@@ -173,7 +168,7 @@ namespace kifuwarabe_wcsc27.facade
                 // 読み筋
                 //──────────
                 // （将棋所では一番最後に出力すること）
-                syuturyoku.Append(Option_Application.Optionlist.USI ? " pv ":" yomisuji ");
+                syuturyoku.Append(Option_Application.Optionlist.USI ? " pv " : " yomisuji ");
                 syuturyoku.Append(yomisuji);
 
                 syuturyoku.AppendLine();

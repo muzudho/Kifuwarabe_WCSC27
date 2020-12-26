@@ -1,14 +1,9 @@
-﻿using kifuwarabe_wcsc27.implements;
-using kifuwarabe_wcsc27.interfaces;
-using System;
-using System.Diagnostics;
+﻿using System;
 using System.Collections.Generic;
-using kifuwarabe_wcsc27.machine;
-using kifuwarabe_wcsc27.facade;
-using Grayscale.Kifuwarakei.Entities;
+using System.Diagnostics;
 using System.Text;
 
-namespace kifuwarabe_wcsc27.abstracts
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     /// <summary>
     /// 探索打ち切りフラグ☆
@@ -185,7 +180,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 //────────────────────────────────────────
                 // 定跡
                 //────────────────────────────────────────
-#region 定跡、成績
+                #region 定跡、成績
                 // 探索が始まる前に定跡、成績を使うぜ☆（＾▽＾）
                 // まず、定跡を使う、使わないの判断だぜ☆（＾～＾）
                 bool useJoseki = false;
@@ -223,8 +218,8 @@ namespace kifuwarabe_wcsc27.abstracts
                                 List<Move> josekiSasites = Option_Application.Joseki.GetMoves(ky);
                                 // この局面の合法手を取得☆（＾▽＾）
                                 int fukasa = 0;
-                                AbstractUtilMoveGen.GenerateMove01(fukasa, ky, MoveType.N21_All,true, syuturyoku);// グローバル変数 Util_SasiteSeisei.Sasitelist[fukasa].Sslist に指し手がセットされるぜ☆（＾▽＾）
-                                List<Move> gohosyu = new List<Move>( AbstractUtilMoveGen.MoveList[fukasa].ListMove);
+                                AbstractUtilMoveGen.GenerateMove01(fukasa, ky, MoveType.N21_All, true, syuturyoku);// グローバル変数 Util_SasiteSeisei.Sasitelist[fukasa].Sslist に指し手がセットされるぜ☆（＾▽＾）
+                                List<Move> gohosyu = new List<Move>(AbstractUtilMoveGen.MoveList[fukasa].ListMove);
                                 foreach (Move ss in josekiSasites)
                                 {
                                     if (gohosyu.Contains(ss))
@@ -233,7 +228,7 @@ namespace kifuwarabe_wcsc27.abstracts
                                     }
                                 }
 
-                                if (0<gohosyu.Count)
+                                if (0 < gohosyu.Count)
                                 {
                                     josekiSs = gohosyu[0];
                                 }
@@ -283,14 +278,14 @@ namespace kifuwarabe_wcsc27.abstracts
                     {
                         // 定跡用の 読み筋情報 を作るぜ☆（＾▽＾）
                         best_yomisuji_orNull = new Yomisuji();
-                        best_yomisuji_orNull.Add(josekiSs,MoveType.N00_Karappo); // 先頭に今回の指し手を置くぜ☆
+                        best_yomisuji_orNull.Add(josekiSs, MoveType.N00_Karappo); // 先頭に今回の指し手を置くぜ☆
                         out_isJosekiNoTouri = true;// 定跡の通り指したとき☆
                         goto gt_DoSasite;
                     }
                 }
             gt_NotUseJoseki:
                 ;
-#endregion
+                #endregion
 
 
                 //────────────────────────────────────────
@@ -338,7 +333,7 @@ namespace kifuwarabe_wcsc27.abstracts
                         {// 設定されていれば使うぜ☆（＾▽＾）
                             // アスピレーション・ウィンドウ・サーチの初回☆（＾▽＾）
                             if (Util_Tansaku.NekkoKaranoFukasa == Option_Application.Optionlist.AspirationFukasa
-                                && 0==aspirationWindowSearchSippai)
+                                && 0 == aspirationWindowSearchSippai)
                             {// この深さから、アスピレーション・ウィンドウ・サーチを開始な☆（＾▽＾）！
                                 // 再探索のときは避けろよ☆（＾▽＾）ｗｗｗｗ
                                 // 初回の幅を決めるぜ☆（＾▽＾）
@@ -379,7 +374,7 @@ namespace kifuwarabe_wcsc27.abstracts
                             syuturyoku);
 
                         if (
-                            null== child_yomisuji_orNull // 深さ１も読めていない
+                            null == child_yomisuji_orNull // 深さ１も読めていない
                             || child_yomisuji_orNull.SasiteItiran.Length < 1 // １手も読めていない
                             || Util_Tansaku.BadUtikiri // 時間切れ等の中途半端探索のとき☆
                             )
@@ -525,7 +520,7 @@ namespace kifuwarabe_wcsc27.abstracts
                             // アスピレーション・ウィンドウ・サーチを使う深さの直前からでもいいんだが、前回の評価値は覚えておく必要があるぜ☆（＾▽＾）
                             maenoFukasaNoHyokati = out_kakutei_hyokatiUtiwake.EdaBest;
 
-                            gt_FutatabiFukasaTansaku: // 次の深さ、または、同じ深さで条件を変えて再探索☆
+                        gt_FutatabiFukasaTansaku: // 次の深さ、または、同じ深さで条件を変えて再探索☆
                             ;
                             if (onajiFukasaDeSaiTansaku)
                             {
@@ -590,7 +585,7 @@ namespace kifuwarabe_wcsc27.abstracts
 
                     if (out_kakutei_hyokatiUtiwake.EdaBest < chosachu_hyokatiUtiwake.EdaBest)
                     {
-                        out_kakutei_hyokatiUtiwake.Set( chosachu_hyokatiUtiwake);
+                        out_kakutei_hyokatiUtiwake.Set(chosachu_hyokatiUtiwake);
                     }
 #if DEBUG
                     tansakuSyuryoRiyu = TansakuSyuryoRiyu.HanpukuSinkaTukawanai;
@@ -623,7 +618,7 @@ namespace kifuwarabe_wcsc27.abstracts
             }
 
 
-            gt_DoSasite:
+        gt_DoSasite:
             /*
 #if DEBUG
             if(null!= best_yomisuji_orNull)
@@ -675,7 +670,7 @@ namespace kifuwarabe_wcsc27.abstracts
 */
             Nanteme nanteme = new Nanteme();
             ky.DoMove(isSfen,
-                null !=best_yomisuji_orNull?best_yomisuji_orNull.GetBestSasite():Move.Toryo,
+                null != best_yomisuji_orNull ? best_yomisuji_orNull.GetBestSasite() : Move.Toryo,
                 null != best_yomisuji_orNull ? best_yomisuji_orNull.GetBestSasiteType() : MoveType.N00_Karappo
                 , ref nanteme, ky.Teban, syuturyoku);
 
@@ -710,7 +705,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     Hyokati.Hyokati_Rei,// ここでアルファ無いんで
                     Hyokati.Hyokati_Rei,// ここでベータ無いんで
 #endif
-                    out_kakutei_hyokatiUtiwake,                    
+                    out_kakutei_hyokatiUtiwake,
                     int.MinValue,//とりあえず、こうして表示を 「-」 にしておくぜ☆
                     itibanFukaiNekkoKaranoFukasa_JohoNoTameni,
                     yomisuji.ToString(),
@@ -725,7 +720,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 Util_TimeManager.DoneShowJoho();
             }
 
-            return null!= best_yomisuji_orNull? best_yomisuji_orNull.GetBestSasite():Move.Toryo;
+            return null != best_yomisuji_orNull ? best_yomisuji_orNull.GetBestSasite() : Move.Toryo;
         }
 
         /// <summary>
@@ -739,7 +734,7 @@ namespace kifuwarabe_wcsc27.abstracts
         /// <returns></returns>
         private static void TansakuKaisi_(
             IPlaying playing,
-            bool isSfen,Kyokumen ky, Hyokati alpha, Hyokati beta,
+            bool isSfen, Kyokumen ky, Hyokati alpha, Hyokati beta,
             int fukasa,
             out Yomisuji out_yomisuji_orNull,
             out HyokatiUtiwake out_hyokatiUtiwake,
@@ -870,7 +865,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     return;
                 }
             }
-#endregion
+            #endregion
 
             //────────────────────────────────────────
             // 葉
@@ -898,7 +893,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 out_edaBest_Yomisuji = new Yomisuji();// 読み筋として追加するものは無いぜ☆（＾～＾）
 
                 // 当然だが、手番の局面を評価するんだぜ☆（＾▽＾）手番にとって良ければプラスだぜ☆
-                
+
                 ky.Hyoka(
                     out out_hyokatiUtiwake,
                     HyokaRiyu.Happa,
@@ -907,7 +902,7 @@ namespace kifuwarabe_wcsc27.abstracts
 
                 // このとき、駒を取った手かどうか☆
                 //if (eranda_sasiteType==SasiteType.KomaWoToruTe)
-                if(Move.Toryo != eranda_sasite)
+                if (Move.Toryo != eranda_sasite)
                 {
                     // 駒を取る手が　葉っぱ　に来たときは、ＳＥＥ（Static Exchange Evaluation）をやりたいぜ☆
                     // おいしさ：この手を指したときに確定している手番の得だぜ☆（＾▽＾）
@@ -926,7 +921,7 @@ namespace kifuwarabe_wcsc27.abstracts
                             HyokaRiyu.HappaKomatori,
                             ""
                             );
-                        Debug.Assert(!Conv_Hyokati.InTumeTesu(out_hyokatiUtiwake.Okimari),"詰め手数ではダメだぜ☆（＾～＾）！");
+                        Debug.Assert(!Conv_Hyokati.InTumeTesu(out_hyokatiUtiwake.Okimari), "詰め手数ではダメだぜ☆（＾～＾）！");
                     }
                     else if (Conv_Hyokati.InTumeTesu(oisisa))
                     {
@@ -992,7 +987,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 }
                 return;
             }
-#endregion
+            #endregion
 
             Yomisuji temp_yomisujiChild_orNull = null;
             Yomisuji best_yomisujiChild_orNull = null;
@@ -1013,13 +1008,13 @@ namespace kifuwarabe_wcsc27.abstracts
 
             // 深さ1 のときに手を指しても、深さのカウントは増えない☆
             // 
-            AbstractUtilMoveGen.GenerateMove01(fukasa, ky, MoveType.N21_All,true, syuturyoku);// グローバル変数 Util_SasiteSeisei.Sslist に指し手がセットされるぜ☆（＾▽＾）
+            AbstractUtilMoveGen.GenerateMove01(fukasa, ky, MoveType.N21_All, true, syuturyoku);// グローバル変数 Util_SasiteSeisei.Sslist に指し手がセットされるぜ☆（＾▽＾）
 
             #region ステイルメイト
             //────────────────────────────────────────
             // ステイル・メイト
             //────────────────────────────────────────
-            if (AbstractUtilMoveGen.MoveList[fukasa].SslistCount<1)
+            if (AbstractUtilMoveGen.MoveList[fukasa].SslistCount < 1)
             {
                 // ステイルメイトだぜ☆（＾▽＾）！
 
@@ -1050,7 +1045,7 @@ namespace kifuwarabe_wcsc27.abstracts
                         alpha,
                         beta,
 #endif
-                        out_hyokatiUtiwake,                        
+                        out_hyokatiUtiwake,
                         fukasa + 1,// 深さは 0 になっているので、Tansaku していない状態（＝+1 して）に戻すぜ☆
                         Util_Tansaku.NekkoKaranoFukasa,
                         yomisuji.ToString(),//読み筋☆
@@ -1067,7 +1062,7 @@ namespace kifuwarabe_wcsc27.abstracts
             }
             #endregion
 
-            for (int iSs=0; iSs<AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
+            for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
             {
                 Move eda_sasite = AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs];
                 MoveType eda_sasiteType = AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs];
@@ -1078,7 +1073,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 //────────────────────────────────────────
                 // 最大手数を超えているか☆？（デバッグ用）
                 //────────────────────────────────────────
-                if (-1< Option_Application.Optionlist.SaidaiEda && Option_Application.Optionlist.SaidaiEda + 1 < Util_Tansaku.TansakuTyakusyuEdas)
+                if (-1 < Option_Application.Optionlist.SaidaiEda && Option_Application.Optionlist.SaidaiEda + 1 < Util_Tansaku.TansakuTyakusyuEdas)
                 {
                     eda_hyokatiUtiwake.Set(
                         Hyokati.Hyokati_Saisyo,
@@ -1098,7 +1093,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 //────────────────────────────────────────
                 // 機械学習
                 //────────────────────────────────────────
-                if (Option_Application.Optionlist.Learn && Util_Tansaku.NekkoKaranoFukasa==fukasa)
+                if (Option_Application.Optionlist.Learn && Util_Tansaku.NekkoKaranoFukasa == fukasa)
                 {
                     // 初手は覚えるぜ☆（＾～＾）
                     Util_KikaiGakusyu.KaisiSasite = eda_sasite;
@@ -1112,7 +1107,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 {
                     // らいおんを捕まえる手か、トライする手なら、ここより奥を探索する必要はないぜ☆（＾▽＾）
 
-                    
+
                     out_edaBest_Yomisuji = new Yomisuji();// 読み筋を作るぜ☆（＾▽＾）
                     out_edaBest_Yomisuji.Add(eda_sasite, eda_sasiteType); // 先頭に今回の指し手を置くぜ☆
                     // 後ろに読み筋は無いはずだぜ☆（＾～＾）
@@ -1146,7 +1141,7 @@ namespace kifuwarabe_wcsc27.abstracts
                             alpha,
                             beta,
 #endif
-                            out_hyokatiUtiwake,                            
+                            out_hyokatiUtiwake,
                             fukasa,
                             Util_Tansaku.NekkoKaranoFukasa,
                             yomisuji.ToString(),//読み筋☆
@@ -1163,9 +1158,9 @@ namespace kifuwarabe_wcsc27.abstracts
                     //goto gt_EndLoop;
                     goto gt_SkipUndo;//アルファ値の更新を通す方へ☆（＾～＾）
                 }
-#endregion
+                #endregion
 
-                ky.DoMove(isSfen, eda_sasite, eda_sasiteType, ref nanteme,ky.Teban, syuturyoku);
+                ky.DoMove(isSfen, eda_sasite, eda_sasiteType, ref nanteme, ky.Teban, syuturyoku);
                 //{
                 //    Util_Logger.AppendLine($"do後 {ConvMove.Setumei_Fen(ss)}");
                 //    Util_Logger.AppendLine(ApplicationImpl.Kyokumen.Setumei());
@@ -1289,7 +1284,7 @@ namespace kifuwarabe_wcsc27.abstracts
                             break;//続行☆
                     }
                 }
-#endregion
+                #endregion
 
                 // この指し手が、駒を取った手かどうか☆
 
@@ -1370,11 +1365,11 @@ namespace kifuwarabe_wcsc27.abstracts
                     goto gt_GoUndo;
                 }
 
-                gt_GoUndo:
+            gt_GoUndo:
                 ;
                 ky.UndoMove(isSfen, eda_sasite, syuturyoku);
 
-                gt_SkipUndo:
+            gt_SkipUndo:
                 ;
 
 
@@ -1408,7 +1403,7 @@ namespace kifuwarabe_wcsc27.abstracts
                             alpha,
                             beta,
 #endif
-                            out_hyokatiUtiwake,                            
+                            out_hyokatiUtiwake,
                             fukasa,
                             Util_Tansaku.NekkoKaranoFukasa,
                             yomisuji.ToString(),//読み筋☆
@@ -1423,7 +1418,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     }
                     return;
                 }
-#endregion
+                #endregion
 
                 //────────────────────────────────────────
                 // ベータ・カット
@@ -1431,8 +1426,8 @@ namespace kifuwarabe_wcsc27.abstracts
                 #region ベータ・カット
                 // アルファ・ベータ探索をやっていて、ベータ・カットができるから嬉しいんだぜ☆（＾▽＾）
                 if (beta < eda_hyokatiUtiwake.EdaBest// これが本体の条件☆
-                                           // &&// 以下はおまけの条件☆（＾▽＾）
-                                           // Option_Application.Random.Next(100) < Option_Application.Optionlist.JosekiPer
+                                                     // &&// 以下はおまけの条件☆（＾▽＾）
+                                                     // Option_Application.Random.Next(100) < Option_Application.Optionlist.JosekiPer
                     )
                 {
                     // 次の「子の弟」要素はもう読みません。
@@ -1465,7 +1460,7 @@ namespace kifuwarabe_wcsc27.abstracts
                             alpha,
                             beta,
 #endif
-                            out_hyokatiUtiwake,                            
+                            out_hyokatiUtiwake,
                             fukasa,
                             Util_Tansaku.NekkoKaranoFukasa,
                             yomisuji.ToString(),//読み筋☆
@@ -1502,7 +1497,7 @@ namespace kifuwarabe_wcsc27.abstracts
                 //────────────────────────────────────────
                 #region アップデート・アルファ
                 // 指し手のランダム性は、弱くなるので廃止したぜ☆（＾▽＾）
-                if (null!= temp_yomisujiChild_orNull
+                if (null != temp_yomisujiChild_orNull
                     &&
                     alpha < out_hyokatiUtiwake.EdaBest
                     )
@@ -1547,19 +1542,19 @@ namespace kifuwarabe_wcsc27.abstracts
                         Util_TimeManager.DoneShowJoho();
                     }
                 }
-#endregion
+                #endregion
             }//指し手ループ
             //;
 
             // 一番良かった兄弟は☆（＾▽＾）
-            if (Move.Toryo != bestSasite && null!= best_yomisujiChild_orNull)
+            if (Move.Toryo != bestSasite && null != best_yomisujiChild_orNull)
             {
                 out_edaBest_Yomisuji = new Yomisuji();
                 out_edaBest_Yomisuji.Add(bestSasite, bestSasiteType); // 先頭に今回の指し手を置くぜ☆
                 out_edaBest_Yomisuji.Insert(best_yomisujiChild_orNull); // 後ろに子要素の指し手を置くぜ☆
             }
 
-            if (Option_Application.Optionlist.TranspositionTableTukau && null!= out_edaBest_Yomisuji)
+            if (Option_Application.Optionlist.TranspositionTableTukau && null != out_edaBest_Yomisuji)
             {
                 //────────────────────────────────────────
                 // トランスポジション・テーブル

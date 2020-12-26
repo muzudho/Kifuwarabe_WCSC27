@@ -1,13 +1,8 @@
 ﻿using System.Text;
-using Grayscale.Kifuwarakei.Entities;
 using Grayscale.Kifuwarakei.Entities.Logging;
-using kifuwarabe_wcsc27.facade;
-using kifuwarabe_wcsc27.implements;
-using kifuwarabe_wcsc27.interfaces;
-using kifuwarabe_wcsc27.machine;
 
 
-namespace kifuwarabe_wcsc27.abstracts
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     /// <summary>
     /// 単体テストだぜ☆（＾▽＾）
@@ -62,7 +57,7 @@ namespace kifuwarabe_wcsc27.abstracts
 
                     playing.Do(isSfen, "do c4c3", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT != count) { fail = 9; goto gt_EndUnittestSennitite1a; }//3回目 千日手☆（＾▽＾）
 
-                    gt_EndUnittestSennitite1a:
+                gt_EndUnittestSennitite1a:
                     Option_Application.Optionlist.SaidaiFukasa = oldSaidaiFukasa;//設定を元に戻しておくぜ☆
                     if (0 != fail)
                     {
@@ -86,9 +81,9 @@ namespace kifuwarabe_wcsc27.abstracts
                         "　ラゾ" +//キは持ち駒に☆
                         "　ヒ　" +
                         "　ひ　" +
-                        "ぞらき",false, syuturyoku
+                        "ぞらき", false, syuturyoku
                         );
-                    ky.MotiKomas.Clear().Set(MotiKoma.k,1);//{ 0, 0, 0, 0, 1, 0 }
+                    ky.MotiKomas.Clear().Set(MotiKoma.k, 1);//{ 0, 0, 0, 0, 1, 0 }
                     ky.Tekiyo(true, syuturyoku);
                     int oldSaidaiFukasa = Option_Application.Optionlist.SaidaiFukasa;
                     Option_Application.Optionlist.SaidaiFukasa = 1; // ログが出過ぎないように1手読みにするぜ☆
@@ -107,7 +102,7 @@ namespace kifuwarabe_wcsc27.abstracts
 
                     playing.Do(isSfen, "do a1a2", ky, mode, mojiretu1); count = ky.Konoteme.GetSennititeCount(); if (Const_Game.SENNITITE_COUNT != count) { fail = 10; goto gt_EndUnittestSennitite1b; }//3回目 千日手☆（＾▽＾）
 
-                    gt_EndUnittestSennitite1b:
+                gt_EndUnittestSennitite1b:
                     Option_Application.Optionlist.SaidaiFukasa = oldSaidaiFukasa;//設定を元に戻しておくぜ☆
                     if (0 != fail)
                     {
@@ -133,7 +128,7 @@ namespace kifuwarabe_wcsc27.abstracts
                         "　ひ　" +
                         "ぞらき", false, syuturyoku
                         );
-                    ky.MotiKomas.Clear().Set(MotiKoma.Z,1).Set(MotiKoma.H,1);// = new int[] { 1, 0, 1, 0, 0, 0 };
+                    ky.MotiKomas.Clear().Set(MotiKoma.Z, 1).Set(MotiKoma.H, 1);// = new int[] { 1, 0, 1, 0, 0, 0 };
                     ky.Tekiyo(true, syuturyoku);
                     int oldSaidaiFukasa = Option_Application.Optionlist.SaidaiFukasa;
                     Option_Application.Optionlist.SaidaiFukasa = 1; // ログが出過ぎないように1手読みにするぜ☆
@@ -154,7 +149,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     int count = ky.Konoteme.GetSennititeCount();
                     if (Const_Game.SENNITITE_COUNT == count) { fail = true; goto gt_EndUnittestSennitite2a; }
 
-                    gt_EndUnittestSennitite2a:
+                gt_EndUnittestSennitite2a:
                     Option_Application.Optionlist.SaidaiFukasa = oldSaidaiFukasa;//設定を元に戻しておくぜ☆
                     if (fail)
                     {
@@ -180,7 +175,7 @@ namespace kifuwarabe_wcsc27.abstracts
                         "　　　" +//ひ　は対局者２の持ち駒に☆
                         "　らき"//ぞ　は対局者２の持ち駒に☆
                         , false, syuturyoku);
-                    ky.MotiKomas.Clear().Set(MotiKoma.z,1).Set(MotiKoma.k,1).Set(MotiKoma.h,1);// = new int[] { 0, 0, 0, 1, 1, 1 };
+                    ky.MotiKomas.Clear().Set(MotiKoma.z, 1).Set(MotiKoma.k, 1).Set(MotiKoma.h, 1);// = new int[] { 0, 0, 0, 1, 1, 1 };
                     ky.Tekiyo(true, syuturyoku);
                     int oldSaidaiFukasa = Option_Application.Optionlist.SaidaiFukasa;
                     Option_Application.Optionlist.SaidaiFukasa = 1; // ログが出過ぎないように1手読みにするぜ☆
@@ -205,7 +200,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     int count = ky.Konoteme.GetSennititeCount();
                     if (Const_Game.SENNITITE_COUNT == count) { fail = true; goto gt_EndUnittestSennitite2b; }
 
-                    gt_EndUnittestSennitite2b:
+                gt_EndUnittestSennitite2b:
                     Option_Application.Optionlist.SaidaiFukasa = oldSaidaiFukasa;//設定を元に戻しておくぜ☆
                     if (fail)
                     {
@@ -249,7 +244,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     int count = ky.Konoteme.GetSennititeCount();
                     if (Const_Game.SENNITITE_COUNT == count) { fail = true; goto gt_EndUnittestSennitite3a; }
 
-                    gt_EndUnittestSennitite3a:
+                gt_EndUnittestSennitite3a:
                     Option_Application.Optionlist.SaidaiFukasa = oldSaidaiFukasa;//設定を元に戻しておくぜ☆
                     if (fail)
                     {
@@ -295,7 +290,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     int count = ky.Konoteme.GetSennititeCount();
                     if (Const_Game.SENNITITE_COUNT == count) { fail = true; goto gt_EndUnittestSennitite3b; }
 
-                    gt_EndUnittestSennitite3b:
+                gt_EndUnittestSennitite3b:
                     Option_Application.Optionlist.SaidaiFukasa = oldSaidaiFukasa;//設定を元に戻しておくぜ☆
                     if (fail)
                     {
@@ -343,7 +338,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     int count = ky.Konoteme.GetSennititeCount();
                     if (Const_Game.SENNITITE_COUNT != count) { fail = true; goto gt_EndUnittestSennitite4a; }
 
-                    gt_EndUnittestSennitite4a:
+                gt_EndUnittestSennitite4a:
                     if (fail)
                     {
                         if (seikou)
@@ -396,7 +391,7 @@ namespace kifuwarabe_wcsc27.abstracts
                     int count = ky.Konoteme.GetSennititeCount();
                     if (Const_Game.SENNITITE_COUNT != count) { fail = true; goto gt_EndUnittestSennitite4b; }
 
-                    gt_EndUnittestSennitite4b:
+                gt_EndUnittestSennitite4b:
                     if (fail)
                     {
                         if (seikou)
@@ -446,7 +441,7 @@ namespace kifuwarabe_wcsc27.abstracts
                         "キラ　" +
                         "　　　" +
                         "　ひ　" +
-                        "ぞらき",true, syuturyoku);
+                        "ぞらき", true, syuturyoku);
                     int[] motikomas1 = { 1, 0, 1, 0, 0, 0, };
                     if (!ky.Equals(ky2.Shogiban, motikomas1))
                     {
@@ -477,7 +472,7 @@ namespace kifuwarabe_wcsc27.abstracts
                         "　　　" + // ひ　は対局者２の持ち駒に☆
                         "　らき" // ぞ　は対局者２の持ち駒に☆
                         , false, syuturyoku);
-                    ky.MotiKomas.Clear().Set(MotiKoma.z,1).Set(MotiKoma.k,1).Set(MotiKoma.h,1);// = new int[] { 0, 0, 0, 1, 1, 1 };
+                    ky.MotiKomas.Clear().Set(MotiKoma.z, 1).Set(MotiKoma.k, 1).Set(MotiKoma.h, 1);// = new int[] { 0, 0, 0, 1, 1, 1 };
                     ky.Tekiyo(true, syuturyoku);
                     int oldSaidaiFukasa = Option_Application.Optionlist.SaidaiFukasa;
                     Option_Application.Optionlist.SaidaiFukasa = 2; // 相手に千日手の手番を回したいので、2手読み以上にする必要があるぜ☆（＾▽＾）

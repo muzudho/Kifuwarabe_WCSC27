@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace kifuwarabe_wcsc27.abstracts
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     /// <summary>
     /// 出典：http://baba-s.hatenablog.com/entry/2014/08/10/130145
