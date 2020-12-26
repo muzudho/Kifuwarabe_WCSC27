@@ -475,7 +475,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     // FIXME:
                     string msg = $"パースに失敗だぜ☆（＾～＾）！ #鱒 commandline=[{commandline}]caret({caret}) .Value=[{m.Groups[1].Value}]";
                     syuturyoku.AppendLine(msg);
-                    Logger.Flush(syuturyoku);
+                    Logger.Flush(syuturyoku.ToString());
+                    syuturyoku.Clear();
                     throw new Exception(msg);
                     // */
                 }

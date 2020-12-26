@@ -305,7 +305,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     {
                         string msg = $"パースに失敗だぜ☆（＾～＾）！ #寒鰤 定跡ファイル解析失敗 {gyoBango}]行目";
                         syuturyoku.AppendLine(msg);
-                        Logger.Flush(syuturyoku);
+                        Logger.Flush(syuturyoku.ToString());
+                        syuturyoku.Clear();
                         throw new Exception(msg);
                     }
 

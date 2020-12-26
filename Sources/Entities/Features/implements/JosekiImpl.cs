@@ -350,8 +350,10 @@ commandline=[{ commandline }]");
                         reigai1.Append("]行目");
 #endif
                         syuturyoku.AppendLine(reigai1.ToString());
-                        Logger.Flush(syuturyoku);
-                        throw new Exception(reigai1.ToString());
+                        var msg = syuturyoku.ToString();
+                        Logger.Flush(msg);
+                        syuturyoku.Clear();
+                        throw new Exception(msg);
                     }
 
                     // .Value は、該当しないときは空文字列か☆
@@ -427,9 +429,10 @@ commandline=[{ commandline }]");
                     {
                         //*
                         // FIXME:
-                        string msg = $"パースに失敗だぜ☆（＾～＾）！ #鮪 commandline=[{ commandline }]";
-                        syuturyoku.AppendLine(msg);
-                        Logger.Flush(syuturyoku);
+                        syuturyoku.AppendLine($"パースに失敗だぜ☆（＾～＾）！ #鮪 commandline=[{ commandline }]");
+                        var msg = syuturyoku.ToString();
+                        syuturyoku.Clear();
+                        Logger.Flush(msg);
                         throw new Exception(msg);
                         // */
                     }
@@ -574,9 +577,10 @@ commandline=[{ commandline }]");
                 //if (!ky2.ParseFen(sindan1.ToString(), ref caret, false, syuturyoku))
                 if (!ky_forAssert.ParsePositionvalue(isSfen, sindan1.ToString(), ref caret, true, false, out string moves, syuturyoku))// ビットボードを更新したいので、適用する
                 {
-                    string msg = "取得：　パースに失敗だぜ☆（＾～＾）！ #鰯";
-                    syuturyoku.AppendLine(msg);
-                    Logger.Flush(syuturyoku);
+                    syuturyoku.AppendLine("取得：　パースに失敗だぜ☆（＾～＾）！ #鰯");
+                    var msg = syuturyoku.ToString();
+                    syuturyoku.Clear();
+                    Logger.Flush(msg);
                     throw new Exception(msg);
                 }
 
@@ -595,7 +599,9 @@ commandline=[{ commandline }]");
                     //str2.AppendLine("└──────────┘");
 
                     syuturyoku.AppendLine(sindan2.ToString());
-                    Logger.Flush(syuturyoku);
+                    var msg = syuturyoku.ToString();
+                    syuturyoku.Clear();
+                    Logger.Flush(msg);
                     throw new Exception(sindan2.ToString());
                 }
             }

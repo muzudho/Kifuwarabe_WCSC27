@@ -42,10 +42,9 @@
 #if DEBUG
             if (ValueMk[(int)mk] < 0)
             {
-                StringBuilder reigai1 = new StringBuilder();
-                reigai1.AppendLine("error 持駒の数にマイナスをセットした☆");
-                Logger.Flush(reigai1);
-                throw new Exception(reigai1.ToString());
+                var msg = "error 持駒の数にマイナスをセットした☆";
+                Logger.Flush(msg);
+                throw new Exception(msg);
             }
 #endif
 
@@ -78,10 +77,9 @@
 #if DEBUG
             if (ValueMk[(int)mk] < 0)
             {
-                StringBuilder reigai1 = new StringBuilder();
-                reigai1.AppendLine("error 持駒の数がマイナス");
-                Logger.Flush(reigai1);
-                throw new Exception(reigai1.ToString());
+                var msg = "error 持駒の数がマイナス";
+                Logger.Flush(msg);
+                throw new Exception(msg);
             }
 #endif
             return this;

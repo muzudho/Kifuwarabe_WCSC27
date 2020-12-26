@@ -43,7 +43,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             if (Util_Test.TestMode)
             {
-                Logger.Flush(syuturyoku);
+                var msg = syuturyoku.ToString();
+                syuturyoku.Clear();
+                Logger.Flush(msg);
             }
         }
     }

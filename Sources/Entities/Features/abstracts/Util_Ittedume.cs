@@ -37,8 +37,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 StringBuilder reigai1 = new StringBuilder();
                 reigai1.AppendLine($"盤上の駒じゃないじゃないか☆（＾▽＾）ｗｗｗ jibun=[{ jibun }] ms_src=[{ ms_t0 }] ks_jibun=[{ ks_t0 }]");
                 Util_Information.HyojiKomanoIbasho(ky.Shogiban, reigai1);
-                Logger.Flush(reigai1);
-                throw new Exception(reigai1.ToString());
+                var msg = reigai1.ToString();
+                Logger.Flush(msg);
+                throw new Exception(msg);
             }
             Koma km_t0 = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks_t0, jibun);
             Koma km_t1 = km_t0; // FIXME: 成りを考慮していないぜ☆（＞＿＜）

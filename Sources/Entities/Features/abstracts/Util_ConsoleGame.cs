@@ -15,10 +15,12 @@
     {
         public static void ReadCommandline(StringBuilder syuturyoku)
         {
-            Logger.Flush(syuturyoku);
+            Logger.Flush(syuturyoku.ToString());
+            syuturyoku.Clear();
             Util_Commandline.SetCommandline(Util_Machine.ReadLine());
             syuturyoku.AppendLine(Util_Commandline.Commandline);
-            Logger.Flush_NoEcho(syuturyoku);
+            Logger.Flush_NoEcho(syuturyoku.ToString());
+            syuturyoku.Clear();
         }
 
         /// <summary>
@@ -57,7 +59,8 @@
 #else
 #endif
             syuturyoku.Append("> ");
-            Logger.Flush(syuturyoku);
+            Logger.Flush(syuturyoku.ToString());
+            syuturyoku.Clear();
         }
 
         /// <summary>
@@ -72,7 +75,8 @@
             syuturyoku.Append("（");
             syuturyoku.Append(Option_Application.Optionlist.PNChar[(int)ky.Teban].ToString());
             syuturyoku.Append("）の思考中（＾～＾）");
-            Logger.Flush(syuturyoku);
+            Logger.Flush(syuturyoku.ToString());
+            syuturyoku.Clear();
         }
 
         /// <summary>
@@ -95,26 +99,30 @@
                         if (Option_Application.Optionlist.P2Com)
                         {
                             syuturyoku.AppendLine($"{kigo}まいったぜ☆（＞＿＜）");
-                            Logger.Flush(syuturyoku);
+                            Logger.Flush(syuturyoku.ToString());
+                            syuturyoku.Clear();
                         }
                         break;
                     case TaikyokuKekka.Taikyokusya2NoKati:
                         if (Option_Application.Optionlist.P2Com)
                         {
                             syuturyoku.AppendLine($"{kigo}やったぜ☆（＾▽＾）！");
-                            Logger.Flush(syuturyoku);
+                            Logger.Flush(syuturyoku.ToString());
+                            syuturyoku.Clear();
                         }
                         break;
                     case TaikyokuKekka.Hikiwake:
                         {
                             syuturyoku.AppendLine($"{kigo}決着を付けたかったぜ☆（＾～＾）");
-                            Logger.Flush(syuturyoku);
+                            Logger.Flush(syuturyoku.ToString());
+                            syuturyoku.Clear();
                         }
                         break;
                     case TaikyokuKekka.Sennitite:
                         {
                             syuturyoku.AppendLine($"{kigo}まあ、良しとするかだぜ☆（＾＿＾）");
-                            Logger.Flush(syuturyoku);
+                            Logger.Flush(syuturyoku.ToString());
+                            syuturyoku.Clear();
                         }
                         break;
                     case TaikyokuKekka.Karappo://thru
@@ -186,9 +194,10 @@
                         int caret_2 = 0;
                         if (!ky_forAssert.ParsePositionvalue(Option_Application.Optionlist.USI, KyFen_before, ref caret_2, true, false, out string moves, syuturyoku)) // ビットボードを更新したいので、適用する
                         {
-                            string msg = "パースに失敗だぜ☆（＾～＾）！ #鯰";
-                            syuturyoku.AppendLine(msg);
-                            Logger.Flush(syuturyoku);
+                            syuturyoku.AppendLine("パースに失敗だぜ☆（＾～＾）！ #鯰");
+                            var msg = syuturyoku.ToString();
+                            syuturyoku.Clear();
+                            Logger.Flush(msg);
                             throw new Exception(msg);
                         }
 
@@ -204,8 +213,10 @@
                             reigai1.Append("１手後は、現局面");
                             Util_Information.Setumei_Lines_Kyokumen(ky, reigai1);
                             syuturyoku.AppendLine(reigai1.ToString());
-                            Logger.Flush(syuturyoku);
-                            throw new Exception(reigai1.ToString());
+                            var msg = syuturyoku.ToString();
+                            syuturyoku.Clear();
+                            Logger.Flush(msg);
+                            throw new Exception(msg);
                         }
                     }
 #endif

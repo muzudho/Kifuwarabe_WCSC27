@@ -877,7 +877,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             if (Option_Application.Optionlist.SeisekiRec)
             {
                 syuturyoku.Append("成績更新中");
-                Logger.Flush(syuturyoku);
+                Logger.Flush(syuturyoku.ToString());
+                syuturyoku.Clear();
             }
         }
         public static void InLoop_SeisekiKosin(Move ss_after, Kyokumen ky, StringBuilder syuturyoku)
@@ -905,12 +906,14 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                         make
                     );
                     syuturyoku.Append("|");
-                    Logger.Flush(syuturyoku);
+                    Logger.Flush(syuturyoku.ToString());
+                    syuturyoku.Clear();
                 }
                 else
                 {
                     syuturyoku.Append(".");
-                    Logger.Flush(syuturyoku);
+                    Logger.Flush(syuturyoku.ToString());
+                    syuturyoku.Clear();
                 }
             }//成績の記録☆
         }
@@ -919,7 +922,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             if (Option_Application.Optionlist.SeisekiRec)
             {
                 syuturyoku.AppendLine("☆");
-                Logger.Flush(syuturyoku);
+                Logger.Flush(syuturyoku.ToString());
+                syuturyoku.Clear();
             }
         }
         #endregion
@@ -970,7 +974,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 playing.Result(ky, syuturyoku, CommandMode.NingenYoConsoleGame);
                 syuturyoku.AppendLine("終わったぜ☆（＾▽＾）");
-                Logger.Flush(syuturyoku);
+                Logger.Flush(syuturyoku.ToString());
+                syuturyoku.Clear();
             }
 
             Util_Application.Begin_SeisekiKosin(syuturyoku);
@@ -992,7 +997,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             // 棋譜を作ろうぜ☆
             syuturyoku.AppendLine($@"{kigoComment}感想戦を行う場合は kansosen と打てだぜ☆（＾▽＾）　そのあと kifu 1 とか打て☆（＾▽＾）
 {kigoComment}終わるときは hirate な☆（＾▽＾）");
-            Logger.Flush(syuturyoku);
+            Logger.Flush(syuturyoku.ToString());
+            syuturyoku.Clear();
 
             // 保存していないものを保存だぜ☆（＾▽＾）
             Util_Application.FlushAll1(syuturyoku);
@@ -1037,7 +1043,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     // ルールを変えるぜ☆（＾▽＾）
                     string commandline_2 = $"set SagareruHiyoko {!Option_Application.Optionlist.SagareruHiyoko}";
                     syuturyoku.AppendLine($"RenzokuRandomRule> {commandline_2}");
-                    Logger.Flush(syuturyoku);
+                    Logger.Flush(syuturyoku.ToString());
+                    syuturyoku.Clear();
 
                     // 表示してから実行しようぜ☆（＾～＾）
                     Util_Application.Set(commandline_2, ky, syuturyoku);
@@ -1088,7 +1095,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             // 表示・ログ出力（コンソール・ゲーム用）
             {
                 // ファイルに書き出していないログが溜まっていれば、これで全部書き出します。
-                Logger.Flush(syuturyoku);
+                Logger.Flush(syuturyoku.ToString());
+                syuturyoku.Clear();
             }
         }
     }

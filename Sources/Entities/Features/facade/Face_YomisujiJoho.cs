@@ -197,13 +197,15 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
                 if (Option_Application.Optionlist.USI)
                 {
-                    Logger.Flush_USI(syuturyoku.ToString());
+                    Logger.WriteUsi(syuturyoku.ToString());
                     syuturyoku.Clear();
                 }
                 else
                 {
                     // 出力先がコンソールなら、すぐ表示してしまおうぜ☆（＾▽＾）
-                    Logger.Flush(syuturyoku);
+                    var msg = syuturyoku.ToString();
+                    Logger.Flush(msg);
+                    syuturyoku.Clear();
                 }
             }
         };

@@ -339,7 +339,9 @@ sisu( 255.0000) → [-8.964844000] y=Sigmoid( 0.999872200)
 sisu( 256.0000) → [-9.000000000] y=Sigmoid( 0.999876600)
             */
 
-            Logger.Flush(syuturyoku);
+            var msg = syuturyoku.ToString();
+            syuturyoku.Clear();
+            Logger.Flush(msg);
             Util_Machine.ReadKey();
         }
 

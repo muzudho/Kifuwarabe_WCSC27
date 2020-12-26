@@ -361,7 +361,9 @@ using System.Text;
                                 Conv_Hyokati.Setumei(beta, Util_Machine.Syuturyoku);
                                 syuturyoku.AppendLine();
 
-                                Logger.Flush(syuturyoku);
+                                var msg = syuturyoku.ToString();
+                                Logger.Flush(msg);
+                                syuturyoku.Clear();
 #endif
                             }
                         }
@@ -440,7 +442,9 @@ using System.Text;
                                         syuturyoku.Append("回目");
                                         syuturyoku.AppendLine();
 
-                                        Logger.Flush(syuturyoku);
+                                        var msg = syuturyoku.ToString();
+                                        Logger.Flush(msg);
+                                        syuturyoku.Clear();
 #endif
 
                                         // 3回失敗していれば、アスピレーション・ウィンドウ・サーチを諦めようぜ☆（＾▽＾）ｗｗｗ
@@ -491,7 +495,9 @@ using System.Text;
                                         syuturyoku.Append(henkoryo);
                                         syuturyoku.AppendLine();
 
-                                        Logger.Flush(syuturyoku);
+                                        var msg = syuturyoku.ToString();
+                                        Logger.Flush(msg);
+                                        syuturyoku.Clear();
 #endif
 
                                         // 読みを深めないぜ☆（＾～＾）
@@ -510,7 +516,10 @@ using System.Text;
                                         syuturyoku.Append("　β");
                                         Conv_Hyokati.Setumei(beta, Util_Machine.Syuturyoku);
                                         syuturyoku.AppendLine();
-                                        Logger.Flush(syuturyoku);
+
+                                        var msg = syuturyoku.ToString();
+                                        Logger.Flush(msg);
+                                        syuturyoku.Clear();
 #endif
 
                                         // 次の反復で使う　ウィンドウ　を初回と同じに戻すぜ☆（＾▽＾）

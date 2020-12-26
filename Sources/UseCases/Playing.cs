@@ -49,14 +49,14 @@ option name SikoJikan type spin default 500 min 100 max 10000000
 option name SikoJikanRandom type spin default 1000 min 0 max 10000000
 option name Comment type string default Jikan is milli seconds.
 usiok");
-            Logger.Flush_USI(syuturyoku.ToString());
+            Logger.WriteUsi(syuturyoku.ToString());
             syuturyoku.Clear();
         }
 
         public void ReadyOk(StringBuilder syuturyoku)
         {
             syuturyoku.AppendLine("readyok");
-            Logger.Flush_USI(syuturyoku.ToString());
+            Logger.WriteUsi(syuturyoku.ToString());
             syuturyoku.Clear();
 
         }
@@ -89,7 +89,11 @@ usiok");
             }
             Util_Information.HyojiKomanoKikiSu(ky.Shogiban, syuturyoku);// 参考：利きの数
             MoveCmd(isSfen, "move seisei", ky, syuturyoku);// 参考：指し手生成表示
-            Logger.Flush(syuturyoku);
+            {
+                var msg = syuturyoku.ToString();
+                syuturyoku.Clear();
+                Logger.Flush(msg);
+            }
 #endif
 
             Move bestMove = Util_Application.Go(this, ky, out HyokatiUtiwake best_hyokatiUtiwake, Face_YomisujiJoho.Dlgt_WriteYomisujiJoho, syuturyoku);
@@ -101,7 +105,7 @@ usiok");
                 syuturyoku.Append("bestmove ");
                 ConvMove.AppendFenTo(isSfen, bestMove, syuturyoku);
                 syuturyoku.AppendLine();
-                Logger.Flush_USI(syuturyoku.ToString());
+                Logger.WriteUsi(syuturyoku.ToString());
                 syuturyoku.Clear();
             }
             else if (mode == CommandMode.NigenYoConsoleKaihatu)
@@ -205,7 +209,9 @@ usiok");
                     StringBuilder sfen = new StringBuilder();
                     ky2.AppendFenTo(true, sfen);
                     sfen.AppendLine();
-                    Logger.Flush(sfen);
+                    var msg = sfen.ToString();
+                    sfen.Clear();
+                    Logger.Flush(msg);
                 }
             }
             else if ("sfen" == token)
@@ -232,7 +238,8 @@ usiok");
                     }
 
                     sfen.AppendLine();
-                    Logger.Flush(sfen);
+                    Logger.Flush(sfen.ToString());
+                    sfen.Clear();
                 }
             }
         }
@@ -360,7 +367,8 @@ usiok");
                     {
                         string msg = "パースに失敗だぜ☆（＾～＾）！ #鯱";
                         syuturyoku.AppendLine(msg);
-                        Logger.Flush(syuturyoku);
+                        Logger.Flush(syuturyoku.ToString());
+                        syuturyoku.Clear();
                         throw new Exception(msg);
                     }
 
@@ -621,8 +629,9 @@ usiok");
                 {
                     string msg = "パースに失敗だぜ☆（＾～＾）！ #河馬";
                     syuturyoku.AppendLine(msg);
-                    syuturyoku.Append(syuturyoku.ToString());
-                    Logger.Flush(syuturyoku);
+                    var msg2 = syuturyoku.ToString();
+                    Logger.Flush(msg2);
+                    syuturyoku.Clear();
                     throw new Exception(msg);
                 }
             }
@@ -956,7 +965,8 @@ usiok");
 {kigo}tu                : tumeshogi と同じだぜ☆
 {kigo}tumeshogi         : 詰将棋が用意されるぜ☆
 {kigo}undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
-            Logger.Flush(syuturyoku);
+            Logger.Flush(syuturyoku.ToString());
+            syuturyoku.Clear();
         }
 
         public void Masu_cmd(string commandline, StringBuilder syuturyoku)
@@ -1252,7 +1262,9 @@ usiok");
         public void Rnd(Kyokumen ky, StringBuilder syuturyoku)
         {
             Util_Application.Rnd(ky, syuturyoku);
-            Logger.Flush(syuturyoku);
+            var msg = syuturyoku.ToString();
+            syuturyoku.Clear();
+            Logger.Flush(msg);
         }
 
         public void MoveCmd(bool isSfen, string commandline, Kyokumen ky, StringBuilder syuturyoku)
@@ -1695,7 +1707,11 @@ usiok");
                     {
                         string msg = "パースに失敗だぜ☆（＾～＾）！ #虎";
                         syuturyoku.AppendLine(msg);
-                        Logger.Flush(syuturyoku);
+
+                        var msg2 = syuturyoku.ToString();
+                        syuturyoku.Clear();
+                        Logger.Flush(msg2);
+
                         throw new Exception(msg);
                     }
 
@@ -1855,7 +1871,11 @@ usiok");
                     bb.RightShift(1); Util_Information.Setumei_1Bitboard(i.ToString(), bb, syuturyoku);
                 }
 
-                Logger.Flush(syuturyoku);
+                {
+                    var msg = syuturyoku.ToString();
+                    syuturyoku.Clear();
+                    Logger.Flush(msg);
+                }
                 #endregion
             }
             else if (caret_1 == commandline.IndexOf("bit-ntz", caret_1))
@@ -1890,7 +1910,13 @@ usiok");
                     x.GetNTZ(out ntz);
                     syuturyoku.AppendLine($"({i})                         NTZ =[{ntz}] Contents=[{x.ToString()}]");
                 }
-                Logger.Flush(syuturyoku);
+
+                {
+                    var msg = syuturyoku.ToString();
+                    syuturyoku.Clear();
+                    Logger.Flush(msg);
+                }
+
                 #endregion
             }
             else if (caret_1 == commandline.IndexOf("bit-kiki", caret_1))
@@ -2307,7 +2333,11 @@ usiok");
                         //*/
                     }
                 }
-                Logger.Flush(syuturyoku);
+                {
+                    var msg = syuturyoku.ToString();
+                    syuturyoku.Clear();
+                    Logger.Flush(msg);
+                }
                 #endregion
             }
             if (caret_1 == commandline.IndexOf("bit-popcnt", caret_1))
@@ -2330,7 +2360,11 @@ usiok");
                     syuturyoku.AppendLine($"{Convert.ToString((long)tmp.Value64127, 2)}_{Convert.ToString((long)tmp.Value063, 2)} の PopCnt =[{ tmp.PopCnt() }]");
                     tmp.LeftShift(1);
                 }
-                Logger.Flush(syuturyoku);
+                {
+                    var msg = syuturyoku.ToString();
+                    syuturyoku.Clear();
+                    Logger.Flush(msg);
+                }
                 #endregion
             }
             else if (caret_1 == commandline.IndexOf("bitboard", caret_1))
@@ -2346,7 +2380,11 @@ usiok");
                     }
                     syuturyoku.AppendLine();
                 }
-                Logger.Flush(syuturyoku);
+                {
+                    var msg = syuturyoku.ToString();
+                    syuturyoku.Clear();
+                    Logger.Flush(msg);
+                }
             }
             else if (caret_1 == commandline.IndexOf("downSizing", caret_1))
             {
@@ -2395,7 +2433,11 @@ usiok");
                 ky.Tekiyo(true, syuturyoku);
                 Util_Information.Setumei_Lines_Kyokumen(ky, Util_Machine.Syuturyoku);
                 syuturyoku.AppendLine();
-                Logger.Flush(syuturyoku);
+                {
+                    var msg = syuturyoku.ToString();
+                    syuturyoku.Clear();
+                    Logger.Flush(msg);
+                }
                 #endregion
             }
             else if (caret_1 == commandline.IndexOf("jisatusyu", caret_1))
@@ -2412,12 +2454,16 @@ usiok");
                     if (Util_HiouteCase.IsJisatusyu(ky, masu))
                     {
                         syuturyoku.AppendLine("自殺手だぜ☆");
-                        Logger.Flush(syuturyoku);
+                        var msg = syuturyoku.ToString();
+                        syuturyoku.Clear();
+                        Logger.Flush(msg);
                     }
                     else
                     {
                         syuturyoku.AppendLine("セーフ☆");
-                        Logger.Flush(syuturyoku);
+                        var msg = syuturyoku.ToString();
+                        syuturyoku.Clear();
+                        Logger.Flush(msg);
                     }
                 }
             }
@@ -2441,7 +2487,8 @@ usiok");
 
 #if !DEBUG
                 syuturyoku.AppendLine("デバッグモードで実行してくれだぜ☆（＾▽＾）");
-                Logger.Flush(syuturyoku);
+                Logger.Flush(syuturyoku.ToString());
+                syuturyoku.Clear();
 #endif
 
                 if (int.TryParse(line, out int testNo))
@@ -2512,7 +2559,11 @@ usiok");
                 ky.Tekiyo(true, syuturyoku);
                 Util_Information.Setumei_Lines_Kyokumen(ky, Util_Machine.Syuturyoku);
                 syuturyoku.AppendLine();
-                Logger.Flush(syuturyoku);
+                {
+                    var msg = syuturyoku.ToString();
+                    syuturyoku.Clear();
+                    Logger.Flush(msg);
+                }
 
                 Taikyokusya tai = ky.Teban;
                 Koma raionKm = (tai == Taikyokusya.T1 ? Koma.R : Koma.r);

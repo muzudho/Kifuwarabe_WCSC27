@@ -205,14 +205,18 @@
                             {
                                 // do コマンドのパースエラー表示（コンソール・ゲーム用）☆（＾～＾）
                                 syuturyoku.AppendLine(ConvMove.Setumei(MoveMatigaiRiyu.ParameterSyosikiMatigai));
-                                Logger.Flush(syuturyoku);
+                                var msg = syuturyoku.ToString();
+                                syuturyoku.Clear();
+                                Logger.Flush(msg);
                                 Util_Commandline.CommentCommandline();// コマンドの誤発動防止
                             }
                             else if (!ky.CanDoMove(inputSasite, out MoveMatigaiRiyu reason))// 指し手の合否チェック
                             {
                                 // イリーガル・ムーブなどの、エラー理由表示☆（＾～＾）
                                 syuturyoku.AppendLine(ConvMove.Setumei(reason));
-                                Logger.Flush(syuturyoku);
+                                var msg = syuturyoku.ToString();
+                                syuturyoku.Clear();
+                                Logger.Flush(msg);
                             }
                             else
                             {
@@ -532,7 +536,9 @@
                             {
                                 string msg = "パースに失敗だぜ☆（＾～＾）！ #黒牛";
                                 syuturyoku.AppendLine(msg);
-                                Logger.Flush(syuturyoku);
+                                var msg2 = syuturyoku.ToString();
+                                syuturyoku.Clear();
+                                Logger.Flush(msg2);
                                 throw new Exception(msg);
                             }
 
@@ -679,7 +685,9 @@
                         syuturyoku.AppendLine("」☆？（＾▽＾）");
 
                         syuturyoku.AppendLine("そんなコマンドは無いぜ☆（＞＿＜） man で調べろだぜ☆（＾▽＾）");
-                        Logger.Flush(syuturyoku);
+                        var msg = syuturyoku.ToString();
+                        syuturyoku.Clear();
+                        Logger.Flush(msg);
                     }
 
                     if (Util_Commandline.IsQuit)

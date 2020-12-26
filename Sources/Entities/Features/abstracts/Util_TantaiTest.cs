@@ -14,7 +14,10 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// </summary>
         public static void SennitiTe(IPlaying playing, bool isSfen, Kyokumen ky, StringBuilder syuturyoku)
         {
-            Logger.Flush(syuturyoku);// 溜まっているログがあれば、吐き出させておくぜ☆（＾～＾）
+            // 溜まっているログがあれば、吐き出させておくぜ☆（＾～＾）
+            var msg = syuturyoku.ToString();
+            Logger.Flush(msg);
+            syuturyoku.Clear();
 
             CommandMode mode = CommandMode.NigenYoConsoleKaihatu;
             StringBuilder sippaiZenbu = new StringBuilder();
@@ -539,7 +542,10 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 syuturyoku.Append(sippaiZenbu.ToString()); // 失敗した過程のログ☆
             }
-            Logger.Flush(syuturyoku);
+
+            var msg2 = syuturyoku.ToString();
+            Logger.Flush(msg2);
+            syuturyoku.Clear();
         }
     }
 }

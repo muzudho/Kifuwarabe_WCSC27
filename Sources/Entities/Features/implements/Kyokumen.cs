@@ -1159,7 +1159,9 @@ using Grayscale.Kifuwarakei.Entities.Logging;
                 if (!safe)
                 {
                     syuturyoku.Append(sindan1.ToString());
-                    Logger.Flush(syuturyoku);
+                    var msg = syuturyoku.ToString();
+                    syuturyoku.Clear();
+                    Logger.Flush(msg);
                 }
                 Debug.Assert(safe, $"#狒々 診断 {sindan1.ToString()}");
 #endif
@@ -1255,7 +1257,9 @@ using Grayscale.Kifuwarakei.Entities.Logging;
             if (!safe)
             {
                 syuturyoku.AppendLine(sindan3.ToString());
-                Logger.Flush(syuturyoku);
+                var msg = syuturyoku.ToString();
+                syuturyoku.Clear();
+                Logger.Flush(msg);
             }
             Debug.Assert(safe, sindan3.ToString());
 #endif
@@ -1322,7 +1326,9 @@ using Grayscale.Kifuwarakei.Entities.Logging;
             if (!safe)
             {
                 syuturyoku.Append(sindan2.ToString());
-                Logger.Flush(syuturyoku);
+                var msg = syuturyoku.ToString();
+                syuturyoku.Clear();
+                Logger.Flush(msg);
             }
             Debug.Assert(safe, sindan2.ToString());
 #endif
@@ -1493,7 +1499,9 @@ using Grayscale.Kifuwarakei.Entities.Logging;
 
 #if DEBUG
             Util_Information.HyojiKomanoKiki(Shogiban, syuturyoku);//BB_KikiZenbu
-            Logger.Flush(syuturyoku);
+            var msg = syuturyoku.ToString();
+            syuturyoku.Clear();
+            Logger.Flush(msg);
 #endif
             Shogiban.N250_TorinozokuBanjoKoma(isSfen, ms_t1, km_t1,
                 ms_t0,//(2017-05-02 22:44 Add) 未来に駒があるのは、元の場所なのでここなんだが☆（＾～＾）？
@@ -1503,7 +1511,9 @@ using Grayscale.Kifuwarakei.Entities.Logging;
                 true, Sindan, syuturyoku);
 #if DEBUG
             Util_Information.HyojiKomanoKiki(Shogiban, syuturyoku);//BB_KikiZenbu
-            Logger.Flush(syuturyoku);
+            var msg2 = syuturyoku.ToString();
+            syuturyoku.Clear();
+            Logger.Flush(msg2);
 #endif
             Util_Machine.Assert_Sabun_Kiki("ＵｎｄｏＴ１-309★", Sindan);
 
@@ -2130,9 +2140,10 @@ using Grayscale.Kifuwarakei.Entities.Logging;
 
             {
                 // FIXME:
-                string msg = $"パースに失敗だぜ☆（＾～＾）！ #麒麟 commandline=[{ commandline }] caret=[{ caret }]";
-                syuturyoku.AppendLine(msg);
-                Logger.Flush(syuturyoku);
+                syuturyoku.AppendLine($"パースに失敗だぜ☆（＾～＾）！ #麒麟 commandline=[{ commandline }] caret=[{ caret }]");
+                var msg = syuturyoku.ToString();
+                syuturyoku.Clear();
+                Logger.Flush(msg);
                 throw new Exception(msg);
             }
         }
@@ -2275,8 +2286,10 @@ using Grayscale.Kifuwarakei.Entities.Logging;
                     reigai1.AppendLine($"{mk}=[{this.MotiKomas.Get(mk)}]");
                 }
 
-                Logger.Flush(reigai1);
-                Debug.Fail(reigai1.ToString());
+                var msg = reigai1.ToString();
+                reigai1.Clear();
+                Logger.Flush(msg);
+                Debug.Fail(msg);
 #endif
                 throw new Exception($"対局者のパースエラー tb_Mojis=[{tb_Mojis}]");
             }

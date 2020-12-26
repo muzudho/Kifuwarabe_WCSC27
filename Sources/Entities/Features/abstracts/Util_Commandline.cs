@@ -65,7 +65,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 // コマンド・バッファーの実行中だぜ☆（＾▽＾）
                 syuturyoku.Append($"{Util_Commandline.CommandBufferName }> ");
-                Logger.Flush(syuturyoku);
+                Logger.Flush(syuturyoku.ToString());
+                syuturyoku.Clear();
             }
             else if (GameMode.Game == Util_Application.GameMode)
             {
@@ -88,7 +89,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
                         playing.Result(ky, syuturyoku, CommandMode.NingenYoConsoleGame);
                     }
-                    Logger.Flush(syuturyoku);
+                    Logger.Flush(syuturyoku.ToString());
+                    syuturyoku.Clear();
                 }
 
                 if ((ky.Teban == Taikyokusya.T1 && !Option_Application.Optionlist.P1Com)
@@ -100,14 +102,16 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     syuturyoku.Append(
                         @"指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
 > ");
-                    Logger.Flush(syuturyoku);
+                    Logger.Flush(syuturyoku.ToString());
+                    syuturyoku.Clear();
                 }
             }
             else
             {
                 // 表示（コンソール・ゲーム用）
                 syuturyoku.Append("> ");
-                Logger.Flush(syuturyoku);
+                Logger.Flush(syuturyoku.ToString());
+                syuturyoku.Clear();
             }
         }
     }

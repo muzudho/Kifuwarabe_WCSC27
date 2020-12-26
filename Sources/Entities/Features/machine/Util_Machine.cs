@@ -91,8 +91,12 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             if (IsEnableBoardSize())
             {
-                syuturyoku.Append("定跡ファイル読込中");
-                Logger.Flush(syuturyoku);
+                {
+                    syuturyoku.Append("定跡ファイル読込中");
+                    var msg = syuturyoku.ToString();
+                    syuturyoku.Clear();
+                    Logger.Flush(msg);
+                }
 
                 // まず、既存ファイル名を列挙するぜ☆（＾▽＾）
                 string filenamePattern = $"_auto_joseki{(Option_Application.Optionlist.SagareruHiyoko ? Logger.LocalRuleSagareruHiyoko : Logger.LocalRuleHonshogi)}*";
@@ -103,7 +107,12 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 for (int index = 0; index < filepaths.Length; index++)
                 {
                     syuturyoku.Append(".");
-                    Logger.Flush(syuturyoku);// これが重たいのは仕方ないぜ☆（＾～＾）
+                    // これが重たいのは仕方ないぜ☆（＾～＾）
+                    {
+                        var msg = syuturyoku.ToString();
+                        syuturyoku.Clear();
+                        Logger.Flush(msg);
+                    }
 
                     Joseki jo = Util_Machine.Load_Joseki_1file(filepaths[index], syuturyoku);
                     if (null != jo)
@@ -113,7 +122,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 }
 
                 syuturyoku.AppendLine("☆");
-                Logger.Flush(syuturyoku);
+                {
+                    var msg = syuturyoku.ToString();
+                    syuturyoku.Clear();
+                    Logger.Flush(msg);
+                }
             }
         }
 
@@ -151,8 +164,12 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             if (IsEnableBoardSize() && Option_Application.Optionlist.JosekiRec && Option_Application.Joseki.Edited)
             {
-                syuturyoku.Append("定跡ファイル書出中");
-                Logger.Flush(syuturyoku);
+                {
+                    syuturyoku.Append("定跡ファイル書出中");
+                    var msg = syuturyoku.ToString();
+                    syuturyoku.Clear();
+                    Logger.Flush(msg);
+                }
 
                 // 容量がでかくなったので、複数のファイルに分割して保存するぜ☆（＾▽＾）
                 Option_Application.Joseki.Bunkatu(out Joseki[] bunkatu, out string[] bunkatupartNames, syuturyoku);
@@ -179,7 +196,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                         string filename = Path.GetFileName(filepath);
                         if (!expectedFiles.Contains(filename))
                         {
-                            Logger.Flush(syuturyoku);
+                            var msg = syuturyoku.ToString();
+                            syuturyoku.Clear();
+                            Logger.Flush(msg);
                             removeFilepaths.Add(filepath);
                         }
                     }
@@ -200,7 +219,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 }
 
                 syuturyoku.Append(".");
-                Logger.Flush(syuturyoku);
+                {
+                    var msg = syuturyoku.ToString();
+                    syuturyoku.Clear();
+                    Logger.Flush(msg);
+                }
 
                 // 分割したファイルをマージするぜ☆（＾▽＾）
                 for (int i = 1;//[0]にマージしていくぜ☆（＾▽＾）
@@ -210,7 +233,13 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 }
 
                 syuturyoku.AppendLine("☆");
-                Logger.Flush(syuturyoku);
+
+                {
+                    var msg = syuturyoku.ToString();
+                    syuturyoku.Clear();
+                    Logger.Flush(msg);
+                }
+
                 Option_Application.Joseki.Edited = false;
             }
         }
@@ -228,22 +257,38 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             }
 
             syuturyoku.Append(".");
-            Logger.Flush(syuturyoku);
+            {
+                var msg = syuturyoku.ToString();
+                syuturyoku.Clear();
+                Logger.Flush(msg);
+            }
 
             // 定跡の文字列化☆
             string josekiStr = jo.ToString(Option_Application.Optionlist.USI);
 
             syuturyoku.Append(".");
-            Logger.Flush(syuturyoku);
+            {
+                var msg = syuturyoku.ToString();
+                syuturyoku.Clear();
+                Logger.Flush(msg);
+            }
 
             // 容量を制限するぜ☆
             if (Joseki.Capacity < josekiStr.Length)
             {
                 syuturyoku.AppendLine($"joseki removed ( ascii characters size ) = { jo.DownSizeing(josekiStr.Length - Joseki.Capacity)}");
-                Logger.Flush(syuturyoku);
+                {
+                    var msg = syuturyoku.ToString();
+                    syuturyoku.Clear();
+                    Logger.Flush(msg);
+                }
 
                 syuturyoku.Append(".");
-                Logger.Flush(syuturyoku);
+                {
+                    var msg = syuturyoku.ToString();
+                    syuturyoku.Clear();
+                    Logger.Flush(msg);
+                }
 
                 // もう１回取得☆
                 josekiStr = jo.ToString(Option_Application.Optionlist.USI);
@@ -261,13 +306,21 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             if (IsEnableBoardSize())
             {
                 syuturyoku.Append("二駒関係ファイル読込中");
-                Logger.Flush(syuturyoku);
+                {
+                    var msg = syuturyoku.ToString();
+                    syuturyoku.Clear();
+                    Logger.Flush(msg);
+                }
 
                 // ファイル名☆（＾▽＾）
                 string file = $"_auto_nikoma{(Option_Application.Optionlist.SagareruHiyoko ? Logger.LocalRuleSagareruHiyoko : Logger.LocalRuleHonshogi)}.txt";
 
                 syuturyoku.Append(".");
-                Logger.Flush(syuturyoku);
+                {
+                    var msg = syuturyoku.ToString();
+                    syuturyoku.Clear();
+                    Logger.Flush(msg);
+                }
 
                 if (File.Exists(file))//定跡ファイルがある場合のみ、定跡を使うぜ☆（＾▽＾）
                 {
@@ -275,7 +328,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 }
 
                 syuturyoku.AppendLine("☆");
-                Logger.Flush(syuturyoku);
+                {
+                    var msg = syuturyoku.ToString();
+                    syuturyoku.Clear();
+                    Logger.Flush(msg);
+                }
             }
         }
 
@@ -287,7 +344,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             if (IsEnableBoardSize() && Util_NikomaKankei.Edited)
             {
                 syuturyoku.Append("二駒関係ファイル書出中");
-                Logger.Flush(syuturyoku);
+                {
+                    var msg = syuturyoku.ToString();
+                    syuturyoku.Clear();
+                    Logger.Flush(msg);
+                }
 
                 // 容量がでかくなったので、複数のファイルに分割して保存するぜ☆（＾▽＾）
 
@@ -301,20 +362,32 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 }
 
                 syuturyoku.Append(".");
-                Logger.Flush(syuturyoku);
+                {
+                    var msg = syuturyoku.ToString();
+                    syuturyoku.Clear();
+                    Logger.Flush(msg);
+                }
 
                 // 定跡の文字列化☆
                 StringBuilder nikomaMojiretu = new StringBuilder();
                 Util_NikomaKankei.ToString(nikomaMojiretu);
 
                 syuturyoku.Append(".");
-                Logger.Flush(syuturyoku);
+                {
+                    var msg = syuturyoku.ToString();
+                    syuturyoku.Clear();
+                    Logger.Flush(msg);
+                }
 
                 // 上書き☆
                 System.IO.File.WriteAllText(file, nikomaMojiretu.ToString());
 
                 syuturyoku.AppendLine("☆");
-                Logger.Flush(syuturyoku);
+                {
+                    var msg = syuturyoku.ToString();
+                    syuturyoku.Clear();
+                    Logger.Flush(msg);
+                }
                 Util_NikomaKankei.Edited = false;
             }
         }
@@ -325,7 +398,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         public static void Flush_NikomaSetumei(StringBuilder syuturyoku)
         {
             syuturyoku.Append("二駒関係説明ファイル書出中");
-            Logger.Flush(syuturyoku);
+            {
+                var msg = syuturyoku.ToString();
+                syuturyoku.Clear();
+                Logger.Flush(msg);
+            }
 
             // 容量がでかくなったので、複数のファイルに分割して保存するぜ☆（＾▽＾）
 
@@ -339,19 +416,31 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             }
 
             syuturyoku.Append(".");
-            Logger.Flush(syuturyoku);
+            {
+                var msg = syuturyoku.ToString();
+                syuturyoku.Clear();
+                Logger.Flush(msg);
+            }
 
             // 定跡の文字列化☆
             string contents = Util_NikomaKankei.ToSetumei();
 
             syuturyoku.Append(".");
-            Logger.Flush(syuturyoku);
+            {
+                var msg = syuturyoku.ToString();
+                syuturyoku.Clear();
+                Logger.Flush(msg);
+            }
 
             // 上書き☆
             System.IO.File.WriteAllText(file, contents);
 
             syuturyoku.AppendLine("☆");
-            Logger.Flush(syuturyoku);
+            {
+                var msg = syuturyoku.ToString();
+                syuturyoku.Clear();
+                Logger.Flush(msg);
+            }
             Util_NikomaKankei.Edited = false;
         }
 
@@ -363,7 +452,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             if (IsEnableBoardSize())
             {
                 syuturyoku.Append("成績ファイル読込中");
-                Logger.Flush(syuturyoku);
+                {
+                    var msg = syuturyoku.ToString();
+                    syuturyoku.Clear();
+                    Logger.Flush(msg);
+                }
 
                 // まず、既存ファイル名を列挙するぜ☆（＾▽＾）
                 string filenamePattern = $"_auto_seiseki{ (Option_Application.Optionlist.SagareruHiyoko ? Logger.LocalRuleSagareruHiyoko : Logger.LocalRuleHonshogi)}*";
@@ -374,7 +467,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 for (int index = 0; index < filepaths.Length; index++)
                 {
                     syuturyoku.Append(".");
-                    Logger.Flush(syuturyoku);
+                    {
+                        var msg = syuturyoku.ToString();
+                        syuturyoku.Clear();
+                        Logger.Flush(msg);
+                    }
 
                     Seiseki se = Util_Machine.Load_Seiseki_1file(filepaths[index], syuturyoku);
                     if (null != se)
@@ -384,7 +481,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 }
 
                 syuturyoku.AppendLine("☆");
-                Logger.Flush(syuturyoku);
+                {
+                    var msg = syuturyoku.ToString();
+                    syuturyoku.Clear();
+                    Logger.Flush(msg);
+                }
             }
         }
 
@@ -412,7 +513,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             if (IsEnableBoardSize() && Option_Application.Optionlist.SeisekiRec && Option_Application.Seiseki.Edited)
             {
                 syuturyoku.Append("成績ファイル書出中");
-                Logger.Flush(syuturyoku);
+                {
+                    var msg = syuturyoku.ToString();
+                    syuturyoku.Clear();
+                    Logger.Flush(msg);
+                }
 
                 // 容量がでかくなったので、複数のファイルに分割して保存するぜ☆（＾▽＾）
                 Option_Application.Seiseki.Bunkatu(out Seiseki[] bunkatu, out string[] bunkatupartNames);
@@ -439,7 +544,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                         string filename = Path.GetFileName(filepath);
                         if (!expectedFiles.Contains(filename))
                         {
-                            Logger.Flush(syuturyoku);
+                            var msg = syuturyoku.ToString();
+                            syuturyoku.Clear();
+                            Logger.Flush(msg);
                             removeFilepaths.Add(filepath);
                         }
                     }
@@ -460,7 +567,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 }
 
                 syuturyoku.Append(".");
-                Logger.Flush(syuturyoku);
+                {
+                    var msg = syuturyoku.ToString();
+                    syuturyoku.Clear();
+                    Logger.Flush(msg);
+                }
 
                 // 分割したファイルをマージするぜ☆（＾▽＾）
                 for (int i = 1;//[0]にマージしていくぜ☆（＾▽＾）
@@ -470,7 +581,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 }
 
                 syuturyoku.AppendLine("☆");
-                Logger.Flush(syuturyoku);
+                {
+                    var msg = syuturyoku.ToString();
+                    syuturyoku.Clear();
+                    Logger.Flush(msg);
+                }
                 Option_Application.Seiseki.Edited = false;
             }
         }
@@ -488,13 +603,21 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             }
 
             syuturyoku.Append(".");
-            Logger.Flush(syuturyoku);
+            {
+                var msg = syuturyoku.ToString();
+                syuturyoku.Clear();
+                Logger.Flush(msg);
+            }
 
             // 成績の文字列化☆
             string seisekiStr = se.ToContents_NotUnity(Option_Application.Optionlist.USI);
 
             syuturyoku.Append(".");
-            Logger.Flush(syuturyoku);
+            {
+                var msg = syuturyoku.ToString();
+                syuturyoku.Clear();
+                Logger.Flush(msg);
+            }
 
             // 容量を制限するぜ☆
             if (Seiseki.Capacity < seisekiStr.Length)
@@ -502,7 +625,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 syuturyoku.AppendLine($"seiseki removed bytes = { se.DownSizeing(seisekiStr.Length - Seiseki.Capacity)}");
 
                 syuturyoku.Append(".");
-                Logger.Flush(syuturyoku);
+                {
+                    var msg = syuturyoku.ToString();
+                    syuturyoku.Clear();
+                    Logger.Flush(msg);
+                }
 
                 // もう１回取得☆
                 seisekiStr = se.ToContents_NotUnity(Option_Application.Optionlist.USI);
@@ -543,7 +670,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 syuturyoku.Append(message);
                 string message2 = syuturyoku.ToString();
-                Logger.Flush(syuturyoku);
+                {
+                    var msg = syuturyoku.ToString();
+                    syuturyoku.Clear();
+                    Logger.Flush(msg);
+                }
                 Debug.Assert(condition, message2);
             }
         }
@@ -566,7 +697,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         public static void Fail(StringBuilder syuturyoku)
         {
             string message = syuturyoku.ToString();
-            Logger.Flush(syuturyoku);
+            {
+                var msg = syuturyoku.ToString();
+                syuturyoku.Clear();
+                Logger.Flush(msg);
+            }
             Debug.Fail(message);
             throw new System.Exception(message);
         }
@@ -587,7 +722,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             if (!safe)
             {
                 syuturyoku.AppendLine(msg);
-                Logger.Flush(syuturyoku);
+                {
+                    var msg2 = syuturyoku.ToString();
+                    syuturyoku.Clear();
+                    Logger.Flush(msg2);
+                }
             }
             Debug.Assert(safe, msg);
         }
@@ -616,7 +755,11 @@ P2差分  =[{hyokati2}]
             if (!safe)
             {
                 syuturyoku.AppendLine(msg);
-                Logger.Flush(syuturyoku);
+                {
+                    var msg2 = syuturyoku.ToString();
+                    syuturyoku.Clear();
+                    Logger.Flush(msg2);
+                }
             }
             Debug.Assert(safe, msg);
         }
@@ -633,9 +776,12 @@ P2差分  =[{hyokati2}]
             if (!safe)
             {
                 StringBuilder sindan1 = new StringBuilder();
-                sindan1.Append(message); sindan1.AppendLine(" 局面ハッシュ");
-                Logger.Flush(sindan1);
-                Debug.Fail(sindan1.ToString());
+                sindan1.Append(message);
+                sindan1.AppendLine(" 局面ハッシュ");
+                var msg = sindan1.ToString();
+                sindan1.Clear();
+                Logger.Flush(msg);
+                Debug.Fail(msg);
             }
         }
         /// <summary>
@@ -652,8 +798,10 @@ P2差分  =[{hyokati2}]
                 Util_Information.HyojiKomanoIbasho(ky.Shogiban, sindan1);
                 sindan1.AppendLine($"Util_Tansaku.TansakuTyakusyuEdas=[{Util_Tansaku.TansakuTyakusyuEdas}]");
 
-                Logger.Flush(sindan1);
-                Debug.Fail(sindan1.ToString());
+                var msg = sindan1.ToString();
+                sindan1.Clear();
+                Logger.Flush(msg);
+                Debug.Fail(msg);
             }
         }
 
@@ -708,8 +856,10 @@ P2差分  =[{hyokati2}]
 
                     kys.Setumei_GenkoKiki(tai, sindan1); // 利き：（現行）
 
-                    Logger.Flush(sindan1);
-                    Debug.Assert(safe, sindan1.ToString());
+                    var msg = sindan1.ToString();
+                    sindan1.Clear();
+                    Logger.Flush(msg);
+                    Debug.Assert(safe, msg);
                 }
             }
         }
