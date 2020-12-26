@@ -17,12 +17,14 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
         public static void Setumei_Kiki(Kyokumen ky, Masu attackerMs, StringBuilder syuturyoku)
         {
-            ky.Shogiban.ExistsBBKomaZenbu(attackerMs, out Taikyokusya tai);
-            ky.Shogiban.ExistsBBKoma(tai, attackerMs, out Komasyurui ks);
-
-            Util_Information.Setumei_1Bitboard("利き",
-                Util_Application.Kiki_BB(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, tai), attackerMs, ky.Shogiban)//利き
-                , syuturyoku);
+            var (exists, phase) = ky.Shogiban.ExistsBBKomaZenbu(attackerMs);
+            if (exists)
+            {
+                ky.Shogiban.ExistsBBKoma(phase, attackerMs, out Komasyurui ks);
+                Util_Information.Setumei_1Bitboard("利き",
+                    Util_Application.Kiki_BB(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, phase), attackerMs, ky.Shogiban)//利き
+                    , syuturyoku);
+            }
         }
         public static bool IsLegalMove(Koma km, Masu dstMs, Masu attackerMs, Shogiban shogiban)
         {

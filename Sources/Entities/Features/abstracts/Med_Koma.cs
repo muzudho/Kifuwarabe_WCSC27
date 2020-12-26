@@ -1,4 +1,6 @@
-﻿namespace Grayscale.Kifuwarakei.Entities.Features
+﻿using System;
+
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     /// <summary>
     /// mediator.
@@ -162,7 +164,19 @@
             Taikyokusya.Yososu,//駒のない升だぜ☆（＾▽＾）
             Taikyokusya.Yososu// 空白～後手のにわとり　までの要素の個数になるぜ☆（＾▽＾）
         };
-        public static Taikyokusya KomaToTaikyokusya(Koma km) { return m_KomaToTaikyokusya_[(int)km]; }
+
+        public static Taikyokusya KomaToTaikyokusya(Koma km)
+        {
+            // FIXME: 範囲外の引数を指定できるのがそもそもダメ☆（＾～＾）
+            if (-1 < (int)km && (int)km < m_KomaToTaikyokusya_.Length)
+            {
+                return m_KomaToTaikyokusya_[(int)km];
+            }
+            else
+            {
+                throw new Exception($"km={(int)km} < m_KomaToTaikyokusya_.Length={m_KomaToTaikyokusya_.Length}");
+            }
+        }
         #endregion
 
         #region 盤上の駒→持駒

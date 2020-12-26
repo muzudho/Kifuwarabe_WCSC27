@@ -96,8 +96,18 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
             public Bitboard Get(Taikyokusya tai)
             {
-                return ValueTai[(int)tai];
+                // FIXME: tai=2 ValueTai.Length=2 という不具合が出た☆（＾～＾）
+                if (0<= (int)tai && (int)tai < ValueTai.Length)
+                {
+                    return ValueTai[(int)tai];
+                }
+                else
+                {
+                    throw new Exception($"(int)tai={(int)tai} < ValueTai.Length={ValueTai.Length}");
+                }
             }
+
+            /*
             public bool Exists(Masu ms, out Taikyokusya out_tai)
             {
                 for (int iTai = 0; iTai < Conv_Taikyokusya.Itiran.Length; iTai++)
@@ -105,9 +115,20 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     out_tai = (Taikyokusya)iTai;
                     if (ValueTai[iTai].IsOn(ms)) { return true; }
                 }
-                out_tai = Taikyokusya.Yososu;
+                out_tai = Taikyokusya.Yososu; // 使えない値を入れるのはダメ☆（＾～＾）
                 return false;
             }
+            */
+            public (bool, Taikyokusya) Exists(Masu ms)
+            {
+                for (int iTai = 0; iTai < Conv_Taikyokusya.Itiran.Length; iTai++)
+                {
+                    if (ValueTai[iTai].IsOn(ms)) { return (true, (Taikyokusya)iTai); }
+                }
+                return (false, Taikyokusya.Yososu); // この値は仕方なく入れてるだけで、使ってはいけないぜ☆（＾～＾）
+            }
+
+            /*
             public bool Exists(Masu ms)
             {
                 for (int iTai = 0; iTai < Conv_Taikyokusya.Itiran.Length; iTai++)
@@ -116,6 +137,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 }
                 return false;
             }
+            */
         }
 
         /// <summary>
@@ -1172,18 +1194,20 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             return BB_Kiki.IsActive();
         }
-        public bool ExistsBBKomaZenbu(Masu ms, out Taikyokusya out_tai)
+        public (bool, Taikyokusya) ExistsBBKomaZenbu(Masu ms)
         {
-            return BB_KomaZenbu.Exists(ms, out out_tai);
+            return BB_KomaZenbu.Exists(ms);
         }
         public bool ExistsBBKomaZenbu(Taikyokusya tai, Masu ms)
         {
             return BB_KomaZenbu.Get(tai).IsOn(ms);
         }
-        public bool ExistsBBKomaZenbu(Masu ms)
+        /*
+        public (bool,Taikyokusya) ExistsBBKomaZenbu(Masu ms)
         {
             return BB_KomaZenbu.Exists(ms);
         }
+        */
         public bool ExistsBBKoma(Taikyokusya tai, Masu ms, out Komasyurui ks)
         {
             return BB_Koma.Exists(tai, ms, out ks);
@@ -1449,7 +1473,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <param name="ms"></param>
         public void N240_TorinozokuKoma(Koma km, Masu ms)
         {
+
             var phase = Med_Koma.KomaToTaikyokusya(km);
+
             var bb1 = BB_KomaZenbu.Get(phase);
             bb1.Sitdown(ms);
             var bb2 = BB_Koma.Get(km);
