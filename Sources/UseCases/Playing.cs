@@ -288,10 +288,9 @@ usiok");
         {
             if (commandline == "jokyo")
             {
-                string kigo = "";
-                syuturyoku.AppendLine($@"{kigo}GameMode = {Util_Application.GameMode}
-{kigo}Kekka    = {ky.Kekka}
-{kigo}Kettyaku = {Util_Application.IsKettyaku(ky)}");
+                syuturyoku.AppendLine($@"GameMode = {Util_Application.GameMode}
+Kekka    = {ky.Kekka}
+Kettyaku = {Util_Application.IsKettyaku(ky)}");
                 return;
             }
         }
@@ -842,129 +841,128 @@ usiok");
 
         public void Man(StringBuilder syuturyoku)
         {
-            string kigo = "";//記号
             // なるべく、アルファベット順☆（＾▽＾）
             // RandomSei は、思考が弱くなるので廃止☆（＾▽＾）
-            syuturyoku.AppendLine($@"{kigo}(空っぽEnter)   : ゲームモードのフラグを ON にするぜ☆
-{kigo}@例             : 「例.txt」ファイル読込んでコマンド実行だぜ☆(UTF-8 BOM有り)
-{kigo}#コメント       : なんにもしないぜ☆
-{kigo}bitboard        : ビットボードのテスト用だぜ☆
-{kigo}bitboard kiki   : 駒の動きを表示するぜ☆
-{kigo}bitboard remake : 駒の動きを作り直すぜ☆
-{kigo}cando B4B3      : B4にある駒をB3へ動かせるなら true を返すぜ☆
-{kigo}                : 動かせないなら「false, 理由」を返すぜ☆
-{kigo}clear           : コンソールをクリアーするぜ☆
-{kigo}do B4B3         : B4にある駒をB3へ動かしたあと ky するぜ☆
-{kigo}                : アルファベットは小文字でも構わない☆
-{kigo}do Z*A2         : 持ち駒の ぞう をA2へ打ったあと ky するぜ☆
-{kigo}                : Z* ぞう打　K* きりん打　H* ひよこ打☆
-{kigo}do C2C1+        : C2にある駒をC1へ動かしたあと成って ky するぜ☆
-{kigo}do toryo        : 投了するぜ☆
-{kigo}go              : コンピューターが１手指したあと ky するぜ☆
-{kigo}hirate          : 平手初期局面にしたあと ky するぜ☆
-{kigo}honyaku fen sfen startpos : 翻訳☆ どうぶつしょうぎfenから
-{kigo}                          : 本将棋fenへ変換☆ 4単語目以降を☆
-{kigo}hyoka           : 現局面を（読み無しで）形成判断するぜ☆
-{kigo}hyoka komawari  : 現局面を　駒割りだけで　形成判断するぜ☆
-{kigo}hyoka nikoma    : 現局面を　二駒関係と手番で　形成判断するぜ☆
-{kigo}jam             : テスト表示用に空き升をデータで埋めるぜ☆ JAMpacked
-{kigo}jokyo           : 現在の内部の状況を表示☆
-{kigo}joseki          : 定跡ファイルの情報表示☆
-{kigo}joseki bunkatu  : 定跡メモリを分割するぜ☆
-{kigo}joseki cleanup  : 定跡ファイルの中の指せない手を削除するぜ☆
-{kigo}kansosen        : 終わった直後の局面データを復活させるぜ☆（＾～＾）
-{kigo}kifu            : 終わった直後の局面の棋譜を表示するぜ☆
-{kigo}kifu 10         : 終わった直後の局面の10手目までの図を表示するぜ☆
-{kigo}kiki            : 味方の駒の利きを一覧するぜ☆
-{kigo}kiki B3         : 現局面の B3 にある駒の利きを一覧するぜ☆
-{kigo}kiki B3 R 1     : 升と、駒の種類と、手番を指定すると、利きを表示するぜ☆
-{kigo}kikikazu        : 重ね利きの数を一覧するぜ☆
-{kigo}koma            : 対局者１、２の駒の場所を表示☆
-{kigo}koma R          : 対局者１、２の　らいおん　の場所を表示☆
-{kigo}koma +z         : 対局者１、２の　パワーゾウ　の場所を表示☆ 他同様☆
-{kigo}ky              : 将棋盤をグラフィカル表示☆ KYokumen
-{kigo}ky:             : 将棋盤を１行表示☆
-{kigo}                : fen krz/1h1/1H1/ZRK - 1 0 1
-{kigo}                : fen 盤上の駒配置 持ち駒の数 手番の対局者 何手目 同形反復の回数
-{kigo}ky clear        : 将棋盤をクリアーするぜ☆
-{kigo}ky fen krz/1h1/1H1/ZRK - 1 : fen を打ち込んで局面作成☆
-{kigo}ky fen          : 現局面の fen を表示☆
-{kigo}ky hanten       : 将棋盤を１８０度回転☆ 反転☆
-{kigo}ky kesu C4      : C4升に置いてある駒を消すぜ☆
-{kigo}ky mazeru       : 将棋盤をごちゃごちゃに混ぜるぜ☆ シャッフル☆
-{kigo}ky oku K C3     : きりんをC3升に置くぜ☆ 最後に ky tekiyo 必要☆
-{kigo}ky tekiyo       : 編集した盤面を使えるようにするぜ☆
-{kigo}man,manual      : これ
-{kigo}masu 3          : A1,B1升の位置を表す盤を返すぜ☆
-{kigo}nikoma banjo K C4 : 二駒関係 きりん,C4升 評価値出力☆
-{kigo}nikoma kaku     : 二駒関係ファイル書出し☆
-{kigo}nikoma ky       : 現局面の二駒関係評価値出力☆
-{kigo}nikoma miru     : 二駒関係ファイルをコンソール表示☆
-{kigo}nikoma motikoma K : 二駒関係 きりん 評価値出力☆
-{kigo}nikoma random   : 二駒関係をランダム値で増減☆
-{kigo}nikoma setumei  : 二駒関係の説明を書出し☆
-{kigo}nikoma gokei    : パラメーターを全部足した数字を表示☆ 合計☆
-{kigo}nikoma yomu     : 二駒関係ファイル読込み☆
-{kigo}quit            : アプリケーション終了。保存してないものは保存する☆
-{kigo}rnd             : ランダムに１手指すぜ☆
-{kigo}move            : 味方の指し手を一覧するぜ☆
-{kigo}move 1361       : 指し手コード 1361 を翻訳するぜ☆
-{kigo}move seisei     : 指し手生成のテストだぜ☆
-{kigo}move su         : 指し手の件数を出力するぜ☆
-{kigo}see B3          : B3 にある駒を取り合ったときの評価値を返すぜ☆
-{kigo}set             : 設定を一覧表示するぜ☆
-{kigo}set AspirationFukasa 7  : アスピレーション窓探索を使い始める深さ☆（＾～＾）
-{kigo}set AspirationWindow 300: アスピレーション窓探索で使う数字☆（＾～＾）
-{kigo}set BetaCutPer 100      : 100%の確率でベータ・カットを使うぜ☆ 0～100
-{kigo}set HanpukuSinkaTansakuTukau true: 反復深化探索を使うぜ☆
-{kigo}                                 : トランスポジション・テーブルを使う必要あり☆
-{kigo}set JohoJikan 3000      : 読み筋表示を 3000 ミリ秒間隔で行うぜ☆ 負数で表示なし☆
-{kigo}set JosekiPer 50        : 50%の確率で定跡を使うぜ☆ 0～100
-{kigo}set JosekiRec true      : 定跡の登録を行うぜ☆
-{kigo}set Learn true          : 機械学習を行うぜ☆
-{kigo}set NikomaHyokaKeisu 0.2: 二駒関係評価値を 0.2 倍にするぜ☆
-{kigo}set NikomaGakusyuKeisu 0.01: 二駒関係評価値学習の調整量を 0.01 倍☆
-{kigo}set P1Char HyokatiYusen : 対局者１の指し手設定。評価値優先☆
-{kigo}set P1Char SinteYusen   : 対局者１の指し手設定。新手優先☆
-{kigo}set P1Char SinteNomi    : 対局者１の指し手設定。新手最優先☆
-{kigo}set P1Char SyorituYusen : 対局者１の指し手設定。勝率優先☆
-{kigo}set P1Char SyorituNomi  : 対局者１の指し手設定。勝率最優先☆
-{kigo}set P1Char TansakuNomi  : 対局者１の指し手設定。探索のみ☆
-{kigo}set P1Com true          : 対局者１をコンピューターに指させるぜ☆
-{kigo}set P2Char 略           : P1Char 参照☆
-{kigo}set P2Com true          : 対局者２をコンピューターに指させるぜ☆
-{kigo}set P1Name きふわらべ    : 対局者１の表示名を きふわらべ に変更☆
-{kigo}set P2Name きふわらべ    : 対局者２の表示名を きふわらべ に変更☆
-{kigo}set RandomCharacter true: 対局終了時に、COMの指し手の性格を変えるぜ☆
-{kigo}set RandomNikoma true   : 指し手にランダム性を付けるぜ☆
-{kigo}set RandomSei true      : （廃止されたぜ☆）//指し手にランダム性を付けるぜ☆
-{kigo}set RandomStart true    : 開始局面をランダムにするぜ☆
-{kigo}set RandomStartTaikyokusya true: 開始先後をランダムにするぜ☆
-{kigo}set RenzokuRandomRule true : 連続対局をランダムにルール変えてやる☆
-{kigo}set RenzokuTaikyoku true: 強制終了するまで連続対局だぜ☆
-{kigo}set SagareruHiyoko true : 下がれるひよこモード☆普通のひよこはいなくなる☆
-{kigo}set SaidaiFukasa 3      : コンピューターの探索深さの最大を3に設定するぜ☆
-{kigo}set SennititeKaihi true : コンピューターが千日手を必ず回避するぜ☆
-{kigo}set SikoJikan 4000      : コンピューターが一手に思考する時間を 4秒 に設定するぜ☆
-{kigo}set SikoJikanRandom 1000: 探索毎に 0～0.999秒 の範囲で思考時間を多めに取るぜ☆
-{kigo}set TranspositionTableTukau true: トランスポジション・テーブル使うぜ☆
-{kigo}set UseTimeOver false   : 思考時間の時間切れ判定を無視するぜ☆
-{kigo}set USI false           : USI通信モードを途中でやめたくなったとき☆
-{kigo}tantaitest        : 色んなテストを一気にするぜ☆
-{kigo}taikyokusya       : 手番を表示するんだぜ☆
-{kigo}taikyokusya hanten: 手番を反転だぜ☆
-{kigo}taikyokusya mazeru: 手番をランダムに決めるぜ☆
-{kigo}test bit-shift    : ビットシフト の動作テスト☆
-{kigo}test bit-ntz      : ビット演算 NTZ の動作テスト☆
-{kigo}test bit-kiki     : ビット演算の利きの動作テスト☆
-{kigo}test bitboard     : 固定ビットボードの確認☆
-{kigo}test downSizing   : 定跡ファイルの内容を減らすテストだぜ☆
-{kigo}test ittedume     : 一手詰めの動作テスト☆
-{kigo}test jisatusyu B3 : B3升に駒を動かすのは自殺手かテスト☆
-{kigo}test tryrule      : トライルールの動作テスト☆
-{kigo}tu                : tumeshogi と同じだぜ☆
-{kigo}tumeshogi         : 詰将棋が用意されるぜ☆
-{kigo}undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
+            syuturyoku.AppendLine($@"(空っぽEnter)   : ゲームモードのフラグを ON にするぜ☆
+@例             : 「例.txt」ファイル読込んでコマンド実行だぜ☆(UTF-8 BOM有り)
+#コメント       : なんにもしないぜ☆
+bitboard        : ビットボードのテスト用だぜ☆
+bitboard kiki   : 駒の動きを表示するぜ☆
+bitboard remake : 駒の動きを作り直すぜ☆
+cando B4B3      : B4にある駒をB3へ動かせるなら true を返すぜ☆
+                : 動かせないなら「false, 理由」を返すぜ☆
+clear           : コンソールをクリアーするぜ☆
+do B4B3         : B4にある駒をB3へ動かしたあと ky するぜ☆
+                : アルファベットは小文字でも構わない☆
+do Z*A2         : 持ち駒の ぞう をA2へ打ったあと ky するぜ☆
+                : Z* ぞう打　K* きりん打　H* ひよこ打☆
+do C2C1+        : C2にある駒をC1へ動かしたあと成って ky するぜ☆
+do toryo        : 投了するぜ☆
+go              : コンピューターが１手指したあと ky するぜ☆
+hirate          : 平手初期局面にしたあと ky するぜ☆
+honyaku fen sfen startpos : 翻訳☆ どうぶつしょうぎfenから
+                          : 本将棋fenへ変換☆ 4単語目以降を☆
+hyoka           : 現局面を（読み無しで）形成判断するぜ☆
+hyoka komawari  : 現局面を　駒割りだけで　形成判断するぜ☆
+hyoka nikoma    : 現局面を　二駒関係と手番で　形成判断するぜ☆
+jam             : テスト表示用に空き升をデータで埋めるぜ☆ JAMpacked
+jokyo           : 現在の内部の状況を表示☆
+joseki          : 定跡ファイルの情報表示☆
+joseki bunkatu  : 定跡メモリを分割するぜ☆
+joseki cleanup  : 定跡ファイルの中の指せない手を削除するぜ☆
+kansosen        : 終わった直後の局面データを復活させるぜ☆（＾～＾）
+kifu            : 終わった直後の局面の棋譜を表示するぜ☆
+kifu 10         : 終わった直後の局面の10手目までの図を表示するぜ☆
+kiki            : 味方の駒の利きを一覧するぜ☆
+kiki B3         : 現局面の B3 にある駒の利きを一覧するぜ☆
+kiki B3 R 1     : 升と、駒の種類と、手番を指定すると、利きを表示するぜ☆
+kikikazu        : 重ね利きの数を一覧するぜ☆
+koma            : 対局者１、２の駒の場所を表示☆
+koma R          : 対局者１、２の　らいおん　の場所を表示☆
+koma +z         : 対局者１、２の　パワーゾウ　の場所を表示☆ 他同様☆
+ky              : 将棋盤をグラフィカル表示☆ KYokumen
+ky:             : 将棋盤を１行表示☆
+                : fen krz/1h1/1H1/ZRK - 1 0 1
+                : fen 盤上の駒配置 持ち駒の数 手番の対局者 何手目 同形反復の回数
+ky clear        : 将棋盤をクリアーするぜ☆
+ky fen krz/1h1/1H1/ZRK - 1 : fen を打ち込んで局面作成☆
+ky fen          : 現局面の fen を表示☆
+ky hanten       : 将棋盤を１８０度回転☆ 反転☆
+ky kesu C4      : C4升に置いてある駒を消すぜ☆
+ky mazeru       : 将棋盤をごちゃごちゃに混ぜるぜ☆ シャッフル☆
+ky oku K C3     : きりんをC3升に置くぜ☆ 最後に ky tekiyo 必要☆
+ky tekiyo       : 編集した盤面を使えるようにするぜ☆
+man,manual      : これ
+masu 3          : A1,B1升の位置を表す盤を返すぜ☆
+nikoma banjo K C4 : 二駒関係 きりん,C4升 評価値出力☆
+nikoma kaku     : 二駒関係ファイル書出し☆
+nikoma ky       : 現局面の二駒関係評価値出力☆
+nikoma miru     : 二駒関係ファイルをコンソール表示☆
+nikoma motikoma K : 二駒関係 きりん 評価値出力☆
+nikoma random   : 二駒関係をランダム値で増減☆
+nikoma setumei  : 二駒関係の説明を書出し☆
+nikoma gokei    : パラメーターを全部足した数字を表示☆ 合計☆
+nikoma yomu     : 二駒関係ファイル読込み☆
+quit            : アプリケーション終了。保存してないものは保存する☆
+rnd             : ランダムに１手指すぜ☆
+move            : 味方の指し手を一覧するぜ☆
+move 1361       : 指し手コード 1361 を翻訳するぜ☆
+move seisei     : 指し手生成のテストだぜ☆
+move su         : 指し手の件数を出力するぜ☆
+see B3          : B3 にある駒を取り合ったときの評価値を返すぜ☆
+set             : 設定を一覧表示するぜ☆
+set AspirationFukasa 7  : アスピレーション窓探索を使い始める深さ☆（＾～＾）
+set AspirationWindow 300: アスピレーション窓探索で使う数字☆（＾～＾）
+set BetaCutPer 100      : 100%の確率でベータ・カットを使うぜ☆ 0～100
+set HanpukuSinkaTansakuTukau true: 反復深化探索を使うぜ☆
+                                 : トランスポジション・テーブルを使う必要あり☆
+set JohoJikan 3000      : 読み筋表示を 3000 ミリ秒間隔で行うぜ☆ 負数で表示なし☆
+set JosekiPer 50        : 50%の確率で定跡を使うぜ☆ 0～100
+set JosekiRec true      : 定跡の登録を行うぜ☆
+set Learn true          : 機械学習を行うぜ☆
+set NikomaHyokaKeisu 0.2: 二駒関係評価値を 0.2 倍にするぜ☆
+set NikomaGakusyuKeisu 0.01: 二駒関係評価値学習の調整量を 0.01 倍☆
+set P1Char HyokatiYusen : 対局者１の指し手設定。評価値優先☆
+set P1Char SinteYusen   : 対局者１の指し手設定。新手優先☆
+set P1Char SinteNomi    : 対局者１の指し手設定。新手最優先☆
+set P1Char SyorituYusen : 対局者１の指し手設定。勝率優先☆
+set P1Char SyorituNomi  : 対局者１の指し手設定。勝率最優先☆
+set P1Char TansakuNomi  : 対局者１の指し手設定。探索のみ☆
+set P1Com true          : 対局者１をコンピューターに指させるぜ☆
+set P2Char 略           : P1Char 参照☆
+set P2Com true          : 対局者２をコンピューターに指させるぜ☆
+set P1Name きふわらべ    : 対局者１の表示名を きふわらべ に変更☆
+set P2Name きふわらべ    : 対局者２の表示名を きふわらべ に変更☆
+set RandomCharacter true: 対局終了時に、COMの指し手の性格を変えるぜ☆
+set RandomNikoma true   : 指し手にランダム性を付けるぜ☆
+set RandomSei true      : （廃止されたぜ☆）//指し手にランダム性を付けるぜ☆
+set RandomStart true    : 開始局面をランダムにするぜ☆
+set RandomStartTaikyokusya true: 開始先後をランダムにするぜ☆
+set RenzokuRandomRule true : 連続対局をランダムにルール変えてやる☆
+set RenzokuTaikyoku true: 強制終了するまで連続対局だぜ☆
+set SagareruHiyoko true : 下がれるひよこモード☆普通のひよこはいなくなる☆
+set SaidaiFukasa 3      : コンピューターの探索深さの最大を3に設定するぜ☆
+set SennititeKaihi true : コンピューターが千日手を必ず回避するぜ☆
+set SikoJikan 4000      : コンピューターが一手に思考する時間を 4秒 に設定するぜ☆
+set SikoJikanRandom 1000: 探索毎に 0～0.999秒 の範囲で思考時間を多めに取るぜ☆
+set TranspositionTableTukau true: トランスポジション・テーブル使うぜ☆
+set UseTimeOver false   : 思考時間の時間切れ判定を無視するぜ☆
+set USI false           : USI通信モードを途中でやめたくなったとき☆
+tantaitest        : 色んなテストを一気にするぜ☆
+taikyokusya       : 手番を表示するんだぜ☆
+taikyokusya hanten: 手番を反転だぜ☆
+taikyokusya mazeru: 手番をランダムに決めるぜ☆
+test bit-shift    : ビットシフト の動作テスト☆
+test bit-ntz      : ビット演算 NTZ の動作テスト☆
+test bit-kiki     : ビット演算の利きの動作テスト☆
+test bitboard     : 固定ビットボードの確認☆
+test downSizing   : 定跡ファイルの内容を減らすテストだぜ☆
+test ittedume     : 一手詰めの動作テスト☆
+test jisatusyu B3 : B3升に駒を動かすのは自殺手かテスト☆
+test tryrule      : トライルールの動作テスト☆
+tu                : tumeshogi と同じだぜ☆
+tumeshogi         : 詰将棋が用意されるぜ☆
+undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
             Logger.Flush(syuturyoku.ToString());
             syuturyoku.Clear();
         }
@@ -1765,39 +1763,38 @@ usiok");
         {
             if (commandline == "set")
             {
-                string kigo = "";
-                syuturyoku.AppendLine($@"{kigo}AspirationFukasa         = {Option_Application.Optionlist.AspirationFukasa }
-{kigo}AspirationWindow         = {Option_Application.Optionlist.AspirationWindow}
-{kigo}BanTateHaba              = {Option_Application.Optionlist.BanTateHaba}
-{kigo}BanYokoHaba              = {Option_Application.Optionlist.BanYokoHaba}
-{kigo}BetaCutPer               = {Option_Application.Optionlist.BetaCutPer}
-{kigo}HanpukuSinkaTansakuTukau = {Option_Application.Optionlist.HanpukuSinkaTansakuTukau}
-{kigo}JohoJikan                = {Option_Application.Optionlist.JohoJikan}
-{kigo}JosekiPer                = {Option_Application.Optionlist.JosekiPer}
-{kigo}JosekiRec                = {Option_Application.Optionlist.JosekiRec}
-{kigo}Learn                    = {Option_Application.Optionlist.Learn}
-{kigo}NikomaHyokaKeisu         = {Option_Application.Optionlist.NikomaHyokaKeisu}
-{kigo}NikomaGakusyuKeisu       = {Option_Application.Optionlist.NikomaGakusyuKeisu}
-{kigo}P1Char                   = {Option_Application.Optionlist.PNChar[(int)Taikyokusya.T1]}
-{kigo}P1Com                    = {Option_Application.Optionlist.P1Com}
-{kigo}P1Name                   = {Option_Application.Optionlist.PNName[(int)Taikyokusya.T1]}
-{kigo}P2Char                   = {Option_Application.Optionlist.PNChar[(int)Taikyokusya.T2]}
-{kigo}P2Com                    = {Option_Application.Optionlist.P2Com}
-{kigo}P2Name                   = {Option_Application.Optionlist.PNName[(int)Taikyokusya.T2]}
-{kigo}RandomCharacter          = {Option_Application.Optionlist.RandomCharacter}
-{kigo}RandomNikoma             = {Option_Application.Optionlist.RandomNikoma}
-{kigo}RandomStart              = {Option_Application.Optionlist.RandomStart}
-{kigo}RandomStartTaikyokusya   = {Option_Application.Optionlist.RandomStartTaikyokusya}
-{kigo}RenzokuTaikyoku          = {Option_Application.Optionlist.RenzokuTaikyoku}
-{kigo}SagareruHiyoko           = {Option_Application.Optionlist.SagareruHiyoko}
-{kigo}SaidaiEda                = {Option_Application.Optionlist.SaidaiEda}
-{kigo}SaidaiFukasa             = {Option_Application.Optionlist.SaidaiFukasa}
-{kigo}SeisekiRec               = {Option_Application.Optionlist.SeisekiRec}
-{kigo}SikoJikan                = {Option_Application.Optionlist.SikoJikan}
-{kigo}SikoJikanRandom          = {Option_Application.Optionlist.SikoJikanRandom}
-{kigo}TranspositionTableTukau  = {Option_Application.Optionlist.TranspositionTableTukau}
-{kigo}UseTimeOver              = {Option_Application.Optionlist.UseTimeOver}
-{kigo}USI                      = {Option_Application.Optionlist.USI}");
+                syuturyoku.AppendLine($@"AspirationFukasa         = {Option_Application.Optionlist.AspirationFukasa }
+AspirationWindow         = {Option_Application.Optionlist.AspirationWindow}
+BanTateHaba              = {Option_Application.Optionlist.BanTateHaba}
+BanYokoHaba              = {Option_Application.Optionlist.BanYokoHaba}
+BetaCutPer               = {Option_Application.Optionlist.BetaCutPer}
+HanpukuSinkaTansakuTukau = {Option_Application.Optionlist.HanpukuSinkaTansakuTukau}
+JohoJikan                = {Option_Application.Optionlist.JohoJikan}
+JosekiPer                = {Option_Application.Optionlist.JosekiPer}
+JosekiRec                = {Option_Application.Optionlist.JosekiRec}
+Learn                    = {Option_Application.Optionlist.Learn}
+NikomaHyokaKeisu         = {Option_Application.Optionlist.NikomaHyokaKeisu}
+NikomaGakusyuKeisu       = {Option_Application.Optionlist.NikomaGakusyuKeisu}
+P1Char                   = {Option_Application.Optionlist.PNChar[(int)Taikyokusya.T1]}
+P1Com                    = {Option_Application.Optionlist.P1Com}
+P1Name                   = {Option_Application.Optionlist.PNName[(int)Taikyokusya.T1]}
+P2Char                   = {Option_Application.Optionlist.PNChar[(int)Taikyokusya.T2]}
+P2Com                    = {Option_Application.Optionlist.P2Com}
+P2Name                   = {Option_Application.Optionlist.PNName[(int)Taikyokusya.T2]}
+RandomCharacter          = {Option_Application.Optionlist.RandomCharacter}
+RandomNikoma             = {Option_Application.Optionlist.RandomNikoma}
+RandomStart              = {Option_Application.Optionlist.RandomStart}
+RandomStartTaikyokusya   = {Option_Application.Optionlist.RandomStartTaikyokusya}
+RenzokuTaikyoku          = {Option_Application.Optionlist.RenzokuTaikyoku}
+SagareruHiyoko           = {Option_Application.Optionlist.SagareruHiyoko}
+SaidaiEda                = {Option_Application.Optionlist.SaidaiEda}
+SaidaiFukasa             = {Option_Application.Optionlist.SaidaiFukasa}
+SeisekiRec               = {Option_Application.Optionlist.SeisekiRec}
+SikoJikan                = {Option_Application.Optionlist.SikoJikan}
+SikoJikanRandom          = {Option_Application.Optionlist.SikoJikanRandom}
+TranspositionTableTukau  = {Option_Application.Optionlist.TranspositionTableTukau}
+UseTimeOver              = {Option_Application.Optionlist.UseTimeOver}
+USI                      = {Option_Application.Optionlist.USI}");
                 return;
             }
 

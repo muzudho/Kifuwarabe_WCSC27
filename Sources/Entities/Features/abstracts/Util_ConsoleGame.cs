@@ -86,10 +86,8 @@
         {
             if (TaikyokuKekka.Karappo != Util_Application.Result(ky))
             {
-                string kigo = "";
-
                 // 表示（コンソール・ゲーム用）　勝敗☆（＾～＾）”””
-                syuturyoku.AppendLine($"{kigo}決着図");
+                syuturyoku.AppendLine("決着図");
                 Util_Information.Setumei_NingenGameYo(ky, syuturyoku);
 
                 // 表示（コンソール・ゲーム用）　勝敗☆（＾～＾）”””
@@ -98,7 +96,7 @@
                     case TaikyokuKekka.Taikyokusya1NoKati:
                         if (Option_Application.Optionlist.P2Com)
                         {
-                            syuturyoku.AppendLine($"{kigo}まいったぜ☆（＞＿＜）");
+                            syuturyoku.AppendLine("まいったぜ☆（＞＿＜）");
                             Logger.Flush(syuturyoku.ToString());
                             syuturyoku.Clear();
                         }
@@ -106,21 +104,21 @@
                     case TaikyokuKekka.Taikyokusya2NoKati:
                         if (Option_Application.Optionlist.P2Com)
                         {
-                            syuturyoku.AppendLine($"{kigo}やったぜ☆（＾▽＾）！");
+                            syuturyoku.AppendLine("やったぜ☆（＾▽＾）！");
                             Logger.Flush(syuturyoku.ToString());
                             syuturyoku.Clear();
                         }
                         break;
                     case TaikyokuKekka.Hikiwake:
                         {
-                            syuturyoku.AppendLine($"{kigo}決着を付けたかったぜ☆（＾～＾）");
+                            syuturyoku.AppendLine("決着を付けたかったぜ☆（＾～＾）");
                             Logger.Flush(syuturyoku.ToString());
                             syuturyoku.Clear();
                         }
                         break;
                     case TaikyokuKekka.Sennitite:
                         {
-                            syuturyoku.AppendLine($"{kigo}まあ、良しとするかだぜ☆（＾＿＾）");
+                            syuturyoku.AppendLine("まあ、良しとするかだぜ☆（＾＿＾）");
                             Logger.Flush(syuturyoku.ToString());
                             syuturyoku.Clear();
                         }

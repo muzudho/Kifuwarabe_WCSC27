@@ -1449,8 +1449,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <param name="ms"></param>
         public void N240_TorinozokuKoma(Koma km, Masu ms)
         {
-            BB_KomaZenbu.Get(Med_Koma.KomaToTaikyokusya(km)).Sitdown(ms);
-            BB_Koma.Get(km).Sitdown(ms);
+            var phase = Med_Koma.KomaToTaikyokusya(km);
+            var bb1 = BB_KomaZenbu.Get(phase);
+            bb1.Sitdown(ms);
+            var bb2 = BB_Koma.Get(km);
+            bb2.Sitdown(ms);
         }
 
 
