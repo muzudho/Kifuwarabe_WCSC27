@@ -69,6 +69,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\IEngineConf.cs" />
+    <Compile Include="Configuration\IResFile.cs" />
+    <Compile Include="Configuration\ResFile.cs" />
+    <Compile Include="Configuration\SpecifiedFiles.cs" />
     <Compile Include="EntitiesLayer.cs" />
     <Compile Include="Features\abstracts\AbstractUtilMoveGen.cs" />
     <Compile Include="Features\abstracts\CommandMode.cs" />
@@ -135,10 +138,12 @@
     <Compile Include="Features\interfaces\TaikyokuKekka.cs" />
     <Compile Include="Features\interfaces\Taikyokusya.cs" />
     <Compile Include="IPlaying.cs" />
+    <Compile Include="Logging\ILogRecord.cs" />
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="Features\machine\Util_Machine.cs" />
     <Compile Include="Features\machine\Util_Test.cs" />
     <Compile Include="Features\Presenter\FenParsers.cs" />
+    <Compile Include="Logging\LogRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

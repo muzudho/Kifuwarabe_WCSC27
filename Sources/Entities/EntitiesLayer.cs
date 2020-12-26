@@ -12,7 +12,7 @@ namespace Grayscale.Kifuwarakei.Entities
 
         public static void Implement(IEngineConf engineConf)
         {
-            //SpecifiedFiles.Init(engineConf);
+            SpecifiedFiles.Init(engineConf);
             Logger.Init(engineConf);
             // Util_KifuTreeLogWriter.Init(engineConf);
         }

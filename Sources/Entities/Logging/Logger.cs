@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using Grayscale.Kifuwarakei.Entities.Configuration;
@@ -15,9 +16,29 @@ namespace Grayscale.Kifuwarakei.Entities.Logging
         {
             EngineConf = engineConf;
 
+            TraceRecord = LogEntry(SpecifiedFiles.Trace, true, true, false);
+            DebugRecord = LogEntry(SpecifiedFiles.Debug, true, true, false);
+            InfoRecord = LogEntry(SpecifiedFiles.Info, true, true, false);
+            NoticeRecord = LogEntry(SpecifiedFiles.Notice, true, true, false);
+            WarnRecord = LogEntry(SpecifiedFiles.Warn, true, true, false);
+            ErrorRecord = LogEntry(SpecifiedFiles.Error, true, true, false);
+            FatalRecord = LogEntry(SpecifiedFiles.Fatal, true, true, false);
+        }
+
+        static ILogRecord LogEntry(string key, bool enabled, bool timeStampPrintable, bool enableConsole)
+        {
+            var logFile = ResFile.AsLog(EngineConf.LogDirectory, EngineConf.GetLogBasename(key));
+            return new LogRecord(logFile, enabled, timeStampPrintable, enableConsole);
         }
 
         static IEngineConf EngineConf { get; set; }
+        public static ILogRecord TraceRecord { get; private set; }
+        public static ILogRecord DebugRecord { get; private set; }
+        public static ILogRecord InfoRecord { get; private set; }
+        public static ILogRecord NoticeRecord { get; private set; }
+        public static ILogRecord WarnRecord { get; private set; }
+        public static ILogRecord ErrorRecord { get; private set; }
+        public static ILogRecord FatalRecord { get; private set; }
 
         /// <summary>
         /// ローカルルール名
@@ -50,37 +71,122 @@ namespace Grayscale.Kifuwarakei.Entities.Logging
             }
         }
 
+        public static bool Echo
+        {
+            get
+            {
+                bool echo = true;
+                if (Option_Application.Optionlist.USI)
+                {
+                    echo = false;
+                }
+                return echo;
+            }
+        }
+
+        /// <summary>
+        /// テキストをそのまま、ファイルへ出力するためのものです。
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="contents"></param>
+        public static void WriteFile(IResFile logFile, string contents)
+        {
+            File.WriteAllText(logFile.Name, contents);
+            // MessageBox.Show($a"ファイルを出力しました。
+            //{path}");
+        }
+
+        /// <summary>
+        /// トレース・レベル。
+        /// </summary>
+        /// <param name="line"></param>
+        [Conditional("DEBUG")]
+        public static void Trace(string line, IResFile targetOrNull = null)
+        {
+            Logger.XWrite(TraceRecord, "Trace", line, Echo, targetOrNull);
+        }
+
+        /// <summary>
+        /// デバッグ・レベル。
+        /// </summary>
+        /// <param name="line"></param>
+        [Conditional("DEBUG")]
+        public static void Debug(string line, IResFile targetOrNull = null)
+        {
+            Logger.XWrite(DebugRecord, "Debug", line, Echo, targetOrNull);
+        }
+
+        /// <summary>
+        /// インフォ・レベル。
+        /// </summary>
+        /// <param name="line"></param>
+        public static void Info(string line, IResFile targetOrNull = null)
+        {
+            Logger.XWrite(InfoRecord, "Info", line, Echo, targetOrNull);
+        }
+
+        /// <summary>
+        /// ノティス・レベル。
+        /// </summary>
+        /// <param name="line"></param>
+        public static void Notice(string line, IResFile targetOrNull = null)
+        {
+            Logger.XWrite(NoticeRecord, "Notice", line, Echo, targetOrNull);
+        }
+
+        /// <summary>
+        /// ワーン・レベル。
+        /// </summary>
+        /// <param name="line"></param>
+        public static void Warn(string line, IResFile targetOrNull = null)
+        {
+            Logger.XWrite(WarnRecord, "Warn", line, Echo, targetOrNull);
+        }
+
+        /// <summary>
+        /// エラー・レベル。
+        /// </summary>
+        /// <param name="line"></param>
+        public static void Error(string line, IResFile targetOrNull = null)
+        {
+            Logger.XWrite(ErrorRecord, "Error", line, Echo, targetOrNull);
+        }
+
+        /// <summary>
+        /// ファータル・レベル。
+        /// </summary>
+        /// <param name="line"></param>
+        public static void Fatal(string line, IResFile targetOrNull = null)
+        {
+            Logger.XWrite(FatalRecord, "Fatal", line, Echo, targetOrNull);
+        }
+
         /// <summary>
         /// バッファーに溜まっているログを吐き出します。
         /// </summary>
         public static void Flush(StringBuilder syuturyoku)
         {
-            bool echo = true;
-            if (Option_Application.Optionlist.USI)
-            {
-                echo = false;
-            }
-            Logger.Flush(echo, syuturyoku);
+            Logger.XWrite(NoticeRecord, "Notice", syuturyoku.ToString(), Echo, null);
         }
         public static void Flush_NoEcho(StringBuilder syuturyoku)
         {
-            Logger.Flush(false, syuturyoku);
+            Logger.XWrite(NoticeRecord, "Notice", syuturyoku.ToString(), false, null);
         }
         public static void Flush_USI(StringBuilder syuturyoku)
         {
-            Logger.Flush(true, syuturyoku);
+            Logger.XWrite(NoticeRecord, "Notice", syuturyoku.ToString(), true, null);
         }
         /// <summary>
         /// バッファーに溜まっているログを吐き出します。
         /// </summary>
-        public static void Flush(bool echo, StringBuilder syuturyoku)
+        static void XWrite(ILogRecord record, string level, string message, bool echo, IResFile targetOrNull)
         {
-            if (0 < syuturyoku.Length)
+            if (0 < message.Length)
             {
                 if (echo)
                 {
                     // コンソールに表示
-                    System.Console.Out.Write(syuturyoku.ToString());
+                    System.Console.Out.Write(message);
                 }
 
                 // ログの書き込み
@@ -173,7 +279,7 @@ namespace Grayscale.Kifuwarakei.Entities.Logging
                 {
                     try
                     {
-                        System.IO.File.AppendAllText(bestFile, syuturyoku.ToString());
+                        System.IO.File.AppendAllText(bestFile, message);
                         break;
                     }
                     catch (Exception)
@@ -182,7 +288,7 @@ namespace Grayscale.Kifuwarakei.Entities.Logging
                         {
                             // 書き込みに失敗することもあるぜ☆（＾～＾）
                             // 10秒待機して　再挑戦しようぜ☆（＾▽＾）
-                            syuturyoku.AppendLine("ログ書き込み失敗、10秒待機☆");
+                            // syuturyoku.AppendLine("ログ書き込み失敗、10秒待機☆");
                             // フラッシュは、できないぜ☆（＾▽＾）この関数だぜ☆（＾▽＾）ｗｗｗｗ
                             System.Threading.Thread.Sleep(10000);
                         }
@@ -194,7 +300,7 @@ namespace Grayscale.Kifuwarakei.Entities.Logging
                     }
                 }
                 // ログ書き出し、ここまで☆（＾▽＾）
-                syuturyoku.Clear();
+                // syuturyoku.Clear();
             }
         }
 
