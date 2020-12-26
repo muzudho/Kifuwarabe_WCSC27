@@ -256,14 +256,15 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
         /// <summary>
         /// "1" を 対局者１、 "2" を 対局者２ にするぜ☆（＾～＾）
+        /// Position startpos だと None になる？
         /// </summary>
-        /// <param name="moji1"></param>
+        /// <param name="char1"></param>
         /// <returns></returns>
-        public static OptionalPhase TryTaikyokusya(bool isSfen, string moji1)
+        public static OptionalPhase TryPhase(bool isSfen, string char1)
         {
             if (isSfen)
             {
-                switch (moji1)
+                switch (char1)
                 {
                     case "b": return OptionalPhase.Black;
                     case "w": return OptionalPhase.White;
@@ -272,7 +273,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             }
             else
             {
-                switch (moji1)
+                switch (char1)
                 {
                     case "1": return OptionalPhase.Black;
                     case "2": return OptionalPhase.White;
