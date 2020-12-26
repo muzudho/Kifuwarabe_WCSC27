@@ -49,13 +49,15 @@ option name SikoJikan type spin default 500 min 100 max 10000000
 option name SikoJikanRandom type spin default 1000 min 0 max 10000000
 option name Comment type string default Jikan is milli seconds.
 usiok");
-            Logger.Flush_USI(syuturyoku);
+            Logger.Flush_USI(syuturyoku.ToString());
+            syuturyoku.Clear();
         }
 
         public void ReadyOk(StringBuilder syuturyoku)
         {
             syuturyoku.AppendLine("readyok");
-            Logger.Flush_USI(syuturyoku);
+            Logger.Flush_USI(syuturyoku.ToString());
+            syuturyoku.Clear();
 
         }
 
@@ -99,7 +101,8 @@ usiok");
                 syuturyoku.Append("bestmove ");
                 ConvMove.AppendFenTo(isSfen, bestMove, syuturyoku);
                 syuturyoku.AppendLine();
-                Logger.Flush_USI(syuturyoku);
+                Logger.Flush_USI(syuturyoku.ToString());
+                syuturyoku.Clear();
             }
             else if (mode == CommandMode.NigenYoConsoleKaihatu)
             {

@@ -164,20 +164,19 @@ namespace Grayscale.Kifuwarakei.Entities.Logging
         /// <summary>
         /// バッファーに溜まっているログを吐き出します。
         /// </summary>
-        public static void Flush(StringBuilder syuturyoku)
+        public static void Flush(StringBuilder buf)
         {
-            Logger.XWrite(NoticeRecord, "Notice", syuturyoku.ToString(), Echo, null);
-            syuturyoku.Clear();
+            Logger.XWrite(NoticeRecord, "Notice", buf.ToString(), Echo, null);
+            buf.Clear();
         }
-        public static void Flush_NoEcho(StringBuilder syuturyoku)
+        public static void Flush_NoEcho(StringBuilder buf)
         {
-            Logger.XWrite(NoticeRecord, "Notice", syuturyoku.ToString(), false, null);
-            syuturyoku.Clear();
+            Logger.XWrite(NoticeRecord, "Notice", buf.ToString(), false, null);
+            buf.Clear();
         }
-        public static void Flush_USI(StringBuilder syuturyoku)
+        public static void Flush_USI(string message)
         {
-            Logger.XWrite(NoticeRecord, "Notice", syuturyoku.ToString(), true, null);
-            syuturyoku.Clear();
+            Logger.XWrite(NoticeRecord, "Notice", message, true, null);
         }
         /// <summary>
         /// バッファーに溜まっているログを吐き出します。
@@ -291,7 +290,7 @@ namespace Grayscale.Kifuwarakei.Entities.Logging
                         {
                             // 書き込みに失敗することもあるぜ☆（＾～＾）
                             // 10秒待機して　再挑戦しようぜ☆（＾▽＾）
-                            // syuturyoku.AppendLine("ログ書き込み失敗、10秒待機☆");
+                            // Trace("ログ書き込み失敗、10秒待機☆");
                             // フラッシュは、できないぜ☆（＾▽＾）この関数だぜ☆（＾▽＾）ｗｗｗｗ
                             System.Threading.Thread.Sleep(10000);
                         }
@@ -303,7 +302,7 @@ namespace Grayscale.Kifuwarakei.Entities.Logging
                     }
                 }
                 // ログ書き出し、ここまで☆（＾▽＾）
-                // syuturyoku.Clear();
+                // Buf.Clear();
             }
         }
 

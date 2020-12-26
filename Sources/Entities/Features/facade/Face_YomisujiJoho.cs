@@ -197,7 +197,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
                 if (Option_Application.Optionlist.USI)
                 {
-                    Logger.Flush_USI(syuturyoku);
+                    Logger.Flush_USI(syuturyoku.ToString());
+                    syuturyoku.Clear();
                 }
                 else
                 {
