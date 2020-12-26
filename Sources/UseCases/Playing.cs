@@ -6,6 +6,7 @@
     using System.IO;
     using System.Text;
     using Grayscale.Kifuwarakei.Entities;
+    using Grayscale.Kifuwarakei.Entities.Configuration;
     using kifuwarabe_wcsc27.abstracts;
     using kifuwarabe_wcsc27.facade;
     using kifuwarabe_wcsc27.implements;
@@ -15,15 +16,22 @@
 
     public class Playing : IPlaying
     {
+        public Playing(IEngineConf engineConf)
+        {
+            this.EngineConf = engineConf;
+        }
+
+        /// <summary>
+        /// エンジン設定。
+        /// </summary>
+        public IEngineConf EngineConf { get; private set; }
+
         public void Atmark(string commandline)
         {
             // 頭の「@」を取って、末尾に「.txt」を付けた文字は☆（＾▽＾）
             Util_Commandline.CommandBufferName = commandline.Substring("@".Length);
 
-            var profilePath = System.Configuration.ConfigurationManager.AppSettings["Profile"];
-            var toml = Toml.ReadFile(Path.Combine(profilePath, "Engine.toml"));
-            var commandPath = toml.Get<TomlTable>("Resources").Get<string>("Command");
-            string file = Path.Combine(profilePath, commandPath, $"{Util_Commandline.CommandBufferName}.txt");
+            string file = Path.Combine(EngineConf.CommandDirectory, $"{Util_Commandline.CommandBufferName}.txt");
 
             Util_Commandline.CommandBuffer.Clear();
             if (File.Exists(file)) // Visual Studioで「Unity」とか新しい構成を新規作成した場合は、出力パスも合わせろだぜ☆（＾▽＾）

@@ -68,6 +68,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\IEngineConf.cs" />
+    <Compile Include="EntitiesLayer.cs" />
     <Compile Include="Features\abstracts\AbstractUtilMoveGen.cs" />
     <Compile Include="Features\abstracts\CommandMode.cs" />
     <Compile Include="Features\abstracts\EnumExtensions.cs" />

@@ -1,15 +1,15 @@
 ﻿namespace Grayscale.kifuwarakei.Engine
 {
     using System;
-    using System.IO;
     using System.Text;
+    using Grayscale.Kifuwarakei.Engine.Configuration;
+    using Grayscale.Kifuwarakei.Entities;
     using Grayscale.Kifuwarakei.UseCases;
     using kifuwarabe_wcsc27.abstracts;
     using kifuwarabe_wcsc27.facade;
     using kifuwarabe_wcsc27.implements;
     using kifuwarabe_wcsc27.interfaces;
     using kifuwarabe_wcsc27.machine;
-    using Nett;
 
     public class Program
     {
@@ -22,9 +22,12 @@
         /// <param name="args"></param>
         static void Main(string[] args)
         {
-            StringBuilder syuturyoku = Util_Machine.Syuturyoku;
+            var engineConf = new EngineConf();
+            EntitiesLayer.Implement(engineConf);
 
-            var playing = new Playing();
+            var playing = new Playing(engineConf);
+
+            StringBuilder syuturyoku = Util_Machine.Syuturyoku;
 
             /*
 #if DEBUG
@@ -109,12 +112,9 @@ System.Console.WriteLine($"# (~0UL << 1)=[{(~0UL << 1)}]");
             {
                 Option_Application.Optionlist.USI = true;
 
-                var profilePath = System.Configuration.ConfigurationManager.AppSettings["Profile"];
-                var toml = Toml.ReadFile(Path.Combine(profilePath, "Engine.toml"));
-
-                var engineName = toml.Get<TomlTable>("Engine").Get<string>("Name");
+                var engineName = engineConf.GetEngine("Name");
                 Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-                var engineAuthor = toml.Get<TomlTable>("Engine").Get<string>("Author");
+                var engineAuthor = engineConf.GetEngine("Author");
 
                 playing.UsiOk($"{engineName} {version.Major}.{version.Minor}.{version.Build}", engineAuthor, syuturyoku);
             }
@@ -655,12 +655,9 @@ System.Console.WriteLine($"# (~0UL << 1)=[{(~0UL << 1)}]");
                 else if (caret == commandline.IndexOf("usi", caret))
                 {
                     //ここは普通、来ない☆（＾～＾）
-                    var profilePath = System.Configuration.ConfigurationManager.AppSettings["Profile"];
-                    var toml = Toml.ReadFile(Path.Combine(profilePath, "Engine.toml"));
-
-                    var engineName = toml.Get<TomlTable>("Engine").Get<string>("Name");
+                    var engineName = engineConf.GetEngine("Name");
                     Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-                    var engineAuthor = toml.Get<TomlTable>("Engine").Get<string>("Author");
+                    var engineAuthor = engineConf.GetEngine("Author");
 
                     playing.UsiOk($"{engineName} {version.Major}.{version.Minor}.{version.Build}", engineAuthor, syuturyoku);
                     Util_Commandline.IsKyokumenEcho = false;
