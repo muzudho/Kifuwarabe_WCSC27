@@ -427,7 +427,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 syuturyoku.Append("│");
                 for (int iMs_offset = 0; iMs_offset < Option_Application.Optionlist.BanYokoHaba; iMs_offset++)
                 {
-                    int kikisuZenbu = sg.CountKikisuZenbu((Taikyokusya)iTai, (Masu)(ms_hidariHasi + iMs_offset));
+                    int kikisuZenbu = sg.CountKikisuZenbu((Phase)iTai, (Masu)(ms_hidariHasi + iMs_offset));
                     syuturyoku.Append(0 < kikisuZenbu ? string.Format(" {0,2} ", kikisuZenbu) : "　　");
                     syuturyoku.Append("│");
                 }
@@ -470,7 +470,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 syuturyoku.AppendLine();
             }
 
-            foreach (Taikyokusya tai in Conv_Taikyokusya.Itiran)// 対局者１、対局者２
+            foreach (Phase tai in Conv_Taikyokusya.Itiran)// 対局者１、対局者２
             {
                 // 見出し
                 foreach (Koma km in Conv_Koma.ItiranTai[(int)tai])
@@ -518,7 +518,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 Util_Information.AppendLine_Bottom(Conv_Taikyokusya.Itiran.Length, syuturyoku); // └──┴──┴──┘みたいな線☆
             }
             // 駒別
-            foreach (Taikyokusya tai in Conv_Taikyokusya.Itiran) // 対局者１、対局者２
+            foreach (Phase tai in Conv_Taikyokusya.Itiran) // 対局者１、対局者２
             {
                 foreach (Koma km in Conv_Koma.ItiranTai[(int)tai])
                 {
@@ -554,7 +554,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 syuturyoku.AppendLine("利き（全部）");
                 Bitboard[] bbHairetu = new Bitboard[Conv_Taikyokusya.Itiran.Length];
-                foreach (Taikyokusya tai in Conv_Taikyokusya.Itiran)
+                foreach (Phase tai in Conv_Taikyokusya.Itiran)
                 {
                     bbHairetu[(int)tai] = shogiban.GetBBKikiZenbu(tai);
                 }
@@ -563,7 +563,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             // 駒別
             {
                 syuturyoku.AppendLine("利き（駒別）");
-                foreach (Taikyokusya tai in Conv_Taikyokusya.Itiran)// 対局者１、対局者２
+                foreach (Phase tai in Conv_Taikyokusya.Itiran)// 対局者１、対局者２
                 {
                     // 盤上
                     Bitboard[] bbHairetu = new Bitboard[Conv_Komasyurui.Itiran.Length];
@@ -587,7 +587,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             for (int ms = 0; ms < masuYososu; ms++)
             {
                 syuturyoku.AppendLine($"ます{ms}");
-                foreach (Taikyokusya tai in Conv_Taikyokusya.Itiran)
+                foreach (Phase tai in Conv_Taikyokusya.Itiran)
                 {
                     // 盤上
                     Bitboard[] bbHairetu = new Bitboard[Conv_Komasyurui.Itiran.Length];

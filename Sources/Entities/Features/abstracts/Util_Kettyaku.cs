@@ -1,4 +1,5 @@
 ﻿using System;
+using Grayscale.Kifuwarakei.Entities.Game;
 
 namespace Grayscale.Kifuwarakei.Entities.Features
 {
@@ -10,7 +11,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <param name="bestSasite">投了かどうか調べるだけ☆</param>
         public static void JudgeKettyaku(Move bestSasite, Kyokumen ky)
         {
-            Taikyokusya tb2 = Conv_Taikyokusya.Hanten(ky.Teban);
+            Phase phase2 = Conv_Taikyokusya.Hanten(ky.Teban);
             if (Move.Toryo == bestSasite)
             {
                 switch (ky.Teban)// 投了した時点で、次の手番に移っているぜ☆
@@ -29,11 +30,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             }
             // トライルール
             else if (Util_TryRule.IsTried(ky,
-                tb2//手番が進んでいるので、相手番のトライを判定☆
+                phase2//手番が進んでいるので、相手番のトライを判定☆
                 )
                 )
             {
-                switch (tb2)
+                switch (phase2)
                 {
                     case Phase.Black: ky.Kekka = TaikyokuKekka.Taikyokusya1NoKati; break;
                     case Phase.White: ky.Kekka = TaikyokuKekka.Taikyokusya2NoKati; break;

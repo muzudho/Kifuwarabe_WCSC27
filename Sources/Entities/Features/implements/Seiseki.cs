@@ -612,19 +612,19 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
     public abstract class Conv_Seiseki
     {
-        public static void ResultToCount(Taikyokusya tb, TaikyokuKekka gameResult, out int kati, out int hikiwake, out int make)
+        public static void ResultToCount(Phase phase, TaikyokuKekka gameResult, out int kati, out int hikiwake, out int make)
         {
             switch (gameResult)
             {
                 case TaikyokuKekka.Taikyokusya1NoKati:
-                    switch (tb)
+                    switch (phase)
                     {
                         case Phase.Black: kati = 1; hikiwake = 0; make = 0; return;
                         case Phase.White: kati = 0; hikiwake = 0; make = 1; return;
                         default: throw new Exception("未対応の手番");
                     }
                 case TaikyokuKekka.Taikyokusya2NoKati:
-                    switch (tb)
+                    switch (phase)
                     {
                         case Phase.Black: kati = 0; hikiwake = 0; make = 1; return;
                         case Phase.White: kati = 1; hikiwake = 0; make = 0; return;

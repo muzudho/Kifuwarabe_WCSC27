@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Grayscale.Kifuwarakei.Entities.Game;
 
 namespace Grayscale.Kifuwarakei.Entities.Features
 {
@@ -17,8 +18,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
         public static void Setumei_Kiki(Kyokumen ky, Masu attackerMs, StringBuilder syuturyoku)
         {
-            var (exists, phase) = ky.Shogiban.ExistsBBKomaZenbu(attackerMs);
-            if (exists)
+            var (isExists, phase) = ky.Shogiban.ExistsBBKomaZenbu(attackerMs).Match;
+            if (isExists)
             {
                 ky.Shogiban.ExistsBBKoma(phase, attackerMs, out Komasyurui ks);
                 Util_Information.Setumei_1Bitboard("利き",
@@ -43,7 +44,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <returns></returns>
         public static bool InKiki(Kyokumen ky, Masu attackerMs, Masu targetMs)
         {
-            Taikyokusya aite = Conv_Taikyokusya.Hanten(ky.Teban);
+            Phase aite = Conv_Taikyokusya.Hanten(ky.Teban);
             if (ky.Shogiban.ExistsBBKomaZenbu(aite, attackerMs)) // 指定の場所に相手の駒があることを確認
             {
                 if (ky.Shogiban.ExistsBBKoma(aite, attackerMs, out Komasyurui ks))// 攻撃側の駒の種類
