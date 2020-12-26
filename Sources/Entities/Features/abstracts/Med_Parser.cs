@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using Grayscale.Kifuwarakei.Entities.Game;
 
 namespace Grayscale.Kifuwarakei.Entities.Features
 {
@@ -258,24 +259,24 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// </summary>
         /// <param name="moji1"></param>
         /// <returns></returns>
-        public static bool TryTaikyokusya(bool isSfen, string moji1, out Taikyokusya out_tai)
+        public static OptionalPhase TryTaikyokusya(bool isSfen, string moji1)
         {
             if (isSfen)
             {
                 switch (moji1)
                 {
-                    case "b": out_tai = Taikyokusya.T1; return true;
-                    case "w": out_tai = Taikyokusya.T2; return true;
-                    default: out_tai = Taikyokusya.Yososu; return false;
+                    case "b": return OptionalPhase.Black;
+                    case "w": return OptionalPhase.White;
+                    default: return OptionalPhase.None;
                 }
             }
             else
             {
                 switch (moji1)
                 {
-                    case "1": out_tai = Taikyokusya.T1; return true;
-                    case "2": out_tai = Taikyokusya.T2; return true;
-                    default: out_tai = Taikyokusya.Yososu; return false;
+                    case "1": return OptionalPhase.Black;
+                    case "2": return OptionalPhase.White;
+                    default: return OptionalPhase.None;
                 }
             }
         }

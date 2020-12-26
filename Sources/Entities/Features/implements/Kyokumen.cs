@@ -13,6 +13,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
     using System.Diagnostics;
     using System.Text;
     using System.Text.RegularExpressions;
+    using Grayscale.Kifuwarakei.Entities.Game;
     using Grayscale.Kifuwarakei.Entities.Logging;
 #endif
 
@@ -215,7 +216,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             //TukurinaosiBanSize();
 
             Kekka = TaikyokuKekka.Karappo;
-            Teban = Taikyokusya.T1;// 初手だぜ☆（＾▽＾）
+            Teban = Phase.Black;// 初手だぜ☆（＾▽＾）
             MotiKomas = new MotiKomaItiranImpl();
 
             BB_BoardArea = new Bitboard();
@@ -269,8 +270,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             BB_DanArray[3].LeftShift(3 * Option_Application.Optionlist.BanYokoHaba);
 
             BB_Try = new Bitboard[2];
-            BB_Try[(int)Taikyokusya.T1] = BB_DanArray[0];
-            BB_Try[(int)Taikyokusya.T2] = BB_DanArray[3];
+            BB_Try[(int)Phase.Black] = BB_DanArray[0];
+            BB_Try[(int)Phase.White] = BB_DanArray[3];
 
             Shogiban.Tukurinaosi_1_Clear_KomanoUgokikata(Sindan.MASU_YOSOSU);
             Shogiban.Tukurinaosi_2_Input_KomanoUgokikata(Sindan);
@@ -283,7 +284,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         public void Clear()
         {
             Kekka = TaikyokuKekka.Karappo;
-            Teban = Taikyokusya.T1;// 初手だぜ☆（＾▽＾）
+            Teban = Phase.Black;// 初手だぜ☆（＾▽＾）
 
             Shogiban.Clear(Sindan.MASU_YOSOSU);
             MotiKomas.Clear();
@@ -367,8 +368,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 }
                 // トライ段
                 {
-                    BB_Try[(int)Taikyokusya.T1] = BB_DanArray[0];
-                    BB_Try[(int)Taikyokusya.T2] = BB_DanArray[Option_Application.Optionlist.BanTateHaba - 1];
+                    BB_Try[(int)Phase.Black] = BB_DanArray[0];
+                    BB_Try[(int)Phase.White] = BB_DanArray[Option_Application.Optionlist.BanTateHaba - 1];
                 }
 
                 // 盤サイズ変更に伴い、作り直し
@@ -554,7 +555,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <summary>
         /// 手番の対局者だぜ☆（＾▽＾）
         /// </summary>
-        public Taikyokusya Teban { get; set; }
+        public Phase Teban { get; set; }
         /// <summary>
         /// 手目だぜ☆（＾▽＾）
         /// </summary>
@@ -1405,8 +1406,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             //      取られる駒の元位置は t1 、駒台は 3 と呼ぶとする。
             //
 
-            Taikyokusya jibun = Teban;
-            Taikyokusya aite = Conv_Taikyokusya.Hanten(Teban);
+            Phase jibun = Teban;
+            Phase aite = Conv_Taikyokusya.Hanten(Teban);
 
             Masu ms_t0;
             Komasyurui ks_t0;
@@ -1771,17 +1772,17 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 // 左右反転して、先後も入替
                 Bitboard tmp = new Bitboard();
-                tmp.Set(Shogiban.GetBBKomaZenbu(Taikyokusya.T1).Bitflip128());
-                Shogiban.GetBBKomaZenbu(Taikyokusya.T1).Set(Shogiban.GetBBKomaZenbu(Taikyokusya.T2).Bitflip128());
-                Shogiban.GetBBKomaZenbu(Taikyokusya.T2).Set(tmp);
+                tmp.Set(Shogiban.GetBBKomaZenbu(Phase.Black).Bitflip128());
+                Shogiban.GetBBKomaZenbu(Phase.Black).Set(Shogiban.GetBBKomaZenbu(Phase.White).Bitflip128());
+                Shogiban.GetBBKomaZenbu(Phase.White).Set(tmp);
 
                 for (int iKs = 0; iKs < Conv_Komasyurui.Itiran.Length; iKs++)
                 {
                     Komasyurui ks = Conv_Komasyurui.Itiran[iKs];
 
-                    tmp.Set(Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, Taikyokusya.T1)).Bitflip128());
-                    Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, Taikyokusya.T1)).Set(Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, Taikyokusya.T2)).Bitflip128());
-                    Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, Taikyokusya.T2)).Set(tmp);
+                    tmp.Set(Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, Phase.Black)).Bitflip128());
+                    Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, Phase.Black)).Set(Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, Phase.White)).Bitflip128());
+                    Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, Phase.White)).Set(tmp);
                 }
                 // 盤面反転、駒の先後も反転だぜ☆（＾▽＾）
             }
@@ -1847,7 +1848,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                                 //Taikyokusya tai_tmp = Med_Koma.KomaToTaikyokusya(km_tmp);
 
                                 // どちらの持駒にするかはランダムで☆（＾～＾）
-                                MotiKoma mk = Med_Koma.KomasyuruiAndTaikyokusyaToMotiKoma(tmpKs, 1 == r ? Taikyokusya.T1 : Taikyokusya.T2);
+                                MotiKoma mk = Med_Koma.KomasyuruiAndTaikyokusyaToMotiKoma(tmpKs, 1 == r ? Phase.Black : Phase.White);
 
                                 switch (tmpKs)
                                 {
@@ -1954,7 +1955,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
             // らいおんの先後を調整するぜ☆（＾▽＾）
             {
-                Taikyokusya tb = Taikyokusya.T1;
+                Taikyokusya tb = Phase.Black;
                 r = Option_Application.Random.Next(2);
                 if (0 == r)
                 {
@@ -1965,14 +1966,14 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 {
                     /*
                     // トライしてたら、位置を変えるぜ☆（＾▽＾）ｗｗｗ
-                    if (Koma.R == this.Komas[iMs1] && Conv_Masu.IsTried(Taikyokusya.T1, (Masu)iMs1))
+                    if (Koma.R == this.Komas[iMs1] && Conv_Masu.IsTried(Phase.Black, (Masu)iMs1))
                     {
                         int iMs2 = iMs1 + 9;//9升足しておくか☆（＾▽＾）ｗｗｗ
                         tmpKm = this.Komas[iMs1];
                         this.Komas[iMs1] = this.Komas[iMs2];
                         this.Komas[iMs2] = tmpKm;
                     }
-                    else if (Koma.r == this.Komas[iMs1] && Conv_Masu.IsTried(Taikyokusya.T2, (Masu)iMs1))
+                    else if (Koma.r == this.Komas[iMs1] && Conv_Masu.IsTried(Phase.White, (Masu)iMs1))
                     {
                         int iMs2 = iMs1 - 9;//9升引いておくか☆（＾▽＾）ｗｗｗ
                         tmpKm = this.Komas[iMs1];
@@ -1983,7 +1984,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
                     if (Shogiban.ExistsBBKoma(Koma.R, (Masu)iMs1) || Shogiban.ExistsBBKoma(Koma.r, (Masu)iMs1))
                     {
-                        if (tb == Taikyokusya.T1)
+                        if (tb == Phase.Black)
                         {
                             var ms1 = (Masu)iMs1;
                             var km1 = Koma.R;

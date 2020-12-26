@@ -93,9 +93,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     syuturyoku.Clear();
                 }
 
-                if ((ky.Teban == Taikyokusya.T1 && !Option_Application.Optionlist.P1Com)
+                if ((ky.Teban == Phase.Black && !Option_Application.Optionlist.P1Com)
                     ||
-                    (ky.Teban == Taikyokusya.T2 && !Option_Application.Optionlist.P2Com)
+                    (ky.Teban == Phase.White && !Option_Application.Optionlist.P2Com)
                     )
                 {
                     // 人間の手番が始まるところで☆

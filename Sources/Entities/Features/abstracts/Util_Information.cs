@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Text;
+using Grayscale.Kifuwarakei.Entities.Game;
 
 namespace Grayscale.Kifuwarakei.Entities.Features
 {
@@ -247,7 +248,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 // 後手の持ち駒の数
                 foreach (MotiKomasyurui mks in Conv_MotiKomasyurui.Itiran)
                 {
-                    MotiKoma mk = Med_Koma.MotiKomasyuruiAndTaikyokusyaToMotiKoma(mks, Taikyokusya.T2);
+                    MotiKoma mk = Med_Koma.MotiKomasyuruiAndTaikyokusyaToMotiKoma(mks, Phase.White);
                     if (ky.MotiKomas.HasMotiKoma(mk))
                     {
                         syuturyoku.Append(Conv_MotiKomasyurui.GetHyojiName(mks)); syuturyoku.Append(ky.MotiKomas.Get(mk).ToString());
@@ -288,7 +289,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 foreach (MotiKomasyurui mks in Conv_MotiKomasyurui.Itiran)
                 {
-                    MotiKoma mk = Med_Koma.MotiKomasyuruiAndTaikyokusyaToMotiKoma(mks, Taikyokusya.T1);
+                    MotiKoma mk = Med_Koma.MotiKomasyuruiAndTaikyokusyaToMotiKoma(mks, Phase.Black);
                     if (ky.MotiKomas.HasMotiKoma(mk))
                     {
                         syuturyoku.Append(Conv_MotiKomasyurui.GetHyojiName(mks)); syuturyoku.Append(ky.MotiKomas.Get(mk).ToString());
@@ -350,7 +351,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 foreach (MotiKomasyurui mks in Conv_MotiKomasyurui.Itiran)
                 {
-                    MotiKoma mk = Med_Koma.MotiKomasyuruiAndTaikyokusyaToMotiKoma(mks, Taikyokusya.T2);
+                    MotiKoma mk = Med_Koma.MotiKomasyuruiAndTaikyokusyaToMotiKoma(mks, Phase.White);
                     if (ky.MotiKomas.HasMotiKoma(mk))
                     {
                         syuturyoku.Append(Conv_MotiKomasyurui.GetHyojiName(mks)); syuturyoku.Append(ky.MotiKomas.Get(mk).ToString());
@@ -397,7 +398,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 // 先手の持ち駒の数
                 foreach (MotiKomasyurui mks in Conv_MotiKomasyurui.Itiran)
                 {
-                    MotiKoma mk = Med_Koma.MotiKomasyuruiAndTaikyokusyaToMotiKoma(mks, Taikyokusya.T1);
+                    MotiKoma mk = Med_Koma.MotiKomasyuruiAndTaikyokusyaToMotiKoma(mks, Phase.Black);
                     if (ky.MotiKomas.HasMotiKoma(mk))
                     {
                         syuturyoku.Append(Conv_MotiKomasyurui.GetHyojiName(mks)); syuturyoku.Append(ky.MotiKomas.Get(mk).ToString());
@@ -433,14 +434,14 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             }
             syuturyoku.AppendLine();
         }
-        public static void AppendLine_Data_Countboard(Taikyokusya tai, Shogiban sg, int ms_hidariHasi, StringBuilder syuturyoku)
+        public static void AppendLine_Data_Countboard(Phase phase, Shogiban sg, int ms_hidariHasi, StringBuilder syuturyoku)
         {
             for (int iKs = 0; iKs < Conv_Komasyurui.Itiran.Length; iKs++)
             {
                 syuturyoku.Append("│");
                 for (int iMs_offset = 0; iMs_offset < Option_Application.Optionlist.BanYokoHaba; iMs_offset++)
                 {
-                    int kikisuKomabetu = sg.CountKikisuKomabetu(Med_Koma.KomasyuruiAndTaikyokusyaToKoma((Komasyurui)iKs, tai), (Masu)(ms_hidariHasi + iMs_offset));
+                    int kikisuKomabetu = sg.CountKikisuKomabetu(Med_Koma.KomasyuruiAndTaikyokusyaToKoma((Komasyurui)iKs, phase), (Masu)(ms_hidariHasi + iMs_offset));
                     syuturyoku.Append(0 < kikisuKomabetu ? string.Format(" {0,2} ", kikisuKomabetu) : "　　");
                     syuturyoku.Append("│");
                 }
@@ -463,8 +464,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 Setumei_Bitboards(new string[] { "対局者１", "対局者２" },
                     new Bitboard[] {
-                        shogiban.GetBBKomaZenbu(Taikyokusya.T1),
-                        shogiban.GetBBKomaZenbu(Taikyokusya.T2)
+                        shogiban.GetBBKomaZenbu(Phase.Black),
+                        shogiban.GetBBKomaZenbu(Phase.White)
                     }, syuturyoku);
                 syuturyoku.AppendLine();
             }

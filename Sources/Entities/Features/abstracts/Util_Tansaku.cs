@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+    using Grayscale.Kifuwarakei.Entities.Game;
 #endif
 
     /// <summary>
@@ -49,7 +50,7 @@ using System.Text;
         /// <summary>
         /// 探索を開始した対局者の先後だぜ☆（＾▽＾）
         /// </summary>
-        public static Taikyokusya KaisiTaikyokusya { get; set; }
+        public static Phase KaisiTaikyokusya { get; set; }
         /// <summary>
         /// 探索を開始した時点で「図はn手まで」だったかだぜ☆（＾▽＾）
         /// </summary>
@@ -79,7 +80,7 @@ using System.Text;
         /// <param name="isJoseki"></param>
         /// <param name="syuturyoku"></param>
         /// <param name="hint"></param>
-        public delegate void Dlgt_CreateJoho(Taikyokusya hyokatiNoTaikyokusya,
+        public delegate void Dlgt_CreateJoho(Phase hyokatiNoTaikyokusya,
 #if DEBUG
             Hyokati alpha,
             Hyokati beta,

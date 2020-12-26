@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using Grayscale.Kifuwarakei.Entities.Game;
 
 namespace Grayscale.Kifuwarakei.Entities.Features
 {
@@ -49,9 +50,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 foreach (Komasyurui ks in Conv_Komasyurui.Itiran)
                 {
                     // 対局者１
-                    m_banjoKeys_[iMs, (int)Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, Taikyokusya.T1)] = (ulong)(Option_Application.Random.NextDouble() * ulong.MaxValue);
+                    m_banjoKeys_[iMs, (int)Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, Phase.Black)] = (ulong)(Option_Application.Random.NextDouble() * ulong.MaxValue);
                     // 対局者２
-                    m_banjoKeys_[iMs, (int)Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, Taikyokusya.T2)] = (ulong)(Option_Application.Random.NextDouble() * ulong.MaxValue);
+                    m_banjoKeys_[iMs, (int)Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, Phase.White)] = (ulong)(Option_Application.Random.NextDouble() * ulong.MaxValue);
                 }
             }
 
@@ -73,7 +74,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
             // 手番
             m_tbTaikyokusya_ = new ulong[Conv_Taikyokusya.Itiran.Length];
-            foreach (Taikyokusya iTb in Conv_Taikyokusya.Itiran)
+            foreach (Phase iTb in Conv_Taikyokusya.Itiran)
             {
                 m_tbTaikyokusya_[(int)iTb] = (ulong)(Option_Application.Random.NextDouble() * ulong.MaxValue);
             }
@@ -128,14 +129,14 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// 
         /// </summary>
         /// <returns></returns>
-        public static ulong GetTaikyokusyaKey(Taikyokusya tai, Kyokumen.Sindanyo kys)
+        public static ulong GetTaikyokusyaKey(Phase phase, Kyokumen.Sindanyo kys)
         {
             if (Util_ZobristHashing.Dirty)
             {
                 Util_ZobristHashing.Tukurinaosi(kys);
             }
 
-            return Util_ZobristHashing.m_tbTaikyokusya_[(int)tai];
+            return Util_ZobristHashing.m_tbTaikyokusya_[(int)phase];
         }
     }
 }

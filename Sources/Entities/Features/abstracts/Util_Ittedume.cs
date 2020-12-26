@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Text;
+using Grayscale.Kifuwarakei.Entities.Game;
 using Grayscale.Kifuwarakei.Entities.Logging;
 
 #if DEBUG
@@ -25,11 +26,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <param name="ms_t1">移動先</param>
         /// <param name="jibunHioute"></param>
         /// <returns></returns>
-        public static bool Ittedume_BanjoKoma(Kyokumen ky, Taikyokusya jibun, Masu ms_t0, Masu ms_t1, HiouteJoho jibunHioute, HiouteJoho aiteHioute)
+        public static bool Ittedume_BanjoKoma(Kyokumen ky, Phase jibun, Masu ms_t0, Masu ms_t1, HiouteJoho jibunHioute, HiouteJoho aiteHioute)
         {
             Debug.Assert(ky.Sindan.IsBanjo(ms_t1), "升エラー");
 
-            Taikyokusya aite = Conv_Taikyokusya.Hanten(jibun);
+            Phase aite = Conv_Taikyokusya.Hanten(jibun);
 
             // 動かす駒
             if (!ky.Shogiban.ExistsBBKoma(jibun, ms_t0, out Komasyurui ks_t0))

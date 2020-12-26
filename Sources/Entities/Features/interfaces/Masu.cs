@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Grayscale.Kifuwarakei.Entities.Game;
 
 namespace Grayscale.Kifuwarakei.Entities.Features
 {
@@ -48,9 +49,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// </summary>
         /// <param name="ms"></param>
         /// <returns></returns>
-        public static int ToDan_JibunSiten(Taikyokusya tb, Masu ms, Kyokumen.Sindanyo kys)
+        public static int ToDan_JibunSiten(Phase phase, Masu ms, Kyokumen.Sindanyo kys)
         {
-            if (tb == Taikyokusya.T1)
+            if (phase == Phase.Black)
             {
                 return Conv_Masu.ToDan_WithoutErrorCheck((int)ms);
             }
@@ -64,7 +65,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         ///// <returns></returns>
         //public static int ToDan_JibunSiten(Taikyokusya tb, int dan)
         //{
-        //    if (tb == Taikyokusya.T1)
+        //    if (tb == Phase.Black)
         //    {
         //        return dan;
         //    }

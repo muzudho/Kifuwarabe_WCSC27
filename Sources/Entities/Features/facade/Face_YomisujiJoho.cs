@@ -144,7 +144,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     Conv_Hyokati.Setumei(hyokatiUtiwake.Okimari, syuturyoku);
                     syuturyoku.Append(" ");
                     syuturyoku.Append(Util_Tansaku.KaisiTaikyokusya == hyokatiNoTaikyokusya ? "jibun_" : "aite_");
-                    syuturyoku.Append(hyokatiNoTaikyokusya == Taikyokusya.T1 ? "p1" : "p2");
+                    syuturyoku.Append(hyokatiNoTaikyokusya == Phase.Black ? "p1" : "p2");
                     syuturyoku.Append(" ");
                     syuturyoku.Append(hyokatiUtiwake.Riyu.ToString());
                     if ("" != hyokatiUtiwake.RiyuHosoku)

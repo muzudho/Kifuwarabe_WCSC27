@@ -15,11 +15,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 switch (ky.Teban)// 投了した時点で、次の手番に移っているぜ☆
                 {
-                    case Taikyokusya.T2:
+                    case Phase.White:
                         // 対局者１が投了して、対局者２の手番になったということだぜ☆
                         // だから対局者２の勝ちだぜ☆
                         ky.Kekka = TaikyokuKekka.Taikyokusya2NoKati; break;
-                    case Taikyokusya.T1: ky.Kekka = TaikyokuKekka.Taikyokusya1NoKati; break;
+                    case Phase.Black: ky.Kekka = TaikyokuKekka.Taikyokusya1NoKati; break;
                     default: throw new Exception("未定義の手番");
                 }
             }
@@ -35,8 +35,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 switch (tb2)
                 {
-                    case Taikyokusya.T1: ky.Kekka = TaikyokuKekka.Taikyokusya1NoKati; break;
-                    case Taikyokusya.T2: ky.Kekka = TaikyokuKekka.Taikyokusya2NoKati; break;
+                    case Phase.Black: ky.Kekka = TaikyokuKekka.Taikyokusya1NoKati; break;
+                    case Phase.White: ky.Kekka = TaikyokuKekka.Taikyokusya2NoKati; break;
                     default: throw new Exception("未定義の手番");
                 }
             }

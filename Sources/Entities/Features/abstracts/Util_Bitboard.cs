@@ -1,4 +1,6 @@
-﻿namespace Grayscale.Kifuwarakei.Entities.Features
+﻿using Grayscale.Kifuwarakei.Entities.Game;
+
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     public abstract class Util_Bitboard
     {
@@ -40,7 +42,7 @@
         /// <param name="ky"></param>
         /// <param name="ms_nozoku">除きたい駒がいる升</param>
         /// <returns></returns>
-        public static Bitboard CreateKikiZenbuBB_1KomaNozoku(Kyokumen ky, Taikyokusya tai, Masu ms_nozoku)
+        public static Bitboard CreateKikiZenbuBB_1KomaNozoku(Kyokumen ky, Phase phase, Masu ms_nozoku)
         {
             Bitboard kikiZenbuBB = new Bitboard();
 
@@ -49,7 +51,7 @@
 
             foreach (Komasyurui ks in Conv_Komasyurui.Itiran)
             {
-                Koma km = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, tai);
+                Koma km = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, phase);
                 ky.Shogiban.ToSet_BBKoma(km, mikataBB);
                 while (mikataBB.Ref_PopNTZ(out Masu ms))
                 {
