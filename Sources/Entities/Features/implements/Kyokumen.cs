@@ -2180,7 +2180,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             bool isRuleChanged,
             string[] danMojiretu, // [0～3]1段目～4段目、[0～2]1筋目～3筋目
             string motigoma,
-            string phaseAlphabet,  //手番
+            string tb_Mojis,  //手番
             StringBuilder syuturyoku
             )
         {
@@ -2294,7 +2294,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             }
 
             // 手番
-            var (isExists, phase) = Med_Parser.TryPhase(isSfen, phaseAlphabet).Match;
+            var (isExists, phase) = Med_Parser.TryTaikyokusya(isSfen, tb_Mojis).Match;
             if (!isExists)
             {
 #if DEBUG
@@ -2315,7 +2315,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 Logger.Flush(msg);
                 Debug.Fail(msg);
 #endif
-                throw new Exception($"対局者のパースエラー isSfen=[{isSfen}] phaseAlphabet=[{phaseAlphabet}]");
+                throw new Exception($"対局者のパースエラー tb_Mojis=[{tb_Mojis}]");
             }
             this.Teban = phase;
 

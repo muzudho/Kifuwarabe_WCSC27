@@ -206,8 +206,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     moji3 = m.Groups[3].Value;
                     moji4 = m.Groups[4].Value;
 
-                    // FIXME Position startpos だとパースエラー？
-                    var (isExists, phase) = Med_Parser.TryPhase(Option_Application.Optionlist.USI, moji4).Match;
+                    var (isExists, phase) = Med_Parser.TryTaikyokusya(Option_Application.Optionlist.USI, moji4).Match;
                     if (!isExists)
                     {
                         throw new Exception($"対局者のパースエラー moji4=[{ moji4 }]");
