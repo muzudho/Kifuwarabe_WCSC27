@@ -405,7 +405,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     }
                 }
 
-                clear_CB_komabetu.ClearByPiece(km);
+                clear_CB_komabetu.Clear(km);
             }
         }
         /// <summary>
@@ -413,27 +413,30 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// </summary>
         public class KikisuKomabetuCountboardItiran
         {
-            public KikisuKomabetuCountboardItiran(int sqCount)
+            public KikisuKomabetuCountboardItiran(int masuYososu)
             {
-                this.CountBoard = new CountBoard();
-                ChangeBoardSize(sqCount);
+                Clear(masuYososu);
             }
-
-            public void ChangeBoardSize(int sqCount)
+            public void Clear(int masuYososu)
             {
-                for (int iPiece = 0; iPiece < Conv_Koma.Itiran.Length; iPiece++)
+                if (null == this.CountBoard)
                 {
-                    if (this.CountBoard.IsDirtyPieceBoard((Koma)iPiece, sqCount))
+                    this.CountBoard = new CountBoard();
+                }
+
+                for (int iKm = 0; iKm < Conv_Koma.Itiran.Length; iKm++)
+                {
+                    if (this.CountBoard.IsDirtyPieceBoard((Koma)iKm, masuYososu))
                     {
-                        this.CountBoard.ResizeBoardByPiece((Koma)iPiece, sqCount);// 升の数が分からない
+                        this.CountBoard.ResizeBoardByPiece((Koma)iKm, masuYososu);// 升の数が分からない
                     }
                     else
                     {
-                        this.CountBoard.ZeroClearByPiece((Koma)iPiece);
+                        this.CountBoard.ZeroClearByPiece((Koma)iKm);
                     }
                 }
             }
-            public void ClearByPiece(Koma piece)
+            public void Clear(Koma piece)
             {
                 this.CountBoard.ZeroClearByPiece(piece);
             }
@@ -446,29 +449,16 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
             public void Import(KikisuKomabetuCountboardItiran src)
             {
-                if (this.CountBoard == null)
+                for (int iKm = 0; iKm < Conv_Koma.Itiran.Length; iKm++)
                 {
-                    throw new Exception("this.CountBoard is null.");
-                }
-                if (src.CountBoard == null)
-                {
-                    throw new Exception("src.CountBoard is null.");
-                }
+                    var destinationLength = this.CountBoard.SquareCountByPiece((Koma)iKm);
+                    var sourceLength = src.GetArrayLength((Koma)iKm);
+                    int length = Math.Min(destinationLength, sourceLength);
 
-                int pieceCount = Conv_Koma.Itiran.Length;
-                for (int iKm = 0; iKm < pieceCount; iKm++)
-                {
-                    Koma piece = (Koma)iKm;
-                    var destinationBoardSize = this.CountBoard.SquareCountByPiece(piece);
-                    var sourceBoardSize = src.CountBoard.SquareCountByPiece(piece);
-
-                    int boardSize = Math.Min(destinationBoardSize, sourceBoardSize);
-
-                    for (int iSq = 0; iSq < boardSize; iSq++)
+                    for (int iMs = 0; iMs < length; iMs++)
                     {
-                        Masu sq = (Masu)iSq;
-                        var controlCount = src.Get(piece, sq);
-                        this.CountBoard.SetControlCount(piece, sq, controlCount);
+                        var controlCount = src.Get((Koma)iKm, (Masu)iMs);
+                        this.CountBoard.SetControlCount((Koma)iKm, (Masu)iMs, controlCount);
                     }
                 }
             }
@@ -513,6 +503,10 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             public int Get(Koma piece, Masu sq)
             {
                 return this.CountBoard.GetControlCount(piece,sq);
+            }
+            public int GetArrayLength(Koma km)
+            {
+                return this.CountBoard.SquareCountByPiece(km);
             }
         }
 
@@ -1311,7 +1305,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             BB_KikiZenbu.Clear();
             BB_Kiki.Clear();
             CB_KikisuZenbu.Clear(masuYososu);
-            CB_KikisuKomabetu.ChangeBoardSize(masuYososu);
+            CB_KikisuKomabetu.Clear(masuYososu);
         }
         public int CountKikisuZenbu(Phase phase, Masu ms)
         {

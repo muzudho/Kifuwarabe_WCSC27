@@ -21,12 +21,7 @@ namespace Grayscale.Kifuwarakei.Entities.Game
 
         public int SquareCountByPiece(Koma piece)
         {
-            if (this.ValueKmMs[(int)piece] == null)
-            {
-                return 0;
-                // throw new Exception($"Array element is null. piece={(int)piece}");
-            }
-            return this.ValueKmMs[(int)piece].Length;
+            return ValueKmMs[(int)piece].Length;
         }
 
         public void SetControlCount(Koma piece, Masu sq, int controlCount)
