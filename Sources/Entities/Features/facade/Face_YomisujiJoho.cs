@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using Grayscale.Kifuwarakei.Entities.Game;
 using Grayscale.Kifuwarakei.Entities.Logging;
 
 namespace Grayscale.Kifuwarakei.Entities.Features
@@ -13,7 +12,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <summary>
         /// 無視用☆（＾～＾）
         /// </summary>
-        public static Util_Tansaku.Dlgt_CreateJoho Dlgt_IgnoreJoho = (Phase hyokatiNoTaikyokusya,
+        public static Util_Tansaku.Dlgt_CreateJoho Dlgt_IgnoreJoho = (Taikyokusya hyokatiNoTaikyokusya,
 #if DEBUG
             Hyokati alpha,
             Hyokati beta,
@@ -36,7 +35,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// 読み筋情報
         /// </summary>
         public static Util_Tansaku.Dlgt_CreateJoho Dlgt_WriteYomisujiJoho = (
-            Phase hyokatiNoTaikyokusya,
+            Taikyokusya hyokatiNoTaikyokusya,
 #if DEBUG
             Hyokati alpha,
             Hyokati beta,

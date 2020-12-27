@@ -36,7 +36,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             /// 本体
             /// </summary>
             Kyokumen Hontai { get; set; }
-            public Phase Teban { get { return Hontai.Teban; } }
+            public Taikyokusya Teban { get { return Hontai.Teban; } }
 
             /// <summary>
             /// FIXME: 緊急用
@@ -97,14 +97,14 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 bb_koma_forMotikomaHash.Clear();
                 for (int iTai = 0; iTai < Conv_Taikyokusya.Itiran.Length; iTai++)
                 {
-                    Phase phase = Conv_Taikyokusya.Itiran[iTai];
+                    Taikyokusya tai = Conv_Taikyokusya.Itiran[iTai];
                     for (int iKs = 0; iKs < Conv_Komasyurui.Itiran.Length; iKs++)
                     {
                         Komasyurui ks = Conv_Komasyurui.Itiran[iKs];
-                        bb_koma_forMotikomaHash.Set(Hontai.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, phase)));
+                        bb_koma_forMotikomaHash.Set(Hontai.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, tai)));
                         while (bb_koma_forMotikomaHash.Ref_PopNTZ(out Masu ms))
                         {
-                            MotiKomasyurui mks = Med_Koma.MotiKomaToMotiKomasyrui(Med_Koma.BanjoKomaToMotiKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, phase)));
+                            MotiKomasyurui mks = Med_Koma.MotiKomaToMotiKomasyrui(Med_Koma.BanjoKomaToMotiKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, tai)));
                             if (MotiKomasyurui.Yososu != mks) // らいおんなど、持ち駒にできないものを除く
                             {
                                 counts[(int)mks]++;
@@ -125,7 +125,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
             public int CountMotikoma(MotiKoma mk) { return Hontai.MotiKomas.Get(mk); }
 
-            public OptionalPhase ExistsKomaZenbu(Masu ms_ibasho)
+            public (bool, Taikyokusya) ExistsKomaZenbu(Masu ms_ibasho)
             {
                 return Hontai.Shogiban.ExistsBBKomaZenbu(ms_ibasho);
             }
@@ -135,13 +135,13 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 return Hontai.Shogiban.ExistsBBKomaZenbu(ms_ibasho);
             }
             */
-            public bool ExistsKoma(Phase phase, Masu ms, out Komasyurui out_ks)
+            public bool ExistsKoma(Taikyokusya tai, Masu ms, out Komasyurui out_ks)
             {
-                return Hontai.Shogiban.ExistsBBKoma(phase, ms, out out_ks);
+                return Hontai.Shogiban.ExistsBBKoma(tai, ms, out out_ks);
             }
-            public bool ExistsKoma(Phase phase, Masu ms)
+            public bool ExistsKoma(Taikyokusya tai, Masu ms)
             {
-                return Hontai.Shogiban.ExistsBBKoma(phase, ms);
+                return Hontai.Shogiban.ExistsBBKoma(tai, ms);
             }
             public void ToSetIbasho(Koma km, Bitboard update_bb)
             {
@@ -167,15 +167,15 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 return Hontai.Shogiban.EqualsKiki(km, sg_hikaku);
             }
-            public Hyokati GetKomawari(Phase phase)
+            public Hyokati GetKomawari(Taikyokusya tai)
             {
-                return Hontai.Komawari.Get(phase);
+                return Hontai.Komawari.Get(tai);
             }
 
-            public void Setumei_GenkoKiki(Phase phase, StringBuilder syuturyoku)
+            public void Setumei_GenkoKiki(Taikyokusya tai, StringBuilder syuturyoku)
             {
                 syuturyoku.AppendLine("利き：（現行）");
-                Util_Information.Setumei_Bitboards(Med_Koma.GetKomasyuruiNamaeItiran(phase), Hontai.Shogiban.WhereBBKiki(phase), syuturyoku);
+                Util_Information.Setumei_Bitboards(Med_Koma.GetKomasyuruiNamaeItiran(tai), Hontai.Shogiban.WhereBBKiki(tai), syuturyoku);
             }
 
             /// <summary>
@@ -563,8 +563,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
         public Koma GetBanjoKoma(Masu ms)
         {
-            var (isExists, phase) = Shogiban.ExistsBBKomaZenbu(ms).Match;
-            if (isExists)
+            var (exists, phase) = Shogiban.ExistsBBKomaZenbu(ms);
+            if (exists)
             {
                 if (Shogiban.ExistsBBKoma(phase, ms, out Komasyurui ks))
                 {
@@ -859,11 +859,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 return false;
             }
             Koma km_dst = GetBanjoKoma(ms_dst);
-            var (isExists1, tai_dstKm) = Med_Koma.KomaToTaikyokusya(km_dst).Match;
-            if (!isExists1)
-            {
-                throw new Exception($"km_dst={km_dst}");
-            }
+            Taikyokusya tai_dstKm = Med_Koma.KomaToTaikyokusya(km_dst);
             if (km_dst != Koma.Kuhaku && Teban == tai_dstKm)
             {
                 // 自分の駒を取ろうとするのは、イリーガル・ムーブだぜ☆（＾▽＾）
@@ -889,11 +885,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 Masu ms_src = ConvMove.GetSrcMasu_WithoutErrorCheck((int)ss); // 移動先升
                 km_src = GetBanjoKoma(ms_src);
-                var (isExists2, tai_srcKm) = Med_Koma.KomaToTaikyokusya(km_src).Match;
-                if (!isExists2)
-                {
-                    throw new Exception($"km_src={km_src}");
-                }
+                Taikyokusya tai_srcKm = Med_Koma.KomaToTaikyokusya(km_src);
                 if (km_src == Koma.Kuhaku)
                 {
                     // 空き升に駒があると思って動かそうとするのは、イリーガル・ムーブだぜ☆（＾▽＾）
@@ -940,11 +932,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// ハッシュも差分変更するぜ☆
         /// </summary>
         /// <param name="ss">指し手☆</param>
-        public void DoMove(bool isSfen, Move ss, MoveType ssType, ref Nanteme konoTeme, Phase jibun, StringBuilder syuturyoku)
+        public void DoMove(bool isSfen, Move ss, MoveType ssType, ref Nanteme konoTeme, Taikyokusya jibun, StringBuilder syuturyoku)
         {
             // bool endMethodFlag;
 
-            Phase aite;
+            Taikyokusya aite;
 
             Masu ms_t0;
             Koma km_t0;
@@ -1743,14 +1735,14 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             // 盤上の一致判定
             for (int iTai = 0; iTai < Conv_Taikyokusya.Itiran.Length; iTai++)
             {
-                Phase phase = (Phase)iTai;
+                Taikyokusya tai = (Taikyokusya)iTai;
 
-                if (Shogiban.GetBBKomaZenbu(phase) != shogiban_hikaku.GetBBKomaZenbu(phase)) { return false; }
+                if (Shogiban.GetBBKomaZenbu(tai) != shogiban_hikaku.GetBBKomaZenbu(tai)) { return false; }
 
                 for (int iKs = 0; iKs < Conv_Komasyurui.Itiran.Length; iKs++)
                 {
                     Komasyurui ks = Conv_Komasyurui.Itiran[iKs];
-                    Koma km = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, phase);
+                    Koma km = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, tai);
 
                     if (Shogiban.GetBBKoma(km) != shogiban_hikaku.GetBBKoma(km)) { return false; }
                 }
@@ -1800,12 +1792,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 foreach (MotiKoma mk in Conv_MotiKoma.Itiran)
                 {
                     MotiKomasyurui mks = Med_Koma.MotiKomaToMotiKomasyrui(mk);
-                    var (isExists, phase) = Med_Koma.MotiKomaToTaikyokusya(mk).Match;
-                    if (isExists)
-                    {
-                        MotiKoma hantenMotikoma = Med_Koma.MotiKomasyuruiAndTaikyokusyaToMotiKoma(mks, Conv_Taikyokusya.Hanten(phase));
-                        tmp.Set(mk, MotiKomas.Get(hantenMotikoma));
-                    }
+                    Taikyokusya tai = Med_Koma.MotiKomaToTaikyokusya(mk);
+                    MotiKoma hantenMotikoma = Med_Koma.MotiKomasyuruiAndTaikyokusyaToMotiKoma(mks, Conv_Taikyokusya.Hanten(tai));
+                    tmp.Set(mk, MotiKomas.Get(hantenMotikoma));
                 }
                 MotiKomas.Set(tmp);
             }
@@ -1849,8 +1838,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                         }
                         else
                         {
-                            var (isExists, _phase) = this.Shogiban.ExistsBBKomaZenbu((Masu)iMs1).Match;
-                            if ((1 == r || 2 == r) && isExists)
+                            var (exists, _phase) = this.Shogiban.ExistsBBKomaZenbu((Masu)iMs1);
+                            if ((1 == r || 2 == r) && exists)
                             {
                                 // 持駒交換成立☆（＾▽＾）
                                 Koma km_tmp = GetBanjoKoma((Masu)iMs1);
@@ -1904,8 +1893,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     for (int iMk2 = 0; iMk2 < Conv_MotiKoma.Itiran.Length; iMk2++)
                     {
                         r = Option_Application.Random.Next(kakuritu);
-                        var (isExists, phase) = Shogiban.ExistsBBKomaZenbu((Masu)iMs1).Match;
-                        if ((1 == r || 2 == r) && isExists &&
+                        var (exists, phase) = Shogiban.ExistsBBKomaZenbu((Masu)iMs1);
+                        if ((1 == r || 2 == r) && exists &&
                             MotiKomas.HasMotiKoma((MotiKoma)iMk2))
                         {
                             // 持駒交換成立☆（＾▽＾）
@@ -1966,11 +1955,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
             // らいおんの先後を調整するぜ☆（＾▽＾）
             {
-                Phase phase = Phase.Black;
+                Taikyokusya tb = Phase.Black;
                 r = Option_Application.Random.Next(2);
                 if (0 == r)
                 {
-                    phase = Conv_Taikyokusya.Hanten(phase);
+                    tb = Conv_Taikyokusya.Hanten(tb);
                 }
 
                 for (int iMs1 = 0; iMs1 < this.Sindan.MASU_YOSOSU; iMs1++)
@@ -1995,7 +1984,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
                     if (Shogiban.ExistsBBKoma(Koma.R, (Masu)iMs1) || Shogiban.ExistsBBKoma(Koma.r, (Masu)iMs1))
                     {
-                        if (phase == Phase.Black)
+                        if (tb == Phase.Black)
                         {
                             var ms1 = (Masu)iMs1;
                             var km1 = Koma.R;
@@ -2012,7 +2001,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                             Shogiban.N250_OkuBanjoKoma(isSfen, ms1, km1, true, Sindan);
                         }
 
-                        phase = Conv_Taikyokusya.Hanten(phase);
+                        tb = Conv_Taikyokusya.Hanten(tb);
                     }
                 }
             }
@@ -2039,8 +2028,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     {
                         Masu ms = (Masu)(iDan * Option_Application.Optionlist.BanYokoHaba + iSuji);
 
-                        var (isExists, phase) = Shogiban.ExistsBBKomaZenbu(ms).Match;
-                        if (isExists)
+                        var (exists, phase) = Shogiban.ExistsBBKomaZenbu(ms);
+                        if (exists)
                         {
                             if (0 < space)
                             {
@@ -2292,8 +2281,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             }
 
             // 手番
-            var (isExists, phase) = Med_Parser.TryTaikyokusya(isSfen, tb_Mojis).Match;
-            if (!isExists)
+            if (!Med_Parser.TryTaikyokusya(isSfen, tb_Mojis, out Taikyokusya tai))
             {
 #if DEBUG
                 StringBuilder reigai1 = new StringBuilder();
@@ -2315,7 +2303,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 #endif
                 throw new Exception($"対局者のパースエラー tb_Mojis=[{tb_Mojis}]");
             }
-            this.Teban = phase;
+            this.Teban = tai;
 
             //────────────────────────────────────────
             // 局面ハッシュ、ビットボード等の更新
@@ -2363,8 +2351,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             Hyokati oisisa = Hyokati.Hyokati_Rei; // 取り返されることが無かった場合は、0 を返すぜ☆（＾▽＾）
 
             // その升に利いている駒を調べるぜ☆（＾～＾）
-            Phase jibun = this.Teban;
-            Phase aite = Conv_Taikyokusya.Hanten(this.Teban);
+            Taikyokusya jibun = this.Teban;
+            Taikyokusya aite = Conv_Taikyokusya.Hanten(this.Teban);
 
             // ひよこ→きりん→ぞう→にわとり→らいおん　の順にアタックするぜ☆（＾▽＾）
             Komasyurui[] junbanKs = new Komasyurui[] { Komasyurui.H, Komasyurui.K, Komasyurui.Z, Komasyurui.PH, Komasyurui.R };
@@ -2385,8 +2373,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     Komasyurui tottaKomasyurui;
                     Hyokati tottaKomaHyokati;
 
-                    var (isExists, phase) = Shogiban.ExistsBBKomaZenbu(ms).Match;
-                    if (isExists)
+                    var (exists, phase) = Shogiban.ExistsBBKomaZenbu(ms);
+                    if (exists)
                     {
                         Shogiban.ExistsBBKoma(phase, ms, out tottaKomasyurui);
                         tottaKomaHyokati = Conv_Hyokati.KomaHyokati[(int)Med_Koma.KomasyuruiAndTaikyokusyaToKoma(tottaKomasyurui, phase)];// Util_Hyokati.HyokaKomawari(tottaKomasyurui);
@@ -2476,8 +2464,8 @@ SEE>ここまで止めると想定し、SEEを 0 から計算しなおすぜ☆(
         /// <returns></returns>
         public bool IsSyobuNasi()
         {
-            Phase jibun = Teban;
-            Phase aite = Conv_Taikyokusya.Hanten(jibun);
+            Taikyokusya jibun = Teban;
+            Taikyokusya aite = Conv_Taikyokusya.Hanten(jibun);
             Koma jibunRaion = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, jibun);
             Koma aiteRaion = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, aite);
             return Shogiban.IsEmptyBBKoma(jibunRaion)// （Ａ）自分のらいおんがいない☆
@@ -2506,8 +2494,8 @@ SEE>ここまで止めると想定し、SEEを 0 から計算しなおすぜ☆(
             // 駒割りよりは小さく評価したい。
             float kikiScore = 0.0f;
             {
-                Phase jibun = Teban;
-                Phase aite = Conv_Taikyokusya.Hanten(jibun);
+                Taikyokusya jibun = Teban;
+                Taikyokusya aite = Conv_Taikyokusya.Hanten(jibun);
 
                 // 自分の駒が、自分の利きに飛び込んでいて加点
                 foreach (Komasyurui ks in Conv_Komasyurui.Itiran)

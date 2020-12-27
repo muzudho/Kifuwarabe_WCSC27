@@ -347,104 +347,107 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             Debug.Assert(Conv_Koma.IsOk(km), "");
             Komasyurui ks = Med_Koma.KomaToKomasyurui(km);
-            var (isExists, jibun) = Med_Koma.KomaToTaikyokusya(km).Match;
-            if (isExists)
+            Taikyokusya jibun = Med_Koma.KomaToTaikyokusya(km);
+            Masu ms_ido;
+
+            ky.Sindan.ToSelectKomanoUgokikata(km, ms_src, idosakiBB); // 駒の動ける場所だけ探すぜ☆（＾～＾）
+
+            switch (sasiteType)
             {
-                Masu ms_ido;
+                #region 逼迫返討手
+                case MoveType.N13_HippakuKaeriutiTe:
+                    if (jibunHioute.HippakuKaeriutiTe)
+                    {
+                        ky.Shogiban.ToSitdown_BBKikiZenbu(aiteHioute.Taikyokusya, idosakiBB);// らいおん　が自分から利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
 
-                ky.Sindan.ToSelectKomanoUgokikata(km, ms_src, idosakiBB); // 駒の動ける場所だけ探すぜ☆（＾～＾）
-
-                switch (sasiteType)
-                {
-                    // 逼迫返討手
-                    case MoveType.N13_HippakuKaeriutiTe:
-                        if (jibunHioute.HippakuKaeriutiTe)
+                        if (idosakiBB.GetNTZ(out ms_ido)) // 攻めてきた駒（１つだけ）を取るということ☆
                         {
-                            ky.Shogiban.ToSitdown_BBKikiZenbu(aiteHioute.Taikyokusya, idosakiBB);// らいおん　が自分から利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
-
-                            if (idosakiBB.GetNTZ(out ms_ido)) // 攻めてきた駒（１つだけ）を取るということ☆
-                            {
-                                AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
-                            }
+                            AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
                         }
-                        return;
-                    // 余裕返討手
-                    case MoveType.N14_YoyuKaeriutiTe:
-                        if (!jibunHioute.HippakuKaeriutiTe)
+                    }
+                    return;
+                #endregion
+                #region 余裕返討手
+                case MoveType.N14_YoyuKaeriutiTe:
+                    if (!jibunHioute.HippakuKaeriutiTe)
+                    {
+                        ky.Shogiban.ToSitdown_BBKikiZenbu(aiteHioute.Taikyokusya, idosakiBB);// らいおん　が自分から利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
+
+                        if (idosakiBB.GetNTZ(out ms_ido)) // 攻めてきた駒（１つだけ）を取るということ☆
                         {
-                            ky.Shogiban.ToSitdown_BBKikiZenbu(aiteHioute.Taikyokusya, idosakiBB);// らいおん　が自分から利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
-
-                            if (idosakiBB.GetNTZ(out ms_ido)) // 攻めてきた駒（１つだけ）を取るということ☆
-                            {
-                                AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
-                            }
+                            AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
                         }
-                        return;
-                    // らいおんキャッチ調査　｜　らいおんキャッチ
-                    case MoveType.N17_RaionCatchChosa://thru
-                    case MoveType.N12_RaionCatch:
+                    }
+                    return;
+                #endregion
+                #region らいおんキャッチ調査　｜　らいおんキャッチ
+                case MoveType.N17_RaionCatchChosa://thru
+                case MoveType.N12_RaionCatch:
+                    {
+                        ky.Shogiban.ToSitdown_BBKikiZenbu(aiteHioute.Taikyokusya, idosakiBB);// らいおん　が自分から利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
+                        if (idosakiBB.GetNTZ(out ms_ido)) // らいおん（１つだけ）を取るということ☆
                         {
-                            ky.Shogiban.ToSitdown_BBKikiZenbu(aiteHioute.Taikyokusya, idosakiBB);// らいおん　が自分から利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
-                            if (idosakiBB.GetNTZ(out ms_ido)) // らいおん（１つだけ）を取るということ☆
-                            {
-                                if (MoveType.N17_RaionCatchChosa == sasiteType) { jibunHioute.RaionCatchChosa = true; return; } // 調査するだけなら、らいおんキャッチできることが分かったので終了☆（＾～＾）
+                            if (MoveType.N17_RaionCatchChosa == sasiteType) { jibunHioute.RaionCatchChosa = true; return; } // 調査するだけなら、らいおんキャッチできることが分かったので終了☆（＾～＾）
 
-                                AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
-                                jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta;
-                            }
+                            AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                            jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta;
                         }
-                        return;
-                    // トライ
-                    case MoveType.N16_Try:
+                    }
+                    return;
+                #endregion
+                #region トライ
+                case MoveType.N16_Try:
+                    {
+                        ky.Shogiban.ToSitdown_BBKikiZenbu(aiteHioute.Taikyokusya, idosakiBB);// らいおん　が自分から利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
+
+                        Bitboard trysakiBB = Util_TryRule.GetTrySaki(ky, idosakiBB, jibun, ms_src, syuturyoku);
+                        if (trysakiBB.GetNTZ(out ms_ido))// トライはどこか１つ行けばいい
                         {
-                            ky.Shogiban.ToSitdown_BBKikiZenbu(aiteHioute.Taikyokusya, idosakiBB);// らいおん　が自分から利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
-
-                            Bitboard trysakiBB = Util_TryRule.GetTrySaki(ky, idosakiBB, jibun, ms_src, syuturyoku);
-                            if (trysakiBB.GetNTZ(out ms_ido))// トライはどこか１つ行けばいい
-                            {
-                                AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
-                                jibunHioute.TansakuUtikiri = TansakuUtikiri.Try;
-                            }
+                            AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                            jibunHioute.TansakuUtikiri = TansakuUtikiri.Try;
                         }
-                        return;
-                    // 駒を取る手
-                    case MoveType.N01_KomaWoToruTe:
+                    }
+                    return;
+                #endregion
+                #region 駒を取る手
+                case MoveType.N01_KomaWoToruTe:
+                    {
+                        idosakiBB.Sitdown(Util_TryRule.GetTrySaki(ky, idosakiBB, jibun, ms_src, syuturyoku));// トライ　は除外するぜ☆（＾▽＾）
+                        ky.Shogiban.ToSitdown_BBKikiZenbu(aiteHioute.Taikyokusya, idosakiBB);// らいおん　が自分から利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
+
+                        while (idosakiBB.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
                         {
-                            idosakiBB.Sitdown(Util_TryRule.GetTrySaki(ky, idosakiBB, jibun, ms_src, syuturyoku));// トライ　は除外するぜ☆（＾▽＾）
-                            ky.Shogiban.ToSitdown_BBKikiZenbu(aiteHioute.Taikyokusya, idosakiBB);// らいおん　が自分から利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
+                            // 一手詰めルーチン☆
+                            bool ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);
 
-                            while (idosakiBB.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
-                            {
-                                // 一手詰めルーチン☆
-                                bool ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);
+                            AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
 
-                                AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
-
-                                if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
-                            }
+                            if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                         }
-                        return;
-                    // ぼっち緩慢指　｜　紐付き緩慢指　（らいおんは　捨て緩慢指し　をやらないぜ☆）
-                    case MoveType.N02_BottiKanmanSasi://thru
-                    case MoveType.N08_HimotukiKanmanSasi:
+                    }
+                    return;
+                #endregion
+                #region ぼっち緩慢指　｜　紐付き緩慢指　（らいおんは　捨て緩慢指し　をやらないぜ☆）
+                case MoveType.N02_BottiKanmanSasi://thru
+                case MoveType.N08_HimotukiKanmanSasi:
+                    {
+                        idosakiBB.Sitdown(Util_TryRule.GetTrySaki(ky, idosakiBB, jibun, ms_src, syuturyoku));// トライ　は除外するぜ☆（＾▽＾）
+                        ky.Shogiban.ToSitdown_BBKikiZenbu(aiteHioute.Taikyokusya, idosakiBB);// らいおん　が自分から相手の利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
+
+                        while (idosakiBB.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
                         {
-                            idosakiBB.Sitdown(Util_TryRule.GetTrySaki(ky, idosakiBB, jibun, ms_src, syuturyoku));// トライ　は除外するぜ☆（＾▽＾）
-                            ky.Shogiban.ToSitdown_BBKikiZenbu(aiteHioute.Taikyokusya, idosakiBB);// らいおん　が自分から相手の利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
+                            // 一手詰めルーチン☆
+                            bool ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);
 
-                            while (idosakiBB.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
-                            {
-                                // 一手詰めルーチン☆
-                                bool ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);
+                            AddMoveBadOrGood(ittedume, MisuteruUgoki(ky, jibun, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
 
-                                AddMoveBadOrGood(ittedume, MisuteruUgoki(ky, jibun, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
-
-                                if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
-                            }
+                            if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                         }
-                        break;
-                    default:
-                        break;
-                }
+                    }
+                    break;
+                #endregion
+                default:
+                    break;
             }
         }
 
@@ -453,155 +456,152 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             Debug.Assert(Conv_Koma.IsOk(km), "");
             Komasyurui ks = Med_Koma.KomaToKomasyurui(km);
-            var (isExists, jibun) = Med_Koma.KomaToTaikyokusya(km).Match;
-            if (isExists)
-            {
-                Masu ms_ido;
-                bool ittedume;
+            Taikyokusya jibun = Med_Koma.KomaToTaikyokusya(km);
+            Masu ms_ido;
+            bool ittedume;
 
-                idosakiBB.Select(ky.Shogiban.GetKomanoUgokikata(km, ms_src));
+            idosakiBB.Select(ky.Shogiban.GetKomanoUgokikata(km, ms_src));
 #if DEBUG
             //Util_Information.HyojiKomanoUgoki(ky.Shogiban, ky.Sindan.MASU_YOSOSU, syuturyoku);
             //Logger.Flush(syuturyoku);
 #endif
 
-                switch (sasiteType)
-                {
-                    #region 逼迫返討手
-                    case MoveType.N13_HippakuKaeriutiTe:
-                        if (jibunHioute.HippakuKaeriutiTe)
+            switch (sasiteType)
+            {
+                #region 逼迫返討手
+                case MoveType.N13_HippakuKaeriutiTe:
+                    if (jibunHioute.HippakuKaeriutiTe)
+                    {
+                        if (idosakiBB.GetNTZ(out ms_ido)) // 攻めてきた駒（１つだけ）を取るということ☆
                         {
-                            if (idosakiBB.GetNTZ(out ms_ido)) // 攻めてきた駒（１つだけ）を取るということ☆
+                            AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                        }
+                    }
+                    return;
+                #endregion
+                #region 余裕返討手
+                case MoveType.N14_YoyuKaeriutiTe:
+                    if (!jibunHioute.HippakuKaeriutiTe)
+                    {
+                        if (idosakiBB.GetNTZ(out ms_ido)) // 攻めてきた駒（１つだけ）を取るということ☆
+                        {
+                            AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                        }
+                    }
+                    return;
+                #endregion
+                #region らいおんキャッチ調査　｜　らいおんキャッチ
+                case MoveType.N17_RaionCatchChosa://thru
+                case MoveType.N12_RaionCatch:
+                    {
+                        if (!idosakiBB.IsEmpty())
+                        {
+                            if (MoveType.N17_RaionCatchChosa == sasiteType) { jibunHioute.RaionCatchChosa = true; return; } // 調査するだけなら、らいおんキャッチできることが分かったので終了☆（＾～＾）
+
+                            if (idosakiBB.GetNTZ(out ms_ido)) // らいおん（１つだけ）を取るということ☆
                             {
                                 AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                                jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta;
                             }
                         }
-                        return;
-                    #endregion
-                    #region 余裕返討手
-                    case MoveType.N14_YoyuKaeriutiTe:
-                        if (!jibunHioute.HippakuKaeriutiTe)
+                    }
+                    return;
+                #endregion
+                #region 捨て王手指
+                case MoveType.N06_SuteOteSasi:
+                    {
+                        // らいおんのいる升に、先後逆の自分の駒があると考えれば、その利きの場所と、今いる場所からの利きが重なれば、王手だぜ☆（＾▽＾）
+                        ky.Shogiban.ToSelect_KomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.Taikyokusya), aiteHioute.FriendRaionMs, idosakiBB);
+
+                        while (idosakiBB.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
                         {
-                            if (idosakiBB.GetNTZ(out ms_ido)) // 攻めてきた駒（１つだけ）を取るということ☆
+                            if (TadasuteNoUgoki(ky, jibun, ms_ido, false))// タダ捨ての動きに限る☆
                             {
-                                AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
-                            }
-                        }
-                        return;
-                    #endregion
-                    #region らいおんキャッチ調査　｜　らいおんキャッチ
-                    case MoveType.N17_RaionCatchChosa://thru
-                    case MoveType.N12_RaionCatch:
-                        {
-                            if (!idosakiBB.IsEmpty())
-                            {
-                                if (MoveType.N17_RaionCatchChosa == sasiteType) { jibunHioute.RaionCatchChosa = true; return; } // 調査するだけなら、らいおんキャッチできることが分かったので終了☆（＾～＾）
+                                ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
 
-                                if (idosakiBB.GetNTZ(out ms_ido)) // らいおん（１つだけ）を取るということ☆
-                                {
-                                    AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
-                                    jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta;
-                                }
-                            }
-                        }
-                        return;
-                    #endregion
-                    #region 捨て王手指
-                    case MoveType.N06_SuteOteSasi:
-                        {
-                            // らいおんのいる升に、先後逆の自分の駒があると考えれば、その利きの場所と、今いる場所からの利きが重なれば、王手だぜ☆（＾▽＾）
-                            ky.Shogiban.ToSelect_KomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.Taikyokusya), aiteHioute.FriendRaionMs, idosakiBB);
-
-                            while (idosakiBB.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
-                            {
-                                if (TadasuteNoUgoki(ky, jibun, ms_ido, false))// タダ捨ての動きに限る☆
-                                {
-                                    ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
-
-                                    AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType | MoveType.N19_Option_NigemitiWoAkeruTe, sasiteType);
-
-                                    if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
-                                }
-                            }
-                        }
-                        return;
-                    #endregion
-                    #region 紐付王手指（Good 逃げ道を開けない手、Bad 逃げ道を開ける手）
-                    case MoveType.N10_HimotukiOteSasi:
-                        {
-                            // らいおんのいる升に、先後逆の自分の駒があると考えれば、その利きの場所と、今いる場所からの利きが重なれば、王手だぜ☆（＾▽＾）
-                            idosakiBB.Select(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.Taikyokusya), aiteHioute.FriendRaionMs));
-                            idosakiBB.Select(Util_Bitboard.CreateKikiZenbuBB_1KomaNozoku(ky, jibun, ms_src)); // (2017-04-29 Add)紐を付ける☆
-
-                            while (idosakiBB.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
-                            {
-                                if (!TadasuteNoUgoki(ky, jibun, ms_ido, false))// タダ捨てではない動きに限る☆
-                                {
-                                    ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
-
-                                    AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType | MoveType.N19_Option_NigemitiWoAkeruTe, sasiteType);
-
-                                    if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
-                                }
-                            }
-                        }
-                        return;
-                    #endregion
-                    #region 駒を取る手（Good 逃げ道を開ける手、Bad 逃げ道を開けない手）
-                    case MoveType.N01_KomaWoToruTe:
-                        {
-                            while (idosakiBB.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
-                            {
-                                // 一手詰めルーチン☆
-                                ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);
-
-                                AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                                AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType | MoveType.N19_Option_NigemitiWoAkeruTe, sasiteType);
 
                                 if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                             }
                         }
-                        return;
-                    #endregion
-                    #region ぼっち緩慢指　｜　紐付き緩慢指し
-                    case MoveType.N02_BottiKanmanSasi://thru
-                    case MoveType.N08_HimotukiKanmanSasi:
+                    }
+                    return;
+                #endregion
+                #region 紐付王手指（Good 逃げ道を開けない手、Bad 逃げ道を開ける手）
+                case MoveType.N10_HimotukiOteSasi:
+                    {
+                        // らいおんのいる升に、先後逆の自分の駒があると考えれば、その利きの場所と、今いる場所からの利きが重なれば、王手だぜ☆（＾▽＾）
+                        idosakiBB.Select(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.Taikyokusya), aiteHioute.FriendRaionMs));
+                        idosakiBB.Select(Util_Bitboard.CreateKikiZenbuBB_1KomaNozoku(ky, jibun, ms_src)); // (2017-04-29 Add)紐を付ける☆
+
+                        while (idosakiBB.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
                         {
-                            // 王手も除外するぜ☆（＾▽＾）
-                            idosakiBB.Sitdown(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.Taikyokusya), aiteHioute.FriendRaionMs));
-
-                            while (idosakiBB.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
+                            if (!TadasuteNoUgoki(ky, jibun, ms_ido, false))// タダ捨てではない動きに限る☆
                             {
-                                if (!TadasuteNoUgoki(ky, jibun, ms_ido, false))// タダ捨てではない動きに限る☆
-                                {
-                                    ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
+                                ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
 
-                                    AddMoveBadOrGood(ittedume, MisuteruUgoki(ky, jibun, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                                AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType | MoveType.N19_Option_NigemitiWoAkeruTe, sasiteType);
 
-                                    if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
-                                }
+                                if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                             }
                         }
-                        break;
-                    #endregion
-                    #region 捨て緩慢指（タダ捨て指し）
-                    case MoveType.N04_SuteKanmanSasi:
+                    }
+                    return;
+                #endregion
+                #region 駒を取る手（Good 逃げ道を開ける手、Bad 逃げ道を開けない手）
+                case MoveType.N01_KomaWoToruTe:
+                    {
+                        while (idosakiBB.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
                         {
-                            // 王手も除外するぜ☆（＾▽＾）
-                            idosakiBB.Sitdown(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.Taikyokusya), aiteHioute.FriendRaionMs));
+                            // 一手詰めルーチン☆
+                            ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);
 
-                            while (idosakiBB.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
+                            AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+
+                            if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
+                        }
+                    }
+                    return;
+                #endregion
+                #region ぼっち緩慢指　｜　紐付き緩慢指し
+                case MoveType.N02_BottiKanmanSasi://thru
+                case MoveType.N08_HimotukiKanmanSasi:
+                    {
+                        // 王手も除外するぜ☆（＾▽＾）
+                        idosakiBB.Sitdown(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.Taikyokusya), aiteHioute.FriendRaionMs));
+
+                        while (idosakiBB.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
+                        {
+                            if (!TadasuteNoUgoki(ky, jibun, ms_ido, false))// タダ捨てではない動きに限る☆
                             {
-                                if (AbstractUtilMoveGen.TadasuteNoUgoki(ky, jibun, ms_ido, false))// 相手の利きがあって、自分を除いた味方の利きがない升　に限るぜ☆（＾▽＾）ｗｗｗ
-                                {
-                                    // タダ捨てに、一手詰めは無いだろう☆（*＾～＾*）
+                                ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
 
-                                    AddMoveBadOrGood(false, MisuteruUgoki(ky, jibun, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
-                                }
+                                AddMoveBadOrGood(ittedume, MisuteruUgoki(ky, jibun, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+
+                                if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                             }
                         }
-                        break;
-                        #endregion
-                }
+                    }
+                    break;
+                #endregion
+                #region 捨て緩慢指（タダ捨て指し）
+                case MoveType.N04_SuteKanmanSasi:
+                    {
+                        // 王手も除外するぜ☆（＾▽＾）
+                        idosakiBB.Sitdown(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.Taikyokusya), aiteHioute.FriendRaionMs));
+
+                        while (idosakiBB.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
+                        {
+                            if (AbstractUtilMoveGen.TadasuteNoUgoki(ky, jibun, ms_ido, false))// 相手の利きがあって、自分を除いた味方の利きがない升　に限るぜ☆（＾▽＾）ｗｗｗ
+                            {
+                                // タダ捨てに、一手詰めは無いだろう☆（*＾～＾*）
+
+                                AddMoveBadOrGood(false, MisuteruUgoki(ky, jibun, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                            }
+                        }
+                    }
+                    break;
+                    #endregion
             }
         }
 
@@ -610,298 +610,278 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             Debug.Assert(Conv_Koma.IsOk(km), "");
             Komasyurui ks = Med_Koma.KomaToKomasyurui(km);
-            var (isExists, jibun) = Med_Koma.KomaToTaikyokusya(km).Match;
-            if (isExists)
+            Taikyokusya jibun = Med_Koma.KomaToTaikyokusya(km);
+            Masu ms_ido;
+            bool ittedume;
+
+            bb_idosakiCopy.Select(ky.Shogiban.GetKomanoUgokikata(km, ms_src));
+
+            switch (sasiteType)
             {
-                Masu ms_ido;
-                bool ittedume;
-
-                bb_idosakiCopy.Select(ky.Shogiban.GetKomanoUgokikata(km, ms_src));
-
-                switch (sasiteType)
-                {
-                    #region 逼迫返討手
-                    case MoveType.N13_HippakuKaeriutiTe:
-                        if (jibunHioute.HippakuKaeriutiTe)
+                #region 逼迫返討手
+                case MoveType.N13_HippakuKaeriutiTe:
+                    if (jibunHioute.HippakuKaeriutiTe)
+                    {
+                        if (bb_idosakiCopy.GetNTZ(out ms_ido)) // 攻めてきた駒（１つだけ）を取るということ☆
                         {
-                            if (bb_idosakiCopy.GetNTZ(out ms_ido)) // 攻めてきた駒（１つだけ）を取るということ☆
+                            // 成れる場合
+                            if (IsNareruZone(ms_ido, jibun, ky.Sindan))
+                            {
+                                AddMoveGood(false, fukasa, ConvMove.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                            }
+
+                            AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                        }
+                    }
+                    return;
+                #endregion
+                #region 余裕返討手
+                case MoveType.N14_YoyuKaeriutiTe:
+                    if (!jibunHioute.HippakuKaeriutiTe)
+                    {
+                        if (bb_idosakiCopy.GetNTZ(out ms_ido)) // 攻めてきた駒（１つだけ）を取るということ☆
+                        {
+                            // 成れる場合
+                            if (IsNareruZone(ms_ido, jibun, ky.Sindan))
+                            {
+                                AddMoveGood(false, fukasa, ConvMove.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                            }
+
+                            AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                        }
+                    }
+                    return;
+                #endregion
+                #region らいおんキャッチ調査　｜　らいおんキャッチ
+                case MoveType.N17_RaionCatchChosa://thru
+                case MoveType.N12_RaionCatch:
+                    {
+                        if (!bb_idosakiCopy.IsEmpty())
+                        {
+                            if (MoveType.N17_RaionCatchChosa == sasiteType) { jibunHioute.RaionCatchChosa = true; return; } // 調査するだけなら、らいおんキャッチできることが分かったので終了☆（＾～＾）
+
+                            if (bb_idosakiCopy.GetNTZ(out ms_ido)) // らいおん（１つだけ）を取るということ☆
                             {
                                 // 成れる場合
                                 if (IsNareruZone(ms_ido, jibun, ky.Sindan))
                                 {
                                     AddMoveGood(false, fukasa, ConvMove.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
-                                }
-
-                                AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
-                            }
-                        }
-                        return;
-                    #endregion
-                    #region 余裕返討手
-                    case MoveType.N14_YoyuKaeriutiTe:
-                        if (!jibunHioute.HippakuKaeriutiTe)
-                        {
-                            if (bb_idosakiCopy.GetNTZ(out ms_ido)) // 攻めてきた駒（１つだけ）を取るということ☆
-                            {
-                                // 成れる場合
-                                if (IsNareruZone(ms_ido, jibun, ky.Sindan))
-                                {
-                                    AddMoveGood(false, fukasa, ConvMove.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
-                                }
-
-                                AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
-                            }
-                        }
-                        return;
-                    #endregion
-                    #region らいおんキャッチ調査　｜　らいおんキャッチ
-                    case MoveType.N17_RaionCatchChosa://thru
-                    case MoveType.N12_RaionCatch:
-                        {
-                            if (!bb_idosakiCopy.IsEmpty())
-                            {
-                                if (MoveType.N17_RaionCatchChosa == sasiteType) { jibunHioute.RaionCatchChosa = true; return; } // 調査するだけなら、らいおんキャッチできることが分かったので終了☆（＾～＾）
-
-                                if (bb_idosakiCopy.GetNTZ(out ms_ido)) // らいおん（１つだけ）を取るということ☆
-                                {
-                                    // 成れる場合
-                                    if (IsNareruZone(ms_ido, jibun, ky.Sindan))
-                                    {
-                                        AddMoveGood(false, fukasa, ConvMove.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
-                                        jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta;
-                                    }
-
-                                    AddMoveBadOrGood(false, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType | MoveType.N19_Option_NigemitiWoAkeruTe, sasiteType);
-
                                     jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta;
                                 }
+
+                                AddMoveBadOrGood(false, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType | MoveType.N19_Option_NigemitiWoAkeruTe, sasiteType);
+
+                                jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta;
                             }
                         }
-                        return;
-                    #endregion
-                    #region 紐付王手指
-                    case MoveType.N10_HimotukiOteSasi:
+                    }
+                    return;
+                #endregion
+                #region 紐付王手指
+                case MoveType.N10_HimotukiOteSasi:
+                    {
+                        // らいおんのいる升に、先後逆の自分の駒があると考えれば、その利きの場所と、今いる場所からの利きが重なれば、王手だぜ☆（＾▽＾）
+                        bb_idosakiCopy.Select(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.Taikyokusya), aiteHioute.FriendRaionMs));
+                        bb_idosakiCopy.Select(Util_Bitboard.CreateKikiZenbuBB_1KomaNozoku(ky, jibun, ms_src));// 紐を付ける☆
+
+                        while (bb_idosakiCopy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
                         {
-                            // らいおんのいる升に、先後逆の自分の駒があると考えれば、その利きの場所と、今いる場所からの利きが重なれば、王手だぜ☆（＾▽＾）
-                            bb_idosakiCopy.Select(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.Taikyokusya), aiteHioute.FriendRaionMs));
-                            bb_idosakiCopy.Select(Util_Bitboard.CreateKikiZenbuBB_1KomaNozoku(ky, jibun, ms_src));// 紐を付ける☆
-
-                            while (bb_idosakiCopy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
-                            {
-                                if (!TadasuteNoUgoki(ky, jibun, ms_ido, false))// タダ捨てではない動きに限る☆
-                                {
-                                    ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
-
-                                    // 成れる場合
-                                    if (IsNareruZone(ms_ido, jibun, ky.Sindan))
-                                    {
-                                        AddMoveGood(false, fukasa, ConvMove.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
-                                    }
-
-                                    AddMoveGood(ittedume, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
-
-                                    if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
-                                }
-                            }
-                        }
-                        return;
-                    #endregion
-                    #region 捨て王手指し
-                    case MoveType.N06_SuteOteSasi:
-                        {
-                            // 王手に限る☆
-                            bb_idosakiCopy.Select(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.Taikyokusya), aiteHioute.FriendRaionMs));
-
-                            while (bb_idosakiCopy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
-                            {
-                                if (TadasuteNoUgoki(ky, jibun, ms_ido, false))// タダ捨ての動きに限る☆
-                                {
-                                    ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
-
-                                    // 成れる場合
-                                    if (IsNareruZone(ms_ido, jibun, ky.Sindan))
-                                    {
-                                        AddMoveGood(false, fukasa, ConvMove.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
-                                    }
-
-                                    AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
-
-                                    if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
-                                }
-                            }
-                        }
-                        return;
-                    #endregion
-                    #region 駒を取る手
-                    case MoveType.N01_KomaWoToruTe:
-                        {
-                            while (bb_idosakiCopy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
+                            if (!TadasuteNoUgoki(ky, jibun, ms_ido, false))// タダ捨てではない動きに限る☆
                             {
                                 ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
+
+                                // 成れる場合
+                                if (IsNareruZone(ms_ido, jibun, ky.Sindan))
+                                {
+                                    AddMoveGood(false, fukasa, ConvMove.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                                }
+
+                                AddMoveGood(ittedume, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+
+                                if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
+                            }
+                        }
+                    }
+                    return;
+                #endregion
+                #region 捨て王手指し
+                case MoveType.N06_SuteOteSasi:
+                    {
+                        // 王手に限る☆
+                        bb_idosakiCopy.Select(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.Taikyokusya), aiteHioute.FriendRaionMs));
+
+                        while (bb_idosakiCopy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
+                        {
+                            if (TadasuteNoUgoki(ky, jibun, ms_ido, false))// タダ捨ての動きに限る☆
+                            {
+                                ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
+
+                                // 成れる場合
+                                if (IsNareruZone(ms_ido, jibun, ky.Sindan))
+                                {
+                                    AddMoveGood(false, fukasa, ConvMove.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                                }
 
                                 AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
 
                                 if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                             }
                         }
-                        return;
-                    #endregion
-                    #region ぼっち緩慢指　｜　紐付緩慢指
-                    case MoveType.N02_BottiKanmanSasi://thru
-                    case MoveType.N08_HimotukiKanmanSasi:
+                    }
+                    return;
+                #endregion
+                #region 駒を取る手
+                case MoveType.N01_KomaWoToruTe:
+                    {
+                        while (bb_idosakiCopy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
                         {
-                            // 王手も除外するぜ☆（＾▽＾）
-                            bb_idosakiCopy.Sitdown(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.Taikyokusya), aiteHioute.FriendRaionMs));
+                            ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
 
-                            while (bb_idosakiCopy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
+                            AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+
+                            if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
+                        }
+                    }
+                    return;
+                #endregion
+                #region ぼっち緩慢指　｜　紐付緩慢指
+                case MoveType.N02_BottiKanmanSasi://thru
+                case MoveType.N08_HimotukiKanmanSasi:
+                    {
+                        // 王手も除外するぜ☆（＾▽＾）
+                        bb_idosakiCopy.Sitdown(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.Taikyokusya), aiteHioute.FriendRaionMs));
+
+                        while (bb_idosakiCopy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
+                        {
+                            if (!TadasuteNoUgoki(ky, jibun, ms_ido, false))// タダ捨てではない動きに限るぜ☆（＾▽＾）
                             {
-                                if (!TadasuteNoUgoki(ky, jibun, ms_ido, false))// タダ捨てではない動きに限るぜ☆（＾▽＾）
+                                ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
+
+                                // 成れる場合
+                                if (IsNareruZone(ms_ido, jibun, ky.Sindan))
                                 {
-                                    ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
-
-                                    // 成れる場合
-                                    if (IsNareruZone(ms_ido, jibun, ky.Sindan))
-                                    {
-                                        AddMoveGood(false, fukasa, ConvMove.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
-                                    }
-
-                                    AddMoveBadOrGood(ittedume, MisuteruUgoki(ky, jibun, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
-
-                                    if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
+                                    AddMoveGood(false, fukasa, ConvMove.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
                                 }
+
+                                AddMoveBadOrGood(ittedume, MisuteruUgoki(ky, jibun, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+
+                                if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                             }
                         }
-                        break;
-                    #endregion
-                    #region 捨て緩慢指し（タダ捨て指し）
-                    case MoveType.N04_SuteKanmanSasi:
+                    }
+                    break;
+                #endregion
+                #region 捨て緩慢指し（タダ捨て指し）
+                case MoveType.N04_SuteKanmanSasi:
+                    {
+                        // 王手も除外するぜ☆（＾▽＾）
+                        bb_idosakiCopy.Sitdown(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.Taikyokusya), aiteHioute.FriendRaionMs));
+
+                        while (bb_idosakiCopy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
                         {
-                            // 王手も除外するぜ☆（＾▽＾）
-                            bb_idosakiCopy.Sitdown(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.Taikyokusya), aiteHioute.FriendRaionMs));
-
-                            while (bb_idosakiCopy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
+                            if (TadasuteNoUgoki(ky, jibun, ms_ido, false))// 相手の利きがあって、自分を除いた味方の利きがない升　に限るぜ☆（＾▽＾）ｗｗｗ
                             {
-                                if (TadasuteNoUgoki(ky, jibun, ms_ido, false))// 相手の利きがあって、自分を除いた味方の利きがない升　に限るぜ☆（＾▽＾）ｗｗｗ
+                                // タダ捨てに、一手詰めは無いだろう☆（*＾～＾*）
+
+                                // 成れる場合
+                                if (IsNareruZone(ms_ido, jibun, ky.Sindan))
                                 {
-                                    // タダ捨てに、一手詰めは無いだろう☆（*＾～＾*）
-
-                                    // 成れる場合
-                                    if (IsNareruZone(ms_ido, jibun, ky.Sindan))
-                                    {
-                                        AddMoveGood(false, fukasa, ConvMove.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
-                                    }
-
-                                    AddMoveBadOrGood(false, MisuteruUgoki(ky, jibun, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                                    AddMoveGood(false, fukasa, ConvMove.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
                                 }
+
+                                AddMoveBadOrGood(false, MisuteruUgoki(ky, jibun, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
                             }
                         }
-                        break;
-                    #endregion
-                    default:
-                        break;
-                }
+                    }
+                    break;
+                #endregion
+                default:
+                    break;
             }
         }
         public static void GenerateMove02NiwatoriNado(Koma km, MoveType sasiteType, int fukasa, Kyokumen ky, Masu ms_src, HiouteJoho jibunHioute, HiouteJoho aiteHioute, Bitboard bb_idosakiCopy, StringBuilder syuturyoku)
         {
             Debug.Assert(Conv_Koma.IsOk(km), "");
             Komasyurui ks = Med_Koma.KomaToKomasyurui(km);
-            var (isExists, jibun) = Med_Koma.KomaToTaikyokusya(km).Match;
-            if (isExists)
+            Taikyokusya jibun = Med_Koma.KomaToTaikyokusya(km);
+            Masu ms_ido;
+            bool ittedume;
+
+            bb_idosakiCopy.Select(ky.Shogiban.GetKomanoUgokikata(km, ms_src));
+
+            switch (sasiteType)
             {
-                Masu ms_ido;
-                bool ittedume;
-
-                bb_idosakiCopy.Select(ky.Shogiban.GetKomanoUgokikata(km, ms_src));
-
-                switch (sasiteType)
-                {
-                    #region 逼迫返討手
-                    case MoveType.N13_HippakuKaeriutiTe:
-                        if (jibunHioute.HippakuKaeriutiTe)
+                #region 逼迫返討手
+                case MoveType.N13_HippakuKaeriutiTe:
+                    if (jibunHioute.HippakuKaeriutiTe)
+                    {
+                        if (bb_idosakiCopy.GetNTZ(out ms_ido)) // 攻めてきた駒（１つだけ）を取るということ☆
                         {
-                            if (bb_idosakiCopy.GetNTZ(out ms_ido)) // 攻めてきた駒（１つだけ）を取るということ☆
+                            AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                        }
+                    }
+                    return;
+                #endregion
+                #region 余裕返討手
+                case MoveType.N14_YoyuKaeriutiTe:
+                    if (!jibunHioute.HippakuKaeriutiTe)
+                    {
+                        if (bb_idosakiCopy.GetNTZ(out ms_ido)) // 攻めてきた駒（１つだけ）を取るということ☆
+                        {
+                            AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                        }
+                    }
+                    return;
+                #endregion
+                #region らいおんキャッチ調査　｜　らいおんキャッチ
+                case MoveType.N17_RaionCatchChosa://thru
+                case MoveType.N12_RaionCatch:
+                    {
+                        if (!bb_idosakiCopy.IsEmpty())
+                        {
+                            if (MoveType.N17_RaionCatchChosa == sasiteType) { jibunHioute.RaionCatchChosa = true; return; } // 調査するだけなら、らいおんキャッチできることが分かったので終了☆（＾～＾）
+
+                            if (bb_idosakiCopy.GetNTZ(out ms_ido)) // らいおん（１つだけ）を取るということ☆
                             {
-                                AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                                AddMoveBadOrGood(false, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType | MoveType.N19_Option_NigemitiWoAkeruTe, sasiteType);
+                                jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta;
                             }
                         }
-                        return;
-                    #endregion
-                    #region 余裕返討手
-                    case MoveType.N14_YoyuKaeriutiTe:
-                        if (!jibunHioute.HippakuKaeriutiTe)
+                    }
+                    return;
+                #endregion
+                #region 紐付王手指
+                case MoveType.N10_HimotukiOteSasi:
+                    {
+                        bb_idosakiCopy.Select(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.Taikyokusya), aiteHioute.FriendRaionMs));// らいおんのいる升に、先後逆の自分の駒があると考えれば、その利きの場所と、今いる場所からの利きが重なれば、王手だぜ☆（＾▽＾）
+                        bb_idosakiCopy.Select(Util_Bitboard.CreateKikiZenbuBB_1KomaNozoku(ky, jibun, ms_src));// 紐を付ける☆
+
+                        while (bb_idosakiCopy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
                         {
-                            if (bb_idosakiCopy.GetNTZ(out ms_ido)) // 攻めてきた駒（１つだけ）を取るということ☆
+                            if (!TadasuteNoUgoki(ky, jibun, ms_ido, false))// タダ捨てではない動きに限る☆
                             {
-                                AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                                ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
+
+                                AddMoveGood(ittedume, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+
+                                if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                             }
                         }
-                        return;
-                    #endregion
-                    #region らいおんキャッチ調査　｜　らいおんキャッチ
-                    case MoveType.N17_RaionCatchChosa://thru
-                    case MoveType.N12_RaionCatch:
+                    }
+                    return;
+                #endregion
+                #region 捨て王手指し
+                case MoveType.N06_SuteOteSasi:
+                    {
+                        // らいおんのいる升に、先後逆の自分の駒があると考えれば、その利きの場所と、今いる場所からの利きが重なれば、王手だぜ☆（＾▽＾）
+                        bb_idosakiCopy.Select(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.Taikyokusya), aiteHioute.FriendRaionMs));
+
+                        // 2016-12-22 捨てだからと言って、紐を付けないとは限らない☆
+                        bb_idosakiCopy.Sitdown(Util_Bitboard.CreateKikiZenbuBB_1KomaNozoku(ky, jibun, ms_src));// 紐を付けない☆
+
+                        while (bb_idosakiCopy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
                         {
-                            if (!bb_idosakiCopy.IsEmpty())
-                            {
-                                if (MoveType.N17_RaionCatchChosa == sasiteType) { jibunHioute.RaionCatchChosa = true; return; } // 調査するだけなら、らいおんキャッチできることが分かったので終了☆（＾～＾）
-
-                                if (bb_idosakiCopy.GetNTZ(out ms_ido)) // らいおん（１つだけ）を取るということ☆
-                                {
-                                    AddMoveBadOrGood(false, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType | MoveType.N19_Option_NigemitiWoAkeruTe, sasiteType);
-                                    jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta;
-                                }
-                            }
-                        }
-                        return;
-                    #endregion
-                    #region 紐付王手指
-                    case MoveType.N10_HimotukiOteSasi:
-                        {
-                            bb_idosakiCopy.Select(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.Taikyokusya), aiteHioute.FriendRaionMs));// らいおんのいる升に、先後逆の自分の駒があると考えれば、その利きの場所と、今いる場所からの利きが重なれば、王手だぜ☆（＾▽＾）
-                            bb_idosakiCopy.Select(Util_Bitboard.CreateKikiZenbuBB_1KomaNozoku(ky, jibun, ms_src));// 紐を付ける☆
-
-                            while (bb_idosakiCopy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
-                            {
-                                if (!TadasuteNoUgoki(ky, jibun, ms_ido, false))// タダ捨てではない動きに限る☆
-                                {
-                                    ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
-
-                                    AddMoveGood(ittedume, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
-
-                                    if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
-                                }
-                            }
-                        }
-                        return;
-                    #endregion
-                    #region 捨て王手指し
-                    case MoveType.N06_SuteOteSasi:
-                        {
-                            // らいおんのいる升に、先後逆の自分の駒があると考えれば、その利きの場所と、今いる場所からの利きが重なれば、王手だぜ☆（＾▽＾）
-                            bb_idosakiCopy.Select(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.Taikyokusya), aiteHioute.FriendRaionMs));
-
-                            // 2016-12-22 捨てだからと言って、紐を付けないとは限らない☆
-                            bb_idosakiCopy.Sitdown(Util_Bitboard.CreateKikiZenbuBB_1KomaNozoku(ky, jibun, ms_src));// 紐を付けない☆
-
-                            while (bb_idosakiCopy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
-                            {
-                                if (TadasuteNoUgoki(ky, jibun, ms_ido, false))// タダ捨ての動きに限る☆
-                                {
-                                    ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
-
-                                    AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
-
-                                    if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
-                                }
-                            }
-                        }
-                        return;
-                    #endregion
-                    #region 駒を取る手
-                    case MoveType.N01_KomaWoToruTe:
-                        {
-                            while (bb_idosakiCopy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
+                            if (TadasuteNoUgoki(ky, jibun, ms_ido, false))// タダ捨ての動きに限る☆
                             {
                                 ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
 
@@ -910,49 +890,63 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                                 if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                             }
                         }
-                        return;
-                    #endregion
-                    #region ぼっち緩慢指　｜　紐付緩慢指
-                    case MoveType.N02_BottiKanmanSasi:
-                    case MoveType.N08_HimotukiKanmanSasi:
+                    }
+                    return;
+                #endregion
+                #region 駒を取る手
+                case MoveType.N01_KomaWoToruTe:
+                    {
+                        while (bb_idosakiCopy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
                         {
-                            // 王手も除外するぜ☆（＾▽＾）
-                            bb_idosakiCopy.Sitdown(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.Taikyokusya), aiteHioute.FriendRaionMs));
+                            ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
 
-                            while (bb_idosakiCopy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
+                            AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+
+                            if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
+                        }
+                    }
+                    return;
+                #endregion
+                #region ぼっち緩慢指　｜　紐付緩慢指
+                case MoveType.N02_BottiKanmanSasi:
+                case MoveType.N08_HimotukiKanmanSasi:
+                    {
+                        // 王手も除外するぜ☆（＾▽＾）
+                        bb_idosakiCopy.Sitdown(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.Taikyokusya), aiteHioute.FriendRaionMs));
+
+                        while (bb_idosakiCopy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
+                        {
+                            if (!TadasuteNoUgoki(ky, jibun, ms_ido, false))// タダ捨てではない動きに限るぜ☆（＾▽＾）
                             {
-                                if (!TadasuteNoUgoki(ky, jibun, ms_ido, false))// タダ捨てではない動きに限るぜ☆（＾▽＾）
-                                {
-                                    ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
+                                ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
 
-                                    AddMoveBadOrGood(ittedume, MisuteruUgoki(ky, jibun, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                                AddMoveBadOrGood(ittedume, MisuteruUgoki(ky, jibun, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
 
-                                    if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
-                                }
+                                if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                             }
                         }
-                        break;
-                    #endregion
-                    #region 捨て緩慢指し（タダ捨て指し）
-                    case MoveType.N04_SuteKanmanSasi:
-                        {
-                            // 王手も除外するぜ☆（＾▽＾）
-                            bb_idosakiCopy.Sitdown(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.Taikyokusya), aiteHioute.FriendRaionMs));
+                    }
+                    break;
+                #endregion
+                #region 捨て緩慢指し（タダ捨て指し）
+                case MoveType.N04_SuteKanmanSasi:
+                    {
+                        // 王手も除外するぜ☆（＾▽＾）
+                        bb_idosakiCopy.Sitdown(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.Taikyokusya), aiteHioute.FriendRaionMs));
 
-                            while (bb_idosakiCopy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
+                        while (bb_idosakiCopy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
+                        {
+                            if (TadasuteNoUgoki(ky, jibun, ms_ido, false))// 相手の利きがあって、自分を除いた味方の利きがない升　に限るぜ☆（＾▽＾）ｗｗｗ
                             {
-                                if (TadasuteNoUgoki(ky, jibun, ms_ido, false))// 相手の利きがあって、自分を除いた味方の利きがない升　に限るぜ☆（＾▽＾）ｗｗｗ
-                                {
-                                    // タダ捨てに、一手詰めは無いだろう☆（*＾～＾*）
-                                    AddMoveBadOrGood(false, MisuteruUgoki(ky, jibun, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
-                                }
+                                // タダ捨てに、一手詰めは無いだろう☆（*＾～＾*）
+                                AddMoveBadOrGood(false, MisuteruUgoki(ky, jibun, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
                             }
                         }
-                        break;
-                    #endregion
-                    default:
-                        break;
-                }
+                    }
+                    break;
+                #endregion
+                default:
+                    break;
             }
         }
 
@@ -1128,7 +1122,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 Taikyokusya = ky.Teban,
                 KmRaion = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, ky.Teban)
             };
-            Phase aite = Conv_Taikyokusya.Hanten(jibunHioute.Taikyokusya);
+            Taikyokusya aite = Conv_Taikyokusya.Hanten(jibunHioute.Taikyokusya);
 
             Bitboard bb_aiteKiki = new Bitboard();
             Bitboard bb_aiteKoma = new Bitboard();// 相手番の駒がいる升
@@ -1347,8 +1341,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 return;
             }
 
-            Phase jibun = ky.Sindan.Teban;
-            Phase aite = Conv_Taikyokusya.Hanten(jibun);
+            Taikyokusya jibun = ky.Sindan.Teban;
+            Taikyokusya aite = Conv_Taikyokusya.Hanten(jibun);
 
 
             // 手番側が、王手回避が必要かどうか調べたいぜ☆（＾～＾）
@@ -2083,7 +2077,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     idosakiBB_base.Set(ky.BB_BoardArea);
                     ky.Shogiban.ToSitdown_BBKomaZenbu(Phase.Black, idosakiBB_base);// 味方の駒がない升
                     ky.Shogiban.ToSitdown_BBKomaZenbu(Phase.White, idosakiBB_base);// 相手の駒がない升
-                                                                                   // 2016-12-22 捨てだからと言って、紐を付けないとは限らない☆
+                                                                                      // 2016-12-22 捨てだからと言って、紐を付けないとは限らない☆
                     ky.Shogiban.ToSelect_BBKikiZenbu(aite, idosakiBB_base);// 敵の利きが利いている場所に打つぜ☆（＾▽＾）
                     if (!idosakiBB_base.IsEmpty())
                     {

@@ -112,13 +112,13 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 return false;
             }
             */
-            public OptionalPhase Exists(Masu ms)
+            public (bool, Taikyokusya) Exists(Masu ms)
             {
                 for (int iTai = 0; iTai < Conv_Taikyokusya.Itiran.Length; iTai++)
                 {
-                    if (ValueTai[iTai].IsOn(ms)) { return OptionalPhase.Some((Phase)iTai); }
+                    if (ValueTai[iTai].IsOn(ms)) { return (true, (Taikyokusya)iTai); }
                 }
-                return OptionalPhase.None;
+                return (false, Taikyokusya.Yososu); // この値は仕方なく入れてるだけで、使ってはいけないぜ☆（＾～＾）
             }
 
             /*
@@ -1169,9 +1169,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// FIXME:暫定
         /// </summary>
         /// <returns></returns>
-        public Bitboard GetBBKomaZenbu(Phase phase)
+        public Bitboard GetBBKomaZenbu(Taikyokusya tai)
         {
-            return BB_KomaZenbu.Get(phase);
+            return BB_KomaZenbu.Get(tai);
         }
         /// <summary>
         /// FIXME: 暫定
@@ -1182,9 +1182,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             return BB_Koma.Get(km);
         }
-        public void ToSet_BBKomaZenbu(Phase phase, Bitboard update_bb)
+        public void ToSet_BBKomaZenbu(Taikyokusya tai, Bitboard update_bb)
         {
-            update_bb.Set(BB_KomaZenbu.Get(phase));
+            update_bb.Set(BB_KomaZenbu.Get(tai));
 
         }
         public void ToSet_BBKoma(Koma km, Bitboard update_bb)
@@ -1203,13 +1203,13 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             BB_KikiZenbu.Tukurinaosi(BB_Kiki);
         }
-        public void ToSitdown_BBKikiZenbu(Phase phase, Bitboard update_bb)
+        public void ToSitdown_BBKikiZenbu(Taikyokusya tai, Bitboard update_bb)
         {
-            update_bb.Sitdown(BB_KikiZenbu.Get(phase));
+            update_bb.Sitdown(BB_KikiZenbu.Get(tai));
         }
-        public void ToSelect_BBKikiZenbu(Phase phase, Bitboard update_bb)
+        public void ToSelect_BBKikiZenbu(Taikyokusya tai, Bitboard update_bb)
         {
-            update_bb.Select(BB_KikiZenbu.Get(phase));
+            update_bb.Select(BB_KikiZenbu.Get(tai));
         }
         public bool ExistsKikiZenbu(Phase phase, Masu ms)
         {
@@ -1219,13 +1219,13 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             return BB_Kiki.IsActive();
         }
-        public OptionalPhase ExistsBBKomaZenbu(Masu ms)
+        public (bool, Taikyokusya) ExistsBBKomaZenbu(Masu ms)
         {
             return BB_KomaZenbu.Exists(ms);
         }
-        public bool ExistsBBKomaZenbu(Phase phase, Masu ms)
+        public bool ExistsBBKomaZenbu(Taikyokusya tai, Masu ms)
         {
-            return BB_KomaZenbu.Get(phase).IsOn(ms);
+            return BB_KomaZenbu.Get(tai).IsOn(ms);
         }
         /*
         public (bool,Taikyokusya) ExistsBBKomaZenbu(Masu ms)
@@ -1237,9 +1237,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             return BB_Koma.Exists(tai, ms, out ks);
         }
-        public bool ExistsBBKoma(Phase phase, Masu ms)
+        public bool ExistsBBKoma(Taikyokusya tai, Masu ms)
         {
-            return BB_Koma.Exists(phase, ms);
+            return BB_Koma.Exists(tai, ms);
         }
         public bool ExistsBBKoma(Koma km, Masu ms)
         {
@@ -1261,9 +1261,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             BB_Kiki.Tukurinaosi_2_Input(kys);
         }
-        public Bitboard ToBitboard_KikisuZenbuPositiveNumber(Phase phase, Kyokumen.Sindanyo kys)
+        public Bitboard ToBitboard_KikisuZenbuPositiveNumber(Taikyokusya tai, Kyokumen.Sindanyo kys)
         {
-            return CB_KikisuZenbu.ToBitboard_PositiveNumber(phase, kys);
+            return CB_KikisuZenbu.ToBitboard_PositiveNumber(tai, kys);
         }
         public void SubstructFromKikisuZenbu(Koma km)
         {
@@ -1867,7 +1867,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// ms_mirainiKomagaAru 引数で、移動先の位置をあらかじめ指定すること☆（＾～＾）
         /// 無ければ、盤外のエラー値を指定しておけだぜ☆（*＾～＾*）
         /// </summary>
-        public static void N050_SiraberuTobikikiKyosya_KomaSetteiNoAto(Phase phase, Masu ms_ibasho, Masu ms_mirainiKomagaAru, Kyokumen.Sindanyo kys, Bitboard update_BB)
+        public static void N050_SiraberuTobikikiKyosya_KomaSetteiNoAto(Taikyokusya tai, Masu ms_ibasho, Masu ms_mirainiKomagaAru, Kyokumen.Sindanyo kys, Bitboard update_BB)
         {
 #if TOBIKIKI_ON
             // 点対象なので、対局者１視点で駒の動きを作れば、対局者２も同じ☆（＾～＾）
