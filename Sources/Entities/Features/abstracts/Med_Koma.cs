@@ -1,5 +1,4 @@
 ﻿using System;
-using Grayscale.Kifuwarakei.Entities.Game;
 
 namespace Grayscale.Kifuwarakei.Entities.Features
 {
@@ -29,13 +28,13 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// [対局者,駒種類]
         /// </summary>
         static string[][] komasyuruiNamaeItiran;
-        public static string[] GetKomasyuruiNamaeItiran(Phase phase)
+        public static string[] GetKomasyuruiNamaeItiran(Taikyokusya tai)
         {
-            return komasyuruiNamaeItiran[(int)phase];
+            return komasyuruiNamaeItiran[(int)tai];
         }
-        public static string GetKomasyuruiNamae(Phase phase, Komasyurui ks)
+        public static string GetKomasyuruiNamae(Taikyokusya tai, Komasyurui ks)
         {
-            return komasyuruiNamaeItiran[(int)phase][(int)ks];
+            return komasyuruiNamaeItiran[(int)tai][(int)ks];
         }
         #endregion
 
@@ -105,83 +104,78 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         #endregion
 
         #region 駒→手番
-        static OptionalPhase[] m_KomaToTaikyokusya_ = {
+        static Taikyokusya[] m_KomaToTaikyokusya_ = {
             // らいおん（対局者１、対局者２）
-            OptionalPhase.Black,
-            OptionalPhase.White,
+            Taikyokusya.T1,
+            Taikyokusya.T2,
 
             // ぞう
-            OptionalPhase.Black,
-            OptionalPhase.White,
+            Taikyokusya.T1,
+            Taikyokusya.T2,
 
             // パワーアップぞう
-            OptionalPhase.Black,
-            OptionalPhase.White,
+            Taikyokusya.T1,
+            Taikyokusya.T2,
 
             // きりん
-            OptionalPhase.Black,
-            OptionalPhase.White,
+            Taikyokusya.T1,
+            Taikyokusya.T2,
 
             // パワーアップきりん
-            OptionalPhase.Black,
-            OptionalPhase.White,
+            Taikyokusya.T1,
+            Taikyokusya.T2,
 
             // ひよこ
-            OptionalPhase.Black,
-            OptionalPhase.White,
+            Taikyokusya.T1,
+            Taikyokusya.T2,
 
             // にわとり
-            OptionalPhase.Black,
-            OptionalPhase.White,
+            Taikyokusya.T1,
+            Taikyokusya.T2,
 
             // いぬ
-            OptionalPhase.Black,
-            OptionalPhase.White,
+            Taikyokusya.T1,
+            Taikyokusya.T2,
 
             // ねこ
-            OptionalPhase.Black,
-            OptionalPhase.White,
+            Taikyokusya.T1,
+            Taikyokusya.T2,
 
             // パワーアップねこ
-            OptionalPhase.Black,
-            OptionalPhase.White,
+            Taikyokusya.T1,
+            Taikyokusya.T2,
 
             // うさぎ
-            OptionalPhase.Black,
-            OptionalPhase.White,
+            Taikyokusya.T1,
+            Taikyokusya.T2,
 
             // パワーアップうさぎ
-            OptionalPhase.Black,
-            OptionalPhase.White,
+            Taikyokusya.T1,
+            Taikyokusya.T2,
 
             // いのしし
-            OptionalPhase.Black,
-            OptionalPhase.White,
+            Taikyokusya.T1,
+            Taikyokusya.T2,
 
             // パワーアップいのしし
-            OptionalPhase.Black,
-            OptionalPhase.White,
+            Taikyokusya.T1,
+            Taikyokusya.T2,
 
-            OptionalPhase.None,//駒のない升だぜ☆（＾▽＾）
-            OptionalPhase.None// 空白～後手のにわとり　までの要素の個数になるぜ☆（＾▽＾）
+            Taikyokusya.Yososu,//駒のない升だぜ☆（＾▽＾）
+            Taikyokusya.Yososu// 空白～後手のにわとり　までの要素の個数になるぜ☆（＾▽＾）
         };
 
-        /// <summary>
-        /// 空白も駒扱いなのがダメなのでは☆（＾～＾）？
-        /// </summary>
-        /// <param name="km"></param>
-        /// <returns></returns>
-        public static OptionalPhase KomaToTaikyokusya(Koma km)
+        public static Taikyokusya KomaToTaikyokusya(Koma km)
         {
             // FIXME: 範囲外の引数を指定できるのがそもそもダメ☆（＾～＾）
-            //if (-1 < (int)km && (int)km < m_KomaToTaikyokusya_.Length)
-            //{
-            return m_KomaToTaikyokusya_[(int)km];
-            //}
-            //else
-            //{
-            //    throw new Exception($"km={(int)km} < m_KomaToTaikyokusya_.Length={m_KomaToTaikyokusya_.Length}");
-            //}
+            if (-1 < (int)km && (int)km < m_KomaToTaikyokusya_.Length)
+            {
+                return m_KomaToTaikyokusya_[(int)km];
+            }
+            else
+            {
+                throw new Exception($"km={(int)km} < m_KomaToTaikyokusya_.Length={m_KomaToTaikyokusya_.Length}");
+            }
         }
         #endregion
 
@@ -305,10 +299,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             // どの駒の種類にも当てはまらない場合に、Yososu と書くことがある☆（＾▽＾）ｗｗｗ
             { MotiKoma.Yososu, MotiKoma.Yososu },
         };
-        public static MotiKoma KomasyuruiAndTaikyokusyaToMotiKoma(Komasyurui ks, Phase phase)
-        {
-            return Med_Koma.m_KomasyuruiAndTaikyokusyaToMotiKoma_[(int)ks, (int)phase];
-        }
+        public static MotiKoma KomasyuruiAndTaikyokusyaToMotiKoma(Komasyurui ks, Taikyokusya tai) { return Med_Koma.m_KomasyuruiAndTaikyokusyaToMotiKoma_[(int)ks, (int)tai]; }
         #endregion
 
         #region 駒種類と手番→駒
@@ -330,9 +321,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             { Koma.PS, Koma.ps },// パワーアップいのしし
             { Koma.Kuhaku, Koma.Kuhaku },// らいおん～にわとり　までの要素の個数になるぜ☆（＾▽＾）どの駒の種類にも当てはまらない場合に、Yososu と書くことがある☆（＾▽＾）ｗｗｗ
         };
-        public static Koma KomasyuruiAndTaikyokusyaToKoma(Komasyurui ks, Phase phase)
+        public static Koma KomasyuruiAndTaikyokusyaToKoma(Komasyurui ks, Taikyokusya tb)
         {
-            return Med_Koma.m_KomasyuruiAndTaikyokusyaToKoma_[(int)ks, (int)phase];
+            return Med_Koma.m_KomasyuruiAndTaikyokusyaToKoma_[(int)ks, (int)tb];
         }
         #endregion
 
@@ -513,40 +504,40 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         #endregion
 
         #region 持駒→手番
-        static OptionalPhase[] m_MotiKomaToTaikyokusya_ =
+        static Taikyokusya[] m_MotiKomaToTaikyokusya_ =
         {
             // ぞう（対局者１、対局者２）
-            OptionalPhase.Black,
-            OptionalPhase.White,
+            Taikyokusya.T1,
+            Taikyokusya.T2,
 
             // きりん
-            OptionalPhase.Black,
-            OptionalPhase.White,
+            Taikyokusya.T1,
+            Taikyokusya.T2,
 
             // ひよこ
-            OptionalPhase.Black,
-            OptionalPhase.White,
+            Taikyokusya.T1,
+            Taikyokusya.T2,
 
             // いぬ
-            OptionalPhase.Black,
-            OptionalPhase.White,
+            Taikyokusya.T1,
+            Taikyokusya.T2,
 
             // ねこ
-            OptionalPhase.Black,
-            OptionalPhase.White,
+            Taikyokusya.T1,
+            Taikyokusya.T2,
 
             // うさぎ
-            OptionalPhase.Black,
-            OptionalPhase.White,
+            Taikyokusya.T1,
+            Taikyokusya.T2,
 
             // いのしし
-            OptionalPhase.Black,
-            OptionalPhase.White,
+            Taikyokusya.T1,
+            Taikyokusya.T2,
 
             // 要素の個数、または　どの駒の種類にも当てはまらない場合☆（＾▽＾）ｗｗｗ
-            OptionalPhase.None,
+            Taikyokusya.Yososu,
         };
-        public static OptionalPhase MotiKomaToTaikyokusya(MotiKoma mk)
+        public static Taikyokusya MotiKomaToTaikyokusya(MotiKoma mk)
         {
             return Med_Koma.m_MotiKomaToTaikyokusya_[(int)mk];
         }
@@ -580,9 +571,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             // どの駒の種類にも当てはまらない場合に、Yososu と書くことがある☆（＾▽＾）ｗｗｗ
             { MotiKoma.Yososu, MotiKoma.Yososu },
         };
-        public static MotiKoma MotiKomasyuruiAndTaikyokusyaToMotiKoma(MotiKomasyurui mks, Phase phase)
+        public static MotiKoma MotiKomasyuruiAndTaikyokusyaToMotiKoma(MotiKomasyurui mks, Taikyokusya tai)
         {
-            return m_MotiKomasyuruiAndTaikyokusyaToMotiKoma_[(int)mks, (int)phase];
+            return m_MotiKomasyuruiAndTaikyokusyaToMotiKoma_[(int)mks, (int)tai];
         }
         #endregion
 
@@ -614,9 +605,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             // どの駒の種類にも当てはまらない場合に、Yososu と書くことがある☆（＾▽＾）ｗｗｗ
             { Koma.Yososu, Koma.Yososu },
         };
-        public static Koma MotiKomasyuruiAndTaikyokusyaToKoma(MotiKomasyurui mks, Phase phase)
+        public static Koma MotiKomasyuruiAndTaikyokusyaToKoma(MotiKomasyurui mks, Taikyokusya tb)
         {
-            return Med_Koma.m_MotiKomasyuruiAndTaikyokusyaToKoma_[(int)mks, (int)phase];
+            return Med_Koma.m_MotiKomasyuruiAndTaikyokusyaToKoma_[(int)mks, (int)tb];
         }
         #endregion
     }

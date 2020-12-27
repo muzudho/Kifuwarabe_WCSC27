@@ -130,8 +130,8 @@ usiok");
                 // コンピューターは止めるぜ☆（*＾～＾*）次のイリーガルな指し手を指してしまうからなｗｗｗｗ☆（＾▽＾）
                 switch (ky.Teban)
                 {
-                    case Phase.Black: Option_Application.Optionlist.P1Com = false; break;
-                    case Phase.White: Option_Application.Optionlist.P2Com = false; break;
+                    case Taikyokusya.T1: Option_Application.Optionlist.P1Com = false; break;
+                    case Taikyokusya.T2: Option_Application.Optionlist.P2Com = false; break;
                     default: break;
                 }
             }
@@ -574,7 +574,7 @@ Kettyaku = {Util_Application.IsKettyaku(ky)}");
                 // 対局者１、２の駒のある場所を表示☆
                 Util_Information.HyojiKomanoIbasho(ky.Shogiban, syuturyoku);
                 //Util_Information.Setumei_Bitboards(new string[] { "駒の場所Ｐ１", "Ｐ２" },
-                //    new Bitboard[] { ky.BB_KomaZenbu.Get(Phase.Black), ky.BB_KomaZenbu.Get(Phase.White) }, syuturyoku);
+                //    new Bitboard[] { ky.BB_KomaZenbu.Get(Taikyokusya.T1), ky.BB_KomaZenbu.Get(Taikyokusya.T2) }, syuturyoku);
                 return;
             }
 
@@ -591,8 +591,8 @@ Kettyaku = {Util_Application.IsKettyaku(ky)}");
                     // 対局者１、２の らいおん のいる場所を表示☆
                     Util_Information.Setumei_Bitboards(new string[] { "Ｐ１", "Ｐ２" },
                         new Bitboard[] {
-                            ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks,Phase.Black)),
-                            ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks,Phase.White))
+                            ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks,Taikyokusya.T1)),
+                            ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks,Taikyokusya.T2))
                         }, syuturyoku);
                 }
             }
@@ -1031,8 +1031,8 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                             // 対局者１、２の らいおん のいる場所を表示☆
                             Util_Information.Setumei_Bitboards(new string[] { "Ｐ１", "Ｐ２" },
                                 new Bitboard[] {
-                            ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks,Phase.Black)),
-                            ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks,Phase.White))
+                            ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks,Taikyokusya.T1)),
+                            ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks,Taikyokusya.T2))
                                 }, syuturyoku);
 
                             //caret_1 = fen.Length;
@@ -1775,12 +1775,12 @@ JosekiRec                = {Option_Application.Optionlist.JosekiRec}
 Learn                    = {Option_Application.Optionlist.Learn}
 NikomaHyokaKeisu         = {Option_Application.Optionlist.NikomaHyokaKeisu}
 NikomaGakusyuKeisu       = {Option_Application.Optionlist.NikomaGakusyuKeisu}
-P1Char                   = {Option_Application.Optionlist.PNChar[(int)Phase.Black]}
+P1Char                   = {Option_Application.Optionlist.PNChar[(int)Taikyokusya.T1]}
 P1Com                    = {Option_Application.Optionlist.P1Com}
-P1Name                   = {Option_Application.Optionlist.PNName[(int)Phase.Black]}
-P2Char                   = {Option_Application.Optionlist.PNChar[(int)Phase.White]}
+P1Name                   = {Option_Application.Optionlist.PNName[(int)Taikyokusya.T1]}
+P2Char                   = {Option_Application.Optionlist.PNChar[(int)Taikyokusya.T2]}
 P2Com                    = {Option_Application.Optionlist.P2Com}
-P2Name                   = {Option_Application.Optionlist.PNName[(int)Phase.White]}
+P2Name                   = {Option_Application.Optionlist.PNName[(int)Taikyokusya.T2]}
 RandomCharacter          = {Option_Application.Optionlist.RandomCharacter}
 RandomNikoma             = {Option_Application.Optionlist.RandomNikoma}
 RandomStart              = {Option_Application.Optionlist.RandomStart}
@@ -1937,7 +1937,7 @@ USI                      = {Option_Application.Optionlist.USI}");
                     //          000  000  000  000  000  000  000  000  000  000  000  000
                     //          000  000  000  000  000  000  000  000  000  000  000  000
                     //          000  000  000  000  000  000  000  000  000  000  000  000
-                    syuturyoku.Append(Med_Koma.GetKomasyuruiNamae(Phase.Black, (Komasyurui)iKs));
+                    syuturyoku.Append(Med_Koma.GetKomasyuruiNamae(Taikyokusya.T1, (Komasyurui)iKs));
                     //Conv_Komasyurui.GetNamae((Komasyurui)iKs, syuturyoku);
                     syuturyoku.AppendLine();
                     for (int iTb = 0; iTb < Conv_Taikyokusya.Itiran.Length; iTb++)
@@ -2551,7 +2551,7 @@ USI                      = {Option_Application.Optionlist.USI}");
                 if (0 == Option_Application.Random.Next(2))
                 {
                     ky.Hanten();
-                    ky.Teban = Phase.White;
+                    ky.Teban = Taikyokusya.T2;
                 }
                 ky.Tekiyo(true, syuturyoku);
                 Util_Information.Setumei_Lines_Kyokumen(ky, Util_Machine.Syuturyoku);
@@ -2563,7 +2563,7 @@ USI                      = {Option_Application.Optionlist.USI}");
                 }
 
                 Taikyokusya tai = ky.Teban;
-                Koma raionKm = (tai == Phase.Black ? Koma.R : Koma.r);
+                Koma raionKm = (tai == Taikyokusya.T1 ? Koma.R : Koma.r);
                 Masu ms1 = ky.Lookup(raionKm);
                 Bitboard kikiBB = new Bitboard();
                 kikiBB.Set(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, tai), ms1));

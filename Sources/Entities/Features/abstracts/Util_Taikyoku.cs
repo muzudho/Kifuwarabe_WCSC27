@@ -1,6 +1,4 @@
-﻿using Grayscale.Kifuwarakei.Entities.Game;
-
-namespace Grayscale.Kifuwarakei.Entities.Features
+﻿namespace Grayscale.Kifuwarakei.Entities.Features
 {
     public abstract class Util_Taikyoku
     {
@@ -21,16 +19,16 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             Util_Taikyoku.PNNantedume_Hyokati = new Hyokati[] { Hyokati.Hyokati_Rei, Hyokati.Hyokati_Rei };
         }
 
-        public static void Update(Hyokati hyokati, Phase phase, int teme)
+        public static void Update(Hyokati hyokati, Taikyokusya taikyokusya, int teme)
         {
             if (Conv_Hyokati.InTumeTesu(hyokati))
             {
                 // 詰め手数が表示されているぜ☆
 
-                if (Util_Taikyoku.PNNantedume_Teme[(int)phase] == int.MaxValue)
+                if (Util_Taikyoku.PNNantedume_Teme[(int)taikyokusya] == int.MaxValue)
                 {
                     // 詰め手数が新たに表示されたようだぜ☆
-                    Util_Taikyoku.PNNantedume_Teme[(int)phase] = teme;
+                    Util_Taikyoku.PNNantedume_Teme[(int)taikyokusya] = teme;
                 }
                 // 前から表示されていたのなら、そのままだぜ☆（＾▽＾）
             }
@@ -38,10 +36,10 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 // 詰め手数は、表示されていないぜ☆
 
-                if (Util_Taikyoku.PNNantedume_Teme[(int)phase] != int.MaxValue)
+                if (Util_Taikyoku.PNNantedume_Teme[(int)taikyokusya] != int.MaxValue)
                 {
                     // 詰め手数が消えたようだぜ☆
-                    Util_Taikyoku.PNNantedume_Teme[(int)phase] = int.MaxValue;
+                    Util_Taikyoku.PNNantedume_Teme[(int)taikyokusya] = int.MaxValue;
                 }
                 // もともと表示されていなかったのなら、そのままだぜ☆（＾▽＾）
             }

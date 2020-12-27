@@ -739,18 +739,18 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             KomawariHyokatiSabunItiran saikeisan = new KomawariHyokatiSabunItiran();
             saikeisan.Tukurinaosi(kys);
-            Hyokati hyokati1 = kys.GetKomawari(Phase.Black);
-            Hyokati hyokati2 = kys.GetKomawari(Phase.White);
+            Hyokati hyokati1 = kys.GetKomawari(Taikyokusya.T1);
+            Hyokati hyokati2 = kys.GetKomawari(Taikyokusya.T2);
             bool safe =
-                hyokati1 == saikeisan.Get(Phase.Black)
+                hyokati1 == saikeisan.Get(Taikyokusya.T1)
                 &&
-                hyokati2 == saikeisan.Get(Phase.White)
+                hyokati2 == saikeisan.Get(Taikyokusya.T2)
                 ;
             string msg = $@"{message}#河馬 診断 駒割り評価値
 P1差分  =[{hyokati1}]
-  再計算=[{saikeisan.Get(Phase.Black)}]
+  再計算=[{saikeisan.Get(Taikyokusya.T1)}]
 P2差分  =[{hyokati2}]
-  再計算=[{saikeisan.Get(Phase.White)}]
+  再計算=[{saikeisan.Get(Taikyokusya.T2)}]
 ";
             if (!safe)
             {

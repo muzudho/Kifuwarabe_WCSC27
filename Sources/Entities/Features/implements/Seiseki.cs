@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Grayscale.Kifuwarakei.Entities.Game;
 using Grayscale.Kifuwarakei.Entities.Logging;
 
 namespace Grayscale.Kifuwarakei.Entities.Features
@@ -132,11 +131,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
     /// </summary>
     public class SeisekiKyokumen
     {
-        public SeisekiKyokumen(string fen, Phase phase, Seiseki owner)
+        public SeisekiKyokumen(string fen, Taikyokusya tb, Seiseki owner)
         {
             this.Owner = owner;
             this.Fen = fen;
-            this.TbTaikyokusya = phase;
+            this.TbTaikyokusya = tb;
             this.SsItems = new Dictionary<Move, SeisekiMove>();
         }
 
@@ -151,7 +150,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// 例： fen kr1/1h1/1H1/1R1 K2z 1
         /// </summary>
         public string Fen { get; private set; }
-        public Phase TbTaikyokusya { get; private set; }
+        public Taikyokusya TbTaikyokusya { get; private set; }
 
         public SeisekiMove AddSasite(Kyokumen ky, string sasiteRecordStr, StringBuilder syuturyoku)
         {
@@ -173,7 +172,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
             return josekiSs;
         }
-        public SeisekiMove AddSasite(Move bestSasite, int version, int kati, int hikiwake, int make)
+        public SeisekiMove AddSasite(Taikyokusya tb, Move bestSasite, int version, int kati, int hikiwake, int make)
         {
             SeisekiMove seisekiSs = null;
 
@@ -256,11 +255,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// データを追加するぜ☆（＾▽＾） 指しながら定跡を追加していくときだぜ☆
         /// </summary>
         /// <param name="ky_before"></param>
-        public SeisekiKyokumen AddMove(string kyFen_before, ulong kyHash_before, Phase phaseBeforeMove, Move bestSasite, int version, int kati, int hikiwake, int make)
+        public SeisekiKyokumen AddMove(string kyFen_before, ulong kyHash_before, Taikyokusya kyTb_before, Move bestSasite, int version, int kati, int hikiwake, int make)
         {
-            SeisekiKyokumen josekiKy = this.Parse_AddKyLine(kyFen_before, kyHash_before, phaseBeforeMove);
+            SeisekiKyokumen josekiKy = this.Parse_AddKyLine(kyFen_before, kyHash_before, kyTb_before);
 
-            josekiKy.AddSasite(bestSasite, version, kati, hikiwake, make);
+            josekiKy.AddSasite(kyTb_before, bestSasite, version, kati, hikiwake, make);
             return josekiKy;
         }
         /// <summary>
@@ -268,9 +267,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// </summary>
         /// <param name="fen_before">指す前の局面の改造fen</param>
         /// <param name="kyHash_before">指す前の局面のハッシュ</param>
-        /// <param name="phaseBeforeMove">指す前の局面の手番</param>
+        /// <param name="tb_before">指す前の局面の手番</param>
         /// <returns></returns>
-        public SeisekiKyokumen Parse_AddKyLine(string fen_before, ulong kyHash_before, Phase phaseBeforeMove)
+        public SeisekiKyokumen Parse_AddKyLine(string fen_before, ulong kyHash_before, Taikyokusya tb_before)
         {
             SeisekiKyokumen josekiKy;
             if (this.KyItems.ContainsKey(kyHash_before))
@@ -280,7 +279,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             }
             else
             {
-                josekiKy = new SeisekiKyokumen(fen_before, phaseBeforeMove, this);
+                josekiKy = new SeisekiKyokumen(fen_before, tb_before, this);
                 this.KyItems.Add(kyHash_before, josekiKy);
                 this.Edited = true;
             }
@@ -540,7 +539,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             List<ulong> removeKeys = new List<ulong>();
             foreach (KeyValuePair<ulong, SeisekiKyokumen> seKy in this.KyItems)
             {
-                if (seKy.Value.TbTaikyokusya == Phase.White)
+                if (seKy.Value.TbTaikyokusya == Taikyokusya.T2)
                 {
                     removeKeys.Add(seKy.Key);
 
@@ -619,15 +618,15 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 case TaikyokuKekka.Taikyokusya1NoKati:
                     switch (tb)
                     {
-                        case Phase.Black: kati = 1; hikiwake = 0; make = 0; return;
-                        case Phase.White: kati = 0; hikiwake = 0; make = 1; return;
+                        case Taikyokusya.T1: kati = 1; hikiwake = 0; make = 0; return;
+                        case Taikyokusya.T2: kati = 0; hikiwake = 0; make = 1; return;
                         default: throw new Exception("未対応の手番");
                     }
                 case TaikyokuKekka.Taikyokusya2NoKati:
                     switch (tb)
                     {
-                        case Phase.Black: kati = 0; hikiwake = 0; make = 1; return;
-                        case Phase.White: kati = 1; hikiwake = 0; make = 0; return;
+                        case Taikyokusya.T1: kati = 0; hikiwake = 0; make = 1; return;
+                        case Taikyokusya.T2: kati = 1; hikiwake = 0; make = 0; return;
                         default: throw new Exception("未対応の手番");
                     }
                 case TaikyokuKekka.Hikiwake://thru

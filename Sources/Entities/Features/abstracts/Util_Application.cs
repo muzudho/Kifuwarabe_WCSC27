@@ -205,12 +205,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     moji3 = m.Groups[3].Value;
                     moji4 = m.Groups[4].Value;
 
-                    var (isExists, phase) = Med_Parser.TryTaikyokusya(Option_Application.Optionlist.USI, moji4).Match;
-                    if (!isExists)
+                    if (!Med_Parser.TryTaikyokusya(Option_Application.Optionlist.USI, moji4, out Taikyokusya tai))
                     {
                         throw new Exception($"対局者のパースエラー moji4=[{ moji4 }]");
                     }
-                    out_kikiBB = Util_Application.Kiki_BB(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Med_Parser.Moji_Komasyurui(Option_Application.Optionlist.USI, moji3), phase), Med_Parser.FenSujiDan_Masu(Option_Application.Optionlist.USI, moji1, moji2), ky.Shogiban);// komanoUgokikata
+                    out_kikiBB = Util_Application.Kiki_BB(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Med_Parser.Moji_Komasyurui(Option_Application.Optionlist.USI, moji3), tai), Med_Parser.FenSujiDan_Masu(Option_Application.Optionlist.USI, moji1, moji2), ky.Shogiban);// komanoUgokikata
                 }
                 else
                 {
@@ -515,7 +514,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 // うしろに続く文字は☆（＾▽＾）
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "P1Char ");
-                Option_Application.Optionlist.PNChar[(int)Phase.Black] = AbstractConvMoveCharacter.Parse(commandline, ref caret);
+                Option_Application.Optionlist.PNChar[(int)Taikyokusya.T1] = AbstractConvMoveCharacter.Parse(commandline, ref caret);
             }
             #endregion
             #region P1Com
@@ -536,7 +535,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 // うしろに続く文字は☆（＾▽＾）
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "P1Name ");
-                Option_Application.Optionlist.PNName[(int)Phase.Black] = commandline.Substring(caret);
+                Option_Application.Optionlist.PNName[(int)Taikyokusya.T1] = commandline.Substring(caret);
             }
             #endregion
             #region P2Char
@@ -544,7 +543,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 // うしろに続く文字は☆（＾▽＾）
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "P2Char ");
-                Option_Application.Optionlist.PNChar[(int)Phase.White] = AbstractConvMoveCharacter.Parse(commandline, ref caret);
+                Option_Application.Optionlist.PNChar[(int)Taikyokusya.T2] = AbstractConvMoveCharacter.Parse(commandline, ref caret);
             }
             #endregion
             #region P2Com
@@ -565,7 +564,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 // うしろに続く文字は☆（＾▽＾）
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "P2Name ");
-                Option_Application.Optionlist.PNName[(int)Phase.White] = commandline.Substring(caret);
+                Option_Application.Optionlist.PNName[(int)Taikyokusya.T2] = commandline.Substring(caret);
             }
             #endregion
             #region RandomCharacter
@@ -853,9 +852,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <returns></returns>
         public static bool IsNingenNoBan(Kyokumen ky)
         {
-            return (ky.Teban == Phase.Black && !Option_Application.Optionlist.P1Com) // コンピューターでない場合
+            return (ky.Teban == Taikyokusya.T1 && !Option_Application.Optionlist.P1Com) // コンピューターでない場合
                     ||
-                    (ky.Teban == Phase.White && !Option_Application.Optionlist.P2Com) // コンピューターでない場合
+                    (ky.Teban == Taikyokusya.T2 && !Option_Application.Optionlist.P2Com) // コンピューターでない場合
                     ;
         }
         /// <summary>
@@ -864,9 +863,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <returns></returns>
         public static bool IsComputerNoBan(Kyokumen ky)
         {
-            return (ky.Teban == Phase.Black && Option_Application.Optionlist.P1Com) // 対局者１でコンピューター☆
+            return (ky.Teban == Taikyokusya.T1 && Option_Application.Optionlist.P1Com) // 対局者１でコンピューター☆
                         ||
-                        (ky.Teban == Phase.White && Option_Application.Optionlist.P2Com) // 対局者２でコンピューター☆
+                        (ky.Teban == Taikyokusya.T2 && Option_Application.Optionlist.P2Com) // 対局者２でコンピューター☆
                         ;
         }
 

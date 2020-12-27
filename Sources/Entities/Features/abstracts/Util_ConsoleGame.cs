@@ -6,7 +6,6 @@
     using Grayscale.Kifuwarakei.Entities.Logging;
 #else
     using System.Text;
-    using Grayscale.Kifuwarakei.Entities.Game;
     using Grayscale.Kifuwarakei.Entities.Logging;
 #endif
     /// <summary>
@@ -138,7 +137,7 @@
         public static bool IsJosekiTraced { get; set; }
         public static string KyFen_before { get; set; }
         public static ulong KyHash_before { get; set; }
-        public static OptionalPhase KyTaikyokusya_before { get; set; }
+        public static Taikyokusya KyTaikyokusya_before { get; set; }
 
         /// <summary>
         /// 定跡登録　初期化（ゲームセクション内）
@@ -148,14 +147,14 @@
             IsJosekiTraced = false;//毎回リセット☆（＾▽＾）
             KyFen_before = null;
             KyHash_before = 0;
-            KyTaikyokusya_before = OptionalPhase.None;
+            KyTaikyokusya_before = Taikyokusya.Yososu;
             if (Util_Machine.IsEnableBoardSize() && Option_Application.Optionlist.JosekiRec)
             {
                 StringBuilder fenMojiretu = new StringBuilder();
                 ky.AppendFenTo(Option_Application.Optionlist.USI, fenMojiretu);
                 KyFen_before = fenMojiretu.ToString();
                 KyHash_before = ky.KyokumenHash.Value;
-                KyTaikyokusya_before = OptionalPhase.Some(ky.Teban);
+                KyTaikyokusya_before = ky.Teban;
             }
         }
         /// <summary>

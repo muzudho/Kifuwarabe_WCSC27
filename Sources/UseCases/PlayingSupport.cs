@@ -10,12 +10,12 @@ namespace Grayscale.Kifuwarakei.UseCases
         //    if (caret == commandline.IndexOf("1", caret))// 視点　対局者１
         //    {
         //        Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "1");
-        //        return Phase.Black;
+        //        return Taikyokusya.T1;
         //    }
         //    else if (caret == commandline.IndexOf("2", caret))// 視点　対局者２
         //    {
         //        Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "2");
-        //        return Phase.White;
+        //        return Taikyokusya.T2;
         //    }
 
         //    sippai = true;

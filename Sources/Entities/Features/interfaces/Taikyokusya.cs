@@ -1,16 +1,40 @@
 ﻿using System.Text;
-using Grayscale.Kifuwarakei.Entities.Features;
 
-namespace Grayscale.Kifuwarakei.Entities.Game
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
+    /// <summary>
+    /// 対局者☆
+    /// いわゆる先後☆（＾▽＾）
+    /// 
+    /// （＾～＾）（１）「手番」「相手番」、（２）「対局者１」「対局者２」、（３）「或る対局者」「その反対の対局者」を
+    /// 使い分けたいときがあるんだぜ☆
+    /// </summary>
+    public enum Taikyokusya
+    {
+        /// <summary>
+        /// 対局者１
+        /// </summary>
+        T1,
+
+        /// <summary>
+        /// 対局者２
+        /// </summary>
+        T2,
+
+        /// <summary>
+        /// 要素の個数、または該当無しに使っていいぜ☆（＾▽＾）
+        /// </summary>
+        Yososu
+    }
+
     public abstract class Conv_Taikyokusya
     {
         /// <summary>
         /// 対局者一覧
         /// </summary>
-        public static readonly Phase[] Itiran = {
-            Phase.Black,
-            Phase.White
+        public static readonly Taikyokusya[] Itiran = {
+            Taikyokusya.T1,
+            Taikyokusya.T2
             };
         public static readonly string[] NamaeItiran =
         {
@@ -23,12 +47,12 @@ namespace Grayscale.Kifuwarakei.Entities.Game
         /// </summary>
         /// <param name="ts"></param>
         /// <returns></returns>
-        public static Phase Hanten(Phase ts)
+        public static Taikyokusya Hanten(Taikyokusya ts)
         {
             switch (ts)
             {
-                case Phase.Black: return Phase.White;
-                case Phase.White: return Phase.Black;
+                case Taikyokusya.T1: return Taikyokusya.T2;
+                case Taikyokusya.T2: return Taikyokusya.T1;
                 default: return ts;
             }
         }
@@ -40,22 +64,19 @@ namespace Grayscale.Kifuwarakei.Entities.Game
         /// </summary>
         static string[] m_dfen_ = { "1", "2", "-1" };
         static string[] m_sfen_ = { "b", "w", "x" };
-        public static string ToFen(bool isSfen, Phase tb)
-        {
-            return isSfen ? Conv_Taikyokusya.m_sfen_[(int)tb] : Conv_Taikyokusya.m_dfen_[(int)tb];
-        }
+        public static string ToFen(bool isSfen, Taikyokusya tb) { return isSfen ? Conv_Taikyokusya.m_sfen_[(int)tb] : Conv_Taikyokusya.m_dfen_[(int)tb]; }
 
         /// <summary>
         /// 先後。
         /// </summary>
         /// <param name="ts"></param>
         /// <returns></returns>
-        public static void Setumei_Name(Phase ts, StringBuilder syuturyoku)
+        public static void Setumei_Name(Taikyokusya ts, StringBuilder syuturyoku)
         {
             switch (ts)
             {
-                case Phase.Black: syuturyoku.Append(Option_Application.Optionlist.PNName[(int)Phase.Black]); break;
-                case Phase.White: syuturyoku.Append(Option_Application.Optionlist.PNName[(int)Phase.White]); break;
+                case Taikyokusya.T1: syuturyoku.Append(Option_Application.Optionlist.PNName[(int)Taikyokusya.T1]); break;
+                case Taikyokusya.T2: syuturyoku.Append(Option_Application.Optionlist.PNName[(int)Taikyokusya.T2]); break;
                 default: syuturyoku.Append("×"); break;
             }
         }
@@ -65,12 +86,12 @@ namespace Grayscale.Kifuwarakei.Entities.Game
         /// </summary>
         /// <param name="ts"></param>
         /// <returns></returns>
-        public static string Setumei_Sankaku(Phase ts)
+        public static string Setumei_Sankaku(Taikyokusya ts)
         {
             switch (ts)
             {
-                case Phase.White: return "△";
-                case Phase.Black: return "▲";
+                case Taikyokusya.T2: return "△";
+                case Taikyokusya.T1: return "▲";
                 default: return "×";
             }
         }
@@ -80,9 +101,14 @@ namespace Grayscale.Kifuwarakei.Entities.Game
             "2",
             "x"
         };
-        public static void TusinYo(Phase ts, StringBuilder syuturyoku)
+        public static void TusinYo(Taikyokusya ts, StringBuilder syuturyoku)
         {
             syuturyoku.Append(Conv_Taikyokusya.m_tusinYo_[(int)ts]);
+        }
+
+        public static bool IsOk(Taikyokusya ts)
+        {
+            return Taikyokusya.T1 <= ts && ts < Taikyokusya.Yososu;
         }
     }
 

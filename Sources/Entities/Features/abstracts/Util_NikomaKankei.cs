@@ -195,7 +195,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             //    hyokatiNumber = Util_NikomaKankei.SAIDAI_HYOKATI_SABUNKOSINYOU;
             //}
 
-            //if (ky.Teban == Phase.White)
+            //if (ky.Teban == Taikyokusya.T2)
             //{
             //    hyokatiNumber = -hyokatiNumber; // 符号を反転して、対局者２視点に変えるぜ☆（＾▽＾）
             //}

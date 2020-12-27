@@ -1,6 +1,4 @@
-﻿using Grayscale.Kifuwarakei.Entities.Game;
-
-namespace Grayscale.Kifuwarakei.Entities.Features
+﻿namespace Grayscale.Kifuwarakei.Entities.Features
 {
     /// <summary>
     /// 王手されるのはいやだな☆（＾▽＾）ｗｗｗ
@@ -25,7 +23,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         }
 
 
-        public Phase Taikyokusya { get; set; }
+        public Taikyokusya Taikyokusya { get; set; }
         public Koma KmRaion { get; set; }
         /// <summary>
         /// 王手回避が必要なら真。

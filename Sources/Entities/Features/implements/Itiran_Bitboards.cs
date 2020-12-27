@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using Grayscale.Kifuwarakei.Entities.Game;
 
 namespace Grayscale.Kifuwarakei.Entities.Features
 {
@@ -52,15 +51,15 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             Bitboard komaBB = new Bitboard();
             for (int iTai = 0; iTai < Conv_Taikyokusya.Itiran.Length; iTai++)
             {
-                Phase phase = Conv_Taikyokusya.Itiran[iTai];
+                Taikyokusya tai = Conv_Taikyokusya.Itiran[iTai];
                 for (int iKs = 0; iKs < Conv_Komasyurui.Itiran.Length; iKs++)
                 {
                     Komasyurui ks = Conv_Komasyurui.Itiran[iKs];
 
-                    kys.ToSetIbasho(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, phase), komaBB);
+                    kys.ToSetIbasho(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, tai), komaBB);
                     while (komaBB.Ref_PopNTZ(out Masu ms_jissai))
                     {
-                        hyokati[iTai] += Conv_Koma.BanjoKomaHyokatiNumber[(int)Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, phase)];
+                        hyokati[iTai] += Conv_Koma.BanjoKomaHyokatiNumber[(int)Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, tai)];
                     }
                 }
             }
@@ -68,66 +67,63 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             // 持ち駒
             foreach (MotiKoma mk in Conv_MotiKoma.Itiran)
             {
-                var (isExists, phase) = Med_Koma.MotiKomaToTaikyokusya(mk).Match;
-                if (isExists)
-                {
-                    MotiKomasyurui mks = Med_Koma.MotiKomaToMotiKomasyrui(mk);
-                    Hyokati komaHyokati = Conv_Hyokati.KomaHyokati[(int)Med_Koma.MotiKomasyuruiAndTaikyokusyaToKoma(mks, phase)];
+                Taikyokusya tai = Med_Koma.MotiKomaToTaikyokusya(mk);
+                MotiKomasyurui mks = Med_Koma.MotiKomaToMotiKomasyrui(mk);
+                Hyokati komaHyokati = Conv_Hyokati.KomaHyokati[(int)Med_Koma.MotiKomasyuruiAndTaikyokusyaToKoma(mks, tai)];
 
-                    hyokati[(int)phase] += (int)komaHyokati * kys.CountMotikoma(mk);
-                }
+                hyokati[(int)tai] += (int)komaHyokati * kys.CountMotikoma(mk);
             }
 
             // 手番 - 相手番
-            Hyokati hyokatiP1 = hyokati[(int)Phase.Black];
-            hyokati[(int)Phase.Black] -= hyokati[(int)Phase.White];
-            hyokati[(int)Phase.White] -= hyokatiP1;
+            Hyokati hyokatiP1 = hyokati[(int)Taikyokusya.T1];
+            hyokati[(int)Taikyokusya.T1] -= hyokati[(int)Taikyokusya.T2];
+            hyokati[(int)Taikyokusya.T2] -= hyokatiP1;
             KomawariHyokati_Sabun = hyokati;
         }
 
-        public Hyokati Get(Phase phase)
+        public Hyokati Get(Taikyokusya tai)
         {
-            return this.KomawariHyokati_Sabun[(int)phase];
+            return this.KomawariHyokati_Sabun[(int)tai];
         }
-        public void Increase(Phase phase, Hyokati henkaRyo)
+        public void Increase(Taikyokusya tai, Hyokati henkaRyo)
         {
-            this.KomawariHyokati_Sabun[(int)phase] += (int)henkaRyo;
+            this.KomawariHyokati_Sabun[(int)tai] += (int)henkaRyo;
         }
         /// <summary>
         /// 差分更新で使う☆（＾▽＾）駒取り☆
         /// </summary>
-        public void Fuyasu(Phase phase, Koma km)
+        public void Fuyasu(Taikyokusya tai, Koma km)
         {
             Hyokati henkaRyo = Conv_Hyokati.KomaHyokati[(int)km];
-            this.Increase(phase, henkaRyo);
-            this.Increase(Conv_Taikyokusya.Hanten(phase), (Hyokati)(-(int)henkaRyo));
+            this.Increase(tai, henkaRyo);
+            this.Increase(Conv_Taikyokusya.Hanten(tai), (Hyokati)(-(int)henkaRyo));
         }
         /// <summary>
         /// 差分更新で使う☆（＾▽＾）駒取り☆
         /// </summary>
-        public void Fuyasu(Phase phase, MotiKoma mk)
+        public void Fuyasu(Taikyokusya tai, MotiKoma mk)
         {
             Hyokati henkaRyo = Conv_MotiKoma.MotikomaHyokati[(int)mk];
-            this.Increase(phase, henkaRyo);
-            this.Increase(Conv_Taikyokusya.Hanten(phase), (Hyokati)(-(int)henkaRyo));
+            this.Increase(tai, henkaRyo);
+            this.Increase(Conv_Taikyokusya.Hanten(tai), (Hyokati)(-(int)henkaRyo));
         }
         /// <summary>
         /// 差分更新で使う☆（＾▽＾）駒取り☆
         /// </summary>
-        public void Herasu(Phase phase, Koma km)
+        public void Herasu(Taikyokusya tai, Koma km)
         {
             Hyokati henkaRyo = Conv_Hyokati.KomaHyokati[(int)km];
-            this.Increase(phase, (Hyokati)(-(int)henkaRyo));
-            this.Increase(Conv_Taikyokusya.Hanten(phase), henkaRyo);
+            this.Increase(tai, (Hyokati)(-(int)henkaRyo));
+            this.Increase(Conv_Taikyokusya.Hanten(tai), henkaRyo);
         }
         /// <summary>
         /// 差分更新で使う☆（＾▽＾）駒取り☆
         /// </summary>
-        public void Hetta(Phase phase, MotiKoma mk)
+        public void Hetta(Taikyokusya tai, MotiKoma mk)
         {
             Hyokati henkaRyo = Conv_MotiKoma.MotikomaHyokati[(int)mk];
-            this.Increase(phase, (Hyokati)(-(int)henkaRyo));
-            this.Increase(Conv_Taikyokusya.Hanten(phase), henkaRyo);
+            this.Increase(tai, (Hyokati)(-(int)henkaRyo));
+            this.Increase(Conv_Taikyokusya.Hanten(tai), henkaRyo);
         }
     }
 
@@ -194,7 +190,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 hyokati = Util_NikomaKankei.SAIDAI_HYOKATI_SABUNKOSINYOU;
             }
 
-            if (ky.Teban == Phase.White)
+            if (ky.Teban == Taikyokusya.T2)
             {
                 hyokati = -hyokati; // 対局者２視点に変えるぜ☆（＾▽＾）
             }
