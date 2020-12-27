@@ -347,7 +347,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             Debug.Assert(Conv_Koma.IsOk(km), "");
             Komasyurui ks = Med_Koma.KomaToKomasyurui(km);
-            var (isExists, jibun) = Med_Koma.PhaseOf(km).Match;
+            var (isExists, jibun) = Med_Koma.KomaToTaikyokusya(km).Match;
             if (isExists)
             {
                 Masu ms_ido;
@@ -453,7 +453,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             Debug.Assert(Conv_Koma.IsOk(km), "");
             Komasyurui ks = Med_Koma.KomaToKomasyurui(km);
-            var (isExists, jibun) = Med_Koma.PhaseOf(km).Match;
+            var (isExists, jibun) = Med_Koma.KomaToTaikyokusya(km).Match;
             if (isExists)
             {
                 Masu ms_ido;
@@ -610,7 +610,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             Debug.Assert(Conv_Koma.IsOk(km), "");
             Komasyurui ks = Med_Koma.KomaToKomasyurui(km);
-            var (isExists, jibun) = Med_Koma.PhaseOf(km).Match;
+            var (isExists, jibun) = Med_Koma.KomaToTaikyokusya(km).Match;
             if (isExists)
             {
                 Masu ms_ido;
@@ -806,7 +806,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             Debug.Assert(Conv_Koma.IsOk(km), "");
             Komasyurui ks = Med_Koma.KomaToKomasyurui(km);
-            var (isExists, jibun) = Med_Koma.PhaseOf(km).Match;
+            var (isExists, jibun) = Med_Koma.KomaToTaikyokusya(km).Match;
             if (isExists)
             {
                 Masu ms_ido;
