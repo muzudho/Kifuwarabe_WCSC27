@@ -219,13 +219,10 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
                 foreach (Koma km in Conv_Koma.Itiran)
                 {
-                    var (isExists, phase) = Med_Koma.KomaToTaikyokusya(km).Match;
-                    if (isExists)
-                    {
-                        Komasyurui ks = Med_Koma.KomaToKomasyurui(km);
+                    Taikyokusya tai = Med_Koma.KomaToTaikyokusya(km);
+                    Komasyurui ks = Med_Koma.KomaToKomasyurui(km);
 
-                        ValueTai[(int)phase].Standup(kikiBBs.Get(km));
-                    }
+                    ValueTai[(int)tai].Standup(kikiBBs.Get(km));
                 }
             }
 
@@ -345,11 +342,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 for (int iTai = 0; iTai < Conv_Taikyokusya.Itiran.Length; iTai++)
                 {
-                    int length = Math.Min(this.ValueTaiMs[iTai].Length, src.GetArrayLength((Phase)iTai));
+                    int length = Math.Min(this.ValueTaiMs[iTai].Length, src.GetArrayLength((Taikyokusya)iTai));
 
                     for (int iMs = 0; iMs < length; iMs++)
                     {
-                        this.ValueTaiMs[iTai][iMs] = src.Get((Phase)iTai, (Masu)iMs);
+                        this.ValueTaiMs[iTai][iMs] = src.Get((Taikyokusya)iTai, (Masu)iMs);
                     }
                 }
             }
@@ -361,20 +358,20 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 Bitboard bb_ibashoCopy = new Bitboard();
                 Bitboard bb_ugokikataCopy = new Bitboard();
 
-                foreach (Phase phase in Conv_Taikyokusya.Itiran)
+                foreach (Taikyokusya tai in Conv_Taikyokusya.Itiran)
                 {
-                    ValueTaiMs[(int)phase] = new int[kys.MASU_YOSOSU];
+                    ValueTaiMs[(int)tai] = new int[kys.MASU_YOSOSU];
 
                     foreach (Komasyurui ks in Conv_Komasyurui.Itiran)
                     {
-                        bb_ibashoCopy.Set(sg_src.BB_Koma.Get(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, phase)));
+                        bb_ibashoCopy.Set(sg_src.BB_Koma.Get(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, tai)));
                         while (bb_ibashoCopy.Ref_PopNTZ(out Masu ms_ibasho))
                         {
-                            bb_ugokikataCopy.Set(sg_src.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, phase), ms_ibasho));
+                            bb_ugokikataCopy.Set(sg_src.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, tai), ms_ibasho));
 
                             while (bb_ugokikataCopy.Ref_PopNTZ(out Masu ms_kiki))
                             {
-                                ValueTaiMs[(int)phase][(int)ms_kiki]++;
+                                ValueTaiMs[(int)tai][(int)ms_kiki]++;
                             }
                         }
                     }
@@ -492,19 +489,14 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 // 盤上
                 foreach (Koma km in Conv_Koma.Itiran)
                 {
-                    var (isExists, phase) = Med_Koma.KomaToTaikyokusya(km).Match;
-                    if (!isExists)
-                    {
-                        throw new Exception($"km={km}");
-                    }
-
+                    Taikyokusya tai = Med_Koma.KomaToTaikyokusya(km);
                     Komasyurui ks = Med_Koma.KomaToKomasyurui(km);
                     ValueKmMs[(int)km] = new int[kys.MASU_YOSOSU];
 
                     bb_ibashoCopy.Set(sg_src.BB_Koma.Get(km));
                     while (bb_ibashoCopy.Ref_PopNTZ(out Masu ms_ibasho))
                     {
-                        bb_ugokikataCopy.Set(sg_src.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, phase), ms_ibasho));
+                        bb_ugokikataCopy.Set(sg_src.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, tai), ms_ibasho));
 
                         while (bb_ugokikataCopy.Ref_PopNTZ(out Masu ms_kiki))
                         {
@@ -766,12 +758,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                                     TasuKonoUe(km, ms_ibasho, kys);// 上
 
                                     bb_kiki.Clear();
-                                    var (isExists, phase) = Med_Koma.KomaToTaikyokusya(km).Match;
-                                    if (isExists)
-                                    {
-                                        N050_SiraberuTobikikiKyosya_KomaSetteiNoAto(phase, ms_ibasho, kys.MASU_ERROR, kys, bb_kiki);
-                                        Standup(km, ms_ibasho, bb_kiki);
-                                    }
+                                    N050_SiraberuTobikikiKyosya_KomaSetteiNoAto(Med_Koma.KomaToTaikyokusya(km), ms_ibasho, kys.MASU_ERROR, kys, bb_kiki);
+                                    Standup(km, ms_ibasho, bb_kiki);
                                 }
                                 break;
                             #endregion
@@ -1307,7 +1295,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             for (int iTai = 0; iTai < Conv_Taikyokusya.Itiran.Length; iTai++)
             {
-                Phase phase = Conv_Taikyokusya.Itiran[iTai];
+                Taikyokusya tai = Conv_Taikyokusya.Itiran[iTai];
 
                 for (int iKs = 0; iKs < Conv_Komasyurui.Itiran.Length; iKs++)
                 {
@@ -1315,7 +1303,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
                     // にわとりはいないこともある。
 
-                    if (!BB_Koma.Get(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, phase)).Clone().Sitdown(BB_KomaZenbu.Get(phase)).IsEmpty()) { return false; }
+                    if (!BB_Koma.Get(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, tai)).Clone().Sitdown(BB_KomaZenbu.Get(tai)).IsEmpty()) { return false; }
                 }
             }
             return true;
@@ -1349,53 +1337,51 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             Debug.Assert(Conv_Koma.IsOk(km_t1), "");
             Debug.Assert(kys.IsBanjo(ms_t1), "");
-            var (isExists, jibun) = Med_Koma.KomaToTaikyokusya(km_t1).Match;
-            if (isExists)
+            Taikyokusya jibun = Med_Koma.KomaToTaikyokusya(km_t1);
+
+            ////──────────
+            //// 駒が増える前の、関連する飛び利きを消す
+            ////──────────
+            //if (updateKiki)
+            //{
+            //    Util_Machine.Assert_Sabun_Kiki("利き減らす1", kys, syuturyoku);
+            //    N150_HerasuTonarikikiTobikiki(km_t1, ms_t1, kys, syuturyoku);
+            //    Util_Machine.Assert_Sabun_Kiki("利き減らす2", kys, syuturyoku);
+            //}
+
+            //──────────
+            // とりあえず、盤に駒を置くんだぜ☆（＾～＾）
+            //──────────
+            N240_OkuKoma(km_t1, ms_t1);
+
+            //──────────
+            // 駒が増えた現状に更新する
+            //──────────
+            if (updateKiki)
             {
-                ////──────────
-                //// 駒が増える前の、関連する飛び利きを消す
-                ////──────────
-                //if (updateKiki)
-                //{
-                //    Util_Machine.Assert_Sabun_Kiki("利き減らす1", kys, syuturyoku);
-                //    N150_HerasuTonarikikiTobikiki(km_t1, ms_t1, kys, syuturyoku);
-                //    Util_Machine.Assert_Sabun_Kiki("利き減らす2", kys, syuturyoku);
-                //}
-
-                //──────────
-                // とりあえず、盤に駒を置くんだぜ☆（＾～＾）
-                //──────────
-                N240_OkuKoma(km_t1, ms_t1);
-
-                //──────────
-                // 駒が増えた現状に更新する
-                //──────────
-                if (updateKiki)
-                {
-                    // 盤上にはまだ利きがないが、初めての利きを付けるぜ☆（*＾～＾*）
-                    Bitboard bb_oekaki;
-                    N150_FuyasuHajimetenoKiki_1(km_t1, ms_t1,
-                        ms_t1,//(2017-05-02 22:59 Add) kys.MASU_ERROR,
-                        kys, out bb_oekaki);
-                    N150_FuyasuHajimetenoKiki(km_t1, ms_t1, kys, bb_oekaki);
-                    N150_FuyasuHajimetenoKiki_2(km_t1, ms_t1, kys);
-                    //Util_Machine.Assert_Sabun_Kiki("飛び利き増やす2", Sindan, syuturyoku);
+                // 盤上にはまだ利きがないが、初めての利きを付けるぜ☆（*＾～＾*）
+                Bitboard bb_oekaki;
+                N150_FuyasuHajimetenoKiki_1(km_t1, ms_t1,
+                    ms_t1,//(2017-05-02 22:59 Add) kys.MASU_ERROR,
+                    kys, out bb_oekaki);
+                N150_FuyasuHajimetenoKiki(km_t1, ms_t1, kys, bb_oekaki);
+                N150_FuyasuHajimetenoKiki_2(km_t1, ms_t1, kys);
+                //Util_Machine.Assert_Sabun_Kiki("飛び利き増やす2", Sindan, syuturyoku);
 #if DEBUG
                 //kys.Setumei_GenkoKiki(jibun, syuturyoku); // 利き：（現行）
                 //Logger.Flush(syuturyoku);
 #endif
 
-                    Koma[] kmHairetu_control;
-                    Bitboard[] bbHairetu_tobikikiKomaIbasho;
-                    N230_TukurinaosiTonarikikiTobikiki_Discovered_1(isSfen, ms_t1, kys, out kmHairetu_control, out bbHairetu_tobikikiKomaIbasho);
+                Koma[] kmHairetu_control;
+                Bitboard[] bbHairetu_tobikikiKomaIbasho;
+                N230_TukurinaosiTonarikikiTobikiki_Discovered_1(isSfen, ms_t1, kys, out kmHairetu_control, out bbHairetu_tobikikiKomaIbasho);
 
-                    // 駒が増えたことにより、カバーが発生することがあるぜ☆（＾▽＾）
-                    N230_TukurinaosiTonarikikiTobikiki_Discovered(isSfen, ms_t1, kys.MASU_ERROR, kys, kmHairetu_control, bbHairetu_tobikikiKomaIbasho);
+                // 駒が増えたことにより、カバーが発生することがあるぜ☆（＾▽＾）
+                N230_TukurinaosiTonarikikiTobikiki_Discovered(isSfen, ms_t1, kys.MASU_ERROR, kys, kmHairetu_control, bbHairetu_tobikikiKomaIbasho);
 
-                    N230_TukurinaosiTonarikikiTobikiki_Discovered_2(isSfen, ms_t1, kys);
+                N230_TukurinaosiTonarikikiTobikiki_Discovered_2(isSfen, ms_t1, kys);
 
-                    //Util_Machine.Assert_Sabun_Kiki("飛び利き増やす3", Sindan, syuturyoku);
-                }
+                //Util_Machine.Assert_Sabun_Kiki("飛び利き増やす3", Sindan, syuturyoku);
             }
         }
 
@@ -1405,41 +1391,39 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             Debug.Assert(Conv_Koma.IsOk(km_t0), "");
             Debug.Assert(kys.IsBanjo(ms_t0), "");
-            var (isExists, phase) = Med_Koma.KomaToTaikyokusya(km_t0).Match;
-            if (isExists)
+            Taikyokusya tai = Med_Koma.KomaToTaikyokusya(km_t0);
+
+            //──────────
+            // 現状の駒の利きを取り除く
+            //──────────
+            if (updateKiki)
             {
-                //──────────
-                // 現状の駒の利きを取り除く
-                //──────────
-                if (updateKiki)
-                {
-                    Util_Machine.Assert_Sabun_Kiki("利き減らす1", kys);
-                    N150_HerasuTonarikikiTobikiki(km_t0, ms_t0, kys.MASU_ERROR, kys);
-                    // 駒をまだ取ってないんで、ここで駒の位置を元に利きを再計算すると、差分の利きの数と合わないぜ☆（＾～＾）
-                    // Util_Machine.Assert_Sabun_Kiki("利き減らす2", kys, syuturyoku);
-                }
-
-                ////#if DEBUG
-                //{
-                //    syuturyoku.AppendLine("（＾～＾）減らす盤上の駒3★");
-                //    Util_Commands.MoveCmd(isSfen, "move su", this, syuturyoku);
-                //    Logger.Flush(syuturyoku);
-                //}
-                ////#endif
-
-                //──────────
-                // 現状を変更する
-                //──────────
-                N240_TorinozokuKoma(km_t0, ms_t0);
-
-                ////#if DEBUG
-                //{
-                //    syuturyoku.AppendLine("（＾～＾）減らす盤上の駒4★");
-                //    Util_Commands.MoveCmd(isSfen, "move su", this, syuturyoku);
-                //    Logger.Flush(syuturyoku);
-                //}
-                ////#endif
+                Util_Machine.Assert_Sabun_Kiki("利き減らす1", kys);
+                N150_HerasuTonarikikiTobikiki(km_t0, ms_t0, kys.MASU_ERROR, kys);
+                // 駒をまだ取ってないんで、ここで駒の位置を元に利きを再計算すると、差分の利きの数と合わないぜ☆（＾～＾）
+                // Util_Machine.Assert_Sabun_Kiki("利き減らす2", kys, syuturyoku);
             }
+
+            ////#if DEBUG
+            //{
+            //    syuturyoku.AppendLine("（＾～＾）減らす盤上の駒3★");
+            //    Util_Commands.MoveCmd(isSfen, "move su", this, syuturyoku);
+            //    Logger.Flush(syuturyoku);
+            //}
+            ////#endif
+
+            //──────────
+            // 現状を変更する
+            //──────────
+            N240_TorinozokuKoma(km_t0, ms_t0);
+
+            ////#if DEBUG
+            //{
+            //    syuturyoku.AppendLine("（＾～＾）減らす盤上の駒4★");
+            //    Util_Commands.MoveCmd(isSfen, "move su", this, syuturyoku);
+            //    Logger.Flush(syuturyoku);
+            //}
+            ////#endif
         }
         /// <summary>
         /// 盤上の駒を取り除く
@@ -1504,12 +1488,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <param name="ms"></param>
         public void N240_OkuKoma(Koma km, Masu ms)
         {
-            var (isExists, phase) = Med_Koma.KomaToTaikyokusya(km).Match;
-            if (isExists)
-            {
-                BB_KomaZenbu.Get(phase).Standup(ms);
-                BB_Koma.Get(km).Standup(ms);
-            }
+            BB_KomaZenbu.Get(Med_Koma.KomaToTaikyokusya(km)).Standup(ms);
+            BB_Koma.Get(km).Standup(ms);
         }
         /// <summary>
         /// 駒を取り除きます
@@ -1518,14 +1498,13 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <param name="ms"></param>
         public void N240_TorinozokuKoma(Koma km, Masu ms)
         {
-            var (isExists, phase) = Med_Koma.KomaToTaikyokusya(km).Match;
-            if (isExists)
-            {
-                var bb1 = BB_KomaZenbu.Get(phase);
-                bb1.Sitdown(ms);
-                var bb2 = BB_Koma.Get(km);
-                bb2.Sitdown(ms);
-            }
+
+            var phase = Med_Koma.KomaToTaikyokusya(km);
+
+            var bb1 = BB_KomaZenbu.Get(phase);
+            bb1.Sitdown(ms);
+            var bb2 = BB_Koma.Get(km);
+            bb2.Sitdown(ms);
         }
 
 
@@ -1632,14 +1611,15 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             Debug.Assert(Conv_Koma.IsOk(km_t1), "");
             Debug.Assert(kys.IsBanjo(ms_t1), "");
             Komasyurui ks = Med_Koma.KomaToKomasyurui(km_t1);
-            var phase = Med_Koma.KomaToTaikyokusya(km_t1).Unwrap();
+            Taikyokusya tai = Med_Koma.KomaToTaikyokusya(km_t1);
+
             // ★↓作るデータが悪い☆（＾～＾）
             bb_oekaki = new Bitboard();// お絵描き（飛び利き＋隣利き）
             switch (ks)
             {
                 case Komasyurui.Z: N050_SiraberuTobikikiKaku_KomaSetteiNoAto(ms_t1, ms_mirainiKomagaAru, kys, bb_oekaki); break;
                 case Komasyurui.K: N050_SiraberuTobikikiHisya_KomaSetteiNoAto(ms_t1, ms_mirainiKomagaAru, kys, bb_oekaki); break;
-                case Komasyurui.S: N050_SiraberuTobikikiKyosya_KomaSetteiNoAto(phase, ms_t1, ms_mirainiKomagaAru, kys, bb_oekaki); break;
+                case Komasyurui.S: N050_SiraberuTobikikiKyosya_KomaSetteiNoAto(tai, ms_t1, ms_mirainiKomagaAru, kys, bb_oekaki); break;
                 default: break;
             }
             // ★↑作るデータが悪い☆（＾～＾）
@@ -1675,7 +1655,6 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             //            Logger.Flush(syuturyoku);
             //#endif
         }
-
         /// <summary>
         /// 隣利き、飛び利き　を増やす。
         /// 飛び利きは　一手指した後、一手戻した後　のタイミングで　差分更新だぜ☆（＾～＾）
@@ -1693,7 +1672,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             Debug.Assert(Conv_Koma.IsOk(km_t0), "");
             Debug.Assert(kys.IsBanjo(ms_t0), "");
-            Phase jibun = Med_Koma.KomaToTaikyokusya(km_t0).Unwrap();
+            Taikyokusya jibun = Med_Koma.KomaToTaikyokusya(km_t0);
 
             // ★↓作るデータが悪い☆（＾～＾）
             Bitboard bb_oekaki = new Bitboard(); // お絵描き
@@ -1736,13 +1715,13 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         #region N100 利きの増減
         public void N100_FuyasuKiki(Koma km_t1, Bitboard bb_kiki, Kyokumen.Sindanyo kys)
         {
-            Phase phase = Med_Koma.KomaToTaikyokusya(km_t1).Unwrap();
+            Taikyokusya tai = Med_Koma.KomaToTaikyokusya(km_t1);
 
             // 置いた駒についての、利きを追加していくぜ☆（＾～＾）
             while (bb_kiki.Ref_PopNTZ(out Masu ms_kiki))
             {
-                CB_KikisuZenbu.IncreaseDirect(phase, ms_kiki);
-                BB_KikiZenbu.Get(phase).Standup(ms_kiki);
+                CB_KikisuZenbu.IncreaseDirect(tai, ms_kiki);
+                BB_KikiZenbu.Get(tai).Standup(ms_kiki);
 
                 CB_KikisuKomabetu.IncreaseDirect(km_t1, ms_kiki);
                 BB_Kiki.Get(km_t1).Standup(ms_kiki);
@@ -1750,7 +1729,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         }
         public void N100_HerasuKiki(Koma km_t0, Bitboard bb_oekaki, Kyokumen.Sindanyo kys)
         {
-            Phase jibun = Med_Koma.KomaToTaikyokusya(km_t0).Unwrap();
+            Taikyokusya jibun = Med_Koma.KomaToTaikyokusya(km_t0);
 
             // 利きを減らしていくぜ☆（＾～＾）
             while (bb_oekaki.Ref_PopNTZ(out Masu ms_kiki))

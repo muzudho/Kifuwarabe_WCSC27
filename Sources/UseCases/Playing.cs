@@ -8,7 +8,6 @@
     using Grayscale.Kifuwarakei.Entities;
     using Grayscale.Kifuwarakei.Entities.Configuration;
     using Grayscale.Kifuwarakei.Entities.Features;
-    using Grayscale.Kifuwarakei.Entities.Game;
     using Grayscale.Kifuwarakei.Entities.Logging;
 
     public class Playing : IPlaying
@@ -1944,7 +1943,7 @@ USI                      = {Option_Application.Optionlist.USI}");
                     for (int iTb = 0; iTb < Conv_Taikyokusya.Itiran.Length; iTb++)
                     {
                         syuturyoku.Append("    ");
-                        Conv_Taikyokusya.Setumei_Name((Phase)iTb, syuturyoku);
+                        Conv_Taikyokusya.Setumei_Name((Taikyokusya)iTb, syuturyoku);
                         syuturyoku.AppendLine();
                         syuturyoku.AppendLine("        [ 0] [ 1] [ 2] [ 3] [ 4] [ 5] [ 6] [ 7] [ 8] [ 9] [10] [11]");
 
@@ -1955,7 +1954,7 @@ USI                      = {Option_Application.Optionlist.USI}");
                             maskBB.Set(0x01);// 0x01,0x02,0x04
                             for (int iShift = 0; iShift < 3; iShift++)
                             {
-                                Koma km = Med_Koma.KomasyuruiAndTaikyokusyaToKoma((Komasyurui)iKs, (Phase)iTb);
+                                Koma km = Med_Koma.KomasyuruiAndTaikyokusyaToKoma((Komasyurui)iKs, (Taikyokusya)iTb);
                                 ky.Shogiban.GetKomanoUgokikata(km, (Masu)iMs).Clone().Select(maskBB).RightShift(iShift).AppendSyuturyokuTo(syuturyoku);
                                 maskBB.LeftShift(1);
                             }
@@ -1976,7 +1975,7 @@ USI                      = {Option_Application.Optionlist.USI}");
                             maskBB.Set(0x08);// 0x08,0x10,0x20
                             for (int iShift = 3; iShift < 6; iShift++)
                             {
-                                Koma km = Med_Koma.KomasyuruiAndTaikyokusyaToKoma((Komasyurui)iKs, (Phase)iTb);
+                                Koma km = Med_Koma.KomasyuruiAndTaikyokusyaToKoma((Komasyurui)iKs, (Taikyokusya)iTb);
                                 ky.Shogiban.GetKomanoUgokikata(km, (Masu)iMs).Clone().Select(maskBB).RightShift(iShift).AppendSyuturyokuTo(syuturyoku);
                                 maskBB.LeftShift(1);
                             }
@@ -1997,7 +1996,7 @@ USI                      = {Option_Application.Optionlist.USI}");
                             maskBB.Set(0x40);// 0x40,0x80,0x100
                             for (int iShift = 6; iShift < 9; iShift++)
                             {
-                                Koma km = Med_Koma.KomasyuruiAndTaikyokusyaToKoma((Komasyurui)iKs, (Phase)iTb);
+                                Koma km = Med_Koma.KomasyuruiAndTaikyokusyaToKoma((Komasyurui)iKs, (Taikyokusya)iTb);
                                 ky.Shogiban.GetKomanoUgokikata(km, (Masu)iMs).Clone().Select(maskBB).RightShift(iShift).AppendSyuturyokuTo(syuturyoku);
                                 maskBB.LeftShift(1);
                             }
@@ -2018,7 +2017,7 @@ USI                      = {Option_Application.Optionlist.USI}");
                             maskBB.Set(0x200);// 0x200,0x400,0x800
                             for (int iShift = 9; iShift < 12; iShift++)
                             {
-                                Koma km = Med_Koma.KomasyuruiAndTaikyokusyaToKoma((Komasyurui)iKs, (Phase)iTb);
+                                Koma km = Med_Koma.KomasyuruiAndTaikyokusyaToKoma((Komasyurui)iKs, (Taikyokusya)iTb);
                                 ky.Shogiban.GetKomanoUgokikata(km, (Masu)iMs).Clone().Select(maskBB).RightShift(iShift).AppendSyuturyokuTo(syuturyoku);
                                 maskBB.LeftShift(1);
                             }
@@ -2040,7 +2039,7 @@ USI                      = {Option_Application.Optionlist.USI}");
                             syuturyoku.AppendLine($"i=[{i}]");
                             syuturyoku.Append("         ");
                             maskBB.Set(0x200);
-                            Koma km = Med_Koma.KomasyuruiAndTaikyokusyaToKoma((Komasyurui)iKs, (Phase)iTb);
+                            Koma km = Med_Koma.KomasyuruiAndTaikyokusyaToKoma((Komasyurui)iKs, (Taikyokusya)iTb);
                             ky.Shogiban.GetKomanoUgokikata(km, Kyokumen.A1).Clone().Select(maskBB).RightShift(i + 0).AppendSyuturyokuTo(syuturyoku);
                             if (i + 1 < max)
                             {
@@ -2563,15 +2562,15 @@ USI                      = {Option_Application.Optionlist.USI}");
                     Logger.Flush(msg);
                 }
 
-                Phase phase = ky.Teban;
-                Koma raionKm = (phase == Phase.Black ? Koma.R : Koma.r);
+                Taikyokusya tai = ky.Teban;
+                Koma raionKm = (tai == Phase.Black ? Koma.R : Koma.r);
                 Masu ms1 = ky.Lookup(raionKm);
                 Bitboard kikiBB = new Bitboard();
-                kikiBB.Set(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, phase), ms1));
+                kikiBB.Set(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, tai), ms1));
                 {
                     bool tmp = Util_Test.TestMode;
                     Util_Test.TestMode = true;
-                    Util_TryRule.GetTrySaki(ky, kikiBB, phase, ms1, syuturyoku);
+                    Util_TryRule.GetTrySaki(ky, kikiBB, tai, ms1, syuturyoku);
                     Util_Test.TestMode = tmp;
                 }
                 #endregion

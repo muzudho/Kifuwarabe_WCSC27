@@ -169,7 +169,7 @@
                 );
 
                 // 定跡更新☆（＾▽＾）
-                Option_Application.Joseki.AddMove(KyFen_before, KyHash_before, KyTaikyokusya_before.Unwrap(), inputMove,
+                Option_Application.Joseki.AddMove(KyFen_before, KyHash_before, KyTaikyokusya_before, inputMove,
                     hyokatiUtiwake.EdaBest,// 指した直後の局面の点数
                     1,//人間は１手読み扱いで☆
                     Util_Application.VERSION,
@@ -220,7 +220,7 @@
                     }
 #endif
 
-                    Option_Application.Joseki.AddMove(KyFen_before, KyHash_before, KyTaikyokusya_before.Unwrap(), bestMove, bestHyokati, Util_Tansaku.NekkoKaranoFukasa, Util_Application.VERSION, syuturyoku);
+                    Option_Application.Joseki.AddMove(KyFen_before, KyHash_before, KyTaikyokusya_before, bestMove, bestHyokati, Util_Tansaku.NekkoKaranoFukasa, Util_Application.VERSION, syuturyoku);
                 }
             }
         }

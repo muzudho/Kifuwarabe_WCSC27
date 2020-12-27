@@ -5,7 +5,6 @@
     using Grayscale.Kifuwarakei.Engine.Configuration;
     using Grayscale.Kifuwarakei.Entities;
     using Grayscale.Kifuwarakei.Entities.Features;
-    using Grayscale.Kifuwarakei.Entities.Game;
     using Grayscale.Kifuwarakei.Entities.Logging;
     using Grayscale.Kifuwarakei.UseCases;
 

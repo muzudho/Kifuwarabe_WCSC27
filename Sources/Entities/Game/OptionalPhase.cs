@@ -16,8 +16,7 @@ namespace Grayscale.Kifuwarakei.Entities.Game
 
         public static OptionalPhase None
         {
-            get
-            {
+            get{
                 return none_;
             }
         }
@@ -66,16 +65,6 @@ namespace Grayscale.Kifuwarakei.Entities.Game
                 return (true, this.phase_);
             }
         }
-
-        public Phase Unwrap()
-        {
-            if (this.isNone_)
-            {
-                throw new Exception("Unwrap fail. Phase is none.");
-            }
-            return this.phase_;
-        }
-
         public bool isNone_;
         Phase phase_;
     }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
-using Grayscale.Kifuwarakei.Entities.Game;
 using Grayscale.Kifuwarakei.Entities.Logging;
 
 namespace Grayscale.Kifuwarakei.Entities.Features
@@ -823,10 +822,10 @@ P2差分  =[{hyokati2}]
             saikeisan.Tukurinaosi_1_Clear_KikiKomabetu();
             saikeisan.Tukurinaosi_2_Input_KikiKomabetu(kys);
 
-            foreach (Phase phase in Conv_Taikyokusya.Itiran)// 対局者１、対局者２
+            foreach (Taikyokusya tai in Conv_Taikyokusya.Itiran)// 対局者１、対局者２
             {
                 int iKm = 0;//どの駒でエラーがあったか
-                foreach (Koma km in Conv_Koma.ItiranTai[(int)phase])
+                foreach (Koma km in Conv_Koma.ItiranTai[(int)tai])
                 {
                     if (!kys.EqualsKiki(km, saikeisan))//現行版と、再計算版の比較
                     {
@@ -849,13 +848,13 @@ P2差分  =[{hyokati2}]
                     //    sindan1.AppendLine($"Util_Tansaku.TansakuTyakusyuEdas=[{Util_Tansaku.TansakuTyakusyuEdas}]");
                     //}
 
-                    sindan1.Append(message); sindan1.Append("【エラー】"); Conv_Taikyokusya.Setumei_Name(phase, sindan1); sindan1.AppendLine();
+                    sindan1.Append(message); sindan1.Append("【エラー】"); Conv_Taikyokusya.Setumei_Name(tai, sindan1); sindan1.AppendLine();
                     sindan1.AppendLine($"iKm=[{iKm}]");
 
                     sindan1.AppendLine("利き：（再計算）");
-                    Util_Information.Setumei_Bitboards(Med_Koma.GetKomasyuruiNamaeItiran(phase), saikeisan.WhereBBKiki(phase), sindan1);
+                    Util_Information.Setumei_Bitboards(Med_Koma.GetKomasyuruiNamaeItiran(tai), saikeisan.WhereBBKiki(tai), sindan1);
 
-                    kys.Setumei_GenkoKiki(phase, sindan1); // 利き：（現行）
+                    kys.Setumei_GenkoKiki(tai, sindan1); // 利き：（現行）
 
                     var msg = sindan1.ToString();
                     sindan1.Clear();
