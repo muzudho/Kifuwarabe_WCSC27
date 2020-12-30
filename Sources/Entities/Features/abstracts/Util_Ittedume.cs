@@ -30,7 +30,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             Debug.Assert(ky.Sindan.IsBanjo(ms_t1), "升エラー");
 
-            Taikyokusya aite = Conv_Taikyokusya.Hanten(jibun);
+            Taikyokusya aite = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Hanten(OptionalPhase.From( jibun)));
 
             // 動かす駒
             if (!ky.Shogiban.ExistsBBKoma(jibun, ms_t0, out Komasyurui ks_t0))

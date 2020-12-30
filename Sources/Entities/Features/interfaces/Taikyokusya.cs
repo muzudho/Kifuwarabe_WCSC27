@@ -32,14 +32,14 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 switch (phase)
                 {
-                    case Phase.Black: return Phase.White;
-                    case Phase.White: return Phase.Black;
+                    case Phase.Black: return OptionalPhase.White;
+                    case Phase.White: return OptionalPhase.Black;
                     default: throw new Exception($"Phase={phase} is fail.");
                 }
             }
             else
             {
-                return phase;
+                return Option<Phase>.None;
             }
         }
 

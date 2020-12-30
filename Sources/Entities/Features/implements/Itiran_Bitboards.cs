@@ -97,7 +97,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             Hyokati henkaRyo = Conv_Hyokati.KomaHyokati[(int)km];
             this.Increase(tai, henkaRyo);
-            this.Increase(Conv_Taikyokusya.Hanten(tai), (Hyokati)(-(int)henkaRyo));
+            this.Increase(OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Hanten(OptionalPhase.From( tai))), (Hyokati)(-(int)henkaRyo));
         }
         /// <summary>
         /// 差分更新で使う☆（＾▽＾）駒取り☆
@@ -106,7 +106,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             Hyokati henkaRyo = Conv_MotiKoma.MotikomaHyokati[(int)mk];
             this.Increase(tai, henkaRyo);
-            this.Increase(Conv_Taikyokusya.Hanten(tai), (Hyokati)(-(int)henkaRyo));
+            this.Increase(OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Hanten(OptionalPhase.From( tai))), (Hyokati)(-(int)henkaRyo));
         }
         /// <summary>
         /// 差分更新で使う☆（＾▽＾）駒取り☆
@@ -115,7 +115,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             Hyokati henkaRyo = Conv_Hyokati.KomaHyokati[(int)km];
             this.Increase(tai, (Hyokati)(-(int)henkaRyo));
-            this.Increase(Conv_Taikyokusya.Hanten(tai), henkaRyo);
+            this.Increase(OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Hanten(OptionalPhase.From( tai))), henkaRyo);
         }
         /// <summary>
         /// 差分更新で使う☆（＾▽＾）駒取り☆
@@ -124,7 +124,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             Hyokati henkaRyo = Conv_MotiKoma.MotikomaHyokati[(int)mk];
             this.Increase(tai, (Hyokati)(-(int)henkaRyo));
-            this.Increase(Conv_Taikyokusya.Hanten(tai), henkaRyo);
+            this.Increase(OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Hanten(OptionalPhase.From( tai))), henkaRyo);
         }
     }
 

@@ -11,7 +11,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <param name="bestSasite">投了かどうか調べるだけ☆</param>
         public static void JudgeKettyaku(Move bestSasite, Kyokumen ky)
         {
-            Taikyokusya tb2 = Conv_Taikyokusya.Hanten(ky.Teban);
+            Taikyokusya tb2 = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Hanten(OptionalPhase.From( ky.Teban)));
             if (Move.Toryo == bestSasite)
             {
                 switch (ky.Teban)// 投了した時点で、次の手番に移っているぜ☆

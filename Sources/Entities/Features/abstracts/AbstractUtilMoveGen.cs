@@ -1121,7 +1121,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 Taikyokusya = ky.Teban,
                 KmRaion = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, OptionalPhase.From(ky.Teban))
             };
-            Taikyokusya aite = Conv_Taikyokusya.Hanten(jibunHioute.Taikyokusya);
+            Taikyokusya aite = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Hanten(OptionalPhase.From( jibunHioute.Taikyokusya)));
 
             Bitboard bb_aiteKiki = new Bitboard();
             Bitboard bb_aiteKoma = new Bitboard();// 相手番の駒がいる升
@@ -1213,7 +1213,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <returns></returns>
         public static bool MisuteruUgoki(Kyokumen ky, Taikyokusya jibun, Masu ms_t0, Masu ms_t1)
         {
-            Taikyokusya aite = Conv_Taikyokusya.Hanten(jibun);
+            Taikyokusya aite = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Hanten(OptionalPhase.From( jibun)));
 
             if (ky.Shogiban.ExistsBBKoma(jibun, ms_t0, out Komasyurui ks_t0))
             {
@@ -1270,7 +1270,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <returns></returns>
         public static bool TadasuteNoUgoki(Kyokumen ky, Taikyokusya ts1, Masu ms_dst, bool da)
         {
-            Taikyokusya ts2 = Conv_Taikyokusya.Hanten(ts1);
+            Taikyokusya ts2 = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Hanten(OptionalPhase.From( ts1)));
 
             // 主なケース
             // ・移動先の升には、味方の利き（動かす駒の利き除く）がない。
@@ -1341,7 +1341,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             }
 
             Taikyokusya jibun = ky.Sindan.Teban;
-            Taikyokusya aite = Conv_Taikyokusya.Hanten(jibun);
+            Taikyokusya aite = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Hanten(OptionalPhase.From( jibun)));
 
 
             // 手番側が、王手回避が必要かどうか調べたいぜ☆（＾～＾）

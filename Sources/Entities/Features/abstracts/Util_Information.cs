@@ -214,7 +214,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 int sennitite = ky.Konoteme.GetSennititeCount();
                 if (Const_Game.SENNITITE_COUNT == sennitite)
                 {
-                    Conv_Taikyokusya.Setumei_Name(Conv_Taikyokusya.Hanten(ky.Teban), syuturyoku);
+                    Conv_Taikyokusya.Setumei_Name(OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Hanten(OptionalPhase.From( ky.Teban))), syuturyoku);
                     syuturyoku.AppendLine("の着手にて　千日手");
                 }
                 else if (1 < sennitite)
@@ -319,7 +319,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 int sennitite = ky.Konoteme.GetSennititeCount();
                 if (Const_Game.SENNITITE_COUNT == sennitite)
                 {
-                    Conv_Taikyokusya.Setumei_Name(Conv_Taikyokusya.Hanten(ky.Teban), syuturyoku);
+                    Conv_Taikyokusya.Setumei_Name(OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Hanten(OptionalPhase.From( ky.Teban))), syuturyoku);
                     syuturyoku.Append("の着手にて　千日手");
                     syuturyoku.AppendLine();
                 }

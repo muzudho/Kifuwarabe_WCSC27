@@ -44,5 +44,22 @@ namespace Grayscale.Kifuwarakei.Entities.Game
                 return 2;
             }
         }
+        public static Taikyokusya ToTaikyokusya(Option<Phase> optionalPhase)
+        {
+            var (exists, phase) = optionalPhase.Match;
+            if (exists)
+            {
+                switch (phase)
+                {
+                    case Phase.Black: return Taikyokusya.T1;
+                    case Phase.White: return Taikyokusya.T2;
+                    default: throw new Exception($"optionalPhase={phase} is fail.");
+                }
+            }
+            else
+            {
+                return Taikyokusya.Yososu;
+            }
+        }
     }
 }

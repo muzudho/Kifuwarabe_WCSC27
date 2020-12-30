@@ -44,7 +44,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <returns></returns>
         public static bool InKiki(Kyokumen ky, Masu attackerMs, Masu targetMs)
         {
-            Taikyokusya aite = Conv_Taikyokusya.Hanten(ky.Teban);
+            Taikyokusya aite = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Hanten(OptionalPhase.From( ky.Teban)));
             if (ky.Shogiban.ExistsBBKomaZenbu(aite, attackerMs)) // 指定の場所に相手の駒があることを確認
             {
                 if (ky.Shogiban.ExistsBBKoma(aite, attackerMs, out Komasyurui ks))// 攻撃側の駒の種類
@@ -66,7 +66,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <returns></returns>
         public static bool IsJisatusyu(Kyokumen ky, Masu targetMs)
         {
-            return ky.Shogiban.GetBBKikiZenbu(Conv_Taikyokusya.Hanten(ky.Teban)).IsIntersect(// 相手の駒の利き☆
+            return ky.Shogiban.GetBBKikiZenbu(OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Hanten(OptionalPhase.From( ky.Teban)))).IsIntersect(// 相手の駒の利き☆
                 targetMs//調べる升
                 );
         }
