@@ -171,11 +171,12 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 return ValueKm[(int)km];
             }
-            public bool Exists(Taikyokusya tai, Masu ms, out Komasyurui out_ks)
+            public bool Exists(Option<Phase> phase, Masu ms, out Komasyurui out_ks)
             {
-                for (int iKm = 0; iKm < Conv_Koma.ItiranTai[(int)tai].Length; iKm++)
+                var phaseIndex = OptionalPhase.ToInt(phase);
+                for (int iKm = 0; iKm < Conv_Koma.ItiranTai[phaseIndex].Length; iKm++)
                 {
-                    Koma km = Conv_Koma.ItiranTai[(int)tai][iKm];
+                    Koma km = Conv_Koma.ItiranTai[phaseIndex][iKm];
                     if (ValueKm[(int)km].IsOn(ms))
                     {
                         out_ks = Med_Koma.KomaToKomasyurui(km);
@@ -1211,9 +1212,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             return BB_KomaZenbu.Exists(ms);
         }
         */
-        public bool ExistsBBKoma(Taikyokusya tai, Masu ms, out Komasyurui ks)
+        public bool ExistsBBKoma(Option<Phase> phase, Masu ms, out Komasyurui ks)
         {
-            return BB_Koma.Exists(tai, ms, out ks);
+            return BB_Koma.Exists(phase, ms, out ks);
         }
         public bool ExistsBBKoma(Taikyokusya tai, Masu ms)
         {

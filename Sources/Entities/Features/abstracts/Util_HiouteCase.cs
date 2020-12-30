@@ -18,12 +18,12 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
         public static void Setumei_Kiki(Kyokumen ky, Masu attackerMs, StringBuilder syuturyoku)
         {
-            var (exists, phase) = ky.Shogiban.ExistsBBKomaZenbu(attackerMs);
+            var (exists, tai) = ky.Shogiban.ExistsBBKomaZenbu(attackerMs);
             if (exists)
             {
-                ky.Shogiban.ExistsBBKoma(phase, attackerMs, out Komasyurui ks);
+                ky.Shogiban.ExistsBBKoma( OptionalPhase.From( tai), attackerMs, out Komasyurui ks);
                 Util_Information.Setumei_1Bitboard("利き",
-                    Util_Application.Kiki_BB(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(phase)), attackerMs, ky.Shogiban)//利き
+                    Util_Application.Kiki_BB(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(tai)), attackerMs, ky.Shogiban)//利き
                     , syuturyoku);
             }
         }
@@ -47,7 +47,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             Taikyokusya aite = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Hanten(OptionalPhase.From( ky.Teban)));
             if (ky.Shogiban.ExistsBBKomaZenbu(aite, attackerMs)) // 指定の場所に相手の駒があることを確認
             {
-                if (ky.Shogiban.ExistsBBKoma(aite, attackerMs, out Komasyurui ks))// 攻撃側の駒の種類
+                if (ky.Shogiban.ExistsBBKoma(OptionalPhase.From( aite), attackerMs, out Komasyurui ks))// 攻撃側の駒の種類
                 {
                     return ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(aite)), attackerMs).IsIntersect(//相手の攻撃駒の利き
                         targetMs//調べる升

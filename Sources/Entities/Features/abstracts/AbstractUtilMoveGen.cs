@@ -1215,7 +1215,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             Taikyokusya aite = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Hanten(OptionalPhase.From( jibun)));
 
-            if (ky.Shogiban.ExistsBBKoma(jibun, ms_t0, out Komasyurui ks_t0))
+            if (ky.Shogiban.ExistsBBKoma(OptionalPhase.From( jibun), ms_t0, out Komasyurui ks_t0))
             {
 
             }

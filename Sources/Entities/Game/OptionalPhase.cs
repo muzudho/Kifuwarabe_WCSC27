@@ -14,6 +14,18 @@ namespace Grayscale.Kifuwarakei.Entities.Game
         public static readonly Option<Phase> Black;
         public static readonly Option<Phase> White;
 
+        public static Option<Phase> Some(Phase phase)
+        {
+            switch (phase)
+            {
+                case Phase.Black:
+                    return OptionalPhase.Black;
+                case Phase.White:
+                    return OptionalPhase.White;
+                default:
+                    throw new Exception($"phase={phase} is fail.");
+            }
+        }
         public static Option<Phase> From(int tai)
         {
             return From((Taikyokusya)tai);
