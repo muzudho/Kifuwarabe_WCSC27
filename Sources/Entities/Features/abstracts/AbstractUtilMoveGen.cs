@@ -533,7 +533,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     {
                         // らいおんのいる升に、先後逆の自分の駒があると考えれば、その利きの場所と、今いる場所からの利きが重なれば、王手だぜ☆（＾▽＾）
                         idosakiBB.Select(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(aiteHioute.Taikyokusya)), aiteHioute.FriendRaionMs));
-                        idosakiBB.Select(Util_Bitboard.CreateKikiZenbuBB_1KomaNozoku(ky, jibun, ms_src)); // (2017-04-29 Add)紐を付ける☆
+                        idosakiBB.Select(Util_Bitboard.CreateKikiZenbuBB_1KomaNozoku(ky, OptionalPhase.From(jibun), ms_src)); // (2017-04-29 Add)紐を付ける☆
 
                         while (idosakiBB.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
                         {
@@ -683,7 +683,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     {
                         // らいおんのいる升に、先後逆の自分の駒があると考えれば、その利きの場所と、今いる場所からの利きが重なれば、王手だぜ☆（＾▽＾）
                         bb_idosakiCopy.Select(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(aiteHioute.Taikyokusya)), aiteHioute.FriendRaionMs));
-                        bb_idosakiCopy.Select(Util_Bitboard.CreateKikiZenbuBB_1KomaNozoku(ky, jibun, ms_src));// 紐を付ける☆
+                        bb_idosakiCopy.Select(Util_Bitboard.CreateKikiZenbuBB_1KomaNozoku(ky, OptionalPhase.From(jibun), ms_src));// 紐を付ける☆
 
                         while (bb_idosakiCopy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
                         {
@@ -855,7 +855,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 case MoveType.N10_HimotukiOteSasi:
                     {
                         bb_idosakiCopy.Select(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(aiteHioute.Taikyokusya)), aiteHioute.FriendRaionMs));// らいおんのいる升に、先後逆の自分の駒があると考えれば、その利きの場所と、今いる場所からの利きが重なれば、王手だぜ☆（＾▽＾）
-                        bb_idosakiCopy.Select(Util_Bitboard.CreateKikiZenbuBB_1KomaNozoku(ky, jibun, ms_src));// 紐を付ける☆
+                        bb_idosakiCopy.Select(Util_Bitboard.CreateKikiZenbuBB_1KomaNozoku(ky, OptionalPhase.From(jibun), ms_src));// 紐を付ける☆
 
                         while (bb_idosakiCopy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
                         {
@@ -878,7 +878,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                         bb_idosakiCopy.Select(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(aiteHioute.Taikyokusya)), aiteHioute.FriendRaionMs));
 
                         // 2016-12-22 捨てだからと言って、紐を付けないとは限らない☆
-                        bb_idosakiCopy.Sitdown(Util_Bitboard.CreateKikiZenbuBB_1KomaNozoku(ky, jibun, ms_src));// 紐を付けない☆
+                        bb_idosakiCopy.Sitdown(Util_Bitboard.CreateKikiZenbuBB_1KomaNozoku(ky, OptionalPhase.From(jibun), ms_src));// 紐を付けない☆
 
                         while (bb_idosakiCopy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
                         {
@@ -1696,7 +1696,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                         {
                             if (TansakuUtikiri.Karappo != jibunHioute.TansakuUtikiri) { goto gt_FlushMove; }// 指し手生成終了☆
                             idosakiBB_copy.Set(idosakiBB_base);
-                            idosakiBB_copy.Select(Util_Bitboard.CreateKikiZenbuBB_1KomaNozoku(ky, jibun, ms));// 自分以外の味方の駒の利き（紐）を付ける☆
+                            idosakiBB_copy.Select(Util_Bitboard.CreateKikiZenbuBB_1KomaNozoku(ky, OptionalPhase.From(jibun), ms));// 自分以外の味方の駒の利き（紐）を付ける☆
 
                             switch (Med_Koma.KomaToKomasyurui(km))
                             {
@@ -1893,7 +1893,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                         {
                             if (TansakuUtikiri.Karappo != jibunHioute.TansakuUtikiri) { goto gt_FlushMove; }// 指し手生成終了☆
                             idosakiBB_copy.Set(idosakiBB_base);
-                            idosakiBB_copy.Select(Util_Bitboard.CreateKikiZenbuBB_1KomaNozoku(ky, jibun, ms));// 自分以外の味方の駒の利き（紐）を付ける☆
+                            idosakiBB_copy.Select(Util_Bitboard.CreateKikiZenbuBB_1KomaNozoku(ky, OptionalPhase.From(jibun), ms));// 自分以外の味方の駒の利き（紐）を付ける☆
 
                             switch (Med_Koma.KomaToKomasyurui(km))
                             {
@@ -1944,7 +1944,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                         {
                             if (TansakuUtikiri.Karappo != jibunHioute.TansakuUtikiri) { goto gt_FlushMove; }// 指し手生成終了☆
                             idosakiBB_copy.Set(idosakiBB_base);
-                            idosakiBB_copy.Sitdown(Util_Bitboard.CreateKikiZenbuBB_1KomaNozoku(ky, jibun, ms));// 自分以外の味方の駒の利き（紐）を付ける☆
+                            idosakiBB_copy.Sitdown(Util_Bitboard.CreateKikiZenbuBB_1KomaNozoku(ky, OptionalPhase.From(jibun), ms));// 自分以外の味方の駒の利き（紐）を付ける☆
 
                             switch (Med_Koma.KomaToKomasyurui(km))
                             {
