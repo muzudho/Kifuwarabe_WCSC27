@@ -472,8 +472,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 Setumei_Bitboards(new string[] { "対局者１", "対局者２" },
                     new Bitboard[] {
-                        shogiban.GetBBKomaZenbu(Taikyokusya.T1),
-                        shogiban.GetBBKomaZenbu(Taikyokusya.T2)
+                        shogiban.GetBBKomaZenbu(OptionalPhase.Black),
+                        shogiban.GetBBKomaZenbu(OptionalPhase.White)
                     }, syuturyoku);
                 syuturyoku.AppendLine();
             }

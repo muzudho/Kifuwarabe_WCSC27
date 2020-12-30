@@ -61,7 +61,7 @@ new Bitboard[] { kikiBB, m_trySakiBB_ }, syuturyoku2);
             // 味方の駒がないところ☆
             Bitboard spaceBB = new Bitboard();
             spaceBB.Set(ky.BB_BoardArea);
-            spaceBB.Sitdown(ky.Shogiban.GetBBKomaZenbu(tb));
+            spaceBB.Sitdown(ky.Shogiban.GetBBKomaZenbu(OptionalPhase.From( tb)));
             m_trySakiBB_.Select(spaceBB);
             Util_Test.TestCode((StringBuilder str) =>
             {

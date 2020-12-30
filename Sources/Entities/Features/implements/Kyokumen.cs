@@ -1739,14 +1739,14 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             // 盤上の一致判定
             for (int iTai = 0; iTai < Conv_Taikyokusya.Itiran.Length; iTai++)
             {
-                Taikyokusya tai = (Taikyokusya)iTai;
+                var optionalPhase = OptionalPhase.From(iTai);
 
-                if (Shogiban.GetBBKomaZenbu(tai) != shogiban_hikaku.GetBBKomaZenbu(tai)) { return false; }
+                if (Shogiban.GetBBKomaZenbu(optionalPhase) != shogiban_hikaku.GetBBKomaZenbu(optionalPhase)) { return false; }
 
                 for (int iKs = 0; iKs < Conv_Komasyurui.Itiran.Length; iKs++)
                 {
                     Komasyurui ks = Conv_Komasyurui.Itiran[iKs];
-                    Koma km = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(tai));
+                    Koma km = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, optionalPhase);
 
                     if (Shogiban.GetBBKoma(km) != shogiban_hikaku.GetBBKoma(km)) { return false; }
                 }
@@ -1776,9 +1776,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 // 左右反転して、先後も入替
                 Bitboard tmp = new Bitboard();
-                tmp.Set(Shogiban.GetBBKomaZenbu(Taikyokusya.T1).Bitflip128());
-                Shogiban.GetBBKomaZenbu(Taikyokusya.T1).Set(Shogiban.GetBBKomaZenbu(Taikyokusya.T2).Bitflip128());
-                Shogiban.GetBBKomaZenbu(Taikyokusya.T2).Set(tmp);
+                tmp.Set(Shogiban.GetBBKomaZenbu(OptionalPhase.Black).Bitflip128());
+                Shogiban.GetBBKomaZenbu(OptionalPhase.Black).Set(Shogiban.GetBBKomaZenbu(OptionalPhase.White).Bitflip128());
+                Shogiban.GetBBKomaZenbu(OptionalPhase.White).Set(tmp);
 
                 for (int iKs = 0; iKs < Conv_Komasyurui.Itiran.Length; iKs++)
                 {

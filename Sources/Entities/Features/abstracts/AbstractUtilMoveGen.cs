@@ -1141,7 +1141,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 jibunHioute.FriendRaion8KinboBB.Set(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, OptionalPhase.From(jibunHioute.Taikyokusya)), jibunHioute.FriendRaionMs));
 
                 // 味方の駒
-                jibunHioute.FriendKomaBB.Set(ky.Shogiban.GetBBKomaZenbu(jibunHioute.Taikyokusya));
+                jibunHioute.FriendKomaBB.Set(ky.Shogiban.GetBBKomaZenbu(OptionalPhase.From( jibunHioute.Taikyokusya)));
 
                 // 相手番の利き
                 Debug.Assert((int)aite < Conv_Taikyokusya.Itiran.Length, "");
@@ -1181,7 +1181,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
                     while (bb_fusagiMiti.Ref_PopNTZ(out Masu ms_fusagiMiti))
                     {
-                        bb_aiteKoma.Set(ky.Shogiban.GetBBKomaZenbu(aite));
+                        bb_aiteKoma.Set(ky.Shogiban.GetBBKomaZenbu(OptionalPhase.From( aite)));
 
                         // 塞がれている升の８近傍に、塞いでいる駒がいるだろう☆
                         foreach (Komasyurui ks_fusagi8KinboKoma in Conv_Komasyurui.Itiran)

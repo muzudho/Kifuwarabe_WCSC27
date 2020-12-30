@@ -93,7 +93,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
             return
                 aiteHioute.FriendRaion8KinboBB.Clone()// 相手らいおん　が逃げれる、相手らいおんの周りの空白
-                .Sitdown(ky.Shogiban.GetBBKomaZenbu(aite))// 相手の駒がない升
+                .Sitdown(ky.Shogiban.GetBBKomaZenbu(OptionalPhase.From( aite)))// 相手の駒がない升
                 .Sitdown(bb_idogoKikiNew)// こっちの利きがない升
                 .IsEmpty();// がない場合、詰み☆
             ;
@@ -161,7 +161,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
             // 相手らいおんが逃げようとしていて。
             return aiteHioute.FriendRaion8KinboBB.Clone()// 相手らいおんの８近傍
-            .Sitdown(ky.Shogiban.GetBBKomaZenbu(aiteHioute.Taikyokusya))// 相手の駒がない升
+            .Sitdown(ky.Shogiban.GetBBKomaZenbu(OptionalPhase.From( aiteHioute.Taikyokusya)))// 相手の駒がない升
             .Sitdown(bb_jibunKikiNew)// こっちの利きがない升
             .IsEmpty();// 相手らいおん　が逃げれる升がない場合、詰み☆
         }

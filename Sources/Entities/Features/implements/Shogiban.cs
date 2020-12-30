@@ -1150,9 +1150,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// FIXME:暫定
         /// </summary>
         /// <returns></returns>
-        public Bitboard GetBBKomaZenbu(Taikyokusya tai)
+        public Bitboard GetBBKomaZenbu(Option<Phase> optionalPhase)
         {
-            return BB_KomaZenbu.Get(OptionalPhase.From(tai));
+            return BB_KomaZenbu.Get(optionalPhase);
         }
         /// <summary>
         /// FIXME: 暫定
