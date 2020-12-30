@@ -188,11 +188,13 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 out_ks = Komasyurui.Yososu;
                 return false;
             }
-            public bool Exists(Taikyokusya tai, Masu ms)
+            public bool Exists(Option<Phase> optionalPhase, Masu ms)
             {
-                for (int iKm = 0; iKm < Conv_Koma.ItiranTai[(int)tai].Length; iKm++)
+                var phaseIndex = OptionalPhase.ToInt(optionalPhase);
+
+                for (int iKm = 0; iKm < Conv_Koma.ItiranTai[phaseIndex].Length; iKm++)
                 {
-                    if (ValueKm[(int)Conv_Koma.ItiranTai[(int)tai][iKm]].IsOn(ms)) { return true; }
+                    if (ValueKm[(int)Conv_Koma.ItiranTai[phaseIndex][iKm]].IsOn(ms)) { return true; }
                 }
                 return false;
             }
@@ -1214,13 +1216,13 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             return BB_KomaZenbu.Exists(ms);
         }
         */
-        public bool ExistsBBKoma(Option<Phase> phase, Masu ms, out Komasyurui ks)
+        public bool ExistsBBKoma(Option<Phase> optionalPhase, Masu ms, out Komasyurui ks)
         {
-            return BB_Koma.Exists(phase, ms, out ks);
+            return BB_Koma.Exists(optionalPhase, ms, out ks);
         }
-        public bool ExistsBBKoma(Taikyokusya tai, Masu ms)
+        public bool ExistsBBKoma(Option<Phase> optionalPhase, Masu ms)
         {
-            return BB_Koma.Exists(tai, ms);
+            return BB_Koma.Exists(optionalPhase, ms);
         }
         public bool ExistsBBKoma(Koma km, Masu ms)
         {

@@ -138,13 +138,13 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 return Hontai.Shogiban.ExistsBBKomaZenbu(ms_ibasho);
             }
             */
-            public bool ExistsKoma(Taikyokusya tai, Masu ms, out Komasyurui out_ks)
+            public bool ExistsKoma(Option<Phase> optionalPhase, Masu ms, out Komasyurui out_ks)
             {
-                return Hontai.Shogiban.ExistsBBKoma(OptionalPhase.From( tai), ms, out out_ks);
+                return Hontai.Shogiban.ExistsBBKoma(optionalPhase, ms, out out_ks);
             }
-            public bool ExistsKoma(Taikyokusya tai, Masu ms)
+            public bool ExistsKoma(Option<Phase> optionalPhase, Masu ms)
             {
-                return Hontai.Shogiban.ExistsBBKoma(tai, ms);
+                return Hontai.Shogiban.ExistsBBKoma(optionalPhase, ms);
             }
             public void ToSetIbasho(Koma km, Bitboard update_bb)
             {
