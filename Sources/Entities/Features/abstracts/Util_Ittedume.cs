@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Text;
 using Grayscale.Kifuwarakei.Entities.Game;
+using Grayscale.Kifuwarakei.Entities.Language;
 using Grayscale.Kifuwarakei.Entities.Logging;
 
 #if DEBUG
@@ -26,23 +27,23 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <param name="ms_t1">移動先</param>
         /// <param name="jibunHioute"></param>
         /// <returns></returns>
-        public static bool Ittedume_BanjoKoma(Kyokumen ky, Taikyokusya jibun, Masu ms_t0, Masu ms_t1, HiouteJoho jibunHioute, HiouteJoho aiteHioute)
+        public static bool Ittedume_BanjoKoma(Kyokumen ky, Option<Phase> phase, Masu ms_t0, Masu ms_t1, HiouteJoho jibunHioute, HiouteJoho aiteHioute)
         {
             Debug.Assert(ky.Sindan.IsBanjo(ms_t1), "升エラー");
 
-            Taikyokusya aite = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(OptionalPhase.From( jibun)));
+            Taikyokusya aite = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(phase));
 
             // 動かす駒
-            if (!ky.Shogiban.ExistsBBKoma(OptionalPhase.From( jibun), ms_t0, out Komasyurui ks_t0))
+            if (!ky.Shogiban.ExistsBBKoma(phase, ms_t0, out Komasyurui ks_t0))
             {
                 StringBuilder reigai1 = new StringBuilder();
-                reigai1.AppendLine($"盤上の駒じゃないじゃないか☆（＾▽＾）ｗｗｗ jibun=[{ jibun }] ms_src=[{ ms_t0 }] ks_jibun=[{ ks_t0 }]");
+                reigai1.AppendLine($"盤上の駒じゃないじゃないか☆（＾▽＾）ｗｗｗ phase=[{ phase }] ms_src=[{ ms_t0 }] ks_jibun=[{ ks_t0 }]");
                 Util_Information.HyojiKomanoIbasho(ky.Shogiban, reigai1);
                 var msg = reigai1.ToString();
                 Logger.Flush(msg);
                 throw new Exception(msg);
             }
-            Koma km_t0 = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks_t0, OptionalPhase.From(jibun));
+            Koma km_t0 = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks_t0, phase);
             Koma km_t1 = km_t0; // FIXME: 成りを考慮していないぜ☆（＞＿＜）
 
             // Ａ Ｂ  Ｃ
@@ -81,7 +82,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 }
 
                 // 移動後の利きを作り直し
-                bb_idogoKikiNew = ky.Shogiban.ToBitboard_KikisuZenbuPositiveNumber(OptionalPhase.From( jibun), ky.Sindan);
+                bb_idogoKikiNew = ky.Shogiban.ToBitboard_KikisuZenbuPositiveNumber(phase, ky.Sindan);
 
                 // 盤上の重ね利きの数の差分更新を元に戻すぜ☆（＾▽＾）
                 {

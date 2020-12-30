@@ -419,7 +419,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                         while (idosakiBB.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
                         {
                             // 一手詰めルーチン☆
-                            bool ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);
+                            bool ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, OptionalPhase.From( jibun), ms_src, ms_ido, jibunHioute, aiteHioute);
 
                             AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
 
@@ -438,7 +438,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                         while (idosakiBB.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
                         {
                             // 一手詰めルーチン☆
-                            bool ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);
+                            bool ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, OptionalPhase.From(jibun), ms_src, ms_ido, jibunHioute, aiteHioute);
 
                             AddMoveBadOrGood(ittedume, MisuteruUgoki(ky, OptionalPhase.From(jibun), ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
 
@@ -518,7 +518,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                         {
                             if (TadasuteNoUgoki(ky, OptionalPhase.From(jibun), ms_ido, false))// タダ捨ての動きに限る☆
                             {
-                                ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
+                                ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, OptionalPhase.From(jibun), ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
 
                                 AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType | MoveType.N19_Option_NigemitiWoAkeruTe, sasiteType);
 
@@ -539,7 +539,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                         {
                             if (!TadasuteNoUgoki(ky, OptionalPhase.From(jibun), ms_ido, false))// タダ捨てではない動きに限る☆
                             {
-                                ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
+                                ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, OptionalPhase.From(jibun), ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
 
                                 AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType | MoveType.N19_Option_NigemitiWoAkeruTe, sasiteType);
 
@@ -555,7 +555,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                         while (idosakiBB.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
                         {
                             // 一手詰めルーチン☆
-                            ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);
+                            ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, OptionalPhase.From(jibun), ms_src, ms_ido, jibunHioute, aiteHioute);
 
                             AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
 
@@ -575,7 +575,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                         {
                             if (!TadasuteNoUgoki(ky, OptionalPhase.From(jibun), ms_ido, false))// タダ捨てではない動きに限る☆
                             {
-                                ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
+                                ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, OptionalPhase.From(jibun), ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
 
                                 AddMoveBadOrGood(ittedume, MisuteruUgoki(ky, OptionalPhase.From(jibun), ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
 
@@ -689,7 +689,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                         {
                             if (!TadasuteNoUgoki(ky, OptionalPhase.From(jibun), ms_ido, false))// タダ捨てではない動きに限る☆
                             {
-                                ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
+                                ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, OptionalPhase.From(jibun), ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
 
                                 // 成れる場合
                                 if (IsNareruZone(ms_ido, OptionalPhase.From( jibun), ky.Sindan))
@@ -715,7 +715,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                         {
                             if (TadasuteNoUgoki(ky, OptionalPhase.From(jibun), ms_ido, false))// タダ捨ての動きに限る☆
                             {
-                                ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
+                                ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, OptionalPhase.From(jibun), ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
 
                                 // 成れる場合
                                 if (IsNareruZone(ms_ido, OptionalPhase.From( jibun), ky.Sindan))
@@ -736,7 +736,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     {
                         while (bb_idosakiCopy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
                         {
-                            ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
+                            ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, OptionalPhase.From(jibun), ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
 
                             AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
 
@@ -756,7 +756,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                         {
                             if (!TadasuteNoUgoki(ky, OptionalPhase.From(jibun), ms_ido, false))// タダ捨てではない動きに限るぜ☆（＾▽＾）
                             {
-                                ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
+                                ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, OptionalPhase.From(jibun), ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
 
                                 // 成れる場合
                                 if (IsNareruZone(ms_ido, OptionalPhase.From( jibun), ky.Sindan))
@@ -861,7 +861,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                         {
                             if (!TadasuteNoUgoki(ky, OptionalPhase.From(jibun), ms_ido, false))// タダ捨てではない動きに限る☆
                             {
-                                ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
+                                ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, OptionalPhase.From(jibun), ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
 
                                 AddMoveGood(ittedume, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
 
@@ -884,7 +884,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                         {
                             if (TadasuteNoUgoki(ky, OptionalPhase.From(jibun), ms_ido, false))// タダ捨ての動きに限る☆
                             {
-                                ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
+                                ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, OptionalPhase.From(jibun), ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
 
                                 AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
 
@@ -899,7 +899,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     {
                         while (bb_idosakiCopy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
                         {
-                            ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
+                            ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, OptionalPhase.From(jibun), ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
 
                             AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
 
@@ -919,7 +919,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                         {
                             if (!TadasuteNoUgoki(ky, OptionalPhase.From(jibun), ms_ido, false))// タダ捨てではない動きに限るぜ☆（＾▽＾）
                             {
-                                ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, jibun, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
+                                ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, OptionalPhase.From(jibun), ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
 
                                 AddMoveBadOrGood(ittedume, MisuteruUgoki(ky, OptionalPhase.From(jibun), ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
 
