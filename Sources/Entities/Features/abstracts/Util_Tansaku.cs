@@ -1,6 +1,7 @@
 ﻿namespace Grayscale.Kifuwarakei.Entities.Features
 {
     using Grayscale.Kifuwarakei.Entities.Game;
+    using Grayscale.Kifuwarakei.Entities.Language;
 #if DEBUG
     using System;
     using System.Collections.Generic;
@@ -80,7 +81,7 @@ using System.Text;
         /// <param name="isJoseki"></param>
         /// <param name="syuturyoku"></param>
         /// <param name="hint"></param>
-        public delegate void Dlgt_CreateJoho(Taikyokusya hyokatiNoTaikyokusya,
+        public delegate void Dlgt_CreateJoho(Option<Phase> hyokatiNoPhase,
 #if DEBUG
             Hyokati alpha,
             Hyokati beta,
@@ -561,7 +562,7 @@ using System.Text;
                             }
 
                             dlgt_CreateJoho(
-                                ky.Teban,
+                                OptionalPhase.From( ky.Teban),
 #if DEBUG
                     alpha,
                     beta,
@@ -718,7 +719,7 @@ using System.Text;
                 }
 
                 dlgt_CreateJoho(
-                    OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(OptionalPhase.From( ky.Teban))),// DoSasite の後なので、相手の手番に進んでいるので、戻すぜ☆（＾～＾）
+                    Conv_Taikyokusya.Reverse(OptionalPhase.From( ky.Teban)),// DoSasite の後なので、相手の手番に進んでいるので、戻すぜ☆（＾～＾）
 #if DEBUG
                     Hyokati.Hyokati_Rei,// ここでアルファ無いんで
                     Hyokati.Hyokati_Rei,// ここでベータ無いんで
@@ -862,7 +863,7 @@ using System.Text;
                             yomisuji);
 
                         dlgt_CreateJoho(
-                            ky.Teban,
+                            OptionalPhase.From(ky.Teban),
 #if DEBUG
                             alpha,
                             beta,
@@ -983,7 +984,7 @@ using System.Text;
                         yomisuji);
 
                     dlgt_CreateJoho(
-                        ky.Teban,
+                        OptionalPhase.From(ky.Teban),
 #if DEBUG
                         alpha,
                         beta,
@@ -1058,7 +1059,7 @@ using System.Text;
                         yomisuji);
 
                     dlgt_CreateJoho(
-                        ky.Teban,
+                        OptionalPhase.From(ky.Teban),
 #if DEBUG
                         alpha,
                         beta,
@@ -1154,7 +1155,7 @@ using System.Text;
                         ConvMove.AppendFenTo(isSfen, eda_sasite, yomisuji);// このループでは、まだ指していない手だぜ☆
 
                         dlgt_CreateJoho(
-                            ky.Teban,
+                            OptionalPhase.From(ky.Teban),
 #if DEBUG
                             alpha,
                             beta,
@@ -1416,7 +1417,7 @@ using System.Text;
                         ConvMove.AppendFenTo(isSfen, eda_sasite, yomisuji);// このループで指した手だぜ☆
 
                         dlgt_CreateJoho(
-                            ky.Teban,
+                            OptionalPhase.From(ky.Teban),
 #if DEBUG
                             alpha,
                             beta,
@@ -1473,7 +1474,7 @@ using System.Text;
                         ConvMove.AppendFenTo(isSfen, eda_sasite, yomisuji);// このループで指した手だぜ☆
 
                         dlgt_CreateJoho(
-                            ky.Teban,
+                            OptionalPhase.From(ky.Teban),
 #if DEBUG
                             alpha,
                             beta,
@@ -1541,7 +1542,7 @@ using System.Text;
                         //Conv_Hyokati.Setumei(old_alpha, riyuHosoku);
 
                         dlgt_CreateJoho(
-                            ky.Teban,
+                            OptionalPhase.From(ky.Teban),
 #if DEBUG
                             alpha,
                             beta,

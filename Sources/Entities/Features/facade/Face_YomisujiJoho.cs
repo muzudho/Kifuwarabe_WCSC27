@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using Grayscale.Kifuwarakei.Entities.Game;
+using Grayscale.Kifuwarakei.Entities.Language;
 using Grayscale.Kifuwarakei.Entities.Logging;
 
 namespace Grayscale.Kifuwarakei.Entities.Features
@@ -13,7 +14,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <summary>
         /// 無視用☆（＾～＾）
         /// </summary>
-        public static Util_Tansaku.Dlgt_CreateJoho Dlgt_IgnoreJoho = (Taikyokusya hyokatiNoTaikyokusya,
+        public static Util_Tansaku.Dlgt_CreateJoho Dlgt_IgnoreJoho = (Option<Phase> hyokatiNoPhase,
 #if DEBUG
             Hyokati alpha,
             Hyokati beta,
@@ -36,7 +37,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// 読み筋情報
         /// </summary>
         public static Util_Tansaku.Dlgt_CreateJoho Dlgt_WriteYomisujiJoho = (
-            Taikyokusya hyokatiNoTaikyokusya,
+            Option<Phase> hyokatiNoPhase,
 #if DEBUG
             Hyokati alpha,
             Hyokati beta,
@@ -53,7 +54,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 #endif
             ) =>
         {
-            if (Util_Tansaku.KaisiTaikyokusya != hyokatiNoTaikyokusya)// 探索者の反対側の局面評価値の場合☆
+            if (Util_Tansaku.KaisiTaikyokusya != OptionalPhase.ToTaikyokusya( hyokatiNoPhase))// 探索者の反対側の局面評価値の場合☆
             {
                 // 評価値の符号を逆転
 #if DEBUG
@@ -144,8 +145,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     syuturyoku.Append(" ");
                     Conv_Hyokati.Setumei(hyokatiUtiwake.Okimari, syuturyoku);
                     syuturyoku.Append(" ");
-                    syuturyoku.Append(Util_Tansaku.KaisiTaikyokusya == hyokatiNoTaikyokusya ? "jibun_" : "aite_");
-                    syuturyoku.Append(hyokatiNoTaikyokusya == Taikyokusya.T1 ? "p1" : "p2");
+                    syuturyoku.Append(Util_Tansaku.KaisiTaikyokusya == OptionalPhase.ToTaikyokusya( hyokatiNoPhase) ? "jibun_" : "aite_");
+                    syuturyoku.Append(hyokatiNoPhase.Unwrap() == Phase.Black ? "p1" : "p2");
                     syuturyoku.Append(" ");
                     syuturyoku.Append(hyokatiUtiwake.Riyu.ToString());
                     if ("" != hyokatiUtiwake.RiyuHosoku)
