@@ -315,7 +315,7 @@
                             // トライ
                             {
                                 Util_Information.Setumei_Bitboards(new string[] { "対局者１", "対局者２（トライ）" },
-                                    new Bitboard[] { ky.BB_Try[(int)Taikyokusya.T1], ky.BB_Try[(int)Taikyokusya.T2] }, syuturyoku);
+                                    new Bitboard[] { ky.BB_Try[(int)Phase.Black], ky.BB_Try[(int)Phase.White] }, syuturyoku);
                                 syuturyoku.AppendLine();
                             }
 

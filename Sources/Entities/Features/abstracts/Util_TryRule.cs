@@ -39,7 +39,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             m_trySakiBB_.Clear();
 
             // 自分はＮ段目にいる☆
-            int dan = Conv_Masu.ToDan_JibunSiten(tb, ms1, ky.Sindan);
+            int dan = Conv_Masu.ToDan_JibunSiten(OptionalPhase.From( tb), ms1, ky.Sindan);
             bool nidanme = 2 == dan;
             Util_Test.AppendLine("２段目にいるか☆？[{ nidanme }]　わたしは[{ dan }]段目にいるぜ☆", syuturyoku);
             if (!nidanme)
