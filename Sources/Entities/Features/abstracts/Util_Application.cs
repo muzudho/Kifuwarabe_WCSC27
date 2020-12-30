@@ -893,7 +893,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     // 何手詰め、何手詰められ　の表記が出て以降の成績を記録するぜ☆（＾～＾）
 
                     // 一手前の局面と、指したあとの指し手で成績更新☆（＾▽＾）
-                    Conv_Seiseki.ResultToCount(ky.Teban, Util_Application.Result(ky), out int kati, out int hikiwake, out int make);
+                    Conv_Seiseki.ResultToCount(OptionalPhase.From( ky.Teban), Util_Application.Result(ky), out int kati, out int hikiwake, out int make);
 
                     StringBuilder kyMojiretu = new StringBuilder();
                     ky.AppendFenTo(Option_Application.Optionlist.USI, kyMojiretu);
