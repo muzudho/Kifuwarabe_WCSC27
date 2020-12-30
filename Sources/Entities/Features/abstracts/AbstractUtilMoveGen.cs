@@ -401,7 +401,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     {
                         ky.Shogiban.ToSitdown_BBKikiZenbu(aiteHioute.Taikyokusya, idosakiBB);// らいおん　が自分から利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
 
-                        Bitboard trysakiBB = Util_TryRule.GetTrySaki(ky, idosakiBB, jibun, ms_src, syuturyoku);
+                        Bitboard trysakiBB = Util_TryRule.GetTrySaki(ky, idosakiBB, OptionalPhase.From( jibun), ms_src, syuturyoku);
                         if (trysakiBB.GetNTZ(out ms_ido))// トライはどこか１つ行けばいい
                         {
                             AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
@@ -413,7 +413,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 #region 駒を取る手
                 case MoveType.N01_KomaWoToruTe:
                     {
-                        idosakiBB.Sitdown(Util_TryRule.GetTrySaki(ky, idosakiBB, jibun, ms_src, syuturyoku));// トライ　は除外するぜ☆（＾▽＾）
+                        idosakiBB.Sitdown(Util_TryRule.GetTrySaki(ky, idosakiBB, OptionalPhase.From(jibun), ms_src, syuturyoku));// トライ　は除外するぜ☆（＾▽＾）
                         ky.Shogiban.ToSitdown_BBKikiZenbu(aiteHioute.Taikyokusya, idosakiBB);// らいおん　が自分から利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
 
                         while (idosakiBB.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
@@ -432,7 +432,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 case MoveType.N02_BottiKanmanSasi://thru
                 case MoveType.N08_HimotukiKanmanSasi:
                     {
-                        idosakiBB.Sitdown(Util_TryRule.GetTrySaki(ky, idosakiBB, jibun, ms_src, syuturyoku));// トライ　は除外するぜ☆（＾▽＾）
+                        idosakiBB.Sitdown(Util_TryRule.GetTrySaki(ky, idosakiBB, OptionalPhase.From(jibun), ms_src, syuturyoku));// トライ　は除外するぜ☆（＾▽＾）
                         ky.Shogiban.ToSitdown_BBKikiZenbu(aiteHioute.Taikyokusya, idosakiBB);// らいおん　が自分から相手の利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
 
                         while (idosakiBB.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆

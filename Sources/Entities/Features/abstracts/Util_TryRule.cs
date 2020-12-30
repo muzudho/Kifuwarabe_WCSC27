@@ -33,13 +33,15 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <param name="tb">手番</param>
         /// <param name="ms1">手番らいおんがいる升</param>
         /// <returns></returns>
-        public static Bitboard GetTrySaki(Kyokumen ky, Bitboard kikiBB, Taikyokusya tb, Masu ms1, StringBuilder syuturyoku)
+        public static Bitboard GetTrySaki(Kyokumen ky, Bitboard kikiBB, Option<Phase> optionalPhase, Masu ms1, StringBuilder syuturyoku)
         {
+            var phaseIndex = OptionalPhase.ToInt(optionalPhase);
+
             Util_Test.AppendLine("テスト：　トライルール", syuturyoku);
             m_trySakiBB_.Clear();
 
             // 自分はＮ段目にいる☆
-            int dan = Conv_Masu.ToDan_JibunSiten(OptionalPhase.From( tb), ms1, ky.Sindan);
+            int dan = Conv_Masu.ToDan_JibunSiten(optionalPhase, ms1, ky.Sindan);
             bool nidanme = 2 == dan;
             Util_Test.AppendLine("２段目にいるか☆？[{ nidanme }]　わたしは[{ dan }]段目にいるぜ☆", syuturyoku);
             if (!nidanme)
@@ -52,7 +54,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             // １段目に移動できる升☆
 
             m_trySakiBB_.Set(kikiBB);
-            m_trySakiBB_.Select(ky.BB_Try[(int)tb]);
+            m_trySakiBB_.Select(ky.BB_Try[phaseIndex]);
             Util_Test.TestCode((StringBuilder syuturyoku2) =>
             {
                 Util_Information.Setumei_Bitboards(new string[] { "らいおんの利き", "１段目に移動できる升" },
@@ -62,7 +64,7 @@ new Bitboard[] { kikiBB, m_trySakiBB_ }, syuturyoku2);
             // 味方の駒がないところ☆
             Bitboard spaceBB = new Bitboard();
             spaceBB.Set(ky.BB_BoardArea);
-            spaceBB.Sitdown(ky.Shogiban.GetBBKomaZenbu(OptionalPhase.From( tb)));
+            spaceBB.Sitdown(ky.Shogiban.GetBBKomaZenbu(optionalPhase));
             m_trySakiBB_.Select(spaceBB);
             Util_Test.TestCode((StringBuilder str) =>
             {
@@ -77,7 +79,7 @@ new Bitboard[] { spaceBB, m_trySakiBB_ }, str);
             }
 
             // 相手の利きが届いていないところ☆
-            Taikyokusya tb2 = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(OptionalPhase.From( tb)));
+            Taikyokusya tb2 = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(optionalPhase));
             Bitboard safeBB = new Bitboard();
             safeBB.Set(ky.BB_BoardArea);
             ky.Shogiban.ToSitdown_BBKikiZenbu(tb2, safeBB);

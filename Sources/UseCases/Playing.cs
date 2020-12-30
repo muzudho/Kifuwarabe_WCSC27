@@ -2572,7 +2572,7 @@ USI                      = {Option_Application.Optionlist.USI}");
                 {
                     bool tmp = Util_Test.TestMode;
                     Util_Test.TestMode = true;
-                    Util_TryRule.GetTrySaki(ky, kikiBB, tai, ms1, syuturyoku);
+                    Util_TryRule.GetTrySaki(ky, kikiBB, OptionalPhase.From(tai), ms1, syuturyoku);
                     Util_Test.TestMode = tmp;
                 }
                 #endregion
