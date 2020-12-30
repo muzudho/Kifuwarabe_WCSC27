@@ -1295,9 +1295,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             CB_KikisuZenbu.Clear(masuYososu);
             CB_KikisuKomabetu.Clear(masuYososu);
         }
-        public int CountKikisuZenbu(Taikyokusya tai, Masu ms)
+        public int CountKikisuZenbu(Option<Phase> phase, Masu ms)
         {
-            return CB_KikisuZenbu.Get(OptionalPhase.From( tai), ms);
+            return CB_KikisuZenbu.Get(phase, ms);
         }
         public int CountKikisuKomabetu(Koma km, Masu ms)
         {

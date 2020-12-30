@@ -1229,7 +1229,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             while (kikiBB.Ref_PopNTZ(out Masu ms_kiki))
             {
                 // 利きの重ね掛け☆ 0以上なら取り返せるぜ☆（＾▽＾）
-                kasaneGake = ky.Shogiban.CountKikisuZenbu(jibun, ms_kiki) - ky.Shogiban.CountKikisuZenbu(aite, ms_kiki);
+                kasaneGake = ky.Shogiban.CountKikisuZenbu(OptionalPhase.From( jibun), ms_kiki) - ky.Shogiban.CountKikisuZenbu(OptionalPhase.From( aite), ms_kiki);
                 if (0 < kasaneGake)
                 {
                     nakamaOld++;
@@ -1245,7 +1245,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             while (kikiBB.Ref_PopNTZ(out Masu ms_kiki))
             {
                 // 利きの重ね掛け☆ 0以上なら取り返せるぜ☆（＾▽＾）
-                kasaneGake = ky.Shogiban.CountKikisuZenbu(jibun, ms_kiki) - ky.Shogiban.CountKikisuZenbu(aite, ms_kiki);
+                kasaneGake = ky.Shogiban.CountKikisuZenbu(OptionalPhase.From( jibun), ms_kiki) - ky.Shogiban.CountKikisuZenbu(OptionalPhase.From(aite), ms_kiki);
                 if (0 < kasaneGake)
                 {
                     nakamaNew++;
@@ -1289,14 +1289,14 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             if (ky.Shogiban.ExistsKikiZenbu(ts2, ms_dst)) // 相手の利きがあるところに放り込む
             {
                 // 移動先の升の、味方の重ね利き　の数（これから動かす駒を除く）
-                int kiki_ts1 = ky.Shogiban.CountKikisuZenbu(ts1, ms_dst);
+                int kiki_ts1 = ky.Shogiban.CountKikisuZenbu(OptionalPhase.From(ts1), ms_dst);
                 if (!da)
                 {
                     // 「指」だと、自分の利きの数はカウントしないぜ☆（＾▽＾）ｗｗｗこれから動くからな☆（＾▽＾）ｗｗｗｗ
                     // 「打」だと、数字を－１してはいけないぜ☆
                     kiki_ts1--;
                 }
-                int kiki_ts2 = ky.Shogiban.CountKikisuZenbu(ts2, ms_dst);
+                int kiki_ts2 = ky.Shogiban.CountKikisuZenbu(OptionalPhase.From(ts2), ms_dst);
 
                 if (0 == kiki_ts1 && 0 < kiki_ts2)//味方の利きがなくて、敵の利きがあれば、タダ捨てだぜ☆（＾▽＾）ｗｗｗ
                 {
