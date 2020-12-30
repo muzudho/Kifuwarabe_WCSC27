@@ -853,9 +853,9 @@ P2差分  =[{hyokati2}]
                     sindan1.AppendLine($"iKm=[{iKm}]");
 
                     sindan1.AppendLine("利き：（再計算）");
-                    Util_Information.Setumei_Bitboards(Med_Koma.GetKomasyuruiNamaeItiran(OptionalPhase.From( tai)), saikeisan.WhereBBKiki(tai), sindan1);
+                    Util_Information.Setumei_Bitboards(Med_Koma.GetKomasyuruiNamaeItiran(OptionalPhase.From( tai)), saikeisan.WhereBBKiki(OptionalPhase.From(tai)), sindan1);
 
-                    kys.Setumei_GenkoKiki(tai, sindan1); // 利き：（現行）
+                    kys.Setumei_GenkoKiki(OptionalPhase.From(tai), sindan1); // 利き：（現行）
 
                     var msg = sindan1.ToString();
                     sindan1.Clear();

@@ -175,10 +175,10 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 return Hontai.Komawari.Get(phase);
             }
 
-            public void Setumei_GenkoKiki(Taikyokusya tai, StringBuilder syuturyoku)
+            public void Setumei_GenkoKiki(Option<Phase> optionalPhase, StringBuilder syuturyoku)
             {
                 syuturyoku.AppendLine("利き：（現行）");
-                Util_Information.Setumei_Bitboards(Med_Koma.GetKomasyuruiNamaeItiran(OptionalPhase.From( tai)), Hontai.Shogiban.WhereBBKiki(tai), syuturyoku);
+                Util_Information.Setumei_Bitboards(Med_Koma.GetKomasyuruiNamaeItiran(optionalPhase), Hontai.Shogiban.WhereBBKiki(optionalPhase), syuturyoku);
             }
 
             /// <summary>

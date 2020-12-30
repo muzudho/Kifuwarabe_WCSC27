@@ -307,12 +307,12 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 return ValueKm[(int)km];
             }
-            public Bitboard[] Where(Taikyokusya tai)
+            public Bitboard[] Where(Option<Phase> optionalPhase)
             {
                 Bitboard[] bbItiran = new Bitboard[Conv_Komasyurui.Itiran.Length];
                 foreach (Komasyurui ks in Conv_Komasyurui.Itiran)
                 {
-                    bbItiran[(int)ks] = ValueKm[(int)Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(tai))];
+                    bbItiran[(int)ks] = ValueKm[(int)Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, optionalPhase)];
                 }
                 return bbItiran;
             }
@@ -1084,9 +1084,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// </summary>
         /// <param name="tai"></param>
         /// <returns></returns>
-        public Bitboard[] WhereBBKiki(Taikyokusya tai)
+        public Bitboard[] WhereBBKiki(Option<Phase> optionalPhase)
         {
-            return BB_Kiki.Where(tai);
+            return BB_Kiki.Where(optionalPhase);
         }
 
         public bool IsActiveKomanoUgokikata()
