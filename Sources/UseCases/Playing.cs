@@ -593,8 +593,8 @@ Kettyaku = {Util_Application.IsKettyaku(ky)}");
                     // 対局者１、２の らいおん のいる場所を表示☆
                     Util_Information.Setumei_Bitboards(new string[] { "Ｐ１", "Ｐ２" },
                         new Bitboard[] {
-                            ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks,new Option<Phase>(Phase.Black))),
-                            ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks,new Option<Phase>(Phase.White)))
+                            ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks,OptionalPhase.Black)),
+                            ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks,OptionalPhase.White))
                         }, syuturyoku);
                 }
             }
@@ -1033,8 +1033,8 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                             // 対局者１、２の らいおん のいる場所を表示☆
                             Util_Information.Setumei_Bitboards(new string[] { "Ｐ１", "Ｐ２" },
                                 new Bitboard[] {
-                            ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks,new Option<Phase>(Phase.Black))),
-                            ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks,new Option<Phase>(Phase.White)))
+                            ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks,OptionalPhase.Black)),
+                            ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks,OptionalPhase.White))
                                 }, syuturyoku);
 
                             //caret_1 = fen.Length;

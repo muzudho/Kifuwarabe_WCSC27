@@ -1784,9 +1784,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 {
                     Komasyurui ks = Conv_Komasyurui.Itiran[iKs];
 
-                    tmp.Set(Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, new Option<Phase>(Phase.Black))).Bitflip128());
-                    Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, new Option<Phase>(Phase.Black))).Set(Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, new Option<Phase>(Phase.White))).Bitflip128());
-                    Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, new Option<Phase>(Phase.White))).Set(tmp);
+                    tmp.Set(Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.Black)).Bitflip128());
+                    Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.Black)).Set(Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.White)).Bitflip128());
+                    Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.White)).Set(tmp);
                 }
                 // 盤面反転、駒の先後も反転だぜ☆（＾▽＾）
             }

@@ -250,7 +250,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 // 後手の持ち駒の数
                 foreach (MotiKomasyurui mks in Conv_MotiKomasyurui.Itiran)
                 {
-                    MotiKoma mk = Med_Koma.MotiKomasyuruiAndPhaseToMotiKoma(mks, new Option<Phase>(Phase.White));
+                    MotiKoma mk = Med_Koma.MotiKomasyuruiAndPhaseToMotiKoma(mks, OptionalPhase.White);
                     if (ky.MotiKomas.HasMotiKoma(mk))
                     {
                         syuturyoku.Append(Conv_MotiKomasyurui.GetHyojiName(mks)); syuturyoku.Append(ky.MotiKomas.Get(mk).ToString());
@@ -291,7 +291,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 foreach (MotiKomasyurui mks in Conv_MotiKomasyurui.Itiran)
                 {
-                    MotiKoma mk = Med_Koma.MotiKomasyuruiAndPhaseToMotiKoma(mks, new Option<Phase>(Phase.Black));
+                    MotiKoma mk = Med_Koma.MotiKomasyuruiAndPhaseToMotiKoma(mks, OptionalPhase.Black);
                     if (ky.MotiKomas.HasMotiKoma(mk))
                     {
                         syuturyoku.Append(Conv_MotiKomasyurui.GetHyojiName(mks)); syuturyoku.Append(ky.MotiKomas.Get(mk).ToString());
@@ -359,7 +359,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 foreach (MotiKomasyurui mks in Conv_MotiKomasyurui.Itiran)
                 {
-                    MotiKoma mk = Med_Koma.MotiKomasyuruiAndPhaseToMotiKoma(mks, new Option<Phase>(Phase.White));
+                    MotiKoma mk = Med_Koma.MotiKomasyuruiAndPhaseToMotiKoma(mks, OptionalPhase.White);
                     if (ky.MotiKomas.HasMotiKoma(mk))
                     {
                         syuturyoku.Append(Conv_MotiKomasyurui.GetHyojiName(mks)); syuturyoku.Append(ky.MotiKomas.Get(mk).ToString());
@@ -406,7 +406,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 // 先手の持ち駒の数
                 foreach (MotiKomasyurui mks in Conv_MotiKomasyurui.Itiran)
                 {
-                    MotiKoma mk = Med_Koma.MotiKomasyuruiAndPhaseToMotiKoma(mks, new Option<Phase>(Phase.Black));
+                    MotiKoma mk = Med_Koma.MotiKomasyuruiAndPhaseToMotiKoma(mks, OptionalPhase.Black);
                     if (ky.MotiKomas.HasMotiKoma(mk))
                     {
                         syuturyoku.Append(Conv_MotiKomasyurui.GetHyojiName(mks)); syuturyoku.Append(ky.MotiKomas.Get(mk).ToString());

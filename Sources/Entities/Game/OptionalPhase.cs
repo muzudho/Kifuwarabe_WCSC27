@@ -5,6 +5,15 @@ namespace Grayscale.Kifuwarakei.Entities.Game
 {
     public static class OptionalPhase
     {
+        static OptionalPhase()
+        {
+            Black = new Option<Phase>(Phase.Black);
+            White = new Option<Phase>(Phase.White);
+        }
+
+        public static readonly Option<Phase> Black;
+        public static readonly Option<Phase> White;
+
         public static Option<Phase> From(int tai)
         {
             return From((Taikyokusya)tai);
@@ -14,9 +23,9 @@ namespace Grayscale.Kifuwarakei.Entities.Game
             switch (tai)
             {
                 case Taikyokusya.T1:
-                    return new Option<Phase>(Phase.Black);
+                    return OptionalPhase.Black;
                 case Taikyokusya.T2:
-                    return new Option<Phase>(Phase.White);
+                    return OptionalPhase.White;
                 case Taikyokusya.Yososu:
                     return Option<Phase>.None;
                 default:

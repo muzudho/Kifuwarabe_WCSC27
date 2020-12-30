@@ -1,4 +1,6 @@
 ﻿using Grayscale.Kifuwarakei.Entities.Game;
+using Grayscale.Kifuwarakei.Entities.Language;
+using System;
 using System.Text;
 
 namespace Grayscale.Kifuwarakei.Entities.Features
@@ -21,15 +23,23 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <summary>
         /// 対局者反転
         /// </summary>
-        /// <param name="ts"></param>
+        /// <param name="phase"></param>
         /// <returns></returns>
-        public static Taikyokusya Hanten(Taikyokusya ts)
+        public static Option<Phase> Hanten(Option<Phase> optionalPhase)
         {
-            switch (ts)
+            var (exists, phase) = optionalPhase.Match;
+            if (exists)
             {
-                case Taikyokusya.T1: return Taikyokusya.T2;
-                case Taikyokusya.T2: return Taikyokusya.T1;
-                default: return ts;
+                switch (phase)
+                {
+                    case Phase.Black: return Phase.White;
+                    case Phase.White: return Phase.Black;
+                    default: throw new Exception($"Phase={phase} is fail.");
+                }
+            }
+            else
+            {
+                return phase;
             }
         }
 
