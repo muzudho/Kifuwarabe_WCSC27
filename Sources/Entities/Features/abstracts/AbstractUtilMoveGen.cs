@@ -359,7 +359,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 case MoveType.N13_HippakuKaeriutiTe:
                     if (jibunHioute.HippakuKaeriutiTe)
                     {
-                        ky.Shogiban.ToSitdown_BBKikiZenbu(aiteHioute.Taikyokusya, idosakiBB);// らいおん　が自分から利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
+                        ky.Shogiban.ToSitdown_BBKikiZenbu(OptionalPhase.From( aiteHioute.Taikyokusya), idosakiBB);// らいおん　が自分から利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
 
                         if (idosakiBB.GetNTZ(out ms_ido)) // 攻めてきた駒（１つだけ）を取るということ☆
                         {
@@ -372,7 +372,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 case MoveType.N14_YoyuKaeriutiTe:
                     if (!jibunHioute.HippakuKaeriutiTe)
                     {
-                        ky.Shogiban.ToSitdown_BBKikiZenbu(aiteHioute.Taikyokusya, idosakiBB);// らいおん　が自分から利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
+                        ky.Shogiban.ToSitdown_BBKikiZenbu(OptionalPhase.From(aiteHioute.Taikyokusya), idosakiBB);// らいおん　が自分から利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
 
                         if (idosakiBB.GetNTZ(out ms_ido)) // 攻めてきた駒（１つだけ）を取るということ☆
                         {
@@ -385,7 +385,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 case MoveType.N17_RaionCatchChosa://thru
                 case MoveType.N12_RaionCatch:
                     {
-                        ky.Shogiban.ToSitdown_BBKikiZenbu(aiteHioute.Taikyokusya, idosakiBB);// らいおん　が自分から利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
+                        ky.Shogiban.ToSitdown_BBKikiZenbu(OptionalPhase.From(aiteHioute.Taikyokusya), idosakiBB);// らいおん　が自分から利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
                         if (idosakiBB.GetNTZ(out ms_ido)) // らいおん（１つだけ）を取るということ☆
                         {
                             if (MoveType.N17_RaionCatchChosa == sasiteType) { jibunHioute.RaionCatchChosa = true; return; } // 調査するだけなら、らいおんキャッチできることが分かったので終了☆（＾～＾）
@@ -399,7 +399,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 #region トライ
                 case MoveType.N16_Try:
                     {
-                        ky.Shogiban.ToSitdown_BBKikiZenbu(aiteHioute.Taikyokusya, idosakiBB);// らいおん　が自分から利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
+                        ky.Shogiban.ToSitdown_BBKikiZenbu(OptionalPhase.From(aiteHioute.Taikyokusya), idosakiBB);// らいおん　が自分から利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
 
                         Bitboard trysakiBB = Util_TryRule.GetTrySaki(ky, idosakiBB, optionalPhase, ms_src, syuturyoku);
                         if (trysakiBB.GetNTZ(out ms_ido))// トライはどこか１つ行けばいい
@@ -414,7 +414,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 case MoveType.N01_KomaWoToruTe:
                     {
                         idosakiBB.Sitdown(Util_TryRule.GetTrySaki(ky, idosakiBB, optionalPhase, ms_src, syuturyoku));// トライ　は除外するぜ☆（＾▽＾）
-                        ky.Shogiban.ToSitdown_BBKikiZenbu(aiteHioute.Taikyokusya, idosakiBB);// らいおん　が自分から利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
+                        ky.Shogiban.ToSitdown_BBKikiZenbu(OptionalPhase.From(aiteHioute.Taikyokusya), idosakiBB);// らいおん　が自分から利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
 
                         while (idosakiBB.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
                         {
@@ -433,7 +433,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 case MoveType.N08_HimotukiKanmanSasi:
                     {
                         idosakiBB.Sitdown(Util_TryRule.GetTrySaki(ky, idosakiBB, optionalPhase, ms_src, syuturyoku));// トライ　は除外するぜ☆（＾▽＾）
-                        ky.Shogiban.ToSitdown_BBKikiZenbu(aiteHioute.Taikyokusya, idosakiBB);// らいおん　が自分から相手の利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
+                        ky.Shogiban.ToSitdown_BBKikiZenbu(OptionalPhase.From(aiteHioute.Taikyokusya), idosakiBB);// らいおん　が自分から相手の利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
 
                         while (idosakiBB.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
                         {
@@ -1620,7 +1620,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             if (flag.HasFlag(MoveType.N01_KomaWoToruTe))
             {
                 // 移動先
-                ky.Shogiban.ToSet_BBKomaZenbu(OptionalPhase.ToTaikyokusya( optionalOpponent), idosakiBB_base);// 相手の駒があるところだけ☆（＾▽＾）
+                ky.Shogiban.ToSet_BBKomaZenbu( optionalOpponent, idosakiBB_base);// 相手の駒があるところだけ☆（＾▽＾）
                 ky.Shogiban.ToSitdown_BBKoma(aiteHioute.KmRaion, idosakiBB_base);// らいおんキャッチ　は除外するぜ☆（＾▽＾）
                 idosakiBB_base.Sitdown(jibunHioute.CheckerBB); // 返討手　は除外するぜ☆（＾▽＾）
                 if (!idosakiBB_base.IsEmpty())
@@ -1814,7 +1814,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     idosakiBB_base.Set(ky.BB_BoardArea);
                     ky.Shogiban.ToSitdown_BBKomaZenbu(OptionalPhase.Black, idosakiBB_base);// 持ち駒の打てる場所　＝　駒が無いところ☆
                     ky.Shogiban.ToSitdown_BBKomaZenbu(OptionalPhase.White, idosakiBB_base);
-                    ky.Shogiban.ToSelect_BBKikiZenbu(OptionalPhase.ToTaikyokusya( optionalPhase), idosakiBB_base);// 紐を付ける☆
+                    ky.Shogiban.ToSelect_BBKikiZenbu( optionalPhase, idosakiBB_base);// 紐を付ける☆
                     if (!idosakiBB_base.IsEmpty())
                     {
 #if DEBUG
@@ -1854,7 +1854,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     idosakiBB_base.Set(ky.BB_BoardArea);
                     ky.Shogiban.ToSitdown_BBKomaZenbu(OptionalPhase.Black, idosakiBB_base);// 持ち駒の打てる場所　＝　駒が無いところ☆
                     ky.Shogiban.ToSitdown_BBKomaZenbu(OptionalPhase.White, idosakiBB_base);
-                    ky.Shogiban.ToSelect_BBKikiZenbu(OptionalPhase.ToTaikyokusya( optionalPhase), idosakiBB_base);// 紐を付ける☆
+                    ky.Shogiban.ToSelect_BBKikiZenbu( optionalPhase, idosakiBB_base);// 紐を付ける☆
                                                                                     //utuBB &= ~ky.BB_KikiZenbu[(int)aite];// 敵の利きが利いていない場所に打つぜ☆（＾▽＾）
                     if (!idosakiBB_base.IsEmpty())
                     {
@@ -1985,8 +1985,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     idosakiBB_base.Set(ky.BB_BoardArea);
                     ky.Shogiban.ToSitdown_BBKomaZenbu(OptionalPhase.Black, idosakiBB_base);// 自駒が無いところ☆
                     ky.Shogiban.ToSitdown_BBKomaZenbu(OptionalPhase.White, idosakiBB_base);// 相手駒が無いところ☆
-                    ky.Shogiban.ToSitdown_BBKikiZenbu(OptionalPhase.ToTaikyokusya( optionalPhase), idosakiBB_base);// 味方の利きが利いていない場所☆（＾▽＾）
-                    ky.Shogiban.ToSitdown_BBKikiZenbu(OptionalPhase.ToTaikyokusya(optionalOpponent), idosakiBB_base);// 敵の利きが利いていない場所☆（＾▽＾）
+                    ky.Shogiban.ToSitdown_BBKikiZenbu( optionalPhase, idosakiBB_base);// 味方の利きが利いていない場所☆（＾▽＾）
+                    ky.Shogiban.ToSitdown_BBKikiZenbu(optionalOpponent, idosakiBB_base);// 敵の利きが利いていない場所☆（＾▽＾）
                     if (!idosakiBB_base.IsEmpty())
                     {
 #if DEBUG
@@ -2080,7 +2080,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     ky.Shogiban.ToSitdown_BBKomaZenbu(OptionalPhase.Black, idosakiBB_base);// 味方の駒がない升
                     ky.Shogiban.ToSitdown_BBKomaZenbu(OptionalPhase.White, idosakiBB_base);// 相手の駒がない升
                                                                                            // 2016-12-22 捨てだからと言って、紐を付けないとは限らない☆
-                    ky.Shogiban.ToSelect_BBKikiZenbu(OptionalPhase.ToTaikyokusya(optionalOpponent), idosakiBB_base);// 敵の利きが利いている場所に打つぜ☆（＾▽＾）
+                    ky.Shogiban.ToSelect_BBKikiZenbu(optionalOpponent, idosakiBB_base);// 敵の利きが利いている場所に打つぜ☆（＾▽＾）
                     if (!idosakiBB_base.IsEmpty())
                     {
 #if DEBUG

@@ -44,12 +44,12 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <returns></returns>
         public static bool InKiki(Kyokumen ky, Masu attackerMs, Masu targetMs)
         {
-            Taikyokusya aite = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(OptionalPhase.From( ky.Teban)));
-            if (ky.Shogiban.ExistsBBKomaZenbu(aite, attackerMs)) // 指定の場所に相手の駒があることを確認
+            var optionalOpponent = Conv_Taikyokusya.Reverse(OptionalPhase.From( ky.Teban));
+            if (ky.Shogiban.ExistsBBKomaZenbu(optionalOpponent, attackerMs)) // 指定の場所に相手の駒があることを確認
             {
-                if (ky.Shogiban.ExistsBBKoma(OptionalPhase.From( aite), attackerMs, out Komasyurui ks))// 攻撃側の駒の種類
+                if (ky.Shogiban.ExistsBBKoma(optionalOpponent, attackerMs, out Komasyurui ks))// 攻撃側の駒の種類
                 {
-                    return ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(aite)), attackerMs).IsIntersect(//相手の攻撃駒の利き
+                    return ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, optionalOpponent), attackerMs).IsIntersect(//相手の攻撃駒の利き
                         targetMs//調べる升
                         );
                 }

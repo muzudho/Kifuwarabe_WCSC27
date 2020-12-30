@@ -1165,9 +1165,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             return BB_Koma.Get(km);
         }
-        public void ToSet_BBKomaZenbu(Taikyokusya tai, Bitboard update_bb)
+        public void ToSet_BBKomaZenbu(Option<Phase> optionalPhase, Bitboard update_bb)
         {
-            update_bb.Set(BB_KomaZenbu.Get(OptionalPhase.From(tai)));
+            update_bb.Set(BB_KomaZenbu.Get(optionalPhase));
 
         }
         public void ToSet_BBKoma(Koma km, Bitboard update_bb)
@@ -1186,13 +1186,13 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             BB_KikiZenbu.Tukurinaosi(BB_Kiki);
         }
-        public void ToSitdown_BBKikiZenbu(Taikyokusya tai, Bitboard update_bb)
+        public void ToSitdown_BBKikiZenbu(Option<Phase> optionalPhase, Bitboard update_bb)
         {
-            update_bb.Sitdown(BB_KikiZenbu.Get(OptionalPhase.From( tai)));
+            update_bb.Sitdown(BB_KikiZenbu.Get(optionalPhase));
         }
-        public void ToSelect_BBKikiZenbu(Taikyokusya tai, Bitboard update_bb)
+        public void ToSelect_BBKikiZenbu(Option<Phase> optionalPhase, Bitboard update_bb)
         {
-            update_bb.Select(BB_KikiZenbu.Get(OptionalPhase.From( tai)));
+            update_bb.Select(BB_KikiZenbu.Get(optionalPhase));
         }
         public bool ExistsKikiZenbu(Option<Phase> optionalPhase, Masu ms)
         {
@@ -1206,9 +1206,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             return BB_KomaZenbu.Exists(ms);
         }
-        public bool ExistsBBKomaZenbu(Taikyokusya tai, Masu ms)
+        public bool ExistsBBKomaZenbu(Option<Phase> optionalPhase, Masu ms)
         {
-            return BB_KomaZenbu.Get(OptionalPhase.From(tai)).IsOn(ms);
+            return BB_KomaZenbu.Get(optionalPhase).IsOn(ms);
         }
         /*
         public (bool,Taikyokusya) ExistsBBKomaZenbu(Masu ms)
