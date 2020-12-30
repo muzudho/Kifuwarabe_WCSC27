@@ -1297,9 +1297,9 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                 // 詰んでいる状況かどうか調べるぜ☆（＾▽＾）
                 HiouteJoho aiteHioute;// 相手番側が、王手回避が必要かどうか調べたいぜ☆（＾～＾）
                 {
-                    ky.Teban = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Hanten(OptionalPhase.From( ky.Teban)));
+                    ky.Teban = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(OptionalPhase.From( ky.Teban)));
                     aiteHioute = AbstractUtilMoveGen.CreateHiouteJoho(ky, true);
-                    ky.Teban =OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Hanten(OptionalPhase.From( ky.Teban)));
+                    ky.Teban =OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(OptionalPhase.From( ky.Teban)));
 
                     if (aiteHioute.IsHoui())
                     {
@@ -1819,7 +1819,7 @@ USI                      = {Option_Application.Optionlist.USI}");
             if (caret_1 == commandline.IndexOf("hanten", caret_1))
             {
                 // 手番を反転☆
-                ky.Teban = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Hanten(OptionalPhase.From( ky.Teban)));
+                ky.Teban = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(OptionalPhase.From( ky.Teban)));
                 ky.Tekiyo(false, syuturyoku);
                 Util_Information.Setumei_Lines_Kyokumen(ky, syuturyoku);
                 syuturyoku.AppendLine();
@@ -1830,7 +1830,7 @@ USI                      = {Option_Application.Optionlist.USI}");
                 int r = Option_Application.Random.Next(2);
                 if (r == 0)
                 {
-                    ky.Teban = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Hanten(OptionalPhase.From( ky.Teban)));
+                    ky.Teban = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(OptionalPhase.From( ky.Teban)));
                     ky.Tekiyo(false, syuturyoku);
                     Util_Information.Setumei_Lines_Kyokumen(ky, syuturyoku);
                     syuturyoku.AppendLine();

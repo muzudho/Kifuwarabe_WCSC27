@@ -76,7 +76,7 @@ new Bitboard[] { spaceBB, m_trySakiBB_ }, str);
             }
 
             // 相手の利きが届いていないところ☆
-            Taikyokusya tb2 = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Hanten(OptionalPhase.From( tb)));
+            Taikyokusya tb2 = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(OptionalPhase.From( tb)));
             Bitboard safeBB = new Bitboard();
             safeBB.Set(ky.BB_BoardArea);
             ky.Shogiban.ToSitdown_BBKikiZenbu(tb2, safeBB);

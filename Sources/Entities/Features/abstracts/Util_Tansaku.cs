@@ -718,7 +718,7 @@ using System.Text;
                 }
 
                 dlgt_CreateJoho(
-                    OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Hanten(OptionalPhase.From( ky.Teban))),// DoSasite の後なので、相手の手番に進んでいるので、戻すぜ☆（＾～＾）
+                    OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(OptionalPhase.From( ky.Teban))),// DoSasite の後なので、相手の手番に進んでいるので、戻すぜ☆（＾～＾）
 #if DEBUG
                     Hyokati.Hyokati_Rei,// ここでアルファ無いんで
                     Hyokati.Hyokati_Rei,// ここでベータ無いんで
@@ -1201,7 +1201,7 @@ using System.Text;
                     sennititeNikomaHyokati = ky.Nikoma.Get(true);
                     Hyokati sennititeHyokati = sennititeKomawariHyokati + (int)sennititeNikomaHyokati;
 
-                    bool tansakusyaTyakusyu = Util_Tansaku.KaisiTaikyokusya == OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Hanten(OptionalPhase.From( ky.Teban))); // 手番はもう相手に回っているので、反転させて、千日手に着手したものかどうか調べるぜ☆
+                    bool tansakusyaTyakusyu = Util_Tansaku.KaisiTaikyokusya == OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(OptionalPhase.From( ky.Teban))); // 手番はもう相手に回っているので、反転させて、千日手に着手したものかどうか調べるぜ☆
                     //Hyokati tyakusyuKomawariHyokati = (Hyokati)(-(int)sennititeKomawariHyokati);
                     //Hyokati tyakusyuNikomaHyokati = (Hyokati)(-(int)sennititeNikomaHyokati);
                     Hyokati tyakusyuHyokati = (Hyokati)(-(int)sennititeHyokati);

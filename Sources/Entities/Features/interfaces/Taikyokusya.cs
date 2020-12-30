@@ -25,7 +25,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// </summary>
         /// <param name="phase"></param>
         /// <returns></returns>
-        public static Option<Phase> Hanten(Option<Phase> optionalPhase)
+        public static Option<Phase> Reverse(Option<Phase> optionalPhase)
         {
             var (exists, phase) = optionalPhase.Match;
             if (exists)
