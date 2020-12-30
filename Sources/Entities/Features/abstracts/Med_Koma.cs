@@ -546,7 +546,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         #endregion
 
         #region 持駒種類と手番→持駒
-        static MotiKoma[,] m_MotiKomasyuruiAndTaikyokusyaToMotiKoma_ =
+        static MotiKoma[,] m_MotiKomasyuruiAndPhaseToMotiKoma_ =
         {
             // ぞう
             { MotiKoma.Z, MotiKoma.z },
@@ -573,9 +573,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             // どの駒の種類にも当てはまらない場合に、Yososu と書くことがある☆（＾▽＾）ｗｗｗ
             { MotiKoma.Yososu, MotiKoma.Yososu },
         };
-        public static MotiKoma MotiKomasyuruiAndTaikyokusyaToMotiKoma(MotiKomasyurui mks, Taikyokusya tai)
+        public static MotiKoma MotiKomasyuruiAndPhaseToMotiKoma(MotiKomasyurui mks, Option<Phase> phase)
         {
-            return m_MotiKomasyuruiAndTaikyokusyaToMotiKoma_[(int)mks, (int)tai];
+            return m_MotiKomasyuruiAndPhaseToMotiKoma_[(int)mks, OptionalPhase.ToInt(phase)];
         }
         #endregion
 

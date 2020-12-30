@@ -990,7 +990,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                         // 弱い駒から　指し手を調べようぜ☆（＾▽＾）
                         foreach (MotiKomasyurui mks in Conv_MotiKomasyurui.ItiranYowaimonoJun)
                         {
-                            MotiKoma mk = Med_Koma.MotiKomasyuruiAndTaikyokusyaToMotiKoma(mks, tai);
+                            MotiKoma mk = Med_Koma.MotiKomasyuruiAndPhaseToMotiKoma(mks, OptionalPhase.From( tai));
                             Komasyurui ks = Med_Koma.MotiKomasyuruiToKomasyrui(mks);
 
                             if (ky.MotiKomas.HasMotiKoma(mk))
@@ -1019,7 +1019,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                         // 弱い駒から　指し手を調べようぜ☆（＾▽＾）
                         foreach (MotiKomasyurui mks in Conv_MotiKomasyurui.ItiranYowaimonoJun)
                         {
-                            MotiKoma mk = Med_Koma.MotiKomasyuruiAndTaikyokusyaToMotiKoma(mks, tai);
+                            MotiKoma mk = Med_Koma.MotiKomasyuruiAndPhaseToMotiKoma(mks, OptionalPhase.From(tai));
                             Komasyurui ks = Med_Koma.MotiKomasyuruiToKomasyrui(mks);
 
                             if (ky.MotiKomas.HasMotiKoma(mk))
@@ -1051,7 +1051,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                         // 弱い駒から　指し手を調べようぜ☆（＾▽＾）
                         foreach (MotiKomasyurui mks in Conv_MotiKomasyurui.ItiranYowaimonoJun)
                         {
-                            MotiKoma mk = Med_Koma.MotiKomasyuruiAndTaikyokusyaToMotiKoma(mks, tai);
+                            MotiKoma mk = Med_Koma.MotiKomasyuruiAndPhaseToMotiKoma(mks, OptionalPhase.From(tai));
 
                             if (ky.MotiKomas.HasMotiKoma(mk))
                             {
@@ -1080,7 +1080,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                         // 弱い駒から　指し手を調べようぜ☆（＾▽＾）
                         foreach (MotiKomasyurui mks in Conv_MotiKomasyurui.ItiranYowaimonoJun)
                         {
-                            MotiKoma mk = Med_Koma.MotiKomasyuruiAndTaikyokusyaToMotiKoma(mks, tai);
+                            MotiKoma mk = Med_Koma.MotiKomasyuruiAndPhaseToMotiKoma(mks, OptionalPhase.From(tai));
                             Komasyurui ks = Med_Koma.MotiKomasyuruiToKomasyrui(mks);
 
                             if (ky.MotiKomas.HasMotiKoma(mk))

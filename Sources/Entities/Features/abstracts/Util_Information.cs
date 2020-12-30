@@ -1,4 +1,6 @@
 ﻿using Grayscale.Kifuwarakei.Entities.Game;
+using Grayscale.Kifuwarakei.Entities.Language;
+using System;
 using System.Diagnostics;
 using System.Text;
 
@@ -248,7 +250,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 // 後手の持ち駒の数
                 foreach (MotiKomasyurui mks in Conv_MotiKomasyurui.Itiran)
                 {
-                    MotiKoma mk = Med_Koma.MotiKomasyuruiAndTaikyokusyaToMotiKoma(mks, Taikyokusya.T2);
+                    MotiKoma mk = Med_Koma.MotiKomasyuruiAndPhaseToMotiKoma(mks, new Option<Phase>(Phase.White));
                     if (ky.MotiKomas.HasMotiKoma(mk))
                     {
                         syuturyoku.Append(Conv_MotiKomasyurui.GetHyojiName(mks)); syuturyoku.Append(ky.MotiKomas.Get(mk).ToString());
@@ -289,7 +291,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 foreach (MotiKomasyurui mks in Conv_MotiKomasyurui.Itiran)
                 {
-                    MotiKoma mk = Med_Koma.MotiKomasyuruiAndTaikyokusyaToMotiKoma(mks, Taikyokusya.T1);
+                    MotiKoma mk = Med_Koma.MotiKomasyuruiAndPhaseToMotiKoma(mks, new Option<Phase>(Phase.Black));
                     if (ky.MotiKomas.HasMotiKoma(mk))
                     {
                         syuturyoku.Append(Conv_MotiKomasyurui.GetHyojiName(mks)); syuturyoku.Append(ky.MotiKomas.Get(mk).ToString());
@@ -298,6 +300,12 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 syuturyoku.AppendLine();
             }
         }
+
+        //private static Option<T> Option<T>(T white)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
         /// <summary>
         /// 将棋盤をコンソールへ出力するぜ☆（＾▽＾）
         /// コンソールでゲームするのに向いた表示☆
@@ -351,7 +359,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 foreach (MotiKomasyurui mks in Conv_MotiKomasyurui.Itiran)
                 {
-                    MotiKoma mk = Med_Koma.MotiKomasyuruiAndTaikyokusyaToMotiKoma(mks, Taikyokusya.T2);
+                    MotiKoma mk = Med_Koma.MotiKomasyuruiAndPhaseToMotiKoma(mks, new Option<Phase>(Phase.White));
                     if (ky.MotiKomas.HasMotiKoma(mk))
                     {
                         syuturyoku.Append(Conv_MotiKomasyurui.GetHyojiName(mks)); syuturyoku.Append(ky.MotiKomas.Get(mk).ToString());
@@ -398,7 +406,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 // 先手の持ち駒の数
                 foreach (MotiKomasyurui mks in Conv_MotiKomasyurui.Itiran)
                 {
-                    MotiKoma mk = Med_Koma.MotiKomasyuruiAndTaikyokusyaToMotiKoma(mks, Taikyokusya.T1);
+                    MotiKoma mk = Med_Koma.MotiKomasyuruiAndPhaseToMotiKoma(mks, new Option<Phase>(Phase.Black));
                     if (ky.MotiKomas.HasMotiKoma(mk))
                     {
                         syuturyoku.Append(Conv_MotiKomasyurui.GetHyojiName(mks)); syuturyoku.Append(ky.MotiKomas.Get(mk).ToString());

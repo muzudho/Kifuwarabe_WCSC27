@@ -8,6 +8,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
     using System.Text;
     using System.Text.RegularExpressions;
     using Grayscale.Kifuwarakei.Entities.Game;
+    using Grayscale.Kifuwarakei.Entities.Language;
     using Grayscale.Kifuwarakei.Entities.Logging;
 #else
     using System;
@@ -844,7 +845,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             if (utta)
             {
                 // 「打」の場合、持ち駒チェック☆
-                if (!MotiKomas.HasMotiKoma(Med_Koma.MotiKomasyuruiAndTaikyokusyaToMotiKoma(mksUtta, this.Teban)))
+                if (!MotiKomas.HasMotiKoma(Med_Koma.MotiKomasyuruiAndPhaseToMotiKoma(mksUtta, OptionalPhase.From(this.Teban))))
                 {
                     // 持駒が無いのに打とうとしたぜ☆（＞＿＜）
                     reason = MoveMatigaiRiyu.NaiMotiKomaUti;
@@ -1029,7 +1030,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 // 打
                 ms_t0 = MASU_ERROR;
                 mks_t0 = ConvMove.GetUttaKomasyurui(ss);
-                mk_t0 = Med_Koma.MotiKomasyuruiAndTaikyokusyaToMotiKoma(mks_t0, jibun);
+                mk_t0 = Med_Koma.MotiKomasyuruiAndPhaseToMotiKoma(mks_t0, OptionalPhase.From(jibun));
                 km_t0 = Med_Koma.MotiKomasyuruiAndTaikyokusyaToKoma(mks_t0, jibun);
                 // 持ち駒は t0 も t1 も同じ。
                 km_t1 = km_t0;
@@ -1468,8 +1469,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 #if DEBUG
             long komaSuOld;
             long komaSuNew;
+            var (exists, tai) = Shogiban.ExistsBBKomaZenbu(ms_t1);
 
-            if (!Shogiban.ExistsBBKomaZenbu(ms_t1))
+            if (!exists)
             {
                 StringBuilder str_move = new StringBuilder();
                 str_move.Append("指し手に該当する戻せる駒が無かったぜ☆（＾～＾） move=");
@@ -1795,7 +1797,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 {
                     MotiKomasyurui mks = Med_Koma.MotiKomaToMotiKomasyrui(mk);
                     Taikyokusya tai = Med_Koma.MotiKomaToTaikyokusya(mk);
-                    MotiKoma hantenMotikoma = Med_Koma.MotiKomasyuruiAndTaikyokusyaToMotiKoma(mks, Conv_Taikyokusya.Hanten(tai));
+                    MotiKoma hantenMotikoma = Med_Koma.MotiKomasyuruiAndPhaseToMotiKoma(mks, OptionalPhase.From( Conv_Taikyokusya.Hanten(tai)));
                     tmp.Set(mk, MotiKomas.Get(hantenMotikoma));
                 }
                 MotiKomas.Set(tmp);
