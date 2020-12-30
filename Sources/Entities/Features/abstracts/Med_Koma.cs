@@ -322,9 +322,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             { Koma.PS, Koma.ps },// パワーアップいのしし
             { Koma.Kuhaku, Koma.Kuhaku },// らいおん～にわとり　までの要素の個数になるぜ☆（＾▽＾）どの駒の種類にも当てはまらない場合に、Yososu と書くことがある☆（＾▽＾）ｗｗｗ
         };
-        public static Koma KomasyuruiAndTaikyokusyaToKoma(Komasyurui ks, Taikyokusya tb)
+        public static Koma KomasyuruiAndTaikyokusyaToKoma(Komasyurui ks, Taikyokusya optionalPhase)
         {
-            return Med_Koma.m_KomasyuruiAndTaikyokusyaToKoma_[(int)ks, (int)tb];
+            return Med_Koma.m_KomasyuruiAndTaikyokusyaToKoma_[(int)ks, (int)optionalPhase];
         }
         #endregion
 
