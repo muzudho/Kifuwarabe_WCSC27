@@ -271,7 +271,7 @@ usiok");
 
             if (caret == commandline.IndexOf("komawari", caret))
             {
-                Hyokati hyokati = ky.Komawari.Get(ky.Teban);
+                Hyokati hyokati = ky.Komawari.Get(OptionalPhase.From(ky.Teban));
                 syuturyoku.AppendLine($"komawari hyokati = { (int)hyokati}");
             }
             else if (caret == commandline.IndexOf("nikoma", caret))

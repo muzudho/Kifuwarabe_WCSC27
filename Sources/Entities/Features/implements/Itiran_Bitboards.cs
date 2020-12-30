@@ -1,4 +1,5 @@
 ﻿using Grayscale.Kifuwarakei.Entities.Game;
+using Grayscale.Kifuwarakei.Entities.Language;
 using System.Diagnostics;
 
 namespace Grayscale.Kifuwarakei.Entities.Features
@@ -82,9 +83,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             KomawariHyokati_Sabun = hyokati;
         }
 
-        public Hyokati Get(Taikyokusya tai)
+        public Hyokati Get(Option<Phase> phase)
         {
-            return this.KomawariHyokati_Sabun[(int)tai];
+            return this.KomawariHyokati_Sabun[OptionalPhase.ToInt(phase)];
         }
         public void Increase(Taikyokusya tai, Hyokati henkaRyo)
         {

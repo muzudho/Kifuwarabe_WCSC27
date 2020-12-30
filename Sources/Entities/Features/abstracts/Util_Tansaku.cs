@@ -99,7 +99,7 @@ using System.Text;
 
         public static Hyokati Hyoka(Kyokumen ky, out Hyokati out_komawariHyokati, out Hyokati out_nikomaHyokati)
         {
-            out_komawariHyokati = ky.Komawari.Get(ky.Teban);
+            out_komawariHyokati = ky.Komawari.Get(OptionalPhase.From(ky.Teban));
             out_nikomaHyokati = ky.Nikoma.Get(true);
             return out_komawariHyokati + (int)out_nikomaHyokati;
         }
@@ -1197,7 +1197,7 @@ using System.Text;
                     Hyokati sennititeKomawariHyokati, sennititeNikomaHyokati;
 
                     // 手番はもう相手に回っているので、点数は相手の点数☆
-                    sennititeKomawariHyokati = ky.Komawari.Get(ky.Teban);
+                    sennititeKomawariHyokati = ky.Komawari.Get(OptionalPhase.From(ky.Teban));
                     sennititeNikomaHyokati = ky.Nikoma.Get(true);
                     Hyokati sennititeHyokati = sennititeKomawariHyokati + (int)sennititeNikomaHyokati;
 

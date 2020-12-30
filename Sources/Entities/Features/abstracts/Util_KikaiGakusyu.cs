@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Grayscale.Kifuwarakei.Entities.Game;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Grayscale.Kifuwarakei.Entities.Features
@@ -82,7 +83,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 ky.DoMove(Option_Application.Optionlist.USI, kyosiSs, MoveType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
 
                 // 評価値を調べようぜ☆（＾▽＾）
-                Hyokati komawariHyokati = ky.Komawari.Get(ky.Teban);
+                Hyokati komawariHyokati = ky.Komawari.Get(OptionalPhase.From( ky.Teban));
                 Hyokati nikomaHyokati = ky.Nikoma.Get(true);
                 kyosiHyokati = (int)komawariHyokati + nikomaHyokati;
 

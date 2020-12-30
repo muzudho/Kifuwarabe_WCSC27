@@ -170,9 +170,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 return Hontai.Shogiban.EqualsKiki(km, sg_hikaku);
             }
-            public Hyokati GetKomawari(Taikyokusya tai)
+            public Hyokati GetKomawari(Option<Phase> phase)
             {
-                return Hontai.Komawari.Get(tai);
+                return Hontai.Komawari.Get(phase);
             }
 
             public void Setumei_GenkoKiki(Taikyokusya tai, StringBuilder syuturyoku)
@@ -2553,8 +2553,8 @@ SEE>ここまで止めると想定し、SEEを 0 から計算しなおすぜ☆(
 #endif
 
             out_hyokatiUtiwake = new HyokatiUtiwake(
-                (Hyokati)(Komawari.Get(Teban) + (int)Nikoma.Get(true) + ((int)Hyokati.Hyokati_Rei + (int)kikiScore)),
-                Komawari.Get(Teban),
+                (Hyokati)(Komawari.Get(OptionalPhase.From( Teban)) + (int)Nikoma.Get(true) + ((int)Hyokati.Hyokati_Rei + (int)kikiScore)),
+                Komawari.Get(OptionalPhase.From( Teban)),
                 Nikoma.Get(true),
                 (Hyokati)((int)Hyokati.Hyokati_Rei + (int)kikiScore),
                 hyokaRiyu,
