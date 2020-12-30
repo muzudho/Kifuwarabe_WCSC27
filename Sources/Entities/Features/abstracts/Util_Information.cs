@@ -580,7 +580,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                         bbHairetu[(int)ks] = shogiban.GetBBKiki(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(tai)));
                     }
 
-                    Setumei_Bitboards(Med_Koma.GetKomasyuruiNamaeItiran(tai), bbHairetu, syuturyoku);
+                    Setumei_Bitboards(Med_Koma.GetKomasyuruiNamaeItiran(OptionalPhase.From( tai)), bbHairetu, syuturyoku);
                 }
             }
         }
@@ -603,7 +603,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     {
                         bbHairetu[(int)ks] = shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(tai)), (Masu)ms);
                     }
-                    Util_Information.Setumei_Bitboards(Med_Koma.GetKomasyuruiNamaeItiran(tai), bbHairetu, syuturyoku);
+                    Util_Information.Setumei_Bitboards(Med_Koma.GetKomasyuruiNamaeItiran(OptionalPhase.From( tai)), bbHairetu, syuturyoku);
                     syuturyoku.AppendLine();
                 }
             }

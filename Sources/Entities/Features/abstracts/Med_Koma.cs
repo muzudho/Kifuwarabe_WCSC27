@@ -24,21 +24,19 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             }
         }
 
-        #region 駒種類の名前
         /// <summary>
         /// 目視確認用の文字列を返すぜ☆（＾▽＾）
         /// [対局者,駒種類]
         /// </summary>
         static string[][] komasyuruiNamaeItiran;
-        public static string[] GetKomasyuruiNamaeItiran(Taikyokusya tai)
+        public static string[] GetKomasyuruiNamaeItiran(Option<Phase> optionalPhase)
         {
-            return komasyuruiNamaeItiran[(int)tai];
+            return komasyuruiNamaeItiran[OptionalPhase.ToInt(optionalPhase)];
         }
         public static string GetKomasyuruiNamae(Taikyokusya tai, Komasyurui ks)
         {
             return komasyuruiNamaeItiran[(int)tai][(int)ks];
         }
-        #endregion
 
 
         #region 駒→駒種類

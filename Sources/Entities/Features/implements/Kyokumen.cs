@@ -178,7 +178,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             public void Setumei_GenkoKiki(Taikyokusya tai, StringBuilder syuturyoku)
             {
                 syuturyoku.AppendLine("利き：（現行）");
-                Util_Information.Setumei_Bitboards(Med_Koma.GetKomasyuruiNamaeItiran(tai), Hontai.Shogiban.WhereBBKiki(tai), syuturyoku);
+                Util_Information.Setumei_Bitboards(Med_Koma.GetKomasyuruiNamaeItiran(OptionalPhase.From( tai)), Hontai.Shogiban.WhereBBKiki(tai), syuturyoku);
             }
 
             /// <summary>
