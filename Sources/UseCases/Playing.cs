@@ -155,7 +155,7 @@ usiok");
             }
 
             Nanteme nanteme = new Nanteme();
-            ky.DoMove(isSfen, ss, MoveType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
+            ky.DoMove(isSfen, ss, MoveType.N00_Karappo, ref nanteme, OptionalPhase.From(ky.Teban), syuturyoku);
 
             switch (commandMode)
             {
@@ -793,7 +793,7 @@ Kettyaku = {Util_Application.IsKettyaku(ky)}");
                 // 指し手を指定した場合☆
                 Med_Parser.TryFenMove(isSfen, commandline, ref caret_1, ky.Sindan, out Move ss);
                 Nanteme nanteme = new Nanteme();
-                ky.DoMove(isSfen, ss, MoveType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
+                ky.DoMove(isSfen, ss, MoveType.N00_Karappo, ref nanteme, OptionalPhase.From(ky.Teban), syuturyoku);
                 Masu ms = ConvMove.GetDstMasu(ss, ky);
 
 

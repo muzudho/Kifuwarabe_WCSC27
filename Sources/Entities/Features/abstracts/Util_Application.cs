@@ -271,13 +271,13 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             if (AbstractUtilMoveGen.MoveList[fukasa].SslistCount < 1)
             {
                 Nanteme nanteme = new Nanteme();
-                ky.DoMove(Option_Application.Optionlist.USI, Move.Toryo, MoveType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
+                ky.DoMove(Option_Application.Optionlist.USI, Move.Toryo, MoveType.N00_Karappo, ref nanteme, OptionalPhase.From( ky.Teban), syuturyoku);
             }
             else
             {
                 Move ss = AbstractUtilMoveGen.MoveList[fukasa].ListMove[Option_Application.Random.Next(AbstractUtilMoveGen.MoveList[fukasa].SslistCount)];
                 Nanteme nanteme = new Nanteme();
-                ky.DoMove(Option_Application.Optionlist.USI, ss, MoveType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
+                ky.DoMove(Option_Application.Optionlist.USI, ss, MoveType.N00_Karappo, ref nanteme, OptionalPhase.From(ky.Teban), syuturyoku);
             }
         }
 

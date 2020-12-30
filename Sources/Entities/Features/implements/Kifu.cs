@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Grayscale.Kifuwarakei.Entities.Game;
+using System.Collections.Generic;
 using System.Text;
 
 #if DEBUG
@@ -114,7 +115,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             foreach (Move ss in SsList)
             {
                 Nanteme nanteme = new Nanteme();
-                ky.DoMove(isSfen, ss, MoveType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
+                ky.DoMove(isSfen, ss, MoveType.N00_Karappo, ref nanteme, OptionalPhase.From(ky.Teban), syuturyoku);
 
 #if DEBUG
                 //Util_Commands.Ky(isSfen, "ky", ky, syuturyoku);
@@ -146,7 +147,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     break;
                 }
                 Nanteme nanteme = new Nanteme();
-                ky.DoMove(isSfen, ss, MoveType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
+                ky.DoMove(isSfen, ss, MoveType.N00_Karappo, ref nanteme, OptionalPhase.From(ky.Teban), syuturyoku);
                 temeMade--;
             }
         }

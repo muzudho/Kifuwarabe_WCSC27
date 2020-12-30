@@ -935,11 +935,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// ハッシュも差分変更するぜ☆
         /// </summary>
         /// <param name="ss">指し手☆</param>
-        public void DoMove(bool isSfen, Move ss, MoveType ssType, ref Nanteme konoTeme, Taikyokusya jibun, StringBuilder syuturyoku)
+        public void DoMove(bool isSfen, Move ss, MoveType ssType, ref Nanteme konoTeme, Option<Phase> optionalPhase, StringBuilder syuturyoku)
         {
             // bool endMethodFlag;
 
-            Taikyokusya aite;
+            Option<Phase> optionalOpponent;
 
             Masu ms_t0;
             Koma km_t0;
@@ -1000,7 +1000,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             //
 
             // 変数をグローバルに一時退避
-            aite = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(OptionalPhase.From( jibun)));
+            optionalOpponent = Conv_Taikyokusya.Reverse( optionalPhase);
             ms_t1 = ConvMove.GetDstMasu_WithoutErrorCheck((int)ss); // 移動先升
             km_c = GetBanjoKoma(ms_t1);// あれば、移動先の相手の駒（取られる駒; capture）
             ks_c = Med_Koma.KomaToKomasyurui(km_c);
@@ -1017,7 +1017,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 if (ConvMove.IsNatta(ss)) // 駒が成るケース
                 {
                     ks_t1 = Conv_Komasyurui.ToNariCase(ks_t0);
-                    km_t1 = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks_t1, OptionalPhase.From(jibun));
+                    km_t1 = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks_t1, optionalPhase);
                 }
                 else // 駒が成らないケース
                 {
@@ -1030,8 +1030,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 // 打
                 ms_t0 = MASU_ERROR;
                 mks_t0 = ConvMove.GetUttaKomasyurui(ss);
-                mk_t0 = Med_Koma.MotiKomasyuruiAndPhaseToMotiKoma(mks_t0, OptionalPhase.From(jibun));
-                km_t0 = Med_Koma.MotiKomasyuruiAndPhaseToKoma(mks_t0, OptionalPhase.From(jibun));
+                mk_t0 = Med_Koma.MotiKomasyuruiAndPhaseToMotiKoma(mks_t0, optionalPhase);
+                km_t0 = Med_Koma.MotiKomasyuruiAndPhaseToKoma(mks_t0, optionalPhase);
                 // 持ち駒は t0 も t1 も同じ。
                 km_t1 = km_t0;
                 ks_t0 = Med_Koma.MotiKomasyuruiToKomasyrui(mks_t0);//おまとめ☆（＾～＾）
@@ -1043,7 +1043,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 //    Logger.Flush(syuturyoku);
                 //}
 #endif
-                Debug.Assert(MotiKomas.HasMotiKoma(mk_t0), $"持っていない駒を打つのか☆（＾～＾）！？ jibun=[{jibun}] mks_src=[{mks_t0}] mk_utu=[{mk_t0}]");
+                Debug.Assert(MotiKomas.HasMotiKoma(mk_t0), $"持っていない駒を打つのか☆（＾～＾）！？ jibun=[{optionalPhase}] mks_src=[{mks_t0}] mk_utu=[{mk_t0}]");
             }
 
 
@@ -1086,7 +1086,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     Nikoma.KesuMotiKoma(this, mk_c);
                     // 増やす
                     MotiKomas.Fuyasu(mk_c);
-                    Komawari.Fuyasu(OptionalPhase.From( jibun), mk_c);// 駒１個被って増えるぜ☆（＾～＾）
+                    Komawari.Fuyasu( optionalPhase, mk_c);// 駒１個被って増えるぜ☆（＾～＾）
                     KyokumenHash.SetXor(Util_ZobristHashing.GetMotiKey(Sindan, mk_c));
                     Nikoma.HaneiMotiKoma(this, mk_c);// 増えた後に実行しないと、持ち駒 0 という項目は無いぜ☆（＾▽＾）
 
@@ -1122,7 +1122,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
                 Util_Machine.Assert_Sabun_Kiki("ＤｏＢ197★", Sindan);
 
-                Komawari.Herasu(OptionalPhase.From(aite), km_c);
+                Komawari.Herasu(optionalOpponent, km_c);
                 Nikoma.HerasuBanjoKoma(this, km_c, ms_t1);
 
                 //────────────────────────────────────────
@@ -1198,7 +1198,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             if (!ConvMove.IsUtta(ss))
             {
                 KyokumenHash.SetXor(Util_ZobristHashing.GetBanjoKey(ms_t0, km_t0, Sindan));
-                Komawari.Herasu(OptionalPhase.From(jibun), km_t0);// 馬に成った場合、角の点数を引く
+                Komawari.Herasu(optionalPhase, km_t0);// 馬に成った場合、角の点数を引く
                 Nikoma.HerasuBanjoKoma(this, km_t0, ms_t0);
 
                 // FIXME: ここに問題のコードがあった★★★★★★★★★★★★★★★★★★★
@@ -1207,7 +1207,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 KyokumenHash.SetXor(Util_ZobristHashing.GetMotiKey(Sindan, mk_t0));//持ち駒が減る前のハッシュを消す
                 MotiKomas.Herasu(mk_t0);
-                Komawari.Hetta(OptionalPhase.From(jibun), mk_t0); // １つ被って増えた自分の駒を減らすぜ☆（＾▽＾）
+                Komawari.Hetta(optionalPhase, mk_t0); // １つ被って増えた自分の駒を減らすぜ☆（＾▽＾）
                 Nikoma.KesuMotiKoma(this, mk_t0);
                 Nikoma.HaneiMotiKoma(this, mk_t0);
 
@@ -1299,7 +1299,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             Shogiban.N250_OkuBanjoKoma(isSfen, ms_t1, km_t1, true, Sindan); // FIXME:(2017-05-02 23:14)
             Util_Machine.Assert_Sabun_Kiki("ＤｏＴ２［遷移］148★", Sindan);
 
-            Komawari.Fuyasu(OptionalPhase.From(jibun), km_t1);
+            Komawari.Fuyasu(optionalPhase, km_t1);
             Nikoma.FuyasuBanjoKoma(this, km_t1, ms_t1);
             KyokumenHash.SetXor(Util_ZobristHashing.GetBanjoKey(ms_t1, km_t1, Sindan));
 
@@ -2392,7 +2392,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     }
 
                     Nanteme nanteme = new Nanteme();
-                    this.DoMove(isSfen, ss, MoveType.N00_Karappo, ref nanteme, this.Teban, syuturyokuTestYo_orKarappo);
+                    this.DoMove(isSfen, ss, MoveType.N00_Karappo, ref nanteme, OptionalPhase.From( this.Teban), syuturyokuTestYo_orKarappo);
 
                     if (Komasyurui.R == tottaKomasyurui)
                     {

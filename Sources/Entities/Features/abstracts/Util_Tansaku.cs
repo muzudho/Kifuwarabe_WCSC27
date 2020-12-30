@@ -691,7 +691,7 @@ using System.Text;
             ky.DoMove(isSfen,
                 null != best_yomisuji_orNull ? best_yomisuji_orNull.GetBestSasite() : Move.Toryo,
                 null != best_yomisuji_orNull ? best_yomisuji_orNull.GetBestSasiteType() : MoveType.N00_Karappo
-                , ref nanteme, ky.Teban, syuturyoku);
+                , ref nanteme, OptionalPhase.From(ky.Teban), syuturyoku);
 
             // 指し手が決まったときにも、強制情報表示
             {
@@ -1179,7 +1179,7 @@ using System.Text;
                 }
                 #endregion
 
-                ky.DoMove(isSfen, eda_sasite, eda_sasiteType, ref nanteme, ky.Teban, syuturyoku);
+                ky.DoMove(isSfen, eda_sasite, eda_sasiteType, ref nanteme, OptionalPhase.From(ky.Teban), syuturyoku);
                 //{
                 //    Util_Logger.AppendLine($"do後 {ConvMove.Setumei_Fen(ss)}");
                 //    Util_Logger.AppendLine(ApplicationImpl.Kyokumen.Setumei());

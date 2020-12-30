@@ -80,7 +80,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 // まず、一手指すぜ☆
                 Nanteme nanteme = new Nanteme();
-                ky.DoMove(Option_Application.Optionlist.USI, kyosiSs, MoveType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
+                ky.DoMove(Option_Application.Optionlist.USI, kyosiSs, MoveType.N00_Karappo, ref nanteme, OptionalPhase.From(ky.Teban), syuturyoku);
 
                 // 評価値を調べようぜ☆（＾▽＾）
                 Hyokati komawariHyokati = ky.Komawari.Get(OptionalPhase.From( ky.Teban));
@@ -131,7 +131,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
                 // まず、一手指すぜ☆
                 Nanteme nanteme = new Nanteme();
-                ky.DoMove(Option_Application.Optionlist.USI, entry.Key, MoveType.N00_Karappo, ref nanteme, ky.Teban, syuturyoku);
+                ky.DoMove(Option_Application.Optionlist.USI, entry.Key, MoveType.N00_Karappo, ref nanteme, OptionalPhase.From(ky.Teban), syuturyoku);
 
                 // 評価値を調べようぜ☆（＾▽＾）
                 ky.Hyoka(out sonotanoTe_hyokatiUtiwake, HyokaRiyu.Yososu, true// ランダムな局面で学習したりもするし☆（＾～＾）

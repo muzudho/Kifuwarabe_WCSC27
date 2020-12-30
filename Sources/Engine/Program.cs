@@ -224,7 +224,7 @@
                                 // do コマンドを実行するぜ☆（＾▽＾）
                                 // １手指す☆！（＾▽＾）
                                 Nanteme konoTeme = new Nanteme();// 使いまわさないだろう☆（＾～＾）ここで作ってしまおう☆
-                                ky.DoMove(Option_Application.Optionlist.USI, inputSasite, MoveType.N00_Karappo, ref konoTeme, ky.Teban, syuturyoku);
+                                ky.DoMove(Option_Application.Optionlist.USI, inputSasite, MoveType.N00_Karappo, ref konoTeme, OptionalPhase.From(ky.Teban), syuturyoku);
 
 
                                 Util_Application.JudgeKettyaku(inputSasite, ky);// 勝敗判定☆（＾▽＾）
