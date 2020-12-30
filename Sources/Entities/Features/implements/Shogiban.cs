@@ -357,7 +357,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 for (int iTai = 0; iTai < Conv_Taikyokusya.Itiran.Length; iTai++)
                 {
-                    int length = Math.Min(this.ValueTaiMs[iTai].Length, src.GetArrayLength((Taikyokusya)iTai));
+                    int length = Math.Min(this.ValueTaiMs[iTai].Length, src.GetArrayLength(OptionalPhase.From( iTai)));
 
                     for (int iMs = 0; iMs < length; iMs++)
                     {
@@ -392,21 +392,21 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     }
                 }
             }
-            public void IncreaseDirect(Taikyokusya tai, Masu ms)
+            public void IncreaseDirect(Option<Phase> optionalPhase, Masu ms)
             {
-                this.ValueTaiMs[(int)tai][(int)ms]++;
+                this.ValueTaiMs[OptionalPhase.ToInt(optionalPhase)][(int)ms]++;
             }
-            public void DecreaseDirect(Taikyokusya tai, Masu ms)
+            public void DecreaseDirect(Option<Phase> optionalPhase, Masu ms)
             {
-                this.ValueTaiMs[(int)tai][(int)ms]--;
+                this.ValueTaiMs[OptionalPhase.ToInt(optionalPhase)][(int)ms]--;
             }
             public int Get(Option<Phase> optionalPhase, Masu ms)
             {
                 return ValueTaiMs[OptionalPhase.ToInt(optionalPhase)][(int)ms];
             }
-            public int GetArrayLength(Taikyokusya tai)
+            public int GetArrayLength(Option<Phase> optionalPhase)
             {
-                return ValueTaiMs[(int)tai].Length;
+                return ValueTaiMs[OptionalPhase.ToInt(optionalPhase)].Length;
             }
             /// <summary>
             /// [手番,升] 型のカウントボードを、ビットボードに変換するぜ☆（＾▽＾）
@@ -1703,7 +1703,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             // 置いた駒についての、利きを追加していくぜ☆（＾～＾）
             while (bb_kiki.Ref_PopNTZ(out Masu ms_kiki))
             {
-                CB_KikisuZenbu.IncreaseDirect(tai, ms_kiki);
+                CB_KikisuZenbu.IncreaseDirect(OptionalPhase.From(tai), ms_kiki);
                 BB_KikiZenbu.Get(OptionalPhase.From( tai)).Standup(ms_kiki);
 
                 CB_KikisuKomabetu.IncreaseDirect(km_t1, ms_kiki);
@@ -1721,7 +1721,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
                 // 利きの数が０より大きければ、利きあり　だし、
                 // １より小さければ、利きなし☆
-                CB_KikisuZenbu.DecreaseDirect(jibun, ms_kiki);
+                CB_KikisuZenbu.DecreaseDirect(OptionalPhase.From(jibun), ms_kiki);
                 if (CB_KikisuZenbu.Get(OptionalPhase.From( jibun), ms_kiki) < 1) { BB_KikiZenbu.Get(OptionalPhase.From( jibun)).Sitdown(ms_kiki); }
 
                 CB_KikisuKomabetu.DecreaseDirect(km_t0, ms_kiki);
