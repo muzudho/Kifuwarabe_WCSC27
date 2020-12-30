@@ -46,7 +46,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
 
             // 手番
-            hash ^= Util_ZobristHashing.GetTaikyokusyaKey(ky.Teban, ky.Sindan);
+            hash ^= Util_ZobristHashing.GetTaikyokusyaKey(OptionalPhase.From(ky.Teban), ky.Sindan);
 
             Value = hash;
         }

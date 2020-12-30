@@ -1364,10 +1364,10 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             // 手番
             //────────────────────────────────────────
             // 事後に進めるぜ☆（＾▽＾）
-            KyokumenHash.SetXor(Util_ZobristHashing.GetTaikyokusyaKey(Teban, Sindan));
+            KyokumenHash.SetXor(Util_ZobristHashing.GetTaikyokusyaKey(OptionalPhase.From(Teban), Sindan));
             Teban = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(OptionalPhase.From( Teban)));
             Nikoma.Hanten();
-            KyokumenHash.SetXor(Util_ZobristHashing.GetTaikyokusyaKey(Teban, Sindan));
+            KyokumenHash.SetXor(Util_ZobristHashing.GetTaikyokusyaKey(OptionalPhase.From(Teban), Sindan));
 
             Util_Machine.Assert_Sabun_Komawari("Ｄｏ終 (手番進めた後)", Sindan, syuturyoku);
             Util_Machine.Assert_Sabun_Nikoma("Ｄｏ終 (手番進めた後)", this, syuturyoku);
@@ -1388,10 +1388,10 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             //────────────────────────────────────────
             // 事前に戻すぜ☆（＾▽＾）
             {
-                KyokumenHash.SetXor(Util_ZobristHashing.GetTaikyokusyaKey(Teban, Sindan));
+                KyokumenHash.SetXor(Util_ZobristHashing.GetTaikyokusyaKey(OptionalPhase.From(Teban), Sindan));
                 Teban = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(OptionalPhase.From( Teban)));
                 Nikoma.Hanten();
-                KyokumenHash.SetXor(Util_ZobristHashing.GetTaikyokusyaKey(Teban, Sindan));
+                KyokumenHash.SetXor(Util_ZobristHashing.GetTaikyokusyaKey(OptionalPhase.From(Teban), Sindan));
             }
 
             if (Move.Toryo == ss) { goto gt_EndMethod; }// なにも更新せず終了☆（＾▽＾）

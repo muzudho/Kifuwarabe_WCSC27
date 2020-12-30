@@ -130,14 +130,14 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// 
         /// </summary>
         /// <returns></returns>
-        public static ulong GetTaikyokusyaKey(Taikyokusya tai, Kyokumen.Sindanyo kys)
+        public static ulong GetTaikyokusyaKey(Option<Phase> optionalPhase, Kyokumen.Sindanyo kys)
         {
             if (Util_ZobristHashing.Dirty)
             {
                 Util_ZobristHashing.Tukurinaosi(kys);
             }
 
-            return Util_ZobristHashing.m_tbTaikyokusya_[(int)tai];
+            return Util_ZobristHashing.m_tbTaikyokusya_[OptionalPhase.ToInt(optionalPhase)];
         }
     }
 }
