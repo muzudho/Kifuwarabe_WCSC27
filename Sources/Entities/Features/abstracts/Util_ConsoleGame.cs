@@ -73,9 +73,9 @@
 #if DEBUG
             syuturyoku.Append("**デバッグ・モード** ");//注意喚起☆（＾▽＾）
 #endif
-            Conv_Taikyokusya.Setumei_Name(ky.Teban, syuturyoku);
+            Conv_Taikyokusya.Setumei_Name(OptionalPhase.ToTaikyokusya( ky.CurrentOptionalPhase), syuturyoku);
             syuturyoku.Append("（");
-            syuturyoku.Append(Option_Application.Optionlist.PNChar[(int)ky.Teban].ToString());
+            syuturyoku.Append(Option_Application.Optionlist.PNChar[OptionalPhase.ToInt( ky.CurrentOptionalPhase)].ToString());
             syuturyoku.Append("）の思考中（＾～＾）");
             Logger.Flush(syuturyoku.ToString());
             syuturyoku.Clear();
@@ -156,7 +156,7 @@
                 ky.AppendFenTo(Option_Application.Optionlist.USI, fenMojiretu);
                 KyFen_before = fenMojiretu.ToString();
                 KyHash_before = ky.KyokumenHash.Value;
-                KyTaikyokusya_before = ky.Teban;
+                KyTaikyokusya_before = OptionalPhase.ToTaikyokusya( ky.CurrentOptionalPhase);
             }
         }
         /// <summary>

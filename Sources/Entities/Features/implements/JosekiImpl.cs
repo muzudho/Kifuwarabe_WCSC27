@@ -415,7 +415,7 @@ commandline=[{ commandline }]");
 #endif
                     */
 
-                    josekiKy = this.ParseKyokumenLine(commandline, ky_forJoseki.KyokumenHash.Value, OptionalPhase.From( ky_forJoseki.Teban), syuturyoku);
+                    josekiKy = this.ParseKyokumenLine(commandline, ky_forJoseki.KyokumenHash.Value, ky_forJoseki.CurrentOptionalPhase, syuturyoku);
                 }
                 else
                 {

@@ -1118,8 +1118,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             HiouteJoho jibunHioute = new HiouteJoho()
             {
-                Taikyokusya = ky.Teban,
-                KmRaion = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, OptionalPhase.From(ky.Teban))
+                Taikyokusya = OptionalPhase.ToTaikyokusya( ky.CurrentOptionalPhase),
+                KmRaion = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, ky.CurrentOptionalPhase)
             };
             var optionalOpponent = Conv_Taikyokusya.Reverse(OptionalPhase.From(jibunHioute.Taikyokusya));
             var opponentIndex = OptionalPhase.ToInt(optionalOpponent);
@@ -1352,9 +1352,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             // 相手番側が、王手回避が必要かどうか調べたいぜ☆（＾～＾）
             HiouteJoho aiteHioute;
             {
-                ky.Teban = OptionalPhase.ToTaikyokusya(optionalOpponent);//一瞬ひっくり返す
+                ky.CurrentOptionalPhase = optionalOpponent;//一瞬ひっくり返す
                 aiteHioute = AbstractUtilMoveGen.CreateHiouteJoho(ky, true);
-                ky.Teban = OptionalPhase.ToTaikyokusya(optionalPhase);//すぐ戻す
+                ky.CurrentOptionalPhase = optionalPhase;//すぐ戻す
             }
             #endregion
 

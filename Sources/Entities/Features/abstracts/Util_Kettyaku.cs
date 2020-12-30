@@ -11,16 +11,16 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <param name="bestSasite">投了かどうか調べるだけ☆</param>
         public static void JudgeKettyaku(Move bestSasite, Kyokumen ky)
         {
-            Taikyokusya tb2 = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(OptionalPhase.From( ky.Teban)));
+            var optionalOpponent2 = Conv_Taikyokusya.Reverse(ky.CurrentOptionalPhase);
             if (Move.Toryo == bestSasite)
             {
-                switch (ky.Teban)// 投了した時点で、次の手番に移っているぜ☆
+                switch (ky.CurrentOptionalPhase.Unwrap())// 投了した時点で、次の手番に移っているぜ☆
                 {
-                    case Taikyokusya.T2:
+                    case Phase.White:
                         // 対局者１が投了して、対局者２の手番になったということだぜ☆
                         // だから対局者２の勝ちだぜ☆
                         ky.Kekka = TaikyokuKekka.Taikyokusya2NoKati; break;
-                    case Taikyokusya.T1: ky.Kekka = TaikyokuKekka.Taikyokusya1NoKati; break;
+                    case Phase.Black: ky.Kekka = TaikyokuKekka.Taikyokusya1NoKati; break;
                     default: throw new Exception("未定義の手番");
                 }
             }
@@ -30,14 +30,14 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             }
             // トライルール
             else if (Util_TryRule.IsTried(ky,
-                OptionalPhase.From( tb2)//手番が進んでいるので、相手番のトライを判定☆
+                optionalOpponent2//手番が進んでいるので、相手番のトライを判定☆
                 )
                 )
             {
-                switch (tb2)
+                switch (optionalOpponent2.Unwrap())
                 {
-                    case Taikyokusya.T1: ky.Kekka = TaikyokuKekka.Taikyokusya1NoKati; break;
-                    case Taikyokusya.T2: ky.Kekka = TaikyokuKekka.Taikyokusya2NoKati; break;
+                    case Phase.Black: ky.Kekka = TaikyokuKekka.Taikyokusya1NoKati; break;
+                    case Phase.White: ky.Kekka = TaikyokuKekka.Taikyokusya2NoKati; break;
                     default: throw new Exception("未定義の手番");
                 }
             }

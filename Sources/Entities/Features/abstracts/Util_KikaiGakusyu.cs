@@ -80,10 +80,10 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 // まず、一手指すぜ☆
                 Nanteme nanteme = new Nanteme();
-                ky.DoMove(Option_Application.Optionlist.USI, kyosiSs, MoveType.N00_Karappo, ref nanteme, OptionalPhase.From(ky.Teban), syuturyoku);
+                ky.DoMove(Option_Application.Optionlist.USI, kyosiSs, MoveType.N00_Karappo, ref nanteme, ky.CurrentOptionalPhase, syuturyoku);
 
                 // 評価値を調べようぜ☆（＾▽＾）
-                Hyokati komawariHyokati = ky.Komawari.Get(OptionalPhase.From( ky.Teban));
+                Hyokati komawariHyokati = ky.Komawari.Get(ky.CurrentOptionalPhase);
                 Hyokati nikomaHyokati = ky.Nikoma.Get(true);
                 kyosiHyokati = (int)komawariHyokati + nikomaHyokati;
 
@@ -131,7 +131,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
                 // まず、一手指すぜ☆
                 Nanteme nanteme = new Nanteme();
-                ky.DoMove(Option_Application.Optionlist.USI, entry.Key, MoveType.N00_Karappo, ref nanteme, OptionalPhase.From(ky.Teban), syuturyoku);
+                ky.DoMove(Option_Application.Optionlist.USI, entry.Key, MoveType.N00_Karappo, ref nanteme, ky.CurrentOptionalPhase, syuturyoku);
 
                 // 評価値を調べようぜ☆（＾▽＾）
                 ky.Hyoka(out sonotanoTe_hyokatiUtiwake, HyokaRiyu.Yososu, true// ランダムな局面で学習したりもするし☆（＾～＾）
@@ -164,7 +164,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     // この局面の２駒関係を、シグモイドの y 点分、下げるぜ☆
                     sumSigmoidY += Util_NikomaKankei.DecrementParamerter_KikaiGakusyu(
                         happaKy,
-                        (Util_Tansaku.KaisiTaikyokusya == happaKy.Teban) ? -sigmoidY : sigmoidY//自分の手番なら 引く☆
+                        (Util_Tansaku.KaisiTaikyokusya == OptionalPhase.ToTaikyokusya( happaKy.CurrentOptionalPhase)) ? -sigmoidY : sigmoidY//自分の手番なら 引く☆
                     );
                 }
             }
@@ -180,7 +180,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 // 各葉に　山分けだぜ☆（＾～＾）
                 Util_NikomaKankei.IncrementParamerter_KikaiGakusyu(
                     happaKy,
-                    (Util_Tansaku.KaisiTaikyokusya == happaKy.Teban) ? -yamawake : yamawake//自分の手番なら 足すぜ☆
+                    (Util_Tansaku.KaisiTaikyokusya == OptionalPhase.ToTaikyokusya( happaKy.CurrentOptionalPhase)) ? -yamawake : yamawake//自分の手番なら 足すぜ☆
                 );
             }
 

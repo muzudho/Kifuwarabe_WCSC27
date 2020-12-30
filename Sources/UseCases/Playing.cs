@@ -130,11 +130,19 @@ usiok");
             if (token == "lose")
             {
                 // コンピューターは止めるぜ☆（*＾～＾*）次のイリーガルな指し手を指してしまうからなｗｗｗｗ☆（＾▽＾）
-                switch (ky.Teban)
+                var (exists, phase) = ky.CurrentOptionalPhase.Match;
+                if (exists)
                 {
-                    case Taikyokusya.T1: Option_Application.Optionlist.P1Com = false; break;
-                    case Taikyokusya.T2: Option_Application.Optionlist.P2Com = false; break;
-                    default: break;
+                    switch (phase)
+                    {
+                        case Phase.Black: Option_Application.Optionlist.P1Com = false; break;
+                        case Phase.White: Option_Application.Optionlist.P2Com = false; break;
+                        default: throw new Exception();
+                    }
+                }
+                else
+                {
+
                 }
             }
             else
@@ -155,7 +163,7 @@ usiok");
             }
 
             Nanteme nanteme = new Nanteme();
-            ky.DoMove(isSfen, ss, MoveType.N00_Karappo, ref nanteme, OptionalPhase.From(ky.Teban), syuturyoku);
+            ky.DoMove(isSfen, ss, MoveType.N00_Karappo, ref nanteme, ky.CurrentOptionalPhase, syuturyoku);
 
             switch (commandMode)
             {
@@ -271,7 +279,7 @@ usiok");
 
             if (caret == commandline.IndexOf("komawari", caret))
             {
-                Hyokati hyokati = ky.Komawari.Get(OptionalPhase.From(ky.Teban));
+                Hyokati hyokati = ky.Komawari.Get(ky.CurrentOptionalPhase);
                 syuturyoku.AppendLine($"komawari hyokati = { (int)hyokati}");
             }
             else if (caret == commandline.IndexOf("nikoma", caret))
@@ -793,7 +801,7 @@ Kettyaku = {Util_Application.IsKettyaku(ky)}");
                 // 指し手を指定した場合☆
                 Med_Parser.TryFenMove(isSfen, commandline, ref caret_1, ky.Sindan, out Move ss);
                 Nanteme nanteme = new Nanteme();
-                ky.DoMove(isSfen, ss, MoveType.N00_Karappo, ref nanteme, OptionalPhase.From(ky.Teban), syuturyoku);
+                ky.DoMove(isSfen, ss, MoveType.N00_Karappo, ref nanteme, ky.CurrentOptionalPhase, syuturyoku);
                 Masu ms = ConvMove.GetDstMasu(ss, ky);
 
 
@@ -1297,9 +1305,9 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                 // 詰んでいる状況かどうか調べるぜ☆（＾▽＾）
                 HiouteJoho aiteHioute;// 相手番側が、王手回避が必要かどうか調べたいぜ☆（＾～＾）
                 {
-                    ky.Teban = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(OptionalPhase.From( ky.Teban)));
+                    ky.CurrentOptionalPhase = Conv_Taikyokusya.Reverse( ky.CurrentOptionalPhase);
                     aiteHioute = AbstractUtilMoveGen.CreateHiouteJoho(ky, true);
-                    ky.Teban =OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(OptionalPhase.From( ky.Teban)));
+                    ky.CurrentOptionalPhase = Conv_Taikyokusya.Reverse(ky.CurrentOptionalPhase);
 
                     if (aiteHioute.IsHoui())
                     {
@@ -1807,7 +1815,7 @@ USI                      = {Option_Application.Optionlist.USI}");
         {
             if (commandline == "taikyokusya")
             {
-                Conv_Taikyokusya.Setumei_Name(ky.Teban, syuturyoku);
+                Conv_Taikyokusya.Setumei_Name(OptionalPhase.ToTaikyokusya( ky.CurrentOptionalPhase), syuturyoku);
                 syuturyoku.AppendLine();
                 return;
             }
@@ -1819,7 +1827,7 @@ USI                      = {Option_Application.Optionlist.USI}");
             if (caret_1 == commandline.IndexOf("hanten", caret_1))
             {
                 // 手番を反転☆
-                ky.Teban = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(OptionalPhase.From( ky.Teban)));
+                ky.CurrentOptionalPhase = Conv_Taikyokusya.Reverse( ky.CurrentOptionalPhase);
                 ky.Tekiyo(false, syuturyoku);
                 Util_Information.Setumei_Lines_Kyokumen(ky, syuturyoku);
                 syuturyoku.AppendLine();
@@ -1830,7 +1838,7 @@ USI                      = {Option_Application.Optionlist.USI}");
                 int r = Option_Application.Random.Next(2);
                 if (r == 0)
                 {
-                    ky.Teban = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(OptionalPhase.From( ky.Teban)));
+                    ky.CurrentOptionalPhase = Conv_Taikyokusya.Reverse(ky.CurrentOptionalPhase);
                     ky.Tekiyo(false, syuturyoku);
                     Util_Information.Setumei_Lines_Kyokumen(ky, syuturyoku);
                     syuturyoku.AppendLine();
@@ -2553,7 +2561,7 @@ USI                      = {Option_Application.Optionlist.USI}");
                 if (0 == Option_Application.Random.Next(2))
                 {
                     ky.Hanten();
-                    ky.Teban = Taikyokusya.T2;
+                    ky.CurrentOptionalPhase = OptionalPhase.White;
                 }
                 ky.Tekiyo(true, syuturyoku);
                 Util_Information.Setumei_Lines_Kyokumen(ky, Util_Machine.Syuturyoku);
@@ -2564,15 +2572,15 @@ USI                      = {Option_Application.Optionlist.USI}");
                     Logger.Flush(msg);
                 }
 
-                Taikyokusya tai = ky.Teban;
-                Koma raionKm = (tai == Taikyokusya.T1 ? Koma.R : Koma.r);
+                var optioalPhase75 = ky.CurrentOptionalPhase;
+                Koma raionKm = (OptionalPhase.ToTaikyokusya( optioalPhase75) == Taikyokusya.T1 ? Koma.R : Koma.r);
                 Masu ms1 = ky.Lookup(raionKm);
                 Bitboard kikiBB = new Bitboard();
-                kikiBB.Set(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, OptionalPhase.From( tai)), ms1));
+                kikiBB.Set(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, optioalPhase75), ms1));
                 {
                     bool tmp = Util_Test.TestMode;
                     Util_Test.TestMode = true;
-                    Util_TryRule.GetTrySaki(ky, kikiBB, OptionalPhase.From(tai), ms1, syuturyoku);
+                    Util_TryRule.GetTrySaki(ky, kikiBB, optioalPhase75, ms1, syuturyoku);
                     Util_Test.TestMode = tmp;
                 }
                 #endregion

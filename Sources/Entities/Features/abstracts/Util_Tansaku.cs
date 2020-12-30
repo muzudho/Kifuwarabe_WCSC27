@@ -100,7 +100,7 @@ using System.Text;
 
         public static Hyokati Hyoka(Kyokumen ky, out Hyokati out_komawariHyokati, out Hyokati out_nikomaHyokati)
         {
-            out_komawariHyokati = ky.Komawari.Get(OptionalPhase.From(ky.Teban));
+            out_komawariHyokati = ky.Komawari.Get(ky.CurrentOptionalPhase);
             out_nikomaHyokati = ky.Nikoma.Get(true);
             return out_komawariHyokati + (int)out_nikomaHyokati;
         }
@@ -178,7 +178,7 @@ using System.Text;
             Util_Tansaku.TansakuTyakusyuEdas = 0;
 
             Yomisuji best_yomisuji_orNull = null;
-            if (ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, OptionalPhase.From(ky.Teban))).IsEmpty())
+            if (ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, ky.CurrentOptionalPhase)).IsEmpty())
             {
                 // 自分のらいおんがいない局面の場合、投了☆
 #if DEBUG
@@ -194,7 +194,7 @@ using System.Text;
                 // 探索が始まる前に定跡、成績を使うぜ☆（＾▽＾）
                 // まず、定跡を使う、使わないの判断だぜ☆（＾～＾）
                 bool useJoseki = false;
-                switch (Option_Application.Optionlist.PNChar[(int)ky.Teban])
+                switch (Option_Application.Optionlist.PNChar[OptionalPhase.ToInt( ky.CurrentOptionalPhase)])
                 {
                     // 「探索のみ」のやつは定跡を使わないんだぜ☆（＾▽＾）
                     case MoveCharacter.TansakuNomi: goto gt_NotUseJoseki;
@@ -220,7 +220,7 @@ using System.Text;
 #endif
                     // 定跡の中には、負けるのが入っているぜ☆（＾～＾）
                     // 勝率も見た方がいいのでは☆（＾～＾）？
-                    switch (Option_Application.Optionlist.PNChar[(int)ky.Teban])
+                    switch (Option_Application.Optionlist.PNChar[OptionalPhase.ToInt( ky.CurrentOptionalPhase)])
                     {
                         case MoveCharacter.SinteYusen://thru
                         case MoveCharacter.SinteNomi:
@@ -562,7 +562,7 @@ using System.Text;
                             }
 
                             dlgt_CreateJoho(
-                                OptionalPhase.From( ky.Teban),
+                                 ky.CurrentOptionalPhase,
 #if DEBUG
                     alpha,
                     beta,
@@ -616,7 +616,7 @@ using System.Text;
             // 詰め、詰められ
             //────────────────────────────────────────
             {
-                Util_Taikyoku.Update(out_kakutei_hyokatiUtiwake.EdaBest, OptionalPhase.From( ky.Teban),
+                Util_Taikyoku.Update(out_kakutei_hyokatiUtiwake.EdaBest, ky.CurrentOptionalPhase,
                     ky.Konoteme.ScanNantemadeBango()
                     );
             }
@@ -691,7 +691,7 @@ using System.Text;
             ky.DoMove(isSfen,
                 null != best_yomisuji_orNull ? best_yomisuji_orNull.GetBestSasite() : Move.Toryo,
                 null != best_yomisuji_orNull ? best_yomisuji_orNull.GetBestSasiteType() : MoveType.N00_Karappo
-                , ref nanteme, OptionalPhase.From(ky.Teban), syuturyoku);
+                , ref nanteme, ky.CurrentOptionalPhase, syuturyoku);
 
             // 指し手が決まったときにも、強制情報表示
             {
@@ -719,7 +719,7 @@ using System.Text;
                 }
 
                 dlgt_CreateJoho(
-                    Conv_Taikyokusya.Reverse(OptionalPhase.From( ky.Teban)),// DoSasite の後なので、相手の手番に進んでいるので、戻すぜ☆（＾～＾）
+                    Conv_Taikyokusya.Reverse(ky.CurrentOptionalPhase),// DoSasite の後なので、相手の手番に進んでいるので、戻すぜ☆（＾～＾）
 #if DEBUG
                     Hyokati.Hyokati_Rei,// ここでアルファ無いんで
                     Hyokati.Hyokati_Rei,// ここでベータ無いんで
@@ -762,7 +762,7 @@ using System.Text;
         {
             Debug.Assert(1 <= fukasa && fukasa < AbstractUtilMoveGen.MoveList.Length, "");
 
-            Util_Tansaku.KaisiTaikyokusya = ky.Teban;
+            Util_Tansaku.KaisiTaikyokusya = OptionalPhase.ToTaikyokusya( ky.CurrentOptionalPhase);
             Util_Tansaku.KaisiNantemade = ky.Konoteme.ScanNantemadeBango();
             Util_Tansaku.BadUtikiri = false;
             Option_Application.Optionlist.SetSikoJikan_KonkaiNoTansaku();//思考時間（ランダム込み）を確定させるぜ☆（＾～＾）
@@ -863,7 +863,7 @@ using System.Text;
                             yomisuji);
 
                         dlgt_CreateJoho(
-                            OptionalPhase.From(ky.Teban),
+                            ky.CurrentOptionalPhase,
 #if DEBUG
                             alpha,
                             beta,
@@ -984,7 +984,7 @@ using System.Text;
                         yomisuji);
 
                     dlgt_CreateJoho(
-                        OptionalPhase.From(ky.Teban),
+                        ky.CurrentOptionalPhase,
 #if DEBUG
                         alpha,
                         beta,
@@ -1059,7 +1059,7 @@ using System.Text;
                         yomisuji);
 
                     dlgt_CreateJoho(
-                        OptionalPhase.From(ky.Teban),
+                        ky.CurrentOptionalPhase,
 #if DEBUG
                         alpha,
                         beta,
@@ -1155,7 +1155,7 @@ using System.Text;
                         ConvMove.AppendFenTo(isSfen, eda_sasite, yomisuji);// このループでは、まだ指していない手だぜ☆
 
                         dlgt_CreateJoho(
-                            OptionalPhase.From(ky.Teban),
+                            ky.CurrentOptionalPhase,
 #if DEBUG
                             alpha,
                             beta,
@@ -1179,7 +1179,7 @@ using System.Text;
                 }
                 #endregion
 
-                ky.DoMove(isSfen, eda_sasite, eda_sasiteType, ref nanteme, OptionalPhase.From(ky.Teban), syuturyoku);
+                ky.DoMove(isSfen, eda_sasite, eda_sasiteType, ref nanteme, ky.CurrentOptionalPhase, syuturyoku);
                 //{
                 //    Util_Logger.AppendLine($"do後 {ConvMove.Setumei_Fen(ss)}");
                 //    Util_Logger.AppendLine(ApplicationImpl.Kyokumen.Setumei());
@@ -1198,11 +1198,11 @@ using System.Text;
                     Hyokati sennititeKomawariHyokati, sennititeNikomaHyokati;
 
                     // 手番はもう相手に回っているので、点数は相手の点数☆
-                    sennititeKomawariHyokati = ky.Komawari.Get(OptionalPhase.From(ky.Teban));
+                    sennititeKomawariHyokati = ky.Komawari.Get(ky.CurrentOptionalPhase);
                     sennititeNikomaHyokati = ky.Nikoma.Get(true);
                     Hyokati sennititeHyokati = sennititeKomawariHyokati + (int)sennititeNikomaHyokati;
 
-                    bool tansakusyaTyakusyu = Util_Tansaku.KaisiTaikyokusya == OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(OptionalPhase.From( ky.Teban))); // 手番はもう相手に回っているので、反転させて、千日手に着手したものかどうか調べるぜ☆
+                    bool tansakusyaTyakusyu = Util_Tansaku.KaisiTaikyokusya == OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(ky.CurrentOptionalPhase)); // 手番はもう相手に回っているので、反転させて、千日手に着手したものかどうか調べるぜ☆
                     //Hyokati tyakusyuKomawariHyokati = (Hyokati)(-(int)sennititeKomawariHyokati);
                     //Hyokati tyakusyuNikomaHyokati = (Hyokati)(-(int)sennititeNikomaHyokati);
                     Hyokati tyakusyuHyokati = (Hyokati)(-(int)sennititeHyokati);
@@ -1417,7 +1417,7 @@ using System.Text;
                         ConvMove.AppendFenTo(isSfen, eda_sasite, yomisuji);// このループで指した手だぜ☆
 
                         dlgt_CreateJoho(
-                            OptionalPhase.From(ky.Teban),
+                            ky.CurrentOptionalPhase,
 #if DEBUG
                             alpha,
                             beta,
@@ -1474,7 +1474,7 @@ using System.Text;
                         ConvMove.AppendFenTo(isSfen, eda_sasite, yomisuji);// このループで指した手だぜ☆
 
                         dlgt_CreateJoho(
-                            OptionalPhase.From(ky.Teban),
+                            ky.CurrentOptionalPhase,
 #if DEBUG
                             alpha,
                             beta,
@@ -1542,7 +1542,7 @@ using System.Text;
                         //Conv_Hyokati.Setumei(old_alpha, riyuHosoku);
 
                         dlgt_CreateJoho(
-                            OptionalPhase.From(ky.Teban),
+                            ky.CurrentOptionalPhase,
 #if DEBUG
                             alpha,
                             beta,

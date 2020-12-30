@@ -317,7 +317,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                         //ky2.KyokumenHash = ky2.CreateKyokumenHash();//必要最低限、ハッシュだけ適用しておくぜ☆（＾▽＾）
                     }
 
-                    josekiKy = this.Parse_AddKyLine(commandline, ky2.KyokumenHash.Value, OptionalPhase.From( ky2.Teban));
+                    josekiKy = this.Parse_AddKyLine(commandline, ky2.KyokumenHash.Value, ky2.CurrentOptionalPhase);
                 }
                 else if (commandline.Trim().Length < 1)
                 {

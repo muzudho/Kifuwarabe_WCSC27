@@ -271,13 +271,13 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             if (AbstractUtilMoveGen.MoveList[fukasa].SslistCount < 1)
             {
                 Nanteme nanteme = new Nanteme();
-                ky.DoMove(Option_Application.Optionlist.USI, Move.Toryo, MoveType.N00_Karappo, ref nanteme, OptionalPhase.From( ky.Teban), syuturyoku);
+                ky.DoMove(Option_Application.Optionlist.USI, Move.Toryo, MoveType.N00_Karappo, ref nanteme,  ky.CurrentOptionalPhase, syuturyoku);
             }
             else
             {
                 Move ss = AbstractUtilMoveGen.MoveList[fukasa].ListMove[Option_Application.Random.Next(AbstractUtilMoveGen.MoveList[fukasa].SslistCount)];
                 Nanteme nanteme = new Nanteme();
-                ky.DoMove(Option_Application.Optionlist.USI, ss, MoveType.N00_Karappo, ref nanteme, OptionalPhase.From(ky.Teban), syuturyoku);
+                ky.DoMove(Option_Application.Optionlist.USI, ss, MoveType.N00_Karappo, ref nanteme, ky.CurrentOptionalPhase, syuturyoku);
             }
         }
 
@@ -854,10 +854,18 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <returns></returns>
         public static bool IsNingenNoBan(Kyokumen ky)
         {
-            return (ky.Teban == Taikyokusya.T1 && !Option_Application.Optionlist.P1Com) // コンピューターでない場合
-                    ||
-                    (ky.Teban == Taikyokusya.T2 && !Option_Application.Optionlist.P2Com) // コンピューターでない場合
-                    ;
+            var (exists, phase) = ky.CurrentOptionalPhase.Match;
+            if (exists)
+            {
+                return (phase == Phase.Black && !Option_Application.Optionlist.P1Com) // コンピューターでない場合
+                        ||
+                        (phase == Phase.White && !Option_Application.Optionlist.P2Com) // コンピューターでない場合
+                        ;
+            }
+            else
+            {
+                return false;
+            }
         }
         /// <summary>
         /// コンピューターの番☆
@@ -865,10 +873,18 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <returns></returns>
         public static bool IsComputerNoBan(Kyokumen ky)
         {
-            return (ky.Teban == Taikyokusya.T1 && Option_Application.Optionlist.P1Com) // 対局者１でコンピューター☆
-                        ||
-                        (ky.Teban == Taikyokusya.T2 && Option_Application.Optionlist.P2Com) // 対局者２でコンピューター☆
-                        ;
+            var (exists, phase) = ky.CurrentOptionalPhase.Match;
+            if (exists)
+            {
+                return (phase == Phase.Black && Option_Application.Optionlist.P1Com) // 対局者１でコンピューター☆
+                            ||
+                            (phase == Phase.White && Option_Application.Optionlist.P2Com) // 対局者２でコンピューター☆
+                            ;
+            }
+            else
+            {
+                return false;
+            }
         }
 
 
@@ -888,19 +904,19 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             if (Option_Application.Optionlist.SeisekiRec)// 今回指した手全てに、成績を付けたいぜ☆（＾～＾）
             {
                 int teme = ky.Konoteme.ScanNantemadeBango();
-                if (Util_Taikyoku.PNNantedume_Teme[(int)ky.Teban] <= teme)
+                if (Util_Taikyoku.PNNantedume_Teme[OptionalPhase.ToInt( ky.CurrentOptionalPhase)] <= teme)
                 {
                     // 何手詰め、何手詰められ　の表記が出て以降の成績を記録するぜ☆（＾～＾）
 
                     // 一手前の局面と、指したあとの指し手で成績更新☆（＾▽＾）
-                    Conv_Seiseki.ResultToCount(OptionalPhase.From( ky.Teban), Util_Application.Result(ky), out int kati, out int hikiwake, out int make);
+                    Conv_Seiseki.ResultToCount( ky.CurrentOptionalPhase, Util_Application.Result(ky), out int kati, out int hikiwake, out int make);
 
                     StringBuilder kyMojiretu = new StringBuilder();
                     ky.AppendFenTo(Option_Application.Optionlist.USI, kyMojiretu);
                     Option_Application.Seiseki.AddMove(
                         kyMojiretu.ToString(),
                         ky.KyokumenHash.Value,
-                        OptionalPhase.From( ky.Teban),
+                        ky.CurrentOptionalPhase,
                         ss_after,
                         Util_Application.VERSION,
                         kati,

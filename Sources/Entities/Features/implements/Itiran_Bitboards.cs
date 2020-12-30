@@ -192,9 +192,13 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 hyokati = Util_NikomaKankei.SAIDAI_HYOKATI_SABUNKOSINYOU;
             }
 
-            if (ky.Teban == Taikyokusya.T2)
+            var (exists, phase) = ky.CurrentOptionalPhase.Match;
+            if (exists)
             {
-                hyokati = -hyokati; // 対局者２視点に変えるぜ☆（＾▽＾）
+                if (phase == Phase.White)
+                {
+                    hyokati = -hyokati; // 対局者２視点に変えるぜ☆（＾▽＾）
+                }
             }
             Hyokati = (Hyokati)hyokati;
         }

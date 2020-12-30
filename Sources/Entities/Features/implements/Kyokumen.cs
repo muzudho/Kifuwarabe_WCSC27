@@ -39,7 +39,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             /// 本体
             /// </summary>
             Kyokumen Hontai { get; set; }
-            public Taikyokusya Teban { get { return Hontai.Teban; } }
+            public Taikyokusya Teban { get { return OptionalPhase.ToTaikyokusya( Hontai.CurrentOptionalPhase); } }
 
             /// <summary>
             /// FIXME: 緊急用
@@ -219,7 +219,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             //TukurinaosiBanSize();
 
             Kekka = TaikyokuKekka.Karappo;
-            Teban = Taikyokusya.T1;// 初手だぜ☆（＾▽＾）
+            CurrentOptionalPhase = OptionalPhase.Black;// 初手だぜ☆（＾▽＾）
             MotiKomas = new MotiKomaItiranImpl();
 
             BB_BoardArea = new Bitboard();
@@ -287,7 +287,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         public void Clear()
         {
             Kekka = TaikyokuKekka.Karappo;
-            Teban = Taikyokusya.T1;// 初手だぜ☆（＾▽＾）
+            CurrentOptionalPhase = OptionalPhase.Black;// 初手だぜ☆（＾▽＾）
 
             Shogiban.Clear(Sindan.MASU_YOSOSU);
             MotiKomas.Clear();
@@ -558,7 +558,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <summary>
         /// 手番の対局者だぜ☆（＾▽＾）
         /// </summary>
-        public Taikyokusya Teban { get; set; }
+        public Option<Phase> CurrentOptionalPhase { get; set; }
         /// <summary>
         /// 手目だぜ☆（＾▽＾）
         /// </summary>
@@ -845,7 +845,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             if (utta)
             {
                 // 「打」の場合、持ち駒チェック☆
-                if (!MotiKomas.HasMotiKoma(Med_Koma.MotiKomasyuruiAndPhaseToMotiKoma(mksUtta, OptionalPhase.From(this.Teban))))
+                if (!MotiKomas.HasMotiKoma(Med_Koma.MotiKomasyuruiAndPhaseToMotiKoma(mksUtta, this.CurrentOptionalPhase)))
                 {
                     // 持駒が無いのに打とうとしたぜ☆（＞＿＜）
                     reason = MoveMatigaiRiyu.NaiMotiKomaUti;
@@ -863,7 +863,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             }
             Koma km_dst = GetBanjoKoma(ms_dst);
             Taikyokusya tai_dstKm = Med_Koma.KomaToTaikyokusya(km_dst);
-            if (km_dst != Koma.Kuhaku && Teban == tai_dstKm)
+            if (km_dst != Koma.Kuhaku && OptionalPhase.ToTaikyokusya( CurrentOptionalPhase) == tai_dstKm)
             {
                 // 自分の駒を取ろうとするのは、イリーガル・ムーブだぜ☆（＾▽＾）
                 reason = MoveMatigaiRiyu.TebanKomaNoTokoroheIdo;
@@ -882,7 +882,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             if (utta)
             {
                 // 「打」のときは　ここ。
-                km_src = Med_Koma.MotiKomasyuruiAndPhaseToKoma(mksUtta, OptionalPhase.From(Teban));
+                km_src = Med_Koma.MotiKomasyuruiAndPhaseToKoma(mksUtta, CurrentOptionalPhase);
             }
             else
             {
@@ -895,7 +895,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     reason = MoveMatigaiRiyu.KuhakuWoIdo;
                     return false;
                 }
-                else if (tai_srcKm != Teban)
+                else if (tai_srcKm != OptionalPhase.ToTaikyokusya( CurrentOptionalPhase))
                 {
                     // 相手の駒を動かそうとするのは、イリーガル・ムーブだぜ☆（＾▽＾）
                     reason = MoveMatigaiRiyu.AiteNoKomaIdo;
@@ -1364,10 +1364,10 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             // 手番
             //────────────────────────────────────────
             // 事後に進めるぜ☆（＾▽＾）
-            KyokumenHash.SetXor(Util_ZobristHashing.GetTaikyokusyaKey(OptionalPhase.From(Teban), Sindan));
-            Teban = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(OptionalPhase.From( Teban)));
+            KyokumenHash.SetXor(Util_ZobristHashing.GetTaikyokusyaKey(CurrentOptionalPhase, Sindan));
+            CurrentOptionalPhase = Conv_Taikyokusya.Reverse(CurrentOptionalPhase);
             Nikoma.Hanten();
-            KyokumenHash.SetXor(Util_ZobristHashing.GetTaikyokusyaKey(OptionalPhase.From(Teban), Sindan));
+            KyokumenHash.SetXor(Util_ZobristHashing.GetTaikyokusyaKey(CurrentOptionalPhase, Sindan));
 
             Util_Machine.Assert_Sabun_Komawari("Ｄｏ終 (手番進めた後)", Sindan, syuturyoku);
             Util_Machine.Assert_Sabun_Nikoma("Ｄｏ終 (手番進めた後)", this, syuturyoku);
@@ -1388,10 +1388,10 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             //────────────────────────────────────────
             // 事前に戻すぜ☆（＾▽＾）
             {
-                KyokumenHash.SetXor(Util_ZobristHashing.GetTaikyokusyaKey(OptionalPhase.From(Teban), Sindan));
-                Teban = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(OptionalPhase.From( Teban)));
+                KyokumenHash.SetXor(Util_ZobristHashing.GetTaikyokusyaKey(CurrentOptionalPhase, Sindan));
+                CurrentOptionalPhase = Conv_Taikyokusya.Reverse(CurrentOptionalPhase);
                 Nikoma.Hanten();
-                KyokumenHash.SetXor(Util_ZobristHashing.GetTaikyokusyaKey(OptionalPhase.From(Teban), Sindan));
+                KyokumenHash.SetXor(Util_ZobristHashing.GetTaikyokusyaKey(CurrentOptionalPhase, Sindan));
             }
 
             if (Move.Toryo == ss) { goto gt_EndMethod; }// なにも更新せず終了☆（＾▽＾）
@@ -1409,8 +1409,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             //      取られる駒の元位置は t1 、駒台は 3 と呼ぶとする。
             //
 
-            Taikyokusya jibun = Teban;
-            Taikyokusya aite = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(OptionalPhase.From( Teban)));
+            var optionalPhase = CurrentOptionalPhase;
+            var optionalOpponent = Conv_Taikyokusya.Reverse(CurrentOptionalPhase);
 
             Masu ms_t0;
             Komasyurui ks_t0;
@@ -1432,12 +1432,12 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 if (ConvMove.IsNatta(ss))// 成っていたとき
                 {
                     ks_t0 = Conv_Komasyurui.ToNarazuCase(ks_t1);// 成る前
-                    km_t0 = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks_t0, OptionalPhase.From(jibun));
+                    km_t0 = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks_t0, optionalPhase);
                 }
                 else
                 {
                     ks_t0 = ks_t1;// 成る前、あるいは、成っていない、あるいは　もともと　にわとり☆
-                    km_t0 = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks_t0, OptionalPhase.From(jibun));
+                    km_t0 = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks_t0, optionalPhase);
                 }
             }
             else// 打つ
@@ -1445,7 +1445,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 ms_t0 = MASU_ERROR;
                 km_t0 = Koma.Yososu;
                 ks_t0 = Komasyurui.Yososu;
-                mk_t0 = Med_Koma.KomasyuruiAndTaikyokusyaToMotiKoma(ks_t1, OptionalPhase.From(Teban));
+                mk_t0 = Med_Koma.KomasyuruiAndTaikyokusyaToMotiKoma(ks_t1, CurrentOptionalPhase);
             }
             Debug.Assert(Sindan.IsBanjoOrError(ms_t0), "Ｕｎｄｏ #颪");
             Debug.Assert(Conv_Koma.IsOk(km_t0), "Ｕｎｄｏ 盤上 #羊");
@@ -1455,7 +1455,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             MotiKoma mk_c;
             if (Komasyurui.Yososu != ks_c)
             {
-                km_c = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks_c, OptionalPhase.From(aite));
+                km_c = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks_c, optionalOpponent);
                 mk_c = Med_Koma.BanjoKomaToMotiKoma(km_c);
                 Debug.Assert(Conv_Koma.IsOk(km_c), "Ｕｎｄｏ #竜巻");
             }
@@ -1502,7 +1502,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             //  Ｔ１　［遷移］   移動先の　手番の駒　を除外する
             //────────────────────────────────────────
             KyokumenHash.SetXor(Util_ZobristHashing.GetBanjoKey(ms_t1, km_t1, Sindan));
-            Komawari.Herasu(OptionalPhase.From(jibun), km_t1);
+            Komawari.Herasu(optionalPhase, km_t1);
             Nikoma.HerasuBanjoKoma(this, km_t1, ms_t1);
 
 #if DEBUG
@@ -1578,7 +1578,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 Shogiban.N250_OkuBanjoKoma(isSfen, ms_t0, km_t0, true, Sindan);
                 Util_Machine.Assert_Sabun_Kiki($"ＵｎｄｏＴ０[遷移]508★ ms_t0=[{ ms_t0 } km_t0={ km_t0 }]", Sindan);
 
-                Komawari.Fuyasu(OptionalPhase.From(jibun), km_t0);
+                Komawari.Fuyasu(optionalPhase, km_t0);
                 Nikoma.FuyasuBanjoKoma(this, km_t1, ms_t0);
             }
             else
@@ -1587,7 +1587,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 KyokumenHash.SetXor(Util_ZobristHashing.GetMotiKey(Sindan, mk_t0));
                 Nikoma.KesuMotiKoma(this, mk_t0);
                 MotiKomas.Fuyasu(mk_t0);
-                Komawari.Fuyasu(OptionalPhase.From(jibun), mk_t0);
+                Komawari.Fuyasu(optionalPhase, mk_t0);
                 Nikoma.HaneiMotiKoma(this, mk_t0);
                 KyokumenHash.SetXor(Util_ZobristHashing.GetMotiKey(Sindan, mk_t0));
             }
@@ -1640,7 +1640,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     // 増やす
                     MotiKomas.Herasu(mk_c);
                     Nikoma.HaneiMotiKoma(this, mk_c);
-                    Komawari.Hetta(OptionalPhase.From(jibun), mk_c);
+                    Komawari.Hetta(optionalPhase, mk_c);
                     KyokumenHash.SetXor(Util_ZobristHashing.GetMotiKey(Sindan, mk_c));
 
                     //────────────────────────────────────────
@@ -1666,7 +1666,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 //────────────────────────────────────────
                 Shogiban.N250_OkuBanjoKoma(isSfen, ms_t1, km_c, true, Sindan);
 
-                Komawari.Fuyasu(OptionalPhase.From(aite), km_c);
+                Komawari.Fuyasu(optionalOpponent, km_c);
                 Nikoma.FuyasuBanjoKoma(this, km_c, ms_t1);
                 KyokumenHash.SetXor(Util_ZobristHashing.GetBanjoKey(ms_t1, km_c, Sindan));
 
@@ -1947,7 +1947,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     r = Option_Application.Random.Next(Conv_Taikyokusya.Itiran.Length);
                     if (0 == r)
                     {
-                        this.Teban = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(OptionalPhase.From( this.Teban)));
+                        this.CurrentOptionalPhase = Conv_Taikyokusya.Reverse(this.CurrentOptionalPhase);
                     }
                 }
 
@@ -2089,7 +2089,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
             // 手番
             syuturyoku.Append(" ");
-            syuturyoku.Append(Conv_Taikyokusya.ToFen(isSfen, Teban));
+            syuturyoku.Append(Conv_Taikyokusya.ToFen(isSfen,OptionalPhase.ToTaikyokusya( CurrentOptionalPhase)));
 
             //// moves
             //if (syuturyokuMoves)
@@ -2285,7 +2285,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             }
 
             // 手番
-            if (!Med_Parser.TryTaikyokusya(isSfen, tb_Mojis, out Option<Phase> phase))
+            if (!Med_Parser.TryTaikyokusya(isSfen, tb_Mojis, out Option<Phase> optionalPhase))
             {
 #if DEBUG
                 StringBuilder reigai1 = new StringBuilder();
@@ -2307,7 +2307,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 #endif
                 throw new Exception($"対局者のパースエラー tb_Mojis=[{tb_Mojis}]");
             }
-            this.Teban = OptionalPhase.ToTaikyokusya( phase);
+            this.CurrentOptionalPhase = optionalPhase;
 
             //────────────────────────────────────────
             // 局面ハッシュ、ビットボード等の更新
@@ -2355,8 +2355,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             Hyokati oisisa = Hyokati.Hyokati_Rei; // 取り返されることが無かった場合は、0 を返すぜ☆（＾▽＾）
 
             // その升に利いている駒を調べるぜ☆（＾～＾）
-            Taikyokusya jibun = this.Teban;
-            Taikyokusya aite = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(OptionalPhase.From( this.Teban)));
+            var optionalPhase = this.CurrentOptionalPhase;
+            var optionalOpponent = Conv_Taikyokusya.Reverse( this.CurrentOptionalPhase);
 
             // ひよこ→きりん→ぞう→にわとり→らいおん　の順にアタックするぜ☆（＾▽＾）
             Komasyurui[] junbanKs = new Komasyurui[] { Komasyurui.H, Komasyurui.K, Komasyurui.Z, Komasyurui.PH, Komasyurui.R };
@@ -2364,8 +2364,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             for (int iKs = 0; iKs < junbanKs.Length; iKs++)
             {
                 Bitboard semegomaBB = new Bitboard();// msから相手番の利きを伸ばせば、攻撃を掛けれる場所にいる自駒が分かるぜ☆（＾▽＾）
-                Shogiban.ToSet_BBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(junbanKs[iKs], OptionalPhase.From(jibun)), semegomaBB);
-                semegomaBB.Select(this.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(junbanKs[iKs], OptionalPhase.From(aite)), ms));
+                Shogiban.ToSet_BBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(junbanKs[iKs], optionalPhase), semegomaBB);
+                semegomaBB.Select(this.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(junbanKs[iKs], optionalOpponent), ms));
                 if (semegomaBB.Ref_PopNTZ(out Masu ms_semegoma))// 最初の１個だけ処理するぜ☆（＾～＾）
                 {
                     ms_src = (Masu)ms_semegoma;
@@ -2392,7 +2392,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     }
 
                     Nanteme nanteme = new Nanteme();
-                    this.DoMove(isSfen, ss, MoveType.N00_Karappo, ref nanteme, OptionalPhase.From( this.Teban), syuturyokuTestYo_orKarappo);
+                    this.DoMove(isSfen, ss, MoveType.N00_Karappo, ref nanteme, this.CurrentOptionalPhase, syuturyokuTestYo_orKarappo);
 
                     if (Komasyurui.R == tottaKomasyurui)
                     {
@@ -2468,17 +2468,19 @@ SEE>ここまで止めると想定し、SEEを 0 から計算しなおすぜ☆(
         /// <returns></returns>
         public bool IsSyobuNasi()
         {
-            Taikyokusya jibun = Teban;
-            Taikyokusya aite = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(OptionalPhase.From( jibun)));
-            Koma jibunRaion = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, OptionalPhase.From(jibun));
-            Koma aiteRaion = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, OptionalPhase.From(aite));
+            var optionalPhase = CurrentOptionalPhase;
+            var phaseIndex = OptionalPhase.ToInt(optionalPhase);
+            var optionalOpponent = Conv_Taikyokusya.Reverse(optionalPhase);
+            var opponentIndex = OptionalPhase.ToInt(optionalOpponent);
+            Koma jibunRaion = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, optionalPhase);
+            Koma aiteRaion = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, optionalOpponent);
             return Shogiban.IsEmptyBBKoma(jibunRaion)// （Ａ）自分のらいおんがいない☆
                     ||
                     Shogiban.IsEmptyBBKoma(aiteRaion)// （Ｂ）相手のらいおんがいない☆
                     ||
-                    !BB_Try[(int)jibun].Clone().Select(Shogiban.GetBBKoma(jibunRaion)).IsEmpty()// （Ｃ）自分のらいおんがトライしている☆
+                    !BB_Try[phaseIndex].Clone().Select(Shogiban.GetBBKoma(jibunRaion)).IsEmpty()// （Ｃ）自分のらいおんがトライしている☆
                     ||
-                    !BB_Try[(int)aite].Clone().Select(Shogiban.GetBBKoma(aiteRaion)).IsEmpty()// （Ｄ）相手のらいおんがトライしている☆
+                    !BB_Try[opponentIndex].Clone().Select(Shogiban.GetBBKoma(aiteRaion)).IsEmpty()// （Ｄ）相手のらいおんがトライしている☆
                     ;
         }
 
@@ -2498,54 +2500,54 @@ SEE>ここまで止めると想定し、SEEを 0 から計算しなおすぜ☆(
             // 駒割りよりは小さく評価したい。
             float kikiScore = 0.0f;
             {
-                Taikyokusya jibun = Teban;
-                Taikyokusya aite = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(OptionalPhase.From( jibun)));
+                var optionalPhase = CurrentOptionalPhase;
+                var optionalOpponent = Conv_Taikyokusya.Reverse( optionalPhase);
 
                 // 自分の駒が、自分の利きに飛び込んでいて加点
                 foreach (Komasyurui ks in Conv_Komasyurui.Itiran)
                 {
-                    Koma km_jibun = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(jibun));
+                    Koma km_jibun = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, optionalPhase);
 
                     Bitboard bb_ibasho = Shogiban.GetBBKoma(km_jibun).Clone();
                     while (bb_ibasho.Ref_PopNTZ(out Masu ms_ibasho))// 立っているビットを降ろすぜ☆
                     {
-                        kikiScore += ((float)Conv_Hyokati.KomaHyokati[(int)km_jibun] / (float)Hyokati.Hyokati_SeiNoSu_Hiyoko) * (float)Shogiban.CountKikisuZenbu(OptionalPhase.From( jibun), ms_ibasho);
+                        kikiScore += ((float)Conv_Hyokati.KomaHyokati[(int)km_jibun] / (float)Hyokati.Hyokati_SeiNoSu_Hiyoko) * (float)Shogiban.CountKikisuZenbu( optionalPhase, ms_ibasho);
                     }
                 }
 
                 // 相手の駒が、相手の利きに飛び込んでいて減点
                 foreach (Komasyurui ks in Conv_Komasyurui.Itiran)
                 {
-                    Koma km_aite = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(aite));
+                    Koma km_aite = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, optionalOpponent);
 
                     Bitboard bb_ibasho = Shogiban.GetBBKoma(km_aite).Clone();
                     while (bb_ibasho.Ref_PopNTZ(out Masu ms_ibasho))// 立っているビットを降ろすぜ☆
                     {
-                        kikiScore -= ((float)Conv_Hyokati.KomaHyokati[(int)km_aite] / (float)Hyokati.Hyokati_SeiNoSu_Hiyoko) * (float)Shogiban.CountKikisuZenbu(OptionalPhase.From( aite), ms_ibasho);
+                        kikiScore -= ((float)Conv_Hyokati.KomaHyokati[(int)km_aite] / (float)Hyokati.Hyokati_SeiNoSu_Hiyoko) * (float)Shogiban.CountKikisuZenbu( optionalOpponent, ms_ibasho);
                     }
                 }
 
                 // 自分の駒が、相手の利きに飛び込んでいて減点
                 foreach (Komasyurui ks in Conv_Komasyurui.Itiran)
                 {
-                    Koma km_jibun = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(jibun));
+                    Koma km_jibun = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, optionalPhase);
 
                     Bitboard bb_ibasho = Shogiban.GetBBKoma(km_jibun).Clone();
                     while (bb_ibasho.Ref_PopNTZ(out Masu ms_ibasho))// 立っているビットを降ろすぜ☆
                     {
-                        kikiScore -= ((float)Conv_Hyokati.KomaHyokati[(int)km_jibun] / (float)Hyokati.Hyokati_SeiNoSu_Hiyoko) * (float)(Shogiban.CountKikisuZenbu(OptionalPhase.From( jibun), ms_ibasho) - Shogiban.CountKikisuZenbu(OptionalPhase.From( aite), ms_ibasho));
+                        kikiScore -= ((float)Conv_Hyokati.KomaHyokati[(int)km_jibun] / (float)Hyokati.Hyokati_SeiNoSu_Hiyoko) * (float)(Shogiban.CountKikisuZenbu(optionalPhase, ms_ibasho) - Shogiban.CountKikisuZenbu(optionalOpponent, ms_ibasho));
                     }
                 }
 
                 // 相手の駒が、自分の利きに飛び込んでいて加点
                 foreach (Komasyurui ks in Conv_Komasyurui.Itiran)
                 {
-                    Koma km_aite = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(aite));
+                    Koma km_aite = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, optionalOpponent);
 
                     Bitboard bb_ibasho = Shogiban.GetBBKoma(km_aite).Clone();
                     while (bb_ibasho.Ref_PopNTZ(out Masu ms_ibasho))// 立っているビットを降ろすぜ☆
                     {
-                        kikiScore += ((float)Conv_Hyokati.KomaHyokati[(int)km_aite] / (float)Hyokati.Hyokati_SeiNoSu_Hiyoko) * (float)(Shogiban.CountKikisuZenbu(OptionalPhase.From( jibun), ms_ibasho) - Shogiban.CountKikisuZenbu(OptionalPhase.From( aite), ms_ibasho));
+                        kikiScore += ((float)Conv_Hyokati.KomaHyokati[(int)km_aite] / (float)Hyokati.Hyokati_SeiNoSu_Hiyoko) * (float)(Shogiban.CountKikisuZenbu( optionalPhase, ms_ibasho) - Shogiban.CountKikisuZenbu(optionalOpponent, ms_ibasho));
                     }
                 }
             }
@@ -2553,8 +2555,8 @@ SEE>ここまで止めると想定し、SEEを 0 から計算しなおすぜ☆(
 #endif
 
             out_hyokatiUtiwake = new HyokatiUtiwake(
-                (Hyokati)(Komawari.Get(OptionalPhase.From( Teban)) + (int)Nikoma.Get(true) + ((int)Hyokati.Hyokati_Rei + (int)kikiScore)),
-                Komawari.Get(OptionalPhase.From( Teban)),
+                (Hyokati)(Komawari.Get( CurrentOptionalPhase) + (int)Nikoma.Get(true) + ((int)Hyokati.Hyokati_Rei + (int)kikiScore)),
+                Komawari.Get(CurrentOptionalPhase),
                 Nikoma.Get(true),
                 (Hyokati)((int)Hyokati.Hyokati_Rei + (int)kikiScore),
                 hyokaRiyu,

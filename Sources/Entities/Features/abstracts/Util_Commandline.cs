@@ -94,17 +94,21 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     syuturyoku.Clear();
                 }
 
-                if ((ky.Teban == Taikyokusya.T1 && !Option_Application.Optionlist.P1Com)
-                    ||
-                    (ky.Teban == Taikyokusya.T2 && !Option_Application.Optionlist.P2Com)
-                    )
+                var (exists, phase) = ky.CurrentOptionalPhase.Match;
+                if (exists)
                 {
-                    // 人間の手番が始まるところで☆
-                    syuturyoku.Append(
-                        @"指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
+                    if ((phase == Phase.Black && !Option_Application.Optionlist.P1Com)
+                        ||
+                        (phase == Phase.White && !Option_Application.Optionlist.P2Com)
+                    )
+                    {
+                        // 人間の手番が始まるところで☆
+                        syuturyoku.Append(
+                            @"指し手を入力してください。一例　do B3B2　※ do b3b2 も同じ
 > ");
-                    Logger.Flush(syuturyoku.ToString());
-                    syuturyoku.Clear();
+                        Logger.Flush(syuturyoku.ToString());
+                        syuturyoku.Clear();
+                    }
                 }
             }
             else
