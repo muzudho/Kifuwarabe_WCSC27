@@ -616,7 +616,7 @@ using System.Text;
             // 詰め、詰められ
             //────────────────────────────────────────
             {
-                Util_Taikyoku.Update(out_kakutei_hyokatiUtiwake.EdaBest, ky.Teban,
+                Util_Taikyoku.Update(out_kakutei_hyokatiUtiwake.EdaBest, OptionalPhase.From( ky.Teban),
                     ky.Konoteme.ScanNantemadeBango()
                     );
             }
