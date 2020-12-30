@@ -1208,29 +1208,29 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// 仲間を見捨てたら真だぜ☆（＾▽＾）ｗｗｗ
         /// </summary>
         /// <param name="ky"></param>
-        /// <param name="friend"></param>
+        /// <param name="optionalPhase"></param>
         /// <param name="ms_t0"></param>
         /// <param name="ms_t1"></param>
         /// <returns></returns>
-        public static bool MisuteruUgoki(Kyokumen ky, Option<Phase> friend, Masu ms_t0, Masu ms_t1)
+        public static bool MisuteruUgoki(Kyokumen ky, Option<Phase> optionalPhase, Masu ms_t0, Masu ms_t1)
         {
-            Taikyokusya aite = OptionalPhase.ToTaikyokusya(Conv_Taikyokusya.Reverse(friend));
+            var optionalOpponent = Conv_Taikyokusya.Reverse(optionalPhase);
 
-            if (ky.Shogiban.ExistsBBKoma(friend, ms_t0, out Komasyurui ks_t0))
+            if (ky.Shogiban.ExistsBBKoma(optionalPhase, ms_t0, out Komasyurui ks_t0))
             {
 
             }
 
-            Koma km_t0 = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks_t0, friend);
+            Koma km_t0 = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks_t0, optionalPhase);
             Koma km_t1 = km_t0;//FIXME:成りを考慮してないぜ☆（＞＿＜）
 
-            Bitboard kikiBB = ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks_t0, friend), ms_t0).Clone();
+            Bitboard kikiBB = ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks_t0, optionalPhase), ms_t0).Clone();
             int nakamaOld = 0; // 移動前の味方の数
             int kasaneGake;
             while (kikiBB.Ref_PopNTZ(out Masu ms_kiki))
             {
                 // 利きの重ね掛け☆ 0以上なら取り返せるぜ☆（＾▽＾）
-                kasaneGake = ky.Shogiban.CountKikisuZenbu(friend, ms_kiki) - ky.Shogiban.CountKikisuZenbu(OptionalPhase.From(aite), ms_kiki);
+                kasaneGake = ky.Shogiban.CountKikisuZenbu(optionalPhase, ms_kiki) - ky.Shogiban.CountKikisuZenbu(optionalOpponent, ms_kiki);
                 if (0 < kasaneGake)
                 {
                     nakamaOld++;
@@ -1241,12 +1241,12 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             ky.Shogiban.N100_HerasuKiki(km_t0, ky.Sindan.CloneKomanoUgoki(km_t0, ms_t0), ky.Sindan);
             ky.Shogiban.N100_FuyasuKiki(km_t1, ky.Sindan.CloneKomanoUgoki(km_t1, ms_t1), ky.Sindan);
 
-            kikiBB.Set(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks_t0, friend), ms_t0));
+            kikiBB.Set(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks_t0, optionalPhase), ms_t0));
             int nakamaNew = 0; // 移動前の味方の数
             while (kikiBB.Ref_PopNTZ(out Masu ms_kiki))
             {
                 // 利きの重ね掛け☆ 0以上なら取り返せるぜ☆（＾▽＾）
-                kasaneGake = ky.Shogiban.CountKikisuZenbu(friend, ms_kiki) - ky.Shogiban.CountKikisuZenbu(OptionalPhase.From(aite), ms_kiki);
+                kasaneGake = ky.Shogiban.CountKikisuZenbu(optionalPhase, ms_kiki) - ky.Shogiban.CountKikisuZenbu(optionalOpponent, ms_kiki);
                 if (0 < kasaneGake)
                 {
                     nakamaNew++;
