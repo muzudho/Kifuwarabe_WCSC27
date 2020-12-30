@@ -1939,7 +1939,7 @@ USI                      = {Option_Application.Optionlist.USI}");
                     //          000  000  000  000  000  000  000  000  000  000  000  000
                     //          000  000  000  000  000  000  000  000  000  000  000  000
                     //          000  000  000  000  000  000  000  000  000  000  000  000
-                    syuturyoku.Append(Med_Koma.GetKomasyuruiNamae(Taikyokusya.T1, (Komasyurui)iKs));
+                    syuturyoku.Append(Med_Koma.GetKomasyuruiNamae(OptionalPhase.Black, (Komasyurui)iKs));
                     //Conv_Komasyurui.GetNamae((Komasyurui)iKs, syuturyoku);
                     syuturyoku.AppendLine();
                     for (int iTb = 0; iTb < Conv_Taikyokusya.Itiran.Length; iTb++)

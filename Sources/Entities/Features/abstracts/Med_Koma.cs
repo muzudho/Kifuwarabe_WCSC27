@@ -33,9 +33,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             return komasyuruiNamaeItiran[OptionalPhase.ToInt(optionalPhase)];
         }
-        public static string GetKomasyuruiNamae(Taikyokusya tai, Komasyurui ks)
+        public static string GetKomasyuruiNamae(Option<Phase> optionalPhase, Komasyurui ks)
         {
-            return komasyuruiNamaeItiran[(int)tai][(int)ks];
+            return komasyuruiNamaeItiran[OptionalPhase.ToInt(optionalPhase)][(int)ks];
         }
 
 
