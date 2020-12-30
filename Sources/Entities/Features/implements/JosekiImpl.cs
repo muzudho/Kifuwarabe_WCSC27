@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using Grayscale.Kifuwarakei.Entities.Game;
+using Grayscale.Kifuwarakei.Entities.Language;
 using Grayscale.Kifuwarakei.Entities.Logging;
 
 namespace Grayscale.Kifuwarakei.Entities.Features
@@ -73,11 +74,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
     /// </summary>
     public class JosekiKyokumen
     {
-        public JosekiKyokumen(string fen, Taikyokusya tb, Joseki owner)
+        public JosekiKyokumen(string fen, Option<Phase> optionalPhase, Joseki owner)
         {
             this.Owner = owner;
             this.Fen = fen;
-            this.TbTaikyokusya = tb;
+            this.TbTaikyokusya = OptionalPhase.ToTaikyokusya(optionalPhase);
             this.SsItems = new Dictionary<Move, JosekiMove>();
         }
 
@@ -208,9 +209,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// データを追加するぜ☆（＾▽＾） 指しながら定跡を追加していくときだぜ☆
         /// </summary>
         /// <param name="ky_before"></param>
-        public JosekiKyokumen AddMove(string kyFen_before, ulong kyHash_before, Taikyokusya kyTb_before, Move bestMove, Hyokati hyokati, int fukasa, int version, StringBuilder syuturyoku)
+        public JosekiKyokumen AddMove(string kyFen_before, ulong kyHash_before, Option<Phase> optionalPhaseBeforeMove, Move bestMove, Hyokati hyokati, int fukasa, int version, StringBuilder syuturyoku)
         {
-            JosekiKyokumen josekiKy = this.ParseKyokumenLine(kyFen_before, kyHash_before, kyTb_before, syuturyoku);
+            JosekiKyokumen josekiKy = this.ParseKyokumenLine(kyFen_before, kyHash_before, optionalPhaseBeforeMove, syuturyoku);
 
             //#if DEBUG
             //            //────────────────────────────────────────
@@ -271,7 +272,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <param name="kyHash_before">指す前の局面のハッシュ</param>
         /// <param name="kyTb_before">指す前の局面の手番</param>
         /// <returns></returns>
-        public JosekiKyokumen ParseKyokumenLine(string kyFen_before, ulong kyHash_before, Taikyokusya kyTb_before, StringBuilder syuturyoku)
+        public JosekiKyokumen ParseKyokumenLine(string kyFen_before, ulong kyHash_before, Option<Phase> optionalPhaseBeforeMove, StringBuilder syuturyoku)
         {
             JosekiKyokumen josekiKy;
             if (this.KyItems.ContainsKey(kyHash_before))
@@ -307,7 +308,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 #endif
                 */
 
-                josekiKy = new JosekiKyokumen(kyFen_before, kyTb_before, this);
+                josekiKy = new JosekiKyokumen(kyFen_before, optionalPhaseBeforeMove, this);
                 this.KyItems.Add(kyHash_before, josekiKy);
                 this.Edited = true;
             }
@@ -414,7 +415,7 @@ commandline=[{ commandline }]");
 #endif
                     */
 
-                    josekiKy = this.ParseKyokumenLine(commandline, ky_forJoseki.KyokumenHash.Value, ky_forJoseki.Teban, syuturyoku);
+                    josekiKy = this.ParseKyokumenLine(commandline, ky_forJoseki.KyokumenHash.Value, OptionalPhase.From( ky_forJoseki.Teban), syuturyoku);
                 }
                 else
                 {
@@ -927,7 +928,7 @@ commandline=[{ commandline }]");
                         joP2.AddMove(
                             joKy.Value.Fen,
                             joKy.Key,
-                            joKy.Value.TbTaikyokusya,
+                            OptionalPhase.From( joKy.Value.TbTaikyokusya),
                             joSs.Key,
                             joSs.Value.Hyokati,
                             joSs.Value.Fukasa,
@@ -960,7 +961,7 @@ commandline=[{ commandline }]");
                     this.AddMove(
                         joKy.Value.Fen,
                         joKy.Key,
-                        joKy.Value.TbTaikyokusya,
+                        OptionalPhase.From( joKy.Value.TbTaikyokusya),
                         joSs.Key,
                         joSs.Value.Hyokati,
                         joSs.Value.Fukasa,
