@@ -442,14 +442,14 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             }
             syuturyoku.AppendLine();
         }
-        public static void AppendLine_Data_Countboard(Taikyokusya tai, Shogiban sg, int ms_hidariHasi, StringBuilder syuturyoku)
+        public static void AppendLine_Data_Countboard(Option<Phase> optionalPhase, Shogiban sg, int ms_hidariHasi, StringBuilder syuturyoku)
         {
             for (int iKs = 0; iKs < Conv_Komasyurui.Itiran.Length; iKs++)
             {
                 syuturyoku.Append("│");
                 for (int iMs_offset = 0; iMs_offset < Option_Application.Optionlist.BanYokoHaba; iMs_offset++)
                 {
-                    int kikisuKomabetu = sg.CountKikisuKomabetu(Med_Koma.KomasyuruiAndTaikyokusyaToKoma((Komasyurui)iKs, OptionalPhase.From(tai)), (Masu)(ms_hidariHasi + iMs_offset));
+                    int kikisuKomabetu = sg.CountKikisuKomabetu(Med_Koma.KomasyuruiAndTaikyokusyaToKoma((Komasyurui)iKs, optionalPhase), (Masu)(ms_hidariHasi + iMs_offset));
                     syuturyoku.Append(0 < kikisuKomabetu ? string.Format(" {0,2} ", kikisuKomabetu) : "　　");
                     syuturyoku.Append("│");
                 }
@@ -538,7 +538,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
                 for (int dan = 0; dan < Option_Application.Optionlist.BanTateHaba; dan++)
                 {
-                    AppendLine_Data_Countboard(tai, shogiban, dan * Option_Application.Optionlist.BanYokoHaba, syuturyoku);
+                    AppendLine_Data_Countboard(OptionalPhase.From( tai), shogiban, dan * Option_Application.Optionlist.BanYokoHaba, syuturyoku);
 
                     if (dan + 1 < Option_Application.Optionlist.BanTateHaba)
                     {
