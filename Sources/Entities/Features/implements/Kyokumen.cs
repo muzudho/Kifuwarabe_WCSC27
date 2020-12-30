@@ -2509,7 +2509,7 @@ SEE>ここまで止めると想定し、SEEを 0 から計算しなおすぜ☆(
                     Bitboard bb_ibasho = Shogiban.GetBBKoma(km_jibun).Clone();
                     while (bb_ibasho.Ref_PopNTZ(out Masu ms_ibasho))// 立っているビットを降ろすぜ☆
                     {
-                        kikiScore += ((float)Conv_Hyokati.KomaHyokati[(int)km_jibun] / (float)Hyokati.Hyokati_SeiNoSu_Hiyoko) * (float)Shogiban.CountKikisuZenbu(jibun, ms_ibasho);
+                        kikiScore += ((float)Conv_Hyokati.KomaHyokati[(int)km_jibun] / (float)Hyokati.Hyokati_SeiNoSu_Hiyoko) * (float)Shogiban.CountKikisuZenbu(OptionalPhase.From( jibun), ms_ibasho);
                     }
                 }
 
@@ -2521,7 +2521,7 @@ SEE>ここまで止めると想定し、SEEを 0 から計算しなおすぜ☆(
                     Bitboard bb_ibasho = Shogiban.GetBBKoma(km_aite).Clone();
                     while (bb_ibasho.Ref_PopNTZ(out Masu ms_ibasho))// 立っているビットを降ろすぜ☆
                     {
-                        kikiScore -= ((float)Conv_Hyokati.KomaHyokati[(int)km_aite] / (float)Hyokati.Hyokati_SeiNoSu_Hiyoko) * (float)Shogiban.CountKikisuZenbu(aite, ms_ibasho);
+                        kikiScore -= ((float)Conv_Hyokati.KomaHyokati[(int)km_aite] / (float)Hyokati.Hyokati_SeiNoSu_Hiyoko) * (float)Shogiban.CountKikisuZenbu(OptionalPhase.From( aite), ms_ibasho);
                     }
                 }
 
@@ -2533,7 +2533,7 @@ SEE>ここまで止めると想定し、SEEを 0 から計算しなおすぜ☆(
                     Bitboard bb_ibasho = Shogiban.GetBBKoma(km_jibun).Clone();
                     while (bb_ibasho.Ref_PopNTZ(out Masu ms_ibasho))// 立っているビットを降ろすぜ☆
                     {
-                        kikiScore -= ((float)Conv_Hyokati.KomaHyokati[(int)km_jibun] / (float)Hyokati.Hyokati_SeiNoSu_Hiyoko) * (float)(Shogiban.CountKikisuZenbu(jibun, ms_ibasho) - Shogiban.CountKikisuZenbu(aite, ms_ibasho));
+                        kikiScore -= ((float)Conv_Hyokati.KomaHyokati[(int)km_jibun] / (float)Hyokati.Hyokati_SeiNoSu_Hiyoko) * (float)(Shogiban.CountKikisuZenbu(OptionalPhase.From( jibun), ms_ibasho) - Shogiban.CountKikisuZenbu(OptionalPhase.From( aite), ms_ibasho));
                     }
                 }
 
@@ -2545,7 +2545,7 @@ SEE>ここまで止めると想定し、SEEを 0 から計算しなおすぜ☆(
                     Bitboard bb_ibasho = Shogiban.GetBBKoma(km_aite).Clone();
                     while (bb_ibasho.Ref_PopNTZ(out Masu ms_ibasho))// 立っているビットを降ろすぜ☆
                     {
-                        kikiScore += ((float)Conv_Hyokati.KomaHyokati[(int)km_aite] / (float)Hyokati.Hyokati_SeiNoSu_Hiyoko) * (float)(Shogiban.CountKikisuZenbu(jibun, ms_ibasho) - Shogiban.CountKikisuZenbu(aite, ms_ibasho));
+                        kikiScore += ((float)Conv_Hyokati.KomaHyokati[(int)km_aite] / (float)Hyokati.Hyokati_SeiNoSu_Hiyoko) * (float)(Shogiban.CountKikisuZenbu(OptionalPhase.From( jibun), ms_ibasho) - Shogiban.CountKikisuZenbu(OptionalPhase.From( aite), ms_ibasho));
                     }
                 }
             }

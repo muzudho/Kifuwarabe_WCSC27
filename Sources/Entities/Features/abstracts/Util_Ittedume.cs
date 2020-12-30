@@ -57,7 +57,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             //　└──┴──┴──┘
 
             // 動かしたばかりの駒を　取り返されるようでは、一手詰めは成功しないぜ☆（＾～＾）（ステイルメイト除く）
-            if (1 < ky.Shogiban.CountKikisuZenbu(aite, ms_t1))
+            if (1 < ky.Shogiban.CountKikisuZenbu(OptionalPhase.From( aite), ms_t1))
             {
                 // 移動先升は、相手らいおん　の利きも　１つ　あるはず。
                 // 移動先升に　相手の利きが２つあれば、駒を取り返される☆

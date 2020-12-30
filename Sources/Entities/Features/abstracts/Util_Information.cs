@@ -435,7 +435,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 syuturyoku.Append("│");
                 for (int iMs_offset = 0; iMs_offset < Option_Application.Optionlist.BanYokoHaba; iMs_offset++)
                 {
-                    int kikisuZenbu = sg.CountKikisuZenbu((Taikyokusya)iTai, (Masu)(ms_hidariHasi + iMs_offset));
+                    int kikisuZenbu = sg.CountKikisuZenbu(OptionalPhase.From( iTai), (Masu)(ms_hidariHasi + iMs_offset));
                     syuturyoku.Append(0 < kikisuZenbu ? string.Format(" {0,2} ", kikisuZenbu) : "　　");
                     syuturyoku.Append("│");
                 }

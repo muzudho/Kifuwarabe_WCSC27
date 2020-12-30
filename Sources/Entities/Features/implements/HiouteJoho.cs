@@ -150,7 +150,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             nigemitiBB.Sitdown(FriendKomaBB);
             while (nigemitiBB.Ref_PopNTZ(out Masu ms_nigemiti))
             {
-                if (0 == ky.Shogiban.CountKikisuZenbu(OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Hanten(OptionalPhase.From( Taikyokusya))), ms_nigemiti))// 相手番の利きが無くなったか☆（＾▽＾）
+                if (0 == ky.Shogiban.CountKikisuZenbu( Conv_Taikyokusya.Hanten(OptionalPhase.From( Taikyokusya)), ms_nigemiti))// 相手番の利きが無くなったか☆（＾▽＾）
                 {
                     akeru = true; // （＾▽＾）逃げ道が開いたぜ☆！
                     goto gt_EndLoop;
