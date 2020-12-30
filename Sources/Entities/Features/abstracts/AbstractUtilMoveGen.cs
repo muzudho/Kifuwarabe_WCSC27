@@ -1264,14 +1264,14 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// タダ捨ての動き
         /// </summary>
         /// <param name="ky"></param>
-        /// <param name="phase1"></param>
+        /// <param name="optionalPhase"></param>
         /// <param name="ms_src"></param>
         /// <param name="ms_dst"></param>
         /// <param name="da">打の場合</param>
         /// <returns></returns>
-        public static bool TadasuteNoUgoki(Kyokumen ky, Option<Phase> phase1, Masu ms_dst, bool da)
+        public static bool TadasuteNoUgoki(Kyokumen ky, Option<Phase> optionalPhase, Masu ms_dst, bool da)
         {
-            Taikyokusya ts2 = OptionalPhase.ToTaikyokusya(Conv_Taikyokusya.Reverse(phase1));
+            var optionalOpponent = Conv_Taikyokusya.Reverse(optionalPhase);
 
             // 主なケース
             // ・移動先の升には、味方の利き（動かす駒の利き除く）がない。
@@ -1287,17 +1287,17 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             // 「らいおんの利きを除いた利きビットボード」とかあれば便利だろうか☆（＞＿＜）？
             // 
 
-            if (ky.Shogiban.ExistsKikiZenbu(ts2, ms_dst)) // 相手の利きがあるところに放り込む
+            if (ky.Shogiban.ExistsKikiZenbu(optionalOpponent, ms_dst)) // 相手の利きがあるところに放り込む
             {
                 // 移動先の升の、味方の重ね利き　の数（これから動かす駒を除く）
-                int kiki_ts1 = ky.Shogiban.CountKikisuZenbu(phase1, ms_dst);
+                int kiki_ts1 = ky.Shogiban.CountKikisuZenbu(optionalPhase, ms_dst);
                 if (!da)
                 {
                     // 「指」だと、自分の利きの数はカウントしないぜ☆（＾▽＾）ｗｗｗこれから動くからな☆（＾▽＾）ｗｗｗｗ
                     // 「打」だと、数字を－１してはいけないぜ☆
                     kiki_ts1--;
                 }
-                int kiki_ts2 = ky.Shogiban.CountKikisuZenbu(OptionalPhase.From(ts2), ms_dst);
+                int kiki_ts2 = ky.Shogiban.CountKikisuZenbu(optionalOpponent, ms_dst);
 
                 if (0 == kiki_ts1 && 0 < kiki_ts2)//味方の利きがなくて、敵の利きがあれば、タダ捨てだぜ☆（＾▽＾）ｗｗｗ
                 {
@@ -1307,7 +1307,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 if (1 == kiki_ts1 && 1 < kiki_ts2//味方の利きがあり、敵の利きが２以上あり、
                     &&
                     //その味方はらいおんだった場合、タダ捨てだぜ☆（＾▽＾）ｗｗｗ
-                    ky.Shogiban.ExistsBBKiki(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, phase1), ms_dst)
+                    ky.Shogiban.ExistsBBKiki(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, optionalPhase), ms_dst)
                     )
                 {
                     return true;

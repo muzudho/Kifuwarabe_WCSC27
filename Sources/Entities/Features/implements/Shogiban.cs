@@ -1192,9 +1192,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             update_bb.Select(BB_KikiZenbu.Get(OptionalPhase.From( tai)));
         }
-        public bool ExistsKikiZenbu(Taikyokusya tai, Masu ms)
+        public bool ExistsKikiZenbu(Option<Phase> optionalPhase, Masu ms)
         {
-            return BB_KikiZenbu.Get(OptionalPhase.From( tai)).IsOn(ms);
+            return BB_KikiZenbu.Get(optionalPhase).IsOn(ms);
         }
         public bool IsActiveBBKiki()
         {
