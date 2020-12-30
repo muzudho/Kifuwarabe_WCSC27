@@ -247,7 +247,6 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         public static MotiKoma BanjoKomaToMotiKoma(Koma km) { return Med_Koma.m_BanjoKomaToMotiKoma_[(int)km]; }
         #endregion
 
-        #region 駒種類と手番→持駒
         /// <summary>
         /// 指し手の駒の種類を、駒台の駒に変換するぜ☆（＾▽＾）
         /// [駒種類][手番]
@@ -299,8 +298,10 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             // どの駒の種類にも当てはまらない場合に、Yososu と書くことがある☆（＾▽＾）ｗｗｗ
             { MotiKoma.Yososu, MotiKoma.Yososu },
         };
-        public static MotiKoma KomasyuruiAndTaikyokusyaToMotiKoma(Komasyurui ks, Taikyokusya tai) { return Med_Koma.m_KomasyuruiAndTaikyokusyaToMotiKoma_[(int)ks, (int)tai]; }
-        #endregion
+        public static MotiKoma KomasyuruiAndTaikyokusyaToMotiKoma(Komasyurui ks, Option<Phase> optionalPhase)
+        {
+            return Med_Koma.m_KomasyuruiAndTaikyokusyaToMotiKoma_[(int)ks, OptionalPhase.ToInt(optionalPhase)];
+        }
 
         #region 駒種類と手番→駒
         static Koma[,] m_KomasyuruiAndTaikyokusyaToKoma_ =
@@ -416,12 +417,10 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         }
         #endregion
 
-        #region 持駒→駒
         public static Koma MotiKomaToKoma(MotiKoma mk)
         {
-            return MotiKomasyuruiAndTaikyokusyaToKoma(MotiKomaToMotiKomasyrui(mk), MotiKomaToTaikyokusya(mk));
+            return MotiKomasyuruiAndPhaseToKoma(MotiKomaToMotiKomasyrui(mk), OptionalPhase.From( MotiKomaToTaikyokusya(mk)));
         }
-        #endregion
 
         #region 持駒→駒種類
         static Komasyurui[] m_MotiKomaToKomasyurui_ =
@@ -577,8 +576,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         }
         #endregion
 
-        #region 持駒種類と手番→駒
-        static Koma[,] m_MotiKomasyuruiAndTaikyokusyaToKoma_ =
+        static Koma[,] m_MotiKomasyuruiAndPhaseToKoma_ =
         {
             // ぞう
             { Koma.Z, Koma.z },
@@ -605,10 +603,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             // どの駒の種類にも当てはまらない場合に、Yososu と書くことがある☆（＾▽＾）ｗｗｗ
             { Koma.Yososu, Koma.Yososu },
         };
-        public static Koma MotiKomasyuruiAndTaikyokusyaToKoma(MotiKomasyurui mks, Taikyokusya tb)
+        public static Koma MotiKomasyuruiAndPhaseToKoma(MotiKomasyurui mks, Option<Phase> phase)
         {
-            return Med_Koma.m_MotiKomasyuruiAndTaikyokusyaToKoma_[(int)mks, (int)tb];
+            return Med_Koma.m_MotiKomasyuruiAndPhaseToKoma_[(int)mks, OptionalPhase.ToInt(phase)];
         }
-        #endregion
     }
 }

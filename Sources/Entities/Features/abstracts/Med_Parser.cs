@@ -1,4 +1,5 @@
 ﻿using Grayscale.Kifuwarakei.Entities.Game;
+using Grayscale.Kifuwarakei.Entities.Language;
 using System;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
@@ -259,24 +260,24 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// </summary>
         /// <param name="moji1"></param>
         /// <returns></returns>
-        public static bool TryTaikyokusya(bool isSfen, string moji1, out Taikyokusya out_tai)
+        public static bool TryTaikyokusya(bool isSfen, string moji1, out Option<Phase> out_tai)
         {
             if (isSfen)
             {
                 switch (moji1)
                 {
-                    case "b": out_tai = Taikyokusya.T1; return true;
-                    case "w": out_tai = Taikyokusya.T2; return true;
-                    default: out_tai = Taikyokusya.Yososu; return false;
+                    case "b": out_tai = OptionalPhase.Black; return true;
+                    case "w": out_tai = OptionalPhase.White; return true;
+                    default: out_tai = Option<Phase>.None; return false;
                 }
             }
             else
             {
                 switch (moji1)
                 {
-                    case "1": out_tai = Taikyokusya.T1; return true;
-                    case "2": out_tai = Taikyokusya.T2; return true;
-                    default: out_tai = Taikyokusya.Yososu; return false;
+                    case "1": out_tai = OptionalPhase.Black; return true;
+                    case "2": out_tai = OptionalPhase.White; return true;
+                    default: out_tai = Option<Phase>.None; return false;
                 }
             }
         }

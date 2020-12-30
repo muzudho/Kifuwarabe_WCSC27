@@ -882,7 +882,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             if (utta)
             {
                 // 「打」のときは　ここ。
-                km_src = Med_Koma.MotiKomasyuruiAndTaikyokusyaToKoma(mksUtta, Teban);
+                km_src = Med_Koma.MotiKomasyuruiAndPhaseToKoma(mksUtta, OptionalPhase.From(Teban));
             }
             else
             {
@@ -1031,7 +1031,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 ms_t0 = MASU_ERROR;
                 mks_t0 = ConvMove.GetUttaKomasyurui(ss);
                 mk_t0 = Med_Koma.MotiKomasyuruiAndPhaseToMotiKoma(mks_t0, OptionalPhase.From(jibun));
-                km_t0 = Med_Koma.MotiKomasyuruiAndTaikyokusyaToKoma(mks_t0, jibun);
+                km_t0 = Med_Koma.MotiKomasyuruiAndPhaseToKoma(mks_t0, OptionalPhase.From(jibun));
                 // 持ち駒は t0 も t1 も同じ。
                 km_t1 = km_t0;
                 ks_t0 = Med_Koma.MotiKomasyuruiToKomasyrui(mks_t0);//おまとめ☆（＾～＾）
@@ -1445,7 +1445,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 ms_t0 = MASU_ERROR;
                 km_t0 = Koma.Yososu;
                 ks_t0 = Komasyurui.Yososu;
-                mk_t0 = Med_Koma.KomasyuruiAndTaikyokusyaToMotiKoma(ks_t1, Teban);
+                mk_t0 = Med_Koma.KomasyuruiAndTaikyokusyaToMotiKoma(ks_t1, OptionalPhase.From(Teban));
             }
             Debug.Assert(Sindan.IsBanjoOrError(ms_t0), "Ｕｎｄｏ #颪");
             Debug.Assert(Conv_Koma.IsOk(km_t0), "Ｕｎｄｏ 盤上 #羊");
@@ -1852,7 +1852,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                                 //Taikyokusya tai_tmp = Med_Koma.KomaToTaikyokusya(km_tmp);
 
                                 // どちらの持駒にするかはランダムで☆（＾～＾）
-                                MotiKoma mk = Med_Koma.KomasyuruiAndTaikyokusyaToMotiKoma(tmpKs, 1 == r ? Taikyokusya.T1 : Taikyokusya.T2);
+                                MotiKoma mk = Med_Koma.KomasyuruiAndTaikyokusyaToMotiKoma(tmpKs, 1 == r ? OptionalPhase.Black : OptionalPhase.White);
 
                                 switch (tmpKs)
                                 {
@@ -2285,7 +2285,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             }
 
             // 手番
-            if (!Med_Parser.TryTaikyokusya(isSfen, tb_Mojis, out Taikyokusya tai))
+            if (!Med_Parser.TryTaikyokusya(isSfen, tb_Mojis, out Option<Phase> phase))
             {
 #if DEBUG
                 StringBuilder reigai1 = new StringBuilder();
@@ -2307,7 +2307,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 #endif
                 throw new Exception($"対局者のパースエラー tb_Mojis=[{tb_Mojis}]");
             }
-            this.Teban = tai;
+            this.Teban = OptionalPhase.ToTaikyokusya( phase);
 
             //────────────────────────────────────────
             // 局面ハッシュ、ビットボード等の更新

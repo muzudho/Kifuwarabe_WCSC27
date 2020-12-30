@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using Grayscale.Kifuwarakei.Entities.Game;
+using Grayscale.Kifuwarakei.Entities.Language;
 using Grayscale.Kifuwarakei.Entities.Logging;
 
 namespace Grayscale.Kifuwarakei.Entities.Features
@@ -206,11 +207,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     moji3 = m.Groups[3].Value;
                     moji4 = m.Groups[4].Value;
 
-                    if (!Med_Parser.TryTaikyokusya(Option_Application.Optionlist.USI, moji4, out Taikyokusya tai))
+                    if (!Med_Parser.TryTaikyokusya(Option_Application.Optionlist.USI, moji4, out Option<Phase> phase))
                     {
                         throw new Exception($"対局者のパースエラー moji4=[{ moji4 }]");
                     }
-                    out_kikiBB = Util_Application.Kiki_BB(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Med_Parser.Moji_Komasyurui(Option_Application.Optionlist.USI, moji3), OptionalPhase.From(tai)), Med_Parser.FenSujiDan_Masu(Option_Application.Optionlist.USI, moji1, moji2), ky.Shogiban);// komanoUgokikata
+                    out_kikiBB = Util_Application.Kiki_BB(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Med_Parser.Moji_Komasyurui(Option_Application.Optionlist.USI, moji3), phase), Med_Parser.FenSujiDan_Masu(Option_Application.Optionlist.USI, moji1, moji2), ky.Shogiban);// komanoUgokikata
                 }
                 else
                 {

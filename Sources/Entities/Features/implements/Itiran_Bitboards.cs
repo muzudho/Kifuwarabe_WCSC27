@@ -70,7 +70,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 Taikyokusya tai = Med_Koma.MotiKomaToTaikyokusya(mk);
                 MotiKomasyurui mks = Med_Koma.MotiKomaToMotiKomasyrui(mk);
-                Hyokati komaHyokati = Conv_Hyokati.KomaHyokati[(int)Med_Koma.MotiKomasyuruiAndTaikyokusyaToKoma(mks, tai)];
+                Hyokati komaHyokati = Conv_Hyokati.KomaHyokati[(int)Med_Koma.MotiKomasyuruiAndPhaseToKoma(mks, OptionalPhase.From( tai))];
 
                 hyokati[(int)tai] += (int)komaHyokati * kys.CountMotikoma(mk);
             }
