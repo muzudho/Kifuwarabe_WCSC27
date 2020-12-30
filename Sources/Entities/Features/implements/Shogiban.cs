@@ -769,7 +769,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                                     TasuKonoUe(km, ms_ibasho, kys);// 上
 
                                     bb_kiki.Clear();
-                                    N050_SiraberuTobikikiKyosya_KomaSetteiNoAto(Med_Koma.KomaToTaikyokusya(km), ms_ibasho, kys.MASU_ERROR, kys, bb_kiki);
+                                    N050_SiraberuTobikikiKyosya_KomaSetteiNoAto(OptionalPhase.From( Med_Koma.KomaToTaikyokusya(km)), ms_ibasho, kys.MASU_ERROR, kys, bb_kiki);
                                     Standup(km, ms_ibasho, bb_kiki);
                                 }
                                 break;
@@ -1600,7 +1600,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 case Komasyurui.Z: N050_SiraberuTobikikiKaku_KomaSetteiNoAto(ms_t1, ms_mirainiKomagaAru, kys, bb_oekaki); break;
                 case Komasyurui.K: N050_SiraberuTobikikiHisya_KomaSetteiNoAto(ms_t1, ms_mirainiKomagaAru, kys, bb_oekaki); break;
-                case Komasyurui.S: N050_SiraberuTobikikiKyosya_KomaSetteiNoAto(tai, ms_t1, ms_mirainiKomagaAru, kys, bb_oekaki); break;
+                case Komasyurui.S: N050_SiraberuTobikikiKyosya_KomaSetteiNoAto(OptionalPhase.From(tai), ms_t1, ms_mirainiKomagaAru, kys, bb_oekaki); break;
                 default: break;
             }
             // ★↑作るデータが悪い☆（＾～＾）
@@ -1661,7 +1661,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 case Komasyurui.Z: N050_SiraberuTobikikiKaku_KomaSetteiNoAto(ms_t0, ms_mirainiKomagaAru, kys, bb_oekaki); break;
                 case Komasyurui.K: N050_SiraberuTobikikiHisya_KomaSetteiNoAto(ms_t0, ms_mirainiKomagaAru, kys, bb_oekaki); break;
-                case Komasyurui.S: N050_SiraberuTobikikiKyosya_KomaSetteiNoAto(jibun, ms_t0, ms_mirainiKomagaAru, kys, bb_oekaki); break;
+                case Komasyurui.S: N050_SiraberuTobikikiKyosya_KomaSetteiNoAto(OptionalPhase.From(jibun), ms_t0, ms_mirainiKomagaAru, kys, bb_oekaki); break;
                 default: break;
             }
             // ★↑作るデータが悪い☆（＾～＾）
@@ -1848,15 +1848,16 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// ms_mirainiKomagaAru 引数で、移動先の位置をあらかじめ指定すること☆（＾～＾）
         /// 無ければ、盤外のエラー値を指定しておけだぜ☆（*＾～＾*）
         /// </summary>
-        public static void N050_SiraberuTobikikiKyosya_KomaSetteiNoAto(Taikyokusya tai, Masu ms_ibasho, Masu ms_mirainiKomagaAru, Kyokumen.Sindanyo kys, Bitboard update_BB)
+        public static void N050_SiraberuTobikikiKyosya_KomaSetteiNoAto(Option<Phase> phase, Masu ms_ibasho, Masu ms_mirainiKomagaAru, Kyokumen.Sindanyo kys, Bitboard update_BB)
         {
 #if TOBIKIKI_ON
+            var phase = phase.Unwrap();
             // 点対象なので、対局者１視点で駒の動きを作れば、対局者２も同じ☆（＾～＾）
 
             // 隣接は普通の利きと被るので、１つ飛んだ先の利きから見るぜ☆（＾～＾）
             int tobi;
 
-            if (Taikyokusya.T1 == tai)
+            if (Phase.Black == phase)
             {
                 // 上方向へ
                 Masu ms_kiki = ms_ibasho;
