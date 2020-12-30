@@ -1,4 +1,6 @@
-﻿namespace Grayscale.Kifuwarakei.Entities.Features
+﻿using Grayscale.Kifuwarakei.Entities.Game;
+
+namespace Grayscale.Kifuwarakei.Entities.Features
 {
     public abstract class Util_Taikyoku
     {

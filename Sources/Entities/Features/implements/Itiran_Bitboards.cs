@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using Grayscale.Kifuwarakei.Entities.Game;
+using System.Diagnostics;
 
 namespace Grayscale.Kifuwarakei.Entities.Features
 {

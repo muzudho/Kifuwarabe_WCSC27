@@ -8,6 +8,7 @@
     using Grayscale.Kifuwarakei.Entities;
     using Grayscale.Kifuwarakei.Entities.Configuration;
     using Grayscale.Kifuwarakei.Entities.Features;
+    using Grayscale.Kifuwarakei.Entities.Game;
     using Grayscale.Kifuwarakei.Entities.Logging;
 
     public class Playing : IPlaying

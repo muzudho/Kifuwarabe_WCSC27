@@ -137,6 +137,7 @@
     <Compile Include="Features\interfaces\Move.cs" />
     <Compile Include="Features\interfaces\TaikyokuKekka.cs" />
     <Compile Include="Features\interfaces\Taikyokusya.cs" />
+    <Compile Include="Language\Option.cs" />
     <Compile Include="Game\Taikyokusya.cs" />
     <Compile Include="IPlaying.cs" />
     <Compile Include="Logging\ILogRecord.cs" />

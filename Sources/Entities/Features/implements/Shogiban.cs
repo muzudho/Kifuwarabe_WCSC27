@@ -2,10 +2,12 @@
 //#define TOBIKIKI_ON
 
 #if DEBUG
+using Grayscale.Kifuwarakei.Entities.Game;
 using System;
 using System.Diagnostics;
 using System.Text;
 #else
+using Grayscale.Kifuwarakei.Entities.Game;
 using System;
 using System.Diagnostics;
 using System.Text;

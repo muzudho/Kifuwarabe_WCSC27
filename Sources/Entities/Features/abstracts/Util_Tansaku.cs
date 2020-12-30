@@ -1,5 +1,6 @@
 ﻿namespace Grayscale.Kifuwarakei.Entities.Features
 {
+    using Grayscale.Kifuwarakei.Entities.Game;
 #if DEBUG
     using System;
     using System.Collections.Generic;
@@ -7,7 +8,7 @@
     using System.Text;
     using Grayscale.Kifuwarakei.Entities.Logging;
 #else
-using System;
+    using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;

@@ -7,12 +7,14 @@ namespace Grayscale.Kifuwarakei.Entities.Features
     using System.Diagnostics;
     using System.Text;
     using System.Text.RegularExpressions;
+    using Grayscale.Kifuwarakei.Entities.Game;
     using Grayscale.Kifuwarakei.Entities.Logging;
 #else
     using System;
     using System.Diagnostics;
     using System.Text;
     using System.Text.RegularExpressions;
+    using Grayscale.Kifuwarakei.Entities.Game;
     using Grayscale.Kifuwarakei.Entities.Logging;
 #endif
 
