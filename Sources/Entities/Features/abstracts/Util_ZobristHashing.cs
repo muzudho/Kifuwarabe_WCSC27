@@ -1,4 +1,5 @@
 ﻿using Grayscale.Kifuwarakei.Entities.Game;
+using Grayscale.Kifuwarakei.Entities.Language;
 using System;
 using System.Diagnostics;
 
@@ -50,9 +51,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 foreach (Komasyurui ks in Conv_Komasyurui.Itiran)
                 {
                     // 対局者１
-                    m_banjoKeys_[iMs, (int)Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, Taikyokusya.T1)] = (ulong)(Option_Application.Random.NextDouble() * ulong.MaxValue);
+                    m_banjoKeys_[iMs, (int)Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, new Option<Phase>(Phase.Black))] = (ulong)(Option_Application.Random.NextDouble() * ulong.MaxValue);
                     // 対局者２
-                    m_banjoKeys_[iMs, (int)Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, Taikyokusya.T2)] = (ulong)(Option_Application.Random.NextDouble() * ulong.MaxValue);
+                    m_banjoKeys_[iMs, (int)Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, new Option<Phase>(Phase.White))] = (ulong)(Option_Application.Random.NextDouble() * ulong.MaxValue);
                 }
             }
 

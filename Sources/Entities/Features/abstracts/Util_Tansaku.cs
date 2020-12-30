@@ -177,7 +177,7 @@ using System.Text;
             Util_Tansaku.TansakuTyakusyuEdas = 0;
 
             Yomisuji best_yomisuji_orNull = null;
-            if (ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, ky.Teban)).IsEmpty())
+            if (ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, OptionalPhase.From(ky.Teban))).IsEmpty())
             {
                 // 自分のらいおんがいない局面の場合、投了☆
 #if DEBUG

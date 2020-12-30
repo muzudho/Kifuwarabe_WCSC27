@@ -5,6 +5,10 @@ namespace Grayscale.Kifuwarakei.Entities.Game
 {
     public static class OptionalPhase
     {
+        public static Option<Phase> From(int tai)
+        {
+            return From((Taikyokusya)tai);
+        }
         public static Option<Phase> From(Taikyokusya tai)
         {
             switch (tai)

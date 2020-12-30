@@ -306,7 +306,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 Bitboard[] bbItiran = new Bitboard[Conv_Komasyurui.Itiran.Length];
                 foreach (Komasyurui ks in Conv_Komasyurui.Itiran)
                 {
-                    bbItiran[(int)ks] = ValueKm[(int)Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, tai)];
+                    bbItiran[(int)ks] = ValueKm[(int)Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(tai))];
                 }
                 return bbItiran;
             }
@@ -373,10 +373,10 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
                     foreach (Komasyurui ks in Conv_Komasyurui.Itiran)
                     {
-                        bb_ibashoCopy.Set(sg_src.BB_Koma.Get(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, tai)));
+                        bb_ibashoCopy.Set(sg_src.BB_Koma.Get(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(tai))));
                         while (bb_ibashoCopy.Ref_PopNTZ(out Masu ms_ibasho))
                         {
-                            bb_ugokikataCopy.Set(sg_src.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, tai), ms_ibasho));
+                            bb_ugokikataCopy.Set(sg_src.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(tai)), ms_ibasho));
 
                             while (bb_ugokikataCopy.Ref_PopNTZ(out Masu ms_kiki))
                             {
@@ -503,7 +503,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     bb_ibashoCopy.Set(sg_src.BB_Koma.Get(km));
                     while (bb_ibashoCopy.Ref_PopNTZ(out Masu ms_ibasho))
                     {
-                        bb_ugokikataCopy.Set(sg_src.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, tai), ms_ibasho));
+                        bb_ugokikataCopy.Set(sg_src.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(tai)), ms_ibasho));
 
                         while (bb_ugokikataCopy.Ref_PopNTZ(out Masu ms_kiki))
                         {
@@ -1280,7 +1280,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
                     // にわとりはいないこともある。
 
-                    if (!BB_Koma.Get(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, tai)).Clone().Sitdown(BB_KomaZenbu.Get(tai)).IsEmpty()) { return false; }
+                    if (!BB_Koma.Get(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(tai))).Clone().Sitdown(BB_KomaZenbu.Get(tai)).IsEmpty()) { return false; }
                 }
             }
             return true;

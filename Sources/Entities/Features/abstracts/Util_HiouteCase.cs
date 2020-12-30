@@ -23,7 +23,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 ky.Shogiban.ExistsBBKoma(phase, attackerMs, out Komasyurui ks);
                 Util_Information.Setumei_1Bitboard("利き",
-                    Util_Application.Kiki_BB(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, phase), attackerMs, ky.Shogiban)//利き
+                    Util_Application.Kiki_BB(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(phase)), attackerMs, ky.Shogiban)//利き
                     , syuturyoku);
             }
         }
@@ -49,7 +49,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 if (ky.Shogiban.ExistsBBKoma(aite, attackerMs, out Komasyurui ks))// 攻撃側の駒の種類
                 {
-                    return ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aite), attackerMs).IsIntersect(//相手の攻撃駒の利き
+                    return ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(aite)), attackerMs).IsIntersect(//相手の攻撃駒の利き
                         targetMs//調べる升
                         );
                 }

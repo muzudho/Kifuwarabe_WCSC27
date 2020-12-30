@@ -441,7 +441,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 syuturyoku.Append("│");
                 for (int iMs_offset = 0; iMs_offset < Option_Application.Optionlist.BanYokoHaba; iMs_offset++)
                 {
-                    int kikisuKomabetu = sg.CountKikisuKomabetu(Med_Koma.KomasyuruiAndTaikyokusyaToKoma((Komasyurui)iKs, tai), (Masu)(ms_hidariHasi + iMs_offset));
+                    int kikisuKomabetu = sg.CountKikisuKomabetu(Med_Koma.KomasyuruiAndTaikyokusyaToKoma((Komasyurui)iKs, OptionalPhase.From(tai)), (Masu)(ms_hidariHasi + iMs_offset));
                     syuturyoku.Append(0 < kikisuKomabetu ? string.Format(" {0,2} ", kikisuKomabetu) : "　　");
                     syuturyoku.Append("│");
                 }
@@ -484,7 +484,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 int i = 0;
                 foreach (Komasyurui ks in Conv_Komasyurui.Itiran)
                 {
-                    bbHairetu[i] = shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, tai));
+                    bbHairetu[i] = shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(tai)));
                     i++;
                 }
                 Setumei_Bitboards(bbHairetu, syuturyoku);
@@ -569,7 +569,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     Bitboard[] bbHairetu = new Bitboard[Conv_Komasyurui.Itiran.Length];
                     foreach (Komasyurui ks in Conv_Komasyurui.Itiran)
                     {
-                        bbHairetu[(int)ks] = shogiban.GetBBKiki(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, tai));
+                        bbHairetu[(int)ks] = shogiban.GetBBKiki(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(tai)));
                     }
 
                     Setumei_Bitboards(Med_Koma.GetKomasyuruiNamaeItiran(tai), bbHairetu, syuturyoku);
@@ -593,7 +593,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     Bitboard[] bbHairetu = new Bitboard[Conv_Komasyurui.Itiran.Length];
                     foreach (Komasyurui ks in Conv_Komasyurui.Itiran)
                     {
-                        bbHairetu[(int)ks] = shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, tai), (Masu)ms);
+                        bbHairetu[(int)ks] = shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(tai)), (Masu)ms);
                     }
                     Util_Information.Setumei_Bitboards(Med_Koma.GetKomasyuruiNamaeItiran(tai), bbHairetu, syuturyoku);
                     syuturyoku.AppendLine();

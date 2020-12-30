@@ -19,8 +19,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             switch (ts)
             {
-                case Taikyokusya.T1: return ky.BB_DanArray[0].IsIntersect(ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, ts)));
-                case Taikyokusya.T2: return ky.BB_DanArray[Option_Application.Optionlist.BanTateHaba - 1].IsIntersect(ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, ts)));
+                case Taikyokusya.T1: return ky.BB_DanArray[0].IsIntersect(ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, OptionalPhase.From(ts))));
+                case Taikyokusya.T2: return ky.BB_DanArray[Option_Application.Optionlist.BanTateHaba - 1].IsIntersect(ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, OptionalPhase.From(ts))));
                 default: throw new Exception("未定義の手番");
             }
         }

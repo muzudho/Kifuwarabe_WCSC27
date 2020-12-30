@@ -57,10 +57,10 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 {
                     Komasyurui ks = Conv_Komasyurui.Itiran[iKs];
 
-                    kys.ToSetIbasho(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, tai), komaBB);
+                    kys.ToSetIbasho(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(tai)), komaBB);
                     while (komaBB.Ref_PopNTZ(out Masu ms_jissai))
                     {
-                        hyokati[iTai] += Conv_Koma.BanjoKomaHyokatiNumber[(int)Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, tai)];
+                        hyokati[iTai] += Conv_Koma.BanjoKomaHyokatiNumber[(int)Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(tai))];
                     }
                 }
             }

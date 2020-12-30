@@ -51,7 +51,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
             foreach (Komasyurui ks in Conv_Komasyurui.Itiran)
             {
-                Koma km = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, tai);
+                Koma km = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(tai));
                 ky.Shogiban.ToSet_BBKoma(km, mikataBB);
                 while (mikataBB.Ref_PopNTZ(out Masu ms))
                 {

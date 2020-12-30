@@ -42,7 +42,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 Logger.Flush(msg);
                 throw new Exception(msg);
             }
-            Koma km_t0 = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks_t0, jibun);
+            Koma km_t0 = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks_t0, OptionalPhase.From(jibun));
             Koma km_t1 = km_t0; // FIXME: 成りを考慮していないぜ☆（＞＿＜）
 
             // Ａ Ｂ  Ｃ

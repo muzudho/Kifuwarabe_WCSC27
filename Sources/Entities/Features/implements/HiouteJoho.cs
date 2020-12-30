@@ -138,7 +138,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             // 手番らいおん　の８近傍　のどこかに、重ね利きの数　０　が出来ていれば、
             // 逃げ道を開けると判定するぜ☆（＾▽＾）
             bool akeru = false;
-            Koma km_t0 = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks_aite, Taikyokusya);
+            Koma km_t0 = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks_aite, OptionalPhase.From(Taikyokusya));
             Koma km_t1 = km_t0;// FIXME: 成りを考慮していない
 
             // 重ね利きの数を差分更新するぜ☆（＾▽＾）

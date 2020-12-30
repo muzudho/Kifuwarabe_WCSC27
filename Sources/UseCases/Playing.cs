@@ -9,6 +9,7 @@
     using Grayscale.Kifuwarakei.Entities.Configuration;
     using Grayscale.Kifuwarakei.Entities.Features;
     using Grayscale.Kifuwarakei.Entities.Game;
+    using Grayscale.Kifuwarakei.Entities.Language;
     using Grayscale.Kifuwarakei.Entities.Logging;
 
     public class Playing : IPlaying
@@ -592,8 +593,8 @@ Kettyaku = {Util_Application.IsKettyaku(ky)}");
                     // 対局者１、２の らいおん のいる場所を表示☆
                     Util_Information.Setumei_Bitboards(new string[] { "Ｐ１", "Ｐ２" },
                         new Bitboard[] {
-                            ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks,Taikyokusya.T1)),
-                            ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks,Taikyokusya.T2))
+                            ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks,new Option<Phase>(Phase.Black))),
+                            ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks,new Option<Phase>(Phase.White)))
                         }, syuturyoku);
                 }
             }
@@ -1032,8 +1033,8 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                             // 対局者１、２の らいおん のいる場所を表示☆
                             Util_Information.Setumei_Bitboards(new string[] { "Ｐ１", "Ｐ２" },
                                 new Bitboard[] {
-                            ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks,Taikyokusya.T1)),
-                            ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks,Taikyokusya.T2))
+                            ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks,new Option<Phase>(Phase.Black))),
+                            ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks,new Option<Phase>(Phase.White)))
                                 }, syuturyoku);
 
                             //caret_1 = fen.Length;
@@ -1955,7 +1956,7 @@ USI                      = {Option_Application.Optionlist.USI}");
                             maskBB.Set(0x01);// 0x01,0x02,0x04
                             for (int iShift = 0; iShift < 3; iShift++)
                             {
-                                Koma km = Med_Koma.KomasyuruiAndTaikyokusyaToKoma((Komasyurui)iKs, (Taikyokusya)iTb);
+                                Koma km = Med_Koma.KomasyuruiAndTaikyokusyaToKoma((Komasyurui)iKs, OptionalPhase.From(iTb));
                                 ky.Shogiban.GetKomanoUgokikata(km, (Masu)iMs).Clone().Select(maskBB).RightShift(iShift).AppendSyuturyokuTo(syuturyoku);
                                 maskBB.LeftShift(1);
                             }
@@ -1976,7 +1977,7 @@ USI                      = {Option_Application.Optionlist.USI}");
                             maskBB.Set(0x08);// 0x08,0x10,0x20
                             for (int iShift = 3; iShift < 6; iShift++)
                             {
-                                Koma km = Med_Koma.KomasyuruiAndTaikyokusyaToKoma((Komasyurui)iKs, (Taikyokusya)iTb);
+                                Koma km = Med_Koma.KomasyuruiAndTaikyokusyaToKoma((Komasyurui)iKs, OptionalPhase.From(iTb));
                                 ky.Shogiban.GetKomanoUgokikata(km, (Masu)iMs).Clone().Select(maskBB).RightShift(iShift).AppendSyuturyokuTo(syuturyoku);
                                 maskBB.LeftShift(1);
                             }
@@ -1997,7 +1998,7 @@ USI                      = {Option_Application.Optionlist.USI}");
                             maskBB.Set(0x40);// 0x40,0x80,0x100
                             for (int iShift = 6; iShift < 9; iShift++)
                             {
-                                Koma km = Med_Koma.KomasyuruiAndTaikyokusyaToKoma((Komasyurui)iKs, (Taikyokusya)iTb);
+                                Koma km = Med_Koma.KomasyuruiAndTaikyokusyaToKoma((Komasyurui)iKs, OptionalPhase.From(iTb));
                                 ky.Shogiban.GetKomanoUgokikata(km, (Masu)iMs).Clone().Select(maskBB).RightShift(iShift).AppendSyuturyokuTo(syuturyoku);
                                 maskBB.LeftShift(1);
                             }
@@ -2018,7 +2019,7 @@ USI                      = {Option_Application.Optionlist.USI}");
                             maskBB.Set(0x200);// 0x200,0x400,0x800
                             for (int iShift = 9; iShift < 12; iShift++)
                             {
-                                Koma km = Med_Koma.KomasyuruiAndTaikyokusyaToKoma((Komasyurui)iKs, (Taikyokusya)iTb);
+                                Koma km = Med_Koma.KomasyuruiAndTaikyokusyaToKoma((Komasyurui)iKs, OptionalPhase.From(iTb));
                                 ky.Shogiban.GetKomanoUgokikata(km, (Masu)iMs).Clone().Select(maskBB).RightShift(iShift).AppendSyuturyokuTo(syuturyoku);
                                 maskBB.LeftShift(1);
                             }
@@ -2040,7 +2041,7 @@ USI                      = {Option_Application.Optionlist.USI}");
                             syuturyoku.AppendLine($"i=[{i}]");
                             syuturyoku.Append("         ");
                             maskBB.Set(0x200);
-                            Koma km = Med_Koma.KomasyuruiAndTaikyokusyaToKoma((Komasyurui)iKs, (Taikyokusya)iTb);
+                            Koma km = Med_Koma.KomasyuruiAndTaikyokusyaToKoma((Komasyurui)iKs, OptionalPhase.From(iTb));
                             ky.Shogiban.GetKomanoUgokikata(km, Kyokumen.A1).Clone().Select(maskBB).RightShift(i + 0).AppendSyuturyokuTo(syuturyoku);
                             if (i + 1 < max)
                             {
@@ -2567,7 +2568,7 @@ USI                      = {Option_Application.Optionlist.USI}");
                 Koma raionKm = (tai == Taikyokusya.T1 ? Koma.R : Koma.r);
                 Masu ms1 = ky.Lookup(raionKm);
                 Bitboard kikiBB = new Bitboard();
-                kikiBB.Set(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, tai), ms1));
+                kikiBB.Set(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, OptionalPhase.From( tai)), ms1));
                 {
                     bool tmp = Util_Test.TestMode;
                     Util_Test.TestMode = true;

@@ -210,7 +210,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     {
                         throw new Exception($"対局者のパースエラー moji4=[{ moji4 }]");
                     }
-                    out_kikiBB = Util_Application.Kiki_BB(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Med_Parser.Moji_Komasyurui(Option_Application.Optionlist.USI, moji3), tai), Med_Parser.FenSujiDan_Masu(Option_Application.Optionlist.USI, moji1, moji2), ky.Shogiban);// komanoUgokikata
+                    out_kikiBB = Util_Application.Kiki_BB(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Med_Parser.Moji_Komasyurui(Option_Application.Optionlist.USI, moji3), OptionalPhase.From(tai)), Med_Parser.FenSujiDan_Masu(Option_Application.Optionlist.USI, moji1, moji2), ky.Shogiban);// komanoUgokikata
                 }
                 else
                 {
