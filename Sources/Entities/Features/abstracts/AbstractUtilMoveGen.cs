@@ -1121,7 +1121,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 Taikyokusya = ky.Teban,
                 KmRaion = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, OptionalPhase.From(ky.Teban))
             };
-            Taikyokusya aite = OptionalPhase.ToTaikyokusya(Conv_Taikyokusya.Reverse(OptionalPhase.From(jibunHioute.Taikyokusya)));
+            var optionalOpponent = Conv_Taikyokusya.Reverse(OptionalPhase.From(jibunHioute.Taikyokusya));
+            var opponentIndex = OptionalPhase.ToInt(optionalOpponent);
 
             Bitboard bb_aiteKiki = new Bitboard();
             Bitboard bb_aiteKoma = new Bitboard();// 相手番の駒がいる升
@@ -1144,8 +1145,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 jibunHioute.FriendKomaBB.Set(ky.Shogiban.GetBBKomaZenbu(OptionalPhase.From( jibunHioute.Taikyokusya)));
 
                 // 相手番の利き
-                Debug.Assert((int)aite < Conv_Taikyokusya.Itiran.Length, "");
-                bb_aiteKiki.Set(ky.Shogiban.GetBBKikiZenbu(OptionalPhase.From( aite)));
+                Debug.Assert(opponentIndex < Conv_Taikyokusya.Itiran.Length, "");
+                bb_aiteKiki.Set(ky.Shogiban.GetBBKikiZenbu( optionalOpponent));
 
                 // らいおんが逃げれる８近傍の升☆（＾▽＾）
                 jibunHioute.NigereruBB = new Bitboard();
@@ -1181,7 +1182,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
                     while (bb_fusagiMiti.Ref_PopNTZ(out Masu ms_fusagiMiti))
                     {
-                        bb_aiteKoma.Set(ky.Shogiban.GetBBKomaZenbu(OptionalPhase.From( aite)));
+                        bb_aiteKoma.Set(ky.Shogiban.GetBBKomaZenbu( optionalOpponent));
 
                         // 塞がれている升の８近傍に、塞いでいる駒がいるだろう☆
                         foreach (Komasyurui ks_fusagi8KinboKoma in Conv_Komasyurui.Itiran)
