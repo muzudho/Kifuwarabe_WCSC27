@@ -87,45 +87,45 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             return this.KomawariHyokati_Sabun[OptionalPhase.ToInt(phase)];
         }
-        public void Increase(Taikyokusya tai, Hyokati henkaRyo)
+        public void Increase(Option<Phase> optionalPhase, Hyokati henkaRyo)
         {
-            this.KomawariHyokati_Sabun[(int)tai] += (int)henkaRyo;
+            this.KomawariHyokati_Sabun[OptionalPhase.ToInt(optionalPhase)] += (int)henkaRyo;
         }
         /// <summary>
         /// 差分更新で使う☆（＾▽＾）駒取り☆
         /// </summary>
-        public void Fuyasu(Taikyokusya tai, Koma km)
+        public void Fuyasu(Option<Phase> optionalPhase, Koma km)
         {
             Hyokati henkaRyo = Conv_Hyokati.KomaHyokati[(int)km];
-            this.Increase(tai, henkaRyo);
-            this.Increase(OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(OptionalPhase.From( tai))), (Hyokati)(-(int)henkaRyo));
+            this.Increase(optionalPhase, henkaRyo);
+            this.Increase(Conv_Taikyokusya.Reverse(optionalPhase), (Hyokati)(-(int)henkaRyo));
         }
         /// <summary>
         /// 差分更新で使う☆（＾▽＾）駒取り☆
         /// </summary>
-        public void Fuyasu(Taikyokusya tai, MotiKoma mk)
+        public void Fuyasu(Option<Phase> optionalPhase, MotiKoma mk)
         {
             Hyokati henkaRyo = Conv_MotiKoma.MotikomaHyokati[(int)mk];
-            this.Increase(tai, henkaRyo);
-            this.Increase(OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(OptionalPhase.From( tai))), (Hyokati)(-(int)henkaRyo));
+            this.Increase(optionalPhase, henkaRyo);
+            this.Increase(Conv_Taikyokusya.Reverse(optionalPhase), (Hyokati)(-(int)henkaRyo));
         }
         /// <summary>
         /// 差分更新で使う☆（＾▽＾）駒取り☆
         /// </summary>
-        public void Herasu(Taikyokusya tai, Koma km)
+        public void Herasu(Option<Phase> optionalPhase, Koma km)
         {
             Hyokati henkaRyo = Conv_Hyokati.KomaHyokati[(int)km];
-            this.Increase(tai, (Hyokati)(-(int)henkaRyo));
-            this.Increase(OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(OptionalPhase.From( tai))), henkaRyo);
+            this.Increase(optionalPhase, (Hyokati)(-(int)henkaRyo));
+            this.Increase(Conv_Taikyokusya.Reverse(optionalPhase), henkaRyo);
         }
         /// <summary>
         /// 差分更新で使う☆（＾▽＾）駒取り☆
         /// </summary>
-        public void Hetta(Taikyokusya tai, MotiKoma mk)
+        public void Hetta(Option<Phase> optionalPhase, MotiKoma mk)
         {
             Hyokati henkaRyo = Conv_MotiKoma.MotikomaHyokati[(int)mk];
-            this.Increase(tai, (Hyokati)(-(int)henkaRyo));
-            this.Increase(OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(OptionalPhase.From( tai))), henkaRyo);
+            this.Increase(optionalPhase, (Hyokati)(-(int)henkaRyo));
+            this.Increase( Conv_Taikyokusya.Reverse(optionalPhase), henkaRyo);
         }
     }
 

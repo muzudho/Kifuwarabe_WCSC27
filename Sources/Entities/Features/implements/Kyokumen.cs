@@ -1086,7 +1086,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     Nikoma.KesuMotiKoma(this, mk_c);
                     // 増やす
                     MotiKomas.Fuyasu(mk_c);
-                    Komawari.Fuyasu(jibun, mk_c);// 駒１個被って増えるぜ☆（＾～＾）
+                    Komawari.Fuyasu(OptionalPhase.From( jibun), mk_c);// 駒１個被って増えるぜ☆（＾～＾）
                     KyokumenHash.SetXor(Util_ZobristHashing.GetMotiKey(Sindan, mk_c));
                     Nikoma.HaneiMotiKoma(this, mk_c);// 増えた後に実行しないと、持ち駒 0 という項目は無いぜ☆（＾▽＾）
 
@@ -1122,7 +1122,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
                 Util_Machine.Assert_Sabun_Kiki("ＤｏＢ197★", Sindan);
 
-                Komawari.Herasu(aite, km_c);
+                Komawari.Herasu(OptionalPhase.From(aite), km_c);
                 Nikoma.HerasuBanjoKoma(this, km_c, ms_t1);
 
                 //────────────────────────────────────────
@@ -1198,7 +1198,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             if (!ConvMove.IsUtta(ss))
             {
                 KyokumenHash.SetXor(Util_ZobristHashing.GetBanjoKey(ms_t0, km_t0, Sindan));
-                Komawari.Herasu(jibun, km_t0);// 馬に成った場合、角の点数を引く
+                Komawari.Herasu(OptionalPhase.From(jibun), km_t0);// 馬に成った場合、角の点数を引く
                 Nikoma.HerasuBanjoKoma(this, km_t0, ms_t0);
 
                 // FIXME: ここに問題のコードがあった★★★★★★★★★★★★★★★★★★★
@@ -1207,7 +1207,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 KyokumenHash.SetXor(Util_ZobristHashing.GetMotiKey(Sindan, mk_t0));//持ち駒が減る前のハッシュを消す
                 MotiKomas.Herasu(mk_t0);
-                Komawari.Hetta(jibun, mk_t0); // １つ被って増えた自分の駒を減らすぜ☆（＾▽＾）
+                Komawari.Hetta(OptionalPhase.From(jibun), mk_t0); // １つ被って増えた自分の駒を減らすぜ☆（＾▽＾）
                 Nikoma.KesuMotiKoma(this, mk_t0);
                 Nikoma.HaneiMotiKoma(this, mk_t0);
 
@@ -1299,7 +1299,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             Shogiban.N250_OkuBanjoKoma(isSfen, ms_t1, km_t1, true, Sindan); // FIXME:(2017-05-02 23:14)
             Util_Machine.Assert_Sabun_Kiki("ＤｏＴ２［遷移］148★", Sindan);
 
-            Komawari.Fuyasu(jibun, km_t1);
+            Komawari.Fuyasu(OptionalPhase.From(jibun), km_t1);
             Nikoma.FuyasuBanjoKoma(this, km_t1, ms_t1);
             KyokumenHash.SetXor(Util_ZobristHashing.GetBanjoKey(ms_t1, km_t1, Sindan));
 
@@ -1502,7 +1502,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             //  Ｔ１　［遷移］   移動先の　手番の駒　を除外する
             //────────────────────────────────────────
             KyokumenHash.SetXor(Util_ZobristHashing.GetBanjoKey(ms_t1, km_t1, Sindan));
-            Komawari.Herasu(jibun, km_t1);
+            Komawari.Herasu(OptionalPhase.From(jibun), km_t1);
             Nikoma.HerasuBanjoKoma(this, km_t1, ms_t1);
 
 #if DEBUG
@@ -1578,7 +1578,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 Shogiban.N250_OkuBanjoKoma(isSfen, ms_t0, km_t0, true, Sindan);
                 Util_Machine.Assert_Sabun_Kiki($"ＵｎｄｏＴ０[遷移]508★ ms_t0=[{ ms_t0 } km_t0={ km_t0 }]", Sindan);
 
-                Komawari.Fuyasu(jibun, km_t0);
+                Komawari.Fuyasu(OptionalPhase.From(jibun), km_t0);
                 Nikoma.FuyasuBanjoKoma(this, km_t1, ms_t0);
             }
             else
@@ -1587,7 +1587,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 KyokumenHash.SetXor(Util_ZobristHashing.GetMotiKey(Sindan, mk_t0));
                 Nikoma.KesuMotiKoma(this, mk_t0);
                 MotiKomas.Fuyasu(mk_t0);
-                Komawari.Fuyasu(jibun, mk_t0);
+                Komawari.Fuyasu(OptionalPhase.From(jibun), mk_t0);
                 Nikoma.HaneiMotiKoma(this, mk_t0);
                 KyokumenHash.SetXor(Util_ZobristHashing.GetMotiKey(Sindan, mk_t0));
             }
@@ -1640,7 +1640,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     // 増やす
                     MotiKomas.Herasu(mk_c);
                     Nikoma.HaneiMotiKoma(this, mk_c);
-                    Komawari.Hetta(jibun, mk_c);
+                    Komawari.Hetta(OptionalPhase.From(jibun), mk_c);
                     KyokumenHash.SetXor(Util_ZobristHashing.GetMotiKey(Sindan, mk_c));
 
                     //────────────────────────────────────────
@@ -1666,7 +1666,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 //────────────────────────────────────────
                 Shogiban.N250_OkuBanjoKoma(isSfen, ms_t1, km_c, true, Sindan);
 
-                Komawari.Fuyasu(aite, km_c);
+                Komawari.Fuyasu(OptionalPhase.From(aite), km_c);
                 Nikoma.FuyasuBanjoKoma(this, km_c, ms_t1);
                 KyokumenHash.SetXor(Util_ZobristHashing.GetBanjoKey(ms_t1, km_c, Sindan));
 
