@@ -30,7 +30,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             }
             // トライルール
             else if (Util_TryRule.IsTried(ky,
-                tb2//手番が進んでいるので、相手番のトライを判定☆
+                OptionalPhase.From( tb2)//手番が進んでいるので、相手番のトライを判定☆
                 )
                 )
             {

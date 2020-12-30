@@ -1,4 +1,5 @@
 ﻿using Grayscale.Kifuwarakei.Entities.Game;
+using Grayscale.Kifuwarakei.Entities.Language;
 using System;
 using System.Text;
 
@@ -15,12 +16,12 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// トライしていれば真☆
         /// </summary>
         /// <returns></returns>
-        public static bool IsTried(Kyokumen ky, Taikyokusya ts)
+        public static bool IsTried(Kyokumen ky, Option<Phase> phase)
         {
-            switch (ts)
+            switch (phase.Unwrap())
             {
-                case Taikyokusya.T1: return ky.BB_DanArray[0].IsIntersect(ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, OptionalPhase.From(ts))));
-                case Taikyokusya.T2: return ky.BB_DanArray[Option_Application.Optionlist.BanTateHaba - 1].IsIntersect(ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, OptionalPhase.From(ts))));
+                case Phase.Black: return ky.BB_DanArray[0].IsIntersect(ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, phase)));
+                case Phase.White: return ky.BB_DanArray[Option_Application.Optionlist.BanTateHaba - 1].IsIntersect(ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, phase)));
                 default: throw new Exception("未定義の手番");
             }
         }
