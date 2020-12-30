@@ -412,13 +412,13 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             /// <param name="tai"></param>
             /// <param name="kikiZenbuCB"></param>
             /// <returns></returns>
-            public Bitboard ToBitboard_PositiveNumber(Taikyokusya tai, Kyokumen.Sindanyo kys)
+            public Bitboard ToBitboard_PositiveNumber(Option<Phase> optionalPhase, Kyokumen.Sindanyo kys)
             {
                 Bitboard bb = new Bitboard();
 
                 for (int iMs = 0; iMs < kys.MASU_YOSOSU; iMs++)
                 {
-                    if (0 < Get(OptionalPhase.From( tai), (Masu)iMs))
+                    if (0 < Get(optionalPhase, (Masu)iMs))
                     {
                         bb.Standup((Masu)iMs);
                     }
@@ -1242,9 +1242,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             BB_Kiki.Tukurinaosi_2_Input(kys);
         }
-        public Bitboard ToBitboard_KikisuZenbuPositiveNumber(Taikyokusya tai, Kyokumen.Sindanyo kys)
+        public Bitboard ToBitboard_KikisuZenbuPositiveNumber(Option<Phase> optionalPhase, Kyokumen.Sindanyo kys)
         {
-            return CB_KikisuZenbu.ToBitboard_PositiveNumber(tai, kys);
+            return CB_KikisuZenbu.ToBitboard_PositiveNumber(optionalPhase, kys);
         }
         public void SubstructFromKikisuZenbu(Koma km)
         {
