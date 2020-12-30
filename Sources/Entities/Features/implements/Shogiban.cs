@@ -239,9 +239,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 }
             }
 
-            public Bitboard Get(Taikyokusya tai)
+            public Bitboard Get(Option<Phase> phase)
             {
-                return ValueTai[(int)tai];
+                return ValueTai[OptionalPhase.ToInt(phase)];
             }
         }
         /// <summary>
@@ -1133,9 +1133,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             update_bb.Sitdown(BB_KomaZenbu.Get(optionalPhase));
         }
 
-        public Bitboard GetBBKikiZenbu(Taikyokusya tai)
+        public Bitboard GetBBKikiZenbu(Option<Phase> optionalPhase)
         {
-            return BB_KikiZenbu.Get(tai);
+            return BB_KikiZenbu.Get(optionalPhase);
         }
         /// <summary>
         /// FIXME:暫定
@@ -1186,15 +1186,15 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         }
         public void ToSitdown_BBKikiZenbu(Taikyokusya tai, Bitboard update_bb)
         {
-            update_bb.Sitdown(BB_KikiZenbu.Get(tai));
+            update_bb.Sitdown(BB_KikiZenbu.Get(OptionalPhase.From( tai)));
         }
         public void ToSelect_BBKikiZenbu(Taikyokusya tai, Bitboard update_bb)
         {
-            update_bb.Select(BB_KikiZenbu.Get(tai));
+            update_bb.Select(BB_KikiZenbu.Get(OptionalPhase.From( tai)));
         }
         public bool ExistsKikiZenbu(Taikyokusya tai, Masu ms)
         {
-            return BB_KikiZenbu.Get(tai).IsOn(ms);
+            return BB_KikiZenbu.Get(OptionalPhase.From( tai)).IsOn(ms);
         }
         public bool IsActiveBBKiki()
         {
@@ -1702,7 +1702,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             while (bb_kiki.Ref_PopNTZ(out Masu ms_kiki))
             {
                 CB_KikisuZenbu.IncreaseDirect(tai, ms_kiki);
-                BB_KikiZenbu.Get(tai).Standup(ms_kiki);
+                BB_KikiZenbu.Get(OptionalPhase.From( tai)).Standup(ms_kiki);
 
                 CB_KikisuKomabetu.IncreaseDirect(km_t1, ms_kiki);
                 BB_Kiki.Get(km_t1).Standup(ms_kiki);
@@ -1720,7 +1720,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 // 利きの数が０より大きければ、利きあり　だし、
                 // １より小さければ、利きなし☆
                 CB_KikisuZenbu.DecreaseDirect(jibun, ms_kiki);
-                if (CB_KikisuZenbu.Get(OptionalPhase.From( jibun), ms_kiki) < 1) { BB_KikiZenbu.Get(jibun).Sitdown(ms_kiki); }
+                if (CB_KikisuZenbu.Get(OptionalPhase.From( jibun), ms_kiki) < 1) { BB_KikiZenbu.Get(OptionalPhase.From( jibun)).Sitdown(ms_kiki); }
 
                 CB_KikisuKomabetu.DecreaseDirect(km_t0, ms_kiki);
                 if (CB_KikisuKomabetu.Get(km_t0, ms_kiki) < 1) { BB_Kiki.Get(km_t0).Sitdown(ms_kiki); }

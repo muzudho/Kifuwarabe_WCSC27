@@ -1145,7 +1145,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
                 // 相手番の利き
                 Debug.Assert((int)aite < Conv_Taikyokusya.Itiran.Length, "");
-                bb_aiteKiki.Set(ky.Shogiban.GetBBKikiZenbu(aite));
+                bb_aiteKiki.Set(ky.Shogiban.GetBBKikiZenbu(OptionalPhase.From( aite)));
 
                 // らいおんが逃げれる８近傍の升☆（＾▽＾）
                 jibunHioute.NigereruBB = new Bitboard();

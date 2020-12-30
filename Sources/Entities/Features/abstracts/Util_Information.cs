@@ -564,7 +564,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 Bitboard[] bbHairetu = new Bitboard[Conv_Taikyokusya.Itiran.Length];
                 foreach (Taikyokusya tai in Conv_Taikyokusya.Itiran)
                 {
-                    bbHairetu[(int)tai] = shogiban.GetBBKikiZenbu(tai);
+                    bbHairetu[(int)tai] = shogiban.GetBBKikiZenbu(OptionalPhase.From( tai));
                 }
                 Setumei_Bitboards(Conv_Taikyokusya.NamaeItiran, bbHairetu, syuturyoku);
             }

@@ -603,9 +603,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             // どの駒の種類にも当てはまらない場合に、Yososu と書くことがある☆（＾▽＾）ｗｗｗ
             { Koma.Yososu, Koma.Yososu },
         };
-        public static Koma MotiKomasyuruiAndPhaseToKoma(MotiKomasyurui mks, Option<Phase> phase)
+        public static Koma MotiKomasyuruiAndPhaseToKoma(MotiKomasyurui mks, Option<Phase> optionalPhase)
         {
-            return Med_Koma.m_MotiKomasyuruiAndPhaseToKoma_[(int)mks, OptionalPhase.ToInt(phase)];
+            return Med_Koma.m_MotiKomasyuruiAndPhaseToKoma_[(int)mks, OptionalPhase.ToInt(optionalPhase)];
         }
     }
 }
