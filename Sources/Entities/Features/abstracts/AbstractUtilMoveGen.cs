@@ -1,4 +1,5 @@
 ﻿using Grayscale.Kifuwarakei.Entities.Game;
+using Grayscale.Kifuwarakei.Entities.Language;
 using System;
 using System.Diagnostics;
 using System.Text;
@@ -953,12 +954,12 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <summary>
         /// 二歩防止
         /// </summary>
-        public static void KesuNifu(Taikyokusya jibun, Bitboard utuBB_copy, Kyokumen ky)
+        public static void KesuNifu(Option<Phase> friend, Bitboard utuBB_copy, Kyokumen ky)
         {
             Bitboard bb_tmp = new Bitboard();
             for (int iSuji = 0; iSuji < Option_Application.Optionlist.BanYokoHaba; iSuji++)
             {
-                ky.Shogiban.ToSet_BBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.H, OptionalPhase.From(jibun)), bb_tmp);//自分の歩
+                ky.Shogiban.ToSet_BBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.H, friend), bb_tmp);//自分の歩
                 bb_tmp.Select(ky.BB_SujiArray[iSuji]);//調べる筋だけ残す
                 if (!bb_tmp.IsEmpty())
                 {
@@ -997,7 +998,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                                 utuBB_copy.Set(utuBB_base);
                                 // 王手に限る。らいおんのいる升に、先後逆の自分の駒があると考えれば、その利きの場所と、今いる場所からの利きが重なれば、王手だぜ☆（＾▽＾）
                                 utuBB_copy.Select(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(aiteHioute.Taikyokusya)), aiteHioute.FriendRaionMs));
-                                if (mks == MotiKomasyurui.H) { KesuNifu(tai, utuBB_copy, ky); } // 二歩防止
+                                if (mks == MotiKomasyurui.H) { KesuNifu(OptionalPhase.From( tai), utuBB_copy, ky); } // 二歩防止
 
                                 while (utuBB_copy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
                                 {
@@ -1026,7 +1027,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                                 utuBB_copy.Set(utuBB_base);
                                 // 王手を除く☆ らいおんのいる升に、先後逆の自分の駒があると考えれば、その利きの場所と、今いる場所からの利きが重なれば、王手だぜ☆（＾▽＾）
                                 utuBB_copy.Sitdown(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(aiteHioute.Taikyokusya)), aiteHioute.FriendRaionMs));
-                                if (mks == MotiKomasyurui.H) { KesuNifu(tai, utuBB_copy, ky); } // 二歩防止
+                                if (mks == MotiKomasyurui.H) { KesuNifu(OptionalPhase.From( tai), utuBB_copy, ky); } // 二歩防止
 
                                 while (utuBB_copy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
                                 {
@@ -1055,7 +1056,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                             if (ky.MotiKomas.HasMotiKoma(mk))
                             {
                                 utuBB_copy.Set(utuBB_base);
-                                if (mks == MotiKomasyurui.H) { KesuNifu(tai, utuBB_copy, ky); } // 二歩防止
+                                if (mks == MotiKomasyurui.H) { KesuNifu(OptionalPhase.From(tai), utuBB_copy, ky); } // 二歩防止
 
                                 while (utuBB_copy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
                                 {
@@ -1085,7 +1086,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                             if (ky.MotiKomas.HasMotiKoma(mk))
                             {
                                 utuBB_copy.Set(utuBB_base);
-                                if (mks == MotiKomasyurui.H) { KesuNifu(tai, utuBB_copy, ky); } // 二歩防止
+                                if (mks == MotiKomasyurui.H) { KesuNifu(OptionalPhase.From(tai), utuBB_copy, ky); } // 二歩防止
 
                                 while (utuBB_copy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
                                 {
