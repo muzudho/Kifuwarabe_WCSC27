@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Text;
 #else
 using Grayscale.Kifuwarakei.Entities.Game;
+using Grayscale.Kifuwarakei.Entities.Language;
 using System;
 using System.Diagnostics;
 using System.Text;
@@ -355,7 +356,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
                     for (int iMs = 0; iMs < length; iMs++)
                     {
-                        this.ValueTaiMs[iTai][iMs] = src.Get((Taikyokusya)iTai, (Masu)iMs);
+                        this.ValueTaiMs[iTai][iMs] = src.Get(OptionalPhase.From(iTai), (Masu)iMs);
                     }
                 }
             }
@@ -394,9 +395,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 this.ValueTaiMs[(int)tai][(int)ms]--;
             }
-            public int Get(Taikyokusya tai, Masu ms)
+            public int Get(Option<Phase> optionalPhase, Masu ms)
             {
-                return ValueTaiMs[(int)tai][(int)ms];
+                return ValueTaiMs[OptionalPhase.ToInt(optionalPhase)][(int)ms];
             }
             public int GetArrayLength(Taikyokusya tai)
             {
@@ -414,7 +415,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
                 for (int iMs = 0; iMs < kys.MASU_YOSOSU; iMs++)
                 {
-                    if (0 < Get(tai, (Masu)iMs))
+                    if (0 < Get(OptionalPhase.From( tai), (Masu)iMs))
                     {
                         bb.Standup((Masu)iMs);
                     }
@@ -1296,7 +1297,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         }
         public int CountKikisuZenbu(Taikyokusya tai, Masu ms)
         {
-            return CB_KikisuZenbu.Get(tai, ms);
+            return CB_KikisuZenbu.Get(OptionalPhase.From( tai), ms);
         }
         public int CountKikisuKomabetu(Koma km, Masu ms)
         {
@@ -1716,7 +1717,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 // 利きの数が０より大きければ、利きあり　だし、
                 // １より小さければ、利きなし☆
                 CB_KikisuZenbu.DecreaseDirect(jibun, ms_kiki);
-                if (CB_KikisuZenbu.Get(jibun, ms_kiki) < 1) { BB_KikiZenbu.Get(jibun).Sitdown(ms_kiki); }
+                if (CB_KikisuZenbu.Get(OptionalPhase.From( jibun), ms_kiki) < 1) { BB_KikiZenbu.Get(jibun).Sitdown(ms_kiki); }
 
                 CB_KikisuKomabetu.DecreaseDirect(km_t0, ms_kiki);
                 if (CB_KikisuKomabetu.Get(km_t0, ms_kiki) < 1) { BB_Kiki.Get(km_t0).Sitdown(ms_kiki); }
