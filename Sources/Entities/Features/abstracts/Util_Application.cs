@@ -900,7 +900,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     Option_Application.Seiseki.AddMove(
                         kyMojiretu.ToString(),
                         ky.KyokumenHash.Value,
-                        ky.Teban,
+                        OptionalPhase.From( ky.Teban),
                         ss_after,
                         Util_Application.VERSION,
                         kati,

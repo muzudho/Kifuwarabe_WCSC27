@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Grayscale.Kifuwarakei.Entities.Game;
+using Grayscale.Kifuwarakei.Entities.Language;
 using Grayscale.Kifuwarakei.Entities.Logging;
 
 namespace Grayscale.Kifuwarakei.Entities.Features
@@ -132,11 +133,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
     /// </summary>
     public class SeisekiKyokumen
     {
-        public SeisekiKyokumen(string fen, Taikyokusya tb, Seiseki owner)
+        public SeisekiKyokumen(string fen, Option<Phase> optionalPhase, Seiseki owner)
         {
             this.Owner = owner;
             this.Fen = fen;
-            this.TbTaikyokusya = tb;
+            this.TbTaikyokusya = OptionalPhase.ToTaikyokusya(optionalPhase);
             this.SsItems = new Dictionary<Move, SeisekiMove>();
         }
 
@@ -173,7 +174,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
             return josekiSs;
         }
-        public SeisekiMove AddSasite(Taikyokusya tb, Move bestSasite, int version, int kati, int hikiwake, int make)
+        public SeisekiMove AddSasite(Move bestSasite, int version, int kati, int hikiwake, int make)
         {
             SeisekiMove seisekiSs = null;
 
@@ -256,11 +257,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// データを追加するぜ☆（＾▽＾） 指しながら定跡を追加していくときだぜ☆
         /// </summary>
         /// <param name="ky_before"></param>
-        public SeisekiKyokumen AddMove(string kyFen_before, ulong kyHash_before, Taikyokusya kyTb_before, Move bestSasite, int version, int kati, int hikiwake, int make)
+        public SeisekiKyokumen AddMove(string kyFen_before, ulong kyHash_before, Option<Phase> optionalPhaseBeforeMove, Move bestSasite, int version, int kati, int hikiwake, int make)
         {
-            SeisekiKyokumen josekiKy = this.Parse_AddKyLine(kyFen_before, kyHash_before, kyTb_before);
+            SeisekiKyokumen josekiKy = this.Parse_AddKyLine(kyFen_before, kyHash_before, optionalPhaseBeforeMove);
 
-            josekiKy.AddSasite(kyTb_before, bestSasite, version, kati, hikiwake, make);
+            josekiKy.AddSasite(bestSasite, version, kati, hikiwake, make);
             return josekiKy;
         }
         /// <summary>
@@ -268,9 +269,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// </summary>
         /// <param name="fen_before">指す前の局面の改造fen</param>
         /// <param name="kyHash_before">指す前の局面のハッシュ</param>
-        /// <param name="tb_before">指す前の局面の手番</param>
+        /// <param name="optionalPhaseBeforeMove">指す前の局面の手番</param>
         /// <returns></returns>
-        public SeisekiKyokumen Parse_AddKyLine(string fen_before, ulong kyHash_before, Taikyokusya tb_before)
+        public SeisekiKyokumen Parse_AddKyLine(string fen_before, ulong kyHash_before, Option<Phase> optionalPhaseBeforeMove)
         {
             SeisekiKyokumen josekiKy;
             if (this.KyItems.ContainsKey(kyHash_before))
@@ -280,7 +281,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             }
             else
             {
-                josekiKy = new SeisekiKyokumen(fen_before, tb_before, this);
+                josekiKy = new SeisekiKyokumen(fen_before, optionalPhaseBeforeMove, this);
                 this.KyItems.Add(kyHash_before, josekiKy);
                 this.Edited = true;
             }
@@ -316,7 +317,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                         //ky2.KyokumenHash = ky2.CreateKyokumenHash();//必要最低限、ハッシュだけ適用しておくぜ☆（＾▽＾）
                     }
 
-                    josekiKy = this.Parse_AddKyLine(commandline, ky2.KyokumenHash.Value, ky2.Teban);
+                    josekiKy = this.Parse_AddKyLine(commandline, ky2.KyokumenHash.Value, OptionalPhase.From( ky2.Teban));
                 }
                 else if (commandline.Trim().Length < 1)
                 {
@@ -549,7 +550,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                         seP2.AddMove(
                             seKy.Value.Fen,
                             seKy.Key,
-                            seKy.Value.TbTaikyokusya,
+                           OptionalPhase.From( seKy.Value.TbTaikyokusya),
                             seSs.Key,
                             seSs.Value.Version,
                             seSs.Value.Kati,
@@ -582,7 +583,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     this.AddMove(
                         seKy.Value.Fen,
                         seKy.Key,
-                        seKy.Value.TbTaikyokusya,
+                       OptionalPhase.From( seKy.Value.TbTaikyokusya),
                         seSs.Key,
                         seSs.Value.Version,
                         seSs.Value.Kati,
