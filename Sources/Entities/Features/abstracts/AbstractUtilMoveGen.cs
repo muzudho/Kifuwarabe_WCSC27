@@ -1344,7 +1344,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 return;
             }
 
-            var optionalPhase = OptionalPhase.From(ky.Sindan.Teban);
+            var optionalPhase = ky.Sindan.CurrentOptionalPhase;
             var phaseIndex = OptionalPhase.ToInt(optionalPhase);
             var optionalOpponent = Conv_Taikyokusya.Reverse(optionalPhase);
             var opponentIndex = OptionalPhase.ToInt(optionalPhase);

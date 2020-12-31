@@ -39,7 +39,17 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             /// 本体
             /// </summary>
             Kyokumen Hontai { get; set; }
-            public Taikyokusya Teban { get { return OptionalPhase.ToTaikyokusya( Hontai.CurrentOptionalPhase); } }
+
+            /// <summary>
+            /// 手番。
+            /// </summary>
+            public Option<Phase> CurrentOptionalPhase
+            {
+                get 
+                {
+                    return Hontai.CurrentOptionalPhase;
+                } 
+            }
 
             /// <summary>
             /// FIXME: 緊急用
