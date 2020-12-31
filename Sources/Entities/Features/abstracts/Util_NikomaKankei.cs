@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Grayscale.Kifuwarakei.Entities.Game;
+using System.Text;
 
 namespace Grayscale.Kifuwarakei.Entities.Features
 {
@@ -220,16 +221,16 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             //    int komaArea;
             //    switch (km_jissai)
             //    {
-            //        case Koma.R: komaArea = 0; break; // area = 0 の場合、 0 以上 1 未満だぜ☆（＾～＾）
-            //        case Koma.Z: komaArea = 1; break;
-            //        case Koma.K: komaArea = 2; break;
-            //        case Koma.H: komaArea = 3; break;
-            //        case Koma.PH: komaArea = 4; break;
-            //        case Koma.r: komaArea = 5; break;
-            //        case Koma.z: komaArea = 6; break;
-            //        case Koma.k: komaArea = 7; break;
-            //        case Koma.h: komaArea = 8; break;
-            //        case Koma.ph: komaArea = 9; break;
+            //        case Koma.King1: komaArea = 0; break; // area = 0 の場合、 0 以上 1 未満だぜ☆（＾～＾）
+            //        case Koma.Bishop1: komaArea = 1; break;
+            //        case Koma.Rook1: komaArea = 2; break;
+            //        case Koma.Pawn1: komaArea = 3; break;
+            //        case Koma.ProPawn1: komaArea = 4; break;
+            //        case Koma.King2: komaArea = 5; break;
+            //        case Koma.Bishop2: komaArea = 6; break;
+            //        case Koma.Rook2: komaArea = 7; break;
+            //        case Koma.Pawn2: komaArea = 8; break;
+            //        case Koma.ProPawn2: komaArea = 9; break;
             //        default: throw new Exception("未定義の駒");
             //    }
 
@@ -887,138 +888,138 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// </summary>
         public static Koma[] BanjoKoumokuItiran = new Koma[]
         {
-            Koma.R,// [0]
-            Koma.R,
-            Koma.R,
-            Koma.R,
-            Koma.R,
-            Koma.R,
-            Koma.R,
-            Koma.R,
-            Koma.R,
-            Koma.R,
-            Koma.R,// [10]
-            Koma.R,
-            Koma.Z,
-            Koma.Z,
-            Koma.Z,
-            Koma.Z,
-            Koma.Z,
-            Koma.Z,
-            Koma.Z,
-            Koma.Z,
-            Koma.Z,// [20]
-            Koma.Z,
-            Koma.Z,
-            Koma.Z,
-            Koma.K,
-            Koma.K,
-            Koma.K,
-            Koma.K,
-            Koma.K,
-            Koma.K,
-            Koma.K,// [30]
-            Koma.K,
-            Koma.K,
-            Koma.K,
-            Koma.K,
-            Koma.K,
-            Koma.H,
-            Koma.H,
-            Koma.H,
-            Koma.H,
-            Koma.H,// [40]
-            Koma.H,
-            Koma.H,
-            Koma.H,
-            Koma.H,
-            Koma.H,
-            Koma.H,
-            Koma.H,
-            Koma.PH,
-            Koma.PH,
-            Koma.PH,// [50]
-            Koma.PH,
-            Koma.PH,
-            Koma.PH,
-            Koma.PH,
-            Koma.PH,
-            Koma.PH,
-            Koma.PH,
-            Koma.PH,
-            Koma.PH,
-            Koma.r,// [60]
-            Koma.r,
-            Koma.r,
-            Koma.r,
-            Koma.r,
-            Koma.r,
-            Koma.r,
-            Koma.r,
-            Koma.r,
-            Koma.r,
-            Koma.r,// [70]
-            Koma.r,
-            Koma.z,
-            Koma.z,
-            Koma.z,
-            Koma.z,
-            Koma.z,
-            Koma.z,
-            Koma.z,
-            Koma.z,
-            Koma.z,// [80]
-            Koma.z,
-            Koma.z,
-            Koma.z,
-            Koma.k,
-            Koma.k,
-            Koma.k,
-            Koma.k,
-            Koma.k,
-            Koma.k,
-            Koma.k,// [90]
-            Koma.k,
-            Koma.k,
-            Koma.k,
-            Koma.k,
-            Koma.k,
-            Koma.h,
-            Koma.h,
-            Koma.h,
-            Koma.h,
-            Koma.h,// [100]
-            Koma.h,
-            Koma.h,
-            Koma.h,
-            Koma.h,
-            Koma.h,
-            Koma.h,
-            Koma.h,
-            Koma.ph,
-            Koma.ph,
-            Koma.ph,// [110]
-            Koma.ph,
-            Koma.ph,
-            Koma.ph,
-            Koma.ph,
-            Koma.ph,
-            Koma.ph,
-            Koma.ph,
-            Koma.ph,
-            Koma.ph,
-            Koma.Yososu,// [120] 持ち駒
-            Koma.Yososu,
-            Koma.Yososu,
-            Koma.Yososu,
-            Koma.Yososu,
-            Koma.Yososu,
-            Koma.Yososu,
-            Koma.Yososu,
-            Koma.Yososu,
-            Koma.Yososu,
-            Koma.Yososu,// [130]
-            Koma.Yososu,// [131]
+            Koma.King1,// [0]
+            Koma.King1,
+            Koma.King1,
+            Koma.King1,
+            Koma.King1,
+            Koma.King1,
+            Koma.King1,
+            Koma.King1,
+            Koma.King1,
+            Koma.King1,
+            Koma.King1,// [10]
+            Koma.King1,
+            Koma.Bishop1,
+            Koma.Bishop1,
+            Koma.Bishop1,
+            Koma.Bishop1,
+            Koma.Bishop1,
+            Koma.Bishop1,
+            Koma.Bishop1,
+            Koma.Bishop1,
+            Koma.Bishop1,// [20]
+            Koma.Bishop1,
+            Koma.Bishop1,
+            Koma.Bishop1,
+            Koma.Rook1,
+            Koma.Rook1,
+            Koma.Rook1,
+            Koma.Rook1,
+            Koma.Rook1,
+            Koma.Rook1,
+            Koma.Rook1,// [30]
+            Koma.Rook1,
+            Koma.Rook1,
+            Koma.Rook1,
+            Koma.Rook1,
+            Koma.Rook1,
+            Koma.Pawn1,
+            Koma.Pawn1,
+            Koma.Pawn1,
+            Koma.Pawn1,
+            Koma.Pawn1,// [40]
+            Koma.Pawn1,
+            Koma.Pawn1,
+            Koma.Pawn1,
+            Koma.Pawn1,
+            Koma.Pawn1,
+            Koma.Pawn1,
+            Koma.Pawn1,
+            Koma.ProPawn1,
+            Koma.ProPawn1,
+            Koma.ProPawn1,// [50]
+            Koma.ProPawn1,
+            Koma.ProPawn1,
+            Koma.ProPawn1,
+            Koma.ProPawn1,
+            Koma.ProPawn1,
+            Koma.ProPawn1,
+            Koma.ProPawn1,
+            Koma.ProPawn1,
+            Koma.ProPawn1,
+            Koma.King2,// [60]
+            Koma.King2,
+            Koma.King2,
+            Koma.King2,
+            Koma.King2,
+            Koma.King2,
+            Koma.King2,
+            Koma.King2,
+            Koma.King2,
+            Koma.King2,
+            Koma.King2,// [70]
+            Koma.King2,
+            Koma.Bishop2,
+            Koma.Bishop2,
+            Koma.Bishop2,
+            Koma.Bishop2,
+            Koma.Bishop2,
+            Koma.Bishop2,
+            Koma.Bishop2,
+            Koma.Bishop2,
+            Koma.Bishop2,// [80]
+            Koma.Bishop2,
+            Koma.Bishop2,
+            Koma.Bishop2,
+            Koma.Rook2,
+            Koma.Rook2,
+            Koma.Rook2,
+            Koma.Rook2,
+            Koma.Rook2,
+            Koma.Rook2,
+            Koma.Rook2,// [90]
+            Koma.Rook2,
+            Koma.Rook2,
+            Koma.Rook2,
+            Koma.Rook2,
+            Koma.Rook2,
+            Koma.Pawn2,
+            Koma.Pawn2,
+            Koma.Pawn2,
+            Koma.Pawn2,
+            Koma.Pawn2,// [100]
+            Koma.Pawn2,
+            Koma.Pawn2,
+            Koma.Pawn2,
+            Koma.Pawn2,
+            Koma.Pawn2,
+            Koma.Pawn2,
+            Koma.Pawn2,
+            Koma.ProPawn2,
+            Koma.ProPawn2,
+            Koma.ProPawn2,// [110]
+            Koma.ProPawn2,
+            Koma.ProPawn2,
+            Koma.ProPawn2,
+            Koma.ProPawn2,
+            Koma.ProPawn2,
+            Koma.ProPawn2,
+            Koma.ProPawn2,
+            Koma.ProPawn2,
+            Koma.ProPawn2,
+            Koma.PieceNum,// [120] 持ち駒
+            Koma.PieceNum,
+            Koma.PieceNum,
+            Koma.PieceNum,
+            Koma.PieceNum,
+            Koma.PieceNum,
+            Koma.PieceNum,
+            Koma.PieceNum,
+            Koma.PieceNum,
+            Koma.PieceNum,
+            Koma.PieceNum,// [130]
+            Koma.PieceNum,// [131]
         };
         #endregion
 

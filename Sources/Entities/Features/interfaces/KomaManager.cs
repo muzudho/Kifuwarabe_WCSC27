@@ -1,92 +1,8 @@
-﻿using System.Text;
+﻿using Grayscale.Kifuwarakei.Entities.Game;
+using System.Text;
 
 namespace Grayscale.Kifuwarakei.Entities.Features
 {
-    /// <summary>
-    /// 先後付きの盤上の駒だぜ☆（＾▽＾）
-    /// </summary>
-    public enum Koma
-    {
-        /// <summary>
-        /// らいおん（対局者１，２）
-        /// </summary>
-        R, r,
-
-        /// <summary>
-        /// ぞう
-        /// </summary>
-        Z, z,
-
-        /// <summary>
-        /// パワーアップぞう
-        /// </summary>
-        PZ, pz,
-
-        /// <summary>
-        /// きりん
-        /// </summary>
-        K, k,
-
-        /// <summary>
-        /// パワーアップきりん
-        /// </summary>
-        PK, pk,
-
-        /// <summary>
-        /// ひよこ
-        /// </summary>
-        H, h,
-
-        /// <summary>
-        /// にわとり
-        /// </summary>
-        PH, ph,
-
-        /// <summary>
-        /// いぬ
-        /// </summary>
-        I, i,
-
-        /// <summary>
-        /// ねこ
-        /// </summary>
-        Neko, neko,
-
-        /// <summary>
-        /// 成りねこ
-        /// </summary>
-        PNeko, pneko,
-
-        /// <summary>
-        /// うさぎ
-        /// </summary>
-        U, u,
-
-        /// <summary>
-        /// 成りうさぎ
-        /// </summary>
-        PU, pu,
-
-        /// <summary>
-        /// いのしし
-        /// </summary>
-        S, s,
-
-        /// <summary>
-        /// 成りいのしし
-        /// </summary>
-        PS, ps,
-
-        /// <summary>
-        /// 空白☆ 駒のない升だぜ☆（＾▽＾）
-        /// </summary>
-        Kuhaku,
-
-        /// <summary>
-        /// 空白～後手のにわとり　までの要素の個数になるぜ☆（＾▽＾）
-        /// </summary>
-        Yososu
-    }
     /// <summary>
     /// 先後付きの持ち駒だぜ☆（＾▽＾）
     /// </summary>
@@ -137,20 +53,20 @@ namespace Grayscale.Kifuwarakei.Entities.Features
     {
         public static Koma[] Itiran =
         {
-            Koma.R,Koma.r,// らいおん（対局者１、対局者２）
-            Koma.Z,Koma.z,// ぞう
-            Koma.PZ,Koma.pz,// パワーアップぞう
-            Koma.K,Koma.k,// きりん
-            Koma.PK,Koma.pk,// パワーアップきりん
-            Koma.H,Koma.h,// ひよこ
-            Koma.PH,Koma.ph,// にわとり
-            Koma.I,Koma.i,// いぬ
-            Koma.Neko,Koma.neko,// ねこ
-            Koma.PNeko,Koma.pneko,// 成りねこ
-            Koma.U,Koma.u,// うさぎ
-            Koma.PU,Koma.pu,// 成りうさぎ
-            Koma.S,Koma.s,// いのしし
-            Koma.PS,Koma.ps,// 成りいのしし
+            Koma.King1,Koma.King2,// らいおん（対局者１、対局者２）
+            Koma.Bishop1,Koma.Bishop2,// ぞう
+            Koma.ProBishop1,Koma.ProBishop2,// パワーアップぞう
+            Koma.Rook1,Koma.Rook2,// きりん
+            Koma.ProRook1,Koma.ProRook2,// パワーアップきりん
+            Koma.Pawn1,Koma.Pawn2,// ひよこ
+            Koma.ProPawn1,Koma.ProPawn2,// にわとり
+            Koma.Gold1,Koma.Gold2,// いぬ
+            Koma.Silver1,Koma.Silver2,// ねこ
+            Koma.ProSilver1,Koma.ProSilver2,// 成りねこ
+            Koma.Knight1,Koma.Knight2,// うさぎ
+            Koma.ProKnight1,Koma.ProKnight2,// 成りうさぎ
+            Koma.Lance1,Koma.Lance2,// いのしし
+            Koma.ProLance1,Koma.ProLance2,// 成りいのしし
         };
         /// <summary>
         /// 一覧
@@ -159,36 +75,36 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         public static Koma[][] ItiranTai = new Koma[][]
         {
             new Koma[]{// 対局者１
-                Koma.R,// らいおん
-                Koma.Z,// ぞう
-                Koma.PZ,// パワーアップぞう
-                Koma.K,// きりん
-                Koma.PK,// パワーアップきりん
-                Koma.H,// ひよこ
-                Koma.PH,// にわとり
-                Koma.I,// いぬ
-                Koma.Neko,// ねこ
-                Koma.PNeko,// パワーアップねこ
-                Koma.U,// うさぎ
-                Koma.PU,// パワーアップうさぎ
-                Koma.S,// いのしし
-                Koma.PS,// パワーアップいのしし
+                Koma.King1,// らいおん
+                Koma.Bishop1,// ぞう
+                Koma.ProBishop1,// パワーアップぞう
+                Koma.Rook1,// きりん
+                Koma.ProRook1,// パワーアップきりん
+                Koma.Pawn1,// ひよこ
+                Koma.ProPawn1,// にわとり
+                Koma.Gold1,// いぬ
+                Koma.Silver1,// ねこ
+                Koma.ProSilver1,// パワーアップねこ
+                Koma.Knight1,// うさぎ
+                Koma.ProKnight1,// パワーアップうさぎ
+                Koma.Lance1,// いのしし
+                Koma.ProLance1,// パワーアップいのしし
             },
             new Koma[]{// 対局者２
-                Koma.r,
-                Koma.z,
-                Koma.pz,
-                Koma.k,
-                Koma.pk,
-                Koma.h,
-                Koma.ph,
-                Koma.i,
-                Koma.neko,
-                Koma.pneko,
-                Koma.u,
-                Koma.pu,
-                Koma.s,
-                Koma.ps,
+                Koma.King2,
+                Koma.Bishop2,
+                Koma.ProBishop2,
+                Koma.Rook2,
+                Koma.ProRook2,
+                Koma.Pawn2,
+                Koma.ProPawn2,
+                Koma.Gold2,
+                Koma.Silver2,
+                Koma.ProSilver2,
+                Koma.Knight2,
+                Koma.ProKnight2,
+                Koma.Lance2,
+                Koma.ProLance2,
             },
             new Koma[]{
                 // 該当無し
@@ -201,36 +117,36 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         public static readonly Koma[][] ItiranYowaimonoJun = new Koma[][]
         {
             new Koma[]{
-                Koma.H,
-                Koma.PH,
-                Koma.S,
-                Koma.PS,
-                Koma.U,
-                Koma.PU,
-                Koma.Neko,
-                Koma.PNeko,
-                Koma.I,
-                Koma.Z,
-                Koma.PZ,
-                Koma.K,
-                Koma.PK,
-                Koma.R,
+                Koma.Pawn1,
+                Koma.ProPawn1,
+                Koma.Lance1,
+                Koma.ProLance1,
+                Koma.Knight1,
+                Koma.ProKnight1,
+                Koma.Silver1,
+                Koma.ProSilver1,
+                Koma.Gold1,
+                Koma.Bishop1,
+                Koma.ProBishop1,
+                Koma.Rook1,
+                Koma.ProRook1,
+                Koma.King1,
             },
             new Koma[]{
-                Koma.h,
-                Koma.ph,
-                Koma.s,
-                Koma.ps,
-                Koma.u,
-                Koma.pu,
-                Koma.neko,
-                Koma.pneko,
-                Koma.i,
-                Koma.z,
-                Koma.pz,
-                Koma.k,
-                Koma.pk,
-                Koma.r,
+                Koma.Pawn2,
+                Koma.ProPawn2,
+                Koma.Lance2,
+                Koma.ProLance2,
+                Koma.Knight2,
+                Koma.ProKnight2,
+                Koma.Silver2,
+                Koma.ProSilver2,
+                Koma.Gold2,
+                Koma.Bishop2,
+                Koma.ProBishop2,
+                Koma.Rook2,
+                Koma.ProRook2,
+                Koma.King2,
             }
         };
         /// <summary>
@@ -239,11 +155,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// </summary>
         public static Koma[] ItiranTobikiki = new Koma[]
         {
-            Koma.Z,Koma.z,// ぞう
-            Koma.PZ,Koma.pz,// パワーアップぞう
-            Koma.K,Koma.k,// きりん
-            Koma.PK,Koma.pk,// パワーアップきりん
-            Koma.S,Koma.s,// いのしし
+            Koma.Bishop1,Koma.Bishop2,// ぞう
+            Koma.ProBishop1,Koma.ProBishop2,// パワーアップぞう
+            Koma.Rook1,Koma.Rook2,// きりん
+            Koma.ProRook1,Koma.ProRook2,// パワーアップきりん
+            Koma.Lance1,Koma.Lance2,// いのしし
         };
         /// <summary>
         /// らいおんを除いた一覧。ジャム用。
@@ -251,43 +167,43 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         public static Koma[] ItiranRaionNozoku =
         {
             // ぞう（対局者１、対局者２）
-            Koma.Z,Koma.z,
+            Koma.Bishop1,Koma.Bishop2,
 
             // パワーアップぞう
-            Koma.PZ,Koma.pz,
+            Koma.ProBishop1,Koma.ProBishop2,
 
             // きりん
-            Koma.K,Koma.k,
+            Koma.Rook1,Koma.Rook2,
 
             // パワーアップきりん
-            Koma.PK,Koma.pk,
+            Koma.ProRook1,Koma.ProRook2,
 
             // ひよこ
-            Koma.H,Koma.h,
+            Koma.Pawn1,Koma.Pawn2,
 
             // にわとり
-            Koma.PH,Koma.ph,
+            Koma.ProPawn1,Koma.ProPawn2,
 
             // いぬ
-            Koma.I,Koma.i,
+            Koma.Gold1,Koma.Gold2,
 
             // ねこ
-            Koma.Neko,Koma.neko,
+            Koma.Silver1,Koma.Silver2,
 
             // パワーアップねこ
-            Koma.PNeko,Koma.pneko,
+            Koma.ProSilver1,Koma.ProSilver2,
 
             // うさぎ
-            Koma.U,Koma.u,
+            Koma.Knight1,Koma.Knight2,
 
             // パワーアップうさぎ
-            Koma.PU,Koma.pu,
+            Koma.ProKnight1,Koma.ProKnight2,
 
             // いのしし
-            Koma.S,Koma.s,
+            Koma.Lance1,Koma.Lance2,
 
             // パワーアップいのしし
-            Koma.PS,Koma.ps,
+            Koma.ProLance1,Koma.ProLance2,
 
         };
         /// <summary>
@@ -557,52 +473,52 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             switch (km)
             {
-                case Koma.R: return Koma.r;
-                case Koma.r: return Koma.R;
+                case Koma.King1: return Koma.King2;
+                case Koma.King2: return Koma.King1;
 
-                case Koma.Z: return Koma.z;
-                case Koma.z: return Koma.Z;
+                case Koma.Bishop1: return Koma.Bishop2;
+                case Koma.Bishop2: return Koma.Bishop1;
 
-                case Koma.PZ: return Koma.pz;
-                case Koma.pz: return Koma.PZ;
+                case Koma.ProBishop1: return Koma.ProBishop2;
+                case Koma.ProBishop2: return Koma.ProBishop1;
 
-                case Koma.K: return Koma.k;
-                case Koma.k: return Koma.K;
+                case Koma.Rook1: return Koma.Rook2;
+                case Koma.Rook2: return Koma.Rook1;
 
-                case Koma.PK: return Koma.pk;
-                case Koma.pk: return Koma.PK;
+                case Koma.ProRook1: return Koma.ProRook2;
+                case Koma.ProRook2: return Koma.ProRook1;
 
-                case Koma.H: return Koma.h;
-                case Koma.h: return Koma.H;
+                case Koma.Pawn1: return Koma.Pawn2;
+                case Koma.Pawn2: return Koma.Pawn1;
 
-                case Koma.PH: return Koma.ph;
-                case Koma.ph: return Koma.PH;
+                case Koma.ProPawn1: return Koma.ProPawn2;
+                case Koma.ProPawn2: return Koma.ProPawn1;
 
-                case Koma.I: return Koma.i;
-                case Koma.i: return Koma.I;
+                case Koma.Gold1: return Koma.Gold2;
+                case Koma.Gold2: return Koma.Gold1;
 
-                case Koma.Neko: return Koma.neko;
-                case Koma.neko: return Koma.Neko;
+                case Koma.Silver1: return Koma.Silver2;
+                case Koma.Silver2: return Koma.Silver1;
 
-                case Koma.PNeko: return Koma.pneko;
-                case Koma.pneko: return Koma.PNeko;
+                case Koma.ProSilver1: return Koma.ProSilver2;
+                case Koma.ProSilver2: return Koma.ProSilver1;
 
-                case Koma.U: return Koma.u;
-                case Koma.u: return Koma.U;
+                case Koma.Knight1: return Koma.Knight2;
+                case Koma.Knight2: return Koma.Knight1;
 
-                case Koma.PU: return Koma.pu;
-                case Koma.pu: return Koma.PU;
+                case Koma.ProKnight1: return Koma.ProKnight2;
+                case Koma.ProKnight2: return Koma.ProKnight1;
 
-                case Koma.S: return Koma.s;
-                case Koma.s: return Koma.S;
+                case Koma.Lance1: return Koma.Lance2;
+                case Koma.Lance2: return Koma.Lance1;
 
-                case Koma.PS: return Koma.ps;
-                case Koma.ps: return Koma.PS;
+                case Koma.ProLance1: return Koma.ProLance2;
+                case Koma.ProLance2: return Koma.ProLance1;
 
-                case Koma.Kuhaku: return Koma.Kuhaku;
+                case Koma.SpaceSq: return Koma.SpaceSq;
                 default: break;
             }
-            return Koma.Yososu;
+            return Koma.PieceNum;
         }
         /// <summary>
         /// 
@@ -618,50 +534,50 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 switch (moji)
                 {
                     // 玉（対局者１、対局者２）
-                    case "K": out_koma = Koma.R; return true;
-                    case "k": out_koma = Koma.r; return true;
+                    case "K": out_koma = Koma.King1; return true;
+                    case "k": out_koma = Koma.King2; return true;
 
-                    case "B": out_koma = Koma.Z; return true;
-                    case "b": out_koma = Koma.z; return true;
+                    case "B": out_koma = Koma.Bishop1; return true;
+                    case "b": out_koma = Koma.Bishop2; return true;
 
-                    case "+B": out_koma = Koma.PZ; return true;
-                    case "+b": out_koma = Koma.pz; return true;
+                    case "+B": out_koma = Koma.ProBishop1; return true;
+                    case "+b": out_koma = Koma.ProBishop2; return true;
 
-                    case "R": out_koma = Koma.K; return true;
-                    case "r": out_koma = Koma.k; return true;
+                    case "R": out_koma = Koma.Rook1; return true;
+                    case "r": out_koma = Koma.Rook2; return true;
 
-                    case "+R": out_koma = Koma.PK; return true;
-                    case "+r": out_koma = Koma.pk; return true;
+                    case "+R": out_koma = Koma.ProRook1; return true;
+                    case "+r": out_koma = Koma.ProRook2; return true;
 
-                    case "P": out_koma = Koma.H; return true;
-                    case "p": out_koma = Koma.h; return true;
+                    case "P": out_koma = Koma.Pawn1; return true;
+                    case "p": out_koma = Koma.Pawn2; return true;
 
-                    case "+P": out_koma = Koma.PH; return true;
-                    case "+p": out_koma = Koma.ph; return true;
+                    case "+P": out_koma = Koma.ProPawn1; return true;
+                    case "+p": out_koma = Koma.ProPawn2; return true;
 
-                    case "G": out_koma = Koma.I; return true;
-                    case "g": out_koma = Koma.i; return true;
+                    case "G": out_koma = Koma.Gold1; return true;
+                    case "g": out_koma = Koma.Gold2; return true;
 
-                    case "S": out_koma = Koma.Neko; return true;
-                    case "s": out_koma = Koma.neko; return true;
+                    case "S": out_koma = Koma.Silver1; return true;
+                    case "s": out_koma = Koma.Silver2; return true;
 
-                    case "+S": out_koma = Koma.PNeko; return true;
-                    case "+s": out_koma = Koma.pneko; return true;
+                    case "+S": out_koma = Koma.ProSilver1; return true;
+                    case "+s": out_koma = Koma.ProSilver2; return true;
 
-                    case "N": out_koma = Koma.U; return true;
-                    case "n": out_koma = Koma.u; return true;
+                    case "N": out_koma = Koma.Knight1; return true;
+                    case "n": out_koma = Koma.Knight2; return true;
 
-                    case "+N": out_koma = Koma.PU; return true;
-                    case "+n": out_koma = Koma.pu; return true;
+                    case "+N": out_koma = Koma.ProKnight1; return true;
+                    case "+n": out_koma = Koma.ProKnight2; return true;
 
-                    case "L": out_koma = Koma.S; return true;
-                    case "l": out_koma = Koma.s; return true;
+                    case "L": out_koma = Koma.Lance1; return true;
+                    case "l": out_koma = Koma.Lance2; return true;
 
-                    case "+L": out_koma = Koma.PS; return true;
-                    case "+l": out_koma = Koma.ps; return true;
+                    case "+L": out_koma = Koma.ProLance1; return true;
+                    case "+l": out_koma = Koma.ProLance2; return true;
 
-                    case " ": out_koma = Koma.Kuhaku; return true;
-                    default: out_koma = Koma.Yososu; return false;
+                    case " ": out_koma = Koma.SpaceSq; return true;
+                    default: out_koma = Koma.PieceNum; return false;
                 }
             }
             else
@@ -670,50 +586,50 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 switch (moji)
                 {
                     // らいおん（対局者１、対局者２）
-                    case "R": out_koma = Koma.R; return true;
-                    case "r": out_koma = Koma.r; return true;
+                    case "R": out_koma = Koma.King1; return true;
+                    case "r": out_koma = Koma.King2; return true;
 
-                    case "Z": out_koma = Koma.Z; return true;
-                    case "z": out_koma = Koma.z; return true;
+                    case "Z": out_koma = Koma.Bishop1; return true;
+                    case "z": out_koma = Koma.Bishop2; return true;
 
-                    case "+Z": out_koma = Koma.PZ; return true;
-                    case "+z": out_koma = Koma.pz; return true;
+                    case "+Z": out_koma = Koma.ProBishop1; return true;
+                    case "+z": out_koma = Koma.ProBishop2; return true;
 
-                    case "K": out_koma = Koma.K; return true;
-                    case "k": out_koma = Koma.k; return true;
+                    case "K": out_koma = Koma.Rook1; return true;
+                    case "k": out_koma = Koma.Rook2; return true;
 
-                    case "+K": out_koma = Koma.PK; return true;
-                    case "+k": out_koma = Koma.pk; return true;
+                    case "+K": out_koma = Koma.ProRook1; return true;
+                    case "+k": out_koma = Koma.ProRook2; return true;
 
-                    case "H": out_koma = Koma.H; return true;
-                    case "h": out_koma = Koma.h; return true;
+                    case "H": out_koma = Koma.Pawn1; return true;
+                    case "h": out_koma = Koma.Pawn2; return true;
 
-                    case "+H": out_koma = Koma.PH; return true;
-                    case "+h": out_koma = Koma.ph; return true;
+                    case "+H": out_koma = Koma.ProPawn1; return true;
+                    case "+h": out_koma = Koma.ProPawn2; return true;
 
-                    case "I": out_koma = Koma.I; return true;
-                    case "i": out_koma = Koma.i; return true;
+                    case "I": out_koma = Koma.Gold1; return true;
+                    case "i": out_koma = Koma.Gold2; return true;
 
-                    case "N": out_koma = Koma.Neko; return true;
-                    case "n": out_koma = Koma.neko; return true;
+                    case "N": out_koma = Koma.Silver1; return true;
+                    case "n": out_koma = Koma.Silver2; return true;
 
-                    case "+N": out_koma = Koma.PNeko; return true;
-                    case "+n": out_koma = Koma.pneko; return true;
+                    case "+N": out_koma = Koma.ProSilver1; return true;
+                    case "+n": out_koma = Koma.ProSilver2; return true;
 
-                    case "U": out_koma = Koma.U; return true;
-                    case "u": out_koma = Koma.u; return true;
+                    case "U": out_koma = Koma.Knight1; return true;
+                    case "u": out_koma = Koma.Knight2; return true;
 
-                    case "+U": out_koma = Koma.PU; return true;
-                    case "+u": out_koma = Koma.pu; return true;
+                    case "+U": out_koma = Koma.ProKnight1; return true;
+                    case "+u": out_koma = Koma.ProKnight2; return true;
 
-                    case "S": out_koma = Koma.S; return true;
-                    case "s": out_koma = Koma.s; return true;
+                    case "S": out_koma = Koma.Lance1; return true;
+                    case "s": out_koma = Koma.Lance2; return true;
 
-                    case "+S": out_koma = Koma.PS; return true;
-                    case "+s": out_koma = Koma.ps; return true;
+                    case "+S": out_koma = Koma.ProLance1; return true;
+                    case "+s": out_koma = Koma.ProLance2; return true;
 
-                    case " ": out_koma = Koma.Kuhaku; return true;
-                    default: out_koma = Koma.Yososu; return false;
+                    case " ": out_koma = Koma.SpaceSq; return true;
+                    default: out_koma = Koma.PieceNum; return false;
                 }
             }
         }
@@ -722,50 +638,50 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             switch (zenkakuKana)
             {
                 // らいおん（対局者１、対局者２）
-                case "ら": out_koma = Koma.R; return true;
-                case "ラ": out_koma = Koma.r; return true;
+                case "ら": out_koma = Koma.King1; return true;
+                case "ラ": out_koma = Koma.King2; return true;
 
-                case "ぞ": out_koma = Koma.Z; return true;
-                case "ゾ": out_koma = Koma.z; return true;
+                case "ぞ": out_koma = Koma.Bishop1; return true;
+                case "ゾ": out_koma = Koma.Bishop2; return true;
 
-                case "+Z": out_koma = Koma.PZ; return true;
-                case "+z": out_koma = Koma.pz; return true;
+                case "+Z": out_koma = Koma.ProBishop1; return true;
+                case "+z": out_koma = Koma.ProBishop2; return true;
 
-                case "き": out_koma = Koma.K; return true;
-                case "キ": out_koma = Koma.k; return true;
+                case "き": out_koma = Koma.Rook1; return true;
+                case "キ": out_koma = Koma.Rook2; return true;
 
-                case "+K": out_koma = Koma.PK; return true;
-                case "+k": out_koma = Koma.pk; return true;
+                case "+K": out_koma = Koma.ProRook1; return true;
+                case "+k": out_koma = Koma.ProRook2; return true;
 
-                case "ひ": out_koma = Koma.H; return true;
-                case "ヒ": out_koma = Koma.h; return true;
+                case "ひ": out_koma = Koma.Pawn1; return true;
+                case "ヒ": out_koma = Koma.Pawn2; return true;
 
-                case "+H": out_koma = Koma.PH; return true;
-                case "+h": out_koma = Koma.ph; return true;
+                case "+H": out_koma = Koma.ProPawn1; return true;
+                case "+h": out_koma = Koma.ProPawn2; return true;
 
-                case "い": out_koma = Koma.I; return true;
-                case "イ": out_koma = Koma.i; return true;
+                case "い": out_koma = Koma.Gold1; return true;
+                case "イ": out_koma = Koma.Gold2; return true;
 
-                case "ね": out_koma = Koma.Neko; return true;
-                case "ネ": out_koma = Koma.neko; return true;
+                case "ね": out_koma = Koma.Silver1; return true;
+                case "ネ": out_koma = Koma.Silver2; return true;
 
-                case "+N": out_koma = Koma.PNeko; return true;
-                case "+n": out_koma = Koma.pneko; return true;
+                case "+N": out_koma = Koma.ProSilver1; return true;
+                case "+n": out_koma = Koma.ProSilver2; return true;
 
-                case "う": out_koma = Koma.U; return true;
-                case "ウ": out_koma = Koma.u; return true;
+                case "う": out_koma = Koma.Knight1; return true;
+                case "ウ": out_koma = Koma.Knight2; return true;
 
-                case "+U": out_koma = Koma.PU; return true;
-                case "+u": out_koma = Koma.pu; return true;
+                case "+U": out_koma = Koma.ProKnight1; return true;
+                case "+u": out_koma = Koma.ProKnight2; return true;
 
-                case "し": out_koma = Koma.S; return true;
-                case "シ": out_koma = Koma.s; return true;
+                case "し": out_koma = Koma.Lance1; return true;
+                case "シ": out_koma = Koma.Lance2; return true;
 
-                case "+S": out_koma = Koma.PS; return true;
-                case "+s": out_koma = Koma.ps; return true;
+                case "+S": out_koma = Koma.ProLance1; return true;
+                case "+s": out_koma = Koma.ProLance2; return true;
 
-                case " ": out_koma = Koma.Kuhaku; return true;
-                default: out_koma = Koma.Yososu; return false;
+                case " ": out_koma = Koma.SpaceSq; return true;
+                default: out_koma = Koma.PieceNum; return false;
             }
         }
 
@@ -776,7 +692,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <returns></returns>
         public static bool IsOkOrKuhaku(Koma km)
         {
-            return Koma.R <= km && km <= Koma.Kuhaku;
+            return Koma.King1 <= km && km <= Koma.SpaceSq;
         }
         /// <summary>
         /// 空白、要素数以外の駒
@@ -785,7 +701,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <returns></returns>
         public static bool IsOk(Koma km)
         {
-            return Koma.R <= km && km < Koma.Kuhaku;
+            return Koma.King1 <= km && km < Koma.SpaceSq;
         }
     }
 

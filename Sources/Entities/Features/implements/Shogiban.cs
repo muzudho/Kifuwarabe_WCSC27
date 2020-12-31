@@ -1560,7 +1560,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             int i = 0;
             foreach (Koma km_tobikiki in kmHairetu_control)
             {
-                if (Koma.Yososu == km_tobikiki) { break; }
+                if (Koma.PieceNum == km_tobikiki) { break; }
 
                 ////#if DEBUG
                 //                // 飛び利きを再計算する駒
@@ -1615,7 +1615,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 Koma km_tobikiki = kmHairetu_control[i];
 
-                if (Koma.Yososu == km_tobikiki) { break; }
+                if (Koma.PieceNum == km_tobikiki) { break; }
 
                 //↓★こんなん、しない方がいいのでは？
                 // 飛び利き駒の升を調べて、その利きを変更する

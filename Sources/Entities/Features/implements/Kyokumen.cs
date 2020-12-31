@@ -206,7 +206,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                         iEnd++;
                     }
                 }
-                out_discovered[iEnd] = Koma.Yososu; // 終端子
+                out_discovered[iEnd] = Koma.PieceNum; // 終端子
             }
 
             public bool IsEmptyMotikoma()
@@ -584,7 +584,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     return Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, optionalPhase);
                 }
             }
-            return Koma.Kuhaku;
+            return Koma.SpaceSq;
         }
         /// <summary>
         /// 持ち駒の数だぜ☆（＾▽＾）
@@ -665,11 +665,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 // 先手らいおん
                 int iMs = Option_Application.Random.Next(Sindan.MASU_YOSOSU - 1);
-                Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs, Koma.R, true, Sindan);
+                Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs, Koma.King1, true, Sindan);
                 // あとで適用
 
                 // 後手らいおん
-                Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)((iMs + Option_Application.Random.Next(Sindan.MASU_YOSOSU - 2)) % Sindan.MASU_YOSOSU), Koma.r, true, Sindan);
+                Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)((iMs + Option_Application.Random.Next(Sindan.MASU_YOSOSU - 2)) % Sindan.MASU_YOSOSU), Koma.King2, true, Sindan);
                 // あとで適用
             }
 
@@ -686,10 +686,10 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
         static Koma[] DefaultHirateSyokiKyokumen = new Koma[]
         {
-            Koma.k, Koma.r, Koma.z,
-                Koma.Kuhaku, Koma.h, Koma.Kuhaku,
-                Koma.Kuhaku, Koma.H, Koma.Kuhaku,
-                Koma.Z, Koma.R, Koma.K
+            Koma.Rook2, Koma.King2, Koma.Bishop2,
+                Koma.SpaceSq, Koma.Pawn2, Koma.SpaceSq,
+                Koma.SpaceSq, Koma.Pawn1, Koma.SpaceSq,
+                Koma.Bishop1, Koma.King1, Koma.Rook1
         };
         /// <summary>
         /// 盤上に駒を置くだけ。
@@ -705,7 +705,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 if (iMs < DefaultHirateSyokiKyokumen.Length)
                 {
                     Koma km = DefaultHirateSyokiKyokumen[iMs];
-                    if (Koma.Kuhaku != km)
+                    if (Koma.SpaceSq != km)
                     {
                         Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs, km, updateKiki, Sindan);
                     }
@@ -874,13 +874,13 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             Koma km_dst = GetBanjoKoma(ms_dst);
             var (exists1, phase1) = CurrentOptionalPhase.Match;
             var (exists2, phase2) = Med_Koma.PhaseOfPiece(km_dst).Match;
-            if (km_dst != Koma.Kuhaku && exists1 && exists2 && phase1 == phase2)
+            if (km_dst != Koma.SpaceSq && exists1 && exists2 && phase1 == phase2)
             {
                 // 自分の駒を取ろうとするのは、イリーガル・ムーブだぜ☆（＾▽＾）
                 reason = MoveMatigaiRiyu.TebanKomaNoTokoroheIdo;
                 return false;
             }
-            else if (utta && km_dst != Koma.Kuhaku)
+            else if (utta && km_dst != Koma.SpaceSq)
             {
                 // 駒があるところに打ち込んではいけないぜ☆（＾▽＾）
                 reason = MoveMatigaiRiyu.KomaGaAruTokoroheUti;
@@ -902,7 +902,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 var optionalPhaseSrcKm = Med_Koma.PhaseOfPiece(km_src);
                 var (exists3, phase3) = CurrentOptionalPhase.Match;
                 var (exists4, phase4) = optionalPhaseSrcKm.Match;
-                if (km_src == Koma.Kuhaku)
+                if (km_src == Koma.SpaceSq)
                 {
                     // 空き升に駒があると思って動かそうとするのは、イリーガル・ムーブだぜ☆（＾▽＾）
                     reason = MoveMatigaiRiyu.KuhakuWoIdo;
@@ -1078,7 +1078,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             //          移動先に駒があれば……。
             //────────────────────────────────────────
             #region 駒を取る
-            if (km_c != Koma.Kuhaku)
+            if (km_c != Koma.SpaceSq)
             {
                 // 駒取るぜ☆（＾▽＾）！
 
@@ -1456,7 +1456,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             else// 打つ
             {
                 ms_t0 = MASU_ERROR;
-                km_t0 = Koma.Yososu;
+                km_t0 = Koma.PieceNum;
                 ks_t0 = Komasyurui.Yososu;
                 mk_t0 = Med_Koma.KomasyuruiAndTaikyokusyaToMotiKoma(ks_t1, CurrentOptionalPhase);
             }
@@ -1474,7 +1474,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             }
             else
             {
-                km_c = Koma.Yososu;
+                km_c = Koma.PieceNum;
                 mk_c = MotiKoma.Yososu;
             }
 
@@ -1894,15 +1894,15 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                         r = Option_Application.Random.Next(kakuritu);
                         if (r % 5 < 2)
                         {
-                            if (Shogiban.ExistsBBKoma(Koma.H, (Masu)iMs1) || Shogiban.ExistsBBKoma(Koma.h, (Masu)iMs1))
+                            if (Shogiban.ExistsBBKoma(Koma.Pawn1, (Masu)iMs1) || Shogiban.ExistsBBKoma(Koma.Pawn2, (Masu)iMs1))
                             {
-                                if (0 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.PH, true, Sindan); }
-                                else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.ph, true, Sindan); }
+                                if (0 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.ProPawn1, true, Sindan); }
+                                else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.ProPawn2, true, Sindan); }
                             }
-                            else if (Shogiban.GetBBKoma(Koma.PH).IsOn((Masu)iMs1) || Shogiban.GetBBKoma(Koma.ph).IsOn((Masu)iMs1))
+                            else if (Shogiban.GetBBKoma(Koma.ProPawn1).IsOn((Masu)iMs1) || Shogiban.GetBBKoma(Koma.ProPawn2).IsOn((Masu)iMs1))
                             {
-                                if (0 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.H, true, Sindan); }
-                                else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.h, true, Sindan); }
+                                if (0 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.Pawn1, true, Sindan); }
+                                else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.Pawn2, true, Sindan); }
                             }
                         }
                     }
@@ -1919,33 +1919,33 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                             {
                                 case MotiKoma.Z:
                                     MotiKomas.Herasu(MotiKoma.Z);
-                                    if (1 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.Z, true, Sindan); }
-                                    else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.z, true, Sindan); }
+                                    if (1 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.Bishop1, true, Sindan); }
+                                    else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.Bishop2, true, Sindan); }
                                     break;
                                 case MotiKoma.K:
                                     MotiKomas.Herasu(MotiKoma.K);
-                                    if (1 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.K, true, Sindan); }
-                                    else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.k, true, Sindan); }
+                                    if (1 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.Rook1, true, Sindan); }
+                                    else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.Rook2, true, Sindan); }
                                     break;
                                 case MotiKoma.H:
                                     MotiKomas.Herasu(MotiKoma.H);
-                                    if (1 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.H, true, Sindan); }
-                                    else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.h, true, Sindan); }
+                                    if (1 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.Pawn1, true, Sindan); }
+                                    else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.Pawn2, true, Sindan); }
                                     break;
                                 case MotiKoma.z:
                                     MotiKomas.Herasu(MotiKoma.z);
-                                    if (1 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.z, true, Sindan); }
-                                    else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.Z, true, Sindan); }
+                                    if (1 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.Bishop2, true, Sindan); }
+                                    else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.Bishop1, true, Sindan); }
                                     break;
                                 case MotiKoma.k:
                                     MotiKomas.Herasu(MotiKoma.k);
-                                    if (1 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.k, true, Sindan); }
-                                    else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.K, true, Sindan); }
+                                    if (1 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.Rook2, true, Sindan); }
+                                    else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.Rook1, true, Sindan); }
                                     break;
                                 case MotiKoma.h:
                                     MotiKomas.Herasu(MotiKoma.h);
-                                    if (1 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.h, true, Sindan); }
-                                    else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.H, true, Sindan); }
+                                    if (1 == r) { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.Pawn2, true, Sindan); }
+                                    else { Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs1, Koma.Pawn1, true, Sindan); }
                                     break;
                             }
                             nokori--;
@@ -1983,14 +1983,14 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 {
                     /*
                     // トライしてたら、位置を変えるぜ☆（＾▽＾）ｗｗｗ
-                    if (Koma.R == this.Komas[iMs1] && Conv_Masu.IsTried(Taikyokusya.T1, (Masu)iMs1))
+                    if (Koma.King1 == this.Komas[iMs1] && Conv_Masu.IsTried(Taikyokusya.T1, (Masu)iMs1))
                     {
                         int iMs2 = iMs1 + 9;//9升足しておくか☆（＾▽＾）ｗｗｗ
                         tmpKm = this.Komas[iMs1];
                         this.Komas[iMs1] = this.Komas[iMs2];
                         this.Komas[iMs2] = tmpKm;
                     }
-                    else if (Koma.r == this.Komas[iMs1] && Conv_Masu.IsTried(Taikyokusya.T2, (Masu)iMs1))
+                    else if (Koma.King2 == this.Komas[iMs1] && Conv_Masu.IsTried(Taikyokusya.T2, (Masu)iMs1))
                     {
                         int iMs2 = iMs1 - 9;//9升引いておくか☆（＾▽＾）ｗｗｗ
                         tmpKm = this.Komas[iMs1];
@@ -1999,13 +1999,13 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     }
                     */
 
-                    if (Shogiban.ExistsBBKoma(Koma.R, (Masu)iMs1) || Shogiban.ExistsBBKoma(Koma.r, (Masu)iMs1))
+                    if (Shogiban.ExistsBBKoma(Koma.King1, (Masu)iMs1) || Shogiban.ExistsBBKoma(Koma.King2, (Masu)iMs1))
                     {
                         var (exists75, phase75) = optionalPhase75.Match;
                         if (exists75 && phase75 == Phase.Black)
                         {
                             var ms1 = (Masu)iMs1;
-                            var km1 = Koma.R;
+                            var km1 = Koma.King1;
                             Debug.Assert(Conv_Koma.IsOk(km1), "");
                             Debug.Assert(Sindan.IsBanjo(ms1), "");
                             Shogiban.N250_OkuBanjoKoma(isSfen, ms1, km1, true, Sindan);
@@ -2013,7 +2013,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                         else
                         {
                             var ms1 = (Masu)iMs1;
-                            var km1 = Koma.r;
+                            var km1 = Koma.King2;
                             Debug.Assert(Conv_Koma.IsOk(km1), "");
                             Debug.Assert(Sindan.IsBanjo(ms1), "");
                             Shogiban.N250_OkuBanjoKoma(isSfen, ms1, km1, true, Sindan);

@@ -44,8 +44,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             else
             {
                 // らいおんがいるか☆
-                bool raion1Vanished = ky.Shogiban.IsEmptyBBKoma(Koma.R);
-                bool raion2Vanished = ky.Shogiban.IsEmptyBBKoma(Koma.r);
+                bool raion1Vanished = ky.Shogiban.IsEmptyBBKoma(Koma.King1);
+                bool raion2Vanished = ky.Shogiban.IsEmptyBBKoma(Koma.King2);
 
                 if (raion1Vanished && raion2Vanished)
                 {

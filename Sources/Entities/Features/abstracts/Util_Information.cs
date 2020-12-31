@@ -614,7 +614,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             syuturyoku.Append($"置くか除けるかした升=[{(Masu)ms}] 関連する飛び利き駒一覧=[");
             foreach (Koma km in kmHairetu)
             {
-                if (Koma.Yososu == km)
+                if (Koma.PieceNum == km)
                 {
                     break;
                 }
@@ -632,7 +632,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             // 飛び利きを計算し直す
             foreach (Koma km in kmHairetu_control)
             {
-                if (Koma.Yososu == km) { break; }
+                if (Koma.PieceNum == km) { break; }
 
                 // 駒の居場所
                 Bitboard bb_ibasho = new Bitboard();

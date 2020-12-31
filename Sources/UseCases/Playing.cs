@@ -688,7 +688,7 @@ Kettyaku = {Util_Application.IsKettyaku(ky)}");
                 bool failure = false;
                 if (!Conv_Koma.TryParseFen(isSfen, token, out Koma km1))
                 {
-                    km1 = Koma.Kuhaku;
+                    km1 = Koma.SpaceSq;
                     failure = true;
                 }
 
@@ -1022,7 +1022,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret_1, "banjo ");
                 bool failure = false;
 
-                Koma km1 = Koma.Yososu;
+                Koma km1 = Koma.PieceNum;
                 if (failure)
                 {
                     syuturyoku.AppendLine("failure 5");
@@ -2574,7 +2574,7 @@ USI                      = {Option_Application.Optionlist.USI}");
 
                 var optioalPhase75 = ky.CurrentOptionalPhase;
                 var (exists75, phase75) = optioalPhase75.Match;
-                Koma raionKm = (exists75 && phase75 == Phase.Black) ? Koma.R : Koma.r;
+                Koma raionKm = (exists75 && phase75 == Phase.Black) ? Koma.King1 : Koma.King2;
                 Masu ms1 = ky.Lookup(raionKm);
                 Bitboard kikiBB = new Bitboard();
                 kikiBB.Set(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, optioalPhase75), ms1));

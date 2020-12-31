@@ -306,21 +306,21 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         #region 駒種類と手番→駒
         static Koma[,] m_KomasyuruiAndTaikyokusyaToKoma_ =
         {
-            { Koma.R, Koma.r },// らいおん
-            { Koma.Z, Koma.z },// ぞう
-            { Koma.PZ, Koma.pz },// パワーアップぞう
-            { Koma.K, Koma.k },// きりん
-            { Koma.PK, Koma.pk },// パワーアップきりん
-            { Koma.H, Koma.h },// ひよこ
-            { Koma.PH, Koma.ph },// にわとり
-            { Koma.I, Koma.i },// いぬ
-            { Koma.Neko, Koma.neko },// ねこ
-            { Koma.PNeko, Koma.pneko },// パワーアップねこ
-            { Koma.U, Koma.u },// うさぎ
-            { Koma.PU, Koma.pu },// パワーアップうさぎ
-            { Koma.S, Koma.s },// いのしし
-            { Koma.PS, Koma.ps },// パワーアップいのしし
-            { Koma.Kuhaku, Koma.Kuhaku },// らいおん～にわとり　までの要素の個数になるぜ☆（＾▽＾）どの駒の種類にも当てはまらない場合に、Yososu と書くことがある☆（＾▽＾）ｗｗｗ
+            { Koma.King1, Koma.King2 },// らいおん
+            { Koma.Bishop1, Koma.Bishop2 },// ぞう
+            { Koma.ProBishop1, Koma.ProBishop2 },// パワーアップぞう
+            { Koma.Rook1, Koma.Rook2 },// きりん
+            { Koma.ProRook1, Koma.ProRook2 },// パワーアップきりん
+            { Koma.Pawn1, Koma.Pawn2 },// ひよこ
+            { Koma.ProPawn1, Koma.ProPawn2 },// にわとり
+            { Koma.Gold1, Koma.Gold2 },// いぬ
+            { Koma.Silver1, Koma.Silver2 },// ねこ
+            { Koma.ProSilver1, Koma.ProSilver2 },// パワーアップねこ
+            { Koma.Knight1, Koma.Knight2 },// うさぎ
+            { Koma.ProKnight1, Koma.ProKnight2 },// パワーアップうさぎ
+            { Koma.Lance1, Koma.Lance2 },// いのしし
+            { Koma.ProLance1, Koma.ProLance2 },// パワーアップいのしし
+            { Koma.SpaceSq, Koma.SpaceSq },// らいおん～にわとり　までの要素の個数になるぜ☆（＾▽＾）どの駒の種類にも当てはまらない場合に、Yososu と書くことがある☆（＾▽＾）ｗｗｗ
         };
         public static Koma KomasyuruiAndTaikyokusyaToKoma(Komasyurui ks, Option<Phase> optionalPhase)
         {
@@ -579,29 +579,29 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         static Koma[,] m_MotiKomasyuruiAndPhaseToKoma_ =
         {
             // ぞう
-            { Koma.Z, Koma.z },
+            { Koma.Bishop1, Koma.Bishop2 },
 
             // きりん
-            { Koma.K, Koma.k },
+            { Koma.Rook1, Koma.Rook2 },
 
             // ひよこ
-            { Koma.H, Koma.h },// にわとり　にはならないぜ☆（＾～＾）
+            { Koma.Pawn1, Koma.Pawn2 },// にわとり　にはならないぜ☆（＾～＾）
 
             // いぬ
-            { Koma.I, Koma.i },
+            { Koma.Gold1, Koma.Gold2 },
 
             // ねこ
-            { Koma.Neko, Koma.neko },
+            { Koma.Silver1, Koma.Silver2 },
 
             // うさぎ
-            { Koma.U, Koma.u },
+            { Koma.Knight1, Koma.Knight2 },
 
             // いのしし
-            { Koma.S, Koma.s },
+            { Koma.Lance1, Koma.Lance2 },
 
             // 要素の個数になるぜ☆（＾▽＾）
             // どの駒の種類にも当てはまらない場合に、Yososu と書くことがある☆（＾▽＾）ｗｗｗ
-            { Koma.Yososu, Koma.Yososu },
+            { Koma.PieceNum, Koma.PieceNum },
         };
         public static Koma MotiKomasyuruiAndPhaseToKoma(MotiKomasyurui mks, Option<Phase> optionalPhase)
         {
