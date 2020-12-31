@@ -106,9 +106,10 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             syuturyoku.Append(Conv_Taikyokusya.m_tusinYo_[OptionalPhase.ToInt(optionalPhase)]);
         }
 
-        public static bool IsOk(Taikyokusya ts)
+        public static bool IsOk(Option<Phase> optionalPhase)
         {
-            return Taikyokusya.T1 <= ts && ts < Taikyokusya.Yososu;
+            var phaseIndex = OptionalPhase.ToInt(optionalPhase);
+            return (int)Phase.Black <= phaseIndex && phaseIndex <= (int)Phase.White;
         }
     }
 
