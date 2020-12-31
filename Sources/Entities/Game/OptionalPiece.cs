@@ -102,6 +102,44 @@ namespace Grayscale.Kifuwarakei.Entities.Game
             }
         }
 
+        public static Option<Piece> From(Koma km)
+        {
+            switch (km)
+            {
+                case Koma.King1: return OptionalPiece.King1;
+                case Koma.King2: return OptionalPiece.King2;
+                case Koma.Bishop1: return OptionalPiece.Bishop1;
+                case Koma.Bishop2: return OptionalPiece.Bishop2;
+                case Koma.ProBishop1: return OptionalPiece.ProBishop1;
+                case Koma.ProBishop2: return OptionalPiece.ProBishop2;
+                case Koma.Rook1: return OptionalPiece.Rook1;
+                case Koma.Rook2: return OptionalPiece.Rook2;
+                case Koma.ProRook1: return OptionalPiece.ProRook1;
+                case Koma.ProRook2: return OptionalPiece.ProRook2;
+                case Koma.Pawn1: return OptionalPiece.Pawn1;
+                case Koma.Pawn2: return OptionalPiece.Pawn2;
+                case Koma.ProPawn1: return OptionalPiece.ProPawn1;
+                case Koma.ProPawn2: return OptionalPiece.ProPawn2;
+                case Koma.Gold1: return OptionalPiece.Gold1;
+                case Koma.Gold2: return OptionalPiece.Gold2;
+                case Koma.Silver1: return OptionalPiece.Silver1;
+                case Koma.Silver2: return OptionalPiece.Silver2;
+                case Koma.ProSilver1: return OptionalPiece.ProSilver1;
+                case Koma.ProSilver2: return OptionalPiece.ProSilver2;
+                case Koma.Knight1: return OptionalPiece.Knight1;
+                case Koma.Knight2: return OptionalPiece.Knight2;
+                case Koma.ProKnight1: return OptionalPiece.ProKnight1;
+                case Koma.ProKnight2: return OptionalPiece.ProKnight2;
+                case Koma.Lance1: return OptionalPiece.Lance1;
+                case Koma.Lance2: return OptionalPiece.Lance2;
+                case Koma.ProLance1: return OptionalPiece.ProLance1;
+                case Koma.ProLance2: return OptionalPiece.ProLance2;
+                case Koma.SpaceSq: return Option<Piece>.None;
+                case Koma.PieceNum: return Option<Piece>.None;
+                default: throw new Exception($"km={km} is fail.");
+            }
+        }
+
         public static Option<Piece> From(int phaseIndex)
         {
             switch (phaseIndex)
@@ -138,36 +176,10 @@ namespace Grayscale.Kifuwarakei.Entities.Game
             }
         }
 
+
+
         /*
 
-        public static Option<Phase> From(int phaseIndex)
-        {
-            switch (phaseIndex)
-            {
-                case 0:
-                    return OptionalPhase.Black;
-                case 1:
-                    return OptionalPhase.White;
-                case 2:
-                    return Option<Phase>.None;
-                default:
-                    throw new Exception($"phaseIndex={phaseIndex} is fail.");
-            }
-        }
-        public static Option<Phase> From(Taikyokusya tai)
-        {
-            switch (tai)
-            {
-                case Taikyokusya.T1:
-                    return OptionalPhase.Black;
-                case Taikyokusya.T2:
-                    return OptionalPhase.White;
-                case Taikyokusya.Yososu:
-                    return Option<Phase>.None;
-                default:
-                    throw new Exception($"tai={tai} is fail.");
-            }
-        }
         public static int IndexOf(Option<Phase> optionalPhase)
         {
             var (exists, phase) = optionalPhase.Match;
