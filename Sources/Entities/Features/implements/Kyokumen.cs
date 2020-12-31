@@ -862,8 +862,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 return false;
             }
             Koma km_dst = GetBanjoKoma(ms_dst);
-            Taikyokusya tai_dstKm = Med_Koma.KomaToTaikyokusya(km_dst);
-            if (km_dst != Koma.Kuhaku && OptionalPhase.ToTaikyokusya( CurrentOptionalPhase) == tai_dstKm)
+            var (exists1, phase1) = CurrentOptionalPhase.Match;
+            var (exists2, phase2) = Med_Koma.PhaseOfPiece(km_dst).Match;
+            if (km_dst != Koma.Kuhaku && exists1 && exists2 && phase1 == phase2)
             {
                 // 自分の駒を取ろうとするのは、イリーガル・ムーブだぜ☆（＾▽＾）
                 reason = MoveMatigaiRiyu.TebanKomaNoTokoroheIdo;
@@ -888,14 +889,16 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 Masu ms_src = ConvMove.GetSrcMasu_WithoutErrorCheck((int)ss); // 移動先升
                 km_src = GetBanjoKoma(ms_src);
-                Taikyokusya tai_srcKm = Med_Koma.KomaToTaikyokusya(km_src);
+                var optionalPhaseSrcKm = Med_Koma.PhaseOfPiece(km_src);
+                var (exists3, phase3) = CurrentOptionalPhase.Match;
+                var (exists4, phase4) = optionalPhaseSrcKm.Match;
                 if (km_src == Koma.Kuhaku)
                 {
                     // 空き升に駒があると思って動かそうとするのは、イリーガル・ムーブだぜ☆（＾▽＾）
                     reason = MoveMatigaiRiyu.KuhakuWoIdo;
                     return false;
                 }
-                else if (tai_srcKm != OptionalPhase.ToTaikyokusya( CurrentOptionalPhase))
+                else if (exists3 && exists4 && phase3 != phase4)
                 {
                     // 相手の駒を動かそうとするのは、イリーガル・ムーブだぜ☆（＾▽＾）
                     reason = MoveMatigaiRiyu.AiteNoKomaIdo;

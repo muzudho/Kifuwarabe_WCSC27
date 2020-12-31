@@ -234,10 +234,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
                 foreach (Koma km in Conv_Koma.Itiran)
                 {
-                    Taikyokusya tai = Med_Koma.KomaToTaikyokusya(km);
+                    var optionalPhase = Med_Koma.PhaseOfPiece(km);
+                    var phaseIndex = OptionalPhase.ToInt(optionalPhase);
                     Komasyurui ks = Med_Koma.KomaToKomasyurui(km);
 
-                    ValueTai[(int)tai].Standup(kikiBBs.Get(km));
+                    ValueTai[phaseIndex].Standup(kikiBBs.Get(km));
                 }
             }
 
@@ -430,11 +431,12 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             }
             public void Substruct(Koma km, KikisuKomabetuCountboardItiran clear_CB_komabetu)
             {
-                Taikyokusya tai = Med_Koma.KomaToTaikyokusya(km);
+                var optionalPhase = Med_Koma.PhaseOfPiece(km);
+                var optionalIndex = OptionalPhase.ToInt(optionalPhase);
 
-                for (int iMs = 0; iMs < ValueTaiMs[(int)tai].Length; iMs++)
+                for (int iMs = 0; iMs < ValueTaiMs[optionalIndex].Length; iMs++)
                 {
-                    ValueTaiMs[(int)tai][iMs] -= clear_CB_komabetu.Get(km, (Masu)iMs);
+                    ValueTaiMs[optionalIndex][iMs] -= clear_CB_komabetu.Get(km, (Masu)iMs);
                 }
 
                 clear_CB_komabetu.Clear(km);
@@ -502,14 +504,14 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 // 盤上
                 foreach (Koma km in Conv_Koma.Itiran)
                 {
-                    Taikyokusya tai = Med_Koma.KomaToTaikyokusya(km);
+                    var optionalPhase = Med_Koma.PhaseOfPiece(km);
                     Komasyurui ks = Med_Koma.KomaToKomasyurui(km);
                     ValueKmMs[(int)km] = new int[kys.MASU_YOSOSU];
 
                     bb_ibashoCopy.Set(sg_src.BB_Koma.Get(km));
                     while (bb_ibashoCopy.Ref_PopNTZ(out Masu ms_ibasho))
                     {
-                        bb_ugokikataCopy.Set(sg_src.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(tai)), ms_ibasho));
+                        bb_ugokikataCopy.Set(sg_src.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, optionalPhase), ms_ibasho));
 
                         while (bb_ugokikataCopy.Ref_PopNTZ(out Masu ms_kiki))
                         {
@@ -771,7 +773,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                                     TasuKonoUe(km, ms_ibasho, kys);// 上
 
                                     bb_kiki.Clear();
-                                    N050_SiraberuTobikikiKyosya_KomaSetteiNoAto(OptionalPhase.From( Med_Koma.KomaToTaikyokusya(km)), ms_ibasho, kys.MASU_ERROR, kys, bb_kiki);
+                                    N050_SiraberuTobikikiKyosya_KomaSetteiNoAto( Med_Koma.PhaseOfPiece(km), ms_ibasho, kys.MASU_ERROR, kys, bb_kiki);
                                     Standup(km, ms_ibasho, bb_kiki);
                                 }
                                 break;
@@ -812,23 +814,28 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             /// <returns></returns>
             void TasuKonoUe(Koma km, Masu ms, Kyokumen.Sindanyo kys)
             {
-                switch (Med_Koma.KomaToTaikyokusya(km))
+                var (exists, phase) = Med_Koma.PhaseOfPiece(km).Match;
+
+                if (exists)
                 {
-                    case Taikyokusya.T1:
-                        if (!kys.IsIntersect_UeHajiDan(ms))
-                        {
-                            Masu ms_tmp = ms - Option_Application.Optionlist.BanYokoHaba;
-                            if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
-                        }
-                        break;
-                    case Taikyokusya.T2:
-                        if (!kys.IsIntersect_SitaHajiDan(ms))
-                        {
-                            Masu ms_tmp = ms + Option_Application.Optionlist.BanYokoHaba;
-                            if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
-                        }
-                        break;
-                    default: break;
+                    switch (phase)
+                    {
+                        case Phase.Black:
+                            if (!kys.IsIntersect_UeHajiDan(ms))
+                            {
+                                Masu ms_tmp = ms - Option_Application.Optionlist.BanYokoHaba;
+                                if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
+                            }
+                            break;
+                        case Phase.White:
+                            if (!kys.IsIntersect_SitaHajiDan(ms))
+                            {
+                                Masu ms_tmp = ms + Option_Application.Optionlist.BanYokoHaba;
+                                if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
+                            }
+                            break;
+                        default: throw new Exception();
+                    }
                 }
             }
             /// <summary>
@@ -839,23 +846,28 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             /// <returns></returns>
             void TasuKonoMigiue(Koma km, Masu ms, Kyokumen.Sindanyo kys)
             {
-                switch (Med_Koma.KomaToTaikyokusya(km))
+                var (exists, phase) = Med_Koma.PhaseOfPiece(km).Match;
+
+                if (exists)
                 {
-                    case Taikyokusya.T1:
-                        if (!kys.IsIntersect_UeHajiDan(ms) && !kys.IsIntersect_MigiHajiSuji(ms))
-                        {
-                            Masu ms_tmp = ms - Option_Application.Optionlist.BanYokoHaba + 1;
-                            if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
-                        }
-                        break;
-                    case Taikyokusya.T2:
-                        if (!kys.IsIntersect_SitaHajiDan(ms) && !kys.IsIntersect_HidariHajiSuji(ms))
-                        {
-                            Masu ms_tmp = ms + Option_Application.Optionlist.BanYokoHaba - 1;
-                            if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
-                        }
-                        break;
-                    default: break;
+                    switch (phase)
+                    {
+                        case Phase.Black:
+                            if (!kys.IsIntersect_UeHajiDan(ms) && !kys.IsIntersect_MigiHajiSuji(ms))
+                            {
+                                Masu ms_tmp = ms - Option_Application.Optionlist.BanYokoHaba + 1;
+                                if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
+                            }
+                            break;
+                        case Phase.White:
+                            if (!kys.IsIntersect_SitaHajiDan(ms) && !kys.IsIntersect_HidariHajiSuji(ms))
+                            {
+                                Masu ms_tmp = ms + Option_Application.Optionlist.BanYokoHaba - 1;
+                                if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
+                            }
+                            break;
+                        default: throw new Exception();
+                    }
                 }
             }
             /// <summary>
@@ -866,23 +878,28 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             /// <returns></returns>
             void TasuKonoMigi(Koma km, Masu ms, Kyokumen.Sindanyo kys)
             {
-                switch (Med_Koma.KomaToTaikyokusya(km))
+                var (exists, phase) = Med_Koma.PhaseOfPiece(km).Match;
+
+                if (exists)
                 {
-                    case Taikyokusya.T1:
-                        if (!kys.IsIntersect_MigiHajiSuji(ms))
-                        {
-                            Masu ms_tmp = ms + 1;
-                            if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
-                        }
-                        break;
-                    case Taikyokusya.T2:
-                        if (!kys.IsIntersect_HidariHajiSuji(ms))
-                        {
-                            Masu ms_tmp = ms - 1;
-                            if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
-                        }
-                        break;
-                    default: break;
+                    switch (phase)
+                    {
+                        case Phase.Black:
+                            if (!kys.IsIntersect_MigiHajiSuji(ms))
+                            {
+                                Masu ms_tmp = ms + 1;
+                                if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
+                            }
+                            break;
+                        case Phase.White:
+                            if (!kys.IsIntersect_HidariHajiSuji(ms))
+                            {
+                                Masu ms_tmp = ms - 1;
+                                if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
+                            }
+                            break;
+                        default: throw new Exception();
+                    }
                 }
             }
             /// <summary>
@@ -893,23 +910,28 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             /// <returns></returns>
             void TasuKonoMigisita(Koma km, Masu ms, Kyokumen.Sindanyo kys)
             {
-                switch (Med_Koma.KomaToTaikyokusya(km))
+                var (exists, phase) = Med_Koma.PhaseOfPiece(km).Match;
+
+                if (exists)
                 {
-                    case Taikyokusya.T1:
-                        if (!kys.IsIntersect_SitaHajiDan(ms) && !kys.IsIntersect_MigiHajiSuji(ms))
-                        {
-                            Masu ms_tmp = ms + Option_Application.Optionlist.BanYokoHaba + 1;
-                            if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
-                        }
-                        break;
-                    case Taikyokusya.T2:
-                        if (!kys.IsIntersect_UeHajiDan(ms) && !kys.IsIntersect_HidariHajiSuji(ms))
-                        {
-                            Masu ms_tmp = ms - Option_Application.Optionlist.BanYokoHaba - 1;
-                            if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
-                        }
-                        break;
-                    default: break;
+                    switch (phase)
+                    {
+                        case Phase.Black:
+                            if (!kys.IsIntersect_SitaHajiDan(ms) && !kys.IsIntersect_MigiHajiSuji(ms))
+                            {
+                                Masu ms_tmp = ms + Option_Application.Optionlist.BanYokoHaba + 1;
+                                if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
+                            }
+                            break;
+                        case Phase.White:
+                            if (!kys.IsIntersect_UeHajiDan(ms) && !kys.IsIntersect_HidariHajiSuji(ms))
+                            {
+                                Masu ms_tmp = ms - Option_Application.Optionlist.BanYokoHaba - 1;
+                                if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
+                            }
+                            break;
+                        default: throw new Exception();
+                    }
                 }
             }
             /// <summary>
@@ -920,23 +942,28 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             /// <returns></returns>
             void TasuKonoSita(Koma km, Masu ms, Kyokumen.Sindanyo kys)
             {
-                switch (Med_Koma.KomaToTaikyokusya(km))
+                var (exists, phase) = Med_Koma.PhaseOfPiece(km).Match;
+
+                if (exists)
                 {
-                    case Taikyokusya.T1:
-                        if (!kys.IsIntersect_SitaHajiDan(ms))
-                        {
-                            Masu ms_tmp = ms + Option_Application.Optionlist.BanYokoHaba;
-                            if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
-                        }
-                        break;
-                    case Taikyokusya.T2:
-                        if (!kys.IsIntersect_UeHajiDan(ms))
-                        {
-                            Masu ms_tmp = ms - Option_Application.Optionlist.BanYokoHaba;
-                            if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
-                        }
-                        break;
-                    default: break;
+                    switch (phase)
+                    {
+                        case Phase.Black:
+                            if (!kys.IsIntersect_SitaHajiDan(ms))
+                            {
+                                Masu ms_tmp = ms + Option_Application.Optionlist.BanYokoHaba;
+                                if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
+                            }
+                            break;
+                        case Phase.White:
+                            if (!kys.IsIntersect_UeHajiDan(ms))
+                            {
+                                Masu ms_tmp = ms - Option_Application.Optionlist.BanYokoHaba;
+                                if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
+                            }
+                            break;
+                        default: throw new Exception();
+                    }
                 }
             }
             /// <summary>
@@ -947,23 +974,28 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             /// <returns></returns>
             void TasuKonoHidarisita(Koma km, Masu ms, Kyokumen.Sindanyo kys)
             {
-                switch (Med_Koma.KomaToTaikyokusya(km))
+                var (exists, phase) = Med_Koma.PhaseOfPiece(km).Match;
+
+                if (exists)
                 {
-                    case Taikyokusya.T1:
-                        if (!kys.IsIntersect_SitaHajiDan(ms) && !kys.IsIntersect_HidariHajiSuji(ms))
-                        {
-                            Masu ms_tmp = ms + Option_Application.Optionlist.BanYokoHaba - 1;
-                            if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
-                        }
-                        break;
-                    case Taikyokusya.T2:
-                        if (!kys.IsIntersect_UeHajiDan(ms) && !kys.IsIntersect_MigiHajiSuji(ms))
-                        {
-                            Masu ms_tmp = ms - Option_Application.Optionlist.BanYokoHaba + 1;
-                            if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
-                        }
-                        break;
-                    default: break;
+                    switch (phase)
+                    {
+                        case Phase.Black:
+                            if (!kys.IsIntersect_SitaHajiDan(ms) && !kys.IsIntersect_HidariHajiSuji(ms))
+                            {
+                                Masu ms_tmp = ms + Option_Application.Optionlist.BanYokoHaba - 1;
+                                if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
+                            }
+                            break;
+                        case Phase.White:
+                            if (!kys.IsIntersect_UeHajiDan(ms) && !kys.IsIntersect_MigiHajiSuji(ms))
+                            {
+                                Masu ms_tmp = ms - Option_Application.Optionlist.BanYokoHaba + 1;
+                                if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
+                            }
+                            break;
+                        default: throw new Exception();
+                    }
                 }
             }
             /// <summary>
@@ -974,23 +1006,28 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             /// <returns></returns>
             void TasuKonoHidari(Koma km, Masu ms, Kyokumen.Sindanyo kys)
             {
-                switch (Med_Koma.KomaToTaikyokusya(km))
+                var (exists, phase) = Med_Koma.PhaseOfPiece(km).Match;
+
+                if (exists)
                 {
-                    case Taikyokusya.T1:
-                        if (!kys.IsIntersect_HidariHajiSuji(ms))
-                        {
-                            Masu ms_tmp = ms - 1;
-                            if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
-                        }
-                        break;
-                    case Taikyokusya.T2:
-                        if (!kys.IsIntersect_MigiHajiSuji(ms))
-                        {
-                            Masu ms_tmp = ms + 1;
-                            if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
-                        }
-                        break;
-                    default: break;
+                    switch (phase)
+                    {
+                        case Phase.Black:
+                            if (!kys.IsIntersect_HidariHajiSuji(ms))
+                            {
+                                Masu ms_tmp = ms - 1;
+                                if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
+                            }
+                            break;
+                        case Phase.White:
+                            if (!kys.IsIntersect_MigiHajiSuji(ms))
+                            {
+                                Masu ms_tmp = ms + 1;
+                                if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
+                            }
+                            break;
+                        default: throw new Exception();
+                    }
                 }
             }
             /// <summary>
@@ -1001,23 +1038,28 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             /// <returns></returns>
             void TasuKonoHidariue(Koma km, Masu ms, Kyokumen.Sindanyo kys)
             {
-                switch (Med_Koma.KomaToTaikyokusya(km))
+                var (exists, phase) = Med_Koma.PhaseOfPiece(km).Match;
+
+                if (exists)
                 {
-                    case Taikyokusya.T1:
-                        if (!kys.IsIntersect_UeHajiDan(ms) && !kys.IsIntersect_HidariHajiSuji(ms))
-                        {
-                            Masu ms_tmp = ms - Option_Application.Optionlist.BanYokoHaba - 1;
-                            if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
-                        }
-                        break;
-                    case Taikyokusya.T2:
-                        if (!kys.IsIntersect_SitaHajiDan(ms) && !kys.IsIntersect_MigiHajiSuji(ms))
-                        {
-                            Masu ms_tmp = ms + Option_Application.Optionlist.BanYokoHaba + 1;
-                            if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
-                        }
-                        break;
-                    default: break;
+                    switch (phase)
+                    {
+                        case Phase.Black:
+                            if (!kys.IsIntersect_UeHajiDan(ms) && !kys.IsIntersect_HidariHajiSuji(ms))
+                            {
+                                Masu ms_tmp = ms - Option_Application.Optionlist.BanYokoHaba - 1;
+                                if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
+                            }
+                            break;
+                        case Phase.White:
+                            if (!kys.IsIntersect_SitaHajiDan(ms) && !kys.IsIntersect_MigiHajiSuji(ms))
+                            {
+                                Masu ms_tmp = ms + Option_Application.Optionlist.BanYokoHaba + 1;
+                                if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
+                            }
+                            break;
+                        default: throw new Exception();
+                    }
                 }
             }
             /// <summary>
@@ -1028,23 +1070,28 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             /// <returns></returns>
             void TasuKeimatobiMigi(Koma km, Masu ms, Kyokumen.Sindanyo kys)
             {
-                switch (Med_Koma.KomaToTaikyokusya(km))
+                var (exists, phase) = Med_Koma.PhaseOfPiece(km).Match;
+
+                if (exists)
                 {
-                    case Taikyokusya.T1:
-                        if (!kys.IsIntersect_UeHajiDan(ms))
-                        {
-                            Masu ms_tmp = ms - 2 * Option_Application.Optionlist.BanYokoHaba + 1;
-                            if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
-                        }
-                        break;
-                    case Taikyokusya.T2:
-                        if (!kys.IsIntersect_SitaHajiDan(ms))
-                        {
-                            Masu ms_tmp = ms + 2 * Option_Application.Optionlist.BanYokoHaba - 1;
-                            if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
-                        }
-                        break;
-                    default: break;
+                    switch (phase)
+                    {
+                        case Phase.Black:
+                            if (!kys.IsIntersect_UeHajiDan(ms))
+                            {
+                                Masu ms_tmp = ms - 2 * Option_Application.Optionlist.BanYokoHaba + 1;
+                                if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
+                            }
+                            break;
+                        case Phase.White:
+                            if (!kys.IsIntersect_SitaHajiDan(ms))
+                            {
+                                Masu ms_tmp = ms + 2 * Option_Application.Optionlist.BanYokoHaba - 1;
+                                if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
+                            }
+                            break;
+                        default: throw new Exception();
+                    }
                 }
             }
             /// <summary>
@@ -1055,23 +1102,28 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             /// <returns></returns>
             void TasuKeimatobiHidari(Koma km, Masu ms, Kyokumen.Sindanyo kys)
             {
-                switch (Med_Koma.KomaToTaikyokusya(km))
+                var (exists, phase) = Med_Koma.PhaseOfPiece(km).Match;
+
+                if (exists)
                 {
-                    case Taikyokusya.T1:
-                        if (!kys.IsIntersect_UeHajiDan(ms))
-                        {
-                            Masu ms_tmp = ms - 2 * Option_Application.Optionlist.BanYokoHaba - 1;
-                            if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
-                        }
-                        break;
-                    case Taikyokusya.T2:
-                        if (!kys.IsIntersect_SitaHajiDan(ms))
-                        {
-                            Masu ms_tmp = ms + 2 * Option_Application.Optionlist.BanYokoHaba + 1;
-                            if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
-                        }
-                        break;
-                    default: break;
+                    switch (phase)
+                    {
+                        case Phase.Black:
+                            if (!kys.IsIntersect_UeHajiDan(ms))
+                            {
+                                Masu ms_tmp = ms - 2 * Option_Application.Optionlist.BanYokoHaba - 1;
+                                if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
+                            }
+                            break;
+                        case Phase.White:
+                            if (!kys.IsIntersect_SitaHajiDan(ms))
+                            {
+                                Masu ms_tmp = ms + 2 * Option_Application.Optionlist.BanYokoHaba + 1;
+                                if (kys.IsBanjo(ms_tmp)) { ValueKmMs[(int)km][(int)ms].Standup(ms_tmp); }
+                            }
+                            break;
+                        default: throw new Exception();
+                    }
                 }
             }
 
@@ -1320,7 +1372,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             Debug.Assert(Conv_Koma.IsOk(km_t1), "");
             Debug.Assert(kys.IsBanjo(ms_t1), "");
-            Taikyokusya jibun = Med_Koma.KomaToTaikyokusya(km_t1);
+            var optionalPhase = Med_Koma.PhaseOfPiece(km_t1);
 
             ////──────────
             //// 駒が増える前の、関連する飛び利きを消す
@@ -1374,7 +1426,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             Debug.Assert(Conv_Koma.IsOk(km_t0), "");
             Debug.Assert(kys.IsBanjo(ms_t0), "");
-            Taikyokusya tai = Med_Koma.KomaToTaikyokusya(km_t0);
+            // Taikyokusya tai = Med_Koma.PhaseOfPiece(km_t0);
 
             //──────────
             // 現状の駒の利きを取り除く
@@ -1471,7 +1523,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <param name="ms"></param>
         public void N240_OkuKoma(Koma km, Masu ms)
         {
-            BB_KomaZenbu.Get(OptionalPhase.From(Med_Koma.KomaToTaikyokusya(km))).Standup(ms);
+            BB_KomaZenbu.Get(Med_Koma.PhaseOfPiece(km)).Standup(ms);
             BB_Koma.Get(km).Standup(ms);
         }
         /// <summary>
@@ -1481,10 +1533,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <param name="ms"></param>
         public void N240_TorinozokuKoma(Koma km, Masu ms)
         {
+            var optionalPhase = Med_Koma.PhaseOfPiece(km);
 
-            var tai = Med_Koma.KomaToTaikyokusya(km);
-
-            var bb1 = BB_KomaZenbu.Get(OptionalPhase.From(tai));
+            var bb1 = BB_KomaZenbu.Get(optionalPhase);
             bb1.Sitdown(ms);
             var bb2 = BB_Koma.Get(km);
             bb2.Sitdown(ms);
@@ -1594,7 +1645,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             Debug.Assert(Conv_Koma.IsOk(km_t1), "");
             Debug.Assert(kys.IsBanjo(ms_t1), "");
             Komasyurui ks = Med_Koma.KomaToKomasyurui(km_t1);
-            Taikyokusya tai = Med_Koma.KomaToTaikyokusya(km_t1);
+            var optionalPhase = Med_Koma.PhaseOfPiece(km_t1);
 
             // ★↓作るデータが悪い☆（＾～＾）
             bb_oekaki = new Bitboard();// お絵描き（飛び利き＋隣利き）
@@ -1602,7 +1653,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 case Komasyurui.Z: N050_SiraberuTobikikiKaku_KomaSetteiNoAto(ms_t1, ms_mirainiKomagaAru, kys, bb_oekaki); break;
                 case Komasyurui.K: N050_SiraberuTobikikiHisya_KomaSetteiNoAto(ms_t1, ms_mirainiKomagaAru, kys, bb_oekaki); break;
-                case Komasyurui.S: N050_SiraberuTobikikiKyosya_KomaSetteiNoAto(OptionalPhase.From(tai), ms_t1, ms_mirainiKomagaAru, kys, bb_oekaki); break;
+                case Komasyurui.S: N050_SiraberuTobikikiKyosya_KomaSetteiNoAto(optionalPhase, ms_t1, ms_mirainiKomagaAru, kys, bb_oekaki); break;
                 default: break;
             }
             // ★↑作るデータが悪い☆（＾～＾）
@@ -1655,7 +1706,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             Debug.Assert(Conv_Koma.IsOk(km_t0), "");
             Debug.Assert(kys.IsBanjo(ms_t0), "");
-            Taikyokusya jibun = Med_Koma.KomaToTaikyokusya(km_t0);
+            var optionalPhase = Med_Koma.PhaseOfPiece(km_t0);
 
             // ★↓作るデータが悪い☆（＾～＾）
             Bitboard bb_oekaki = new Bitboard(); // お絵描き
@@ -1663,7 +1714,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 case Komasyurui.Z: N050_SiraberuTobikikiKaku_KomaSetteiNoAto(ms_t0, ms_mirainiKomagaAru, kys, bb_oekaki); break;
                 case Komasyurui.K: N050_SiraberuTobikikiHisya_KomaSetteiNoAto(ms_t0, ms_mirainiKomagaAru, kys, bb_oekaki); break;
-                case Komasyurui.S: N050_SiraberuTobikikiKyosya_KomaSetteiNoAto(OptionalPhase.From(jibun), ms_t0, ms_mirainiKomagaAru, kys, bb_oekaki); break;
+                case Komasyurui.S: N050_SiraberuTobikikiKyosya_KomaSetteiNoAto(optionalPhase, ms_t0, ms_mirainiKomagaAru, kys, bb_oekaki); break;
                 default: break;
             }
             // ★↑作るデータが悪い☆（＾～＾）
@@ -1698,13 +1749,13 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         #region N100 利きの増減
         public void N100_FuyasuKiki(Koma km_t1, Bitboard bb_kiki, Kyokumen.Sindanyo kys)
         {
-            Taikyokusya tai = Med_Koma.KomaToTaikyokusya(km_t1);
+            var optionalPhase = Med_Koma.PhaseOfPiece(km_t1);
 
             // 置いた駒についての、利きを追加していくぜ☆（＾～＾）
             while (bb_kiki.Ref_PopNTZ(out Masu ms_kiki))
             {
-                CB_KikisuZenbu.IncreaseDirect(OptionalPhase.From(tai), ms_kiki);
-                BB_KikiZenbu.Get(OptionalPhase.From( tai)).Standup(ms_kiki);
+                CB_KikisuZenbu.IncreaseDirect(optionalPhase, ms_kiki);
+                BB_KikiZenbu.Get(optionalPhase).Standup(ms_kiki);
 
                 CB_KikisuKomabetu.IncreaseDirect(km_t1, ms_kiki);
                 BB_Kiki.Get(km_t1).Standup(ms_kiki);
@@ -1712,7 +1763,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         }
         public void N100_HerasuKiki(Koma km_t0, Bitboard bb_oekaki, Kyokumen.Sindanyo kys)
         {
-            Taikyokusya jibun = Med_Koma.KomaToTaikyokusya(km_t0);
+            var optionalPhase = Med_Koma.PhaseOfPiece(km_t0);
 
             // 利きを減らしていくぜ☆（＾～＾）
             while (bb_oekaki.Ref_PopNTZ(out Masu ms_kiki))
@@ -1721,8 +1772,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
                 // 利きの数が０より大きければ、利きあり　だし、
                 // １より小さければ、利きなし☆
-                CB_KikisuZenbu.DecreaseDirect(OptionalPhase.From(jibun), ms_kiki);
-                if (CB_KikisuZenbu.Get(OptionalPhase.From( jibun), ms_kiki) < 1) { BB_KikiZenbu.Get(OptionalPhase.From( jibun)).Sitdown(ms_kiki); }
+                CB_KikisuZenbu.DecreaseDirect(optionalPhase, ms_kiki);
+                if (CB_KikisuZenbu.Get(optionalPhase, ms_kiki) < 1) { BB_KikiZenbu.Get(optionalPhase).Sitdown(ms_kiki); }
 
                 CB_KikisuKomabetu.DecreaseDirect(km_t0, ms_kiki);
                 if (CB_KikisuKomabetu.Get(km_t0, ms_kiki) < 1) { BB_Kiki.Get(km_t0).Sitdown(ms_kiki); }

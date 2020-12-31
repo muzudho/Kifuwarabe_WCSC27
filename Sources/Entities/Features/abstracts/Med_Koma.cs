@@ -165,12 +165,12 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             Taikyokusya.Yososu// 空白～後手のにわとり　までの要素の個数になるぜ☆（＾▽＾）
         };
 
-        public static Taikyokusya KomaToTaikyokusya(Koma km)
+        public static Option<Phase> PhaseOfPiece(Koma km)
         {
             // FIXME: 範囲外の引数を指定できるのがそもそもダメ☆（＾～＾）
             if (-1 < (int)km && (int)km < m_KomaToTaikyokusya_.Length)
             {
-                return m_KomaToTaikyokusya_[(int)km];
+                return OptionalPhase.From( m_KomaToTaikyokusya_[(int)km]);
             }
             else
             {

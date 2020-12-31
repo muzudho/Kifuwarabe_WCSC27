@@ -348,7 +348,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             Debug.Assert(Conv_Koma.IsOk(km), "");
             Komasyurui ks = Med_Koma.KomaToKomasyurui(km);
-            var optionalPhase = OptionalPhase.From(Med_Koma.KomaToTaikyokusya(km));
+            var optionalPhase = Med_Koma.PhaseOfPiece(km);
             Masu ms_ido;
 
             ky.Sindan.ToSelectKomanoUgokikata(km, ms_src, idosakiBB); // 駒の動ける場所だけ探すぜ☆（＾～＾）
@@ -457,7 +457,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             Debug.Assert(Conv_Koma.IsOk(km), "");
             Komasyurui ks = Med_Koma.KomaToKomasyurui(km);
-            var optionalPhase = OptionalPhase.From(Med_Koma.KomaToTaikyokusya(km));
+            var optionalPhase = Med_Koma.PhaseOfPiece(km);
             Masu ms_ido;
             bool ittedume;
 
@@ -611,7 +611,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             Debug.Assert(Conv_Koma.IsOk(km), "");
             Komasyurui ks = Med_Koma.KomaToKomasyurui(km);
-            var optionalPhase = OptionalPhase.From(Med_Koma.KomaToTaikyokusya(km));
+            var optionalPhase = Med_Koma.PhaseOfPiece(km);
             Masu ms_ido;
             bool ittedume;
 
@@ -804,7 +804,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             Debug.Assert(Conv_Koma.IsOk(km), "");
             Komasyurui ks = Med_Koma.KomaToKomasyurui(km);
-            var optionalPhase = OptionalPhase.From(Med_Koma.KomaToTaikyokusya(km));
+            var optionalPhase = Med_Koma.PhaseOfPiece(km);
             Masu ms_ido;
             bool ittedume;
 
