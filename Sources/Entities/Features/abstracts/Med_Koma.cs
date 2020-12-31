@@ -104,77 +104,77 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         #endregion
 
         #region 駒→手番
-        static Taikyokusya[] m_KomaToTaikyokusya_ = {
+        static Option<Phase>[] m_OptionalPhaseOfPiece_ = {
             // らいおん（対局者１、対局者２）
-            Taikyokusya.T1,
-            Taikyokusya.T2,
+            OptionalPhase.Black,
+            OptionalPhase.White,
 
             // ぞう
-            Taikyokusya.T1,
-            Taikyokusya.T2,
+            OptionalPhase.Black,
+            OptionalPhase.White,
 
             // パワーアップぞう
-            Taikyokusya.T1,
-            Taikyokusya.T2,
+            OptionalPhase.Black,
+            OptionalPhase.White,
 
             // きりん
-            Taikyokusya.T1,
-            Taikyokusya.T2,
+            OptionalPhase.Black,
+            OptionalPhase.White,
 
             // パワーアップきりん
-            Taikyokusya.T1,
-            Taikyokusya.T2,
+            OptionalPhase.Black,
+            OptionalPhase.White,
 
             // ひよこ
-            Taikyokusya.T1,
-            Taikyokusya.T2,
+            OptionalPhase.Black,
+            OptionalPhase.White,
 
             // にわとり
-            Taikyokusya.T1,
-            Taikyokusya.T2,
+            OptionalPhase.Black,
+            OptionalPhase.White,
 
             // いぬ
-            Taikyokusya.T1,
-            Taikyokusya.T2,
+            OptionalPhase.Black,
+            OptionalPhase.White,
 
             // ねこ
-            Taikyokusya.T1,
-            Taikyokusya.T2,
+            OptionalPhase.Black,
+            OptionalPhase.White,
 
             // パワーアップねこ
-            Taikyokusya.T1,
-            Taikyokusya.T2,
+            OptionalPhase.Black,
+            OptionalPhase.White,
 
             // うさぎ
-            Taikyokusya.T1,
-            Taikyokusya.T2,
+            OptionalPhase.Black,
+            OptionalPhase.White,
 
             // パワーアップうさぎ
-            Taikyokusya.T1,
-            Taikyokusya.T2,
+            OptionalPhase.Black,
+            OptionalPhase.White,
 
             // いのしし
-            Taikyokusya.T1,
-            Taikyokusya.T2,
+            OptionalPhase.Black,
+            OptionalPhase.White,
 
             // パワーアップいのしし
-            Taikyokusya.T1,
-            Taikyokusya.T2,
+            OptionalPhase.Black,
+            OptionalPhase.White,
 
-            Taikyokusya.Yososu,//駒のない升だぜ☆（＾▽＾）
-            Taikyokusya.Yososu// 空白～後手のにわとり　までの要素の個数になるぜ☆（＾▽＾）
+            Option<Phase>.None,//駒のない升だぜ☆（＾▽＾）
+            Option<Phase>.None// 空白～後手のにわとり　までの要素の個数になるぜ☆（＾▽＾）
         };
 
         public static Option<Phase> PhaseOfPiece(Koma km)
         {
             // FIXME: 範囲外の引数を指定できるのがそもそもダメ☆（＾～＾）
-            if (-1 < (int)km && (int)km < m_KomaToTaikyokusya_.Length)
+            if (-1 < (int)km && (int)km < m_OptionalPhaseOfPiece_.Length)
             {
-                return OptionalPhase.From( m_KomaToTaikyokusya_[(int)km]);
+                return m_OptionalPhaseOfPiece_[(int)km];
             }
             else
             {
-                throw new Exception($"km={(int)km} < m_KomaToTaikyokusya_.Length={m_KomaToTaikyokusya_.Length}");
+                throw new Exception($"km={(int)km} < m_KomaToTaikyokusya_.Length={m_OptionalPhaseOfPiece_.Length}");
             }
         }
         #endregion
