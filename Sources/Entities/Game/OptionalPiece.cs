@@ -176,22 +176,22 @@ namespace Grayscale.Kifuwarakei.Entities.Game
             }
         }
 
+        public static int IndexOf(Option<Piece> optionalPiece)
+        {
+            var (exists, piece) = optionalPiece.Match;
+            if (exists)
+            {
+                return (int)piece;
+            }
+            else
+            {
+                return 28; // または 29
+            }
+        }
 
 
         /*
 
-        public static int IndexOf(Option<Phase> optionalPhase)
-        {
-            var (exists, phase) = optionalPhase.Match;
-            if (exists)
-            {
-                return (int)phase;
-            }
-            else
-            {
-                return 2;
-            }
-        }
         public static Taikyokusya ToTaikyokusya(Option<Phase> optionalPhase)
         {
             var (exists, phase) = optionalPhase.Match;
