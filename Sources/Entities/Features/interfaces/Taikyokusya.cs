@@ -50,7 +50,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// </summary>
         static string[] m_dfen_ = { "1", "2", "-1" };
         static string[] m_sfen_ = { "b", "w", "x" };
-        public static string ToFen(bool isSfen, Taikyokusya tb) { return isSfen ? Conv_Taikyokusya.m_sfen_[(int)tb] : Conv_Taikyokusya.m_dfen_[(int)tb]; }
+        public static string ToFen(bool isSfen, Option<Phase> optionalPhase)
+        {
+            var phaseIndex = OptionalPhase.ToInt(optionalPhase);
+            return isSfen ? Conv_Taikyokusya.m_sfen_[phaseIndex] : Conv_Taikyokusya.m_dfen_[phaseIndex];
+        }
 
         /// <summary>
         /// 先後。

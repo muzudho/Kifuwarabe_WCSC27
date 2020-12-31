@@ -2089,7 +2089,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
             // 手番
             syuturyoku.Append(" ");
-            syuturyoku.Append(Conv_Taikyokusya.ToFen(isSfen,OptionalPhase.ToTaikyokusya( CurrentOptionalPhase)));
+            syuturyoku.Append(Conv_Taikyokusya.ToFen(isSfen, CurrentOptionalPhase));
 
             //// moves
             //if (syuturyokuMoves)
