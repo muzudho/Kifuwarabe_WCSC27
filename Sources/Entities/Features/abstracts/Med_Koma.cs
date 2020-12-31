@@ -503,42 +503,42 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         #endregion
 
         #region 持駒→手番
-        static Taikyokusya[] m_MotiKomaToTaikyokusya_ =
+        static Option<Phase>[] m_OptionalPhaseOfHand_ =
         {
             // ぞう（対局者１、対局者２）
-            Taikyokusya.T1,
-            Taikyokusya.T2,
+            OptionalPhase.Black,
+            OptionalPhase.White,
 
             // きりん
-            Taikyokusya.T1,
-            Taikyokusya.T2,
+            OptionalPhase.Black,
+            OptionalPhase.White,
 
             // ひよこ
-            Taikyokusya.T1,
-            Taikyokusya.T2,
+            OptionalPhase.Black,
+            OptionalPhase.White,
 
             // いぬ
-            Taikyokusya.T1,
-            Taikyokusya.T2,
+            OptionalPhase.Black,
+            OptionalPhase.White,
 
             // ねこ
-            Taikyokusya.T1,
-            Taikyokusya.T2,
+            OptionalPhase.Black,
+            OptionalPhase.White,
 
             // うさぎ
-            Taikyokusya.T1,
-            Taikyokusya.T2,
+            OptionalPhase.Black,
+            OptionalPhase.White,
 
             // いのしし
-            Taikyokusya.T1,
-            Taikyokusya.T2,
+            OptionalPhase.Black,
+            OptionalPhase.White,
 
             // 要素の個数、または　どの駒の種類にも当てはまらない場合☆（＾▽＾）ｗｗｗ
-            Taikyokusya.Yososu,
+            Option<Phase>.None,
         };
         public static Option<Phase> MotiKomaToPhase(MotiKoma mk)
         {
-            return OptionalPhase.From( Med_Koma.m_MotiKomaToTaikyokusya_[(int)mk]);
+            return Med_Koma.m_OptionalPhaseOfHand_[(int)mk];
         }
         #endregion
 
