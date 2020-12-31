@@ -557,14 +557,13 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 }
             }
             #endregion
-            #region P2Name
+            // P2Name
             else if (caret == commandline.IndexOf("P2Name ", caret))
             {
                 // うしろに続く文字は☆（＾▽＾）
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "P2Name ");
-                Option_Application.Optionlist.PNName[(int)Taikyokusya.T2] = commandline.Substring(caret);
+                Option_Application.Optionlist.PNName[(int)Phase.White] = commandline.Substring(caret);
             }
-            #endregion
             // RandomCharacter
             else if (caret == commandline.IndexOf("RandomCharacter ", caret))
             {
