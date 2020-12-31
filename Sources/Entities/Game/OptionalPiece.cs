@@ -185,30 +185,52 @@ namespace Grayscale.Kifuwarakei.Entities.Game
             }
             else
             {
-                return 28; // または 29
+                return 29; // または 28
             }
         }
 
-
-        /*
-
-        public static Taikyokusya ToTaikyokusya(Option<Phase> optionalPhase)
+        public static Koma ToKoma(Option<Piece> optionalPiece)
         {
-            var (exists, phase) = optionalPhase.Match;
+            var (exists, piece) = optionalPiece.Match;
             if (exists)
             {
-                switch (phase)
+                switch (piece)
                 {
-                    case Phase.Black: return Taikyokusya.T1;
-                    case Phase.White: return Taikyokusya.T2;
-                    default: throw new Exception($"optionalPhase={phase} is fail.");
+                    case Piece.King1: return Koma.King1;
+                    case Piece.King2: return Koma.King2;
+                    case Piece.Bishop1: return Koma.Bishop1;
+                    case Piece.Bishop2: return Koma.Bishop2;
+                    case Piece.ProBishop1: return Koma.ProBishop1;
+                    case Piece.ProBishop2: return Koma.ProBishop2;
+                    case Piece.Rook1: return Koma.Rook1;
+                    case Piece.Rook2: return Koma.Rook2;
+                    case Piece.ProRook1: return Koma.ProRook1;
+                    case Piece.ProRook2: return Koma.ProRook2;
+                    case Piece.Pawn1: return Koma.Pawn1;
+                    case Piece.Pawn2: return Koma.Pawn2;
+                    case Piece.ProPawn1: return Koma.ProPawn1;
+                    case Piece.ProPawn2: return Koma.ProPawn2;
+                    case Piece.Gold1: return Koma.Gold1;
+                    case Piece.Gold2: return Koma.Gold2;
+                    case Piece.Silver1: return Koma.Silver1;
+                    case Piece.Silver2: return Koma.Silver2;
+                    case Piece.ProSilver1: return Koma.ProSilver1;
+                    case Piece.ProSilver2: return Koma.ProSilver2;
+                    case Piece.Knight1: return Koma.Knight1;
+                    case Piece.Knight2: return Koma.Knight2;
+                    case Piece.ProKnight1: return Koma.ProKnight1;
+                    case Piece.ProKnight2: return Koma.ProKnight2;
+                    case Piece.Lance1: return Koma.Lance1;
+                    case Piece.Lance2: return Koma.Lance2;
+                    case Piece.ProLance1: return Koma.ProLance1;
+                    case Piece.ProLance2: return Koma.ProLance2;
+                    default: throw new Exception($"piece={piece} is fail.");
                 }
             }
             else
             {
-                return Taikyokusya.Yososu;
+                return Koma.PieceNum;
             }
         }
-        */
     }
 }
