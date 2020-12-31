@@ -154,6 +154,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 // 下回っていれば、
                 // 0 ＜ y ＜ 0.5　となるな☆
 
+                var (exists1, phase1) = Util_Tansaku.StartingPhase.Match;
+                var (exists2, phase2) = happaKy.CurrentOptionalPhase.Match;
 
                 // この点数を、葉　から　かき集めるぜ☆ｗｗｗ（＾▽＾）
                 foreach (string happaFen in entry.Value)
@@ -164,7 +166,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     // この局面の２駒関係を、シグモイドの y 点分、下げるぜ☆
                     sumSigmoidY += Util_NikomaKankei.DecrementParamerter_KikaiGakusyu(
                         happaKy,
-                        (Util_Tansaku.KaisiTaikyokusya == OptionalPhase.ToTaikyokusya( happaKy.CurrentOptionalPhase)) ? -sigmoidY : sigmoidY//自分の手番なら 引く☆
+                        (exists1 && exists2 && phase1 == phase2) ? -sigmoidY : sigmoidY//自分の手番なら 引く☆
                     );
                 }
             }
@@ -177,10 +179,13 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 caret_temp2 = 0;
                 happaKy.ParsePositionvalue(Option_Application.Optionlist.USI, happaFen, ref caret_temp2, false, false, out string moves, syuturyoku);
 
+                var (exists1, phase1) = Util_Tansaku.StartingPhase.Match;
+                var (exists2, phase2) = happaKy.CurrentOptionalPhase.Match;
+
                 // 各葉に　山分けだぜ☆（＾～＾）
                 Util_NikomaKankei.IncrementParamerter_KikaiGakusyu(
                     happaKy,
-                    (Util_Tansaku.KaisiTaikyokusya == OptionalPhase.ToTaikyokusya( happaKy.CurrentOptionalPhase)) ? -yamawake : yamawake//自分の手番なら 足すぜ☆
+                    (exists1 && exists2 && phase1 == phase2) ? -yamawake : yamawake//自分の手番なら 足すぜ☆
                 );
             }
 

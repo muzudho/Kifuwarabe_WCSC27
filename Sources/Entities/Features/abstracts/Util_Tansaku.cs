@@ -51,7 +51,7 @@ using System.Text;
         /// <summary>
         /// 探索を開始した対局者の先後だぜ☆（＾▽＾）
         /// </summary>
-        public static Taikyokusya KaisiTaikyokusya { get; set; }
+        public static Option<Phase> StartingPhase { get; set; }
         /// <summary>
         /// 探索を開始した時点で「図はn手まで」だったかだぜ☆（＾▽＾）
         /// </summary>
@@ -762,7 +762,7 @@ using System.Text;
         {
             Debug.Assert(1 <= fukasa && fukasa < AbstractUtilMoveGen.MoveList.Length, "");
 
-            Util_Tansaku.KaisiTaikyokusya = OptionalPhase.ToTaikyokusya( ky.CurrentOptionalPhase);
+            Util_Tansaku.StartingPhase = ky.CurrentOptionalPhase;
             Util_Tansaku.KaisiNantemade = ky.Konoteme.ScanNantemadeBango();
             Util_Tansaku.BadUtikiri = false;
             Option_Application.Optionlist.SetSikoJikan_KonkaiNoTansaku();//思考時間（ランダム込み）を確定させるぜ☆（＾～＾）
@@ -1202,7 +1202,9 @@ using System.Text;
                     sennititeNikomaHyokati = ky.Nikoma.Get(true);
                     Hyokati sennititeHyokati = sennititeKomawariHyokati + (int)sennititeNikomaHyokati;
 
-                    bool tansakusyaTyakusyu = Util_Tansaku.KaisiTaikyokusya == OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(ky.CurrentOptionalPhase)); // 手番はもう相手に回っているので、反転させて、千日手に着手したものかどうか調べるぜ☆
+                    var (exists1, phase1) = Util_Tansaku.StartingPhase.Match;
+                    var (exists2, phase2) = Conv_Taikyokusya.Reverse(ky.CurrentOptionalPhase).Match;
+                    bool tansakusyaTyakusyu = (exists1 && exists2 && phase1 == phase2); // 手番はもう相手に回っているので、反転させて、千日手に着手したものかどうか調べるぜ☆
                     //Hyokati tyakusyuKomawariHyokati = (Hyokati)(-(int)sennititeKomawariHyokati);
                     //Hyokati tyakusyuNikomaHyokati = (Hyokati)(-(int)sennititeNikomaHyokati);
                     Hyokati tyakusyuHyokati = (Hyokati)(-(int)sennititeHyokati);

@@ -37,7 +37,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// 読み筋情報
         /// </summary>
         public static Util_Tansaku.Dlgt_CreateJoho Dlgt_WriteYomisujiJoho = (
-            Option<Phase> hyokatiNoPhase,
+            Option<Phase> OptionalPhaseByEvaluation,
 #if DEBUG
             Hyokati alpha,
             Hyokati beta,
@@ -54,7 +54,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 #endif
             ) =>
         {
-            if (Util_Tansaku.KaisiTaikyokusya != OptionalPhase.ToTaikyokusya( hyokatiNoPhase))// 探索者の反対側の局面評価値の場合☆
+            var (exists1, phase1) = Util_Tansaku.StartingPhase.Match;
+            var (exists2, phase2) = OptionalPhaseByEvaluation.Match;
+            if (exists1 && exists2 && phase1 != phase2)// 探索者の反対側の局面評価値の場合☆
             {
                 // 評価値の符号を逆転
 #if DEBUG
@@ -138,6 +140,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 // 内訳
                 if (!Option_Application.Optionlist.USI)
                 {
+                    var (exists3, phase3) = OptionalPhaseByEvaluation.Match;
+
                     syuturyoku.Append("(");
                     Conv_Hyokati.Setumei(hyokatiUtiwake.Komawari, syuturyoku);
                     syuturyoku.Append(" ");
@@ -145,8 +149,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     syuturyoku.Append(" ");
                     Conv_Hyokati.Setumei(hyokatiUtiwake.Okimari, syuturyoku);
                     syuturyoku.Append(" ");
-                    syuturyoku.Append(Util_Tansaku.KaisiTaikyokusya == OptionalPhase.ToTaikyokusya( hyokatiNoPhase) ? "jibun_" : "aite_");
-                    syuturyoku.Append(hyokatiNoPhase.Unwrap() == Phase.Black ? "p1" : "p2");
+                    syuturyoku.Append((exists1 && exists2 && phase1 == phase3) ? "jibun_" : "aite_");
+                    syuturyoku.Append(OptionalPhaseByEvaluation.Unwrap() == Phase.Black ? "p1" : "p2");
                     syuturyoku.Append(" ");
                     syuturyoku.Append(hyokatiUtiwake.Riyu.ToString());
                     if ("" != hyokatiUtiwake.RiyuHosoku)
