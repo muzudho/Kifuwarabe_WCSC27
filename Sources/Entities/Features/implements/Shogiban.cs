@@ -1330,7 +1330,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             for (int iTai = 0; iTai < Conv_Taikyokusya.Itiran.Length; iTai++)
             {
-                Taikyokusya tai = Conv_Taikyokusya.Itiran[iTai];
+                var optionalPhase = OptionalPhase.From( Conv_Taikyokusya.Itiran[iTai]);
 
                 for (int iKs = 0; iKs < Conv_Komasyurui.Itiran.Length; iKs++)
                 {
@@ -1338,7 +1338,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
                     // にわとりはいないこともある。
 
-                    if (!BB_Koma.Get(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(tai))).Clone().Sitdown(BB_KomaZenbu.Get(OptionalPhase.From(tai))).IsEmpty()) { return false; }
+                    if (!BB_Koma.Get(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, optionalPhase)).Clone().Sitdown(BB_KomaZenbu.Get(optionalPhase)).IsEmpty()) { return false; }
                 }
             }
             return true;

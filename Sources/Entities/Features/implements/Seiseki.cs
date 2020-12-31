@@ -137,7 +137,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             this.Owner = owner;
             this.Fen = fen;
-            this.TbTaikyokusya = OptionalPhase.ToTaikyokusya(optionalPhase);
+            this.CurrentOptionalPhase = optionalPhase;
             this.SsItems = new Dictionary<Move, SeisekiMove>();
         }
 
@@ -152,7 +152,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// 例： fen kr1/1h1/1H1/1R1 K2z 1
         /// </summary>
         public string Fen { get; private set; }
-        public Taikyokusya TbTaikyokusya { get; private set; }
+        public Option<Phase> CurrentOptionalPhase { get; private set; }
 
         public SeisekiMove AddSasite(Kyokumen ky, string sasiteRecordStr, StringBuilder syuturyoku)
         {
@@ -541,7 +541,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             List<ulong> removeKeys = new List<ulong>();
             foreach (KeyValuePair<ulong, SeisekiKyokumen> seKy in this.KyItems)
             {
-                if (seKy.Value.TbTaikyokusya == Taikyokusya.T2)
+                var (exists1, phase1) = seKy.Value.CurrentOptionalPhase.Match;
+                if (exists1 && phase1 == Phase.White)
                 {
                     removeKeys.Add(seKy.Key);
 
@@ -550,7 +551,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                         seP2.AddMove(
                             seKy.Value.Fen,
                             seKy.Key,
-                           OptionalPhase.From( seKy.Value.TbTaikyokusya),
+                           seKy.Value.CurrentOptionalPhase,
                             seSs.Key,
                             seSs.Value.Version,
                             seSs.Value.Kati,
@@ -583,7 +584,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     this.AddMove(
                         seKy.Value.Fen,
                         seKy.Key,
-                       OptionalPhase.From( seKy.Value.TbTaikyokusya),
+                       seKy.Value.CurrentOptionalPhase,
                         seSs.Key,
                         seSs.Value.Version,
                         seSs.Value.Kati,
