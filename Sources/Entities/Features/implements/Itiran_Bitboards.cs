@@ -78,9 +78,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             }
 
             // 手番 - 相手番
-            Hyokati hyokatiP1 = hyokati[(int)Taikyokusya.T1];
-            hyokati[(int)Taikyokusya.T1] -= hyokati[(int)Taikyokusya.T2];
-            hyokati[(int)Taikyokusya.T2] -= hyokatiP1;
+            Hyokati hyokatiP1 = hyokati[(int)Phase.Black];
+            hyokati[(int)Phase.Black] -= hyokati[(int)Phase.White];
+            hyokati[(int)Phase.White] -= hyokatiP1;
             KomawariHyokati_Sabun = hyokati;
         }
 

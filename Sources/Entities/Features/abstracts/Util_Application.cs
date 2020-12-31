@@ -511,14 +511,13 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 }
             }
             #endregion
-            #region P1Char
+            // P1Char
             else if (caret == commandline.IndexOf("P1Char ", caret))
             {
                 // うしろに続く文字は☆（＾▽＾）
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "P1Char ");
-                Option_Application.Optionlist.PNChar[(int)Taikyokusya.T1] = AbstractConvMoveCharacter.Parse(commandline, ref caret);
+                Option_Application.Optionlist.PNChar[(int)Phase.Black] = AbstractConvMoveCharacter.Parse(commandline, ref caret);
             }
-            #endregion
             #region P1Com
             else if (caret == commandline.IndexOf("P1Com ", caret))
             {
@@ -532,22 +531,19 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 }
             }
             #endregion
-            #region P1Name
+            // P1Name
             else if (caret == commandline.IndexOf("P1Name ", caret))
             {
                 // うしろに続く文字は☆（＾▽＾）
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "P1Name ");
-                Option_Application.Optionlist.PNName[(int)Taikyokusya.T1] = commandline.Substring(caret);
+                Option_Application.Optionlist.PNName[(int)Phase.Black] = commandline.Substring(caret);
             }
-            #endregion
-            #region P2Char
             else if (caret == commandline.IndexOf("P2Char ", caret))
             {
                 // うしろに続く文字は☆（＾▽＾）
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "P2Char ");
-                Option_Application.Optionlist.PNChar[(int)Taikyokusya.T2] = AbstractConvMoveCharacter.Parse(commandline, ref caret);
+                Option_Application.Optionlist.PNChar[(int)Phase.White] = AbstractConvMoveCharacter.Parse(commandline, ref caret);
             }
-            #endregion
             #region P2Com
             else if (caret == commandline.IndexOf("P2Com ", caret))
             {
@@ -569,7 +565,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 Option_Application.Optionlist.PNName[(int)Taikyokusya.T2] = commandline.Substring(caret);
             }
             #endregion
-            #region RandomCharacter
+            // RandomCharacter
             else if (caret == commandline.IndexOf("RandomCharacter ", caret))
             {
                 // うしろに続く文字は☆（＾▽＾）
@@ -581,7 +577,6 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     Option_Application.Optionlist.RandomCharacter = val;
                 }
             }
-            #endregion
             #region RandomNikoma
             else if (caret == commandline.IndexOf("RandomNikoma ", caret))
             {
