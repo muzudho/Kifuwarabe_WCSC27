@@ -8,71 +8,71 @@
         /// <summary>
         /// らいおん（対局者１，２）
         /// </summary>
-        R, r,
+        King1, King2,
 
         /// <summary>
         /// ぞう
         /// </summary>
-        Z, z,
+        Bishop1, Bishop2,
 
         /// <summary>
         /// パワーアップぞう
         /// </summary>
-        PZ, pz,
+        ProBishop1, ProBishop2,
 
         /// <summary>
         /// きりん
         /// </summary>
-        K, k,
+        Rook1, Rook2,
 
         /// <summary>
         /// パワーアップきりん
         /// </summary>
-        PK, pk,
+        ProRook1, ProRook2,
 
         /// <summary>
         /// ひよこ
         /// </summary>
-        H, h,
+        Pawn1, Pawn2,
 
         /// <summary>
         /// にわとり
         /// </summary>
-        PH, ph,
+        ProPawn1, ProPawn2,
 
         /// <summary>
         /// いぬ
         /// </summary>
-        I, i,
+        Gold1, Gold2,
 
         /// <summary>
         /// ねこ
         /// </summary>
-        Neko, neko,
+        Silver1, Silver2,
 
         /// <summary>
         /// 成りねこ
         /// </summary>
-        PNeko, pneko,
+        ProSilver1, ProSilver2,
 
         /// <summary>
         /// うさぎ
         /// </summary>
-        U, u,
+        Knight1, Knight2,
 
         /// <summary>
         /// 成りうさぎ
         /// </summary>
-        PU, pu,
+        ProKnight1, ProKnight2,
 
         /// <summary>
         /// いのしし
         /// </summary>
-        S, s,
+        Lance1, Lance2,
 
         /// <summary>
         /// 成りいのしし
         /// </summary>
-        PS, ps,
+        ProLance1, ProLance2,
     }
 }
