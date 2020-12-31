@@ -69,8 +69,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 switch (phase)
                 {
-                    case Phase.Black: syuturyoku.Append(Option_Application.Optionlist.PNName[(int)Taikyokusya.T1]); break;
-                    case Phase.White: syuturyoku.Append(Option_Application.Optionlist.PNName[(int)Taikyokusya.T2]); break;
+                    case Phase.Black: syuturyoku.Append(Option_Application.Optionlist.PNName[(int)Phase.Black]); break;
+                    case Phase.White: syuturyoku.Append(Option_Application.Optionlist.PNName[(int)Phase.White]); break;
                     default: throw new Exception();
                 }
 
@@ -86,13 +86,22 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// </summary>
         /// <param name="ts"></param>
         /// <returns></returns>
-        public static string Setumei_Sankaku(Taikyokusya ts)
+        public static string Setumei_Sankaku(Option<Phase> optionalPhase)
         {
-            switch (ts)
+            var (exists, phase) = optionalPhase.Match;
+
+            if (exists)
             {
-                case Taikyokusya.T2: return "△";
-                case Taikyokusya.T1: return "▲";
-                default: return "×";
+                switch (phase)
+                {
+                    case Phase.White: return "△";
+                    case Phase.Black: return "▲";
+                    default: throw new Exception();
+                }
+            }
+            else
+            {
+                return "×";
             }
         }
         private static string[] m_tusinYo_ = new string[]
