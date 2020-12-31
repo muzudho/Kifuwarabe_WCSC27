@@ -1815,7 +1815,7 @@ USI                      = {Option_Application.Optionlist.USI}");
         {
             if (commandline == "taikyokusya")
             {
-                Conv_Taikyokusya.Setumei_Name(OptionalPhase.ToTaikyokusya( ky.CurrentOptionalPhase), syuturyoku);
+                Conv_Taikyokusya.Setumei_Name( ky.CurrentOptionalPhase, syuturyoku);
                 syuturyoku.AppendLine();
                 return;
             }
@@ -1953,7 +1953,7 @@ USI                      = {Option_Application.Optionlist.USI}");
                     for (int iTb = 0; iTb < Conv_Taikyokusya.Itiran.Length; iTb++)
                     {
                         syuturyoku.Append("    ");
-                        Conv_Taikyokusya.Setumei_Name((Taikyokusya)iTb, syuturyoku);
+                        Conv_Taikyokusya.Setumei_Name(OptionalPhase.From( iTb), syuturyoku);
                         syuturyoku.AppendLine();
                         syuturyoku.AppendLine("        [ 0] [ 1] [ 2] [ 3] [ 4] [ 5] [ 6] [ 7] [ 8] [ 9] [10] [11]");
 

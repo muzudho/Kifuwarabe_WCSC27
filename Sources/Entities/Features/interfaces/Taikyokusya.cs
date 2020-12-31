@@ -61,13 +61,23 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// </summary>
         /// <param name="ts"></param>
         /// <returns></returns>
-        public static void Setumei_Name(Taikyokusya ts, StringBuilder syuturyoku)
+        public static void Setumei_Name(Option<Phase> optionalPhase, StringBuilder syuturyoku)
         {
-            switch (ts)
+            var (exists, phase) = optionalPhase.Match;
+
+            if (exists)
             {
-                case Taikyokusya.T1: syuturyoku.Append(Option_Application.Optionlist.PNName[(int)Taikyokusya.T1]); break;
-                case Taikyokusya.T2: syuturyoku.Append(Option_Application.Optionlist.PNName[(int)Taikyokusya.T2]); break;
-                default: syuturyoku.Append("×"); break;
+                switch (phase)
+                {
+                    case Phase.Black: syuturyoku.Append(Option_Application.Optionlist.PNName[(int)Taikyokusya.T1]); break;
+                    case Phase.White: syuturyoku.Append(Option_Application.Optionlist.PNName[(int)Taikyokusya.T2]); break;
+                    default: throw new Exception();
+                }
+
+            }
+            else
+            {
+                syuturyoku.Append("×");
             }
         }
 
@@ -91,9 +101,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             "2",
             "x"
         };
-        public static void TusinYo(Taikyokusya ts, StringBuilder syuturyoku)
+        public static void TusinYo(Option<Phase> optionalPhase, StringBuilder syuturyoku)
         {
-            syuturyoku.Append(Conv_Taikyokusya.m_tusinYo_[(int)ts]);
+            syuturyoku.Append(Conv_Taikyokusya.m_tusinYo_[OptionalPhase.ToInt(optionalPhase)]);
         }
 
         public static bool IsOk(Taikyokusya ts)

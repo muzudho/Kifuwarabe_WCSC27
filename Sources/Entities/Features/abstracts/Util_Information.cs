@@ -214,7 +214,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 int sennitite = ky.Konoteme.GetSennititeCount();
                 if (Const_Game.SENNITITE_COUNT == sennitite)
                 {
-                    Conv_Taikyokusya.Setumei_Name(OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse( ky.CurrentOptionalPhase)), syuturyoku);
+                    Conv_Taikyokusya.Setumei_Name( Conv_Taikyokusya.Reverse( ky.CurrentOptionalPhase), syuturyoku);
                     syuturyoku.AppendLine("の着手にて　千日手");
                 }
                 else if (1 < sennitite)
@@ -233,7 +233,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 syuturyoku.Append("手まで ");
 
                 // 手番
-                Conv_Taikyokusya.Setumei_Name(OptionalPhase.ToTaikyokusya( ky.CurrentOptionalPhase), syuturyoku);
+                Conv_Taikyokusya.Setumei_Name( ky.CurrentOptionalPhase, syuturyoku);
                 syuturyoku.Append("の番");
 
                 // #仲ルール
@@ -319,7 +319,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 int sennitite = ky.Konoteme.GetSennititeCount();
                 if (Const_Game.SENNITITE_COUNT == sennitite)
                 {
-                    Conv_Taikyokusya.Setumei_Name(OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse( ky.CurrentOptionalPhase)), syuturyoku);
+                    Conv_Taikyokusya.Setumei_Name( Conv_Taikyokusya.Reverse( ky.CurrentOptionalPhase), syuturyoku);
                     syuturyoku.Append("の着手にて　千日手");
                     syuturyoku.AppendLine();
                 }
@@ -343,7 +343,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 syuturyoku.Append("手まで ");
 
                 // 手番
-                Conv_Taikyokusya.Setumei_Name(OptionalPhase.ToTaikyokusya( ky.CurrentOptionalPhase), syuturyoku);
+                Conv_Taikyokusya.Setumei_Name( ky.CurrentOptionalPhase, syuturyoku);
                 syuturyoku.Append("の番");
 
                 // #仲ルール

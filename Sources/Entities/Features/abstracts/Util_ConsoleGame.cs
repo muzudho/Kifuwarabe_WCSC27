@@ -73,7 +73,7 @@
 #if DEBUG
             syuturyoku.Append("**デバッグ・モード** ");//注意喚起☆（＾▽＾）
 #endif
-            Conv_Taikyokusya.Setumei_Name(OptionalPhase.ToTaikyokusya( ky.CurrentOptionalPhase), syuturyoku);
+            Conv_Taikyokusya.Setumei_Name( ky.CurrentOptionalPhase, syuturyoku);
             syuturyoku.Append("（");
             syuturyoku.Append(Option_Application.Optionlist.PNChar[OptionalPhase.ToInt( ky.CurrentOptionalPhase)].ToString());
             syuturyoku.Append("）の思考中（＾～＾）");

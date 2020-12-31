@@ -849,7 +849,7 @@ P2差分  =[{hyokati2}]
                     //    sindan1.AppendLine($"Util_Tansaku.TansakuTyakusyuEdas=[{Util_Tansaku.TansakuTyakusyuEdas}]");
                     //}
 
-                    sindan1.Append(message); sindan1.Append("【エラー】"); Conv_Taikyokusya.Setumei_Name(tai, sindan1); sindan1.AppendLine();
+                    sindan1.Append(message); sindan1.Append("【エラー】"); Conv_Taikyokusya.Setumei_Name(OptionalPhase.From( tai), sindan1); sindan1.AppendLine();
                     sindan1.AppendLine($"iKm=[{iKm}]");
 
                     sindan1.AppendLine("利き：（再計算）");
