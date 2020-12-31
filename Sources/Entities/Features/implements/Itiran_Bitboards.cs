@@ -53,15 +53,15 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             Bitboard komaBB = new Bitboard();
             for (int iTai = 0; iTai < Conv_Taikyokusya.Itiran.Length; iTai++)
             {
-                Taikyokusya tai = Conv_Taikyokusya.Itiran[iTai];
+                var optionalPhase = OptionalPhase.From( Conv_Taikyokusya.Itiran[iTai]);
                 for (int iKs = 0; iKs < Conv_Komasyurui.Itiran.Length; iKs++)
                 {
                     Komasyurui ks = Conv_Komasyurui.Itiran[iKs];
 
-                    kys.ToSetIbasho(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(tai)), komaBB);
+                    kys.ToSetIbasho(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, optionalPhase), komaBB);
                     while (komaBB.Ref_PopNTZ(out Masu ms_jissai))
                     {
-                        hyokati[iTai] += Conv_Koma.BanjoKomaHyokatiNumber[(int)Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(tai))];
+                        hyokati[iTai] += Conv_Koma.BanjoKomaHyokatiNumber[(int)Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, optionalPhase)];
                     }
                 }
             }

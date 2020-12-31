@@ -1785,12 +1785,12 @@ JosekiRec                = {Option_Application.Optionlist.JosekiRec}
 Learn                    = {Option_Application.Optionlist.Learn}
 NikomaHyokaKeisu         = {Option_Application.Optionlist.NikomaHyokaKeisu}
 NikomaGakusyuKeisu       = {Option_Application.Optionlist.NikomaGakusyuKeisu}
-P1Char                   = {Option_Application.Optionlist.PNChar[(int)Taikyokusya.T1]}
+P1Char                   = {Option_Application.Optionlist.PNChar[(int)Phase.Black]}
 P1Com                    = {Option_Application.Optionlist.P1Com}
-P1Name                   = {Option_Application.Optionlist.PNName[(int)Taikyokusya.T1]}
-P2Char                   = {Option_Application.Optionlist.PNChar[(int)Taikyokusya.T2]}
+P1Name                   = {Option_Application.Optionlist.PNName[(int)Phase.Black]}
+P2Char                   = {Option_Application.Optionlist.PNChar[(int)Phase.White]}
 P2Com                    = {Option_Application.Optionlist.P2Com}
-P2Name                   = {Option_Application.Optionlist.PNName[(int)Taikyokusya.T2]}
+P2Name                   = {Option_Application.Optionlist.PNName[(int)Phase.White]}
 RandomCharacter          = {Option_Application.Optionlist.RandomCharacter}
 RandomNikoma             = {Option_Application.Optionlist.RandomNikoma}
 RandomStart              = {Option_Application.Optionlist.RandomStart}
@@ -2573,7 +2573,8 @@ USI                      = {Option_Application.Optionlist.USI}");
                 }
 
                 var optioalPhase75 = ky.CurrentOptionalPhase;
-                Koma raionKm = (OptionalPhase.ToTaikyokusya( optioalPhase75) == Taikyokusya.T1 ? Koma.R : Koma.r);
+                var (exists75, phase75) = optioalPhase75.Match;
+                Koma raionKm = (exists75 && phase75 == Phase.Black) ? Koma.R : Koma.r;
                 Masu ms1 = ky.Lookup(raionKm);
                 Bitboard kikiBB = new Bitboard();
                 kikiBB.Set(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, optioalPhase75), ms1));
