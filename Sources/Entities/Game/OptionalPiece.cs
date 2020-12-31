@@ -102,6 +102,42 @@ namespace Grayscale.Kifuwarakei.Entities.Game
             }
         }
 
+        public static Option<Piece> From(int phaseIndex)
+        {
+            switch (phaseIndex)
+            {
+                case 0: return OptionalPiece.King1;
+                case 1: return OptionalPiece.King2;
+                case 2: return OptionalPiece.Bishop1;
+                case 3: return OptionalPiece.Bishop2;
+                case 4: return OptionalPiece.ProBishop1;
+                case 5: return OptionalPiece.ProBishop2;
+                case 6: return OptionalPiece.Rook1;
+                case 7: return OptionalPiece.Rook2;
+                case 8: return OptionalPiece.ProRook1;
+                case 9: return OptionalPiece.ProRook2;
+                case 10: return OptionalPiece.Pawn1;
+                case 11: return OptionalPiece.Pawn2;
+                case 12: return OptionalPiece.ProPawn1;
+                case 13: return OptionalPiece.ProPawn2;
+                case 14: return OptionalPiece.Gold1;
+                case 15: return OptionalPiece.Gold2;
+                case 16: return OptionalPiece.Silver1;
+                case 17: return OptionalPiece.Silver2;
+                case 18: return OptionalPiece.ProSilver1;
+                case 19: return OptionalPiece.ProSilver2;
+                case 20: return OptionalPiece.Knight1;
+                case 21: return OptionalPiece.Knight2;
+                case 22: return OptionalPiece.ProKnight1;
+                case 23: return OptionalPiece.ProKnight2;
+                case 24: return OptionalPiece.Lance1;
+                case 25: return OptionalPiece.Lance2;
+                case 26: return OptionalPiece.ProLance1;
+                case 27: return OptionalPiece.ProLance2;
+                default: throw new Exception($"phaseIndex={phaseIndex} is fail.");
+            }
+        }
+
         /*
 
         public static Option<Phase> From(int phaseIndex)
