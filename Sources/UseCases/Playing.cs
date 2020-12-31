@@ -718,7 +718,10 @@ Kettyaku = {Util_Application.IsKettyaku(ky)}");
                 {
                     // 指定した升に、指定した駒を置くぜ☆（＾▽＾）
                     Util_Machine.Assert_Sabun_Kiki("飛び利き増やす1", ky.Sindan);
-                    Debug.Assert(Conv_Koma.IsOk(km1), "");
+
+                    var optionalPiece1 = OptionalPiece.From(km1);
+                    Debug.Assert(Conv_Koma.IsOk(optionalPiece1), "");
+
                     Debug.Assert(ky.Sindan.IsBanjo(ms1), "");
                     ky.Shogiban.N250_OkuBanjoKoma(isSfen, ms1, km1, true, ky.Sindan);
                     Util_Machine.Assert_Sabun_Kiki("飛び利き増やす2", ky.Sindan);

@@ -91,14 +91,16 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <returns></returns>
         public static ulong GetBanjoKey(Masu ms, Koma km, Kyokumen.Sindanyo kys)
         {
-            Debug.Assert(Conv_Koma.IsOk(km), "");
+            var optionalPiece = OptionalPiece.From(km);
+
+            Debug.Assert(Conv_Koma.IsOk(optionalPiece), "");
 
             if (Dirty)
             {
                 Tukurinaosi(kys);
             }
 
-            if (!Conv_Koma.IsOk(km))
+            if (!Conv_Koma.IsOk(optionalPiece))
             {
                 throw new Exception("エラー☆（＞＿＜） 盤上の駒じゃないぜ☆");
             }

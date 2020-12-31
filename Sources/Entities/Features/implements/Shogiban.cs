@@ -1370,7 +1370,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <param name="updateKiki">利きを先に作るか、駒を先に並べるか、という循環が発生するのを防ぐために</param>
         public void N250_OkuBanjoKoma(bool isSfen, Masu ms_t1, Koma km_t1, bool updateKiki, Kyokumen.Sindanyo kys)
         {
-            Debug.Assert(Conv_Koma.IsOk(km_t1), "");
+            var optionalPieceT1 = OptionalPiece.From(km_t1);
+            Debug.Assert(Conv_Koma.IsOk(optionalPieceT1), "");
+
             Debug.Assert(kys.IsBanjo(ms_t1), "");
             var optionalPhase = Med_Koma.PhaseOfPiece(km_t1);
 
@@ -1424,7 +1426,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
         public void N250_TorinozokuBanjoKoma_1(bool isSfen, Masu ms_t0, Koma km_t0, bool updateKiki, Kyokumen.Sindanyo kys, StringBuilder syuturyoku)
         {
-            Debug.Assert(Conv_Koma.IsOk(km_t0), "");
+            var optionalPieceT0 = OptionalPiece.From(km_t0);
+            Debug.Assert(Conv_Koma.IsOk(optionalPieceT0), "");
+
             Debug.Assert(kys.IsBanjo(ms_t0), "");
             // Taikyokusya tai = Med_Koma.PhaseOfPiece(km_t0);
 
@@ -1642,7 +1646,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         public void N150_FuyasuHajimetenoKiki_1(
             Koma km_t1, Masu ms_t1, Masu ms_mirainiKomagaAru, Kyokumen.Sindanyo kys, out Bitboard bb_oekaki)
         {
-            Debug.Assert(Conv_Koma.IsOk(km_t1), "");
+            var optionalPieceT1 = OptionalPiece.From(km_t1);
+            Debug.Assert(Conv_Koma.IsOk(optionalPieceT1), "");
+
             Debug.Assert(kys.IsBanjo(ms_t1), "");
             Komasyurui ks = Med_Koma.KomaToKomasyurui(km_t1);
             var optionalPhase = Med_Koma.PhaseOfPiece(km_t1);
@@ -1704,7 +1710,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         }
         public void N150_HerasuTonarikikiTobikiki(Koma km_t0, Masu ms_t0, Masu ms_mirainiKomagaAru, Kyokumen.Sindanyo kys)
         {
-            Debug.Assert(Conv_Koma.IsOk(km_t0), "");
+            var optionalPieceT0 = OptionalPiece.From(km_t0);
+            Debug.Assert(Conv_Koma.IsOk(optionalPieceT0), "");
+
             Debug.Assert(kys.IsBanjo(ms_t0), "");
             var optionalPhase = Med_Koma.PhaseOfPiece(km_t0);
 

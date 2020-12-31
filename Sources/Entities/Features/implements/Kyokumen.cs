@@ -170,7 +170,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             }
             public Bitboard CloneKomanoUgoki(Koma km, Masu ms_ibasho)
             {
-                Debug.Assert(Conv_Koma.IsOk(km), $"km=[{ (int)km }]");
+                var optionalPiece = OptionalPiece.From(km);
+
+                Debug.Assert(Conv_Koma.IsOk(optionalPiece), $"km=[{ (int)km }]");
                 Debug.Assert(-1 < (int)ms_ibasho, $"ms_ibasho=[{ (int)ms_ibasho }]");
 
                 return Hontai.Shogiban.GetKomanoUgokikata(km, ms_ibasho).Clone();
@@ -644,7 +646,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
                 var ms1 = (Masu)i;
                 var km1 = Conv_Koma.ItiranRaionNozoku[Option_Application.Random.Next(Conv_Koma.ItiranRaionNozoku.Length - 1)];
-                Debug.Assert(Conv_Koma.IsOk(km1), "");
+                var optionalPiece1 = OptionalPiece.From(km1);
+                Debug.Assert(Conv_Koma.IsOk(optionalPiece1), "");
                 Debug.Assert(Sindan.IsBanjo(ms1), "");
                 Shogiban.N250_OkuBanjoKoma(isSfen, ms1, km1, true, Sindan);
                 // あとで適用
@@ -1060,8 +1063,10 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             }
 
 
-            Debug.Assert(Conv_Koma.IsOk(km_t0), "Ｄｏ");
-            Debug.Assert(Conv_Koma.IsOk(km_t1), "Ｄｏ");
+            var optionalPieceT0 = OptionalPiece.From(km_t0);
+            Debug.Assert(Conv_Koma.IsOk(optionalPieceT0), "Ｄｏ");
+            var optionalPieceT1 = OptionalPiece.From(km_t1);
+            Debug.Assert(Conv_Koma.IsOk(optionalPieceT1), "Ｄｏ");
             Debug.Assert(Sindan.IsBanjoOrError(ms_t1), "");
             Debug.Assert(Conv_Koma.IsOkOrKuhaku(km_c), "Ｄｏ");
 
@@ -1431,8 +1436,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
             Masu ms_t1 = ConvMove.GetDstMasu_WithoutErrorCheck((int)ss);
             Debug.Assert(Sindan.IsBanjoOrError(ms_t1), "Ｕｎｄｏ");
+
             Koma km_t1 = GetBanjoKoma(ms_t1);
-            Debug.Assert(Conv_Koma.IsOk(km_t1), "Ｕｎｄｏ");
+            var optionalPieceT1 = OptionalPiece.From(km_t1);
+
+            Debug.Assert(Conv_Koma.IsOk(optionalPieceT1), "Ｕｎｄｏ");
             Komasyurui ks_t1 = Med_Koma.KomaToKomasyurui(km_t1);// 成っているかもしれない☆
 
 
@@ -1461,7 +1469,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 mk_t0 = Med_Koma.KomasyuruiAndTaikyokusyaToMotiKoma(ks_t1, CurrentOptionalPhase);
             }
             Debug.Assert(Sindan.IsBanjoOrError(ms_t0), "Ｕｎｄｏ #颪");
-            Debug.Assert(Conv_Koma.IsOk(km_t0), "Ｕｎｄｏ 盤上 #羊");
+
+            var optionalPieceT0 = OptionalPiece.From(km_t0);
+            Debug.Assert(Conv_Koma.IsOk(optionalPieceT0), "Ｕｎｄｏ 盤上 #羊");
 
             Komasyurui ks_c = Konoteme.ToraretaKs;
             Koma km_c;
@@ -1469,8 +1479,10 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             if (Komasyurui.Yososu != ks_c)
             {
                 km_c = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks_c, optionalOpponent);
+                var optionalPieceC = OptionalPiece.From(km_c);
+                Debug.Assert(Conv_Koma.IsOk(optionalPieceC), "Ｕｎｄｏ #竜巻");
+
                 mk_c = Med_Koma.BanjoKomaToMotiKoma(km_c);
-                Debug.Assert(Conv_Koma.IsOk(km_c), "Ｕｎｄｏ #竜巻");
             }
             else
             {
@@ -2005,16 +2017,22 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                         if (exists75 && phase75 == Phase.Black)
                         {
                             var ms1 = (Masu)iMs1;
+
                             var km1 = Koma.King1;
-                            Debug.Assert(Conv_Koma.IsOk(km1), "");
+                            var optionalPiece1 = OptionalPiece.From(km1);
+                            Debug.Assert(Conv_Koma.IsOk(optionalPiece1), "");
+
                             Debug.Assert(Sindan.IsBanjo(ms1), "");
                             Shogiban.N250_OkuBanjoKoma(isSfen, ms1, km1, true, Sindan);
                         }
                         else
                         {
                             var ms1 = (Masu)iMs1;
+
                             var km1 = Koma.King2;
-                            Debug.Assert(Conv_Koma.IsOk(km1), "");
+                            var optionalPiece1 = OptionalPiece.From(km1);
+                            Debug.Assert(Conv_Koma.IsOk(optionalPiece1), "");
+
                             Debug.Assert(Sindan.IsBanjo(ms1), "");
                             Shogiban.N250_OkuBanjoKoma(isSfen, ms1, km1, true, Sindan);
                         }
@@ -2277,8 +2295,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                         isPowerupKoma = false;
 
                         var ms1 = Conv_Masu.ToMasu(suji, dan);
+
                         var km1 = tmp;
-                        Debug.Assert(Conv_Koma.IsOk(km1), "");
+                        var optionalPiece1 = OptionalPiece.From(km1);
+                        Debug.Assert(Conv_Koma.IsOk(optionalPiece1), "");
+
                         Debug.Assert(Sindan.IsBanjo(ms1), "");
                         Shogiban.N250_OkuBanjoKoma(isSfen, ms1, km1, true, Sindan);
                         // あとで適用

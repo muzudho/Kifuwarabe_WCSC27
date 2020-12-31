@@ -347,7 +347,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         public static void GenerateMove02Raion(
             Koma km, MoveType sasiteType, int fukasa, Kyokumen ky, Masu ms_src, HiouteJoho jibunHioute, HiouteJoho aiteHioute, Bitboard idosakiBB, StringBuilder syuturyoku)
         {
-            Debug.Assert(Conv_Koma.IsOk(km), "");
+            var optionalPiece = OptionalPiece.From(km);
+            Debug.Assert(Conv_Koma.IsOk(optionalPiece), "");
             Komasyurui ks = Med_Koma.KomaToKomasyurui(km);
             var optionalPhase = Med_Koma.PhaseOfPiece(km);
             Masu ms_ido;
@@ -456,7 +457,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
         public static void GenerateMove02ZouKirinNado(Koma km, MoveType sasiteType, int fukasa, Kyokumen ky, Masu ms_src, HiouteJoho jibunHioute, HiouteJoho aiteHioute, Bitboard idosakiBB, StringBuilder syuturyoku)
         {
-            Debug.Assert(Conv_Koma.IsOk(km), "");
+            var optionalPiece = OptionalPiece.From(km);
+
+            Debug.Assert(Conv_Koma.IsOk(optionalPiece), "");
             Komasyurui ks = Med_Koma.KomaToKomasyurui(km);
             var optionalPhase = Med_Koma.PhaseOfPiece(km);
             Masu ms_ido;
@@ -610,7 +613,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
         public static void GenerateMove02HiyokoNado(Koma km, MoveType sasiteType, int fukasa, Kyokumen ky, Masu ms_src, HiouteJoho jibunHioute, HiouteJoho aiteHioute, Bitboard bb_idosakiCopy, StringBuilder syuturyoku)
         {
-            Debug.Assert(Conv_Koma.IsOk(km), "");
+            var optionalPiece = OptionalPiece.From(km);
+
+            Debug.Assert(Conv_Koma.IsOk(optionalPiece), "");
             Komasyurui ks = Med_Koma.KomaToKomasyurui(km);
             var optionalPhase = Med_Koma.PhaseOfPiece(km);
             Masu ms_ido;
@@ -803,7 +808,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         }
         public static void GenerateMove02NiwatoriNado(Koma km, MoveType sasiteType, int fukasa, Kyokumen ky, Masu ms_src, HiouteJoho jibunHioute, HiouteJoho aiteHioute, Bitboard bb_idosakiCopy, StringBuilder syuturyoku)
         {
-            Debug.Assert(Conv_Koma.IsOk(km), "");
+            var optionalPiece = OptionalPiece.From(km);
+
+            Debug.Assert(Conv_Koma.IsOk(optionalPiece), "");
             Komasyurui ks = Med_Koma.KomaToKomasyurui(km);
             var optionalPhase = Med_Koma.PhaseOfPiece(km);
             Masu ms_ido;

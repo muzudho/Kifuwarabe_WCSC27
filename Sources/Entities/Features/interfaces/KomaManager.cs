@@ -695,6 +695,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             return Koma.King1 <= km && km <= Koma.PieceNum;
         }
+        /*
         /// <summary>
         /// 空白、要素数以外の駒
         /// </summary>
@@ -704,7 +705,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             return Koma.King1 <= km && km < Koma.PieceNum;
         }
-        /*
+        */
         /// <summary>
         /// 空白、要素数以外の駒
         /// </summary>
@@ -715,7 +716,6 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             var pieceIndex = OptionalPiece.IndexOf(optionalPiece);
             return (int)Koma.King1 <= pieceIndex && pieceIndex < (int)Koma.PieceNum;
         }
-        */
     }
 
     public abstract class Conv_MotiKoma

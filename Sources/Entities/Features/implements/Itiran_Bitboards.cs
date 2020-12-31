@@ -239,7 +239,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             if (DebugOptions.ReducePiecesOnBoard)
             {
-                Debug.Assert(Conv_Koma.IsOk(km), "");//空白とか禁止☆（＾～＾）！
+                var optionalPiece = OptionalPiece.From(km);
+
+                Debug.Assert(Conv_Koma.IsOk(optionalPiece), "");//空白とか禁止☆（＾～＾）！
 
                 Util_NikomaKankei.MakeKoumokuBangoHairetu_Subete(ky, Util_NikomaKankei.KoumokuBangoHairetu1);
 
@@ -308,7 +310,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             if (DebugOptions.AddPiecesOnBoard)
             {
-                Debug.Assert(Conv_Koma.IsOk(km), "");//空白とか禁止☆（＾～＾）！
+                var optionalPiece = OptionalPiece.From(km);
+
+                Debug.Assert(Conv_Koma.IsOk(optionalPiece), "");//空白とか禁止☆（＾～＾）！
 
                 Util_NikomaKankei.MakeKoumokuBangoHairetu_Subete(ky, Util_NikomaKankei.KoumokuBangoHairetu1);
 
