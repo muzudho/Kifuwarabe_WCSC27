@@ -516,7 +516,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 case Koma.ProLance1: return Koma.ProLance2;
                 case Koma.ProLance2: return Koma.ProLance1;
 
-                case Koma.SpaceSq: return Koma.SpaceSq;
+                case Koma.PieceNum: return Koma.PieceNum;
                 default: break;
             }
             return Koma.PieceNum;
@@ -577,7 +577,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     case "+L": out_koma = Koma.ProLance1; return true;
                     case "+l": out_koma = Koma.ProLance2; return true;
 
-                    case " ": out_koma = Koma.SpaceSq; return true;
+                    case " ": out_koma = Koma.PieceNum; return true;
                     default: out_koma = Koma.PieceNum; return false;
                 }
             }
@@ -629,7 +629,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     case "+S": out_koma = Koma.ProLance1; return true;
                     case "+s": out_koma = Koma.ProLance2; return true;
 
-                    case " ": out_koma = Koma.SpaceSq; return true;
+                    case " ": out_koma = Koma.PieceNum; return true;
                     default: out_koma = Koma.PieceNum; return false;
                 }
             }
@@ -681,7 +681,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 case "+S": out_koma = Koma.ProLance1; return true;
                 case "+s": out_koma = Koma.ProLance2; return true;
 
-                case " ": out_koma = Koma.SpaceSq; return true;
+                case " ": out_koma = Koma.PieceNum; return true;
                 default: out_koma = Koma.PieceNum; return false;
             }
         }
@@ -693,9 +693,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <returns></returns>
         public static bool IsOkOrKuhaku(Koma km)
         {
-            return Koma.King1 <= km && km <= Koma.SpaceSq;
+            return Koma.King1 <= km && km <= Koma.PieceNum;
         }
-        /*
         /// <summary>
         /// 空白、要素数以外の駒
         /// </summary>
@@ -703,9 +702,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <returns></returns>
         public static bool IsOk(Koma km)
         {
-            return Koma.King1 <= km && km < Koma.SpaceSq;
+            return Koma.King1 <= km && km < Koma.PieceNum;
         }
-        */
+        /*
         /// <summary>
         /// 空白、要素数以外の駒
         /// </summary>
@@ -714,8 +713,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         public static bool IsOk(Option<Piece> optionalPiece)
         {
             var pieceIndex = OptionalPiece.IndexOf(optionalPiece);
-            return (int)Koma.King1 <= pieceIndex && pieceIndex < (int)Koma.SpaceSq;
+            return (int)Koma.King1 <= pieceIndex && pieceIndex < (int)Koma.PieceNum;
         }
+        */
     }
 
     public abstract class Conv_MotiKoma

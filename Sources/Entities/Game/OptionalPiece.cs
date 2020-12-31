@@ -134,7 +134,6 @@ namespace Grayscale.Kifuwarakei.Entities.Game
                 case Koma.Lance2: return OptionalPiece.Lance2;
                 case Koma.ProLance1: return OptionalPiece.ProLance1;
                 case Koma.ProLance2: return OptionalPiece.ProLance2;
-                case Koma.SpaceSq: return Option<Piece>.None;
                 case Koma.PieceNum: return Option<Piece>.None;
                 default: throw new Exception($"km={km} is fail.");
             }

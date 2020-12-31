@@ -77,12 +77,8 @@
 
         /// <summary>
         /// 空白☆ 駒のない升だぜ☆（＾▽＾）
-        /// </summary>
-        SpaceSq,
-
-        /// <summary>
         /// 空白～後手のにわとり　までの要素の個数になるぜ☆（＾▽＾）
         /// </summary>
-        PieceNum
+        PieceNum,
     }
 }

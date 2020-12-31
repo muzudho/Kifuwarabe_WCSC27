@@ -655,7 +655,7 @@ using System.Text;
                 Conv_Masu.Setumei(ms_dst,str2);
                 str2.AppendLine("]");
                 //
-                Koma km_src = Koma.PieceNum;
+                Koma km_src = Koma.SpaceSq;
                 Komasyurui ks_src = Komasyurui.Yososu;
                 if (ms_src != Masu.Yososu)
                 {
@@ -680,7 +680,7 @@ using System.Text;
                 str1.AppendLine("）");
                 ky.Setumei(str1);
                 Debug.Assert(
-                    (ms_src != Masu.Yososu && (km_src != Koma.PieceNum) && ks_src != Komasyurui.Yososu)//盤上
+                    (ms_src != Masu.Yososu && (km_src != Koma.SpaceSq) && ks_src != Komasyurui.Yososu)//盤上
                     ||
                     (ms_src == Masu.Yososu && ks_src == Komasyurui.Yososu)//打
                     , str1.ToString());

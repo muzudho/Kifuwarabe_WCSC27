@@ -688,7 +688,7 @@ Kettyaku = {Util_Application.IsKettyaku(ky)}");
                 bool failure = false;
                 if (!Conv_Koma.TryParseFen(isSfen, token, out Koma km1))
                 {
-                    km1 = Koma.SpaceSq;
+                    km1 = Koma.PieceNum;
                     failure = true;
                 }
 

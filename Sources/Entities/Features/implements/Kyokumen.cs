@@ -584,7 +584,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     return Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, optionalPhase);
                 }
             }
-            return Koma.SpaceSq;
+            return Koma.PieceNum;
         }
         /// <summary>
         /// 持ち駒の数だぜ☆（＾▽＾）
@@ -687,8 +687,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         static Koma[] DefaultHirateSyokiKyokumen = new Koma[]
         {
             Koma.Rook2, Koma.King2, Koma.Bishop2,
-                Koma.SpaceSq, Koma.Pawn2, Koma.SpaceSq,
-                Koma.SpaceSq, Koma.Pawn1, Koma.SpaceSq,
+                Koma.PieceNum, Koma.Pawn2, Koma.PieceNum,
+                Koma.PieceNum, Koma.Pawn1, Koma.PieceNum,
                 Koma.Bishop1, Koma.King1, Koma.Rook1
         };
         /// <summary>
@@ -705,7 +705,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 if (iMs < DefaultHirateSyokiKyokumen.Length)
                 {
                     Koma km = DefaultHirateSyokiKyokumen[iMs];
-                    if (Koma.SpaceSq != km)
+                    if (Koma.PieceNum != km)
                     {
                         Shogiban.N250_OkuBanjoKoma(isSfen, (Masu)iMs, km, updateKiki, Sindan);
                     }
@@ -874,13 +874,13 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             Koma km_dst = GetBanjoKoma(ms_dst);
             var (exists1, phase1) = CurrentOptionalPhase.Match;
             var (exists2, phase2) = Med_Koma.PhaseOfPiece(km_dst).Match;
-            if (km_dst != Koma.SpaceSq && exists1 && exists2 && phase1 == phase2)
+            if (km_dst != Koma.PieceNum && exists1 && exists2 && phase1 == phase2)
             {
                 // 自分の駒を取ろうとするのは、イリーガル・ムーブだぜ☆（＾▽＾）
                 reason = MoveMatigaiRiyu.TebanKomaNoTokoroheIdo;
                 return false;
             }
-            else if (utta && km_dst != Koma.SpaceSq)
+            else if (utta && km_dst != Koma.PieceNum)
             {
                 // 駒があるところに打ち込んではいけないぜ☆（＾▽＾）
                 reason = MoveMatigaiRiyu.KomaGaAruTokoroheUti;
@@ -902,7 +902,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 var optionalPhaseSrcKm = Med_Koma.PhaseOfPiece(km_src);
                 var (exists3, phase3) = CurrentOptionalPhase.Match;
                 var (exists4, phase4) = optionalPhaseSrcKm.Match;
-                if (km_src == Koma.SpaceSq)
+                if (km_src == Koma.PieceNum)
                 {
                     // 空き升に駒があると思って動かそうとするのは、イリーガル・ムーブだぜ☆（＾▽＾）
                     reason = MoveMatigaiRiyu.KuhakuWoIdo;
@@ -1078,7 +1078,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             //          移動先に駒があれば……。
             //────────────────────────────────────────
             #region 駒を取る
-            if (km_c != Koma.SpaceSq)
+            if (km_c != Koma.PieceNum)
             {
                 // 駒取るぜ☆（＾▽＾）！
 

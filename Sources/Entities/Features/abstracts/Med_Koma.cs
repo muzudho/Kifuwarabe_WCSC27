@@ -320,7 +320,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             { Koma.ProKnight1, Koma.ProKnight2 },// パワーアップうさぎ
             { Koma.Lance1, Koma.Lance2 },// いのしし
             { Koma.ProLance1, Koma.ProLance2 },// パワーアップいのしし
-            { Koma.SpaceSq, Koma.SpaceSq },// らいおん～にわとり　までの要素の個数になるぜ☆（＾▽＾）どの駒の種類にも当てはまらない場合に、Yososu と書くことがある☆（＾▽＾）ｗｗｗ
+            { Koma.PieceNum, Koma.PieceNum },// らいおん～にわとり　までの要素の個数になるぜ☆（＾▽＾）どの駒の種類にも当てはまらない場合に、Yososu と書くことがある☆（＾▽＾）ｗｗｗ
         };
         public static Koma KomasyuruiAndTaikyokusyaToKoma(Komasyurui ks, Option<Phase> optionalPhase)
         {
