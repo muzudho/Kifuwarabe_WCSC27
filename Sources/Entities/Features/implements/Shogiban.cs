@@ -84,8 +84,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             }
             public void Clear()
             {
-                this.ValueTai = new Bitboard[Conv_Taikyokusya.Itiran.Length];
-                for (int i = 0; i < Conv_Taikyokusya.Itiran.Length; i++)
+                this.ValueTai = new Bitboard[Conv_Taikyokusya.AllOptionalPhaseList.Length];
+                for (int i = 0; i < Conv_Taikyokusya.AllOptionalPhaseList.Length; i++)
                 {
                     this.ValueTai[i] = new Bitboard();
                 }
@@ -99,7 +99,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
             public Bitboard Get(Option<Phase> optionalPhase)
             {
-                var phaseIndex = OptionalPhase.ToInt(optionalPhase);
+                var phaseIndex = OptionalPhase.IndexOf(optionalPhase);
 
                 // FIXME: tai=2 ValueTai.Length=2 という不具合が出た☆（＾～＾）
                 if (0<= phaseIndex && phaseIndex < ValueTai.Length)
@@ -126,7 +126,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             */
             public (bool, Option<Phase>) Exists(Masu ms)
             {
-                for (int iTai = 0; iTai < Conv_Taikyokusya.Itiran.Length; iTai++)
+                for (int iTai = 0; iTai < Conv_Taikyokusya.AllOptionalPhaseList.Length; iTai++)
                 {
                     if (ValueTai[iTai].IsOn(ms)) { return (true, OptionalPhase.From(iTai)); }
                 }
@@ -175,7 +175,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             }
             public bool Exists(Option<Phase> phase, Masu ms, out Komasyurui out_ks)
             {
-                var phaseIndex = OptionalPhase.ToInt(phase);
+                var phaseIndex = OptionalPhase.IndexOf(phase);
                 for (int iKm = 0; iKm < Conv_Koma.ItiranTai[phaseIndex].Length; iKm++)
                 {
                     Koma km = Conv_Koma.ItiranTai[phaseIndex][iKm];
@@ -190,7 +190,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             }
             public bool Exists(Option<Phase> optionalPhase, Masu ms)
             {
-                var phaseIndex = OptionalPhase.ToInt(optionalPhase);
+                var phaseIndex = OptionalPhase.IndexOf(optionalPhase);
 
                 for (int iKm = 0; iKm < Conv_Koma.ItiranTai[phaseIndex].Length; iKm++)
                 {
@@ -211,8 +211,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             }
             public void Clear()
             {
-                this.ValueTai = new Bitboard[Conv_Taikyokusya.Itiran.Length];
-                for (int iTai = 0; iTai < Conv_Taikyokusya.Itiran.Length; iTai++)
+                this.ValueTai = new Bitboard[Conv_Taikyokusya.AllOptionalPhaseList.Length];
+                for (int iTai = 0; iTai < Conv_Taikyokusya.AllOptionalPhaseList.Length; iTai++)
                 {
                     this.ValueTai[iTai] = new Bitboard();
                 }
@@ -235,7 +235,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 foreach (Koma km in Conv_Koma.Itiran)
                 {
                     var optionalPhase = Med_Koma.PhaseOfPiece(km);
-                    var phaseIndex = OptionalPhase.ToInt(optionalPhase);
+                    var phaseIndex = OptionalPhase.IndexOf(optionalPhase);
                     Komasyurui ks = Med_Koma.KomaToKomasyurui(km);
 
                     ValueTai[phaseIndex].Standup(kikiBBs.Get(km));
@@ -244,7 +244,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
             public Bitboard Get(Option<Phase> phase)
             {
-                return ValueTai[OptionalPhase.ToInt(phase)];
+                return ValueTai[OptionalPhase.IndexOf(phase)];
             }
         }
         /// <summary>
@@ -338,10 +338,10 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             {
                 if (null == ValueTaiMs)
                 {
-                    ValueTaiMs = new int[Conv_Taikyokusya.Itiran.Length][];
+                    ValueTaiMs = new int[Conv_Taikyokusya.AllOptionalPhaseList.Length][];
                 }
 
-                for (int iTai = 0; iTai < Conv_Taikyokusya.Itiran.Length; iTai++)
+                for (int iTai = 0; iTai < Conv_Taikyokusya.AllOptionalPhaseList.Length; iTai++)
                 {
                     if (null == ValueTaiMs[iTai] || ValueTaiMs[iTai].Length != masuYososu)
                     {
@@ -356,7 +356,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
             public void Import(KikisuZenbuCountboardItiran src)
             {
-                for (int iTai = 0; iTai < Conv_Taikyokusya.Itiran.Length; iTai++)
+                for (int iTai = 0; iTai < Conv_Taikyokusya.AllOptionalPhaseList.Length; iTai++)
                 {
                     int length = Math.Min(this.ValueTaiMs[iTai].Length, src.GetArrayLength(OptionalPhase.From( iTai)));
 
@@ -369,25 +369,25 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             public void Tukurinaosi(Shogiban sg_src, Kyokumen.Sindanyo kys)
             {
                 //, KomanoUgokikata komanoUgokikata
-                ValueTaiMs = new int[Conv_Taikyokusya.Itiran.Length][];
+                ValueTaiMs = new int[Conv_Taikyokusya.AllOptionalPhaseList.Length][];
 
                 Bitboard bb_ibashoCopy = new Bitboard();
                 Bitboard bb_ugokikataCopy = new Bitboard();
 
-                foreach (Taikyokusya tai in Conv_Taikyokusya.Itiran)
+                foreach (var optionalPhase77 in Conv_Taikyokusya.AllOptionalPhaseList)
                 {
-                    ValueTaiMs[(int)tai] = new int[kys.MASU_YOSOSU];
+                    ValueTaiMs[OptionalPhase.IndexOf(optionalPhase77)] = new int[kys.MASU_YOSOSU];
 
                     foreach (Komasyurui ks in Conv_Komasyurui.Itiran)
                     {
-                        bb_ibashoCopy.Set(sg_src.BB_Koma.Get(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(tai))));
+                        bb_ibashoCopy.Set(sg_src.BB_Koma.Get(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, optionalPhase77)));
                         while (bb_ibashoCopy.Ref_PopNTZ(out Masu ms_ibasho))
                         {
-                            bb_ugokikataCopy.Set(sg_src.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(tai)), ms_ibasho));
+                            bb_ugokikataCopy.Set(sg_src.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, optionalPhase77), ms_ibasho));
 
                             while (bb_ugokikataCopy.Ref_PopNTZ(out Masu ms_kiki))
                             {
-                                ValueTaiMs[(int)tai][(int)ms_kiki]++;
+                                ValueTaiMs[OptionalPhase.IndexOf(optionalPhase77)][(int)ms_kiki]++;
                             }
                         }
                     }
@@ -395,19 +395,19 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             }
             public void IncreaseDirect(Option<Phase> optionalPhase, Masu ms)
             {
-                this.ValueTaiMs[OptionalPhase.ToInt(optionalPhase)][(int)ms]++;
+                this.ValueTaiMs[OptionalPhase.IndexOf(optionalPhase)][(int)ms]++;
             }
             public void DecreaseDirect(Option<Phase> optionalPhase, Masu ms)
             {
-                this.ValueTaiMs[OptionalPhase.ToInt(optionalPhase)][(int)ms]--;
+                this.ValueTaiMs[OptionalPhase.IndexOf(optionalPhase)][(int)ms]--;
             }
             public int Get(Option<Phase> optionalPhase, Masu ms)
             {
-                return ValueTaiMs[OptionalPhase.ToInt(optionalPhase)][(int)ms];
+                return ValueTaiMs[OptionalPhase.IndexOf(optionalPhase)][(int)ms];
             }
             public int GetArrayLength(Option<Phase> optionalPhase)
             {
-                return ValueTaiMs[OptionalPhase.ToInt(optionalPhase)].Length;
+                return ValueTaiMs[OptionalPhase.IndexOf(optionalPhase)].Length;
             }
             /// <summary>
             /// [手番,升] 型のカウントボードを、ビットボードに変換するぜ☆（＾▽＾）
@@ -432,7 +432,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             public void Substruct(Koma km, KikisuKomabetuCountboardItiran clear_CB_komabetu)
             {
                 var optionalPhase = Med_Koma.PhaseOfPiece(km);
-                var optionalIndex = OptionalPhase.ToInt(optionalPhase);
+                var optionalIndex = OptionalPhase.IndexOf(optionalPhase);
 
                 for (int iMs = 0; iMs < ValueTaiMs[optionalIndex].Length; iMs++)
                 {
@@ -1328,9 +1328,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         }
         public bool Assert()
         {
-            for (int iTai = 0; iTai < Conv_Taikyokusya.Itiran.Length; iTai++)
+            for (int iTai = 0; iTai < Conv_Taikyokusya.AllOptionalPhaseList.Length; iTai++)
             {
-                var optionalPhase = OptionalPhase.From( Conv_Taikyokusya.Itiran[iTai]);
+                var optionalPhase =  Conv_Taikyokusya.AllOptionalPhaseList[iTai];
 
                 for (int iKs = 0; iKs < Conv_Komasyurui.Itiran.Length; iKs++)
                 {

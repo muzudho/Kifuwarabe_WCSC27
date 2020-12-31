@@ -1950,7 +1950,7 @@ USI                      = {Option_Application.Optionlist.USI}");
                     syuturyoku.Append(Med_Koma.GetKomasyuruiNamae(OptionalPhase.Black, (Komasyurui)iKs));
                     //Conv_Komasyurui.GetNamae((Komasyurui)iKs, syuturyoku);
                     syuturyoku.AppendLine();
-                    for (int iTb = 0; iTb < Conv_Taikyokusya.Itiran.Length; iTb++)
+                    for (int iTb = 0; iTb < Conv_Taikyokusya.AllOptionalPhaseList.Length; iTb++)
                     {
                         syuturyoku.Append("    ");
                         Conv_Taikyokusya.Setumei_Name(OptionalPhase.From( iTb), syuturyoku);

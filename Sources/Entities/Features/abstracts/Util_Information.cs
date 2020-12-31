@@ -430,7 +430,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
         public static void AppendLine_Data_Countboard(Shogiban sg, int ms_hidariHasi, StringBuilder syuturyoku)
         {
-            for (int iTai = 0; iTai < Conv_Taikyokusya.Itiran.Length; iTai++)
+            for (int iTai = 0; iTai < Conv_Taikyokusya.AllOptionalPhaseList.Length; iTai++)
             {
                 syuturyoku.Append("│");
                 for (int iMs_offset = 0; iMs_offset < Option_Application.Optionlist.BanYokoHaba; iMs_offset++)
@@ -478,10 +478,10 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 syuturyoku.AppendLine();
             }
 
-            foreach (Taikyokusya tai in Conv_Taikyokusya.Itiran)// 対局者１、対局者２
+            foreach (var optionalPhase81 in Conv_Taikyokusya.AllOptionalPhaseList)// 対局者１、対局者２
             {
                 // 見出し
-                foreach (Koma km in Conv_Koma.ItiranTai[(int)tai])
+                foreach (Koma km in Conv_Koma.ItiranTai[OptionalPhase.IndexOf(optionalPhase81)])
                 {
                     syuturyoku.Append(FormatBanWidthZenkaku(Conv_Koma.GetName(km)));
                 }
@@ -492,7 +492,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 int i = 0;
                 foreach (Komasyurui ks in Conv_Komasyurui.Itiran)
                 {
-                    bbHairetu[i] = shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(tai)));
+                    bbHairetu[i] = shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, optionalPhase81));
                     i++;
                 }
                 Setumei_Bitboards(bbHairetu, syuturyoku);
@@ -513,22 +513,22 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 // 見出し
                 Setumei_Headers(Conv_Taikyokusya.NamaeItiran, syuturyoku);
 
-                Util_Information.AppendLine_Top_Kyokumen(Conv_Taikyokusya.Itiran.Length, syuturyoku); // ┌──┬──┬──┐みたいな線☆
+                Util_Information.AppendLine_Top_Kyokumen(Conv_Taikyokusya.AllOptionalPhaseList.Length, syuturyoku); // ┌──┬──┬──┐みたいな線☆
                 for (int dan = 0; dan < Option_Application.Optionlist.BanTateHaba; dan++)
                 {
                     AppendLine_Data_Countboard(shogiban, dan * Option_Application.Optionlist.BanYokoHaba, syuturyoku);
 
                     if (dan + 1 < Option_Application.Optionlist.BanTateHaba)
                     {
-                        Util_Information.AppendLine_Middle(Conv_Taikyokusya.Itiran.Length, syuturyoku); // ├──┼──┼──┤みたいな線☆
+                        Util_Information.AppendLine_Middle(Conv_Taikyokusya.AllOptionalPhaseList.Length, syuturyoku); // ├──┼──┼──┤みたいな線☆
                     }
                 }
-                Util_Information.AppendLine_Bottom(Conv_Taikyokusya.Itiran.Length, syuturyoku); // └──┴──┴──┘みたいな線☆
+                Util_Information.AppendLine_Bottom(Conv_Taikyokusya.AllOptionalPhaseList.Length, syuturyoku); // └──┴──┴──┘みたいな線☆
             }
             // 駒別
-            foreach (Taikyokusya tai in Conv_Taikyokusya.Itiran) // 対局者１、対局者２
+            foreach (var optionalPhase29 in Conv_Taikyokusya.AllOptionalPhaseList) // 対局者１、対局者２
             {
-                foreach (Koma km in Conv_Koma.ItiranTai[(int)tai])
+                foreach (Koma km in Conv_Koma.ItiranTai[OptionalPhase.IndexOf(optionalPhase29)])
                 {
                     syuturyoku.Append(Util_Information.FormatBanWidthZenkaku(Conv_Koma.GetName(km)));
                 }
@@ -538,7 +538,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
                 for (int dan = 0; dan < Option_Application.Optionlist.BanTateHaba; dan++)
                 {
-                    AppendLine_Data_Countboard(OptionalPhase.From( tai), shogiban, dan * Option_Application.Optionlist.BanYokoHaba, syuturyoku);
+                    AppendLine_Data_Countboard( optionalPhase29, shogiban, dan * Option_Application.Optionlist.BanYokoHaba, syuturyoku);
 
                     if (dan + 1 < Option_Application.Optionlist.BanTateHaba)
                     {
@@ -561,26 +561,26 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             // 利き全部
             {
                 syuturyoku.AppendLine("利き（全部）");
-                Bitboard[] bbHairetu = new Bitboard[Conv_Taikyokusya.Itiran.Length];
-                foreach (Taikyokusya tai in Conv_Taikyokusya.Itiran)
+                Bitboard[] bbHairetu = new Bitboard[Conv_Taikyokusya.AllOptionalPhaseList.Length];
+                foreach (var optionalPhase65 in Conv_Taikyokusya.AllOptionalPhaseList)
                 {
-                    bbHairetu[(int)tai] = shogiban.GetBBKikiZenbu(OptionalPhase.From( tai));
+                    bbHairetu[OptionalPhase.IndexOf(optionalPhase65)] = shogiban.GetBBKikiZenbu( optionalPhase65);
                 }
                 Setumei_Bitboards(Conv_Taikyokusya.NamaeItiran, bbHairetu, syuturyoku);
             }
             // 駒別
             {
                 syuturyoku.AppendLine("利き（駒別）");
-                foreach (Taikyokusya tai in Conv_Taikyokusya.Itiran)// 対局者１、対局者２
+                foreach (var optionalPhase74 in Conv_Taikyokusya.AllOptionalPhaseList)// 対局者１、対局者２
                 {
                     // 盤上
                     Bitboard[] bbHairetu = new Bitboard[Conv_Komasyurui.Itiran.Length];
                     foreach (Komasyurui ks in Conv_Komasyurui.Itiran)
                     {
-                        bbHairetu[(int)ks] = shogiban.GetBBKiki(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(tai)));
+                        bbHairetu[(int)ks] = shogiban.GetBBKiki(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, optionalPhase74));
                     }
 
-                    Setumei_Bitboards(Med_Koma.GetKomasyuruiNamaeItiran(OptionalPhase.From( tai)), bbHairetu, syuturyoku);
+                    Setumei_Bitboards(Med_Koma.GetKomasyuruiNamaeItiran( optionalPhase74), bbHairetu, syuturyoku);
                 }
             }
         }
@@ -595,15 +595,15 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             for (int ms = 0; ms < masuYososu; ms++)
             {
                 syuturyoku.AppendLine($"ます{ms}");
-                foreach (Taikyokusya tai in Conv_Taikyokusya.Itiran)
+                foreach (var optionalPhase in Conv_Taikyokusya.AllOptionalPhaseList)
                 {
                     // 盤上
                     Bitboard[] bbHairetu = new Bitboard[Conv_Komasyurui.Itiran.Length];
                     foreach (Komasyurui ks in Conv_Komasyurui.Itiran)
                     {
-                        bbHairetu[(int)ks] = shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(tai)), (Masu)ms);
+                        bbHairetu[(int)ks] = shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, optionalPhase), (Masu)ms);
                     }
-                    Util_Information.Setumei_Bitboards(Med_Koma.GetKomasyuruiNamaeItiran(OptionalPhase.From( tai)), bbHairetu, syuturyoku);
+                    Util_Information.Setumei_Bitboards(Med_Koma.GetKomasyuruiNamaeItiran(optionalPhase), bbHairetu, syuturyoku);
                     syuturyoku.AppendLine();
                 }
             }

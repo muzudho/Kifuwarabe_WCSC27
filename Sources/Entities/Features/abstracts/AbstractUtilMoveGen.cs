@@ -1122,7 +1122,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 KmRaion = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, ky.CurrentOptionalPhase)
             };
             var optionalOpponent = Conv_Taikyokusya.Reverse(jibunHioute.CurrentOptionalPhase);
-            var opponentIndex = OptionalPhase.ToInt(optionalOpponent);
+            var opponentIndex = OptionalPhase.IndexOf(optionalOpponent);
 
             Bitboard bb_aiteKiki = new Bitboard();
             Bitboard bb_aiteKoma = new Bitboard();// 相手番の駒がいる升
@@ -1135,7 +1135,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 Debug.Assert((int)Komasyurui.R < Conv_Komasyurui.Itiran.Length, "");
 
 
-                Debug.Assert(OptionalPhase.ToInt(jibunHioute.CurrentOptionalPhase) < Conv_Taikyokusya.Itiran.Length, "");
+                Debug.Assert(OptionalPhase.IndexOf(jibunHioute.CurrentOptionalPhase) < Conv_Taikyokusya.AllOptionalPhaseList.Length, "");
 
                 Debug.Assert((int)jibunHioute.FriendRaionMs < ky.Sindan.MASU_YOSOSU, "");
 
@@ -1148,7 +1148,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 jibunHioute.FriendKomaBB.Set(ky.Shogiban.GetBBKomaZenbu(jibunHioute.CurrentOptionalPhase));
 
                 // 相手番の利き
-                Debug.Assert(opponentIndex < Conv_Taikyokusya.Itiran.Length, "");
+                Debug.Assert(opponentIndex < Conv_Taikyokusya.AllOptionalPhaseList.Length, "");
                 bb_aiteKiki.Set(ky.Shogiban.GetBBKikiZenbu(optionalOpponent));
 
                 // らいおんが逃げれる８近傍の升☆（＾▽＾）
@@ -1345,9 +1345,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             }
 
             var optionalPhase = ky.Sindan.CurrentOptionalPhase;
-            var phaseIndex = OptionalPhase.ToInt(optionalPhase);
+            var phaseIndex = OptionalPhase.IndexOf(optionalPhase);
             var optionalOpponent = Conv_Taikyokusya.Reverse(optionalPhase);
-            var opponentIndex = OptionalPhase.ToInt(optionalPhase);
+            var opponentIndex = OptionalPhase.IndexOf(optionalPhase);
 
 
             // 手番側が、王手回避が必要かどうか調べたいぜ☆（＾～＾）

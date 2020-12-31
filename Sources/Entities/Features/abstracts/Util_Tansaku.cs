@@ -194,7 +194,7 @@ using System.Text;
                 // 探索が始まる前に定跡、成績を使うぜ☆（＾▽＾）
                 // まず、定跡を使う、使わないの判断だぜ☆（＾～＾）
                 bool useJoseki = false;
-                switch (Option_Application.Optionlist.PNChar[OptionalPhase.ToInt( ky.CurrentOptionalPhase)])
+                switch (Option_Application.Optionlist.PNChar[OptionalPhase.IndexOf( ky.CurrentOptionalPhase)])
                 {
                     // 「探索のみ」のやつは定跡を使わないんだぜ☆（＾▽＾）
                     case MoveCharacter.TansakuNomi: goto gt_NotUseJoseki;
@@ -220,7 +220,7 @@ using System.Text;
 #endif
                     // 定跡の中には、負けるのが入っているぜ☆（＾～＾）
                     // 勝率も見た方がいいのでは☆（＾～＾）？
-                    switch (Option_Application.Optionlist.PNChar[OptionalPhase.ToInt( ky.CurrentOptionalPhase)])
+                    switch (Option_Application.Optionlist.PNChar[OptionalPhase.IndexOf( ky.CurrentOptionalPhase)])
                     {
                         case MoveCharacter.SinteYusen://thru
                         case MoveCharacter.SinteNomi:

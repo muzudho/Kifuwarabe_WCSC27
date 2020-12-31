@@ -74,10 +74,10 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             }
 
             // 手番
-            m_tbTaikyokusya_ = new ulong[Conv_Taikyokusya.Itiran.Length];
-            foreach (Taikyokusya iTb in Conv_Taikyokusya.Itiran)
+            m_tbTaikyokusya_ = new ulong[Conv_Taikyokusya.AllOptionalPhaseList.Length];
+            foreach (var optionalPhase78 in Conv_Taikyokusya.AllOptionalPhaseList)
             {
-                m_tbTaikyokusya_[(int)iTb] = (ulong)(Option_Application.Random.NextDouble() * ulong.MaxValue);
+                m_tbTaikyokusya_[OptionalPhase.IndexOf(optionalPhase78)] = (ulong)(Option_Application.Random.NextDouble() * ulong.MaxValue);
             }
 
             Dirty = false;
@@ -137,7 +137,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 Util_ZobristHashing.Tukurinaosi(kys);
             }
 
-            return Util_ZobristHashing.m_tbTaikyokusya_[OptionalPhase.ToInt(optionalPhase)];
+            return Util_ZobristHashing.m_tbTaikyokusya_[OptionalPhase.IndexOf(optionalPhase)];
         }
     }
 }

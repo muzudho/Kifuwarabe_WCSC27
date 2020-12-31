@@ -898,7 +898,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             if (Option_Application.Optionlist.SeisekiRec)// 今回指した手全てに、成績を付けたいぜ☆（＾～＾）
             {
                 int teme = ky.Konoteme.ScanNantemadeBango();
-                if (Util_Taikyoku.PNNantedume_Teme[OptionalPhase.ToInt( ky.CurrentOptionalPhase)] <= teme)
+                if (Util_Taikyoku.PNNantedume_Teme[OptionalPhase.IndexOf( ky.CurrentOptionalPhase)] <= teme)
                 {
                     // 何手詰め、何手詰められ　の表記が出て以降の成績を記録するぜ☆（＾～＾）
 
@@ -1068,9 +1068,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             if (Option_Application.Optionlist.RandomCharacter)
             {
                 // コンピューター対局者の性格は　ころころ変えるぜ☆（＾▽＾）
-                for (int iTb = 0; iTb < Conv_Taikyokusya.Itiran.Length; iTb++)
+                for (int iPhase = 0; iPhase < Conv_Taikyokusya.AllOptionalPhaseList.Length; iPhase++)
                 {
-                    Option_Application.Optionlist.PNChar[(int)Conv_Taikyokusya.Itiran[iTb]] = AbstractConvMoveCharacter.Items[Option_Application.Random.Next(AbstractConvMoveCharacter.Items.Length)];
+                    Option_Application.Optionlist.PNChar[iPhase] = AbstractConvMoveCharacter.Items[Option_Application.Random.Next(AbstractConvMoveCharacter.Items.Length)];
                 }
             }
 

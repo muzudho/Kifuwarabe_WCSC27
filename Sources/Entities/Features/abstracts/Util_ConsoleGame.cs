@@ -76,7 +76,7 @@
 #endif
             Conv_Taikyokusya.Setumei_Name( ky.CurrentOptionalPhase, syuturyoku);
             syuturyoku.Append("（");
-            syuturyoku.Append(Option_Application.Optionlist.PNChar[OptionalPhase.ToInt( ky.CurrentOptionalPhase)].ToString());
+            syuturyoku.Append(Option_Application.Optionlist.PNChar[OptionalPhase.IndexOf( ky.CurrentOptionalPhase)].ToString());
             syuturyoku.Append("）の思考中（＾～＾）");
             Logger.Flush(syuturyoku.ToString());
             syuturyoku.Clear();

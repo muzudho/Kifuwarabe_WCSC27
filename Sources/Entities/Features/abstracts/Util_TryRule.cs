@@ -35,7 +35,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <returns></returns>
         public static Bitboard GetTrySaki(Kyokumen ky, Bitboard kikiBB, Option<Phase> optionalPhase, Masu ms1, StringBuilder syuturyoku)
         {
-            var phaseIndex = OptionalPhase.ToInt(optionalPhase);
+            var phaseIndex = OptionalPhase.IndexOf(optionalPhase);
 
             Util_Test.AppendLine("テスト：　トライルール", syuturyoku);
             m_trySakiBB_.Clear();

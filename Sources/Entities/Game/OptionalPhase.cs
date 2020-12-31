@@ -44,7 +44,7 @@ namespace Grayscale.Kifuwarakei.Entities.Game
                     throw new Exception($"tai={tai} is fail.");
             }
         }
-        public static int ToInt(Option<Phase> optionalPhase)
+        public static int IndexOf(Option<Phase> optionalPhase)
         {
             var (exists, phase) = optionalPhase.Match;
             if (exists)

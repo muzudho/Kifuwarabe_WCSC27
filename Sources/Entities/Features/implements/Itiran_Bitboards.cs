@@ -51,9 +51,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
             // 盤上
             Bitboard komaBB = new Bitboard();
-            for (int iTai = 0; iTai < Conv_Taikyokusya.Itiran.Length; iTai++)
+            for (int iTai = 0; iTai < Conv_Taikyokusya.AllOptionalPhaseList.Length; iTai++)
             {
-                var optionalPhase = OptionalPhase.From( Conv_Taikyokusya.Itiran[iTai]);
+                var optionalPhase = Conv_Taikyokusya.AllOptionalPhaseList[iTai];
                 for (int iKs = 0; iKs < Conv_Komasyurui.Itiran.Length; iKs++)
                 {
                     Komasyurui ks = Conv_Komasyurui.Itiran[iKs];
@@ -70,7 +70,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             foreach (MotiKoma mk in Conv_MotiKoma.Itiran)
             {
                 var optionalPhase = Med_Koma.MotiKomaToPhase(mk);
-                var phaseIndex = OptionalPhase.ToInt(optionalPhase);
+                var phaseIndex = OptionalPhase.IndexOf(optionalPhase);
                 MotiKomasyurui mks = Med_Koma.MotiKomaToMotiKomasyrui(mk);
                 Hyokati komaHyokati = Conv_Hyokati.KomaHyokati[(int)Med_Koma.MotiKomasyuruiAndPhaseToKoma(mks, optionalPhase)];
 
@@ -86,11 +86,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
         public Hyokati Get(Option<Phase> phase)
         {
-            return this.KomawariHyokati_Sabun[OptionalPhase.ToInt(phase)];
+            return this.KomawariHyokati_Sabun[OptionalPhase.IndexOf(phase)];
         }
         public void Increase(Option<Phase> optionalPhase, Hyokati henkaRyo)
         {
-            this.KomawariHyokati_Sabun[OptionalPhase.ToInt(optionalPhase)] += (int)henkaRyo;
+            this.KomawariHyokati_Sabun[OptionalPhase.IndexOf(optionalPhase)] += (int)henkaRyo;
         }
         /// <summary>
         /// 差分更新で使う☆（＾▽＾）駒取り☆

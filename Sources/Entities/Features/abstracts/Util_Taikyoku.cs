@@ -24,7 +24,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
         public static void Update(Hyokati hyokati, Option<Phase> optionalPhase, int teme)
         {
-            var phaseIndex = OptionalPhase.ToInt(optionalPhase);
+            var phaseIndex = OptionalPhase.IndexOf(optionalPhase);
 
             if (Conv_Hyokati.InTumeTesu(hyokati))
             {

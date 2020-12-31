@@ -823,10 +823,10 @@ P2差分  =[{hyokati2}]
             saikeisan.Tukurinaosi_1_Clear_KikiKomabetu();
             saikeisan.Tukurinaosi_2_Input_KikiKomabetu(kys);
 
-            foreach (Taikyokusya tai in Conv_Taikyokusya.Itiran)// 対局者１、対局者２
+            foreach (var optionalPhase in Conv_Taikyokusya.AllOptionalPhaseList)// 対局者１、対局者２
             {
                 int iKm = 0;//どの駒でエラーがあったか
-                foreach (Koma km in Conv_Koma.ItiranTai[(int)tai])
+                foreach (Koma km in Conv_Koma.ItiranTai[OptionalPhase.IndexOf(optionalPhase)])
                 {
                     if (!kys.EqualsKiki(km, saikeisan))//現行版と、再計算版の比較
                     {
@@ -849,13 +849,13 @@ P2差分  =[{hyokati2}]
                     //    sindan1.AppendLine($"Util_Tansaku.TansakuTyakusyuEdas=[{Util_Tansaku.TansakuTyakusyuEdas}]");
                     //}
 
-                    sindan1.Append(message); sindan1.Append("【エラー】"); Conv_Taikyokusya.Setumei_Name(OptionalPhase.From( tai), sindan1); sindan1.AppendLine();
+                    sindan1.Append(message); sindan1.Append("【エラー】"); Conv_Taikyokusya.Setumei_Name( optionalPhase, sindan1); sindan1.AppendLine();
                     sindan1.AppendLine($"iKm=[{iKm}]");
 
                     sindan1.AppendLine("利き：（再計算）");
-                    Util_Information.Setumei_Bitboards(Med_Koma.GetKomasyuruiNamaeItiran(OptionalPhase.From( tai)), saikeisan.WhereBBKiki(OptionalPhase.From(tai)), sindan1);
+                    Util_Information.Setumei_Bitboards(Med_Koma.GetKomasyuruiNamaeItiran( optionalPhase), saikeisan.WhereBBKiki(optionalPhase), sindan1);
 
-                    kys.Setumei_GenkoKiki(OptionalPhase.From(tai), sindan1); // 利き：（現行）
+                    kys.Setumei_GenkoKiki(optionalPhase, sindan1); // 利き：（現行）
 
                     var msg = sindan1.ToString();
                     sindan1.Clear();

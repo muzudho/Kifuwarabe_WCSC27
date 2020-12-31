@@ -10,9 +10,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// <summary>
         /// 対局者一覧
         /// </summary>
-        public static readonly Taikyokusya[] Itiran = {
-            Taikyokusya.T1,
-            Taikyokusya.T2
+        public static readonly Option<Phase>[] AllOptionalPhaseList = {
+            OptionalPhase.Black,
+            OptionalPhase.White
             };
         public static readonly string[] NamaeItiran =
         {
@@ -52,7 +52,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         static string[] m_sfen_ = { "b", "w", "x" };
         public static string ToFen(bool isSfen, Option<Phase> optionalPhase)
         {
-            var phaseIndex = OptionalPhase.ToInt(optionalPhase);
+            var phaseIndex = OptionalPhase.IndexOf(optionalPhase);
             return isSfen ? Conv_Taikyokusya.m_sfen_[phaseIndex] : Conv_Taikyokusya.m_dfen_[phaseIndex];
         }
 
@@ -103,12 +103,12 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         };
         public static void TusinYo(Option<Phase> optionalPhase, StringBuilder syuturyoku)
         {
-            syuturyoku.Append(Conv_Taikyokusya.m_tusinYo_[OptionalPhase.ToInt(optionalPhase)]);
+            syuturyoku.Append(Conv_Taikyokusya.m_tusinYo_[OptionalPhase.IndexOf(optionalPhase)]);
         }
 
         public static bool IsOk(Option<Phase> optionalPhase)
         {
-            var phaseIndex = OptionalPhase.ToInt(optionalPhase);
+            var phaseIndex = OptionalPhase.IndexOf(optionalPhase);
             return (int)Phase.Black <= phaseIndex && phaseIndex <= (int)Phase.White;
         }
     }

@@ -11,8 +11,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
     {
         static Med_Koma()
         {
-            komasyuruiNamaeItiran = new string[Conv_Taikyokusya.Itiran.Length][];
-            for (int iTai = 0; iTai < Conv_Taikyokusya.Itiran.Length; iTai++)
+            komasyuruiNamaeItiran = new string[Conv_Taikyokusya.AllOptionalPhaseList.Length][];
+            for (int iTai = 0; iTai < Conv_Taikyokusya.AllOptionalPhaseList.Length; iTai++)
             {
                 komasyuruiNamaeItiran[iTai] = new string[Conv_Komasyurui.Itiran.Length];
                 int iKs = 0;
@@ -31,11 +31,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         static string[][] komasyuruiNamaeItiran;
         public static string[] GetKomasyuruiNamaeItiran(Option<Phase> optionalPhase)
         {
-            return komasyuruiNamaeItiran[OptionalPhase.ToInt(optionalPhase)];
+            return komasyuruiNamaeItiran[OptionalPhase.IndexOf(optionalPhase)];
         }
         public static string GetKomasyuruiNamae(Option<Phase> optionalPhase, Komasyurui ks)
         {
-            return komasyuruiNamaeItiran[OptionalPhase.ToInt(optionalPhase)][(int)ks];
+            return komasyuruiNamaeItiran[OptionalPhase.IndexOf(optionalPhase)][(int)ks];
         }
 
 
@@ -300,7 +300,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         };
         public static MotiKoma KomasyuruiAndTaikyokusyaToMotiKoma(Komasyurui ks, Option<Phase> optionalPhase)
         {
-            return Med_Koma.m_KomasyuruiAndTaikyokusyaToMotiKoma_[(int)ks, OptionalPhase.ToInt(optionalPhase)];
+            return Med_Koma.m_KomasyuruiAndTaikyokusyaToMotiKoma_[(int)ks, OptionalPhase.IndexOf(optionalPhase)];
         }
 
         #region 駒種類と手番→駒
@@ -324,7 +324,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         };
         public static Koma KomasyuruiAndTaikyokusyaToKoma(Komasyurui ks, Option<Phase> optionalPhase)
         {
-            return Med_Koma.m_KomasyuruiAndTaikyokusyaToKoma_[(int)ks, OptionalPhase.ToInt(optionalPhase)];
+            return Med_Koma.m_KomasyuruiAndTaikyokusyaToKoma_[(int)ks, OptionalPhase.IndexOf(optionalPhase)];
         }
         #endregion
 
@@ -572,7 +572,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         };
         public static MotiKoma MotiKomasyuruiAndPhaseToMotiKoma(MotiKomasyurui mks, Option<Phase> phase)
         {
-            return m_MotiKomasyuruiAndPhaseToMotiKoma_[(int)mks, OptionalPhase.ToInt(phase)];
+            return m_MotiKomasyuruiAndPhaseToMotiKoma_[(int)mks, OptionalPhase.IndexOf(phase)];
         }
         #endregion
 
@@ -605,7 +605,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         };
         public static Koma MotiKomasyuruiAndPhaseToKoma(MotiKomasyurui mks, Option<Phase> optionalPhase)
         {
-            return Med_Koma.m_MotiKomasyuruiAndPhaseToKoma_[(int)mks, OptionalPhase.ToInt(optionalPhase)];
+            return Med_Koma.m_MotiKomasyuruiAndPhaseToKoma_[(int)mks, OptionalPhase.IndexOf(optionalPhase)];
         }
     }
 }

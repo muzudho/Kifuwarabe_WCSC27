@@ -108,9 +108,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
                 // 盤上
                 bb_koma_forMotikomaHash.Clear();
-                for (int iTai = 0; iTai < Conv_Taikyokusya.Itiran.Length; iTai++)
+                for (int iTai = 0; iTai < Conv_Taikyokusya.AllOptionalPhaseList.Length; iTai++)
                 {
-                    var optionalPhase = OptionalPhase.From( Conv_Taikyokusya.Itiran[iTai]);
+                    var optionalPhase =  Conv_Taikyokusya.AllOptionalPhaseList[iTai];
                     for (int iKs = 0; iKs < Conv_Komasyurui.Itiran.Length; iKs++)
                     {
                         Komasyurui ks = Conv_Komasyurui.Itiran[iKs];
@@ -1750,7 +1750,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             Debug.Assert(MotiKomas.GetArrayLength() == motiKomas1.Length, "局面の一致判定");
 
             // 盤上の一致判定
-            for (int iTai = 0; iTai < Conv_Taikyokusya.Itiran.Length; iTai++)
+            for (int iTai = 0; iTai < Conv_Taikyokusya.AllOptionalPhaseList.Length; iTai++)
             {
                 var optionalPhase = OptionalPhase.From(iTai);
 
@@ -1957,7 +1957,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
                 // 手番もひっくり返そうぜ☆（＾▽＾）
                 {
-                    r = Option_Application.Random.Next(Conv_Taikyokusya.Itiran.Length);
+                    r = Option_Application.Random.Next(Conv_Taikyokusya.AllOptionalPhaseList.Length);
                     if (0 == r)
                     {
                         this.CurrentOptionalPhase = Conv_Taikyokusya.Reverse(this.CurrentOptionalPhase);
@@ -2483,9 +2483,9 @@ SEE>ここまで止めると想定し、SEEを 0 から計算しなおすぜ☆(
         public bool IsSyobuNasi()
         {
             var optionalPhase = CurrentOptionalPhase;
-            var phaseIndex = OptionalPhase.ToInt(optionalPhase);
+            var phaseIndex = OptionalPhase.IndexOf(optionalPhase);
             var optionalOpponent = Conv_Taikyokusya.Reverse(optionalPhase);
-            var opponentIndex = OptionalPhase.ToInt(optionalOpponent);
+            var opponentIndex = OptionalPhase.IndexOf(optionalOpponent);
             Koma jibunRaion = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, optionalPhase);
             Koma aiteRaion = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, optionalOpponent);
             return Shogiban.IsEmptyBBKoma(jibunRaion)// （Ａ）自分のらいおんがいない☆

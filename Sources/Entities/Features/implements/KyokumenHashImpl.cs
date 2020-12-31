@@ -22,13 +22,13 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
             // 盤上
             Bitboard komaBB = new Bitboard();
-            for (int iTai = 0; iTai < Conv_Taikyokusya.Itiran.Length; iTai++)
+            for (int iTai = 0; iTai < Conv_Taikyokusya.AllOptionalPhaseList.Length; iTai++)
             {
-                Taikyokusya tai = Conv_Taikyokusya.Itiran[iTai];
+                var optionalPhase = Conv_Taikyokusya.AllOptionalPhaseList[iTai];
                 for (int iKs = 0; iKs < Conv_Komasyurui.Itiran.Length; iKs++)
                 {
                     Komasyurui ks = Conv_Komasyurui.Itiran[iKs];
-                    Koma km = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(tai));
+                    Koma km = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, optionalPhase);
 
                     ky.Shogiban.ToSet_BBKoma(km, komaBB);
                     while (komaBB.Ref_PopNTZ(out Masu ms))
