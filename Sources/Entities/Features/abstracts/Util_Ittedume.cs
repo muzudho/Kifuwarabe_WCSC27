@@ -153,7 +153,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 ky.Shogiban.N100_FuyasuKiki(km_t1, ky.Sindan.CloneKomanoUgoki(km_t1, ms_t1), ky.Sindan);// 移動先の駒の利きを増やすぜ☆（＾▽＾）
 
                 // こっちの利きを作り直し
-                bb_jibunKikiNew = ky.Shogiban.ToBitboard_KikisuZenbuPositiveNumber(OptionalPhase.From(Med_Koma.MotiKomaToTaikyokusya(mk)), ky.Sindan);
+                bb_jibunKikiNew = ky.Shogiban.ToBitboard_KikisuZenbuPositiveNumber(Med_Koma.MotiKomaToPhase(mk), ky.Sindan);
 
                 // 打による、重ね利きの数の差分更新を元に戻すぜ☆（＾▽＾）
                 // , ky.BB_KikiZenbu

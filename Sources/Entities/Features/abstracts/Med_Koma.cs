@@ -419,7 +419,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
         public static Koma MotiKomaToKoma(MotiKoma mk)
         {
-            return MotiKomasyuruiAndPhaseToKoma(MotiKomaToMotiKomasyrui(mk), OptionalPhase.From( MotiKomaToTaikyokusya(mk)));
+            return MotiKomasyuruiAndPhaseToKoma(MotiKomaToMotiKomasyrui(mk),  MotiKomaToPhase(mk));
         }
 
         #region 持駒→駒種類
@@ -536,9 +536,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             // 要素の個数、または　どの駒の種類にも当てはまらない場合☆（＾▽＾）ｗｗｗ
             Taikyokusya.Yososu,
         };
-        public static Taikyokusya MotiKomaToTaikyokusya(MotiKoma mk)
+        public static Option<Phase> MotiKomaToPhase(MotiKoma mk)
         {
-            return Med_Koma.m_MotiKomaToTaikyokusya_[(int)mk];
+            return OptionalPhase.From( Med_Koma.m_MotiKomaToTaikyokusya_[(int)mk]);
         }
         #endregion
 

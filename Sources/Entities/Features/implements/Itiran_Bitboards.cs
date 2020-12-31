@@ -69,11 +69,12 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             // 持ち駒
             foreach (MotiKoma mk in Conv_MotiKoma.Itiran)
             {
-                Taikyokusya tai = Med_Koma.MotiKomaToTaikyokusya(mk);
+                var optionalPhase = Med_Koma.MotiKomaToPhase(mk);
+                var phaseIndex = OptionalPhase.ToInt(optionalPhase);
                 MotiKomasyurui mks = Med_Koma.MotiKomaToMotiKomasyrui(mk);
-                Hyokati komaHyokati = Conv_Hyokati.KomaHyokati[(int)Med_Koma.MotiKomasyuruiAndPhaseToKoma(mks, OptionalPhase.From( tai))];
+                Hyokati komaHyokati = Conv_Hyokati.KomaHyokati[(int)Med_Koma.MotiKomasyuruiAndPhaseToKoma(mks, optionalPhase)];
 
-                hyokati[(int)tai] += (int)komaHyokati * kys.CountMotikoma(mk);
+                hyokati[phaseIndex] += (int)komaHyokati * kys.CountMotikoma(mk);
             }
 
             // 手番 - 相手番

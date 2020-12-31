@@ -1799,8 +1799,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 foreach (MotiKoma mk in Conv_MotiKoma.Itiran)
                 {
                     MotiKomasyurui mks = Med_Koma.MotiKomaToMotiKomasyrui(mk);
-                    Taikyokusya tai = Med_Koma.MotiKomaToTaikyokusya(mk);
-                    MotiKoma hantenMotikoma = Med_Koma.MotiKomasyuruiAndPhaseToMotiKoma(mks,  Conv_Taikyokusya.Reverse(OptionalPhase.From( tai)));
+                    var optionalPhase = Med_Koma.MotiKomaToPhase(mk);
+                    MotiKoma hantenMotikoma = Med_Koma.MotiKomasyuruiAndPhaseToMotiKoma(mks,  Conv_Taikyokusya.Reverse( optionalPhase));
                     tmp.Set(mk, MotiKomas.Get(hantenMotikoma));
                 }
                 MotiKomas.Set(tmp);
