@@ -128,7 +128,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
             public int CountMotikoma(MotiKoma mk) { return Hontai.MotiKomas.Get(mk); }
 
-            public (bool, Taikyokusya) ExistsKomaZenbu(Masu ms_ibasho)
+            public (bool, Option<Phase>) ExistsKomaZenbu(Masu ms_ibasho)
             {
                 return Hontai.Shogiban.ExistsBBKomaZenbu(ms_ibasho);
             }
@@ -566,12 +566,12 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
         public Koma GetBanjoKoma(Masu ms)
         {
-            var (exists, tai) = Shogiban.ExistsBBKomaZenbu(ms);
+            var (exists, optionalPhase) = Shogiban.ExistsBBKomaZenbu(ms);
             if (exists)
             {
-                if (Shogiban.ExistsBBKoma(OptionalPhase.From( tai), ms, out Komasyurui ks))
+                if (Shogiban.ExistsBBKoma( optionalPhase, ms, out Komasyurui ks))
                 {
-                    return Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(tai));
+                    return Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, optionalPhase);
                 }
             }
             return Koma.Kuhaku;
@@ -2035,7 +2035,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     {
                         Masu ms = (Masu)(iDan * Option_Application.Optionlist.BanYokoHaba + iSuji);
 
-                        var (exists, tai) = Shogiban.ExistsBBKomaZenbu(ms);
+                        var (exists, optionalPhase) = Shogiban.ExistsBBKomaZenbu(ms);
                         if (exists)
                         {
                             if (0 < space)
@@ -2044,8 +2044,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                                 space = 0;
                             }
 
-                            Shogiban.ExistsBBKoma(OptionalPhase.From( tai), ms, out Komasyurui ks);
-                            Conv_Koma.AppendFenTo(isSfen, Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From( tai)), syuturyoku);
+                            Shogiban.ExistsBBKoma( optionalPhase, ms, out Komasyurui ks);
+                            Conv_Koma.AppendFenTo(isSfen, Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks,  optionalPhase), syuturyoku);
                         }
                         else
                         {
@@ -2380,11 +2380,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     Komasyurui tottaKomasyurui;
                     Hyokati tottaKomaHyokati;
 
-                    var (exists, tai) = Shogiban.ExistsBBKomaZenbu(ms);
+                    var (exists, optionalPhase83) = Shogiban.ExistsBBKomaZenbu(ms);
                     if (exists)
                     {
-                        Shogiban.ExistsBBKoma(OptionalPhase.From( tai), ms, out tottaKomasyurui);
-                        tottaKomaHyokati = Conv_Hyokati.KomaHyokati[(int)Med_Koma.KomasyuruiAndTaikyokusyaToKoma(tottaKomasyurui, OptionalPhase.From(tai))];// Util_Hyokati.HyokaKomawari(tottaKomasyurui);
+                        Shogiban.ExistsBBKoma( optionalPhase83, ms, out tottaKomasyurui);
+                        tottaKomaHyokati = Conv_Hyokati.KomaHyokati[(int)Med_Koma.KomasyuruiAndTaikyokusyaToKoma(tottaKomasyurui, optionalPhase83)];// Util_Hyokati.HyokaKomawari(tottaKomasyurui);
                     }
                     else
                     {

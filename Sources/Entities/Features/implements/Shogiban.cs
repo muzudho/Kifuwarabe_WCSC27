@@ -124,13 +124,13 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 return false;
             }
             */
-            public (bool, Taikyokusya) Exists(Masu ms)
+            public (bool, Option<Phase>) Exists(Masu ms)
             {
                 for (int iTai = 0; iTai < Conv_Taikyokusya.Itiran.Length; iTai++)
                 {
-                    if (ValueTai[iTai].IsOn(ms)) { return (true, (Taikyokusya)iTai); }
+                    if (ValueTai[iTai].IsOn(ms)) { return (true, OptionalPhase.From(iTai)); }
                 }
-                return (false, Taikyokusya.Yososu); // この値は仕方なく入れてるだけで、使ってはいけないぜ☆（＾～＾）
+                return (false, Option<Phase>.None); // この値は仕方なく入れてるだけで、使ってはいけないぜ☆（＾～＾）
             }
 
             /*
@@ -1254,7 +1254,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             return BB_Kiki.IsActive();
         }
-        public (bool, Taikyokusya) ExistsBBKomaZenbu(Masu ms)
+        public (bool, Option<Phase>) ExistsBBKomaZenbu(Masu ms)
         {
             return BB_KomaZenbu.Exists(ms);
         }

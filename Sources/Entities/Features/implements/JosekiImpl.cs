@@ -919,7 +919,8 @@ commandline=[{ commandline }]");
             List<ulong> removeKeys = new List<ulong>();
             foreach (KeyValuePair<ulong, JosekiKyokumen> joKy in this.KyItems)
             {
-                if (joKy.Value.TbTaikyokusya == Taikyokusya.T2)
+                var (exists1, phase1) = OptionalPhase.From(joKy.Value.TbTaikyokusya).Match;
+                if (exists1 && phase1 == Phase.White)
                 {
                     removeKeys.Add(joKy.Key);
 

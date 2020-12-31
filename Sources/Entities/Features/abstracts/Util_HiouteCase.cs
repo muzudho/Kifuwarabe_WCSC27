@@ -18,12 +18,12 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
         public static void Setumei_Kiki(Kyokumen ky, Masu attackerMs, StringBuilder syuturyoku)
         {
-            var (exists, tai) = ky.Shogiban.ExistsBBKomaZenbu(attackerMs);
+            var (exists, optionalPhase) = ky.Shogiban.ExistsBBKomaZenbu(attackerMs);
             if (exists)
             {
-                ky.Shogiban.ExistsBBKoma( OptionalPhase.From( tai), attackerMs, out Komasyurui ks);
+                ky.Shogiban.ExistsBBKoma( optionalPhase, attackerMs, out Komasyurui ks);
                 Util_Information.Setumei_1Bitboard("利き",
-                    Util_Application.Kiki_BB(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(tai)), attackerMs, ky.Shogiban)//利き
+                    Util_Application.Kiki_BB(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, optionalPhase), attackerMs, ky.Shogiban)//利き
                     , syuturyoku);
             }
         }
