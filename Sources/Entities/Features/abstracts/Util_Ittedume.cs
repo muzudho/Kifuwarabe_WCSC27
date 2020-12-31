@@ -31,7 +31,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             Debug.Assert(ky.Sindan.IsBanjo(ms_t1), "升エラー");
 
-            Taikyokusya aite = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(phase));
+            var optionalOpponent = Conv_Taikyokusya.Reverse(phase);
 
             // 動かす駒
             if (!ky.Shogiban.ExistsBBKoma(phase, ms_t0, out Komasyurui ks_t0))
@@ -58,7 +58,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             //　└──┴──┴──┘
 
             // 動かしたばかりの駒を　取り返されるようでは、一手詰めは成功しないぜ☆（＾～＾）（ステイルメイト除く）
-            if (1 < ky.Shogiban.CountKikisuZenbu(OptionalPhase.From( aite), ms_t1))
+            if (1 < ky.Shogiban.CountKikisuZenbu(optionalOpponent, ms_t1))
             {
                 // 移動先升は、相手らいおん　の利きも　１つ　あるはず。
                 // 移動先升に　相手の利きが２つあれば、駒を取り返される☆
@@ -94,7 +94,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
             return
                 aiteHioute.FriendRaion8KinboBB.Clone()// 相手らいおん　が逃げれる、相手らいおんの周りの空白
-                .Sitdown(ky.Shogiban.GetBBKomaZenbu(OptionalPhase.From( aite)))// 相手の駒がない升
+                .Sitdown(ky.Shogiban.GetBBKomaZenbu(optionalOpponent))// 相手の駒がない升
                 .Sitdown(bb_idogoKikiNew)// こっちの利きがない升
                 .IsEmpty();// がない場合、詰み☆
             ;
