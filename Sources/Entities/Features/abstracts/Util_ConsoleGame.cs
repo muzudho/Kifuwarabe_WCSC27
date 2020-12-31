@@ -8,6 +8,7 @@
 #else
     using System.Text;
     using Grayscale.Kifuwarakei.Entities.Game;
+    using Grayscale.Kifuwarakei.Entities.Language;
     using Grayscale.Kifuwarakei.Entities.Logging;
 #endif
     /// <summary>
@@ -139,7 +140,7 @@
         public static bool IsJosekiTraced { get; set; }
         public static string KyFen_before { get; set; }
         public static ulong KyHash_before { get; set; }
-        public static Taikyokusya KyTaikyokusya_before { get; set; }
+        public static Option<Phase> OptionalPhaseBeforeMove { get; set; }
 
         /// <summary>
         /// 定跡登録　初期化（ゲームセクション内）
@@ -149,14 +150,14 @@
             IsJosekiTraced = false;//毎回リセット☆（＾▽＾）
             KyFen_before = null;
             KyHash_before = 0;
-            KyTaikyokusya_before = Taikyokusya.Yososu;
+            OptionalPhaseBeforeMove = Option<Phase>.None;
             if (Util_Machine.IsEnableBoardSize() && Option_Application.Optionlist.JosekiRec)
             {
                 StringBuilder fenMojiretu = new StringBuilder();
                 ky.AppendFenTo(Option_Application.Optionlist.USI, fenMojiretu);
                 KyFen_before = fenMojiretu.ToString();
                 KyHash_before = ky.KyokumenHash.Value;
-                KyTaikyokusya_before = OptionalPhase.ToTaikyokusya( ky.CurrentOptionalPhase);
+                OptionalPhaseBeforeMove = ky.CurrentOptionalPhase;
             }
         }
         /// <summary>
@@ -170,7 +171,7 @@
                 );
 
                 // 定跡更新☆（＾▽＾）
-                Option_Application.Joseki.AddMove(KyFen_before, KyHash_before, OptionalPhase.From( KyTaikyokusya_before), inputMove,
+                Option_Application.Joseki.AddMove(KyFen_before, KyHash_before, OptionalPhaseBeforeMove, inputMove,
                     hyokatiUtiwake.EdaBest,// 指した直後の局面の点数
                     1,//人間は１手読み扱いで☆
                     Util_Application.VERSION,
@@ -221,7 +222,7 @@
                     }
 #endif
 
-                    Option_Application.Joseki.AddMove(KyFen_before, KyHash_before, OptionalPhase.From( KyTaikyokusya_before), bestMove, bestHyokati, Util_Tansaku.NekkoKaranoFukasa, Util_Application.VERSION, syuturyoku);
+                    Option_Application.Joseki.AddMove(KyFen_before, KyHash_before, OptionalPhaseBeforeMove, bestMove, bestHyokati, Util_Tansaku.NekkoKaranoFukasa, Util_Application.VERSION, syuturyoku);
                 }
             }
         }
