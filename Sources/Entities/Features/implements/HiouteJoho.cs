@@ -1,4 +1,5 @@
 ﻿using Grayscale.Kifuwarakei.Entities.Game;
+using Grayscale.Kifuwarakei.Entities.Language;
 
 namespace Grayscale.Kifuwarakei.Entities.Features
 {
@@ -25,7 +26,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         }
 
 
-        public Taikyokusya Taikyokusya { get; set; }
+        public Option<Phase> CurrentOptionalPhase { get; set; }
         public Koma KmRaion { get; set; }
         /// <summary>
         /// 王手回避が必要なら真。
@@ -138,7 +139,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             // 手番らいおん　の８近傍　のどこかに、重ね利きの数　０　が出来ていれば、
             // 逃げ道を開けると判定するぜ☆（＾▽＾）
             bool akeru = false;
-            Koma km_t0 = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks_aite, OptionalPhase.From(Taikyokusya));
+            Koma km_t0 = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks_aite, CurrentOptionalPhase);
             Koma km_t1 = km_t0;// FIXME: 成りを考慮していない
 
             // 重ね利きの数を差分更新するぜ☆（＾▽＾）
@@ -150,7 +151,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             nigemitiBB.Sitdown(FriendKomaBB);
             while (nigemitiBB.Ref_PopNTZ(out Masu ms_nigemiti))
             {
-                if (0 == ky.Shogiban.CountKikisuZenbu( Conv_Taikyokusya.Reverse(OptionalPhase.From( Taikyokusya)), ms_nigemiti))// 相手番の利きが無くなったか☆（＾▽＾）
+                if (0 == ky.Shogiban.CountKikisuZenbu( Conv_Taikyokusya.Reverse(CurrentOptionalPhase), ms_nigemiti))// 相手番の利きが無くなったか☆（＾▽＾）
                 {
                     akeru = true; // （＾▽＾）逃げ道が開いたぜ☆！
                     goto gt_EndLoop;

@@ -359,7 +359,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 case MoveType.N13_HippakuKaeriutiTe:
                     if (jibunHioute.HippakuKaeriutiTe)
                     {
-                        ky.Shogiban.ToSitdown_BBKikiZenbu(OptionalPhase.From( aiteHioute.Taikyokusya), idosakiBB);// らいおん　が自分から利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
+                        ky.Shogiban.ToSitdown_BBKikiZenbu( aiteHioute.CurrentOptionalPhase, idosakiBB);// らいおん　が自分から利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
 
                         if (idosakiBB.GetNTZ(out ms_ido)) // 攻めてきた駒（１つだけ）を取るということ☆
                         {
@@ -372,7 +372,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 case MoveType.N14_YoyuKaeriutiTe:
                     if (!jibunHioute.HippakuKaeriutiTe)
                     {
-                        ky.Shogiban.ToSitdown_BBKikiZenbu(OptionalPhase.From(aiteHioute.Taikyokusya), idosakiBB);// らいおん　が自分から利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
+                        ky.Shogiban.ToSitdown_BBKikiZenbu(aiteHioute.CurrentOptionalPhase, idosakiBB);// らいおん　が自分から利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
 
                         if (idosakiBB.GetNTZ(out ms_ido)) // 攻めてきた駒（１つだけ）を取るということ☆
                         {
@@ -385,7 +385,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 case MoveType.N17_RaionCatchChosa://thru
                 case MoveType.N12_RaionCatch:
                     {
-                        ky.Shogiban.ToSitdown_BBKikiZenbu(OptionalPhase.From(aiteHioute.Taikyokusya), idosakiBB);// らいおん　が自分から利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
+                        ky.Shogiban.ToSitdown_BBKikiZenbu(aiteHioute.CurrentOptionalPhase, idosakiBB);// らいおん　が自分から利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
                         if (idosakiBB.GetNTZ(out ms_ido)) // らいおん（１つだけ）を取るということ☆
                         {
                             if (MoveType.N17_RaionCatchChosa == sasiteType) { jibunHioute.RaionCatchChosa = true; return; } // 調査するだけなら、らいおんキャッチできることが分かったので終了☆（＾～＾）
@@ -399,7 +399,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 #region トライ
                 case MoveType.N16_Try:
                     {
-                        ky.Shogiban.ToSitdown_BBKikiZenbu(OptionalPhase.From(aiteHioute.Taikyokusya), idosakiBB);// らいおん　が自分から利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
+                        ky.Shogiban.ToSitdown_BBKikiZenbu(aiteHioute.CurrentOptionalPhase, idosakiBB);// らいおん　が自分から利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
 
                         Bitboard trysakiBB = Util_TryRule.GetTrySaki(ky, idosakiBB, optionalPhase, ms_src, syuturyoku);
                         if (trysakiBB.GetNTZ(out ms_ido))// トライはどこか１つ行けばいい
@@ -414,7 +414,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 case MoveType.N01_KomaWoToruTe:
                     {
                         idosakiBB.Sitdown(Util_TryRule.GetTrySaki(ky, idosakiBB, optionalPhase, ms_src, syuturyoku));// トライ　は除外するぜ☆（＾▽＾）
-                        ky.Shogiban.ToSitdown_BBKikiZenbu(OptionalPhase.From(aiteHioute.Taikyokusya), idosakiBB);// らいおん　が自分から利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
+                        ky.Shogiban.ToSitdown_BBKikiZenbu(aiteHioute.CurrentOptionalPhase, idosakiBB);// らいおん　が自分から利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
 
                         while (idosakiBB.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
                         {
@@ -433,7 +433,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 case MoveType.N08_HimotukiKanmanSasi:
                     {
                         idosakiBB.Sitdown(Util_TryRule.GetTrySaki(ky, idosakiBB, optionalPhase, ms_src, syuturyoku));// トライ　は除外するぜ☆（＾▽＾）
-                        ky.Shogiban.ToSitdown_BBKikiZenbu(OptionalPhase.From(aiteHioute.Taikyokusya), idosakiBB);// らいおん　が自分から相手の利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
+                        ky.Shogiban.ToSitdown_BBKikiZenbu(aiteHioute.CurrentOptionalPhase, idosakiBB);// らいおん　が自分から相手の利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
 
                         while (idosakiBB.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
                         {
@@ -512,7 +512,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 case MoveType.N06_SuteOteSasi:
                     {
                         // らいおんのいる升に、先後逆の自分の駒があると考えれば、その利きの場所と、今いる場所からの利きが重なれば、王手だぜ☆（＾▽＾）
-                        ky.Shogiban.ToSelect_KomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(aiteHioute.Taikyokusya)), aiteHioute.FriendRaionMs, idosakiBB);
+                        ky.Shogiban.ToSelect_KomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.CurrentOptionalPhase), aiteHioute.FriendRaionMs, idosakiBB);
 
                         while (idosakiBB.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
                         {
@@ -532,7 +532,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 case MoveType.N10_HimotukiOteSasi:
                     {
                         // らいおんのいる升に、先後逆の自分の駒があると考えれば、その利きの場所と、今いる場所からの利きが重なれば、王手だぜ☆（＾▽＾）
-                        idosakiBB.Select(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(aiteHioute.Taikyokusya)), aiteHioute.FriendRaionMs));
+                        idosakiBB.Select(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.CurrentOptionalPhase), aiteHioute.FriendRaionMs));
                         idosakiBB.Select(Util_Bitboard.CreateKikiZenbuBB_1KomaNozoku(ky, optionalPhase, ms_src)); // (2017-04-29 Add)紐を付ける☆
 
                         while (idosakiBB.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
@@ -569,7 +569,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 case MoveType.N08_HimotukiKanmanSasi:
                     {
                         // 王手も除外するぜ☆（＾▽＾）
-                        idosakiBB.Sitdown(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(aiteHioute.Taikyokusya)), aiteHioute.FriendRaionMs));
+                        idosakiBB.Sitdown(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.CurrentOptionalPhase), aiteHioute.FriendRaionMs));
 
                         while (idosakiBB.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
                         {
@@ -589,7 +589,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 case MoveType.N04_SuteKanmanSasi:
                     {
                         // 王手も除外するぜ☆（＾▽＾）
-                        idosakiBB.Sitdown(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(aiteHioute.Taikyokusya)), aiteHioute.FriendRaionMs));
+                        idosakiBB.Sitdown(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.CurrentOptionalPhase), aiteHioute.FriendRaionMs));
 
                         while (idosakiBB.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
                         {
@@ -682,7 +682,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 case MoveType.N10_HimotukiOteSasi:
                     {
                         // らいおんのいる升に、先後逆の自分の駒があると考えれば、その利きの場所と、今いる場所からの利きが重なれば、王手だぜ☆（＾▽＾）
-                        bb_idosakiCopy.Select(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(aiteHioute.Taikyokusya)), aiteHioute.FriendRaionMs));
+                        bb_idosakiCopy.Select(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.CurrentOptionalPhase), aiteHioute.FriendRaionMs));
                         bb_idosakiCopy.Select(Util_Bitboard.CreateKikiZenbuBB_1KomaNozoku(ky, optionalPhase, ms_src));// 紐を付ける☆
 
                         while (bb_idosakiCopy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
@@ -709,7 +709,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 case MoveType.N06_SuteOteSasi:
                     {
                         // 王手に限る☆
-                        bb_idosakiCopy.Select(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(aiteHioute.Taikyokusya)), aiteHioute.FriendRaionMs));
+                        bb_idosakiCopy.Select(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.CurrentOptionalPhase), aiteHioute.FriendRaionMs));
 
                         while (bb_idosakiCopy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
                         {
@@ -750,7 +750,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 case MoveType.N08_HimotukiKanmanSasi:
                     {
                         // 王手も除外するぜ☆（＾▽＾）
-                        bb_idosakiCopy.Sitdown(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(aiteHioute.Taikyokusya)), aiteHioute.FriendRaionMs));
+                        bb_idosakiCopy.Sitdown(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.CurrentOptionalPhase), aiteHioute.FriendRaionMs));
 
                         while (bb_idosakiCopy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
                         {
@@ -776,7 +776,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 case MoveType.N04_SuteKanmanSasi:
                     {
                         // 王手も除外するぜ☆（＾▽＾）
-                        bb_idosakiCopy.Sitdown(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(aiteHioute.Taikyokusya)), aiteHioute.FriendRaionMs));
+                        bb_idosakiCopy.Sitdown(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.CurrentOptionalPhase), aiteHioute.FriendRaionMs));
 
                         while (bb_idosakiCopy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
                         {
@@ -854,7 +854,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 #region 紐付王手指
                 case MoveType.N10_HimotukiOteSasi:
                     {
-                        bb_idosakiCopy.Select(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(aiteHioute.Taikyokusya)), aiteHioute.FriendRaionMs));// らいおんのいる升に、先後逆の自分の駒があると考えれば、その利きの場所と、今いる場所からの利きが重なれば、王手だぜ☆（＾▽＾）
+                        bb_idosakiCopy.Select(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.CurrentOptionalPhase), aiteHioute.FriendRaionMs));// らいおんのいる升に、先後逆の自分の駒があると考えれば、その利きの場所と、今いる場所からの利きが重なれば、王手だぜ☆（＾▽＾）
                         bb_idosakiCopy.Select(Util_Bitboard.CreateKikiZenbuBB_1KomaNozoku(ky, optionalPhase, ms_src));// 紐を付ける☆
 
                         while (bb_idosakiCopy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
@@ -875,7 +875,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 case MoveType.N06_SuteOteSasi:
                     {
                         // らいおんのいる升に、先後逆の自分の駒があると考えれば、その利きの場所と、今いる場所からの利きが重なれば、王手だぜ☆（＾▽＾）
-                        bb_idosakiCopy.Select(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(aiteHioute.Taikyokusya)), aiteHioute.FriendRaionMs));
+                        bb_idosakiCopy.Select(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.CurrentOptionalPhase), aiteHioute.FriendRaionMs));
 
                         // 2016-12-22 捨てだからと言って、紐を付けないとは限らない☆
                         bb_idosakiCopy.Sitdown(Util_Bitboard.CreateKikiZenbuBB_1KomaNozoku(ky, optionalPhase, ms_src));// 紐を付けない☆
@@ -913,7 +913,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 case MoveType.N08_HimotukiKanmanSasi:
                     {
                         // 王手も除外するぜ☆（＾▽＾）
-                        bb_idosakiCopy.Sitdown(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(aiteHioute.Taikyokusya)), aiteHioute.FriendRaionMs));
+                        bb_idosakiCopy.Sitdown(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.CurrentOptionalPhase), aiteHioute.FriendRaionMs));
 
                         while (bb_idosakiCopy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
                         {
@@ -933,7 +933,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 case MoveType.N04_SuteKanmanSasi:
                     {
                         // 王手も除外するぜ☆（＾▽＾）
-                        bb_idosakiCopy.Sitdown(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(aiteHioute.Taikyokusya)), aiteHioute.FriendRaionMs));
+                        bb_idosakiCopy.Sitdown(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.CurrentOptionalPhase), aiteHioute.FriendRaionMs));
 
                         while (bb_idosakiCopy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
                         {
@@ -997,7 +997,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                             {
                                 utuBB_copy.Set(utuBB_base);
                                 // 王手に限る。らいおんのいる升に、先後逆の自分の駒があると考えれば、その利きの場所と、今いる場所からの利きが重なれば、王手だぜ☆（＾▽＾）
-                                utuBB_copy.Select(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(aiteHioute.Taikyokusya)), aiteHioute.FriendRaionMs));
+                                utuBB_copy.Select(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.CurrentOptionalPhase), aiteHioute.FriendRaionMs));
                                 if (mks == MotiKomasyurui.H) { KesuNifu(phase, utuBB_copy, ky); } // 二歩防止
 
                                 while (utuBB_copy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
@@ -1026,7 +1026,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                             {
                                 utuBB_copy.Set(utuBB_base);
                                 // 王手を除く☆ らいおんのいる升に、先後逆の自分の駒があると考えれば、その利きの場所と、今いる場所からの利きが重なれば、王手だぜ☆（＾▽＾）
-                                utuBB_copy.Sitdown(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(aiteHioute.Taikyokusya)), aiteHioute.FriendRaionMs));
+                                utuBB_copy.Sitdown(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, aiteHioute.CurrentOptionalPhase), aiteHioute.FriendRaionMs));
                                 if (mks == MotiKomasyurui.H) { KesuNifu(phase, utuBB_copy, ky); } // 二歩防止
 
                                 while (utuBB_copy.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
@@ -1118,31 +1118,34 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             HiouteJoho jibunHioute = new HiouteJoho()
             {
-                Taikyokusya = OptionalPhase.ToTaikyokusya( ky.CurrentOptionalPhase),
+                CurrentOptionalPhase =  ky.CurrentOptionalPhase,
                 KmRaion = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, ky.CurrentOptionalPhase)
             };
-            var optionalOpponent = Conv_Taikyokusya.Reverse(OptionalPhase.From(jibunHioute.Taikyokusya));
+            var optionalOpponent = Conv_Taikyokusya.Reverse(jibunHioute.CurrentOptionalPhase);
             var opponentIndex = OptionalPhase.ToInt(optionalOpponent);
 
             Bitboard bb_aiteKiki = new Bitboard();
             Bitboard bb_aiteKoma = new Bitboard();// 相手番の駒がいる升
 
             //らいおんが盤上にいないこともあるぜ☆（＾▽＾）
-            if (ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, OptionalPhase.From(jibunHioute.Taikyokusya))).GetNTZ(out Masu ms_friendRaion_temp))
+            if (ky.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, jibunHioute.CurrentOptionalPhase)).GetNTZ(out Masu ms_friendRaion_temp))
             {
                 jibunHioute.FriendRaionMs = ms_friendRaion_temp;
                 // 手番らいおんの８近傍の升☆（＾▽＾）
                 Debug.Assert((int)Komasyurui.R < Conv_Komasyurui.Itiran.Length, "");
-                Debug.Assert((int)jibunHioute.Taikyokusya < Conv_Taikyokusya.Itiran.Length, "");
+
+
+                Debug.Assert(OptionalPhase.ToInt(jibunHioute.CurrentOptionalPhase) < Conv_Taikyokusya.Itiran.Length, "");
+
                 Debug.Assert((int)jibunHioute.FriendRaionMs < ky.Sindan.MASU_YOSOSU, "");
 
                 Bitboard bb_kinbo8 = new Bitboard();
-                bb_kinbo8.Set(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, OptionalPhase.From(jibunHioute.Taikyokusya)), jibunHioute.FriendRaionMs));
+                bb_kinbo8.Set(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, jibunHioute.CurrentOptionalPhase), jibunHioute.FriendRaionMs));
                 jibunHioute.FriendRaion8KinboBB = new Bitboard();
-                jibunHioute.FriendRaion8KinboBB.Set(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, OptionalPhase.From(jibunHioute.Taikyokusya)), jibunHioute.FriendRaionMs));
+                jibunHioute.FriendRaion8KinboBB.Set(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, jibunHioute.CurrentOptionalPhase), jibunHioute.FriendRaionMs));
 
                 // 味方の駒
-                jibunHioute.FriendKomaBB.Set(ky.Shogiban.GetBBKomaZenbu(OptionalPhase.From(jibunHioute.Taikyokusya)));
+                jibunHioute.FriendKomaBB.Set(ky.Shogiban.GetBBKomaZenbu(jibunHioute.CurrentOptionalPhase));
 
                 // 相手番の利き
                 Debug.Assert(opponentIndex < Conv_Taikyokusya.Itiran.Length, "");
@@ -1190,7 +1193,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                             // 手番をひっくり返して　利きを調べれば、そこに利かしている駒の場所が分かるぜ☆（＾▽＾）
                             // 相手番の駒の反対だから、手番の駒で調べるんだぜ☆（＾▽＾）
                             bb_fusagi8KinboKoma = new Bitboard();
-                            bb_fusagi8KinboKoma.Set(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks_fusagi8KinboKoma, OptionalPhase.From(jibunHioute.Taikyokusya)), ms_fusagiMiti));
+                            bb_fusagi8KinboKoma.Set(ky.Shogiban.GetKomanoUgokikata(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks_fusagi8KinboKoma, jibunHioute.CurrentOptionalPhase), ms_fusagiMiti));
                             bb_fusagi8KinboKoma.Select(bb_aiteKoma);
                             while (bb_fusagi8KinboKoma.Ref_PopNTZ(out Masu ms_fusagi8KinboKoma))
                             {
