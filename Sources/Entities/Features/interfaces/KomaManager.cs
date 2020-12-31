@@ -1,4 +1,5 @@
 ﻿using Grayscale.Kifuwarakei.Entities.Game;
+using Grayscale.Kifuwarakei.Entities.Language;
 using System.Text;
 
 namespace Grayscale.Kifuwarakei.Entities.Features
@@ -694,6 +695,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             return Koma.King1 <= km && km <= Koma.SpaceSq;
         }
+        /*
         /// <summary>
         /// 空白、要素数以外の駒
         /// </summary>
@@ -702,6 +704,17 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         public static bool IsOk(Koma km)
         {
             return Koma.King1 <= km && km < Koma.SpaceSq;
+        }
+        */
+        /// <summary>
+        /// 空白、要素数以外の駒
+        /// </summary>
+        /// <param name="optionalPiece"></param>
+        /// <returns></returns>
+        public static bool IsOk(Option<Piece> optionalPiece)
+        {
+            var pieceIndex = OptionalPiece.IndexOf(optionalPiece);
+            return (int)Koma.King1 <= pieceIndex && pieceIndex < (int)Koma.SpaceSq;
         }
     }
 
