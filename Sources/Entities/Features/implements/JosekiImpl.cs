@@ -78,7 +78,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         {
             this.Owner = owner;
             this.Fen = fen;
-            this.TbTaikyokusya = OptionalPhase.ToTaikyokusya(optionalPhase);
+            this.CurrentOptionalPhase = optionalPhase;
             this.SsItems = new Dictionary<Move, JosekiMove>();
         }
 
@@ -108,7 +108,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
         /// 例： kr1/1h1/1H1/1R1 K2z 1
         /// </summary>
         public string Fen { get; private set; }
-        public Taikyokusya TbTaikyokusya { get; private set; }
+
+        public Option<Phase> CurrentOptionalPhase { get; private set; }
 
         public JosekiMove AddMove(Move bestMove, Hyokati hyokati, int fukasa, int version)
         {
@@ -919,7 +920,7 @@ commandline=[{ commandline }]");
             List<ulong> removeKeys = new List<ulong>();
             foreach (KeyValuePair<ulong, JosekiKyokumen> joKy in this.KyItems)
             {
-                var (exists1, phase1) = OptionalPhase.From(joKy.Value.TbTaikyokusya).Match;
+                var (exists1, phase1) = joKy.Value.CurrentOptionalPhase.Match;
                 if (exists1 && phase1 == Phase.White)
                 {
                     removeKeys.Add(joKy.Key);
@@ -929,7 +930,7 @@ commandline=[{ commandline }]");
                         joP2.AddMove(
                             joKy.Value.Fen,
                             joKy.Key,
-                            OptionalPhase.From( joKy.Value.TbTaikyokusya),
+                            joKy.Value.CurrentOptionalPhase,
                             joSs.Key,
                             joSs.Value.Hyokati,
                             joSs.Value.Fukasa,
@@ -962,7 +963,7 @@ commandline=[{ commandline }]");
                     this.AddMove(
                         joKy.Value.Fen,
                         joKy.Key,
-                        OptionalPhase.From( joKy.Value.TbTaikyokusya),
+                        joKy.Value.CurrentOptionalPhase,
                         joSs.Key,
                         joSs.Value.Hyokati,
                         joSs.Value.Fukasa,
