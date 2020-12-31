@@ -110,14 +110,14 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 bb_koma_forMotikomaHash.Clear();
                 for (int iTai = 0; iTai < Conv_Taikyokusya.Itiran.Length; iTai++)
                 {
-                    Taikyokusya tai = Conv_Taikyokusya.Itiran[iTai];
+                    var optionalPhase = OptionalPhase.From( Conv_Taikyokusya.Itiran[iTai]);
                     for (int iKs = 0; iKs < Conv_Komasyurui.Itiran.Length; iKs++)
                     {
                         Komasyurui ks = Conv_Komasyurui.Itiran[iKs];
-                        bb_koma_forMotikomaHash.Set(Hontai.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From( tai))));
+                        bb_koma_forMotikomaHash.Set(Hontai.Shogiban.GetBBKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks,  optionalPhase)));
                         while (bb_koma_forMotikomaHash.Ref_PopNTZ(out Masu ms))
                         {
-                            MotiKomasyurui mks = Med_Koma.MotiKomaToMotiKomasyrui(Med_Koma.BanjoKomaToMotiKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, OptionalPhase.From(tai))));
+                            MotiKomasyurui mks = Med_Koma.MotiKomaToMotiKomasyrui(Med_Koma.BanjoKomaToMotiKoma(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks, optionalPhase)));
                             if (MotiKomasyurui.Yososu != mks) // らいおんなど、持ち駒にできないものを除く
                             {
                                 counts[(int)mks]++;
@@ -283,8 +283,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             BB_DanArray[3].LeftShift(3 * Option_Application.Optionlist.BanYokoHaba);
 
             BB_Try = new Bitboard[2];
-            BB_Try[(int)Taikyokusya.T1] = BB_DanArray[0];
-            BB_Try[(int)Taikyokusya.T2] = BB_DanArray[3];
+            BB_Try[(int)Phase.Black] = BB_DanArray[0];
+            BB_Try[(int)Phase.White] = BB_DanArray[3];
 
             Shogiban.Tukurinaosi_1_Clear_KomanoUgokikata(Sindan.MASU_YOSOSU);
             Shogiban.Tukurinaosi_2_Input_KomanoUgokikata(Sindan);
@@ -381,8 +381,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 }
                 // トライ段
                 {
-                    BB_Try[(int)Taikyokusya.T1] = BB_DanArray[0];
-                    BB_Try[(int)Taikyokusya.T2] = BB_DanArray[Option_Application.Optionlist.BanTateHaba - 1];
+                    BB_Try[(int)Phase.Black] = BB_DanArray[0];
+                    BB_Try[(int)Phase.White] = BB_DanArray[Option_Application.Optionlist.BanTateHaba - 1];
                 }
 
                 // 盤サイズ変更に伴い、作り直し
@@ -1972,11 +1972,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
             // らいおんの先後を調整するぜ☆（＾▽＾）
             {
-                Taikyokusya tb = Taikyokusya.T1;
+                Option<Phase> optionalPhase75 = OptionalPhase.Black;
                 r = Option_Application.Random.Next(2);
                 if (0 == r)
                 {
-                    tb = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(OptionalPhase.From( tb)));
+                    optionalPhase75 = Conv_Taikyokusya.Reverse(optionalPhase75);
                 }
 
                 for (int iMs1 = 0; iMs1 < this.Sindan.MASU_YOSOSU; iMs1++)
@@ -2001,7 +2001,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
                     if (Shogiban.ExistsBBKoma(Koma.R, (Masu)iMs1) || Shogiban.ExistsBBKoma(Koma.r, (Masu)iMs1))
                     {
-                        if (tb == Taikyokusya.T1)
+                        var (exists75, phase75) = optionalPhase75.Match;
+                        if (exists75 && phase75 == Phase.Black)
                         {
                             var ms1 = (Masu)iMs1;
                             var km1 = Koma.R;
@@ -2018,7 +2019,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                             Shogiban.N250_OkuBanjoKoma(isSfen, ms1, km1, true, Sindan);
                         }
 
-                        tb = OptionalPhase.ToTaikyokusya( Conv_Taikyokusya.Reverse(OptionalPhase.From( tb)));
+                        optionalPhase75 =  Conv_Taikyokusya.Reverse(optionalPhase75);
                     }
                 }
             }
