@@ -26,9 +26,19 @@ namespace Grayscale.Kifuwarakei.Entities.Game
                     throw new Exception($"phase={phase} is fail.");
             }
         }
-        public static Option<Phase> From(int tai)
+        public static Option<Phase> From(int phaseIndex)
         {
-            return From((Taikyokusya)tai);
+            switch (phaseIndex)
+            {
+                case 0:
+                    return OptionalPhase.Black;
+                case 1:
+                    return OptionalPhase.White;
+                case 2:
+                    return Option<Phase>.None;
+                default:
+                    throw new Exception($"phaseIndex={phaseIndex} is fail.");
+            }
         }
         public static Option<Phase> From(Taikyokusya tai)
         {
