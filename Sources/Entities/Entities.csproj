@@ -141,7 +141,7 @@
     <Compile Include="Game\OptionalPhase.cs" />
     <Compile Include="Game\OptionalPiece.cs" />
     <Compile Include="Game\Phase.cs" />
-    <Compile Include="Game\Piece.cs" />
+    <Compile Include="Take1Base\Piece.cs" />
     <Compile Include="Language\Option.cs" />
     <Compile Include="Game\Taikyokusya.cs" />
     <Compile Include="IPlaying.cs" />

@@ -1,4 +1,4 @@
-﻿namespace Grayscale.Kifuwarakei.Entities.Game
+﻿namespace Grayscale.Kifuwarakei.Entities.Take1Base
 {
     /// <summary>
     /// 先後付きの盤上の駒だぜ☆（＾▽＾）
@@ -8,71 +8,71 @@
         /// <summary>
         /// らいおん（対局者１，２）
         /// </summary>
-        King1, King2,
+        K1, K2,
 
         /// <summary>
         /// ぞう
         /// </summary>
-        Bishop1, Bishop2,
+        B1, B2,
 
         /// <summary>
         /// パワーアップぞう
         /// </summary>
-        ProBishop1, ProBishop2,
+        PB1, PB2,
 
         /// <summary>
         /// きりん
         /// </summary>
-        Rook1, Rook2,
+        R1, R2,
 
         /// <summary>
         /// パワーアップきりん
         /// </summary>
-        ProRook1, ProRook2,
+        PR1, PR2,
 
         /// <summary>
         /// ひよこ
         /// </summary>
-        Pawn1, Pawn2,
+        P1, P2,
 
         /// <summary>
         /// にわとり
         /// </summary>
-        ProPawn1, ProPawn2,
+        PP1, PP2,
 
         /// <summary>
         /// いぬ
         /// </summary>
-        Gold1, Gold2,
+        G1, G2,
 
         /// <summary>
         /// ねこ
         /// </summary>
-        Silver1, Silver2,
+        S1, S2,
 
         /// <summary>
         /// 成りねこ
         /// </summary>
-        ProSilver1, ProSilver2,
+        PS1, PS2,
 
         /// <summary>
         /// うさぎ
         /// </summary>
-        Knight1, Knight2,
+        N1, N2,
 
         /// <summary>
         /// 成りうさぎ
         /// </summary>
-        ProKnight1, ProKnight2,
+        PN1, PN2,
 
         /// <summary>
         /// いのしし
         /// </summary>
-        Lance1, Lance2,
+        L1, L2,
 
         /// <summary>
         /// 成りいのしし
         /// </summary>
-        ProLance1, ProLance2,
+        PL1, PL2,
     }
 }

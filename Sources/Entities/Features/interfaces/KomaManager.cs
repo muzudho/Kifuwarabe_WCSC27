@@ -1,6 +1,7 @@
 ﻿using Grayscale.Kifuwarakei.Entities.Game;
 using Grayscale.Kifuwarakei.Entities.Language;
 using System.Text;
+using Grayscale.Kifuwarakei.Entities.Take1Base;
 
 namespace Grayscale.Kifuwarakei.Entities.Features
 {

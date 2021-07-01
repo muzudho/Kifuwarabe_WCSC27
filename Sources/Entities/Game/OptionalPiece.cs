@@ -1,5 +1,6 @@
 ﻿using Grayscale.Kifuwarakei.Entities.Language;
 using System;
+using Grayscale.Kifuwarakei.Entities.Take1Base;
 
 namespace Grayscale.Kifuwarakei.Entities.Game
 {
@@ -7,34 +8,34 @@ namespace Grayscale.Kifuwarakei.Entities.Game
     {
         static OptionalPiece()
         {
-            King1 = new Option<Piece>(Piece.King1);
-            King2 = new Option<Piece>(Piece.King2);
-            Bishop1 = new Option<Piece>(Piece.Bishop1);
-            Bishop2 = new Option<Piece>(Piece.Bishop2);
-            ProBishop1 = new Option<Piece>(Piece.ProBishop1);
-            ProBishop2 = new Option<Piece>(Piece.ProBishop2);
-            Rook1 = new Option<Piece>(Piece.Rook1);
-            Rook2 = new Option<Piece>(Piece.Rook2);
-            ProRook1 = new Option<Piece>(Piece.ProRook1);
-            ProRook2 = new Option<Piece>(Piece.ProRook2);
-            Pawn1 = new Option<Piece>(Piece.Pawn1);
-            Pawn2 = new Option<Piece>(Piece.Pawn2);
-            ProPawn1 = new Option<Piece>(Piece.ProPawn1);
-            ProPawn2 = new Option<Piece>(Piece.ProPawn2);
-            Gold1 = new Option<Piece>(Piece.Gold1);
-            Gold2 = new Option<Piece>(Piece.Gold2);
-            Silver1 = new Option<Piece>(Piece.Silver1);
-            Silver2 = new Option<Piece>(Piece.Silver2);
-            ProSilver1 = new Option<Piece>(Piece.ProSilver1);
-            ProSilver2 = new Option<Piece>(Piece.ProSilver2);
-            Knight1 = new Option<Piece>(Piece.Knight1);
-            Knight2 = new Option<Piece>(Piece.Knight2);
-            ProKnight1 = new Option<Piece>(Piece.ProKnight1);
-            ProKnight2 = new Option<Piece>(Piece.ProKnight2);
-            Lance1 = new Option<Piece>(Piece.Lance1);
-            Lance2 = new Option<Piece>(Piece.Lance2);
-            ProLance1 = new Option<Piece>(Piece.ProLance1);
-            ProLance2 = new Option<Piece>(Piece.ProLance2);
+            King1 = new Option<Piece>(Piece.K1);
+            King2 = new Option<Piece>(Piece.K2);
+            Bishop1 = new Option<Piece>(Piece.B1);
+            Bishop2 = new Option<Piece>(Piece.B2);
+            ProBishop1 = new Option<Piece>(Piece.PB1);
+            ProBishop2 = new Option<Piece>(Piece.PB2);
+            Rook1 = new Option<Piece>(Piece.R1);
+            Rook2 = new Option<Piece>(Piece.R2);
+            ProRook1 = new Option<Piece>(Piece.PR1);
+            ProRook2 = new Option<Piece>(Piece.PR2);
+            Pawn1 = new Option<Piece>(Piece.P1);
+            Pawn2 = new Option<Piece>(Piece.P2);
+            ProPawn1 = new Option<Piece>(Piece.PP1);
+            ProPawn2 = new Option<Piece>(Piece.PP2);
+            Gold1 = new Option<Piece>(Piece.G1);
+            Gold2 = new Option<Piece>(Piece.G2);
+            Silver1 = new Option<Piece>(Piece.S1);
+            Silver2 = new Option<Piece>(Piece.S2);
+            ProSilver1 = new Option<Piece>(Piece.PS1);
+            ProSilver2 = new Option<Piece>(Piece.PS2);
+            Knight1 = new Option<Piece>(Piece.N1);
+            Knight2 = new Option<Piece>(Piece.N2);
+            ProKnight1 = new Option<Piece>(Piece.PN1);
+            ProKnight2 = new Option<Piece>(Piece.PN2);
+            Lance1 = new Option<Piece>(Piece.L1);
+            Lance2 = new Option<Piece>(Piece.L2);
+            ProLance1 = new Option<Piece>(Piece.PL1);
+            ProLance2 = new Option<Piece>(Piece.PL2);
         }
 
         public static readonly Option<Piece> King1;
@@ -70,34 +71,34 @@ namespace Grayscale.Kifuwarakei.Entities.Game
         {
             switch (piece)
             {
-                case Piece.King1: return OptionalPiece.King1;
-                case Piece.King2: return OptionalPiece.King2;
-                case Piece.Bishop1: return OptionalPiece.Bishop1;
-                case Piece.Bishop2: return OptionalPiece.Bishop2;
-                case Piece.ProBishop1: return OptionalPiece.ProBishop1;
-                case Piece.ProBishop2: return OptionalPiece.ProBishop2;
-                case Piece.Rook1: return OptionalPiece.Rook1;
-                case Piece.Rook2: return OptionalPiece.Rook2;
-                case Piece.ProRook1: return OptionalPiece.ProRook1;
-                case Piece.ProRook2: return OptionalPiece.ProRook2;
-                case Piece.Pawn1: return OptionalPiece.Pawn1;
-                case Piece.Pawn2: return OptionalPiece.Pawn2;
-                case Piece.ProPawn1: return OptionalPiece.ProPawn1;
-                case Piece.ProPawn2: return OptionalPiece.ProPawn2;
-                case Piece.Gold1: return OptionalPiece.Gold1;
-                case Piece.Gold2: return OptionalPiece.Gold2;
-                case Piece.Silver1: return OptionalPiece.Silver1;
-                case Piece.Silver2: return OptionalPiece.Silver2;
-                case Piece.ProSilver1: return OptionalPiece.ProSilver1;
-                case Piece.ProSilver2: return OptionalPiece.ProSilver2;
-                case Piece.Knight1: return OptionalPiece.Knight1;
-                case Piece.Knight2: return OptionalPiece.Knight2;
-                case Piece.ProKnight1: return OptionalPiece.ProKnight1;
-                case Piece.ProKnight2: return OptionalPiece.ProKnight2;
-                case Piece.Lance1: return OptionalPiece.Lance1;
-                case Piece.Lance2: return OptionalPiece.Lance2;
-                case Piece.ProLance1: return OptionalPiece.ProLance1;
-                case Piece.ProLance2: return OptionalPiece.ProLance2;
+                case Piece.K1: return OptionalPiece.King1;
+                case Piece.K2: return OptionalPiece.King2;
+                case Piece.B1: return OptionalPiece.Bishop1;
+                case Piece.B2: return OptionalPiece.Bishop2;
+                case Piece.PB1: return OptionalPiece.ProBishop1;
+                case Piece.PB2: return OptionalPiece.ProBishop2;
+                case Piece.R1: return OptionalPiece.Rook1;
+                case Piece.R2: return OptionalPiece.Rook2;
+                case Piece.PR1: return OptionalPiece.ProRook1;
+                case Piece.PR2: return OptionalPiece.ProRook2;
+                case Piece.P1: return OptionalPiece.Pawn1;
+                case Piece.P2: return OptionalPiece.Pawn2;
+                case Piece.PP1: return OptionalPiece.ProPawn1;
+                case Piece.PP2: return OptionalPiece.ProPawn2;
+                case Piece.G1: return OptionalPiece.Gold1;
+                case Piece.G2: return OptionalPiece.Gold2;
+                case Piece.S1: return OptionalPiece.Silver1;
+                case Piece.S2: return OptionalPiece.Silver2;
+                case Piece.PS1: return OptionalPiece.ProSilver1;
+                case Piece.PS2: return OptionalPiece.ProSilver2;
+                case Piece.N1: return OptionalPiece.Knight1;
+                case Piece.N2: return OptionalPiece.Knight2;
+                case Piece.PN1: return OptionalPiece.ProKnight1;
+                case Piece.PN2: return OptionalPiece.ProKnight2;
+                case Piece.L1: return OptionalPiece.Lance1;
+                case Piece.L2: return OptionalPiece.Lance2;
+                case Piece.PL1: return OptionalPiece.ProLance1;
+                case Piece.PL2: return OptionalPiece.ProLance2;
                 default: throw new Exception($"piece={piece} is fail.");
             }
         }
@@ -195,34 +196,34 @@ namespace Grayscale.Kifuwarakei.Entities.Game
             {
                 switch (piece)
                 {
-                    case Piece.King1: return Koma.King1;
-                    case Piece.King2: return Koma.King2;
-                    case Piece.Bishop1: return Koma.Bishop1;
-                    case Piece.Bishop2: return Koma.Bishop2;
-                    case Piece.ProBishop1: return Koma.ProBishop1;
-                    case Piece.ProBishop2: return Koma.ProBishop2;
-                    case Piece.Rook1: return Koma.Rook1;
-                    case Piece.Rook2: return Koma.Rook2;
-                    case Piece.ProRook1: return Koma.ProRook1;
-                    case Piece.ProRook2: return Koma.ProRook2;
-                    case Piece.Pawn1: return Koma.Pawn1;
-                    case Piece.Pawn2: return Koma.Pawn2;
-                    case Piece.ProPawn1: return Koma.ProPawn1;
-                    case Piece.ProPawn2: return Koma.ProPawn2;
-                    case Piece.Gold1: return Koma.Gold1;
-                    case Piece.Gold2: return Koma.Gold2;
-                    case Piece.Silver1: return Koma.Silver1;
-                    case Piece.Silver2: return Koma.Silver2;
-                    case Piece.ProSilver1: return Koma.ProSilver1;
-                    case Piece.ProSilver2: return Koma.ProSilver2;
-                    case Piece.Knight1: return Koma.Knight1;
-                    case Piece.Knight2: return Koma.Knight2;
-                    case Piece.ProKnight1: return Koma.ProKnight1;
-                    case Piece.ProKnight2: return Koma.ProKnight2;
-                    case Piece.Lance1: return Koma.Lance1;
-                    case Piece.Lance2: return Koma.Lance2;
-                    case Piece.ProLance1: return Koma.ProLance1;
-                    case Piece.ProLance2: return Koma.ProLance2;
+                    case Piece.K1: return Koma.King1;
+                    case Piece.K2: return Koma.King2;
+                    case Piece.B1: return Koma.Bishop1;
+                    case Piece.B2: return Koma.Bishop2;
+                    case Piece.PB1: return Koma.ProBishop1;
+                    case Piece.PB2: return Koma.ProBishop2;
+                    case Piece.R1: return Koma.Rook1;
+                    case Piece.R2: return Koma.Rook2;
+                    case Piece.PR1: return Koma.ProRook1;
+                    case Piece.PR2: return Koma.ProRook2;
+                    case Piece.P1: return Koma.Pawn1;
+                    case Piece.P2: return Koma.Pawn2;
+                    case Piece.PP1: return Koma.ProPawn1;
+                    case Piece.PP2: return Koma.ProPawn2;
+                    case Piece.G1: return Koma.Gold1;
+                    case Piece.G2: return Koma.Gold2;
+                    case Piece.S1: return Koma.Silver1;
+                    case Piece.S2: return Koma.Silver2;
+                    case Piece.PS1: return Koma.ProSilver1;
+                    case Piece.PS2: return Koma.ProSilver2;
+                    case Piece.N1: return Koma.Knight1;
+                    case Piece.N2: return Koma.Knight2;
+                    case Piece.PN1: return Koma.ProKnight1;
+                    case Piece.PN2: return Koma.ProKnight2;
+                    case Piece.L1: return Koma.Lance1;
+                    case Piece.L2: return Koma.Lance2;
+                    case Piece.PL1: return Koma.ProLance1;
+                    case Piece.PL2: return Koma.ProLance2;
                     default: throw new Exception($"piece={piece} is fail.");
                 }
             }
