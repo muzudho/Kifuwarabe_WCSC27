@@ -1,4 +1,8 @@
-﻿namespace Grayscale.kifuwarakei.Engine
+﻿// コンパイラ・バージョンを確認するのが楽なディレクティブ。エラーを起こして、バージョン番号を表示させるぜ（＾▽＾）！
+// #error version
+//      7.3 だった（＾～＾）
+
+namespace Grayscale.kifuwarakei.Engine
 {
     using System;
     using System.Text;
