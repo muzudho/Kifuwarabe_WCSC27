@@ -1326,6 +1326,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             }
             return false;
         }
+
         /// <summary>
         /// 指定局面の合法手を作成するぜ☆（＾▽＾）
         /// </summary>
