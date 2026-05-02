@@ -1574,6 +1574,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                     idosakiBB_base.Sitdown(jibunHioute.CheckerBB);// （逼迫／余裕）返討手は除外するぜ☆（＾▽＾）
                     ky.Shogiban.ToSitdown_BBKoma(aiteHioute.KmRaion, idosakiBB_base);// 利きのうち、らいおんを取る手　は、除外するぜ☆（＾▽＾）
                     idosakiBB_base.Sitdown(jibunHioute.CheckerBB); // 返討手　は除外するぜ☆（＾▽＾）
+                    ky.Shogiban.ToSitdown_BBKikiZenbu(aiteHioute.CurrentOptionalPhase, idosakiBB_base);// らいおん　が自分から利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
                     if (!idosakiBB_base.IsEmpty())
                     {
 #if DEBUG
