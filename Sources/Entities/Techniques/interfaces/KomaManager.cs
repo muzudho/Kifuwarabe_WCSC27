@@ -1,7 +1,8 @@
-﻿using Grayscale.Kifuwarakei.Entities.Game;
-using Grayscale.Kifuwarakei.Entities.Language;
+﻿using Grayscale.Kifuwarakei.Entities.Language;
 using System.Text;
 using Grayscale.Kifuwarakei.Entities.Take1Base;
+using Grayscale.Kifuwarakei.Entities.Features.Hyoka;
+using Grayscale.Kifuwarakei.Entities.Features.Dougu;
 
 namespace Grayscale.Kifuwarakei.Entities.Techniques;
 

@@ -138,7 +138,7 @@ public class Nanteme
             {
                 // 「図はn手まで」の数字
                 syuturyoku.Append($"({zuhaNantemade})");
-                ConvMove.AppendFenTo(isSfen, nanteme.Move, syuturyoku);
+                ConvSasite.AppendFenTo(isSfen, nanteme.Move, syuturyoku);
                 syuturyoku.Append(" ");
 
                 // おまけ

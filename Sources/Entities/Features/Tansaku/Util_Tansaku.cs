@@ -4,7 +4,6 @@ using Grayscale.Kifuwarakei.Entities;
 using Grayscale.Kifuwarakei.Entities.Features.Gakusyu;
 using Grayscale.Kifuwarakei.Entities.Features.Hyoka;
 using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
-using Grayscale.Kifuwarakei.Entities.Game;
 using Grayscale.Kifuwarakei.Entities.Language;
 using Grayscale.Kifuwarakei.Entities.Techniques;
 #if DEBUG
@@ -927,7 +926,7 @@ public abstract class Util_Tansaku
             {
                 // 駒を取る手が　葉っぱ　に来たときは、ＳＥＥ（Static Exchange Evaluation）をやりたいぜ☆
                 // おいしさ：この手を指したときに確定している手番の得だぜ☆（＾▽＾）
-                Hyokati oisisa = ky.SEE(playing, isSfen, ConvMove.GetDstMasu_WithoutErrorCheck((int)eranda_sasite),
+                Hyokati oisisa = ky.SEE(playing, isSfen, ConvSasite.GetDstMasu_WithoutErrorCheck((int)eranda_sasite),
                     Util_Machine.UnusedOutputBuf
                     );
 
@@ -1153,7 +1152,7 @@ public abstract class Util_Tansaku
                     ky.Konoteme.ScanYomisuji(isSfen,
                         Util_Tansaku.KaisiNantemade + 1, // 現局面の次の手から☆
                         yomisuji);
-                    ConvMove.AppendFenTo(isSfen, eda_sasite, yomisuji);// このループでは、まだ指していない手だぜ☆
+                    ConvSasite.AppendFenTo(isSfen, eda_sasite, yomisuji);// このループでは、まだ指していない手だぜ☆
 
                     dlgt_CreateJoho(
                         ky.CurrentOptionalPhase,
@@ -1416,7 +1415,7 @@ public abstract class Util_Tansaku
                     ky.Konoteme.ScanYomisuji(isSfen,
                         Util_Tansaku.KaisiNantemade + 1, // 現局面の次の手から☆
                         yomisuji);
-                    ConvMove.AppendFenTo(isSfen, eda_sasite, yomisuji);// このループで指した手だぜ☆
+                    ConvSasite.AppendFenTo(isSfen, eda_sasite, yomisuji);// このループで指した手だぜ☆
 
                     dlgt_CreateJoho(
                         ky.CurrentOptionalPhase,
@@ -1473,7 +1472,7 @@ public abstract class Util_Tansaku
                     ky.Konoteme.ScanYomisuji(isSfen,
                         Util_Tansaku.KaisiNantemade + 1, // 現局面の次の手から☆
                         yomisuji);
-                    ConvMove.AppendFenTo(isSfen, eda_sasite, yomisuji);// このループで指した手だぜ☆
+                    ConvSasite.AppendFenTo(isSfen, eda_sasite, yomisuji);// このループで指した手だぜ☆
 
                     dlgt_CreateJoho(
                         ky.CurrentOptionalPhase,
@@ -1537,7 +1536,7 @@ public abstract class Util_Tansaku
                     ky.Konoteme.ScanYomisuji(isSfen,
                         Util_Tansaku.KaisiNantemade + 1, // 現局面の次の手から☆
                         yomisuji);
-                    ConvMove.AppendFenTo(isSfen, eda_sasite, yomisuji);// このループで指した手だぜ☆
+                    ConvSasite.AppendFenTo(isSfen, eda_sasite, yomisuji);// このループで指した手だぜ☆
 
                     //StringBuilder riyuHosoku = new StringBuilder();
                     //riyuHosoku.Append("元alpha=");

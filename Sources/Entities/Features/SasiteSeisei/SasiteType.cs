@@ -1,7 +1,4 @@
-﻿namespace Grayscale.Kifuwarakei.Entities.Techniques;
-
-using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
-
+﻿namespace Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
 /// <summary>
 /// ［指し手拡張］
 /// </summary>

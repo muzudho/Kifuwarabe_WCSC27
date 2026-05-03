@@ -7,7 +7,6 @@ using System;
 using System.Diagnostics;
 using System.Text;
 using System.Text.RegularExpressions;
-using Grayscale.Kifuwarakei.Entities.Game;
 using Grayscale.Kifuwarakei.Entities.Language;
 using Grayscale.Kifuwarakei.Entities.Logging;
 #else
@@ -15,10 +14,10 @@ using System;
 using System.Diagnostics;
 using System.Text;
 using System.Text.RegularExpressions;
+using Grayscale.Kifuwarakei.Entities.Features.Dougu;
 using Grayscale.Kifuwarakei.Entities.Features.Hyoka;
 using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
 using Grayscale.Kifuwarakei.Entities.Features.Tansaku;
-using Grayscale.Kifuwarakei.Entities.Game;
 using Grayscale.Kifuwarakei.Entities.Language;
 using Grayscale.Kifuwarakei.Entities.Logging;
 #endif
@@ -850,7 +849,7 @@ public class Kyokumen
         if (SasiteType.Toryo == ss) { reason = SasiteMatigaiRiyu.Karappo; return true; }// 投了はＯＫだぜ☆（＾～＾）
 
         // 打つ駒調べ
-        MotiKomasyurui mksUtta = ConvMove.GetUttaKomasyurui(ss);// 打った駒の種類
+        MotiKomasyurui mksUtta = ConvSasite.GetUttaKomasyurui(ss);// 打った駒の種類
         bool utta = MotiKomasyurui.Yososu != mksUtta;
         if (utta)
         {
@@ -864,7 +863,7 @@ public class Kyokumen
         }
 
         // 移動先、打つ先　調べ☆
-        Masu ms_dst = ConvMove.GetDstMasu_WithoutErrorCheck((int)ss); // 移動先升
+        Masu ms_dst = ConvSasite.GetDstMasu_WithoutErrorCheck((int)ss); // 移動先升
         if (!Sindan.IsBanjo(ms_dst))
         {
             // 盤外に移動しようとしたぜ☆（＾～＾）
@@ -896,7 +895,7 @@ public class Kyokumen
         }
         else
         {
-            Masu ms_src = ConvMove.GetSrcMasu_WithoutErrorCheck((int)ss); // 移動先升
+            Masu ms_src = ConvSasite.GetSrcMasu_WithoutErrorCheck((int)ss); // 移動先升
             km_src = GetBanjoKoma(ms_src);
             var optionalPhaseSrcKm = Med_Koma.PhaseOfPiece(km_src);
             var (exists3, phase3) = CurrentOptionalPhase.Match;
@@ -929,7 +928,7 @@ public class Kyokumen
         }
 
         // 成り調べ
-        if (ConvMove.IsNatta(ss) && Med_Koma.KomaToKomasyurui(km_src) != Komasyurui.H)
+        if (ConvSasite.IsNatta(ss) && Med_Koma.KomaToKomasyurui(km_src) != Komasyurui.H)
         {
             // ひよこ以外が、にわとりになろうとしました☆
             reason = SasiteMatigaiRiyu.NarenaiNari;
@@ -1018,20 +1017,20 @@ public class Kyokumen
         aite = optionalOpponent;
         Teban = optionalPhase;
 #endif
-        ms_t1 = ConvMove.GetDstMasu_WithoutErrorCheck((int)ss); // 移動先升
+        ms_t1 = ConvSasite.GetDstMasu_WithoutErrorCheck((int)ss); // 移動先升
         km_c = GetBanjoKoma(ms_t1);// あれば、移動先の相手の駒（取られる駒; capture）
         ks_c = Med_Koma.KomaToKomasyurui(km_c);
         mk_c = Med_Koma.BanjoKomaToMotiKoma(km_c);
 
-        if (!ConvMove.IsUtta(ss))
+        if (!ConvSasite.IsUtta(ss))
         {
             // 指し
-            ms_t0 = ConvMove.GetSrcMasu_WithoutErrorCheck((int)ss);
+            ms_t0 = ConvSasite.GetSrcMasu_WithoutErrorCheck((int)ss);
             km_t0 = GetBanjoKoma(ms_t0);
             ks_t0 = Med_Koma.KomaToKomasyurui(km_t0);//移動元の駒の種類
             mks_t0 = MotiKomasyurui.Yososu;
             mk_t0 = MotiKoma.Yososu;
-            if (ConvMove.IsNatta(ss)) // 駒が成るケース
+            if (ConvSasite.IsNatta(ss)) // 駒が成るケース
             {
                 ks_t1 = Conv_Komasyurui.ToNariCase(ks_t0);
                 km_t1 = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks_t1, optionalPhase);
@@ -1046,7 +1045,7 @@ public class Kyokumen
         {
             // 打
             ms_t0 = MASU_ERROR;
-            mks_t0 = ConvMove.GetUttaKomasyurui(ss);
+            mks_t0 = ConvSasite.GetUttaKomasyurui(ss);
             mk_t0 = Med_Koma.MotiKomasyuruiAndPhaseToMotiKoma(mks_t0, optionalPhase);
             km_t0 = Med_Koma.MotiKomasyuruiAndPhaseToKoma(mks_t0, optionalPhase);
             // 持ち駒は t0 も t1 も同じ。
@@ -1213,7 +1212,7 @@ public class Kyokumen
         //────────────────────────────────────────
         // Ｔ１   ［遷移］    移動元の　手番の駒　を除外する
         //────────────────────────────────────────
-        if (!ConvMove.IsUtta(ss))
+        if (!ConvSasite.IsUtta(ss))
         {
             KyokumenHash.SetXor(Util_ZobristHashing.GetBanjoKey(ms_t0, km_t0, Sindan));
             Komawari.Herasu(optionalPhase, km_t0);// 馬に成った場合、角の点数を引く
@@ -1236,7 +1235,7 @@ public class Kyokumen
         //DoMove1( isSfen, ss, ssType, ref konoTeme, jibun, syuturyoku, out endMethodFlag);
 
         // ローカル変数はグローバル変数に移動した。
-        if (!ConvMove.IsUtta(ss))
+        if (!ConvSasite.IsUtta(ss))
         {
             // この下の HerasuBanjoKoma で指し手件数が動くようだ。
 
@@ -1437,7 +1436,7 @@ public class Kyokumen
         Komasyurui ks_t0;
         Koma km_t0;
 
-        Masu ms_t1 = ConvMove.GetDstMasu_WithoutErrorCheck((int)ss);
+        Masu ms_t1 = ConvSasite.GetDstMasu_WithoutErrorCheck((int)ss);
         Debug.Assert(Sindan.IsBanjoOrError(ms_t1), "Ｕｎｄｏ");
 
         Koma km_t1 = GetBanjoKoma(ms_t1);
@@ -1448,11 +1447,11 @@ public class Kyokumen
 
         MotiKoma mk_t0;
 
-        if (!ConvMove.IsUtta(ss))// 指す
+        if (!ConvSasite.IsUtta(ss))// 指す
         {
-            ms_t0 = ConvMove.GetSrcMasu_WithoutErrorCheck((int)ss);// 戻し先。
+            ms_t0 = ConvSasite.GetSrcMasu_WithoutErrorCheck((int)ss);// 戻し先。
             mk_t0 = MotiKoma.Yososu;
-            if (ConvMove.IsNatta(ss))// 成っていたとき
+            if (ConvSasite.IsNatta(ss))// 成っていたとき
             {
                 ks_t0 = Conv_Komasyurui.ToNarazuCase(ks_t1);// 成る前
                 km_t0 = Med_Koma.KomasyuruiAndTaikyokusyaToKoma(ks_t0, optionalPhase);
@@ -1594,7 +1593,7 @@ public class Kyokumen
         //────────────────────────────────────────
         //  Ｔ０  ［遷移］    移動元に　駒　が現れる☆
         //────────────────────────────────────────
-        if (!ConvMove.IsUtta(ss))//指す
+        if (!ConvSasite.IsUtta(ss))//指す
         {
             // ハッシュを差分更新
             KyokumenHash.SetXor(Util_ZobristHashing.GetBanjoKey(ms_t0, km_t0, Sindan));
@@ -2405,7 +2404,7 @@ public class Kyokumen
                 ms_src = (Masu)ms_semegoma;
 
                 // FIXME: とりあえず、成らずで作ってみるぜ☆（＾～＾）
-                SasiteType ss = ConvMove.ToMove01aNarazuSasi(ms_src, ms, this.Sindan);
+                SasiteType ss = ConvSasite.ToMove01aNarazuSasi(ms_src, ms, this.Sindan);
 
                 // 駒を取る前に、取る駒の点数を取っておくぜ☆（＾～＾）
                 Komasyurui tottaKomasyurui;

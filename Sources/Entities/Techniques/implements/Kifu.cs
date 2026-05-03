@@ -1,12 +1,8 @@
-﻿using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
-using Grayscale.Kifuwarakei.Entities.Game;
+﻿namespace Grayscale.Kifuwarakei.Entities.Techniques;
+
+using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
 using System.Collections.Generic;
 using System.Text;
-
-#if DEBUG
-#endif
-
-namespace Grayscale.Kifuwarakei.Entities.Techniques;
 
 /// <summary>
 /// 対局終了時の記録用だぜ☆
@@ -65,7 +61,7 @@ public class Kifu
             syuturyoku.Append("(");
             syuturyoku.Append(temeMade.ToString());
             syuturyoku.Append(")");
-            ConvMove.AppendFenTo(isSfen, ss, syuturyoku);
+            ConvSasite.AppendFenTo(isSfen, ss, syuturyoku);
             syuturyoku.Append(" ");
             temeMade++;
         }
@@ -87,7 +83,7 @@ public class Kifu
         int temeMade = 1;
         foreach (SasiteType ss in this.SsList)
         {
-            ConvMove.AppendFenTo(isSfen, ss, syuturyoku);
+            ConvSasite.AppendFenTo(isSfen, ss, syuturyoku);
             syuturyoku.Append(" ");
             temeMade++;
         }
@@ -157,7 +153,7 @@ public class Kifu
     {
         foreach (SasiteType ss in SsList)
         {
-            ConvMove.AppendFenTo(isSfen, ss, syuturyoku);
+            ConvSasite.AppendFenTo(isSfen, ss, syuturyoku);
             syuturyoku.Append(" ");
         }
     }

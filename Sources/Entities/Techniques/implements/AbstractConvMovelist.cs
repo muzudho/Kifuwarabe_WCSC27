@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Grayscale.Kifuwarakei.Entities.Techniques;
@@ -11,7 +12,7 @@ public abstract class AbstractConvMovelist
         syuturyoku.AppendLine("┌──────────┐");
         foreach (SasiteKakucho ss in sslist)
         {
-            ConvMove.AppendFenTo(isSfen, ss.Sasite, syuturyoku);
+            ConvSasite.AppendFenTo(isSfen, ss.Sasite, syuturyoku);
             syuturyoku.AppendLine();
         }
         syuturyoku.AppendLine("└──────────┘");

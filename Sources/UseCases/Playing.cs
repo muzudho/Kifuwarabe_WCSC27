@@ -8,13 +8,13 @@ using System.Text;
 using Grayscale.Kifuwarakei.Entities;
 using Grayscale.Kifuwarakei.Entities.Configuration;
 using Grayscale.Kifuwarakei.Entities.Techniques;
-using Grayscale.Kifuwarakei.Entities.Game;
 using Grayscale.Kifuwarakei.Entities.Language;
 using Grayscale.Kifuwarakei.Entities.Logging;
 using Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 using Grayscale.Kifuwarakei.Entities.Features.Hyoka;
 using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
 using Grayscale.Kifuwarakei.Entities.Features.Gakusyu;
+using Grayscale.Kifuwarakei.Entities.Features.Dougu;
 
 public class Playing : IPlaying
 {
@@ -105,7 +105,7 @@ usiok");
         if (isSfen)
         {
             syuturyoku.Append("bestmove ");
-            ConvMove.AppendFenTo(isSfen, bestMove, syuturyoku);
+            ConvSasite.AppendFenTo(isSfen, bestMove, syuturyoku);
             syuturyoku.AppendLine();
             Logger.WriteUsi(syuturyoku.ToString());
             syuturyoku.Clear();
@@ -805,7 +805,7 @@ Kettyaku = {Util_Application.IsKettyaku(ky)}");
             Med_Parser.TryFenMove(isSfen, commandline, ref caret_1, ky.Sindan, out SasiteType ss);
             Nanteme nanteme = new Nanteme();
             ky.DoMove(isSfen, ss, SasiteSyuruiType.N00_Karappo, ref nanteme, ky.CurrentOptionalPhase, syuturyoku);
-            Masu ms = ConvMove.GetDstMasu(ss, ky);
+            Masu ms = ConvSasite.GetDstMasu(ss, ky);
 
             syuturyoku.AppendLine("SEE>────────────────────");
             // 相手番の評価値が返ってくるので、この手番にひっくり返すぜ☆（＾▽＾）
@@ -1674,7 +1674,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
         {
             if (Util_Application.MoveCmd(commandline, ky.Sindan, out SasiteType ss))// move 912 とか☆
             {
-                ConvMove.Setumei(isSfen, ss, syuturyoku);
+                ConvSasite.Setumei(isSfen, ss, syuturyoku);
                 syuturyoku.AppendLine($" ({(int)ss})");
                 return;
             }

@@ -1,5 +1,4 @@
-﻿using Grayscale.Kifuwarakei.Entities.Techniques;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace Grayscale.Kifuwarakei.Entities.Features.Hyoka;
 

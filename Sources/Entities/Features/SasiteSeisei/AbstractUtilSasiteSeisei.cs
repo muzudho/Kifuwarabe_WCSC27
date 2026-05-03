@@ -1,7 +1,7 @@
 ﻿namespace Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
 
+using Grayscale.Kifuwarakei.Entities.Features.Dougu;
 using Grayscale.Kifuwarakei.Entities.Features.Tansaku;
-using Grayscale.Kifuwarakei.Entities.Game;
 using Grayscale.Kifuwarakei.Entities.Language;
 using Grayscale.Kifuwarakei.Entities.Techniques;
 using System;
@@ -371,7 +371,7 @@ public abstract class AbstractUtilSasiteSeisei
 
                     if (idosakiBB.GetNTZ(out ms_ido)) // 攻めてきた駒（１つだけ）を取るということ☆
                     {
-                        AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
+                        AddMoveGood(false, fukasa, ConvSasite.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                     }
                 }
                 return;
@@ -384,7 +384,7 @@ public abstract class AbstractUtilSasiteSeisei
 
                     if (idosakiBB.GetNTZ(out ms_ido)) // 攻めてきた駒（１つだけ）を取るということ☆
                     {
-                        AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
+                        AddMoveGood(false, fukasa, ConvSasite.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                     }
                 }
                 return;
@@ -398,7 +398,7 @@ public abstract class AbstractUtilSasiteSeisei
                     {
                         if (SasiteSyuruiType.N17_RaionCatchChosa == sasiteSyuruiType) { jibunHioute.RaionCatchChosa = true; return; } // 調査するだけなら、らいおんキャッチできることが分かったので終了☆（＾～＾）
 
-                        AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
+                        AddMoveGood(false, fukasa, ConvSasite.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                         jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta;
                     }
                 }
@@ -412,7 +412,7 @@ public abstract class AbstractUtilSasiteSeisei
                     Bitboard trysakiBB = Util_TryRule.GetTrySaki(ky, idosakiBB, optionalPhase, ms_src, syuturyoku);
                     if (trysakiBB.GetNTZ(out ms_ido))// トライはどこか１つ行けばいい
                     {
-                        AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
+                        AddMoveGood(false, fukasa, ConvSasite.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                         jibunHioute.TansakuUtikiri = TansakuUtikiri.Try;
                     }
                 }
@@ -429,7 +429,7 @@ public abstract class AbstractUtilSasiteSeisei
                         // 一手詰めルーチン☆
                         bool ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, optionalPhase, ms_src, ms_ido, jibunHioute, aiteHioute);
 
-                        AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
+                        AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvSasite.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
 
                         if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                     }
@@ -448,7 +448,7 @@ public abstract class AbstractUtilSasiteSeisei
                         // 一手詰めルーチン☆
                         bool ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, optionalPhase, ms_src, ms_ido, jibunHioute, aiteHioute);
 
-                        AddMoveBadOrGood(ittedume, MisuteruUgoki(ky, optionalPhase, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
+                        AddMoveBadOrGood(ittedume, MisuteruUgoki(ky, optionalPhase, ms_src, ms_ido), fukasa, ConvSasite.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
 
                         if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                     }
@@ -484,7 +484,7 @@ public abstract class AbstractUtilSasiteSeisei
                 {
                     if (idosakiBB.GetNTZ(out ms_ido)) // 攻めてきた駒（１つだけ）を取るということ☆
                     {
-                        AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
+                        AddMoveGood(false, fukasa, ConvSasite.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                     }
                 }
                 return;
@@ -495,7 +495,7 @@ public abstract class AbstractUtilSasiteSeisei
                 {
                     if (idosakiBB.GetNTZ(out ms_ido)) // 攻めてきた駒（１つだけ）を取るということ☆
                     {
-                        AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
+                        AddMoveGood(false, fukasa, ConvSasite.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                     }
                 }
                 return;
@@ -510,7 +510,7 @@ public abstract class AbstractUtilSasiteSeisei
 
                         if (idosakiBB.GetNTZ(out ms_ido)) // らいおん（１つだけ）を取るということ☆
                         {
-                            AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
+                            AddMoveGood(false, fukasa, ConvSasite.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                             jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta;
                         }
                     }
@@ -529,7 +529,7 @@ public abstract class AbstractUtilSasiteSeisei
                         {
                             ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, optionalPhase, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
 
-                            AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType | SasiteSyuruiType.N19_Option_NigemitiWoAkeruTe, sasiteSyuruiType);
+                            AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvSasite.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType | SasiteSyuruiType.N19_Option_NigemitiWoAkeruTe, sasiteSyuruiType);
 
                             if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                         }
@@ -550,7 +550,7 @@ public abstract class AbstractUtilSasiteSeisei
                         {
                             ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, optionalPhase, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
 
-                            AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType | SasiteSyuruiType.N19_Option_NigemitiWoAkeruTe, sasiteSyuruiType);
+                            AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvSasite.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType | SasiteSyuruiType.N19_Option_NigemitiWoAkeruTe, sasiteSyuruiType);
 
                             if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                         }
@@ -566,7 +566,7 @@ public abstract class AbstractUtilSasiteSeisei
                         // 一手詰めルーチン☆
                         ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, optionalPhase, ms_src, ms_ido, jibunHioute, aiteHioute);
 
-                        AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
+                        AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvSasite.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
 
                         if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                     }
@@ -586,7 +586,7 @@ public abstract class AbstractUtilSasiteSeisei
                         {
                             ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, optionalPhase, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
 
-                            AddMoveBadOrGood(ittedume, MisuteruUgoki(ky, optionalPhase, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
+                            AddMoveBadOrGood(ittedume, MisuteruUgoki(ky, optionalPhase, ms_src, ms_ido), fukasa, ConvSasite.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
 
                             if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                         }
@@ -606,7 +606,7 @@ public abstract class AbstractUtilSasiteSeisei
                         {
                             // タダ捨てに、一手詰めは無いだろう☆（*＾～＾*）
 
-                            AddMoveBadOrGood(false, MisuteruUgoki(ky, optionalPhase, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
+                            AddMoveBadOrGood(false, MisuteruUgoki(ky, optionalPhase, ms_src, ms_ido), fukasa, ConvSasite.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                         }
                     }
                 }
@@ -638,10 +638,10 @@ public abstract class AbstractUtilSasiteSeisei
                         // 成れる場合
                         if (IsNareruZone(ms_ido, optionalPhase, ky.Sindan))
                         {
-                            AddMoveGood(false, fukasa, ConvMove.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
+                            AddMoveGood(false, fukasa, ConvSasite.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                         }
 
-                        AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
+                        AddMoveGood(false, fukasa, ConvSasite.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                     }
                 }
                 return;
@@ -655,10 +655,10 @@ public abstract class AbstractUtilSasiteSeisei
                         // 成れる場合
                         if (IsNareruZone(ms_ido, optionalPhase, ky.Sindan))
                         {
-                            AddMoveGood(false, fukasa, ConvMove.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
+                            AddMoveGood(false, fukasa, ConvSasite.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                         }
 
-                        AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
+                        AddMoveGood(false, fukasa, ConvSasite.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                     }
                 }
                 return;
@@ -676,11 +676,11 @@ public abstract class AbstractUtilSasiteSeisei
                             // 成れる場合
                             if (IsNareruZone(ms_ido, optionalPhase, ky.Sindan))
                             {
-                                AddMoveGood(false, fukasa, ConvMove.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
+                                AddMoveGood(false, fukasa, ConvSasite.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                                 jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta;
                             }
 
-                            AddMoveBadOrGood(false, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType | SasiteSyuruiType.N19_Option_NigemitiWoAkeruTe, sasiteSyuruiType);
+                            AddMoveBadOrGood(false, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvSasite.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType | SasiteSyuruiType.N19_Option_NigemitiWoAkeruTe, sasiteSyuruiType);
 
                             jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta;
                         }
@@ -704,10 +704,10 @@ public abstract class AbstractUtilSasiteSeisei
                             // 成れる場合
                             if (IsNareruZone(ms_ido, optionalPhase, ky.Sindan))
                             {
-                                AddMoveGood(false, fukasa, ConvMove.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
+                                AddMoveGood(false, fukasa, ConvSasite.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                             }
 
-                            AddMoveGood(ittedume, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
+                            AddMoveGood(ittedume, fukasa, ConvSasite.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
 
                             if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                         }
@@ -730,10 +730,10 @@ public abstract class AbstractUtilSasiteSeisei
                             // 成れる場合
                             if (IsNareruZone(ms_ido, optionalPhase, ky.Sindan))
                             {
-                                AddMoveGood(false, fukasa, ConvMove.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
+                                AddMoveGood(false, fukasa, ConvSasite.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                             }
 
-                            AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
+                            AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvSasite.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
 
                             if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                         }
@@ -748,7 +748,7 @@ public abstract class AbstractUtilSasiteSeisei
                     {
                         ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, optionalPhase, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
 
-                        AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
+                        AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvSasite.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
 
                         if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                     }
@@ -771,10 +771,10 @@ public abstract class AbstractUtilSasiteSeisei
                             // 成れる場合
                             if (IsNareruZone(ms_ido, optionalPhase, ky.Sindan))
                             {
-                                AddMoveGood(false, fukasa, ConvMove.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
+                                AddMoveGood(false, fukasa, ConvSasite.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                             }
 
-                            AddMoveBadOrGood(ittedume, MisuteruUgoki(ky, optionalPhase, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
+                            AddMoveBadOrGood(ittedume, MisuteruUgoki(ky, optionalPhase, ms_src, ms_ido), fukasa, ConvSasite.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
 
                             if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                         }
@@ -797,10 +797,10 @@ public abstract class AbstractUtilSasiteSeisei
                             // 成れる場合
                             if (IsNareruZone(ms_ido, optionalPhase, ky.Sindan))
                             {
-                                AddMoveGood(false, fukasa, ConvMove.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
+                                AddMoveGood(false, fukasa, ConvSasite.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                             }
 
-                            AddMoveBadOrGood(false, MisuteruUgoki(ky, optionalPhase, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
+                            AddMoveBadOrGood(false, MisuteruUgoki(ky, optionalPhase, ms_src, ms_ido), fukasa, ConvSasite.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                         }
                     }
                 }
@@ -830,7 +830,7 @@ public abstract class AbstractUtilSasiteSeisei
                 {
                     if (bb_idosakiCopy.GetNTZ(out ms_ido)) // 攻めてきた駒（１つだけ）を取るということ☆
                     {
-                        AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
+                        AddMoveGood(false, fukasa, ConvSasite.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                     }
                 }
                 return;
@@ -841,7 +841,7 @@ public abstract class AbstractUtilSasiteSeisei
                 {
                     if (bb_idosakiCopy.GetNTZ(out ms_ido)) // 攻めてきた駒（１つだけ）を取るということ☆
                     {
-                        AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
+                        AddMoveGood(false, fukasa, ConvSasite.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                     }
                 }
                 return;
@@ -856,7 +856,7 @@ public abstract class AbstractUtilSasiteSeisei
 
                         if (bb_idosakiCopy.GetNTZ(out ms_ido)) // らいおん（１つだけ）を取るということ☆
                         {
-                            AddMoveBadOrGood(false, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType | SasiteSyuruiType.N19_Option_NigemitiWoAkeruTe, sasiteSyuruiType);
+                            AddMoveBadOrGood(false, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvSasite.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType | SasiteSyuruiType.N19_Option_NigemitiWoAkeruTe, sasiteSyuruiType);
                             jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta;
                         }
                     }
@@ -875,7 +875,7 @@ public abstract class AbstractUtilSasiteSeisei
                         {
                             ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, optionalPhase, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
 
-                            AddMoveGood(ittedume, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
+                            AddMoveGood(ittedume, fukasa, ConvSasite.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
 
                             if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                         }
@@ -898,7 +898,7 @@ public abstract class AbstractUtilSasiteSeisei
                         {
                             ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, optionalPhase, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
 
-                            AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
+                            AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvSasite.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
 
                             if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                         }
@@ -913,7 +913,7 @@ public abstract class AbstractUtilSasiteSeisei
                     {
                         ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, optionalPhase, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
 
-                        AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
+                        AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvSasite.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
 
                         if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                     }
@@ -933,7 +933,7 @@ public abstract class AbstractUtilSasiteSeisei
                         {
                             ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, optionalPhase, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
 
-                            AddMoveBadOrGood(ittedume, MisuteruUgoki(ky, optionalPhase, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
+                            AddMoveBadOrGood(ittedume, MisuteruUgoki(ky, optionalPhase, ms_src, ms_ido), fukasa, ConvSasite.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
 
                             if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                         }
@@ -952,7 +952,7 @@ public abstract class AbstractUtilSasiteSeisei
                         if (TadasuteNoUgoki(ky, optionalPhase, ms_ido, false))// 相手の利きがあって、自分を除いた味方の利きがない升　に限るぜ☆（＾▽＾）ｗｗｗ
                         {
                             // タダ捨てに、一手詰めは無いだろう☆（*＾～＾*）
-                            AddMoveBadOrGood(false, MisuteruUgoki(ky, optionalPhase, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
+                            AddMoveBadOrGood(false, MisuteruUgoki(ky, optionalPhase, ms_src, ms_ido), fukasa, ConvSasite.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                         }
                     }
                 }
@@ -1016,7 +1016,7 @@ public abstract class AbstractUtilSasiteSeisei
                             {
                                 ittedume = Util_Ittedume.Ittedume_MotiKoma(fukasa, ky, mk, ms_ido, hioute, aiteHioute);// 一手詰めルーチン☆
 
-                                AddMoveGood(ittedume, fukasa, ConvMove.ToMove01cUtta(ms_ido, mks), sasiteSyuruiType);
+                                AddMoveGood(ittedume, fukasa, ConvSasite.ToMove01cUtta(ms_ido, mks), sasiteSyuruiType);
 
                                 if (ittedume) { hioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                             }
@@ -1047,7 +1047,7 @@ public abstract class AbstractUtilSasiteSeisei
                                 {
                                     ittedume = Util_Ittedume.Ittedume_MotiKoma(fukasa, ky, mk, ms_ido, hioute, aiteHioute);// 一手詰めルーチン☆
 
-                                    AddMoveGood(ittedume, fukasa, ConvMove.ToMove01cUtta(ms_ido, mks), sasiteSyuruiType);
+                                    AddMoveGood(ittedume, fukasa, ConvSasite.ToMove01cUtta(ms_ido, mks), sasiteSyuruiType);
 
                                     if (ittedume) { hioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                                 }
@@ -1076,7 +1076,7 @@ public abstract class AbstractUtilSasiteSeisei
                                 {
                                     ittedume = Util_Ittedume.Ittedume_MotiKoma(fukasa, ky, mk, ms_ido, hioute, aiteHioute);// 一手詰めルーチン☆
 
-                                    AddMoveGood(ittedume, fukasa, ConvMove.ToMove01cUtta(ms_ido, mks), sasiteSyuruiType);
+                                    AddMoveGood(ittedume, fukasa, ConvSasite.ToMove01cUtta(ms_ido, mks), sasiteSyuruiType);
 
                                     if (ittedume) { hioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                                 }
@@ -1106,7 +1106,7 @@ public abstract class AbstractUtilSasiteSeisei
                                 {
                                     // タダ捨てに、一手詰めは無いだろう☆（*＾～＾*）
 
-                                    AddMoveGood(false, fukasa, ConvMove.ToMove01cUtta(ms_ido, mks), sasiteSyuruiType);
+                                    AddMoveGood(false, fukasa, ConvSasite.ToMove01cUtta(ms_ido, mks), sasiteSyuruiType);
                                 }
                             }
                         }
@@ -1587,7 +1587,7 @@ public abstract class AbstractUtilSasiteSeisei
                     idosakiBB_copy.Set(idosakiBB_base);
                     while (idosakiBB_copy.Ref_PopNTZ(out Masu ms_ido))
                     {
-                        SasiteType ss = ConvMove.ToMove01aNarazuSasi(jibunHioute.FriendRaionMs, ms_ido, ky.Sindan);
+                        SasiteType ss = ConvSasite.ToMove01aNarazuSasi(jibunHioute.FriendRaionMs, ms_ido, ky.Sindan);
                         AbstractUtilSasiteSeisei.MoveList[fukasa].AddSslist(ss, SasiteSyuruiType.N15_NigeroTe);
                     }
                 }

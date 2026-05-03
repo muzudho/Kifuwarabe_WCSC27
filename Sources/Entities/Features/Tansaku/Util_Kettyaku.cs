@@ -1,4 +1,5 @@
-﻿using Grayscale.Kifuwarakei.Entities.Game;
+﻿using Grayscale.Kifuwarakei.Entities.Features.Dougu;
+using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
 using Grayscale.Kifuwarakei.Entities.Techniques;
 using System;
 

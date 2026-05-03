@@ -1,4 +1,5 @@
-﻿using Grayscale.Kifuwarakei.Entities.Game;
+﻿using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
+using Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 using Grayscale.Kifuwarakei.Entities.Language;
 using System;
 using System.Diagnostics;
@@ -239,7 +240,7 @@ public abstract class Med_Parser
         if ("*" == str2)
         {
             // 駒台から打ったぜ☆
-            return ConvMove.ToMove01cUtta(
+            return ConvSasite.ToMove01cUtta(
                 dstMs,
                 Med_Parser.Moji_MotikomaSyurui(isSfen, str1)//打った駒
             );
@@ -247,8 +248,8 @@ public abstract class Med_Parser
         else
         {
             // 盤上の駒を動かしたぜ☆
-            if (natta) { return ConvMove.ToMove01bNariSasi(Med_Parser.FenSujiDan_Masu(isSfen, str1, str2), dstMs, kys); }
-            else { return ConvMove.ToMove01aNarazuSasi(Med_Parser.FenSujiDan_Masu(isSfen, str1, str2), dstMs, kys); }
+            if (natta) { return ConvSasite.ToMove01bNariSasi(Med_Parser.FenSujiDan_Masu(isSfen, str1, str2), dstMs, kys); }
+            else { return ConvSasite.ToMove01aNarazuSasi(Med_Parser.FenSujiDan_Masu(isSfen, str1, str2), dstMs, kys); }
         }
     }
 

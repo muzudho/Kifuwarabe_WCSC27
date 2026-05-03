@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using Grayscale.Kifuwarakei.Entities.Features.Hyoka;
+using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
+using System.Diagnostics;
 
 namespace Grayscale.Kifuwarakei.Entities.Techniques;
 

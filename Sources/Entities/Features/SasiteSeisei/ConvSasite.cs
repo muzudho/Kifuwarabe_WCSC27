@@ -1,9 +1,13 @@
-﻿using System.Diagnostics;
+﻿namespace Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
+
+using Grayscale.Kifuwarakei.Entities.Techniques;
+using System.Diagnostics;
 using System.Text;
 
-namespace Grayscale.Kifuwarakei.Entities.Techniques;
-
-public abstract class ConvMove
+/// <summary>
+/// ［指し手］の変換
+/// </summary>
+public abstract class ConvSasite
 {
     /// <summary>
     /// 
@@ -220,7 +224,7 @@ public abstract class ConvMove
         // 元筋と元段☆（＾▽＾）「打」のときは何もしないぜ☆（＾▽＾）
 
         // 先筋と先段☆（＾▽＾）
-        ConvMove.SetDstMasu_WithoutErrorCheck(ref v, ms_dst);
+        ConvSasite.SetDstMasu_WithoutErrorCheck(ref v, ms_dst);
 
         //必ず指定されているはず☆ if (MotiKomasyurui.Yososu != mkUtta)
         {
@@ -286,7 +290,7 @@ public abstract class ConvMove
     public static bool IsUtta(SasiteType ss)
     {
         // 打か☆？
-        return MotiKomasyurui.Yososu != ConvMove.GetUttaKomasyurui(ss);//指定があれば
+        return MotiKomasyurui.Yososu != ConvSasite.GetUttaKomasyurui(ss);//指定があれば
     }
 
     public static string Setumei(SasiteMatigaiRiyu err)

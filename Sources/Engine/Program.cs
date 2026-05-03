@@ -9,7 +9,6 @@ using System.Text;
 using Grayscale.Kifuwarakei.Engine.Configuration;
 using Grayscale.Kifuwarakei.Entities;
 using Grayscale.Kifuwarakei.Entities.Techniques;
-using Grayscale.Kifuwarakei.Entities.Game;
 using Grayscale.Kifuwarakei.Entities.Logging;
 using Grayscale.Kifuwarakei.UseCases;
 using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
@@ -211,7 +210,7 @@ System.Console.WriteLine($"# (~0UL << 1)=[{(~0UL << 1)}]");
                         else if (!Util_Application.ParseDoMove(ky, out SasiteType inputSasite))
                         {
                             // do コマンドのパースエラー表示（コンソール・ゲーム用）☆（＾～＾）
-                            syuturyoku.AppendLine(ConvMove.Setumei(SasiteMatigaiRiyu.ParameterSyosikiMatigai));
+                            syuturyoku.AppendLine(ConvSasite.Setumei(SasiteMatigaiRiyu.ParameterSyosikiMatigai));
                             var msg = syuturyoku.ToString();
                             syuturyoku.Clear();
                             Logger.Flush(msg);
@@ -220,7 +219,7 @@ System.Console.WriteLine($"# (~0UL << 1)=[{(~0UL << 1)}]");
                         else if (!ky.CanDoMove(inputSasite, out SasiteMatigaiRiyu reason))// 指し手の合否チェック
                         {
                             // イリーガル・ムーブなどの、エラー理由表示☆（＾～＾）
-                            syuturyoku.AppendLine(ConvMove.Setumei(reason));
+                            syuturyoku.AppendLine(ConvSasite.Setumei(reason));
                             var msg = syuturyoku.ToString();
                             syuturyoku.Clear();
                             Logger.Flush(msg);

@@ -1,6 +1,6 @@
 ﻿namespace Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 
-using Grayscale.Kifuwarakei.Entities.Game;
+using Grayscale.Kifuwarakei.Entities.Features.Dougu;
 using Grayscale.Kifuwarakei.Entities.Techniques;
 using System.Text;
 

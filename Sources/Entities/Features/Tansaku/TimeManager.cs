@@ -1,7 +1,7 @@
-﻿using Grayscale.Kifuwarakei.Entities.Features.Tansaku;
+﻿using Grayscale.Kifuwarakei.Entities.Techniques;
 using System.Diagnostics;
 
-namespace Grayscale.Kifuwarakei.Entities.Techniques;
+namespace Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 
 /// <summary>
 /// 思考時間を管理したり、

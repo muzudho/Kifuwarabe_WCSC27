@@ -1,6 +1,5 @@
 ﻿using System.Text;
 using Grayscale.Kifuwarakei.Entities.Features.Hyoka;
-using Grayscale.Kifuwarakei.Entities.Game;
 using Grayscale.Kifuwarakei.Entities.Language;
 using Grayscale.Kifuwarakei.Entities.Logging;
 using Grayscale.Kifuwarakei.Entities.Techniques;

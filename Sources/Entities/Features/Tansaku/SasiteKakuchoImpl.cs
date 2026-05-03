@@ -1,4 +1,4 @@
-﻿namespace Grayscale.Kifuwarakei.Entities.Techniques;
+﻿namespace Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 
 using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
 

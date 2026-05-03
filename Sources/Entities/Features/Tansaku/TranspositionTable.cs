@@ -3,7 +3,7 @@ using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
 using System;
 using System.Text;
 
-namespace Grayscale.Kifuwarakei.Entities.Techniques;
+namespace Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 
 public class TTEntry
 {
@@ -24,7 +24,7 @@ public class TTEntry
     public void Setumei_Description(bool isSfen, StringBuilder syuturyoku)
     {
         syuturyoku.Append($"key=[{Key}] move=[");
-        ConvMove.Setumei(isSfen, Move, syuturyoku);
+        ConvSasite.Setumei(isSfen, Move, syuturyoku);
         syuturyoku.Append($"] sasiteSyuruiType=[{AbstractConvSasiteSyuruiType.Setumei(MoveType)}] fukasa=[{Fukasa}] hyokati=[{(int)Hyokati}] komawariHyokati_forJoho=[{(int)KomawariHyokati_ForJoho}] nikomaHyokati_forJoho=[{(int)NikomaHyokati_ForJoho}] okimariHyokati_forJoho=[${(int)OkimariHyokati_ForJoho}]");
     }
 

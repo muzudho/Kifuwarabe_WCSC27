@@ -2,7 +2,7 @@
 using System;
 using Grayscale.Kifuwarakei.Entities.Take1Base;
 
-namespace Grayscale.Kifuwarakei.Entities.Game;
+namespace Grayscale.Kifuwarakei.Entities.Features.Dougu;
 
 public static class OptionalPiece
 {

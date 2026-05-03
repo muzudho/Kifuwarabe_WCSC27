@@ -2,13 +2,13 @@
 //#define TOBIKIKI_ON
 
 #if DEBUG
-using Grayscale.Kifuwarakei.Entities.Game;
 using Grayscale.Kifuwarakei.Entities.Language;
 using System;
 using System.Diagnostics;
 using System.Text;
 #else
-using Grayscale.Kifuwarakei.Entities.Game;
+using Grayscale.Kifuwarakei.Entities.Features.Dougu;
+using Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 using Grayscale.Kifuwarakei.Entities.Language;
 using System;
 using System.Diagnostics;

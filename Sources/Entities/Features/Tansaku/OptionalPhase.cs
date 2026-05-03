@@ -1,7 +1,7 @@
-﻿using Grayscale.Kifuwarakei.Entities.Language;
-using System;
+﻿namespace Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 
-namespace Grayscale.Kifuwarakei.Entities.Game;
+using Grayscale.Kifuwarakei.Entities.Language;
+using System;
 
 public static class OptionalPhase
 {

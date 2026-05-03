@@ -1,6 +1,7 @@
-﻿using Grayscale.Kifuwarakei.Entities.Game;
+﻿using Grayscale.Kifuwarakei.Entities.Features.Dougu;
+using Grayscale.Kifuwarakei.Entities.Techniques;
 
-namespace Grayscale.Kifuwarakei.Entities.Techniques;
+namespace Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 
 /// <summary>
 /// 局面ハッシュ

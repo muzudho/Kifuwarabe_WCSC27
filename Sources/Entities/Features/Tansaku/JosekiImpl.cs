@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
-using Grayscale.Kifuwarakei.Entities.Game;
+using Grayscale.Kifuwarakei.Entities.Features.Hyoka;
+using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
 using Grayscale.Kifuwarakei.Entities.Language;
 using Grayscale.Kifuwarakei.Entities.Logging;
 using Grayscale.Kifuwarakei.Entities.Techniques;
@@ -50,7 +51,7 @@ public class JosekiMove
     /// <returns></returns>
     public void ToContentsLine_NotUnity(bool isSfen, StringBuilder syuturyoku)
     {
-        ConvMove.AppendFenTo(isSfen, this.Move, syuturyoku);
+        ConvSasite.AppendFenTo(isSfen, this.Move, syuturyoku);
         syuturyoku.Append(" ");
 
         if (this.Ousyu == SasiteType.Toryo)
@@ -59,7 +60,7 @@ public class JosekiMove
         }
         else
         {
-            ConvMove.AppendFenTo(isSfen, this.Ousyu, syuturyoku);
+            ConvSasite.AppendFenTo(isSfen, this.Ousyu, syuturyoku);
         }
         syuturyoku.Append(" ");
         syuturyoku.Append(((int)this.Hyokati).ToString());// enum型の変数名で出力されないように、int型に変換してから文字列にするぜ☆（＾▽＾）

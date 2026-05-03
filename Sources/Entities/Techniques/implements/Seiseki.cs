@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Grayscale.Kifuwarakei.Entities.Game;
+using Grayscale.Kifuwarakei.Entities.Features.Hyoka;
+using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
+using Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 using Grayscale.Kifuwarakei.Entities.Language;
 using Grayscale.Kifuwarakei.Entities.Logging;
 
@@ -105,7 +107,7 @@ public class SeisekiMove
 
     public void ToContents_NotUnity(bool isSfen, StringBuilder syuturyoku)
     {
-        ConvMove.AppendFenTo(isSfen, Move, syuturyoku);
+        ConvSasite.AppendFenTo(isSfen, Move, syuturyoku);
         syuturyoku.Append(" ");
 
         if (Ousyu == SasiteType.Toryo)
@@ -114,7 +116,7 @@ public class SeisekiMove
         }
         else
         {
-            ConvMove.AppendFenTo(isSfen, Ousyu, syuturyoku);
+            ConvSasite.AppendFenTo(isSfen, Ousyu, syuturyoku);
         }
 
         syuturyoku.Append(" ");

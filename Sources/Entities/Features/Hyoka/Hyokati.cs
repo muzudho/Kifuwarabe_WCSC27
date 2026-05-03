@@ -2,8 +2,9 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using Grayscale.Kifuwarakei.Entities.Logging;
+using Grayscale.Kifuwarakei.Entities.Techniques;
 
-namespace Grayscale.Kifuwarakei.Entities.Techniques;
+namespace Grayscale.Kifuwarakei.Entities.Features.Hyoka;
 
 /// <summary>
 /// 評価値☆

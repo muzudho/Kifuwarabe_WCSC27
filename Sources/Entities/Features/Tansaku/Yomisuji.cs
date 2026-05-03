@@ -2,7 +2,7 @@
 using System;
 using System.Text;
 
-namespace Grayscale.Kifuwarakei.Entities.Techniques;
+namespace Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 
 public class Yomisuji
 {
@@ -20,7 +20,7 @@ public class Yomisuji
     {
         for (int i = 0; i < this.Size; i++)
         {
-            ConvMove.AppendFenTo(isSfen, this.SasiteItiran[i], syuturyoku);
+            ConvSasite.AppendFenTo(isSfen, this.SasiteItiran[i], syuturyoku);
 
             if (i + 1 < this.Size)
             {
