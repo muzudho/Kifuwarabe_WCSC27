@@ -254,13 +254,13 @@ public abstract class AbstractUtilMoveGen
 {
     static AbstractUtilMoveGen()
     {
-        MoveList = new MoveList[SAIDAI_SASITE_FUKASA];
-        MoveListBad = new MoveList[SAIDAI_SASITE_FUKASA];
+        MoveList = new SasiteList[SAIDAI_SASITE_FUKASA];
+        MoveListBad = new SasiteList[SAIDAI_SASITE_FUKASA];
 
         for (int iFukasa = 0; iFukasa < SAIDAI_SASITE_FUKASA; iFukasa++)
         {
-            MoveList[iFukasa] = new MoveList();
-            MoveListBad[iFukasa] = new MoveList();
+            MoveList[iFukasa] = new SasiteList();
+            MoveListBad[iFukasa] = new SasiteList();
         }
     }
     /// <summary>
@@ -275,11 +275,11 @@ public abstract class AbstractUtilMoveGen
     /// 128手先も読まないだろう☆（＾～＾）
     /// </summary>
     public const int SAIDAI_SASITE_FUKASA = 128;
-    public static MoveList[] MoveList { get; set; }
+    public static SasiteList[] MoveList { get; set; }
     /// <summary>
     /// 悪い指し手は、一旦　こっちに入れるんだぜ☆（＾～＾）あとで Movelist に入れなおすぜ☆（＾～＾）
     /// </summary>
-    public static MoveList[] MoveListBad { get; set; }
+    public static SasiteList[] MoveListBad { get; set; }
     public static void ClearMoveList(int fukasa)
     {
         MoveList[fukasa].ClearSslist();

@@ -3,9 +3,9 @@
 /// <summary>
 /// 指し手拡張。
 /// </summary>
-public class MoveKakuchoImpl : MoveKakucho
+public class SasiteKakuchoImpl : MoveKakucho
 {
-    public MoveKakuchoImpl(Move move, MoveType kati)
+    public SasiteKakuchoImpl(Move move, MoveType kati)
     {
         this.Move = move;
         this.MoveType = kati;

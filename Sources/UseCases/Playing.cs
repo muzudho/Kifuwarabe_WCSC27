@@ -1330,7 +1330,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
 
                 for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
                 {
-                    sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
+                    sslist.Add(new SasiteKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
                 }
 
                 AbstractConvMovelist.Setumei(isSfen, "逼迫返討手", sslist, syuturyoku);
@@ -1344,7 +1344,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
 
                 for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
                 {
-                    sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
+                    sslist.Add(new SasiteKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
                 }
 
                 AbstractConvMovelist.Setumei(isSfen, "余裕返討手", sslist, syuturyoku);
@@ -1358,7 +1358,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
 
                 for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
                 {
-                    sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
+                    sslist.Add(new SasiteKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
                 }
 
                 AbstractConvMovelist.Setumei(isSfen, "らいおんキャッチ", sslist, syuturyoku);
@@ -1372,7 +1372,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
 
                 for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
                 {
-                    sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
+                    sslist.Add(new SasiteKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
                 }
 
                 AbstractConvMovelist.Setumei(isSfen, "逃げろ手", sslist, syuturyoku);
@@ -1386,7 +1386,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
 
                 for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
                 {
-                    sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
+                    sslist.Add(new SasiteKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
                 }
 
                 AbstractConvMovelist.Setumei(isSfen, "トライ", sslist, syuturyoku);
@@ -1401,7 +1401,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
 
                 for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
                 {
-                    sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
+                    sslist.Add(new SasiteKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
                 }
 
                 AbstractConvMovelist.Setumei(isSfen, "駒を取る手（逃げ道を開けない手）", sslist, syuturyoku);
@@ -1415,7 +1415,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
 
                 for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveListBad[fukasa].SslistCount; iSs++)
                 {
-                    sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveListBad[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveListBad[fukasa].List_Reason[iSs]));
+                    sslist.Add(new SasiteKakuchoImpl(AbstractUtilMoveGen.MoveListBad[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveListBad[fukasa].List_Reason[iSs]));
                 }
 
                 AbstractConvMovelist.Setumei(isSfen, "駒を取る手（逃げ道を開ける手）", sslist, syuturyoku);
@@ -1431,7 +1431,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                 AbstractUtilMoveGen.GenerateMove01(fukasa, ky, MoveType.N10_HimotukiOteSasi, NO_MERGE, syuturyoku);
                 for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
                 {
-                    sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
+                    sslist.Add(new SasiteKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
                 }
                 AbstractConvMovelist.Setumei(isSfen, "紐付王手指（逃げ道を開けない手）", sslist, syuturyoku);
                 syuturyoku.AppendLine();
@@ -1443,7 +1443,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                 AbstractUtilMoveGen.GenerateMove01(fukasa, ky, MoveType.N06_SuteOteSasi, NO_MERGE, syuturyoku);
                 for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
                 {
-                    sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
+                    sslist.Add(new SasiteKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
                 }
                 AbstractConvMovelist.Setumei(isSfen, "捨て王手指（逃げ道を開けない手）", sslist, syuturyoku);
                 syuturyoku.AppendLine();
@@ -1455,7 +1455,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                 AbstractUtilMoveGen.GenerateMove01(fukasa, ky, MoveType.N07_SuteOteDa, NO_MERGE, syuturyoku);
                 for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
                 {
-                    sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
+                    sslist.Add(new SasiteKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
                 }
                 AbstractConvMovelist.Setumei(isSfen, "捨て王手打（逃げ道を開けない手）", sslist, syuturyoku);
                 syuturyoku.AppendLine();
@@ -1468,7 +1468,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
 
                 for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
                 {
-                    sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
+                    sslist.Add(new SasiteKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
                 }
 
                 AbstractConvMovelist.Setumei(isSfen, "紐付王手打（逃げ道を開けない手）", sslist, syuturyoku);
@@ -1482,7 +1482,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                 AbstractUtilMoveGen.GenerateMove01(fukasa, ky, MoveType.N10_HimotukiOteSasi, NO_MERGE, syuturyoku);
                 for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveListBad[fukasa].SslistCount; iSs++)
                 {
-                    sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveListBad[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveListBad[fukasa].List_Reason[iSs]));
+                    sslist.Add(new SasiteKakuchoImpl(AbstractUtilMoveGen.MoveListBad[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveListBad[fukasa].List_Reason[iSs]));
                 }
                 AbstractConvMovelist.Setumei(isSfen, "紐付王手指（逃げ道を開ける手）", sslist, syuturyoku);
                 syuturyoku.AppendLine();
@@ -1494,7 +1494,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                 AbstractUtilMoveGen.GenerateMove01(fukasa, ky, MoveType.N06_SuteOteSasi, NO_MERGE, syuturyoku);
                 for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveListBad[fukasa].SslistCount; iSs++)
                 {
-                    sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveListBad[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveListBad[fukasa].List_Reason[iSs]));
+                    sslist.Add(new SasiteKakuchoImpl(AbstractUtilMoveGen.MoveListBad[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveListBad[fukasa].List_Reason[iSs]));
                 }
                 AbstractConvMovelist.Setumei(isSfen, "捨て王手指（逃げ道を開ける手）", sslist, syuturyoku);
                 syuturyoku.AppendLine();
@@ -1506,7 +1506,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                 AbstractUtilMoveGen.GenerateMove01(fukasa, ky, MoveType.N07_SuteOteDa, NO_MERGE, syuturyoku);
                 for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveListBad[fukasa].SslistCount; iSs++)
                 {
-                    sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveListBad[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveListBad[fukasa].List_Reason[iSs]));
+                    sslist.Add(new SasiteKakuchoImpl(AbstractUtilMoveGen.MoveListBad[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveListBad[fukasa].List_Reason[iSs]));
                 }
                 AbstractConvMovelist.Setumei(isSfen, "捨て王手打（逃げ道を開ける手）", sslist, syuturyoku);
                 syuturyoku.AppendLine();
@@ -1518,7 +1518,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                 AbstractUtilMoveGen.GenerateMove01(fukasa, ky, MoveType.N11_HimotukiOteDa, NO_MERGE, syuturyoku);
                 for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveListBad[fukasa].SslistCount; iSs++)
                 {
-                    sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveListBad[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveListBad[fukasa].List_Reason[iSs]));
+                    sslist.Add(new SasiteKakuchoImpl(AbstractUtilMoveGen.MoveListBad[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveListBad[fukasa].List_Reason[iSs]));
                 }
                 AbstractConvMovelist.Setumei(isSfen, "紐付王手打（逃げ道を開ける手）", sslist, syuturyoku);
                 syuturyoku.AppendLine();
@@ -1532,7 +1532,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
 
                 for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
                 {
-                    sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
+                    sslist.Add(new SasiteKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
                 }
 
                 AbstractConvMovelist.Setumei(isSfen, "紐付緩慢打", sslist, syuturyoku);
@@ -1547,7 +1547,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
 
                 for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
                 {
-                    sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
+                    sslist.Add(new SasiteKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
                 }
 
                 AbstractConvMovelist.Setumei(isSfen, "紐付緩慢指（仲間を見捨てない動き）", sslist, syuturyoku);
@@ -1561,7 +1561,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
 
                 for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
                 {
-                    sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
+                    sslist.Add(new SasiteKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
                 }
 
                 AbstractConvMovelist.Setumei(isSfen, "ぼっち緩慢指（仲間を見捨てない動き）", sslist, syuturyoku);
@@ -1575,7 +1575,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
 
                 for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
                 {
-                    sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
+                    sslist.Add(new SasiteKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
                 }
 
                 AbstractConvMovelist.Setumei(isSfen, "ぼっち緩慢打（仲間を見捨てない動き）", sslist, syuturyoku);
@@ -1590,7 +1590,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
 
                 for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveListBad[fukasa].SslistCount; iSs++)
                 {
-                    sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveListBad[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveListBad[fukasa].List_Reason[iSs]));
+                    sslist.Add(new SasiteKakuchoImpl(AbstractUtilMoveGen.MoveListBad[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveListBad[fukasa].List_Reason[iSs]));
                 }
 
                 AbstractConvMovelist.Setumei(isSfen, "紐付緩慢指（仲間を見捨てる動き）", sslist, syuturyoku);
@@ -1604,7 +1604,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
 
                 for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveListBad[fukasa].SslistCount; iSs++)
                 {
-                    sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveListBad[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveListBad[fukasa].List_Reason[iSs]));
+                    sslist.Add(new SasiteKakuchoImpl(AbstractUtilMoveGen.MoveListBad[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveListBad[fukasa].List_Reason[iSs]));
                 }
 
                 AbstractConvMovelist.Setumei(isSfen, "ぼっち緩慢指（仲間を見捨てる動き）", sslist, syuturyoku);
@@ -1618,7 +1618,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
 
                 for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveListBad[fukasa].SslistCount; iSs++)
                 {
-                    sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveListBad[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveListBad[fukasa].List_Reason[iSs]));
+                    sslist.Add(new SasiteKakuchoImpl(AbstractUtilMoveGen.MoveListBad[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveListBad[fukasa].List_Reason[iSs]));
                 }
 
                 AbstractConvMovelist.Setumei(isSfen, "ぼっち緩慢打（仲間を見捨てる動き）", sslist, syuturyoku);
@@ -1633,7 +1633,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
 
                 for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
                 {
-                    sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
+                    sslist.Add(new SasiteKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
                 }
 
                 AbstractConvMovelist.Setumei(isSfen, "捨て緩慢指し（タダ捨て指し）", sslist, syuturyoku);
@@ -1647,7 +1647,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
 
                 for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
                 {
-                    sslist.Add(new MoveKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
+                    sslist.Add(new SasiteKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
                 }
 
                 AbstractConvMovelist.Setumei(isSfen, "捨て緩慢打（タダ捨て打）", sslist, syuturyoku);

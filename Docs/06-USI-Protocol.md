@@ -1,6 +1,6 @@
 # 🎮 USIプロトコル対応
 
-きふわらべい（Kifuwarakei）の USI (Universal Shogi Interface) プロトコル対応について説明するぜ（＾▽＾）！
+きふわらけい（Kifuwarakei）の USI (Universal Shogi Interface) プロトコル対応について説明するぜ（＾▽＾）！
 
 ## 📖 USIプロトコルとは？
 
@@ -33,18 +33,18 @@
    ```
    Kifuwarabe_WCSC27/Bin/Release/net10.0/Grayscale.kifuwarakei.Engine.exe
    ```
-5. エンジン名を設定 (例: `きふわらべい`)
+5. エンジン名を設定 (例: `きふわらけい`)
 6. **OK** をクリック
 
 ### Step 3: 対局開始
 
 1. メニューから **対局 → 対局開始** を選択
-2. 先手または後手に「きふわらべい」を選択
+2. 先手または後手に「きふわらけい」を選択
 3. **対局開始** ボタンをクリック
 
 ## 📡 USIコマンド一覧
 
-きふわらべいが対応している USI コマンドを紹介します。
+きふわらけいが対応している USI コマンドを紹介します。
 
 ### 基本コマンド
 
@@ -155,7 +155,7 @@ setoption name USI_Ponder value true
 setoption name USI_Hash value 256
 ```
 
-**きふわらべいの対応状況**: 
+**きふわらけいの対応状況**: 
 一部のオプションは未対応の可能性があります。
 
 ---

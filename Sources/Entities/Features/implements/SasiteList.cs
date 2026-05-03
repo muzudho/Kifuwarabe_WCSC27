@@ -1,14 +1,14 @@
-﻿using System;
+﻿namespace Grayscale.Kifuwarakei.Entities.Features;
 
-namespace Grayscale.Kifuwarakei.Entities.Features;
+using System;
 
 /// <summary>
 /// 指し手のリスト☆（＾▽＾）
 /// 合法手数は 38 が上限のようだが☆（＾～＾）
 /// </summary>
-public class MoveList
+public class SasiteList
 {
-    public MoveList()
+    public SasiteList()
     {
         // List<MoveKakucho> では範囲外インデックスエラーが出るので、配列にしてみるぜ☆
         this.ListMove = new Move[AbstractUtilMoveGen.SAIDAI_SASITE];

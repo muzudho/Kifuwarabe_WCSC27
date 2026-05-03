@@ -1,23 +1,23 @@
-﻿using System.Text;
+﻿namespace Grayscale.Kifuwarakei.Entities.Features;
 
-namespace Grayscale.Kifuwarakei.Entities.Features;
+using System.Text;
 
 /// <summary>
 /// 指し手生成分析（開発中用）
 /// </summary>
-public class MoveGenBunseki
+public class SasiteGenBunseki
 {
-    public static MoveGenBunseki Instance
+    public static SasiteGenBunseki Instance
     {
         get
         {
-            if (null == m_instance_) { m_instance_ = new MoveGenBunseki(); }
+            if (null == m_instance_) { m_instance_ = new SasiteGenBunseki(); }
             return m_instance_;
         }
     }
-    static MoveGenBunseki m_instance_;
+    static SasiteGenBunseki m_instance_;
 
-    private MoveGenBunseki()
+    private SasiteGenBunseki()
     {
 
     }
@@ -39,7 +39,7 @@ public class MoveGenBunseki
 
     public void Setumei(StringBuilder syuturyoku)
     {
-        syuturyoku.AppendLine($"指し手生成を抜けた場所：{MoveGenBunseki.Instance.MoveGenWoNuketaBasho}");
+        syuturyoku.AppendLine($"指し手生成を抜けた場所：{SasiteGenBunseki.Instance.MoveGenWoNuketaBasho}");
         Util_Information.Setumei_1Bitboard("移動先升", BB_IdosakiBase, syuturyoku);
     }
 }
