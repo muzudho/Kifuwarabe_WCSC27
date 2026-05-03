@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Text.RegularExpressions;
+using Grayscale.Kifuwarakei.Entities.Features.Commandline;
 using Grayscale.Kifuwarakei.Entities.Logging;
 using Grayscale.Kifuwarakei.Entities.Techniques;
 

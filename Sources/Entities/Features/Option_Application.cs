@@ -1,4 +1,6 @@
-﻿namespace Grayscale.Kifuwarakei.Entities.Techniques;
+﻿using Grayscale.Kifuwarakei.Entities.Techniques;
+
+namespace Grayscale.Kifuwarakei.Entities.Features;
 
 using Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 using System;

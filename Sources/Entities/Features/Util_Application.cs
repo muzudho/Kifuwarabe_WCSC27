@@ -9,8 +9,9 @@ using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
 using Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 using Grayscale.Kifuwarakei.Entities.Language;
 using Grayscale.Kifuwarakei.Entities.Logging;
+using Grayscale.Kifuwarakei.Entities.Techniques;
 
-namespace Grayscale.Kifuwarakei.Entities.Techniques;
+namespace Grayscale.Kifuwarakei.Entities.Features;
 
 public enum GameMode
 {

@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Grayscale.Kifuwarakei.Entities.Techniques;
+namespace Grayscale.Kifuwarakei.Entities.Features.Commandline;
 
 public abstract class Util_String
 {

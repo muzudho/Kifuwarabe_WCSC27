@@ -3,6 +3,7 @@
 using Grayscale.Kifuwarakei.Entities.Techniques;
 using System.Text;
 using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
+using Grayscale.Kifuwarakei.Entities.Features;
 
 /// <summary>
 /// きふわらべ思考エンジンのテストだぜ☆（＾▽＾）

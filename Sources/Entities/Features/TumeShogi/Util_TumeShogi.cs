@@ -1,9 +1,10 @@
 ﻿using Grayscale.Kifuwarakei.Entities.Features.Commandline;
 using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
 using Grayscale.Kifuwarakei.Entities.Features.Tansaku;
+using Grayscale.Kifuwarakei.Entities.Techniques;
 using System.Text;
 
-namespace Grayscale.Kifuwarakei.Entities.Techniques;
+namespace Grayscale.Kifuwarakei.Entities.Features.TumeShogi;
 
 public abstract class Util_TumeShogi
 {

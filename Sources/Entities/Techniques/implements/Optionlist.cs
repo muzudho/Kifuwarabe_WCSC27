@@ -1,4 +1,5 @@
-﻿using Grayscale.Kifuwarakei.Entities.Features.Hyoka;
+﻿using Grayscale.Kifuwarakei.Entities.Features;
+using Grayscale.Kifuwarakei.Entities.Features.Hyoka;
 using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
 using System.Diagnostics;
 

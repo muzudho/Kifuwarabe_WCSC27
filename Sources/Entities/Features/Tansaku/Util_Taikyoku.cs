@@ -1,8 +1,7 @@
 ﻿using Grayscale.Kifuwarakei.Entities.Features.Hyoka;
-using Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 using Grayscale.Kifuwarakei.Entities.Language;
 
-namespace Grayscale.Kifuwarakei.Entities.Techniques;
+namespace Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 
 public abstract class Util_Taikyoku
 {
