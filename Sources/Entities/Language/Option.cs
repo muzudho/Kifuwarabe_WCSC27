@@ -1,47 +1,46 @@
 ﻿using System;
 
-namespace Grayscale.Kifuwarakei.Entities.Language
+namespace Grayscale.Kifuwarakei.Entities.Language;
+
+public class Option<T>
 {
-    public class Option<T>
+    public static Option<T> None
     {
-        public static Option<T> None
+        get
         {
-            get
-            {
-                return new Option<T>();
-            }
+            return new Option<T>();
         }
+    }
 
-        Option()
+    Option()
+    {
+    }
+
+    public Option(T item)
+    {
+        this.Item = item;
+    }
+
+    T Item { get; set; }
+
+    public T Unwrap()
+    {
+        if (this.Item == null)
         {
+            throw new Exception("This is none.");
         }
+        return this.Item;
+    }
 
-        public Option(T item)
-        {
-            this.Item = item;
-        }
-
-        T Item { get; set; }
-
-        public T Unwrap()
+    public (bool, T) Match
+    {
+        get
         {
             if (this.Item == null)
             {
-                throw new Exception("This is none.");
+                return (false, this.Item);
             }
-            return this.Item;
-        }
-
-        public (bool, T) Match
-        {
-            get
-            {
-                if (this.Item == null)
-                {
-                    return (false, this.Item);
-                }
-                return (true, this.Item);
-            }
+            return (true, this.Item);
         }
     }
 }

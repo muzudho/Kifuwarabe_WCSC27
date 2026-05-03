@@ -1,25 +1,24 @@
-﻿namespace Grayscale.Kifuwarakei.Entities.Features
+﻿namespace Grayscale.Kifuwarakei.Entities.Features;
+
+/// <summary>
+/// 指し手拡張。
+/// </summary>
+public class MoveKakuchoImpl : MoveKakucho
 {
-    /// <summary>
-    /// 指し手拡張。
-    /// </summary>
-    public class MoveKakuchoImpl : MoveKakucho
+    public MoveKakuchoImpl(Move move, MoveType kati)
     {
-        public MoveKakuchoImpl(Move move, MoveType kati)
-        {
-            this.Move = move;
-            this.MoveType = kati;
-        }
-
-        /// <summary>
-        /// 指し手☆
-        /// </summary>
-        public Move Move { get; set; }
-
-        /// <summary>
-        /// 相手の　らいおん　を捕まえる手か、トライアウトする手なら真だぜ☆（＾▽＾）ｖ
-        /// 探索を打ち切るのに必要だし☆（＾＿＾）
-        /// </summary>
-        public MoveType MoveType { get; set; }
+        this.Move = move;
+        this.MoveType = kati;
     }
+
+    /// <summary>
+    /// 指し手☆
+    /// </summary>
+    public Move Move { get; set; }
+
+    /// <summary>
+    /// 相手の　らいおん　を捕まえる手か、トライアウトする手なら真だぜ☆（＾▽＾）ｖ
+    /// 探索を打ち切るのに必要だし☆（＾＿＾）
+    /// </summary>
+    public MoveType MoveType { get; set; }
 }
