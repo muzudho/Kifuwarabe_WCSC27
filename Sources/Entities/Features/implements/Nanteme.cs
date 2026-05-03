@@ -76,7 +76,7 @@ public class Nanteme
     /// <summary>
     /// 読み筋に指し手タイプを出すことで、デバッグに使うために覚えておくぜ☆（＾▽＾）
     /// </summary>
-    public SasiteType MoveType { get; set; }
+    public SasiteSyuruiType MoveType { get; set; }
 
     /// <summary>
     /// 取られた駒の種類だぜ☆（＾▽＾）
@@ -141,7 +141,7 @@ public class Nanteme
                 syuturyoku.Append(" ");
 
                 // おまけ
-                syuturyoku.Append($"{AbstractConvSasiteType.Setumei(nanteme.MoveType)} ");
+                syuturyoku.Append($"{AbstractConvSasiteSyuruiType.Setumei(nanteme.MoveType)} ");
             }
             zuhaNantemade++;
         }

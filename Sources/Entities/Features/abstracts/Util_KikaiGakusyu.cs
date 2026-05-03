@@ -79,7 +79,7 @@ public abstract class Util_KikaiGakusyu
         {
             // まず、一手指すぜ☆
             Nanteme nanteme = new Nanteme();
-            ky.DoMove(Option_Application.Optionlist.USI, kyosiSs, SasiteType.N00_Karappo, ref nanteme, ky.CurrentOptionalPhase, syuturyoku);
+            ky.DoMove(Option_Application.Optionlist.USI, kyosiSs, SasiteSyuruiType.N00_Karappo, ref nanteme, ky.CurrentOptionalPhase, syuturyoku);
 
             // 評価値を調べようぜ☆（＾▽＾）
             Hyokati komawariHyokati = ky.Komawari.Get(ky.CurrentOptionalPhase);
@@ -126,7 +126,7 @@ public abstract class Util_KikaiGakusyu
 
             // まず、一手指すぜ☆
             Nanteme nanteme = new Nanteme();
-            ky.DoMove(Option_Application.Optionlist.USI, entry.Key, SasiteType.N00_Karappo, ref nanteme, ky.CurrentOptionalPhase, syuturyoku);
+            ky.DoMove(Option_Application.Optionlist.USI, entry.Key, SasiteSyuruiType.N00_Karappo, ref nanteme, ky.CurrentOptionalPhase, syuturyoku);
 
             // 評価値を調べようぜ☆（＾▽＾）
             ky.Hyoka(out sonotanoTe_hyokatiUtiwake, HyokaRiyu.Yososu, true// ランダムな局面で学習したりもするし☆（＾～＾）

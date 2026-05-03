@@ -942,7 +942,7 @@ public class Kyokumen
     /// ハッシュも差分変更するぜ☆
     /// </summary>
     /// <param name="ss">指し手☆</param>
-    public void DoMove(bool isSfen, Sasite ss, SasiteType ssType, ref Nanteme konoTeme, Option<Phase> optionalPhase, StringBuilder syuturyoku)
+    public void DoMove(bool isSfen, Sasite ss, SasiteSyuruiType ssType, ref Nanteme konoTeme, Option<Phase> optionalPhase, StringBuilder syuturyoku)
     {
         // bool endMethodFlag;
 
@@ -2423,7 +2423,7 @@ public class Kyokumen
                 }
 
                 Nanteme nanteme = new Nanteme();
-                this.DoMove(isSfen, ss, SasiteType.N00_Karappo, ref nanteme, this.CurrentOptionalPhase, syuturyokuTestYo_orKarappo);
+                this.DoMove(isSfen, ss, SasiteSyuruiType.N00_Karappo, ref nanteme, this.CurrentOptionalPhase, syuturyokuTestYo_orKarappo);
 
                 if (Komasyurui.R == tottaKomasyurui)
                 {

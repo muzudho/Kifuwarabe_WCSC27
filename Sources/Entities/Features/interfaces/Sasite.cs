@@ -6,7 +6,7 @@
 public interface SasiteKakucho
 {
     Sasite Move { get; set; }
-    SasiteType MoveType { get; set; }
+    SasiteSyuruiType MoveType { get; set; }
 }
 
 /// <summary>

@@ -115,7 +115,7 @@ public class Kifu
         foreach (Sasite ss in SsList)
         {
             Nanteme nanteme = new Nanteme();
-            ky.DoMove(isSfen, ss, SasiteType.N00_Karappo, ref nanteme, ky.CurrentOptionalPhase, syuturyoku);
+            ky.DoMove(isSfen, ss, SasiteSyuruiType.N00_Karappo, ref nanteme, ky.CurrentOptionalPhase, syuturyoku);
 
 #if DEBUG
             //Util_Commands.Ky(isSfen, "ky", ky, syuturyoku);
@@ -147,7 +147,7 @@ public class Kifu
                 break;
             }
             Nanteme nanteme = new Nanteme();
-            ky.DoMove(isSfen, ss, SasiteType.N00_Karappo, ref nanteme, ky.CurrentOptionalPhase, syuturyoku);
+            ky.DoMove(isSfen, ss, SasiteSyuruiType.N00_Karappo, ref nanteme, ky.CurrentOptionalPhase, syuturyoku);
             temeMade--;
         }
     }
