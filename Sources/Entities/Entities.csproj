@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net10.0;net48</TargetFrameworks>
+    <TargetFramework>net10.0</TargetFramework>
     <OutputType>Library</OutputType>
     <RootNamespace>Grayscale.Kifuwarakei.Entities</RootNamespace>
     <AssemblyName>Grayscale.Kifuwarakei.Entities</AssemblyName>
@@ -25,12 +25,6 @@
     <OutputPath>..\..\Builds_x64\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Net.Http" />
-  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Nett" Version="0.15.0" />
   </ItemGroup>

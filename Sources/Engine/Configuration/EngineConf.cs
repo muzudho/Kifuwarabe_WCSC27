@@ -1,12 +1,22 @@
 ﻿namespace Grayscale.Kifuwarakei.Engine.Configuration
 {
-    using System.Configuration;
     using System.IO;
     using Grayscale.Kifuwarakei.Entities.Configuration;
+    using Microsoft.Extensions.Configuration;
     using Nett;
 
     public class EngineConf : IEngineConf
     {
+        private static IConfiguration configuration_;
+
+        static EngineConf()
+        {
+            configuration_ = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .Build();
+        }
+
         public string GetEngine(string key)
         {
             return this.EngineToml.Get<TomlTable>("Engine").Get<string>(key);
@@ -89,7 +99,7 @@
             {
                 if (this.profilePath_ == null)
                 {
-                    this.profilePath_ = ConfigurationManager.AppSettings["Profile"];
+                    this.profilePath_ = configuration_["Profile"];
                 }
                 return this.profilePath_;
             }

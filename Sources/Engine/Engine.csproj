@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <OutputType>Exe</OutputType>
     <RootNamespace>Grayscale.kifuwarakei.Engine</RootNamespace>
     <AssemblyName>Grayscale.kifuwarakei.Engine</AssemblyName>
@@ -66,15 +66,6 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Nett, Version=0.15.0.0, Culture=neutral, PublicKeyToken=605dcfe7a1d3365b, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Nett.0.15.0\lib\net40\Nett.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Net.Http" />
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
@@ -87,15 +78,18 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.NetAnalyzers.5.0.1\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll" />
-    <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.NetAnalyzers.5.0.1\analyzers\dotnet\cs\Microsoft.CodeAnalysis.NetAnalyzers.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Entities\Entities.csproj" />
     <ProjectReference Include="..\UseCases\UseCases.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="5.0.1" />
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="10.0.100" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.1" />
     <PackageReference Include="Nett" Version="0.15.0" />
   </ItemGroup>
 </Project>

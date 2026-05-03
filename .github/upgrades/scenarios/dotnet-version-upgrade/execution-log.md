@@ -26,3 +26,10 @@ Successfully upgraded Entities.csproj to multi-target net48;net10.0. Changed Tar
 
 Successfully upgraded UseCases.csproj to multi-target net48;net10.0. Changed TargetFramework to TargetFrameworks (plural), added net10.0 target, removed duplicate Nett reference, and made .NET Framework-specific assembly references conditional. Both targets build successfully, all 3 tests pass, and Tier 3 (Engine) still builds on net48 consuming UseCases net48 target. Between-tier validation confirmed working.
 
+
+## [2026-05-03 10:57] 05-tier3-engine-app
+
+**Task 05-tier3-engine-app: Upgrade Tier 3 application and migrate configuration** ✅
+
+Successfully upgraded Engine to net10.0 and migrated App.config to appsettings.json using Microsoft.Extensions.Configuration. Created appsettings.json, updated EngineConf.cs to use IConfiguration instead of ConfigurationManager. Consolidated Entities and UseCases to net10.0-only (removed net48 multi-targeting). All projects now target net10.0, solution builds clean, all 3 tests pass. Configuration migration complete.
+
