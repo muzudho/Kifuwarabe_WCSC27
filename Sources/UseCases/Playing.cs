@@ -1283,7 +1283,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
         if (commandline == "move")
         {
             List<SasiteKakucho> sslist = Util_Application.MoveCmd(ky, syuturyoku);
-            AbstractConvSasiteList.Setumei(isSfen, "指し手全部", sslist, syuturyoku);
+            ConvSasiteList.Setumei(isSfen, "指し手全部", sslist, syuturyoku);
             syuturyoku.AppendLine();
             return;
         }
@@ -1338,7 +1338,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                     sslist.Add(new SasiteKakuchoImpl(UtilSasiteSeisei.MoveList[fukasa].ListMove[iSs], UtilSasiteSeisei.MoveList[fukasa].List_Reason[iSs]));
                 }
 
-                AbstractConvSasiteList.Setumei(isSfen, "逼迫返討手", sslist, syuturyoku);
+                ConvSasiteList.Setumei(isSfen, "逼迫返討手", sslist, syuturyoku);
                 syuturyoku.AppendLine();
             }
             #endregion
@@ -1352,7 +1352,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                     sslist.Add(new SasiteKakuchoImpl(UtilSasiteSeisei.MoveList[fukasa].ListMove[iSs], UtilSasiteSeisei.MoveList[fukasa].List_Reason[iSs]));
                 }
 
-                AbstractConvSasiteList.Setumei(isSfen, "余裕返討手", sslist, syuturyoku);
+                ConvSasiteList.Setumei(isSfen, "余裕返討手", sslist, syuturyoku);
                 syuturyoku.AppendLine();
             }
             #endregion
@@ -1366,7 +1366,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                     sslist.Add(new SasiteKakuchoImpl(UtilSasiteSeisei.MoveList[fukasa].ListMove[iSs], UtilSasiteSeisei.MoveList[fukasa].List_Reason[iSs]));
                 }
 
-                AbstractConvSasiteList.Setumei(isSfen, "らいおんキャッチ", sslist, syuturyoku);
+                ConvSasiteList.Setumei(isSfen, "らいおんキャッチ", sslist, syuturyoku);
                 syuturyoku.AppendLine();
             }
             #endregion
@@ -1380,7 +1380,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                     sslist.Add(new SasiteKakuchoImpl(UtilSasiteSeisei.MoveList[fukasa].ListMove[iSs], UtilSasiteSeisei.MoveList[fukasa].List_Reason[iSs]));
                 }
 
-                AbstractConvSasiteList.Setumei(isSfen, "逃げろ手", sslist, syuturyoku);
+                ConvSasiteList.Setumei(isSfen, "逃げろ手", sslist, syuturyoku);
                 syuturyoku.AppendLine();
             }
             #endregion
@@ -1394,7 +1394,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                     sslist.Add(new SasiteKakuchoImpl(UtilSasiteSeisei.MoveList[fukasa].ListMove[iSs], UtilSasiteSeisei.MoveList[fukasa].List_Reason[iSs]));
                 }
 
-                AbstractConvSasiteList.Setumei(isSfen, "トライ", sslist, syuturyoku);
+                ConvSasiteList.Setumei(isSfen, "トライ", sslist, syuturyoku);
                 syuturyoku.AppendLine();
             }
             #endregion
@@ -1409,7 +1409,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                     sslist.Add(new SasiteKakuchoImpl(UtilSasiteSeisei.MoveList[fukasa].ListMove[iSs], UtilSasiteSeisei.MoveList[fukasa].List_Reason[iSs]));
                 }
 
-                AbstractConvSasiteList.Setumei(isSfen, "駒を取る手（逃げ道を開けない手）", sslist, syuturyoku);
+                ConvSasiteList.Setumei(isSfen, "駒を取る手（逃げ道を開けない手）", sslist, syuturyoku);
                 syuturyoku.AppendLine();
             }
             #endregion
@@ -1423,7 +1423,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                     sslist.Add(new SasiteKakuchoImpl(UtilSasiteSeisei.MoveListBad[fukasa].ListMove[iSs], UtilSasiteSeisei.MoveListBad[fukasa].List_Reason[iSs]));
                 }
 
-                AbstractConvSasiteList.Setumei(isSfen, "駒を取る手（逃げ道を開ける手）", sslist, syuturyoku);
+                ConvSasiteList.Setumei(isSfen, "駒を取る手（逃げ道を開ける手）", sslist, syuturyoku);
                 syuturyoku.AppendLine();
             }
             #endregion
@@ -1438,7 +1438,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                 {
                     sslist.Add(new SasiteKakuchoImpl(UtilSasiteSeisei.MoveList[fukasa].ListMove[iSs], UtilSasiteSeisei.MoveList[fukasa].List_Reason[iSs]));
                 }
-                AbstractConvSasiteList.Setumei(isSfen, "紐付王手指（逃げ道を開けない手）", sslist, syuturyoku);
+                ConvSasiteList.Setumei(isSfen, "紐付王手指（逃げ道を開けない手）", sslist, syuturyoku);
                 syuturyoku.AppendLine();
             }
             #endregion
@@ -1450,7 +1450,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                 {
                     sslist.Add(new SasiteKakuchoImpl(UtilSasiteSeisei.MoveList[fukasa].ListMove[iSs], UtilSasiteSeisei.MoveList[fukasa].List_Reason[iSs]));
                 }
-                AbstractConvSasiteList.Setumei(isSfen, "捨て王手指（逃げ道を開けない手）", sslist, syuturyoku);
+                ConvSasiteList.Setumei(isSfen, "捨て王手指（逃げ道を開けない手）", sslist, syuturyoku);
                 syuturyoku.AppendLine();
             }
             #endregion
@@ -1462,7 +1462,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                 {
                     sslist.Add(new SasiteKakuchoImpl(UtilSasiteSeisei.MoveList[fukasa].ListMove[iSs], UtilSasiteSeisei.MoveList[fukasa].List_Reason[iSs]));
                 }
-                AbstractConvSasiteList.Setumei(isSfen, "捨て王手打（逃げ道を開けない手）", sslist, syuturyoku);
+                ConvSasiteList.Setumei(isSfen, "捨て王手打（逃げ道を開けない手）", sslist, syuturyoku);
                 syuturyoku.AppendLine();
             }
             #endregion
@@ -1476,7 +1476,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                     sslist.Add(new SasiteKakuchoImpl(UtilSasiteSeisei.MoveList[fukasa].ListMove[iSs], UtilSasiteSeisei.MoveList[fukasa].List_Reason[iSs]));
                 }
 
-                AbstractConvSasiteList.Setumei(isSfen, "紐付王手打（逃げ道を開けない手）", sslist, syuturyoku);
+                ConvSasiteList.Setumei(isSfen, "紐付王手打（逃げ道を開けない手）", sslist, syuturyoku);
                 syuturyoku.AppendLine();
             }
             #endregion
@@ -1489,7 +1489,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                 {
                     sslist.Add(new SasiteKakuchoImpl(UtilSasiteSeisei.MoveListBad[fukasa].ListMove[iSs], UtilSasiteSeisei.MoveListBad[fukasa].List_Reason[iSs]));
                 }
-                AbstractConvSasiteList.Setumei(isSfen, "紐付王手指（逃げ道を開ける手）", sslist, syuturyoku);
+                ConvSasiteList.Setumei(isSfen, "紐付王手指（逃げ道を開ける手）", sslist, syuturyoku);
                 syuturyoku.AppendLine();
             }
             #endregion
@@ -1501,7 +1501,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                 {
                     sslist.Add(new SasiteKakuchoImpl(UtilSasiteSeisei.MoveListBad[fukasa].ListMove[iSs], UtilSasiteSeisei.MoveListBad[fukasa].List_Reason[iSs]));
                 }
-                AbstractConvSasiteList.Setumei(isSfen, "捨て王手指（逃げ道を開ける手）", sslist, syuturyoku);
+                ConvSasiteList.Setumei(isSfen, "捨て王手指（逃げ道を開ける手）", sslist, syuturyoku);
                 syuturyoku.AppendLine();
             }
             #endregion
@@ -1513,7 +1513,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                 {
                     sslist.Add(new SasiteKakuchoImpl(UtilSasiteSeisei.MoveListBad[fukasa].ListMove[iSs], UtilSasiteSeisei.MoveListBad[fukasa].List_Reason[iSs]));
                 }
-                AbstractConvSasiteList.Setumei(isSfen, "捨て王手打（逃げ道を開ける手）", sslist, syuturyoku);
+                ConvSasiteList.Setumei(isSfen, "捨て王手打（逃げ道を開ける手）", sslist, syuturyoku);
                 syuturyoku.AppendLine();
             }
             #endregion
@@ -1525,7 +1525,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                 {
                     sslist.Add(new SasiteKakuchoImpl(UtilSasiteSeisei.MoveListBad[fukasa].ListMove[iSs], UtilSasiteSeisei.MoveListBad[fukasa].List_Reason[iSs]));
                 }
-                AbstractConvSasiteList.Setumei(isSfen, "紐付王手打（逃げ道を開ける手）", sslist, syuturyoku);
+                ConvSasiteList.Setumei(isSfen, "紐付王手打（逃げ道を開ける手）", sslist, syuturyoku);
                 syuturyoku.AppendLine();
             }
             #endregion
@@ -1540,7 +1540,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                     sslist.Add(new SasiteKakuchoImpl(UtilSasiteSeisei.MoveList[fukasa].ListMove[iSs], UtilSasiteSeisei.MoveList[fukasa].List_Reason[iSs]));
                 }
 
-                AbstractConvSasiteList.Setumei(isSfen, "紐付緩慢打", sslist, syuturyoku);
+                ConvSasiteList.Setumei(isSfen, "紐付緩慢打", sslist, syuturyoku);
                 syuturyoku.AppendLine();
             }
             #endregion
@@ -1555,7 +1555,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                     sslist.Add(new SasiteKakuchoImpl(UtilSasiteSeisei.MoveList[fukasa].ListMove[iSs], UtilSasiteSeisei.MoveList[fukasa].List_Reason[iSs]));
                 }
 
-                AbstractConvSasiteList.Setumei(isSfen, "紐付緩慢指（仲間を見捨てない動き）", sslist, syuturyoku);
+                ConvSasiteList.Setumei(isSfen, "紐付緩慢指（仲間を見捨てない動き）", sslist, syuturyoku);
                 syuturyoku.AppendLine();
             }
             #endregion
@@ -1569,7 +1569,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                     sslist.Add(new SasiteKakuchoImpl(UtilSasiteSeisei.MoveList[fukasa].ListMove[iSs], UtilSasiteSeisei.MoveList[fukasa].List_Reason[iSs]));
                 }
 
-                AbstractConvSasiteList.Setumei(isSfen, "ぼっち緩慢指（仲間を見捨てない動き）", sslist, syuturyoku);
+                ConvSasiteList.Setumei(isSfen, "ぼっち緩慢指（仲間を見捨てない動き）", sslist, syuturyoku);
                 syuturyoku.AppendLine();
             }
             #endregion
@@ -1583,7 +1583,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                     sslist.Add(new SasiteKakuchoImpl(UtilSasiteSeisei.MoveList[fukasa].ListMove[iSs], UtilSasiteSeisei.MoveList[fukasa].List_Reason[iSs]));
                 }
 
-                AbstractConvSasiteList.Setumei(isSfen, "ぼっち緩慢打（仲間を見捨てない動き）", sslist, syuturyoku);
+                ConvSasiteList.Setumei(isSfen, "ぼっち緩慢打（仲間を見捨てない動き）", sslist, syuturyoku);
                 syuturyoku.AppendLine();
             }
             #endregion
@@ -1598,7 +1598,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                     sslist.Add(new SasiteKakuchoImpl(UtilSasiteSeisei.MoveListBad[fukasa].ListMove[iSs], UtilSasiteSeisei.MoveListBad[fukasa].List_Reason[iSs]));
                 }
 
-                AbstractConvSasiteList.Setumei(isSfen, "紐付緩慢指（仲間を見捨てる動き）", sslist, syuturyoku);
+                ConvSasiteList.Setumei(isSfen, "紐付緩慢指（仲間を見捨てる動き）", sslist, syuturyoku);
                 syuturyoku.AppendLine();
             }
             #endregion
@@ -1612,7 +1612,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                     sslist.Add(new SasiteKakuchoImpl(UtilSasiteSeisei.MoveListBad[fukasa].ListMove[iSs], UtilSasiteSeisei.MoveListBad[fukasa].List_Reason[iSs]));
                 }
 
-                AbstractConvSasiteList.Setumei(isSfen, "ぼっち緩慢指（仲間を見捨てる動き）", sslist, syuturyoku);
+                ConvSasiteList.Setumei(isSfen, "ぼっち緩慢指（仲間を見捨てる動き）", sslist, syuturyoku);
                 syuturyoku.AppendLine();
             }
             #endregion
@@ -1626,7 +1626,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                     sslist.Add(new SasiteKakuchoImpl(UtilSasiteSeisei.MoveListBad[fukasa].ListMove[iSs], UtilSasiteSeisei.MoveListBad[fukasa].List_Reason[iSs]));
                 }
 
-                AbstractConvSasiteList.Setumei(isSfen, "ぼっち緩慢打（仲間を見捨てる動き）", sslist, syuturyoku);
+                ConvSasiteList.Setumei(isSfen, "ぼっち緩慢打（仲間を見捨てる動き）", sslist, syuturyoku);
                 syuturyoku.AppendLine();
             }
             #endregion
@@ -1641,7 +1641,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                     sslist.Add(new SasiteKakuchoImpl(UtilSasiteSeisei.MoveList[fukasa].ListMove[iSs], UtilSasiteSeisei.MoveList[fukasa].List_Reason[iSs]));
                 }
 
-                AbstractConvSasiteList.Setumei(isSfen, "捨て緩慢指し（タダ捨て指し）", sslist, syuturyoku);
+                ConvSasiteList.Setumei(isSfen, "捨て緩慢指し（タダ捨て指し）", sslist, syuturyoku);
                 syuturyoku.AppendLine();
             }
             #endregion
@@ -1655,7 +1655,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                     sslist.Add(new SasiteKakuchoImpl(UtilSasiteSeisei.MoveList[fukasa].ListMove[iSs], UtilSasiteSeisei.MoveList[fukasa].List_Reason[iSs]));
                 }
 
-                AbstractConvSasiteList.Setumei(isSfen, "捨て緩慢打（タダ捨て打）", sslist, syuturyoku);
+                ConvSasiteList.Setumei(isSfen, "捨て緩慢打（タダ捨て打）", sslist, syuturyoku);
                 syuturyoku.AppendLine();
             }
             #endregion

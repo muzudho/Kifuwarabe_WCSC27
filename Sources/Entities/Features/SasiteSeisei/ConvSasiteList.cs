@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿namespace Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
+
+using System.Collections.Generic;
 using System.Text;
 
-namespace Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
-
-public abstract class AbstractConvSasiteList
+public abstract class ConvSasiteList
 {
     public static void Setumei(bool isSfen, string header, List<SasiteKakucho> sslist, StringBuilder syuturyoku)
     {
