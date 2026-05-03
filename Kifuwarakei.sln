@@ -1,4 +1,4 @@
-ï»¿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
 VisualStudioVersion = 18.6.11723.189
@@ -9,9 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Sources\Entitie
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UseCases", "Sources\UseCases\UseCases.csproj", "{EB23F022-070A-4A63-ADE9-C68A020037C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{94F77BD3-3452-4428-B644-2BEBE94F0E3E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Tests\Test.csproj", "{94F77BD3-3452-4428-B644-2BEBE94F0E3E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ã‚½ãƒªãƒ¥ãƒ¼ã‚·ãƒ§ãƒ³é …ç›®", "ã‚½ãƒªãƒ¥ãƒ¼ã‚·ãƒ§ãƒ³é …ç›®", "{6B9D43C5-BB9F-4CEA-8D95-A5FA3FE89F3B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ƒ\ƒŠƒ…[ƒVƒ‡ƒ“€–Ú", "ƒ\ƒŠƒ…[ƒVƒ‡ƒ“€–Ú", "{6B9D43C5-BB9F-4CEA-8D95-A5FA3FE89F3B}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
@@ -70,3 +70,4 @@ Global
 		SolutionGuid = {1646EDF5-C03C-46AB-AB5F-016332927A9D}
 	EndGlobalSection
 EndGlobal
+
