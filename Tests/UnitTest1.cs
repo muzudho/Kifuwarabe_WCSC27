@@ -29,7 +29,7 @@ public class MoveGenerationTests
         AbstractUtilMoveGen.GenerateMove01(
             0, // fukasa
             ky,
-            MoveType.N21_All, // 全ての手を生成
+            SasiteType.N21_All, // 全ての手を生成
             true, // sasitelistMerge
             syuturyoku
         );
@@ -57,7 +57,7 @@ public class MoveGenerationTests
         AbstractUtilMoveGen.GenerateMove01(
             0,
             ky,
-            MoveType.N21_All,
+            SasiteType.N21_All,
             true,
             syuturyoku
         );
@@ -88,7 +88,7 @@ public class MoveGenerationTests
         ky.DoHirate(false, syuturyoku);
 
         // Act
-        AbstractUtilMoveGen.GenerateMove01(0, ky, MoveType.N21_All, true, syuturyoku);
+        AbstractUtilMoveGen.GenerateMove01(0, ky, SasiteType.N21_All, true, syuturyoku);
 
         // Assert - 投了(Toryo)だけではないことを確認☆
         bool hasNonResignMove = false;

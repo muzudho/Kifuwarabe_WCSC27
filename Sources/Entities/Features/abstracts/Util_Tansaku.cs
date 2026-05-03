@@ -228,7 +228,7 @@ public abstract class Util_Tansaku
                             List<Sasite> josekiSasites = Option_Application.Joseki.GetMoves(ky);
                             // この局面の合法手を取得☆（＾▽＾）
                             int fukasa = 0;
-                            AbstractUtilMoveGen.GenerateMove01(fukasa, ky, MoveType.N21_All, true, syuturyoku);// グローバル変数 Util_SasiteSeisei.Sasitelist[fukasa].Sslist に指し手がセットされるぜ☆（＾▽＾）
+                            AbstractUtilMoveGen.GenerateMove01(fukasa, ky, SasiteType.N21_All, true, syuturyoku);// グローバル変数 Util_SasiteSeisei.Sasitelist[fukasa].Sslist に指し手がセットされるぜ☆（＾▽＾）
                             List<Sasite> gohosyu = new List<Sasite>(AbstractUtilMoveGen.MoveList[fukasa].ListMove);
                             foreach (Sasite ss in josekiSasites)
                             {
@@ -288,7 +288,7 @@ public abstract class Util_Tansaku
                 {
                     // 定跡用の 読み筋情報 を作るぜ☆（＾▽＾）
                     best_yomisuji_orNull = new Yomisuji();
-                    best_yomisuji_orNull.Add(josekiSs, MoveType.N00_Karappo); // 先頭に今回の指し手を置くぜ☆
+                    best_yomisuji_orNull.Add(josekiSs, SasiteType.N00_Karappo); // 先頭に今回の指し手を置くぜ☆
                     out_isJosekiNoTouri = true;// 定跡の通り指したとき☆
                     goto gt_DoSasite;
                 }
@@ -687,7 +687,7 @@ public abstract class Util_Tansaku
         Nanteme nanteme = new Nanteme();
         ky.DoMove(isSfen,
             null != best_yomisuji_orNull ? best_yomisuji_orNull.GetBestSasite() : Sasite.Toryo,
-            null != best_yomisuji_orNull ? best_yomisuji_orNull.GetBestSasiteType() : MoveType.N00_Karappo
+            null != best_yomisuji_orNull ? best_yomisuji_orNull.GetBestSasiteType() : SasiteType.N00_Karappo
             , ref nanteme, ky.CurrentOptionalPhase, syuturyoku);
 
         // 指し手が決まったときにも、強制情報表示
@@ -775,7 +775,7 @@ public abstract class Util_Tansaku
             dlgt_CreateJoho,
             syuturyoku,
             Sasite.Toryo,// １週目は、葉を通らない前提なので、この指し手は　スルーされる前提だぜ☆（＾▽＾）
-            MoveType.N00_Karappo // まだ指し手を選んでないぜ☆　１週目は葉を通らない前提だぜ☆
+            SasiteType.N00_Karappo // まだ指し手を選んでないぜ☆　１週目は葉を通らない前提だぜ☆
             );
     }
 
@@ -805,7 +805,7 @@ public abstract class Util_Tansaku
         , Dlgt_CreateJoho dlgt_CreateJoho
         , StringBuilder syuturyoku // 出力先
         , Sasite eranda_sasite // 指した手だぜ☆（＾▽＾）
-        , MoveType eranda_sasiteType // 指した、指し手のタイプだぜ☆（＾▽＾）
+        , SasiteType eranda_sasiteType // 指した、指し手のタイプだぜ☆（＾▽＾）
         )
     {
         out_hyokatiUtiwake = new HyokatiUtiwake(
@@ -1019,12 +1019,12 @@ public abstract class Util_Tansaku
             ""
             );
         Sasite bestSasite = Sasite.Toryo;
-        MoveType bestSasiteType = MoveType.N00_Karappo;
+        SasiteType bestSasiteType = SasiteType.N00_Karappo;
         bool utikiri;
 
         // 深さ1 のときに手を指しても、深さのカウントは増えない☆
         // 
-        AbstractUtilMoveGen.GenerateMove01(fukasa, ky, MoveType.N21_All, true, syuturyoku);// グローバル変数 Util_SasiteSeisei.Sslist に指し手がセットされるぜ☆（＾▽＾）
+        AbstractUtilMoveGen.GenerateMove01(fukasa, ky, SasiteType.N21_All, true, syuturyoku);// グローバル変数 Util_SasiteSeisei.Sslist に指し手がセットされるぜ☆（＾▽＾）
 
         #region ステイルメイト
         //────────────────────────────────────────
@@ -1081,7 +1081,7 @@ public abstract class Util_Tansaku
         for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
         {
             Sasite eda_sasite = AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs];
-            MoveType eda_sasiteType = AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs];
+            SasiteType eda_sasiteType = AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs];
 
             // 探索打ち切りフラグ☆（＾▽＾）
             utikiri = false;
@@ -1119,7 +1119,7 @@ public abstract class Util_Tansaku
             //────────────────────────────────────────
             // らいおん捕獲＜探索打ち切り＞
             //────────────────────────────────────────
-            if (eda_sasiteType == MoveType.N12_RaionCatch || eda_sasiteType == MoveType.N16_Try)
+            if (eda_sasiteType == SasiteType.N12_RaionCatch || eda_sasiteType == SasiteType.N16_Try)
             {
                 // らいおんを捕まえる手か、トライする手なら、ここより奥を探索する必要はないぜ☆（＾▽＾）
 

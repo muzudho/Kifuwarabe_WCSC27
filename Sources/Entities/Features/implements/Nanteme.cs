@@ -76,7 +76,7 @@ public class Nanteme
     /// <summary>
     /// 読み筋に指し手タイプを出すことで、デバッグに使うために覚えておくぜ☆（＾▽＾）
     /// </summary>
-    public MoveType MoveType { get; set; }
+    public SasiteType MoveType { get; set; }
 
     /// <summary>
     /// 取られた駒の種類だぜ☆（＾▽＾）

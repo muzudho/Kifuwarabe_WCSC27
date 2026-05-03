@@ -12,15 +12,15 @@ public class SasiteList
     {
         // List<MoveKakucho> では範囲外インデックスエラーが出るので、配列にしてみるぜ☆
         this.ListMove = new Sasite[AbstractUtilMoveGen.SAIDAI_SASITE];
-        this.List_Reason = new MoveType[AbstractUtilMoveGen.SAIDAI_SASITE];
+        this.List_Reason = new SasiteType[AbstractUtilMoveGen.SAIDAI_SASITE];
         this.SslistCount = 0;
     }
 
     public Sasite[] ListMove { get; set; }
-    public MoveType[] List_Reason { get; set; }
+    public SasiteType[] List_Reason { get; set; }
 
     public int SslistCount { get; set; }
-    public void AddSslist(Sasite ss, MoveType reason)
+    public void AddSslist(Sasite ss, SasiteType reason)
     {
         try
         {

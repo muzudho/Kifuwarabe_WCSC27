@@ -5,7 +5,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features;
 
 public class TTEntry
 {
-    public void Save(ulong key, Sasite ss, MoveType ssType, int fukasa,
+    public void Save(ulong key, Sasite ss, SasiteType ssType, int fukasa,
         HyokatiUtiwake hyokatiUtiwake
         )
     {
@@ -29,8 +29,8 @@ public class TTEntry
     public Sasite Move { get { return m_move_; } }
     private Sasite m_move_;
 
-    public MoveType MoveType { get { return m_moveType_; } }
-    private MoveType m_moveType_;
+    public SasiteType MoveType { get { return m_moveType_; } }
+    private SasiteType m_moveType_;
 
     public ulong Key { get { return m_key_; } }
     private ulong m_key_;
