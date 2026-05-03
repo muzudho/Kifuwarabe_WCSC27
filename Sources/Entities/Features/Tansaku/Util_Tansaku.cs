@@ -926,7 +926,7 @@ public abstract class Util_Tansaku
             {
                 // 駒を取る手が　葉っぱ　に来たときは、ＳＥＥ（Static Exchange Evaluation）をやりたいぜ☆
                 // おいしさ：この手を指したときに確定している手番の得だぜ☆（＾▽＾）
-                Hyokati oisisa = ky.SEE(playing, isSfen, ConvSasite.GetDstMasu_WithoutErrorCheck((int)eranda_sasite),
+                Hyokati oisisa = ky.SEE(playing, isSfen, eranda_sasite.GetDstMasuFast(), // 拡張メソッド使用☆
                     Util_Machine.UnusedOutputBuf
                     );
 

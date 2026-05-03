@@ -863,7 +863,7 @@ public class Kyokumen
         }
 
         // 移動先、打つ先　調べ☆
-        Masu ms_dst = ConvSasite.GetDstMasu_WithoutErrorCheck((int)ss); // 移動先升
+        Masu ms_dst = ss.GetDstMasuFast(); // 移動先升（拡張メソッド使用☆）
         if (!Sindan.IsBanjo(ms_dst))
         {
             // 盤外に移動しようとしたぜ☆（＾～＾）
@@ -1017,7 +1017,7 @@ public class Kyokumen
         aite = optionalOpponent;
         Teban = optionalPhase;
 #endif
-        ms_t1 = ConvSasite.GetDstMasu_WithoutErrorCheck((int)ss); // 移動先升
+        ms_t1 = ss.GetDstMasuFast(); // 移動先升（拡張メソッド使用☆）
         km_c = GetBanjoKoma(ms_t1);// あれば、移動先の相手の駒（取られる駒; capture）
         ks_c = Med_Koma.KomaToKomasyurui(km_c);
         mk_c = Med_Koma.BanjoKomaToMotiKoma(km_c);
@@ -1436,7 +1436,7 @@ public class Kyokumen
         Komasyurui ks_t0;
         Koma km_t0;
 
-        Masu ms_t1 = ConvSasite.GetDstMasu_WithoutErrorCheck((int)ss);
+        Masu ms_t1 = ss.GetDstMasuFast(); // 拡張メソッド使用☆（＾▽＾）
         Debug.Assert(Sindan.IsBanjoOrError(ms_t1), "Ｕｎｄｏ");
 
         Koma km_t1 = GetBanjoKoma(ms_t1);
