@@ -806,7 +806,7 @@ Kettyaku = {Util_Application.IsKettyaku(ky)}");
             Med_Parser.TryFenMove(isSfen, commandline, ref caret_1, ky.Sindan, out SasiteType ss);
             Nanteme nanteme = new Nanteme();
             ky.DoMove(isSfen, ss, SasiteSyuruiType.N00_Karappo, ref nanteme, ky.CurrentOptionalPhase, syuturyoku);
-            Masu ms = ConvSasite.GetDstMasu(ss, ky);
+            Masu ms = ss.GetDstMasu(ky); // 拡張メソッドを使用☆（＾▽＾）
 
             syuturyoku.AppendLine("SEE>────────────────────");
             // 相手番の評価値が返ってくるので、この手番にひっくり返すぜ☆（＾▽＾）
