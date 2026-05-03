@@ -1,7 +1,7 @@
-﻿namespace Grayscale.Kifuwarakei.Entities.Features;
+﻿using Grayscale.Kifuwarakei.Entities.Techniques;
 
-using Grayscale.Kifuwarakei.Entities.Features.Dougu;
-using Grayscale.Kifuwarakei.Entities.Features.Gakusyu;
+namespace Grayscale.Kifuwarakei.Entities.Features;
+
 using Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 using System;
 

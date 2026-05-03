@@ -1,8 +1,8 @@
 ﻿using Grayscale.Kifuwarakei.Entities.Features.Dougu;
+using Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 using Grayscale.Kifuwarakei.Entities.Language;
-using Grayscale.Kifuwarakei.Entities.Techniques;
 
-namespace Grayscale.Kifuwarakei.Entities.Features.Tansaku;
+namespace Grayscale.Kifuwarakei.Entities.Techniques;
 
 /// <summary>
 /// 王手されるのはいやだな☆（＾▽＾）ｗｗｗ

@@ -1,4 +1,4 @@
-﻿namespace Grayscale.Kifuwarakei.Entities.Features.Commandline;
+﻿namespace Grayscale.Kifuwarakei.Entities.Techniques;
 
 public interface FenProtocol
 {

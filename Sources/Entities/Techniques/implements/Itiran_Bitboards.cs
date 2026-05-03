@@ -1,11 +1,11 @@
 ﻿using Grayscale.Kifuwarakei.Entities.Features;
+using Grayscale.Kifuwarakei.Entities.Features.Dougu;
 using Grayscale.Kifuwarakei.Entities.Features.Hyoka;
 using Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 using Grayscale.Kifuwarakei.Entities.Language;
-using Grayscale.Kifuwarakei.Entities.Techniques;
 using System.Diagnostics;
 
-namespace Grayscale.Kifuwarakei.Entities.Features.Dougu;
+namespace Grayscale.Kifuwarakei.Entities.Techniques;
 
 /// <summary>
 /// 駒割り評価値差分一覧

@@ -1,8 +1,9 @@
-﻿using Grayscale.Kifuwarakei.Entities.Features.Hyoka;
+﻿using Grayscale.Kifuwarakei.Entities.Features;
+using Grayscale.Kifuwarakei.Entities.Features.Hyoka;
 using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
 using System.Diagnostics;
 
-namespace Grayscale.Kifuwarakei.Entities.Features;
+namespace Grayscale.Kifuwarakei.Entities.Techniques;
 
 public class Optionlist
 {

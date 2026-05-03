@@ -4,6 +4,7 @@ using Grayscale.Kifuwarakei.Entities.Features;
 using Grayscale.Kifuwarakei.Entities.Features.Hyoka;
 using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
 using Grayscale.Kifuwarakei.Entities.Features.Tansaku;
+using Grayscale.Kifuwarakei.Entities.Techniques;
 using System.Collections.Generic;
 using System.Text;
 

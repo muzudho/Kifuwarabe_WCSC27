@@ -2,6 +2,7 @@
 using System.Text;
 using Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 using Grayscale.Kifuwarakei.Entities.Logging;
+using Grayscale.Kifuwarakei.Entities.Techniques;
 
 namespace Grayscale.Kifuwarakei.Entities.Features.Commandline;
 

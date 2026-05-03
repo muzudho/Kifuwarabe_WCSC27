@@ -1,4 +1,4 @@
-﻿namespace Grayscale.Kifuwarakei.Entities.Features.Gakusyu;
+﻿namespace Grayscale.Kifuwarakei.Entities.Techniques;
 
 using Grayscale.Kifuwarakei.Entities.Features.Hyoka;
 
