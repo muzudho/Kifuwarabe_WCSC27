@@ -8,12 +8,12 @@ public class Yomisuji
     public Yomisuji()
     {
         this.SasiteItiran = new Sasite[Conv_Yomisuji.MAX_PLY];
-        this.SasiteTypeItiran = new SasiteSyuruiType[Conv_Yomisuji.MAX_PLY];
+        this.SasiteSyuruiTypeItiran = new SasiteSyuruiType[Conv_Yomisuji.MAX_PLY];
     }
 
     public int Size { get; set; }
     public Sasite[] SasiteItiran { get; set; }
-    public SasiteSyuruiType[] SasiteTypeItiran { get; set; }
+    public SasiteSyuruiType[] SasiteSyuruiTypeItiran { get; set; }
 
     public void Setumei(bool isSfen, StringBuilder syuturyoku)
     {
@@ -42,7 +42,7 @@ public class Yomisuji
         }
 
         this.SasiteItiran[this.Size] = ss;
-        this.SasiteTypeItiran[this.Size] = ssType;
+        this.SasiteSyuruiTypeItiran[this.Size] = ssType;
         this.Size++;
     }
 
@@ -54,13 +54,13 @@ public class Yomisuji
         }
         return this.SasiteItiran[0];
     }
-    public SasiteSyuruiType GetBestSasiteType()
+    public SasiteSyuruiType GetBestSasiteSyuruiType()
     {
         if (this.Size < 1)
         {
             return SasiteSyuruiType.N00_Karappo;
         }
-        return this.SasiteTypeItiran[0];
+        return this.SasiteSyuruiTypeItiran[0];
     }
 
     public void Insert(Yomisuji child)

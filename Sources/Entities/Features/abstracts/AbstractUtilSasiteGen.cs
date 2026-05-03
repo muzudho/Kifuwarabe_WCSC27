@@ -319,35 +319,35 @@ public abstract class AbstractUtilSasiteGen
     /// <param name="isBad">悪手にふるい分けるなら真</param>
     /// <param name="fukasa"></param>
     /// <param name="ss"></param>
-    /// <param name="sasiteType"></param>
-    static void AddMoveBadOrGood(bool ittedume, bool isBad, int fukasa, Sasite ss, SasiteSyuruiType sasiteType)
+    /// <param name="sasiteSyuruiType"></param>
+    static void AddMoveBadOrGood(bool ittedume, bool isBad, int fukasa, Sasite ss, SasiteSyuruiType sasiteSyuruiType)
     {
         if (ittedume) { ClearMoveList(fukasa); }//他の指し手を消し飛ばすぜ☆（＾▽＾）
 
         Debug.Assert(Sasite.Toryo != ss, "");
-        if (isBad) { MoveListBad[fukasa].AddSslist(ss, sasiteType); }
-        else { MoveList[fukasa].AddSslist(ss, sasiteType); }
+        if (isBad) { MoveListBad[fukasa].AddSslist(ss, sasiteSyuruiType); }
+        else { MoveList[fukasa].AddSslist(ss, sasiteSyuruiType); }
     }
-    static void AddMoveBadOrGood(bool ittedume, bool isBad, int fukasa, Sasite ss, SasiteSyuruiType sasiteTypeBad, SasiteSyuruiType sasiteTypeGood)
+    static void AddMoveBadOrGood(bool ittedume, bool isBad, int fukasa, Sasite ss, SasiteSyuruiType sasiteSyuruiTypeBad, SasiteSyuruiType sasiteSyuruiTypeGood)
     {
         if (ittedume) { ClearMoveList(fukasa); }//他の指し手を消し飛ばすぜ☆（＾▽＾）
 
         Debug.Assert(Sasite.Toryo != ss, "");
-        if (isBad) { MoveListBad[fukasa].AddSslist(ss, sasiteTypeBad); }
-        else { MoveList[fukasa].AddSslist(ss, sasiteTypeGood); }
+        if (isBad) { MoveListBad[fukasa].AddSslist(ss, sasiteSyuruiTypeBad); }
+        else { MoveList[fukasa].AddSslist(ss, sasiteSyuruiTypeGood); }
     }
-    static void AddMoveGood(bool ittedume, int fukasa, Sasite ss, SasiteSyuruiType sasiteType)
+    static void AddMoveGood(bool ittedume, int fukasa, Sasite ss, SasiteSyuruiType sasiteSyuruiType)
     {
         // 一手詰めルーチン☆
         if (ittedume) { ClearMoveList(fukasa); }//他の指し手を消し飛ばすぜ☆（＾▽＾）
 
         Debug.Assert(Sasite.Toryo != ss, "");
-        MoveList[fukasa].AddSslist(ss, sasiteType);
+        MoveList[fukasa].AddSslist(ss, sasiteSyuruiType);
     }
 
     #region ビットボードを使った指し手生成
     public static void GenerateMove02Raion(
-        Koma km, SasiteSyuruiType sasiteType, int fukasa, Kyokumen ky, Masu ms_src, HiouteJoho jibunHioute, HiouteJoho aiteHioute, Bitboard idosakiBB, StringBuilder syuturyoku)
+        Koma km, SasiteSyuruiType sasiteSyuruiType, int fukasa, Kyokumen ky, Masu ms_src, HiouteJoho jibunHioute, HiouteJoho aiteHioute, Bitboard idosakiBB, StringBuilder syuturyoku)
     {
         var optionalPiece = OptionalPiece.From(km);
         Debug.Assert(Conv_Koma.IsOk(optionalPiece), "");
@@ -357,7 +357,7 @@ public abstract class AbstractUtilSasiteGen
 
         ky.Sindan.ToSelectKomanoUgokikata(km, ms_src, idosakiBB); // 駒の動ける場所だけ探すぜ☆（＾～＾）
 
-        switch (sasiteType)
+        switch (sasiteSyuruiType)
         {
             #region 逼迫返討手
             case SasiteSyuruiType.N13_HippakuKaeriutiTe:
@@ -367,7 +367,7 @@ public abstract class AbstractUtilSasiteGen
 
                     if (idosakiBB.GetNTZ(out ms_ido)) // 攻めてきた駒（１つだけ）を取るということ☆
                     {
-                        AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                        AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                     }
                 }
                 return;
@@ -380,7 +380,7 @@ public abstract class AbstractUtilSasiteGen
 
                     if (idosakiBB.GetNTZ(out ms_ido)) // 攻めてきた駒（１つだけ）を取るということ☆
                     {
-                        AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                        AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                     }
                 }
                 return;
@@ -392,9 +392,9 @@ public abstract class AbstractUtilSasiteGen
                     ky.Shogiban.ToSitdown_BBKikiZenbu(aiteHioute.CurrentOptionalPhase, idosakiBB);// らいおん　が自分から利きに飛び込むのを防ぐぜ☆（＾▽＾）ｗｗｗ
                     if (idosakiBB.GetNTZ(out ms_ido)) // らいおん（１つだけ）を取るということ☆
                     {
-                        if (SasiteSyuruiType.N17_RaionCatchChosa == sasiteType) { jibunHioute.RaionCatchChosa = true; return; } // 調査するだけなら、らいおんキャッチできることが分かったので終了☆（＾～＾）
+                        if (SasiteSyuruiType.N17_RaionCatchChosa == sasiteSyuruiType) { jibunHioute.RaionCatchChosa = true; return; } // 調査するだけなら、らいおんキャッチできることが分かったので終了☆（＾～＾）
 
-                        AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                        AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                         jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta;
                     }
                 }
@@ -408,7 +408,7 @@ public abstract class AbstractUtilSasiteGen
                     Bitboard trysakiBB = Util_TryRule.GetTrySaki(ky, idosakiBB, optionalPhase, ms_src, syuturyoku);
                     if (trysakiBB.GetNTZ(out ms_ido))// トライはどこか１つ行けばいい
                     {
-                        AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                        AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                         jibunHioute.TansakuUtikiri = TansakuUtikiri.Try;
                     }
                 }
@@ -425,7 +425,7 @@ public abstract class AbstractUtilSasiteGen
                         // 一手詰めルーチン☆
                         bool ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, optionalPhase, ms_src, ms_ido, jibunHioute, aiteHioute);
 
-                        AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                        AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
 
                         if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                     }
@@ -444,7 +444,7 @@ public abstract class AbstractUtilSasiteGen
                         // 一手詰めルーチン☆
                         bool ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, optionalPhase, ms_src, ms_ido, jibunHioute, aiteHioute);
 
-                        AddMoveBadOrGood(ittedume, MisuteruUgoki(ky, optionalPhase, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                        AddMoveBadOrGood(ittedume, MisuteruUgoki(ky, optionalPhase, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
 
                         if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                     }
@@ -456,7 +456,7 @@ public abstract class AbstractUtilSasiteGen
         }
     }
 
-    public static void GenerateMove02ZouKirinNado(Koma km, SasiteSyuruiType sasiteType, int fukasa, Kyokumen ky, Masu ms_src, HiouteJoho jibunHioute, HiouteJoho aiteHioute, Bitboard idosakiBB, StringBuilder syuturyoku)
+    public static void GenerateMove02ZouKirinNado(Koma km, SasiteSyuruiType sasiteSyuruiType, int fukasa, Kyokumen ky, Masu ms_src, HiouteJoho jibunHioute, HiouteJoho aiteHioute, Bitboard idosakiBB, StringBuilder syuturyoku)
     {
         var optionalPiece = OptionalPiece.From(km);
 
@@ -472,7 +472,7 @@ public abstract class AbstractUtilSasiteGen
         //Logger.Flush(syuturyoku);
 #endif
 
-        switch (sasiteType)
+        switch (sasiteSyuruiType)
         {
             #region 逼迫返討手
             case SasiteSyuruiType.N13_HippakuKaeriutiTe:
@@ -480,7 +480,7 @@ public abstract class AbstractUtilSasiteGen
                 {
                     if (idosakiBB.GetNTZ(out ms_ido)) // 攻めてきた駒（１つだけ）を取るということ☆
                     {
-                        AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                        AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                     }
                 }
                 return;
@@ -491,7 +491,7 @@ public abstract class AbstractUtilSasiteGen
                 {
                     if (idosakiBB.GetNTZ(out ms_ido)) // 攻めてきた駒（１つだけ）を取るということ☆
                     {
-                        AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                        AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                     }
                 }
                 return;
@@ -502,11 +502,11 @@ public abstract class AbstractUtilSasiteGen
                 {
                     if (!idosakiBB.IsEmpty())
                     {
-                        if (SasiteSyuruiType.N17_RaionCatchChosa == sasiteType) { jibunHioute.RaionCatchChosa = true; return; } // 調査するだけなら、らいおんキャッチできることが分かったので終了☆（＾～＾）
+                        if (SasiteSyuruiType.N17_RaionCatchChosa == sasiteSyuruiType) { jibunHioute.RaionCatchChosa = true; return; } // 調査するだけなら、らいおんキャッチできることが分かったので終了☆（＾～＾）
 
                         if (idosakiBB.GetNTZ(out ms_ido)) // らいおん（１つだけ）を取るということ☆
                         {
-                            AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                            AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                             jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta;
                         }
                     }
@@ -525,7 +525,7 @@ public abstract class AbstractUtilSasiteGen
                         {
                             ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, optionalPhase, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
 
-                            AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType | SasiteSyuruiType.N19_Option_NigemitiWoAkeruTe, sasiteType);
+                            AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType | SasiteSyuruiType.N19_Option_NigemitiWoAkeruTe, sasiteSyuruiType);
 
                             if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                         }
@@ -546,7 +546,7 @@ public abstract class AbstractUtilSasiteGen
                         {
                             ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, optionalPhase, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
 
-                            AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType | SasiteSyuruiType.N19_Option_NigemitiWoAkeruTe, sasiteType);
+                            AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType | SasiteSyuruiType.N19_Option_NigemitiWoAkeruTe, sasiteSyuruiType);
 
                             if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                         }
@@ -562,7 +562,7 @@ public abstract class AbstractUtilSasiteGen
                         // 一手詰めルーチン☆
                         ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, optionalPhase, ms_src, ms_ido, jibunHioute, aiteHioute);
 
-                        AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                        AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
 
                         if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                     }
@@ -582,7 +582,7 @@ public abstract class AbstractUtilSasiteGen
                         {
                             ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, optionalPhase, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
 
-                            AddMoveBadOrGood(ittedume, MisuteruUgoki(ky, optionalPhase, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                            AddMoveBadOrGood(ittedume, MisuteruUgoki(ky, optionalPhase, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
 
                             if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                         }
@@ -602,7 +602,7 @@ public abstract class AbstractUtilSasiteGen
                         {
                             // タダ捨てに、一手詰めは無いだろう☆（*＾～＾*）
 
-                            AddMoveBadOrGood(false, MisuteruUgoki(ky, optionalPhase, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                            AddMoveBadOrGood(false, MisuteruUgoki(ky, optionalPhase, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                         }
                     }
                 }
@@ -611,7 +611,7 @@ public abstract class AbstractUtilSasiteGen
         }
     }
 
-    public static void GenerateMove02HiyokoNado(Koma km, SasiteSyuruiType sasiteType, int fukasa, Kyokumen ky, Masu ms_src, HiouteJoho jibunHioute, HiouteJoho aiteHioute, Bitboard bb_idosakiCopy, StringBuilder syuturyoku)
+    public static void GenerateMove02HiyokoNado(Koma km, SasiteSyuruiType sasiteSyuruiType, int fukasa, Kyokumen ky, Masu ms_src, HiouteJoho jibunHioute, HiouteJoho aiteHioute, Bitboard bb_idosakiCopy, StringBuilder syuturyoku)
     {
         var optionalPiece = OptionalPiece.From(km);
 
@@ -623,7 +623,7 @@ public abstract class AbstractUtilSasiteGen
 
         bb_idosakiCopy.Select(ky.Shogiban.GetKomanoUgokikata(km, ms_src));
 
-        switch (sasiteType)
+        switch (sasiteSyuruiType)
         {
             #region 逼迫返討手
             case SasiteSyuruiType.N13_HippakuKaeriutiTe:
@@ -634,10 +634,10 @@ public abstract class AbstractUtilSasiteGen
                         // 成れる場合
                         if (IsNareruZone(ms_ido, optionalPhase, ky.Sindan))
                         {
-                            AddMoveGood(false, fukasa, ConvMove.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                            AddMoveGood(false, fukasa, ConvMove.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                         }
 
-                        AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                        AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                     }
                 }
                 return;
@@ -651,10 +651,10 @@ public abstract class AbstractUtilSasiteGen
                         // 成れる場合
                         if (IsNareruZone(ms_ido, optionalPhase, ky.Sindan))
                         {
-                            AddMoveGood(false, fukasa, ConvMove.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                            AddMoveGood(false, fukasa, ConvMove.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                         }
 
-                        AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                        AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                     }
                 }
                 return;
@@ -665,18 +665,18 @@ public abstract class AbstractUtilSasiteGen
                 {
                     if (!bb_idosakiCopy.IsEmpty())
                     {
-                        if (SasiteSyuruiType.N17_RaionCatchChosa == sasiteType) { jibunHioute.RaionCatchChosa = true; return; } // 調査するだけなら、らいおんキャッチできることが分かったので終了☆（＾～＾）
+                        if (SasiteSyuruiType.N17_RaionCatchChosa == sasiteSyuruiType) { jibunHioute.RaionCatchChosa = true; return; } // 調査するだけなら、らいおんキャッチできることが分かったので終了☆（＾～＾）
 
                         if (bb_idosakiCopy.GetNTZ(out ms_ido)) // らいおん（１つだけ）を取るということ☆
                         {
                             // 成れる場合
                             if (IsNareruZone(ms_ido, optionalPhase, ky.Sindan))
                             {
-                                AddMoveGood(false, fukasa, ConvMove.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                                AddMoveGood(false, fukasa, ConvMove.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                                 jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta;
                             }
 
-                            AddMoveBadOrGood(false, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType | SasiteSyuruiType.N19_Option_NigemitiWoAkeruTe, sasiteType);
+                            AddMoveBadOrGood(false, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType | SasiteSyuruiType.N19_Option_NigemitiWoAkeruTe, sasiteSyuruiType);
 
                             jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta;
                         }
@@ -700,10 +700,10 @@ public abstract class AbstractUtilSasiteGen
                             // 成れる場合
                             if (IsNareruZone(ms_ido, optionalPhase, ky.Sindan))
                             {
-                                AddMoveGood(false, fukasa, ConvMove.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                                AddMoveGood(false, fukasa, ConvMove.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                             }
 
-                            AddMoveGood(ittedume, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                            AddMoveGood(ittedume, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
 
                             if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                         }
@@ -726,10 +726,10 @@ public abstract class AbstractUtilSasiteGen
                             // 成れる場合
                             if (IsNareruZone(ms_ido, optionalPhase, ky.Sindan))
                             {
-                                AddMoveGood(false, fukasa, ConvMove.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                                AddMoveGood(false, fukasa, ConvMove.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                             }
 
-                            AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                            AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
 
                             if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                         }
@@ -744,7 +744,7 @@ public abstract class AbstractUtilSasiteGen
                     {
                         ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, optionalPhase, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
 
-                        AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                        AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
 
                         if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                     }
@@ -767,10 +767,10 @@ public abstract class AbstractUtilSasiteGen
                             // 成れる場合
                             if (IsNareruZone(ms_ido, optionalPhase, ky.Sindan))
                             {
-                                AddMoveGood(false, fukasa, ConvMove.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                                AddMoveGood(false, fukasa, ConvMove.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                             }
 
-                            AddMoveBadOrGood(ittedume, MisuteruUgoki(ky, optionalPhase, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                            AddMoveBadOrGood(ittedume, MisuteruUgoki(ky, optionalPhase, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
 
                             if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                         }
@@ -793,10 +793,10 @@ public abstract class AbstractUtilSasiteGen
                             // 成れる場合
                             if (IsNareruZone(ms_ido, optionalPhase, ky.Sindan))
                             {
-                                AddMoveGood(false, fukasa, ConvMove.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                                AddMoveGood(false, fukasa, ConvMove.ToMove01bNariSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                             }
 
-                            AddMoveBadOrGood(false, MisuteruUgoki(ky, optionalPhase, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                            AddMoveBadOrGood(false, MisuteruUgoki(ky, optionalPhase, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                         }
                     }
                 }
@@ -806,7 +806,7 @@ public abstract class AbstractUtilSasiteGen
                 break;
         }
     }
-    public static void GenerateMove02NiwatoriNado(Koma km, SasiteSyuruiType sasiteType, int fukasa, Kyokumen ky, Masu ms_src, HiouteJoho jibunHioute, HiouteJoho aiteHioute, Bitboard bb_idosakiCopy, StringBuilder syuturyoku)
+    public static void GenerateMove02NiwatoriNado(Koma km, SasiteSyuruiType sasiteSyuruiType, int fukasa, Kyokumen ky, Masu ms_src, HiouteJoho jibunHioute, HiouteJoho aiteHioute, Bitboard bb_idosakiCopy, StringBuilder syuturyoku)
     {
         var optionalPiece = OptionalPiece.From(km);
 
@@ -818,7 +818,7 @@ public abstract class AbstractUtilSasiteGen
 
         bb_idosakiCopy.Select(ky.Shogiban.GetKomanoUgokikata(km, ms_src));
 
-        switch (sasiteType)
+        switch (sasiteSyuruiType)
         {
             #region 逼迫返討手
             case SasiteSyuruiType.N13_HippakuKaeriutiTe:
@@ -826,7 +826,7 @@ public abstract class AbstractUtilSasiteGen
                 {
                     if (bb_idosakiCopy.GetNTZ(out ms_ido)) // 攻めてきた駒（１つだけ）を取るということ☆
                     {
-                        AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                        AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                     }
                 }
                 return;
@@ -837,7 +837,7 @@ public abstract class AbstractUtilSasiteGen
                 {
                     if (bb_idosakiCopy.GetNTZ(out ms_ido)) // 攻めてきた駒（１つだけ）を取るということ☆
                     {
-                        AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                        AddMoveGood(false, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                     }
                 }
                 return;
@@ -848,11 +848,11 @@ public abstract class AbstractUtilSasiteGen
                 {
                     if (!bb_idosakiCopy.IsEmpty())
                     {
-                        if (SasiteSyuruiType.N17_RaionCatchChosa == sasiteType) { jibunHioute.RaionCatchChosa = true; return; } // 調査するだけなら、らいおんキャッチできることが分かったので終了☆（＾～＾）
+                        if (SasiteSyuruiType.N17_RaionCatchChosa == sasiteSyuruiType) { jibunHioute.RaionCatchChosa = true; return; } // 調査するだけなら、らいおんキャッチできることが分かったので終了☆（＾～＾）
 
                         if (bb_idosakiCopy.GetNTZ(out ms_ido)) // らいおん（１つだけ）を取るということ☆
                         {
-                            AddMoveBadOrGood(false, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType | SasiteSyuruiType.N19_Option_NigemitiWoAkeruTe, sasiteType);
+                            AddMoveBadOrGood(false, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType | SasiteSyuruiType.N19_Option_NigemitiWoAkeruTe, sasiteSyuruiType);
                             jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta;
                         }
                     }
@@ -871,7 +871,7 @@ public abstract class AbstractUtilSasiteGen
                         {
                             ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, optionalPhase, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
 
-                            AddMoveGood(ittedume, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                            AddMoveGood(ittedume, fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
 
                             if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                         }
@@ -894,7 +894,7 @@ public abstract class AbstractUtilSasiteGen
                         {
                             ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, optionalPhase, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
 
-                            AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                            AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
 
                             if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                         }
@@ -909,7 +909,7 @@ public abstract class AbstractUtilSasiteGen
                     {
                         ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, optionalPhase, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
 
-                        AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                        AddMoveBadOrGood(ittedume, aiteHioute.IsNigemitiWoAkeru(ky, ks, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
 
                         if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                     }
@@ -929,7 +929,7 @@ public abstract class AbstractUtilSasiteGen
                         {
                             ittedume = Util_Ittedume.Ittedume_BanjoKoma(ky, optionalPhase, ms_src, ms_ido, jibunHioute, aiteHioute);// 一手詰めルーチン☆
 
-                            AddMoveBadOrGood(ittedume, MisuteruUgoki(ky, optionalPhase, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                            AddMoveBadOrGood(ittedume, MisuteruUgoki(ky, optionalPhase, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
 
                             if (ittedume) { jibunHioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                         }
@@ -948,7 +948,7 @@ public abstract class AbstractUtilSasiteGen
                         if (TadasuteNoUgoki(ky, optionalPhase, ms_ido, false))// 相手の利きがあって、自分を除いた味方の利きがない升　に限るぜ☆（＾▽＾）ｗｗｗ
                         {
                             // タダ捨てに、一手詰めは無いだろう☆（*＾～＾*）
-                            AddMoveBadOrGood(false, MisuteruUgoki(ky, optionalPhase, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteType);
+                            AddMoveBadOrGood(false, MisuteruUgoki(ky, optionalPhase, ms_src, ms_ido), fukasa, ConvMove.ToMove01aNarazuSasi(ms_src, ms_ido, ky.Sindan), sasiteSyuruiType);
                         }
                     }
                 }
@@ -979,18 +979,18 @@ public abstract class AbstractUtilSasiteGen
     /// <summary>
     /// グローバル変数 Util_MoveSeisei.Movelist[fukasa] に、指し手が追加されていくぜ☆（＾▽＾）
     /// </summary>
-    /// <param name="sasiteType"></param>
+    /// <param name="sasiteSyuruiType"></param>
     /// <param name="fukasa"></param>
     /// <param name="ky"></param>
     /// <param name="tai"></param>
     /// <param name="hioute"></param>
-    public static void GenerateMoveMotiKoma(SasiteSyuruiType sasiteType, int fukasa, Kyokumen ky, Option<Phase> phase, HiouteJoho hioute, HiouteJoho aiteHioute, Bitboard utuBB_base, StringBuilder syuturyoku)
+    public static void GenerateMoveMotiKoma(SasiteSyuruiType sasiteSyuruiType, int fukasa, Kyokumen ky, Option<Phase> phase, HiouteJoho hioute, HiouteJoho aiteHioute, Bitboard utuBB_base, StringBuilder syuturyoku)
     {
         Bitboard utuBB_copy = new Bitboard();
         Masu ms_ido;
         bool ittedume;
 
-        switch (sasiteType)
+        switch (sasiteSyuruiType)
         {
             #region 紐付王手打
             case SasiteSyuruiType.N11_HimotukiOteDa:
@@ -1012,7 +1012,7 @@ public abstract class AbstractUtilSasiteGen
                             {
                                 ittedume = Util_Ittedume.Ittedume_MotiKoma(fukasa, ky, mk, ms_ido, hioute, aiteHioute);// 一手詰めルーチン☆
 
-                                AddMoveGood(ittedume, fukasa, ConvMove.ToMove01cUtta(ms_ido, mks), sasiteType);
+                                AddMoveGood(ittedume, fukasa, ConvMove.ToMove01cUtta(ms_ido, mks), sasiteSyuruiType);
 
                                 if (ittedume) { hioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                             }
@@ -1043,7 +1043,7 @@ public abstract class AbstractUtilSasiteGen
                                 {
                                     ittedume = Util_Ittedume.Ittedume_MotiKoma(fukasa, ky, mk, ms_ido, hioute, aiteHioute);// 一手詰めルーチン☆
 
-                                    AddMoveGood(ittedume, fukasa, ConvMove.ToMove01cUtta(ms_ido, mks), sasiteType);
+                                    AddMoveGood(ittedume, fukasa, ConvMove.ToMove01cUtta(ms_ido, mks), sasiteSyuruiType);
 
                                     if (ittedume) { hioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                                 }
@@ -1072,7 +1072,7 @@ public abstract class AbstractUtilSasiteGen
                                 {
                                     ittedume = Util_Ittedume.Ittedume_MotiKoma(fukasa, ky, mk, ms_ido, hioute, aiteHioute);// 一手詰めルーチン☆
 
-                                    AddMoveGood(ittedume, fukasa, ConvMove.ToMove01cUtta(ms_ido, mks), sasiteType);
+                                    AddMoveGood(ittedume, fukasa, ConvMove.ToMove01cUtta(ms_ido, mks), sasiteSyuruiType);
 
                                     if (ittedume) { hioute.TansakuUtikiri = TansakuUtikiri.RaionTukamaeta; return; }//終了☆
                                 }
@@ -1102,7 +1102,7 @@ public abstract class AbstractUtilSasiteGen
                                 {
                                     // タダ捨てに、一手詰めは無いだろう☆（*＾～＾*）
 
-                                    AddMoveGood(false, fukasa, ConvMove.ToMove01cUtta(ms_ido, mks), sasiteType);
+                                    AddMoveGood(false, fukasa, ConvMove.ToMove01cUtta(ms_ido, mks), sasiteSyuruiType);
                                 }
                             }
                         }
@@ -1395,15 +1395,15 @@ public abstract class AbstractUtilSasiteGen
         //──────────
         bool hasMotiKoma = !ky.Sindan.IsEmptyMotikoma();//持ち駒を持っているなら真
 
-        SasiteSyuruiType sasiteType;
+        SasiteSyuruiType sasiteSyuruiType;
         #region 逼迫返討手
         //────────────────────────────────────────
         // 絶対に駒を取らないといけない場合で、その駒を取りにいく手☆（略して「返討手」）
         //────────────────────────────────────────
         // ・正当防衛　専門なので、逃げろ手　がある場合は　駒を取りにいかないぜ☆　らいおんが取れても取らないぜ☆
         // ・返り討ちで斬った相手が　らいおん　かどうかまで見てないぜ☆　らいおん斬ったらラッキーということで☆（＾～＾）
-        sasiteType = SasiteSyuruiType.N13_HippakuKaeriutiTe;
-        if (flag.HasFlag(sasiteType))
+        sasiteSyuruiType = SasiteSyuruiType.N13_HippakuKaeriutiTe;
+        if (flag.HasFlag(sasiteSyuruiType))
         {
             // 移動先は、王手をかけてきている駒☆
             idosakiBB_base.Set(jibunHioute.CheckerBB);// 王手をかけてきている駒だけを狙うぜ☆（＾▽＾）
@@ -1423,20 +1423,20 @@ public abstract class AbstractUtilSasiteGen
                         idosakiBB_copy.Set(idosakiBB_base);
                         switch (Med_Koma.KomaToKomasyurui(km))
                         {
-                            case Komasyurui.R: GenerateMove02Raion(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.Z: GenerateMove02ZouKirinNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PZ: GenerateMove02ZouKirinNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.K: GenerateMove02ZouKirinNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PK: GenerateMove02ZouKirinNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.H: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PH: GenerateMove02NiwatoriNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.I: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.Neko: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PNeko: GenerateMove02NiwatoriNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.U: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PU: GenerateMove02NiwatoriNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.S: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PS: GenerateMove02NiwatoriNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.R: GenerateMove02Raion(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.Z: GenerateMove02ZouKirinNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PZ: GenerateMove02ZouKirinNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.K: GenerateMove02ZouKirinNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PK: GenerateMove02ZouKirinNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.H: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PH: GenerateMove02NiwatoriNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.I: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.Neko: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PNeko: GenerateMove02NiwatoriNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.U: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PU: GenerateMove02NiwatoriNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.S: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PS: GenerateMove02NiwatoriNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
                         }
                     }
                 }
@@ -1453,8 +1453,8 @@ public abstract class AbstractUtilSasiteGen
 
         // 余裕返討手
         // 逃げることもできるが、王手をしてきた駒を取る手☆
-        sasiteType = SasiteSyuruiType.N14_YoyuKaeriutiTe;
-        if (flag.HasFlag(sasiteType))
+        sasiteSyuruiType = SasiteSyuruiType.N14_YoyuKaeriutiTe;
+        if (flag.HasFlag(sasiteSyuruiType))
         {
             // 移動先は、王手をかけてきている駒☆
             idosakiBB_base.Set(jibunHioute.CheckerBB);// 王手をかけてきている駒だけを狙うぜ☆（＾▽＾）
@@ -1473,20 +1473,20 @@ public abstract class AbstractUtilSasiteGen
                         idosakiBB_copy.Set(idosakiBB_base);
                         switch (Med_Koma.KomaToKomasyurui(km))
                         {
-                            case Komasyurui.R: GenerateMove02Raion(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.Z: GenerateMove02ZouKirinNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PZ: GenerateMove02ZouKirinNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.K: GenerateMove02ZouKirinNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PK: GenerateMove02ZouKirinNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.H: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PH: GenerateMove02NiwatoriNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.I: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.Neko: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PNeko: GenerateMove02NiwatoriNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.U: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PU: GenerateMove02NiwatoriNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.S: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PS: GenerateMove02NiwatoriNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.R: GenerateMove02Raion(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.Z: GenerateMove02ZouKirinNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PZ: GenerateMove02ZouKirinNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.K: GenerateMove02ZouKirinNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PK: GenerateMove02ZouKirinNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.H: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PH: GenerateMove02NiwatoriNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.I: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.Neko: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PNeko: GenerateMove02NiwatoriNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.U: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PU: GenerateMove02NiwatoriNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.S: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PS: GenerateMove02NiwatoriNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
                         }
                     }
                 }
@@ -1501,12 +1501,12 @@ public abstract class AbstractUtilSasiteGen
         {
             if (flag.HasFlag(SasiteSyuruiType.N12_RaionCatch))
             {
-                sasiteType = SasiteSyuruiType.N12_RaionCatch;
+                sasiteSyuruiType = SasiteSyuruiType.N12_RaionCatch;
             }
             else
             {
                 // らいおんを取る手　以外のタイプでは、調査するだけだぜ☆（＾～＾）
-                sasiteType = SasiteSyuruiType.N17_RaionCatchChosa;
+                sasiteSyuruiType = SasiteSyuruiType.N17_RaionCatchChosa;
                 jibunHioute.RaionCatchChosa = false;
             }
 
@@ -1531,20 +1531,20 @@ public abstract class AbstractUtilSasiteGen
 
                         switch (Med_Koma.KomaToKomasyurui(km))
                         {
-                            case Komasyurui.R: GenerateMove02Raion(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.Z: GenerateMove02ZouKirinNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PZ: GenerateMove02ZouKirinNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.K: GenerateMove02ZouKirinNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PK: GenerateMove02ZouKirinNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.H: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PH: GenerateMove02NiwatoriNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.I: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.Neko: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PNeko: GenerateMove02NiwatoriNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.U: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PU: GenerateMove02NiwatoriNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.S: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PS: GenerateMove02NiwatoriNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.R: GenerateMove02Raion(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.Z: GenerateMove02ZouKirinNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PZ: GenerateMove02ZouKirinNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.K: GenerateMove02ZouKirinNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PK: GenerateMove02ZouKirinNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.H: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PH: GenerateMove02NiwatoriNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.I: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.Neko: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PNeko: GenerateMove02NiwatoriNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.U: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PU: GenerateMove02NiwatoriNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.S: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PS: GenerateMove02NiwatoriNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
                         }
 
                         // らいおんを捕まえる手が１手でもあれば十分☆ これ以降の手は作らないぜ☆（＾～＾）
@@ -1627,7 +1627,7 @@ public abstract class AbstractUtilSasiteGen
         //────────────────────────────────────────
         // 駒を取る手☆（Good 逃げ道を開ける手、Bad 逃げ道を開けない手）
         //────────────────────────────────────────
-        sasiteType = SasiteSyuruiType.N01_KomaWoToruTe;
+        sasiteSyuruiType = SasiteSyuruiType.N01_KomaWoToruTe;
         if (flag.HasFlag(SasiteSyuruiType.N01_KomaWoToruTe))
         {
             // 移動先
@@ -1650,20 +1650,20 @@ public abstract class AbstractUtilSasiteGen
 
                         switch (Med_Koma.KomaToKomasyurui(km))
                         {
-                            case Komasyurui.R: GenerateMove02Raion(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.Z: GenerateMove02ZouKirinNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PZ: GenerateMove02ZouKirinNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.K: GenerateMove02ZouKirinNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PK: GenerateMove02ZouKirinNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.H: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PH: GenerateMove02NiwatoriNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.I: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.Neko: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PNeko: GenerateMove02NiwatoriNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.U: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PU: GenerateMove02NiwatoriNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.S: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PS: GenerateMove02NiwatoriNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.R: GenerateMove02Raion(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.Z: GenerateMove02ZouKirinNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PZ: GenerateMove02ZouKirinNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.K: GenerateMove02ZouKirinNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PK: GenerateMove02ZouKirinNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.H: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PH: GenerateMove02NiwatoriNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.I: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.Neko: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PNeko: GenerateMove02NiwatoriNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.U: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PU: GenerateMove02NiwatoriNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.S: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PS: GenerateMove02NiwatoriNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
                         }
                     }
                 }
@@ -1689,7 +1689,7 @@ public abstract class AbstractUtilSasiteGen
         //────────────────────────────────────────
         // 紐付王手指☆（Good 逃げ道を開けない手、Bad 逃げ道を開ける手）（らいおんを除く☆）
         //────────────────────────────────────────
-        sasiteType = SasiteSyuruiType.N10_HimotukiOteSasi;
+        sasiteSyuruiType = SasiteSyuruiType.N10_HimotukiOteSasi;
         if (flag.HasFlag(SasiteSyuruiType.N10_HimotukiOteSasi))
         {
             // 移動先
@@ -1715,19 +1715,19 @@ public abstract class AbstractUtilSasiteGen
                         switch (Med_Koma.KomaToKomasyurui(km))
                         {
                             case Komasyurui.R: break;// らいおんは　王手しないぜ☆（＾▽＾）
-                            case Komasyurui.Z: GenerateMove02ZouKirinNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PZ: GenerateMove02ZouKirinNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.K: GenerateMove02ZouKirinNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PK: GenerateMove02ZouKirinNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.H: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PH: GenerateMove02NiwatoriNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.I: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.Neko: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PNeko: GenerateMove02NiwatoriNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.U: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PU: GenerateMove02NiwatoriNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.S: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PS: GenerateMove02NiwatoriNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.Z: GenerateMove02ZouKirinNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PZ: GenerateMove02ZouKirinNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.K: GenerateMove02ZouKirinNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PK: GenerateMove02ZouKirinNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.H: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PH: GenerateMove02NiwatoriNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.I: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.Neko: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PNeko: GenerateMove02NiwatoriNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.U: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PU: GenerateMove02NiwatoriNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.S: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PS: GenerateMove02NiwatoriNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
                         }
                     }
                 }
@@ -1739,8 +1739,8 @@ public abstract class AbstractUtilSasiteGen
         //────────────────────────────────────────
         // 捨て王手指☆（らいおんを除く☆）
         //────────────────────────────────────────
-        sasiteType = SasiteSyuruiType.N06_SuteOteSasi;
-        if (flag.HasFlag(sasiteType))
+        sasiteSyuruiType = SasiteSyuruiType.N06_SuteOteSasi;
+        if (flag.HasFlag(sasiteSyuruiType))
         {
             // 移動先
             idosakiBB_base.Set(ky.BB_BoardArea);
@@ -1766,19 +1766,19 @@ public abstract class AbstractUtilSasiteGen
                         switch (Med_Koma.KomaToKomasyurui(km))
                         {
                             case Komasyurui.R: break;// らいおんは　王手しないぜ☆（＾▽＾）
-                            case Komasyurui.Z: GenerateMove02ZouKirinNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PZ: GenerateMove02ZouKirinNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.K: GenerateMove02ZouKirinNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PK: GenerateMove02ZouKirinNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.H: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PH: GenerateMove02NiwatoriNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.I: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.Neko: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PNeko: GenerateMove02NiwatoriNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.U: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PU: GenerateMove02NiwatoriNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.S: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PS: GenerateMove02NiwatoriNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.Z: GenerateMove02ZouKirinNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PZ: GenerateMove02ZouKirinNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.K: GenerateMove02ZouKirinNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PK: GenerateMove02ZouKirinNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.H: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PH: GenerateMove02NiwatoriNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.I: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.Neko: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PNeko: GenerateMove02NiwatoriNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.U: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PU: GenerateMove02NiwatoriNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.S: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PS: GenerateMove02NiwatoriNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
                         }
                     }
                 }
@@ -1792,8 +1792,8 @@ public abstract class AbstractUtilSasiteGen
             //────────────────────────────────────────
             // 捨て王手打☆
             //────────────────────────────────────────
-            sasiteType = SasiteSyuruiType.N07_SuteOteDa;
-            if (flag.HasFlag(sasiteType))
+            sasiteSyuruiType = SasiteSyuruiType.N07_SuteOteDa;
+            if (flag.HasFlag(sasiteSyuruiType))
             {
                 // 持ち駒
                 idosakiBB_base.Set(ky.BB_BoardArea);
@@ -1808,7 +1808,7 @@ public abstract class AbstractUtilSasiteGen
                     MoveGenBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
 #endif
                     idosakiBB_copy.Set(idosakiBB_base);
-                    AbstractUtilSasiteGen.GenerateMoveMotiKoma(sasiteType, fukasa, ky, optionalPhase, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku);
+                    AbstractUtilSasiteGen.GenerateMoveMotiKoma(sasiteSyuruiType, fukasa, ky, optionalPhase, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku);
                 }
             }
             #endregion
@@ -1817,8 +1817,8 @@ public abstract class AbstractUtilSasiteGen
             //────────────────────────────────────────
             // 紐付王手打☆
             //────────────────────────────────────────
-            sasiteType = SasiteSyuruiType.N11_HimotukiOteDa;
-            if (flag.HasFlag(sasiteType))
+            sasiteSyuruiType = SasiteSyuruiType.N11_HimotukiOteDa;
+            if (flag.HasFlag(sasiteSyuruiType))
             {
                 // 持ち駒
                 idosakiBB_base.Set(ky.BB_BoardArea);
@@ -1832,7 +1832,7 @@ public abstract class AbstractUtilSasiteGen
                     MoveGenBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
 #endif
                     idosakiBB_copy.Set(idosakiBB_base);
-                    AbstractUtilSasiteGen.GenerateMoveMotiKoma(sasiteType, fukasa, ky, optionalPhase, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku);
+                    AbstractUtilSasiteGen.GenerateMoveMotiKoma(sasiteSyuruiType, fukasa, ky, optionalPhase, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku);
                 }
             }
             #endregion
@@ -1856,8 +1856,8 @@ public abstract class AbstractUtilSasiteGen
             //────────────────────────────────────────
             // 紐付緩慢打☆
             //────────────────────────────────────────
-            sasiteType = SasiteSyuruiType.N09_HimotukiKanmanDa;
-            if (flag.HasFlag(sasiteType))
+            sasiteSyuruiType = SasiteSyuruiType.N09_HimotukiKanmanDa;
+            if (flag.HasFlag(sasiteSyuruiType))
             {
                 // 持ち駒
                 idosakiBB_base.Set(ky.BB_BoardArea);
@@ -1872,7 +1872,7 @@ public abstract class AbstractUtilSasiteGen
                     MoveGenBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
 #endif
                     idosakiBB_copy.Set(idosakiBB_base);
-                    AbstractUtilSasiteGen.GenerateMoveMotiKoma(sasiteType, fukasa, ky, optionalPhase, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku);
+                    AbstractUtilSasiteGen.GenerateMoveMotiKoma(sasiteSyuruiType, fukasa, ky, optionalPhase, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku);
                 }
             }
             #endregion
@@ -1882,8 +1882,8 @@ public abstract class AbstractUtilSasiteGen
         //────────────────────────────────────────
         // 紐付緩慢指☆（Good 仲間を見捨てない動き、Bad 仲間を見捨てる動き）
         //────────────────────────────────────────
-        sasiteType = SasiteSyuruiType.N08_HimotukiKanmanSasi;
-        if (flag.HasFlag(sasiteType))
+        sasiteSyuruiType = SasiteSyuruiType.N08_HimotukiKanmanSasi;
+        if (flag.HasFlag(sasiteSyuruiType))
         {
             // 移動先
             idosakiBB_base.Set(ky.BB_BoardArea);
@@ -1908,20 +1908,20 @@ public abstract class AbstractUtilSasiteGen
 
                         switch (Med_Koma.KomaToKomasyurui(km))
                         {
-                            case Komasyurui.R: GenerateMove02Raion(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.Z: GenerateMove02ZouKirinNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PZ: GenerateMove02ZouKirinNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.K: GenerateMove02ZouKirinNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PK: GenerateMove02ZouKirinNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.H: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PH: GenerateMove02NiwatoriNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.I: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.Neko: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PNeko: GenerateMove02NiwatoriNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.U: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PU: GenerateMove02NiwatoriNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.S: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PS: GenerateMove02NiwatoriNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.R: GenerateMove02Raion(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.Z: GenerateMove02ZouKirinNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PZ: GenerateMove02ZouKirinNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.K: GenerateMove02ZouKirinNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PK: GenerateMove02ZouKirinNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.H: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PH: GenerateMove02NiwatoriNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.I: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.Neko: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PNeko: GenerateMove02NiwatoriNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.U: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PU: GenerateMove02NiwatoriNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.S: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PS: GenerateMove02NiwatoriNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
                         }
                     }
                 }
@@ -1933,8 +1933,8 @@ public abstract class AbstractUtilSasiteGen
         //────────────────────────────────────────
         // ぼっち緩慢指☆（Good 仲間を見捨てない動き、Bad 仲間を見捨てる動き）
         //────────────────────────────────────────
-        sasiteType = SasiteSyuruiType.N02_BottiKanmanSasi;
-        if (flag.HasFlag(sasiteType))
+        sasiteSyuruiType = SasiteSyuruiType.N02_BottiKanmanSasi;
+        if (flag.HasFlag(sasiteSyuruiType))
         {
             // 移動先
             idosakiBB_base.Set(ky.BB_BoardArea);
@@ -1959,20 +1959,20 @@ public abstract class AbstractUtilSasiteGen
 
                         switch (Med_Koma.KomaToKomasyurui(km))
                         {
-                            case Komasyurui.R: GenerateMove02Raion(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.Z: GenerateMove02ZouKirinNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PZ: GenerateMove02ZouKirinNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.K: GenerateMove02ZouKirinNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PK: GenerateMove02ZouKirinNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.H: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PH: GenerateMove02NiwatoriNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.I: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.Neko: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PNeko: GenerateMove02NiwatoriNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.U: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PU: GenerateMove02NiwatoriNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.S: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PS: GenerateMove02NiwatoriNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.R: GenerateMove02Raion(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.Z: GenerateMove02ZouKirinNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PZ: GenerateMove02ZouKirinNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.K: GenerateMove02ZouKirinNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PK: GenerateMove02ZouKirinNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.H: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PH: GenerateMove02NiwatoriNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.I: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.Neko: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PNeko: GenerateMove02NiwatoriNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.U: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PU: GenerateMove02NiwatoriNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.S: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PS: GenerateMove02NiwatoriNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
                         }
                     }
                 }
@@ -1986,8 +1986,8 @@ public abstract class AbstractUtilSasiteGen
             //────────────────────────────────────────
             // ぼっち緩慢打☆（Good 仲間を見捨てない動き、Bad 仲間を見捨てる動き）
             //────────────────────────────────────────
-            sasiteType = SasiteSyuruiType.N03_BottiKanmanDa;
-            if (flag.HasFlag(sasiteType))
+            sasiteSyuruiType = SasiteSyuruiType.N03_BottiKanmanDa;
+            if (flag.HasFlag(sasiteSyuruiType))
             {
                 // 持ち駒
                 idosakiBB_base.Set(ky.BB_BoardArea);
@@ -2002,7 +2002,7 @@ public abstract class AbstractUtilSasiteGen
                     MoveGenBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
 #endif
                     idosakiBB_copy.Set(idosakiBB_base);
-                    AbstractUtilSasiteGen.GenerateMoveMotiKoma(sasiteType, fukasa, ky, optionalPhase, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku);
+                    AbstractUtilSasiteGen.GenerateMoveMotiKoma(sasiteSyuruiType, fukasa, ky, optionalPhase, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku);
                 }
             }
             #endregion
@@ -2024,8 +2024,8 @@ public abstract class AbstractUtilSasiteGen
         //────────────────────────────────────────
         // 捨て緩慢指☆（タダ捨て指し）
         //────────────────────────────────────────
-        sasiteType = SasiteSyuruiType.N04_SuteKanmanSasi;
-        if (flag.HasFlag(sasiteType))
+        sasiteSyuruiType = SasiteSyuruiType.N04_SuteKanmanSasi;
+        if (flag.HasFlag(sasiteSyuruiType))
         {
             // 移動先
             idosakiBB_base.Set(ky.BB_BoardArea);
@@ -2051,20 +2051,20 @@ public abstract class AbstractUtilSasiteGen
 
                         switch (Med_Koma.KomaToKomasyurui(km))
                         {
-                            case Komasyurui.R: GenerateMove02Raion(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.Z: GenerateMove02ZouKirinNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PZ: GenerateMove02ZouKirinNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.K: GenerateMove02ZouKirinNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PK: GenerateMove02ZouKirinNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.H: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PH: GenerateMove02NiwatoriNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.I: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.Neko: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PNeko: GenerateMove02NiwatoriNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.U: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PU: GenerateMove02NiwatoriNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.S: GenerateMove02HiyokoNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
-                            case Komasyurui.PS: GenerateMove02NiwatoriNado(km, sasiteType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.R: GenerateMove02Raion(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.Z: GenerateMove02ZouKirinNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PZ: GenerateMove02ZouKirinNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.K: GenerateMove02ZouKirinNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PK: GenerateMove02ZouKirinNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.H: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PH: GenerateMove02NiwatoriNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.I: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.Neko: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PNeko: GenerateMove02NiwatoriNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.U: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PU: GenerateMove02NiwatoriNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.S: GenerateMove02HiyokoNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
+                            case Komasyurui.PS: GenerateMove02NiwatoriNado(km, sasiteSyuruiType, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku); break;
                         }
 
                     }
@@ -2079,8 +2079,8 @@ public abstract class AbstractUtilSasiteGen
             //────────────────────────────────────────
             // 捨て緩慢打（タダ捨て打）☆
             //────────────────────────────────────────
-            sasiteType = SasiteSyuruiType.N05_SuteKanmanDa;
-            if (flag.HasFlag(sasiteType))
+            sasiteSyuruiType = SasiteSyuruiType.N05_SuteKanmanDa;
+            if (flag.HasFlag(sasiteSyuruiType))
             {
                 // 持ち駒
                 idosakiBB_base.Set(ky.BB_BoardArea);
@@ -2095,7 +2095,7 @@ public abstract class AbstractUtilSasiteGen
                     MoveGenBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
 #endif
                     idosakiBB_copy.Set(idosakiBB_base);
-                    AbstractUtilSasiteGen.GenerateMoveMotiKoma(sasiteType, fukasa, ky, optionalPhase, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku);
+                    AbstractUtilSasiteGen.GenerateMoveMotiKoma(sasiteSyuruiType, fukasa, ky, optionalPhase, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku);
                 }
             }
             #endregion

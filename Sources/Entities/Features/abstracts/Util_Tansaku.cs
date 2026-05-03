@@ -687,7 +687,7 @@ public abstract class Util_Tansaku
         Nanteme nanteme = new Nanteme();
         ky.DoMove(isSfen,
             null != best_yomisuji_orNull ? best_yomisuji_orNull.GetBestSasite() : Sasite.Toryo,
-            null != best_yomisuji_orNull ? best_yomisuji_orNull.GetBestSasiteType() : SasiteSyuruiType.N00_Karappo
+            null != best_yomisuji_orNull ? best_yomisuji_orNull.GetBestSasiteSyuruiType() : SasiteSyuruiType.N00_Karappo
             , ref nanteme, ky.CurrentOptionalPhase, syuturyoku);
 
         // 指し手が決まったときにも、強制情報表示
@@ -805,7 +805,7 @@ public abstract class Util_Tansaku
         , Dlgt_CreateJoho dlgt_CreateJoho
         , StringBuilder syuturyoku // 出力先
         , Sasite eranda_sasite // 指した手だぜ☆（＾▽＾）
-        , SasiteSyuruiType eranda_sasiteType // 指した、指し手のタイプだぜ☆（＾▽＾）
+        , SasiteSyuruiType eranda_sasiteSyuruiType // 指した、指し手のタイプだぜ☆（＾▽＾）
         )
     {
         out_hyokatiUtiwake = new HyokatiUtiwake(
@@ -917,7 +917,7 @@ public abstract class Util_Tansaku
                 );
 
             // このとき、駒を取った手かどうか☆
-            //if (eranda_sasiteType==SasiteType.KomaWoToruTe)
+            //if (eranda_sasiteSyuruiType==SasiteSyuruiType.KomaWoToruTe)
             if (Sasite.Toryo != eranda_sasite)
             {
                 // 駒を取る手が　葉っぱ　に来たときは、ＳＥＥ（Static Exchange Evaluation）をやりたいぜ☆
@@ -1019,7 +1019,7 @@ public abstract class Util_Tansaku
             ""
             );
         Sasite bestSasite = Sasite.Toryo;
-        SasiteSyuruiType bestSasiteType = SasiteSyuruiType.N00_Karappo;
+        SasiteSyuruiType bestSasiteSyuruiType = SasiteSyuruiType.N00_Karappo;
         bool utikiri;
 
         // 深さ1 のときに手を指しても、深さのカウントは増えない☆
@@ -1081,7 +1081,7 @@ public abstract class Util_Tansaku
         for (int iSs = 0; iSs < AbstractUtilSasiteGen.MoveList[fukasa].SslistCount; iSs++)
         {
             Sasite eda_sasite = AbstractUtilSasiteGen.MoveList[fukasa].ListMove[iSs];
-            SasiteSyuruiType eda_sasiteType = AbstractUtilSasiteGen.MoveList[fukasa].List_Reason[iSs];
+            SasiteSyuruiType eda_sasiteSyuruiType = AbstractUtilSasiteGen.MoveList[fukasa].List_Reason[iSs];
 
             // 探索打ち切りフラグ☆（＾▽＾）
             utikiri = false;
@@ -1119,12 +1119,12 @@ public abstract class Util_Tansaku
             //────────────────────────────────────────
             // らいおん捕獲＜探索打ち切り＞
             //────────────────────────────────────────
-            if (eda_sasiteType == SasiteSyuruiType.N12_RaionCatch || eda_sasiteType == SasiteSyuruiType.N16_Try)
+            if (eda_sasiteSyuruiType == SasiteSyuruiType.N12_RaionCatch || eda_sasiteSyuruiType == SasiteSyuruiType.N16_Try)
             {
                 // らいおんを捕まえる手か、トライする手なら、ここより奥を探索する必要はないぜ☆（＾▽＾）
 
                 out_edaBest_Yomisuji = new Yomisuji();// 読み筋を作るぜ☆（＾▽＾）
-                out_edaBest_Yomisuji.Add(eda_sasite, eda_sasiteType); // 先頭に今回の指し手を置くぜ☆
+                out_edaBest_Yomisuji.Add(eda_sasite, eda_sasiteSyuruiType); // 先頭に今回の指し手を置くぜ☆
                 // 後ろに読み筋は無いはずだぜ☆（＾～＾）
 
                 out_hyokatiUtiwake.Set(
@@ -1175,7 +1175,7 @@ public abstract class Util_Tansaku
             }
             #endregion
 
-            ky.DoMove(isSfen, eda_sasite, eda_sasiteType, ref nanteme, ky.CurrentOptionalPhase, syuturyoku);
+            ky.DoMove(isSfen, eda_sasite, eda_sasiteSyuruiType, ref nanteme, ky.CurrentOptionalPhase, syuturyoku);
             //{
             //    Util_Logger.AppendLine($"do後 {ConvMove.Setumei_Fen(ss)}");
             //    Util_Logger.AppendLine(ApplicationImpl.Kyokumen.Setumei());
@@ -1244,7 +1244,7 @@ public abstract class Util_Tansaku
                 }
 
                 out_edaBest_Yomisuji = new Yomisuji();
-                out_edaBest_Yomisuji.Add(eda_sasite, eda_sasiteType);
+                out_edaBest_Yomisuji.Add(eda_sasite, eda_sasiteSyuruiType);
                 switch (riyu)
                 {
                     case HyokaRiyu.Friend_MaketeruTokinoSennititeUkeire:
@@ -1320,7 +1320,7 @@ public abstract class Util_Tansaku
                 dlgt_CreateJoho,
                 syuturyoku,
                 eda_sasite,
-                eda_sasiteType
+                eda_sasiteSyuruiType
             );
             // 符号を逆にするぜ☆（＾～＾）手目詰めのカウントアップもしないと、整合性が取れないぜ☆（＾▽＾）
             eda_hyokatiUtiwake.CountUpTume();
@@ -1399,7 +1399,7 @@ public abstract class Util_Tansaku
                 // （２）らいおん　を捕獲した
                 // （３）トライ　した
                 out_edaBest_Yomisuji = new Yomisuji();
-                out_edaBest_Yomisuji.Add(eda_sasite, eda_sasiteType);
+                out_edaBest_Yomisuji.Add(eda_sasite, eda_sasiteSyuruiType);
                 out_hyokatiUtiwake.Set(eda_hyokatiUtiwake);
 
                 //────────────────────────────────────────
@@ -1448,7 +1448,7 @@ public abstract class Util_Tansaku
             {
                 // 次の「子の弟」要素はもう読みません。
                 out_edaBest_Yomisuji = new Yomisuji();
-                out_edaBest_Yomisuji.Add(eda_sasite, eda_sasiteType);
+                out_edaBest_Yomisuji.Add(eda_sasite, eda_sasiteSyuruiType);
 
                 out_hyokatiUtiwake.Set(
                     beta,//,
@@ -1503,7 +1503,7 @@ public abstract class Util_Tansaku
 
                 // 兄弟の中で一番の読み筋は、どれだぜ☆（＾▽＾）？
                 bestSasite = eda_sasite;
-                bestSasiteType = eda_sasiteType;
+                bestSasiteSyuruiType = eda_sasiteSyuruiType;
                 best_yomisujiChild_orNull = temp_yomisujiChild_orNull;
             }
             #endregion
@@ -1566,7 +1566,7 @@ public abstract class Util_Tansaku
         if (Sasite.Toryo != bestSasite && null != best_yomisujiChild_orNull)
         {
             out_edaBest_Yomisuji = new Yomisuji();
-            out_edaBest_Yomisuji.Add(bestSasite, bestSasiteType); // 先頭に今回の指し手を置くぜ☆
+            out_edaBest_Yomisuji.Add(bestSasite, bestSasiteSyuruiType); // 先頭に今回の指し手を置くぜ☆
             out_edaBest_Yomisuji.Insert(best_yomisujiChild_orNull); // 後ろに子要素の指し手を置くぜ☆
         }
 
@@ -1582,7 +1582,7 @@ public abstract class Util_Tansaku
             ttEntry.Save(
                 ky.KyokumenHash.Value,
                 out_edaBest_Yomisuji.GetBestSasite(),
-                out_edaBest_Yomisuji.GetBestSasiteType(),
+                out_edaBest_Yomisuji.GetBestSasiteSyuruiType(),
                 fukasa,
                 out_hyokatiUtiwake
                 );
