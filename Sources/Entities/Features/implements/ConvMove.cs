@@ -12,17 +12,17 @@ public abstract class ConvMove
     /// <returns></returns>
     public static Masu GetSrcMasu_WithoutErrorCheck(int ss)
     {
-        return (Masu)((ss & MoveMask.SrcMasu) >> MoveShift.SrcMasu);
+        return (Masu)((ss & SasiteMask.SrcMasu) >> SasiteShift.SrcMasu);
         // if (Move.Toryo == ss || ConvMove.IsUtta(ss)) { return KyokumenImpl.MASU_ERROR; }// エラーチェック付き
     }
     public static Masu GetDstMasu_WithoutErrorCheck(int ss)
     {
-        return (Masu)((ss & MoveMask.DstMasu) >> MoveShift.DstMasu);
+        return (Masu)((ss & SasiteMask.DstMasu) >> SasiteShift.DstMasu);
     }
-    public static Masu GetDstMasu(Move ss, Kyokumen ky)
+    public static Masu GetDstMasu(Sasite ss, Kyokumen ky)
     {
         // エラーチェック付き
-        if (Move.Toryo == ss) { return ky.MASU_ERROR; }
+        if (Sasite.Toryo == ss) { return ky.MASU_ERROR; }
         return GetDstMasu_WithoutErrorCheck((int)ss);
     }
     /// <summary>
@@ -57,21 +57,21 @@ public abstract class ConvMove
     public static void SetSrcMasu_WithoutErrorCheck(ref int ss, Masu ms_src)
     {
         // 筋と段☆（＾▽＾）盤外なら 0 なんだが、セットはせず無視だぜ☆（＾▽＾）
-        ss |= (int)ms_src << (int)MoveShift.SrcMasu;
+        ss |= (int)ms_src << (int)SasiteShift.SrcMasu;
         // if (Conv_Masu.IsBanjo(ms_src))
     }
     public static void SetDstMasu_WithoutErrorCheck(ref int ss, Masu ms_dst)
     {
-        ss |= (int)ms_dst << (int)MoveShift.DstMasu;
+        ss |= (int)ms_dst << (int)SasiteShift.DstMasu;
     }
 
     /// <summary>
     /// 改造FEN符号表記
     /// </summary>
     /// <returns></returns>
-    public static void AppendFenTo(bool isSfen, Move ss, StringBuilder syuturyoku)
+    public static void AppendFenTo(bool isSfen, Sasite ss, StringBuilder syuturyoku)
     {
-        if (Move.Toryo == ss) { syuturyoku.Append(Itiran_FenParser.GetToryo(isSfen)); return; }
+        if (Sasite.Toryo == ss) { syuturyoku.Append(Itiran_FenParser.GetToryo(isSfen)); return; }
 
         int v = (int)ss;//バリュー（ビットフィールド）
 
@@ -119,7 +119,7 @@ public abstract class ConvMove
         int natta;
         {
             // (v & m) >> s + 1。 v:バリュー、m:マスク、s:シフト
-            natta = (v & (int)MoveMask.Natta) >> (int)MoveShift.Natta;
+            natta = (v & (int)SasiteMask.Natta) >> (int)SasiteShift.Natta;
         }
         if (1 == natta)
         {
@@ -131,11 +131,11 @@ public abstract class ConvMove
     /// 指し手符号の解説。
     /// </summary>
     /// <returns></returns>
-    public static void Setumei(bool isSfen, Move ss, StringBuilder syuturyoku)
+    public static void Setumei(bool isSfen, Sasite ss, StringBuilder syuturyoku)
     {
         AppendFenTo(isSfen, ss, syuturyoku);
     }
-    public static void SetumeiLine(bool isSfen, Move ss, StringBuilder syuturyoku)
+    public static void SetumeiLine(bool isSfen, Sasite ss, StringBuilder syuturyoku)
     {
         AppendFenTo(isSfen, ss, syuturyoku);
         syuturyoku.AppendLine();
@@ -150,7 +150,7 @@ public abstract class ConvMove
     /// <param name="ms_dst"></param>
     /// <param name="natta"></param>
     /// <returns></returns>
-    public static Move ToMove01aNarazuSasi(Masu ms_src, Masu ms_dst, Kyokumen.Sindanyo kys)
+    public static Sasite ToMove01aNarazuSasi(Masu ms_src, Masu ms_dst, Kyokumen.Sindanyo kys)
     {
         Debug.Assert(kys.IsBanjoOrError(ms_src), $"ms_src=[{ms_src}] kys.MASUS=[{kys.MASU_YOSOSU}]");
         Debug.Assert(kys.IsBanjo(ms_dst), "盤外に指したぜ☆？");
@@ -169,7 +169,7 @@ public abstract class ConvMove
 
         // 成らない☆（＾▽＾）
 
-        return (Move)v;
+        return (Sasite)v;
     }
     /// <summary>
     /// 盤上の駒を指したぜ☆（＾▽＾）（打つ以外の指し手☆）
@@ -180,7 +180,7 @@ public abstract class ConvMove
     /// <param name="ms_dst"></param>
     /// <param name="natta"></param>
     /// <returns></returns>
-    public static Move ToMove01bNariSasi(Masu ms_src, Masu ms_dst, Kyokumen.Sindanyo kys)
+    public static Sasite ToMove01bNariSasi(Masu ms_src, Masu ms_dst, Kyokumen.Sindanyo kys)
     {
         Debug.Assert(kys.IsBanjoOrError(ms_src), "");
         Debug.Assert(kys.IsBanjo(ms_dst), "盤外に指したぜ☆？");
@@ -198,9 +198,9 @@ public abstract class ConvMove
         // 打った駒なし
 
         // 成った☆（＾▽＾）
-        v |= 1 << MoveShift.Natta;
+        v |= 1 << SasiteShift.Natta;
 
-        return (Move)v;
+        return (Sasite)v;
     }
     /// <summary>
     /// 駒を打った指し手☆（＾▽＾）
@@ -210,7 +210,7 @@ public abstract class ConvMove
     /// <param name="mkUtta"></param>
     /// <param name="natta"></param>
     /// <returns></returns>
-    public static Move ToMove01cUtta(Masu ms_dst, MotiKomasyurui mkUtta)
+    public static Sasite ToMove01cUtta(Masu ms_dst, MotiKomasyurui mkUtta)
     {
         Debug.Assert(MotiKomasyurui.Yososu != mkUtta, "");
 
@@ -232,25 +232,25 @@ public abstract class ConvMove
             // いのしし 6 → 7
             // なし 7 → 0
             // 1 足して 8 で割った余り☆
-            v |= (((int)mkUtta + 1) % Conv_MotiKomasyurui.SETS_LENGTH) << (int)MoveShift.UttaKomasyurui;
+            v |= (((int)mkUtta + 1) % Conv_MotiKomasyurui.SETS_LENGTH) << (int)SasiteShift.UttaKomasyurui;
         }
 
         // 打ったときは成れないぜ☆（＾▽＾）
 
-        return (Move)v;
+        return (Sasite)v;
     }
 
-    public static bool IsNatta(Move ss)
+    public static bool IsNatta(Sasite ss)
     {
-        if (Move.Toryo == ss) { return false; }//解析不能☆
+        if (Sasite.Toryo == ss) { return false; }//解析不能☆
 
         int v = (int)ss;              // バリュー
 
         // 成ったか☆
         int natta;
         {
-            int m = (int)MoveMask.Natta;
-            int s = (int)MoveShift.Natta;
+            int m = (int)SasiteMask.Natta;
+            int s = (int)SasiteShift.Natta;
             natta = (v & m) >> s;
         }
 
@@ -261,14 +261,14 @@ public abstract class ConvMove
         return 0 != natta;
     }
 
-    public static MotiKomasyurui GetUttaKomasyurui(Move ss)
+    public static MotiKomasyurui GetUttaKomasyurui(Sasite ss)
     {
-        if (Move.Toryo == ss) { return MotiKomasyurui.Yososu; }//解析不能☆
+        if (Sasite.Toryo == ss) { return MotiKomasyurui.Yososu; }//解析不能☆
 
         // 式の形
         // (v & m) >> s;
         // v:バリュー、m:マスク、s:シフト☆
-        int kirinuki = (((int)ss) & MoveMask.UttaKomasyurui) >> MoveShift.UttaKomasyurui;
+        int kirinuki = (((int)ss) & SasiteMask.UttaKomasyurui) >> SasiteShift.UttaKomasyurui;
 
         // 「なし」を 0 にするか、7 にするかの違いで変換している☆（＾～＾）
         // 打った駒の種類と数値変換（ビット→列挙型）
@@ -283,26 +283,26 @@ public abstract class ConvMove
             (kirinuki + Conv_MotiKomasyurui.Itiran.Length) % Conv_MotiKomasyurui.SETS_LENGTH
             );
     }
-    public static bool IsUtta(Move ss)
+    public static bool IsUtta(Sasite ss)
     {
         // 打か☆？
         return MotiKomasyurui.Yososu != ConvMove.GetUttaKomasyurui(ss);//指定があれば
     }
 
-    public static string Setumei(MoveMatigaiRiyu err)
+    public static string Setumei(SasiteMatigaiRiyu err)
     {
         switch (err)
         {
-            case MoveMatigaiRiyu.Karappo: return "";// エラーなし
-            case MoveMatigaiRiyu.ParameterSyosikiMatigai: return "doコマンドのパラメーターの書式が間違っていました。";
-            case MoveMatigaiRiyu.NaiMotiKomaUti: return "持ち駒が無いのに駒を打とうとしました。";
-            case MoveMatigaiRiyu.BangaiIdo: return "盤外に駒を動かそうとしました。";
-            case MoveMatigaiRiyu.TebanKomaNoTokoroheIdo: return "自分の駒が置いてあるところに、駒を動かそうとしました。";
-            case MoveMatigaiRiyu.KomaGaAruTokoroheUti: return "駒が置いてあるところに、駒を打ち込もうとしました。";
-            case MoveMatigaiRiyu.KuhakuWoIdo: return "空き升に駒が置いてあると思って、動かそうとしました。";
-            case MoveMatigaiRiyu.AiteNoKomaIdo: return "相手の駒を、動かそうとしました。";
-            case MoveMatigaiRiyu.NarenaiNari: return "ひよこ以外が、にわとりになろうとしました。";
-            case MoveMatigaiRiyu.SonoKomasyuruiKarahaArienaiUgoki: return "その駒の種類からは、ありえない動きをしました。";
+            case SasiteMatigaiRiyu.Karappo: return "";// エラーなし
+            case SasiteMatigaiRiyu.ParameterSyosikiMatigai: return "doコマンドのパラメーターの書式が間違っていました。";
+            case SasiteMatigaiRiyu.NaiMotiKomaUti: return "持ち駒が無いのに駒を打とうとしました。";
+            case SasiteMatigaiRiyu.BangaiIdo: return "盤外に駒を動かそうとしました。";
+            case SasiteMatigaiRiyu.TebanKomaNoTokoroheIdo: return "自分の駒が置いてあるところに、駒を動かそうとしました。";
+            case SasiteMatigaiRiyu.KomaGaAruTokoroheUti: return "駒が置いてあるところに、駒を打ち込もうとしました。";
+            case SasiteMatigaiRiyu.KuhakuWoIdo: return "空き升に駒が置いてあると思って、動かそうとしました。";
+            case SasiteMatigaiRiyu.AiteNoKomaIdo: return "相手の駒を、動かそうとしました。";
+            case SasiteMatigaiRiyu.NarenaiNari: return "ひよこ以外が、にわとりになろうとしました。";
+            case SasiteMatigaiRiyu.SonoKomasyuruiKarahaArienaiUgoki: return "その駒の種類からは、ありえない動きをしました。";
             default: return "未定義のエラーです。";
         }
     }
@@ -310,50 +310,50 @@ public abstract class ConvMove
 
 public abstract class AbstractConvMoveCharacter
 {
-    public static readonly MoveCharacter[] Items = new MoveCharacter[] {
+    public static readonly SasiteCharacter[] Items = new SasiteCharacter[] {
         // enum の配列順にすること。
-        MoveCharacter.HyokatiYusen,
-        MoveCharacter.SyorituYusen,
-        MoveCharacter.SyorituNomi,
-        MoveCharacter.SinteYusen,
-        MoveCharacter.SinteNomi,
-        MoveCharacter.TansakuNomi,
+        SasiteCharacter.HyokatiYusen,
+        SasiteCharacter.SyorituYusen,
+        SasiteCharacter.SyorituNomi,
+        SasiteCharacter.SinteYusen,
+        SasiteCharacter.SinteNomi,
+        SasiteCharacter.TansakuNomi,
     };
 
-    public static MoveCharacter Parse(string commandline, ref int caret_1)
+    public static SasiteCharacter Parse(string commandline, ref int caret_1)
     {
         // うしろに続く文字は☆（＾▽＾）
         if (caret_1 == commandline.IndexOf("HyokatiYusen", caret_1))
         {
             Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret_1, "HyokatiYusen");
-            return MoveCharacter.HyokatiYusen;
+            return SasiteCharacter.HyokatiYusen;
         }
         else if (caret_1 == commandline.IndexOf("SyorituYusen", caret_1))
         {
             Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret_1, "SyorituYusen");
-            return MoveCharacter.SyorituYusen;
+            return SasiteCharacter.SyorituYusen;
         }
         else if (caret_1 == commandline.IndexOf("SyorituNomi", caret_1))
         {
             Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret_1, "SyorituNomi");
-            return MoveCharacter.SinteYusen;
+            return SasiteCharacter.SinteYusen;
         }
         else if (caret_1 == commandline.IndexOf("SinteYusen", caret_1))
         {
             Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret_1, "SinteYusen");
-            return MoveCharacter.SinteYusen;
+            return SasiteCharacter.SinteYusen;
         }
         else if (caret_1 == commandline.IndexOf("SinteNomi", caret_1))
         {
             Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret_1, "SinteNomi");
-            return MoveCharacter.SinteNomi;
+            return SasiteCharacter.SinteNomi;
         }
         else if (caret_1 == commandline.IndexOf("TansakuNomi", caret_1))
         {
             Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret_1, "TansakuNomi");
-            return MoveCharacter.TansakuNomi;
+            return SasiteCharacter.TansakuNomi;
         }
 
-        return MoveCharacter.Yososu;// パース・エラー☆（＾▽＾）
+        return SasiteCharacter.Yososu;// パース・エラー☆（＾▽＾）
     }
 }

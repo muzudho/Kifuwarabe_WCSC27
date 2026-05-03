@@ -72,7 +72,7 @@ public class Nanteme
     /// <summary>
     /// 指し手の勝率の成績表を作るために、指し手を覚えておくぜ☆（＾▽＾）
     /// </summary>
-    public Move Move { get; set; }
+    public Sasite Move { get; set; }
     /// <summary>
     /// 読み筋に指し手タイプを出すことで、デバッグに使うために覚えておくぜ☆（＾▽＾）
     /// </summary>

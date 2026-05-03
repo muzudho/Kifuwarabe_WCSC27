@@ -144,7 +144,7 @@ public abstract class Util_Tansaku
     /// 最善手は yomisuji[0] に入っているぜ☆（＾▽＾）
     /// </summary>
     /// <returns></returns>
-    public static Move Go(
+    public static Sasite Go(
         IPlaying playing,
         bool isSfen, Kyokumen ky, out HyokatiUtiwake out_kakutei_hyokatiUtiwake, out bool out_isJosekiNoTouri, Util_Tansaku.Dlgt_CreateJoho dlgt_CreateJoho, StringBuilder syuturyoku)
     {
@@ -197,10 +197,10 @@ public abstract class Util_Tansaku
             switch (Option_Application.Optionlist.PNChar[OptionalPhase.IndexOf( ky.CurrentOptionalPhase)])
             {
                 // 「探索のみ」のやつは定跡を使わないんだぜ☆（＾▽＾）
-                case MoveCharacter.TansakuNomi: goto gt_NotUseJoseki;
+                case SasiteCharacter.TansakuNomi: goto gt_NotUseJoseki;
                 // 「勝率のみ」、「新手のみ」のやつは必ず成績を使うんだぜ☆（＾▽＾）
-                case MoveCharacter.SyorituNomi://thru
-                case MoveCharacter.SinteNomi:
+                case SasiteCharacter.SyorituNomi://thru
+                case SasiteCharacter.SinteNomi:
                     useJoseki = true;
                     break;
                 default:// それ以外のやつは、定跡採用率によるんだぜ☆（＾▽＾）
@@ -214,7 +214,7 @@ public abstract class Util_Tansaku
                 Option_Application.TimeManager.RestartStopwatch_Tansaku();
                 Option_Application.TimeManager.LastJohoTime = 0;
 
-                Move josekiSs = Move.Toryo;
+                Sasite josekiSs = Sasite.Toryo;
 #if DEBUG
                 string fen_forTest = "未設定";
 #endif
@@ -222,15 +222,15 @@ public abstract class Util_Tansaku
                 // 勝率も見た方がいいのでは☆（＾～＾）？
                 switch (Option_Application.Optionlist.PNChar[OptionalPhase.IndexOf( ky.CurrentOptionalPhase)])
                 {
-                    case MoveCharacter.SinteYusen://thru
-                    case MoveCharacter.SinteNomi:
+                    case SasiteCharacter.SinteYusen://thru
+                    case SasiteCharacter.SinteNomi:
                         {
-                            List<Move> josekiSasites = Option_Application.Joseki.GetMoves(ky);
+                            List<Sasite> josekiSasites = Option_Application.Joseki.GetMoves(ky);
                             // この局面の合法手を取得☆（＾▽＾）
                             int fukasa = 0;
                             AbstractUtilMoveGen.GenerateMove01(fukasa, ky, MoveType.N21_All, true, syuturyoku);// グローバル変数 Util_SasiteSeisei.Sasitelist[fukasa].Sslist に指し手がセットされるぜ☆（＾▽＾）
-                            List<Move> gohosyu = new List<Move>(AbstractUtilMoveGen.MoveList[fukasa].ListMove);
-                            foreach (Move ss in josekiSasites)
+                            List<Sasite> gohosyu = new List<Sasite>(AbstractUtilMoveGen.MoveList[fukasa].ListMove);
+                            foreach (Sasite ss in josekiSasites)
                             {
                                 if (gohosyu.Contains(ss))
                                 {
@@ -249,14 +249,14 @@ public abstract class Util_Tansaku
                             }
                         }
                         break;
-                    case MoveCharacter.SyorituYusen://thru
-                    case MoveCharacter.SyorituNomi:
+                    case SasiteCharacter.SyorituYusen://thru
+                    case SasiteCharacter.SyorituNomi:
                         {
                             josekiSs = Option_Application.Seiseki.GetSasite_Winest(ky, out float bestSyoritu);
                         }
                         break;
-                    case MoveCharacter.HyokatiYusen://thru
-                    case MoveCharacter.Yososu://thru
+                    case SasiteCharacter.HyokatiYusen://thru
+                    case SasiteCharacter.Yososu://thru
                     default:
                         {
                             // 評価値で選ぶぜ☆（＾～＾）
@@ -270,21 +270,21 @@ public abstract class Util_Tansaku
                 }
 
                 // とはいえ、負け定跡を選ぶのは嫌だぜ☆（＾～＾）
-                if (Move.Toryo != josekiSs)
+                if (Sasite.Toryo != josekiSs)
                 {
                     if (!Option_Application.Seiseki.GetSasite_Syoritu(ky, josekiSs, out float syoritu))
                     {
                         // 成績が登録されていなければ無視するぜ☆（＾～＾）
-                        josekiSs = Move.Toryo;
+                        josekiSs = Sasite.Toryo;
                     }
                     else if (syoritu < 0.5)
                     {
                         // 成績が登録されていても、勝率が５割を切っていれば無視するぜ☆（＾～＾）
-                        josekiSs = Move.Toryo;
+                        josekiSs = Sasite.Toryo;
                     }
                 }
 
-                if (Move.Toryo != josekiSs)
+                if (Sasite.Toryo != josekiSs)
                 {
                     // 定跡用の 読み筋情報 を作るぜ☆（＾▽＾）
                     best_yomisuji_orNull = new Yomisuji();
@@ -686,7 +686,7 @@ public abstract class Util_Tansaku
 */
         Nanteme nanteme = new Nanteme();
         ky.DoMove(isSfen,
-            null != best_yomisuji_orNull ? best_yomisuji_orNull.GetBestSasite() : Move.Toryo,
+            null != best_yomisuji_orNull ? best_yomisuji_orNull.GetBestSasite() : Sasite.Toryo,
             null != best_yomisuji_orNull ? best_yomisuji_orNull.GetBestSasiteType() : MoveType.N00_Karappo
             , ref nanteme, ky.CurrentOptionalPhase, syuturyoku);
 
@@ -736,7 +736,7 @@ public abstract class Util_Tansaku
             Util_TimeManager.DoneShowJoho();
         }
 
-        return null != best_yomisuji_orNull ? best_yomisuji_orNull.GetBestSasite() : Move.Toryo;
+        return null != best_yomisuji_orNull ? best_yomisuji_orNull.GetBestSasite() : Sasite.Toryo;
     }
 
     /// <summary>
@@ -774,7 +774,7 @@ public abstract class Util_Tansaku
             out out_hyokatiUtiwake,
             dlgt_CreateJoho,
             syuturyoku,
-            Move.Toryo,// １週目は、葉を通らない前提なので、この指し手は　スルーされる前提だぜ☆（＾▽＾）
+            Sasite.Toryo,// １週目は、葉を通らない前提なので、この指し手は　スルーされる前提だぜ☆（＾▽＾）
             MoveType.N00_Karappo // まだ指し手を選んでないぜ☆　１週目は葉を通らない前提だぜ☆
             );
     }
@@ -804,7 +804,7 @@ public abstract class Util_Tansaku
         , out HyokatiUtiwake out_hyokatiUtiwake
         , Dlgt_CreateJoho dlgt_CreateJoho
         , StringBuilder syuturyoku // 出力先
-        , Move eranda_sasite // 指した手だぜ☆（＾▽＾）
+        , Sasite eranda_sasite // 指した手だぜ☆（＾▽＾）
         , MoveType eranda_sasiteType // 指した、指し手のタイプだぜ☆（＾▽＾）
         )
     {
@@ -918,7 +918,7 @@ public abstract class Util_Tansaku
 
             // このとき、駒を取った手かどうか☆
             //if (eranda_sasiteType==SasiteType.KomaWoToruTe)
-            if (Move.Toryo != eranda_sasite)
+            if (Sasite.Toryo != eranda_sasite)
             {
                 // 駒を取る手が　葉っぱ　に来たときは、ＳＥＥ（Static Exchange Evaluation）をやりたいぜ☆
                 // おいしさ：この手を指したときに確定している手番の得だぜ☆（＾▽＾）
@@ -1018,7 +1018,7 @@ public abstract class Util_Tansaku
             HyokaRiyu.SaseruTeNasi3,// 合法手が無いとき☆
             ""
             );
-        Move bestSasite = Move.Toryo;
+        Sasite bestSasite = Sasite.Toryo;
         MoveType bestSasiteType = MoveType.N00_Karappo;
         bool utikiri;
 
@@ -1080,7 +1080,7 @@ public abstract class Util_Tansaku
 
         for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
         {
-            Move eda_sasite = AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs];
+            Sasite eda_sasite = AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs];
             MoveType eda_sasiteType = AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs];
 
             // 探索打ち切りフラグ☆（＾▽＾）
@@ -1563,7 +1563,7 @@ public abstract class Util_Tansaku
         //;
 
         // 一番良かった兄弟は☆（＾▽＾）
-        if (Move.Toryo != bestSasite && null != best_yomisujiChild_orNull)
+        if (Sasite.Toryo != bestSasite && null != best_yomisujiChild_orNull)
         {
             out_edaBest_Yomisuji = new Yomisuji();
             out_edaBest_Yomisuji.Add(bestSasite, bestSasiteType); // 先頭に今回の指し手を置くぜ☆

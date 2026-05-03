@@ -14,7 +14,7 @@ public abstract class Med_Kyokumen
     public static void TukuruKifu(bool isSfen, Kyokumen ky, StringBuilder syuturyoku)
     {
         // 指した後の手☆（成績　登録用）
-        Move ss_after = Move.Toryo; // 未使用時の初期値
+        Sasite ss_after = Sasite.Toryo; // 未使用時の初期値
 
         // 決着から初期局面まで、逆順で戻しながら棋譜を記録するぜ☆（＾▽＾）
         int fukasa = 0;

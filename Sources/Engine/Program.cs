@@ -205,16 +205,16 @@ System.Console.WriteLine($"# (~0UL << 1)=[{(~0UL << 1)}]");
                             // do以外のコマンドであれば、コマンドラインを保持したまま、そのまま続行
                         }
                         // 以下、do コマンドの場合☆
-                        else if (!Util_Application.ParseDoMove(ky, out Move inputSasite))
+                        else if (!Util_Application.ParseDoMove(ky, out Sasite inputSasite))
                         {
                             // do コマンドのパースエラー表示（コンソール・ゲーム用）☆（＾～＾）
-                            syuturyoku.AppendLine(ConvMove.Setumei(MoveMatigaiRiyu.ParameterSyosikiMatigai));
+                            syuturyoku.AppendLine(ConvMove.Setumei(SasiteMatigaiRiyu.ParameterSyosikiMatigai));
                             var msg = syuturyoku.ToString();
                             syuturyoku.Clear();
                             Logger.Flush(msg);
                             Util_Commandline.CommentCommandline();// コマンドの誤発動防止
                         }
-                        else if (!ky.CanDoMove(inputSasite, out MoveMatigaiRiyu reason))// 指し手の合否チェック
+                        else if (!ky.CanDoMove(inputSasite, out SasiteMatigaiRiyu reason))// 指し手の合否チェック
                         {
                             // イリーガル・ムーブなどの、エラー理由表示☆（＾～＾）
                             syuturyoku.AppendLine(ConvMove.Setumei(reason));
@@ -244,7 +244,7 @@ System.Console.WriteLine($"# (~0UL << 1)=[{(~0UL << 1)}]");
                     {
                         Util_ConsoleGame.AppendMessage_ComputerSikochu(ky, syuturyoku);// 表示（コンピューター思考中☆）
 
-                        Move bestSasite = Util_Application.Go(playing, ky, out HyokatiUtiwake best_hyokatiUTiwake, Face_YomisujiJoho.Dlgt_WriteYomisujiJoho, syuturyoku);// コンピューターに１手指させるぜ☆
+                        Sasite bestSasite = Util_Application.Go(playing, ky, out HyokatiUtiwake best_hyokatiUTiwake, Face_YomisujiJoho.Dlgt_WriteYomisujiJoho, syuturyoku);// コンピューターに１手指させるぜ☆
                         Util_Application.JudgeKettyaku(bestSasite, ky);// 勝敗判定☆（＾▽＾）
 
                         Util_ConsoleGame.Update2_JosekiToroku(bestSasite, best_hyokatiUTiwake.EdaBest, ky, syuturyoku);// やるなら、定跡更新☆（＾▽＾）
@@ -385,12 +385,12 @@ System.Console.WriteLine($"# (~0UL << 1)=[{(~0UL << 1)}]");
                     int caret2 = 0;
                     Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret2, "cando ");
 
-                    if (!Med_Parser.TryFenMove(Option_Application.Optionlist.USI, commandline, ref caret2, ky.Sindan, out Move ss))
+                    if (!Med_Parser.TryFenMove(Option_Application.Optionlist.USI, commandline, ref caret2, ky.Sindan, out Sasite ss))
                     {
                         throw new Exception($"パースエラー [{commandline}]");
                     }
 
-                    if (ky.CanDoMove(ss, out MoveMatigaiRiyu riyu))
+                    if (ky.CanDoMove(ss, out SasiteMatigaiRiyu riyu))
                     {
                         syuturyoku.AppendLine("cando, true");
                     }

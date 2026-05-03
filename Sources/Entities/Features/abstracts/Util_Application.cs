@@ -92,7 +92,7 @@ public abstract class Util_Application
     {
         return ky.Kekka;
     }
-    public static bool ParseDoMove(Kyokumen ky, out Move out_sasite)
+    public static bool ParseDoMove(Kyokumen ky, out Sasite out_sasite)
     {
         // コンソールからのキー入力を解析するぜ☆（＾▽＾）
         int caret = Util_Commandline.Caret;
@@ -127,7 +127,7 @@ public abstract class Util_Application
     /// 決着判定
     /// </summary>
     /// <param name="bestMove">投了かどうか調べるだけだぜ☆（＾▽＾）</param>
-    public static void JudgeKettyaku(Move bestMove, Kyokumen ky)
+    public static void JudgeKettyaku(Sasite bestMove, Kyokumen ky)
     {
         Util_Kettyaku.JudgeKettyaku(bestMove, ky);
     }
@@ -146,9 +146,9 @@ public abstract class Util_Application
         ky.Hyoka(out out_hyokatiUtiwake, riyu, randomNaKyokumen);
     }
 
-    public static Move Go(IPlaying playing, Kyokumen ky, out HyokatiUtiwake out_hyokatiUtiwake, Util_Tansaku.Dlgt_CreateJoho dlgt_CreateJoho, StringBuilder syuturyoku)
+    public static Sasite Go(IPlaying playing, Kyokumen ky, out HyokatiUtiwake out_hyokatiUtiwake, Util_Tansaku.Dlgt_CreateJoho dlgt_CreateJoho, StringBuilder syuturyoku)
     {
-        Move move = Util_Tansaku.Go(playing, Option_Application.Optionlist.USI, ky, out out_hyokatiUtiwake, out bool isJosekiTraced, dlgt_CreateJoho, syuturyoku);
+        Sasite move = Util_Tansaku.Go(playing, Option_Application.Optionlist.USI, ky, out out_hyokatiUtiwake, out bool isJosekiTraced, dlgt_CreateJoho, syuturyoku);
         Util_ConsoleGame.IsJosekiTraced = isJosekiTraced;
         return move;
     }
@@ -270,19 +270,19 @@ public abstract class Util_Application
         if (AbstractUtilMoveGen.MoveList[fukasa].SslistCount < 1)
         {
             Nanteme nanteme = new Nanteme();
-            ky.DoMove(Option_Application.Optionlist.USI, Move.Toryo, MoveType.N00_Karappo, ref nanteme,  ky.CurrentOptionalPhase, syuturyoku);
+            ky.DoMove(Option_Application.Optionlist.USI, Sasite.Toryo, MoveType.N00_Karappo, ref nanteme,  ky.CurrentOptionalPhase, syuturyoku);
         }
         else
         {
-            Move ss = AbstractUtilMoveGen.MoveList[fukasa].ListMove[Option_Application.Random.Next(AbstractUtilMoveGen.MoveList[fukasa].SslistCount)];
+            Sasite ss = AbstractUtilMoveGen.MoveList[fukasa].ListMove[Option_Application.Random.Next(AbstractUtilMoveGen.MoveList[fukasa].SslistCount)];
             Nanteme nanteme = new Nanteme();
             ky.DoMove(Option_Application.Optionlist.USI, ss, MoveType.N00_Karappo, ref nanteme, ky.CurrentOptionalPhase, syuturyoku);
         }
     }
 
-    public static List<MoveKakucho> MoveCmd(Kyokumen ky, StringBuilder syuturyoku)
+    public static List<SasiteKakucho> MoveCmd(Kyokumen ky, StringBuilder syuturyoku)
     {
-        List<MoveKakucho> sslist = new List<MoveKakucho>();
+        List<SasiteKakucho> sslist = new List<SasiteKakucho>();
         int fukasa = 0;
         AbstractUtilMoveGen.GenerateMove01(fukasa, ky, MoveType.N21_All, true, syuturyoku);//グローバル変数に指し手がセットされるぜ☆（＾▽＾）
 
@@ -294,7 +294,7 @@ public abstract class Util_Application
         return sslist;
     }
 
-    public static bool MoveCmd(string commandline, Kyokumen.Sindanyo kys, out Move out_sasite)
+    public static bool MoveCmd(string commandline, Kyokumen.Sindanyo kys, out Sasite out_sasite)
     {
         // うしろに続く文字は☆（＾▽＾）
         int caret = 0;
@@ -304,7 +304,7 @@ public abstract class Util_Application
         // move 912 といった数字かどうか☆（＾～＾）
         if (int.TryParse(line, out int ssSuji))
         {
-            out_sasite = (Move)ssSuji;
+            out_sasite = (Sasite)ssSuji;
             return true;
         }
 
@@ -314,7 +314,7 @@ public abstract class Util_Application
             return true;
         }
 
-        out_sasite = Move.Toryo;
+        out_sasite = Sasite.Toryo;
         return false;
     }
 
@@ -330,7 +330,7 @@ public abstract class Util_Application
         foreach (KeyValuePair<ulong, SeisekiKyokumen> entryKy in Option_Application.Seiseki.KyItems)
         {
             out_kyokumenSu++;
-            foreach (KeyValuePair<Move, SeisekiMove> entrySs in entryKy.Value.SsItems)
+            foreach (KeyValuePair<Sasite, SeisekiMove> entrySs in entryKy.Value.SsItems)
             {
                 out_sasiteSu++;
             }
@@ -819,7 +819,7 @@ public abstract class Util_Application
         int caret = 0;
         Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "undo ");
 
-        if (!Med_Parser.TryFenMove(Option_Application.Optionlist.USI, commandline, ref caret, ky.Sindan, out Move ss))
+        if (!Med_Parser.TryFenMove(Option_Application.Optionlist.USI, commandline, ref caret, ky.Sindan, out Sasite ss))
         {
             throw new Exception($"パースエラー [{ commandline }]");
         }
@@ -890,7 +890,7 @@ public abstract class Util_Application
             syuturyoku.Clear();
         }
     }
-    public static void InLoop_SeisekiKosin(Move ss_after, Kyokumen ky, StringBuilder syuturyoku)
+    public static void InLoop_SeisekiKosin(Sasite ss_after, Kyokumen ky, StringBuilder syuturyoku)
     {
         if (Option_Application.Optionlist.SeisekiRec)// 今回指した手全てに、成績を付けたいぜ☆（＾～＾）
         {

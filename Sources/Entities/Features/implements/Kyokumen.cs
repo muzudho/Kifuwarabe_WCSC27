@@ -842,9 +842,9 @@ public class Kyokumen
     //    syuturyoku.AppendLine();
     //}
 
-    public bool CanDoMove(Move ss, out MoveMatigaiRiyu reason)
+    public bool CanDoMove(Sasite ss, out SasiteMatigaiRiyu reason)
     {
-        if (Move.Toryo == ss) { reason = MoveMatigaiRiyu.Karappo; return true; }// 投了はＯＫだぜ☆（＾～＾）
+        if (Sasite.Toryo == ss) { reason = SasiteMatigaiRiyu.Karappo; return true; }// 投了はＯＫだぜ☆（＾～＾）
 
         // 打つ駒調べ
         MotiKomasyurui mksUtta = ConvMove.GetUttaKomasyurui(ss);// 打った駒の種類
@@ -855,7 +855,7 @@ public class Kyokumen
             if (!MotiKomas.HasMotiKoma(Med_Koma.MotiKomasyuruiAndPhaseToMotiKoma(mksUtta, this.CurrentOptionalPhase)))
             {
                 // 持駒が無いのに打とうとしたぜ☆（＞＿＜）
-                reason = MoveMatigaiRiyu.NaiMotiKomaUti;
+                reason = SasiteMatigaiRiyu.NaiMotiKomaUti;
                 return false;
             }
         }
@@ -865,7 +865,7 @@ public class Kyokumen
         if (!Sindan.IsBanjo(ms_dst))
         {
             // 盤外に移動しようとしたぜ☆（＾～＾）
-            reason = MoveMatigaiRiyu.BangaiIdo;
+            reason = SasiteMatigaiRiyu.BangaiIdo;
             return false;
         }
         Koma km_dst = GetBanjoKoma(ms_dst);
@@ -874,13 +874,13 @@ public class Kyokumen
         if (km_dst != Koma.PieceNum && exists1 && exists2 && phase1 == phase2)
         {
             // 自分の駒を取ろうとするのは、イリーガル・ムーブだぜ☆（＾▽＾）
-            reason = MoveMatigaiRiyu.TebanKomaNoTokoroheIdo;
+            reason = SasiteMatigaiRiyu.TebanKomaNoTokoroheIdo;
             return false;
         }
         else if (utta && km_dst != Koma.PieceNum)
         {
             // 駒があるところに打ち込んではいけないぜ☆（＾▽＾）
-            reason = MoveMatigaiRiyu.KomaGaAruTokoroheUti;
+            reason = SasiteMatigaiRiyu.KomaGaAruTokoroheUti;
             return false;
         }
 
@@ -901,13 +901,13 @@ public class Kyokumen
             if (km_src == Koma.PieceNum)
             {
                 // 空き升に駒があると思って動かそうとするのは、イリーガル・ムーブだぜ☆（＾▽＾）
-                reason = MoveMatigaiRiyu.KuhakuWoIdo;
+                reason = SasiteMatigaiRiyu.KuhakuWoIdo;
                 return false;
             }
             else if (exists3 && exists4 && phase3 != phase4)
             {
                 // 相手の駒を動かそうとするのは、イリーガル・ムーブだぜ☆（＾▽＾）
-                reason = MoveMatigaiRiyu.AiteNoKomaIdo;
+                reason = SasiteMatigaiRiyu.AiteNoKomaIdo;
                 return false;
             }
 
@@ -919,7 +919,7 @@ public class Kyokumen
 #if DEBUG
                 throw new Exception($"その駒の種類からは、ありえない動きをしたぜ☆（＾▽＾） ms1=[{ ms_src }] ms2=[{ ms_dst }]");
 #else
-                reason = MoveMatigaiRiyu.SonoKomasyuruiKarahaArienaiUgoki;
+                reason = SasiteMatigaiRiyu.SonoKomasyuruiKarahaArienaiUgoki;
                 return false;
 #endif
             }
@@ -929,11 +929,11 @@ public class Kyokumen
         if (ConvMove.IsNatta(ss) && Med_Koma.KomaToKomasyurui(km_src) != Komasyurui.H)
         {
             // ひよこ以外が、にわとりになろうとしました☆
-            reason = MoveMatigaiRiyu.NarenaiNari;
+            reason = SasiteMatigaiRiyu.NarenaiNari;
             return false;
         }
 
-        reason = MoveMatigaiRiyu.Karappo;
+        reason = SasiteMatigaiRiyu.Karappo;
         return true;
     }
 
@@ -942,7 +942,7 @@ public class Kyokumen
     /// ハッシュも差分変更するぜ☆
     /// </summary>
     /// <param name="ss">指し手☆</param>
-    public void DoMove(bool isSfen, Move ss, MoveType ssType, ref Nanteme konoTeme, Option<Phase> optionalPhase, StringBuilder syuturyoku)
+    public void DoMove(bool isSfen, Sasite ss, MoveType ssType, ref Nanteme konoTeme, Option<Phase> optionalPhase, StringBuilder syuturyoku)
     {
         // bool endMethodFlag;
 
@@ -989,7 +989,7 @@ public class Kyokumen
         Teme++;
 
         // endMethodFlag = false;
-        if (Move.Toryo == ss)
+        if (Sasite.Toryo == ss)
         {
             goto gt_EndMethod;
         }// 投了なら、なにも更新せず終了☆（＾▽＾）
@@ -1393,7 +1393,7 @@ public class Kyokumen
     /// 指定した指し手をやりなおす動きをするぜ☆（＾▽＾）
     /// </summary>
     /// <param name="ss"></param>
-    public void UndoMove(bool isSfen, Move ss, StringBuilder syuturyoku)
+    public void UndoMove(bool isSfen, Sasite ss, StringBuilder syuturyoku)
     {
         //────────────────────────────────────────
         // 手番
@@ -1406,7 +1406,7 @@ public class Kyokumen
             KyokumenHash.SetXor(Util_ZobristHashing.GetTaikyokusyaKey(CurrentOptionalPhase, Sindan));
         }
 
-        if (Move.Toryo == ss) { goto gt_EndMethod; }// なにも更新せず終了☆（＾▽＾）
+        if (Sasite.Toryo == ss) { goto gt_EndMethod; }// なにも更新せず終了☆（＾▽＾）
 
         Util_Machine.Assert_Sabun_Kiki("Ｕｎｄｏ始", Sindan);
         Util_Machine.Assert_Sabun_Komawari("Ｕｎｄｏ始", Sindan, syuturyoku);
@@ -2402,7 +2402,7 @@ public class Kyokumen
                 ms_src = (Masu)ms_semegoma;
 
                 // FIXME: とりあえず、成らずで作ってみるぜ☆（＾～＾）
-                Move ss = ConvMove.ToMove01aNarazuSasi(ms_src, ms, this.Sindan);
+                Sasite ss = ConvMove.ToMove01aNarazuSasi(ms_src, ms, this.Sindan);
 
                 // 駒を取る前に、取る駒の点数を取っておくぜ☆（＾～＾）
                 Komasyurui tottaKomasyurui;

@@ -5,7 +5,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features;
 
 public class TTEntry
 {
-    public void Save(ulong key, Move ss, MoveType ssType, int fukasa,
+    public void Save(ulong key, Sasite ss, MoveType ssType, int fukasa,
         HyokatiUtiwake hyokatiUtiwake
         )
     {
@@ -26,8 +26,8 @@ public class TTEntry
         syuturyoku.Append($"] sasiteType=[{AbstractConvMoveType.Setumei(MoveType)}] fukasa=[{Fukasa}] hyokati=[{(int)Hyokati}] komawariHyokati_forJoho=[{(int)KomawariHyokati_ForJoho}] nikomaHyokati_forJoho=[{(int)NikomaHyokati_ForJoho}] okimariHyokati_forJoho=[${(int)OkimariHyokati_ForJoho}]");
     }
 
-    public Move Move { get { return m_move_; } }
-    private Move m_move_;
+    public Sasite Move { get { return m_move_; } }
+    private Sasite m_move_;
 
     public MoveType MoveType { get { return m_moveType_; } }
     private MoveType m_moveType_;

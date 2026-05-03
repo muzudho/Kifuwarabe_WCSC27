@@ -65,7 +65,7 @@ public class MoveGenerationTests
         // Assert - 生成された全ての手をチェック☆
         for (int i = 0; i < AbstractUtilMoveGen.MoveList[0].SslistCount; i++)
         {
-            Move ss = AbstractUtilMoveGen.MoveList[0].ListMove[i];
+            Sasite ss = AbstractUtilMoveGen.MoveList[0].ListMove[i];
 
             // TODO: 各手を指してみて、自玉が取られないことを確認☆
             // （実装は後で追加）
@@ -94,7 +94,7 @@ public class MoveGenerationTests
         bool hasNonResignMove = false;
         for (int i = 0; i < AbstractUtilMoveGen.MoveList[0].SslistCount; i++)
         {
-            if (AbstractUtilMoveGen.MoveList[0].ListMove[i] != Move.Toryo)
+            if (AbstractUtilMoveGen.MoveList[0].ListMove[i] != Sasite.Toryo)
             {
                 hasNonResignMove = true;
                 break;

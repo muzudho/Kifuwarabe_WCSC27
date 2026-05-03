@@ -3,9 +3,9 @@
 /// <summary>
 /// 指し手拡張。
 /// </summary>
-public class SasiteKakuchoImpl : MoveKakucho
+public class SasiteKakuchoImpl : SasiteKakucho
 {
-    public SasiteKakuchoImpl(Move move, MoveType kati)
+    public SasiteKakuchoImpl(Sasite move, MoveType kati)
     {
         this.Move = move;
         this.MoveType = kati;
@@ -14,7 +14,7 @@ public class SasiteKakuchoImpl : MoveKakucho
     /// <summary>
     /// 指し手☆
     /// </summary>
-    public Move Move { get; set; }
+    public Sasite Move { get; set; }
 
     /// <summary>
     /// 相手の　らいおん　を捕まえる手か、トライアウトする手なら真だぜ☆（＾▽＾）ｖ

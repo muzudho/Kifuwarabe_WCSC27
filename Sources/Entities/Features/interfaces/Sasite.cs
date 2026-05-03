@@ -3,9 +3,9 @@
 /// <summary>
 /// 指し手拡張。
 /// </summary>
-public interface MoveKakucho
+public interface SasiteKakucho
 {
-    Move Move { get; set; }
+    Sasite Move { get; set; }
     MoveType MoveType { get; set; }
 }
 
@@ -39,12 +39,12 @@ public interface MoveKakucho
 /// 
 /// 0 なら投了だぜ☆（＾▽＾）自升と至升と打った駒の種類が0に揃うことはないんで、被らないぜ☆（＾～＾）
 /// </summary>
-public enum Move
+public enum Sasite
 {
     Toryo = 0
 }
 
-public abstract class MoveShift
+public abstract class SasiteShift
 {
     /// <summary>
     /// 自升(8 bit)
@@ -67,7 +67,7 @@ public abstract class MoveShift
     public const int Natta = UttaKomasyurui + 3;
 }
 
-public abstract class MoveMask
+public abstract class SasiteMask
 {
     /// <summary>
     /// 自升 11111111 = 0xff
@@ -77,23 +77,23 @@ public abstract class MoveMask
     /// <summary>
     /// 至升 11111111 = 0xff
     /// </summary>
-    public const int DstMasu = 0xff << MoveShift.DstMasu;
+    public const int DstMasu = 0xff << SasiteShift.DstMasu;
 
     /// <summary>
     /// 打った駒の種類 111 = 0x07
     /// </summary>
-    public const int UttaKomasyurui = 0x07 << MoveShift.UttaKomasyurui;
+    public const int UttaKomasyurui = 0x07 << SasiteShift.UttaKomasyurui;
 
     /// <summary>
     /// 成ったか☆ 1 = 0x01
     /// </summary>
-    public const int Natta = 0x01 << MoveShift.Natta;
+    public const int Natta = 0x01 << SasiteShift.Natta;
 }
 
 /// <summary>
 /// 指し手が間違っている理由☆
 /// </summary>
-public enum MoveMatigaiRiyu
+public enum SasiteMatigaiRiyu
 {
     /// <summary>
     /// エラーなし
@@ -148,7 +148,7 @@ public enum MoveMatigaiRiyu
 /// <summary>
 /// 指し手のキャラクター付け
 /// </summary>
-public enum MoveCharacter
+public enum SasiteCharacter
 {
     /// <summary>
     /// 定跡の評価値の高いものを優先

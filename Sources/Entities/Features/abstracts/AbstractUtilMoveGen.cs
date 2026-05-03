@@ -316,28 +316,28 @@ public abstract class AbstractUtilMoveGen
     /// <param name="fukasa"></param>
     /// <param name="ss"></param>
     /// <param name="sasiteType"></param>
-    static void AddMoveBadOrGood(bool ittedume, bool isBad, int fukasa, Move ss, MoveType sasiteType)
+    static void AddMoveBadOrGood(bool ittedume, bool isBad, int fukasa, Sasite ss, MoveType sasiteType)
     {
         if (ittedume) { ClearMoveList(fukasa); }//他の指し手を消し飛ばすぜ☆（＾▽＾）
 
-        Debug.Assert(Move.Toryo != ss, "");
+        Debug.Assert(Sasite.Toryo != ss, "");
         if (isBad) { MoveListBad[fukasa].AddSslist(ss, sasiteType); }
         else { MoveList[fukasa].AddSslist(ss, sasiteType); }
     }
-    static void AddMoveBadOrGood(bool ittedume, bool isBad, int fukasa, Move ss, MoveType sasiteTypeBad, MoveType sasiteTypeGood)
+    static void AddMoveBadOrGood(bool ittedume, bool isBad, int fukasa, Sasite ss, MoveType sasiteTypeBad, MoveType sasiteTypeGood)
     {
         if (ittedume) { ClearMoveList(fukasa); }//他の指し手を消し飛ばすぜ☆（＾▽＾）
 
-        Debug.Assert(Move.Toryo != ss, "");
+        Debug.Assert(Sasite.Toryo != ss, "");
         if (isBad) { MoveListBad[fukasa].AddSslist(ss, sasiteTypeBad); }
         else { MoveList[fukasa].AddSslist(ss, sasiteTypeGood); }
     }
-    static void AddMoveGood(bool ittedume, int fukasa, Move ss, MoveType sasiteType)
+    static void AddMoveGood(bool ittedume, int fukasa, Sasite ss, MoveType sasiteType)
     {
         // 一手詰めルーチン☆
         if (ittedume) { ClearMoveList(fukasa); }//他の指し手を消し飛ばすぜ☆（＾▽＾）
 
-        Debug.Assert(Move.Toryo != ss, "");
+        Debug.Assert(Sasite.Toryo != ss, "");
         MoveList[fukasa].AddSslist(ss, sasiteType);
     }
 
@@ -1579,7 +1579,7 @@ public abstract class AbstractUtilMoveGen
                     idosakiBB_copy.Set(idosakiBB_base);
                     while (idosakiBB_copy.Ref_PopNTZ(out Masu ms_ido))
                     {
-                        Move ss = ConvMove.ToMove01aNarazuSasi(jibunHioute.FriendRaionMs, ms_ido, ky.Sindan);
+                        Sasite ss = ConvMove.ToMove01aNarazuSasi(jibunHioute.FriendRaionMs, ms_ido, ky.Sindan);
                         AbstractUtilMoveGen.MoveList[fukasa].AddSslist(ss, MoveType.N15_NigeroTe);
                     }
                 }

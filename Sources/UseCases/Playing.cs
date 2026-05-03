@@ -94,7 +94,7 @@ usiok");
         }
 #endif
 
-        Move bestMove = Util_Application.Go(this, ky, out HyokatiUtiwake best_hyokatiUtiwake, Face_YomisujiJoho.Dlgt_WriteYomisujiJoho, syuturyoku);
+        Sasite bestMove = Util_Application.Go(this, ky, out HyokatiUtiwake best_hyokatiUtiwake, Face_YomisujiJoho.Dlgt_WriteYomisujiJoho, syuturyoku);
         // 勝敗判定☆（＾▽＾）
         Util_Kettyaku.JudgeKettyaku(bestMove, ky);
 
@@ -153,7 +153,7 @@ usiok");
         int caret = 0;
         Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "do ");
 
-        if (!Med_Parser.TryFenMove(isSfen, commandline, ref caret, ky.Sindan, out Move ss))
+        if (!Med_Parser.TryFenMove(isSfen, commandline, ref caret, ky.Sindan, out Sasite ss))
         {
             throw new Exception($"パースエラー [{commandline}]");
         }
@@ -377,13 +377,13 @@ Kettyaku = {Util_Application.IsKettyaku(ky)}");
                     throw new Exception(msg);
                 }
 
-                List<Move> removeListSs = new List<Move>();
-                foreach (KeyValuePair<Move, JosekiMove> ssEntry in kyEntry.Value.SsItems)
+                List<Sasite> removeListSs = new List<Sasite>();
+                foreach (KeyValuePair<Sasite, JosekiMove> ssEntry in kyEntry.Value.SsItems)
                 {
-                    Move ss = ssEntry.Value.Move;//指し手データ
+                    Sasite ss = ssEntry.Value.Move;//指し手データ
 
                     // 合法手かどうか調べるぜ☆
-                    if (!ky2.CanDoMove(ss, out MoveMatigaiRiyu reason)// 指せない手☆
+                    if (!ky2.CanDoMove(ss, out SasiteMatigaiRiyu reason)// 指せない手☆
                                                                       //||
                                                                       //Move.Toryo == ss
                     )
@@ -395,7 +395,7 @@ Kettyaku = {Util_Application.IsKettyaku(ky)}");
                     countSs_all++;
                 }
 
-                foreach (Move ss in removeListSs)
+                foreach (Sasite ss in removeListSs)
                 {
                     kyEntry.Value.SsItems.Remove(ss);
                 }
@@ -798,7 +798,7 @@ Kettyaku = {Util_Application.IsKettyaku(ky)}");
         else if (4 <= line2.Length)// see K*b2
         {
             // 指し手を指定した場合☆
-            Med_Parser.TryFenMove(isSfen, commandline, ref caret_1, ky.Sindan, out Move ss);
+            Med_Parser.TryFenMove(isSfen, commandline, ref caret_1, ky.Sindan, out Sasite ss);
             Nanteme nanteme = new Nanteme();
             ky.DoMove(isSfen, ss, MoveType.N00_Karappo, ref nanteme, ky.CurrentOptionalPhase, syuturyoku);
             Masu ms = ConvMove.GetDstMasu(ss, ky);
@@ -1277,7 +1277,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
     {
         if (commandline == "move")
         {
-            List<MoveKakucho> sslist = Util_Application.MoveCmd(ky, syuturyoku);
+            List<SasiteKakucho> sslist = Util_Application.MoveCmd(ky, syuturyoku);
             AbstractConvMovelist.Setumei(isSfen, "指し手全部", sslist, syuturyoku);
             syuturyoku.AppendLine();
             return;
@@ -1289,7 +1289,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
 
         if (caret_1 == commandline.IndexOf("su", caret_1))// 指し手の件数出力
         {
-            List<MoveKakucho> sslist = Util_Application.MoveCmd(ky, syuturyoku);
+            List<SasiteKakucho> sslist = Util_Application.MoveCmd(ky, syuturyoku);
             syuturyoku.AppendLine($"指し手 件数=[{sslist.Count}]");
             return;
         }
@@ -1322,7 +1322,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                 }
             }
 
-            List<MoveKakucho> sslist = new List<MoveKakucho>();// 使いまわすぜ☆（＾▽＾）
+            List<SasiteKakucho> sslist = new List<SasiteKakucho>();// 使いまわすぜ☆（＾▽＾）
             #region 逼迫返討手
             {
                 sslist.Clear();
@@ -1668,7 +1668,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
         #endregion
         else
         {
-            if (Util_Application.MoveCmd(commandline, ky.Sindan, out Move ss))// move 912 とか☆
+            if (Util_Application.MoveCmd(commandline, ky.Sindan, out Sasite ss))// move 912 とか☆
             {
                 ConvMove.Setumei(isSfen, ss, syuturyoku);
                 syuturyoku.AppendLine($" ({(int)ss})");
@@ -1720,13 +1720,13 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                     throw new Exception(msg);
                 }
 
-                List<Move> removeListSs = new List<Move>();
-                foreach (KeyValuePair<Move, SeisekiMove> ssEntry in kyEntry.Value.SsItems)
+                List<Sasite> removeListSs = new List<Sasite>();
+                foreach (KeyValuePair<Sasite, SeisekiMove> ssEntry in kyEntry.Value.SsItems)
                 {
-                    Move ss = ssEntry.Value.Move;//指し手データ
+                    Sasite ss = ssEntry.Value.Move;//指し手データ
 
                     // 合法手かどうか調べるぜ☆
-                    if (!ky2.CanDoMove(ss, out MoveMatigaiRiyu reason)// 指せない手☆
+                    if (!ky2.CanDoMove(ss, out SasiteMatigaiRiyu reason)// 指せない手☆
                                                                       //||
                                                                       //Move.Toryo == ss
 )
@@ -1738,7 +1738,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                     countSs_all++;
                 }
 
-                foreach (Move ss in removeListSs)
+                foreach (Sasite ss in removeListSs)
                 {
                     kyEntry.Value.SsItems.Remove(ss);
                 }
@@ -2404,7 +2404,7 @@ USI                      = {Option_Application.Optionlist.USI}");
             //────────────────────────────────────────
             foreach (KeyValuePair<ulong, JosekiKyokumen> entryKy in Option_Application.Joseki.KyItems)
             {
-                foreach (KeyValuePair<Move, JosekiMove> entrySs in entryKy.Value.SsItems)
+                foreach (KeyValuePair<Sasite, JosekiMove> entrySs in entryKy.Value.SsItems)
                 {
                     if (entrySs.Value.Hyokati <= Hyokati.TumeTesu_FuNoSu_HyakuTeTumerare)
                     {

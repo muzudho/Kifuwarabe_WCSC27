@@ -7,12 +7,12 @@ public class Yomisuji
 {
     public Yomisuji()
     {
-        this.SasiteItiran = new Move[Conv_Yomisuji.MAX_PLY];
+        this.SasiteItiran = new Sasite[Conv_Yomisuji.MAX_PLY];
         this.SasiteTypeItiran = new MoveType[Conv_Yomisuji.MAX_PLY];
     }
 
     public int Size { get; set; }
-    public Move[] SasiteItiran { get; set; }
+    public Sasite[] SasiteItiran { get; set; }
     public MoveType[] SasiteTypeItiran { get; set; }
 
     public void Setumei(bool isSfen, StringBuilder syuturyoku)
@@ -34,9 +34,9 @@ public class Yomisuji
         this.Size = 0;
     }
 
-    public void Add(Move ss, MoveType ssType)
+    public void Add(Sasite ss, MoveType ssType)
     {
-        if (Move.Toryo == ss)
+        if (Sasite.Toryo == ss)
         {
             throw new Exception("投了を追加してはいけないぜ☆（＞＿＜）");
         }
@@ -46,11 +46,11 @@ public class Yomisuji
         this.Size++;
     }
 
-    public Move GetBestSasite()
+    public Sasite GetBestSasite()
     {
         if (this.Size < 1)
         {
-            return Move.Toryo;
+            return Sasite.Toryo;
         }
         return this.SasiteItiran[0];
     }

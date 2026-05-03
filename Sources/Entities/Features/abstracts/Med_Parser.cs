@@ -143,7 +143,7 @@ public abstract class Med_Parser
         string commandline,
         ref int caret,
         Kyokumen.Sindanyo kys,
-        out Move out_sasite
+        out Sasite out_sasite
     )
     {
         if ('n' == commandline[caret])
@@ -152,7 +152,7 @@ public abstract class Med_Parser
             {
                 Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "none");
 
-                out_sasite = Move.Toryo;
+                out_sasite = Sasite.Toryo;
                 return true;
             }
         }
@@ -163,7 +163,7 @@ public abstract class Med_Parser
         {
             Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, Itiran_FenParser.GetToryo(isSfen));
 
-            out_sasite = Move.Toryo;
+            out_sasite = Sasite.Toryo;
             return true;
         }
         //}
@@ -180,7 +180,7 @@ public abstract class Med_Parser
             //Logger.Flush();
             //throw new Exception(msg);
 
-            out_sasite = Move.Toryo;
+            out_sasite = Sasite.Toryo;
             return false;
         }
 
@@ -207,7 +207,7 @@ public abstract class Med_Parser
 
         return true;
     }
-    public static Move TryFenMove2(
+    public static Sasite TryFenMove2(
         bool isSfen,
         Kyokumen.Sindanyo kys,
         string str1,

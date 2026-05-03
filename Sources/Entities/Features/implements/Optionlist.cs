@@ -24,7 +24,7 @@ public class Optionlist
         NikomaGakusyuKeisu = 0.001d;// HYOKA_SCALEが 1.0d のとき、GAKUSYU_SCALE 0.00001d なら、小数点部を広く使って　じっくりしている☆（＾～＾）
         P1Com = false;
         P2Com = false;
-        PNChar = new MoveCharacter[] { MoveCharacter.HyokatiYusen, MoveCharacter.HyokatiYusen };
+        PNChar = new SasiteCharacter[] { SasiteCharacter.HyokatiYusen, SasiteCharacter.HyokatiYusen };
         PNName = new string[] { "対局者１", "対局者２" };
         RandomCharacter = false;
         RandomNikoma = false;
@@ -111,7 +111,7 @@ public class Optionlist
     /// <summary>
     /// 対局者Ｎの指し手の性格☆（＾▽＾）
     /// </summary>
-    public MoveCharacter[] PNChar { get; set; }
+    public SasiteCharacter[] PNChar { get; set; }
     /// <summary>
     /// 対局者Ｎの表示名☆（＾▽＾）コンソール・ゲーム用だぜ☆
     /// </summary>
