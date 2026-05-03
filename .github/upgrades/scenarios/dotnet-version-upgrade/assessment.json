@@ -1,0 +1,372 @@
+{
+  "settings": {
+    "components": {
+      "code": true,
+      "binaries": false
+    },
+    "targetId": "net10.0",
+    "targetDisplayName": ".NETCoreApp,Version=v10.0"
+  },
+  "analysisStartTime": "2026-05-03T00:48:12.9994027Z",
+  "analysisEndTime": "2026-05-03T00:48:14.5923138Z",
+  "privacyModeHelpUrl": "https://go.microsoft.com/fwlink/?linkid=2270980",
+  "stats": {
+    "summary": {
+      "projects": 4,
+      "issues": 4,
+      "incidents": 8,
+      "effort": 8
+    },
+    "charts": {
+      "severity": {
+        "Mandatory": 6,
+        "Optional": 0,
+        "Potential": 2,
+        "Information": 0
+      },
+      "category": {
+        "Project": 6,
+        "Api": 2
+      }
+    }
+  },
+  "projects": [
+    {
+      "path": "Sources\\Engine\\Engine.csproj",
+      "startingProject": true,
+      "issues": 3,
+      "storyPoints": 4,
+      "properties": {
+        "appName": "Engine",
+        "projectKind": "ClassicDotNetApp",
+        "frameworks": [
+          "net48"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": false,
+        "numberOfFiles": 3,
+        "numberOfCodeFiles": 3,
+        "linesTotal": 864,
+        "linesOfCode": 864,
+        "totalApiScanned": 1114,
+        "minLinesOfCodeToChange": 2,
+        "maxLinesOfCodeToChange": 2
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "da0327f1-d740-4feb-b3e4-ed40a026bbef",
+          "ruleId": "Project.0001",
+          "projectPath": "Sources\\Engine\\Engine.csproj",
+          "state": "Active",
+          "location": {
+            "kind": "File",
+            "path": "Sources\\Engine\\Engine.csproj"
+          }
+        },
+        {
+          "incidentId": "263aee36-cb36-4911-8b42-917437fe15ab",
+          "ruleId": "Project.0002",
+          "projectPath": "Sources\\Engine\\Engine.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "\u73FE\u5728\u306E\u30BF\u30FC\u30B2\u30C3\u30C8 \u30D5\u30EC\u30FC\u30E0\u30EF\u30FC\u30AF: .NETFramework,Version=v4.8\n\u63A8\u5968\u3055\u308C\u308B\u30BF\u30FC\u30B2\u30C3\u30C8 \u30D5\u30EC\u30FC\u30E0\u30EF\u30FC\u30AF: net10.0",
+              "protected": "\u73FE\u5728\u306E\u30BF\u30FC\u30B2\u30C3\u30C8 \u30D5\u30EC\u30FC\u30E0\u30EF\u30FC\u30AF: .NETFramework,Version=v4.8\n\u63A8\u5968\u3055\u308C\u308B\u30BF\u30FC\u30B2\u30C3\u30C8 \u30D5\u30EC\u30FC\u30E0\u30EF\u30FC\u30AF: net10.0"
+            },
+            "kind": "File",
+            "path": "Sources\\Engine\\Engine.csproj",
+            "snippet": "\u73FE\u5728\u306E\u30BF\u30FC\u30B2\u30C3\u30C8 \u30D5\u30EC\u30FC\u30E0\u30EF\u30FC\u30AF: .NETFramework,Version=v4.8\n\u63A8\u5968\u3055\u308C\u308B\u30BF\u30FC\u30B2\u30C3\u30C8 \u30D5\u30EC\u30FC\u30E0\u30EF\u30FC\u30AF: net10.0",
+            "protectedSnippet": "\u73FE\u5728\u306E\u30BF\u30FC\u30B2\u30C3\u30C8 \u30D5\u30EC\u30FC\u30E0\u30EF\u30FC\u30AF: .NETFramework,Version=v4.8\n\u63A8\u5968\u3055\u308C\u308B\u30BF\u30FC\u30B2\u30C3\u30C8 \u30D5\u30EC\u30FC\u30E0\u30EF\u30FC\u30AF: net10.0",
+            "properties": {
+              "CurrentTargetFramework": ".NETFramework,Version=v4.8",
+              "RecommendedTargetFramework": "net10.0"
+            }
+          }
+        },
+        {
+          "incidentId": "31c35d03-98d5-4690-9487-6354c786caac",
+          "ruleId": "Api.0002",
+          "description": "API is available in package System.Configuration.ConfigurationManager, 9.0.0-preview.6.24302.3. Add package reference to System.Configuration.ConfigurationManager, 9.0.0-preview.6.24302.3",
+          "projectPath": "Sources\\Engine\\Engine.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "this.profilePath_ = ConfigurationManager.AppSettings[\u0022Profile\u0022];",
+              "protected": "T:System.Configuration.ConfigurationManager"
+            },
+            "kind": "File",
+            "path": "Sources\\Engine\\Configuration\\EngineConf.cs",
+            "snippet": "this.profilePath_ = ConfigurationManager.AppSettings[\u0022Profile\u0022];",
+            "protectedSnippet": "T:System.Configuration.ConfigurationManager",
+            "label": "T:System.Configuration.ConfigurationManager",
+            "properties": {
+              "PackageId": "System.Configuration.ConfigurationManager",
+              "PackageNewVersion": "9.0.0-preview.6.24302.3"
+            },
+            "line": 91,
+            "column": 20
+          }
+        },
+        {
+          "incidentId": "42b99466-a65c-42ac-812e-f8ede0ba6dfd",
+          "ruleId": "Api.0002",
+          "description": "API is available in package System.Configuration.ConfigurationManager, 9.0.0-preview.6.24302.3. Add package reference to System.Configuration.ConfigurationManager, 9.0.0-preview.6.24302.3",
+          "projectPath": "Sources\\Engine\\Engine.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "this.profilePath_ = ConfigurationManager.AppSettings[\u0022Profile\u0022];",
+              "protected": "P:System.Configuration.ConfigurationManager.AppSettings"
+            },
+            "kind": "File",
+            "path": "Sources\\Engine\\Configuration\\EngineConf.cs",
+            "snippet": "this.profilePath_ = ConfigurationManager.AppSettings[\u0022Profile\u0022];",
+            "protectedSnippet": "P:System.Configuration.ConfigurationManager.AppSettings",
+            "label": "P:System.Configuration.ConfigurationManager.AppSettings",
+            "properties": {
+              "PackageId": "System.Configuration.ConfigurationManager",
+              "PackageNewVersion": "9.0.0-preview.6.24302.3"
+            },
+            "line": 91,
+            "column": 20
+          }
+        }
+      ],
+      "features": [
+        {
+          "featureId": "LegacyConfiguration",
+          "incidents": [
+            "42b99466-a65c-42ac-812e-f8ede0ba6dfd",
+            "31c35d03-98d5-4690-9487-6354c786caac"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "Sources\\Entities\\Entities.csproj",
+      "startingProject": true,
+      "issues": 2,
+      "storyPoints": 2,
+      "properties": {
+        "appName": "Entities",
+        "projectKind": "ClassicClassLibrary",
+        "frameworks": [
+          "net48"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": false,
+        "numberOfFiles": 84,
+        "numberOfCodeFiles": 84,
+        "linesTotal": 26179,
+        "linesOfCode": 26179,
+        "totalApiScanned": 25674,
+        "minLinesOfCodeToChange": 0,
+        "maxLinesOfCodeToChange": 0
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "656b010d-92e3-471d-8c95-c8ad19001202",
+          "ruleId": "Project.0001",
+          "projectPath": "Sources\\Entities\\Entities.csproj",
+          "state": "Active",
+          "location": {
+            "kind": "File",
+            "path": "Sources\\Entities\\Entities.csproj"
+          }
+        },
+        {
+          "incidentId": "e90e4066-7884-449c-9c38-ba84b23ba192",
+          "ruleId": "Project.0002",
+          "projectPath": "Sources\\Entities\\Entities.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "\u73FE\u5728\u306E\u30BF\u30FC\u30B2\u30C3\u30C8 \u30D5\u30EC\u30FC\u30E0\u30EF\u30FC\u30AF: .NETFramework,Version=v4.8\n\u63A8\u5968\u3055\u308C\u308B\u30BF\u30FC\u30B2\u30C3\u30C8 \u30D5\u30EC\u30FC\u30E0\u30EF\u30FC\u30AF: net10.0",
+              "protected": "\u73FE\u5728\u306E\u30BF\u30FC\u30B2\u30C3\u30C8 \u30D5\u30EC\u30FC\u30E0\u30EF\u30FC\u30AF: .NETFramework,Version=v4.8\n\u63A8\u5968\u3055\u308C\u308B\u30BF\u30FC\u30B2\u30C3\u30C8 \u30D5\u30EC\u30FC\u30E0\u30EF\u30FC\u30AF: net10.0"
+            },
+            "kind": "File",
+            "path": "Sources\\Entities\\Entities.csproj",
+            "snippet": "\u73FE\u5728\u306E\u30BF\u30FC\u30B2\u30C3\u30C8 \u30D5\u30EC\u30FC\u30E0\u30EF\u30FC\u30AF: .NETFramework,Version=v4.8\n\u63A8\u5968\u3055\u308C\u308B\u30BF\u30FC\u30B2\u30C3\u30C8 \u30D5\u30EC\u30FC\u30E0\u30EF\u30FC\u30AF: net10.0",
+            "protectedSnippet": "\u73FE\u5728\u306E\u30BF\u30FC\u30B2\u30C3\u30C8 \u30D5\u30EC\u30FC\u30E0\u30EF\u30FC\u30AF: .NETFramework,Version=v4.8\n\u63A8\u5968\u3055\u308C\u308B\u30BF\u30FC\u30B2\u30C3\u30C8 \u30D5\u30EC\u30FC\u30E0\u30EF\u30FC\u30AF: net10.0",
+            "properties": {
+              "CurrentTargetFramework": ".NETFramework,Version=v4.8",
+              "RecommendedTargetFramework": "net10.0"
+            }
+          }
+        }
+      ],
+      "features": []
+    },
+    {
+      "path": "Test\\Test.csproj",
+      "startingProject": true,
+      "issues": 0,
+      "storyPoints": 0,
+      "properties": {
+        "appName": "Test",
+        "projectKind": "DotNetCoreApp",
+        "frameworks": [
+          "net10.0"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": true,
+        "numberOfFiles": 3,
+        "numberOfCodeFiles": 1,
+        "linesTotal": 1901,
+        "linesOfCode": 106,
+        "totalApiScanned": 0,
+        "minLinesOfCodeToChange": 0,
+        "maxLinesOfCodeToChange": 0
+      },
+      "ruleInstances": [],
+      "features": []
+    },
+    {
+      "path": "Sources\\UseCases\\UseCases.csproj",
+      "startingProject": true,
+      "issues": 2,
+      "storyPoints": 2,
+      "properties": {
+        "appName": "UseCases",
+        "projectKind": "ClassicClassLibrary",
+        "frameworks": [
+          "net48"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": false,
+        "numberOfFiles": 3,
+        "numberOfCodeFiles": 3,
+        "linesTotal": 2770,
+        "linesOfCode": 2770,
+        "totalApiScanned": 3708,
+        "minLinesOfCodeToChange": 0,
+        "maxLinesOfCodeToChange": 0
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "e8412070-1999-46af-89ed-5c224df4ba38",
+          "ruleId": "Project.0001",
+          "projectPath": "Sources\\UseCases\\UseCases.csproj",
+          "state": "Active",
+          "location": {
+            "kind": "File",
+            "path": "Sources\\UseCases\\UseCases.csproj"
+          }
+        },
+        {
+          "incidentId": "270be9c0-e976-4ec4-8a17-f8341f317fb3",
+          "ruleId": "Project.0002",
+          "projectPath": "Sources\\UseCases\\UseCases.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "\u73FE\u5728\u306E\u30BF\u30FC\u30B2\u30C3\u30C8 \u30D5\u30EC\u30FC\u30E0\u30EF\u30FC\u30AF: .NETFramework,Version=v4.8\n\u63A8\u5968\u3055\u308C\u308B\u30BF\u30FC\u30B2\u30C3\u30C8 \u30D5\u30EC\u30FC\u30E0\u30EF\u30FC\u30AF: net10.0",
+              "protected": "\u73FE\u5728\u306E\u30BF\u30FC\u30B2\u30C3\u30C8 \u30D5\u30EC\u30FC\u30E0\u30EF\u30FC\u30AF: .NETFramework,Version=v4.8\n\u63A8\u5968\u3055\u308C\u308B\u30BF\u30FC\u30B2\u30C3\u30C8 \u30D5\u30EC\u30FC\u30E0\u30EF\u30FC\u30AF: net10.0"
+            },
+            "kind": "File",
+            "path": "Sources\\UseCases\\UseCases.csproj",
+            "snippet": "\u73FE\u5728\u306E\u30BF\u30FC\u30B2\u30C3\u30C8 \u30D5\u30EC\u30FC\u30E0\u30EF\u30FC\u30AF: .NETFramework,Version=v4.8\n\u63A8\u5968\u3055\u308C\u308B\u30BF\u30FC\u30B2\u30C3\u30C8 \u30D5\u30EC\u30FC\u30E0\u30EF\u30FC\u30AF: net10.0",
+            "protectedSnippet": "\u73FE\u5728\u306E\u30BF\u30FC\u30B2\u30C3\u30C8 \u30D5\u30EC\u30FC\u30E0\u30EF\u30FC\u30AF: .NETFramework,Version=v4.8\n\u63A8\u5968\u3055\u308C\u308B\u30BF\u30FC\u30B2\u30C3\u30C8 \u30D5\u30EC\u30FC\u30E0\u30EF\u30FC\u30AF: net10.0",
+            "properties": {
+              "CurrentTargetFramework": ".NETFramework,Version=v4.8",
+              "RecommendedTargetFramework": "net10.0"
+            }
+          }
+        }
+      ],
+      "features": []
+    }
+  ],
+  "rules": {
+    "Project.0001": {
+      "id": "Project.0001",
+      "isFeature": false,
+      "description": "\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8 \u30D5\u30A1\u30A4\u30EB\u3092 SDK \u30B9\u30BF\u30A4\u30EB\u306B\u5909\u63DB\u3059\u308B\u5FC5\u8981\u304C\u3042\u308A\u307E\u3059\u3002\u6700\u65B0\u306E .NET Framework \u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u3067\u306F\u3001\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8 \u30D5\u30A1\u30A4\u30EB\u5F62\u5F0F\u3092\u5909\u66F4\u3059\u308B\u5FC5\u8981\u304C\u3042\u308A\u3001\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u306E\u30D5\u30EC\u30FC\u30D0\u30FC\u3068\u6A5F\u80FD\u306B\u5BFE\u5FDC\u3059\u308B SDK \u3092\u4F7F\u7528\u3057\u307E\u3059\u3002",
+      "label": "\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8 \u30D5\u30A1\u30A4\u30EB\u3092 SDK \u30B9\u30BF\u30A4\u30EB\u306B\u5909\u63DB\u3059\u308B\u5FC5\u8981\u304C\u3042\u308B",
+      "severity": "Mandatory",
+      "effort": 1,
+      "links": [
+        {
+          "title": ".NET Framework\u304B\u3089 .NET \u3078\u306E\u79FB\u690D\u306E\u6982\u8981",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2265227",
+          "isCustom": false
+        },
+        {
+          "title": ".NET \u30D7\u30ED\u30B8\u30A7\u30AF\u30C8 SDK",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2265226",
+          "isCustom": false
+        }
+      ]
+    },
+    "Project.0002": {
+      "id": "Project.0002",
+      "isFeature": false,
+      "description": "\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u306E\u30BF\u30FC\u30B2\u30C3\u30C8 \u30D5\u30EC\u30FC\u30E0\u30EF\u30FC\u30AF\u306F\u3001\u3053\u306E\u30A2\u30C3\u30D7\u30B0\u30EC\u30FC\u30C9\u7528\u306B\u9078\u629E\u3057\u305F\u65B0\u3057\u3044\u30BF\u30FC\u30B2\u30C3\u30C8 \u30D5\u30EC\u30FC\u30E0\u30EF\u30FC\u30AF\u306B\u5909\u66F4\u3059\u308B\u5FC5\u8981\u304C\u3042\u308A\u307E\u3059\u3002\n\n\u30A2\u30C3\u30D7\u30B0\u30EC\u30FC\u30C9\u4E2D\u3001\u30BF\u30FC\u30B2\u30C3\u30C8 \u30D5\u30EC\u30FC\u30E0\u30EF\u30FC\u30AF\u306F\u3001\u8A72\u5F53\u3059\u308B\u5834\u5408\u3001\u5BFE\u5FDC\u3059\u308B\u30D7\u30E9\u30C3\u30C8\u30D5\u30A9\u30FC\u30E0\u306B\u8ABF\u6574\u3055\u308C\u307E\u3059\u3002\u5834\u5408\u306B\u3088\u3063\u3066\u306F\u3001\u6700\u65B0\u306E .NET \u30D5\u30EC\u30FC\u30E0\u30EF\u30FC\u30AF (Windows\u3001iOS\u3001Android \u306A\u3069) \u3067\u72EC\u81EA\u306E\u30D7\u30E9\u30C3\u30C8\u30D5\u30A9\u30FC\u30E0\u3092\u6301\u3064\u3088\u3046\u306B\u306A\u3063\u305F\u6A5F\u80FD\u3092\u4F7F\u7528\u3057\u3066\u3044\u305F\u5834\u5408\u3001\u30A2\u30C3\u30D7\u30B0\u30EC\u30FC\u30C9\u5F8C\u306B\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u3067\u8907\u6570\u306E\u30BF\u30FC\u30B2\u30C3\u30C8 \u30D5\u30EC\u30FC\u30E0\u30EF\u30FC\u30AF\u304C\u767A\u751F\u3059\u308B\u5834\u5408\u304C\u3042\u308A\u307E\u3059\u3002",
+      "label": "\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u306E\u30BF\u30FC\u30B2\u30C3\u30C8 \u30D5\u30EC\u30FC\u30E0\u30EF\u30FC\u30AF\u3092\u5909\u66F4\u3059\u308B\u5FC5\u8981\u304C\u3042\u308B",
+      "severity": "Mandatory",
+      "effort": 1,
+      "links": [
+        {
+          "title": ".NET Framework\u304B\u3089 .NET \u3078\u306E\u79FB\u690D\u306E\u6982\u8981",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2265227",
+          "isCustom": false
+        },
+        {
+          "title": ".NET \u30D7\u30ED\u30B8\u30A7\u30AF\u30C8 SDK",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2265226",
+          "isCustom": false
+        }
+      ]
+    },
+    "Api.0002": {
+      "id": "Api.0002",
+      "isFeature": false,
+      "description": "\u9078\u629E\u3057\u305F .NET \u30D0\u30FC\u30B8\u30E7\u30F3\u3067\u306F API \u306E\u30BD\u30FC\u30B9\u306B\u4E92\u63DB\u6027\u304C\u3042\u308A\u307E\u305B\u3093\u3002\u53E4\u3044 API \u3092\u524A\u9664\u3057\u305F\u308A\u30E1\u30BD\u30C3\u30C9 \u30B7\u30B0\u30CD\u30C1\u30E3\u3092\u5909\u66F4\u3057\u305F\u308A\u3059\u308B\u306A\u3069\u3001\u65B0\u3057\u3044\u30D0\u30FC\u30B8\u30E7\u30F3\u3092\u30BF\u30FC\u30B2\u30C3\u30C8\u306B\u3059\u308B\u5834\u5408\u306F\u3001\u6B63\u5E38\u306B\u30B3\u30F3\u30D1\u30A4\u30EB\u3059\u308B\u305F\u3081\u306B\u30B3\u30FC\u30C9\u306E\u5909\u66F4\u304C\u5FC5\u8981\u306B\u306A\u308A\u307E\u3059\u3002",
+      "label": "\u9078\u629E\u3057\u305F .NET \u30D0\u30FC\u30B8\u30E7\u30F3\u3067\u306F\u30BD\u30FC\u30B9\u306B\u4E92\u63DB\u6027\u304C\u3042\u308A\u307E\u305B\u3093",
+      "severity": "Potential",
+      "effort": 1,
+      "links": [
+        {
+          "title": ".NET \u306E\u7834\u58CA\u7684\u5909\u66F4",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2262679",
+          "isCustom": false
+        }
+      ]
+    },
+    "LegacyConfiguration": {
+      "id": "LegacyConfiguration",
+      "isFeature": false,
+      "description": "Legacy XML-based configuration system (app.config/web.config) that has been replaced by a more flexible configuration model in .NET Core. The old system was rigid and XML-based. Migrate to Microsoft.Extensions.Configuration with JSON/environment variables; use System.Configuration.ConfigurationManager NuGet package as interim bridge if needed.",
+      "label": "Legacy Configuration System",
+      "severity": "Mandatory",
+      "effort": 2,
+      "links": [
+        {
+          "title": "Configuration in .NET",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2341702",
+          "isCustom": false
+        }
+      ]
+    }
+  }
+}

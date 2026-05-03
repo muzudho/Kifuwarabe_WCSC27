@@ -1,0 +1,9 @@
+イシュー ID,説明,状態,重要度,ストーリー ポイント,プロジェクト パス,場所の種類,パス,線,列,インシデント ID,ヘルプ リンク,アセンブリ名,アセンブリ バージョン,アセンブリ公開キー,スニペット
+Project.0001,プロジェクト ファイルを SDK スタイルに変換する必要がある,Active,Mandatory,1,Sources\Engine\Engine.csproj,File,Sources\Engine\Engine.csproj,,,,,,,,
+Project.0002,プロジェクトのターゲット フレームワークを変更する必要がある,Active,Mandatory,1,Sources\Engine\Engine.csproj,File,Sources\Engine\Engine.csproj,,,,,,,,"現在のターゲット フレームワーク: .NETFramework,Version=v4.8 推奨されるターゲット フレームワーク: net10.0"
+Api.0002,選択した .NET バージョンではソースに互換性がありません,Active,Potential,1,Sources\Engine\Engine.csproj,File,Sources\Engine\Configuration\EngineConf.cs,91,20,T:System.Configuration.ConfigurationManager,,,,,"this.profilePath_ = ConfigurationManager.AppSettings[""Profile""];"
+Api.0002,選択した .NET バージョンではソースに互換性がありません,Active,Potential,1,Sources\Engine\Engine.csproj,File,Sources\Engine\Configuration\EngineConf.cs,91,20,P:System.Configuration.ConfigurationManager.AppSettings,,,,,"this.profilePath_ = ConfigurationManager.AppSettings[""Profile""];"
+Project.0001,プロジェクト ファイルを SDK スタイルに変換する必要がある,Active,Mandatory,1,Sources\Entities\Entities.csproj,File,Sources\Entities\Entities.csproj,,,,,,,,
+Project.0002,プロジェクトのターゲット フレームワークを変更する必要がある,Active,Mandatory,1,Sources\Entities\Entities.csproj,File,Sources\Entities\Entities.csproj,,,,,,,,"現在のターゲット フレームワーク: .NETFramework,Version=v4.8 推奨されるターゲット フレームワーク: net10.0"
+Project.0001,プロジェクト ファイルを SDK スタイルに変換する必要がある,Active,Mandatory,1,Sources\UseCases\UseCases.csproj,File,Sources\UseCases\UseCases.csproj,,,,,,,,
+Project.0002,プロジェクトのターゲット フレームワークを変更する必要がある,Active,Mandatory,1,Sources\UseCases\UseCases.csproj,File,Sources\UseCases\UseCases.csproj,,,,,,,,"現在のターゲット フレームワーク: .NETFramework,Version=v4.8 推奨されるターゲット フレームワーク: net10.0"
