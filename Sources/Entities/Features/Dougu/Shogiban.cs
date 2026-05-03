@@ -626,7 +626,7 @@ public class Shogiban
                                 TasuKonoHidariue(km, ms_ibasho, kys);// 左上
 
                                 bb_kiki.Clear();
-                                N050_SiraberuTobikikiKaku_KomaSetteiNoAto(ms_ibasho, kys.MASU_ERROR, kys, bb_kiki);
+                                N050_SiraberuTobikikiKaku_KomaSetteiNoAto(ms_ibasho, Masu.Error, kys, bb_kiki);
                                 Standup(km, ms_ibasho, bb_kiki);
                             }
                             break;
@@ -644,7 +644,7 @@ public class Shogiban
                                 TasuKonoHidariue(km, ms_ibasho, kys);// 左上
 
                                 bb_kiki.Clear();
-                                N050_SiraberuTobikikiKaku_KomaSetteiNoAto(ms_ibasho, kys.MASU_ERROR, kys, bb_kiki);
+                                N050_SiraberuTobikikiKaku_KomaSetteiNoAto(ms_ibasho, Masu.Error, kys, bb_kiki);
                                 Standup(km, ms_ibasho, bb_kiki);
                             }
                             break;
@@ -658,7 +658,7 @@ public class Shogiban
                                 TasuKonoHidari(km, ms_ibasho, kys);// 左
 
                                 bb_kiki.Clear();
-                                N050_SiraberuTobikikiHisya_KomaSetteiNoAto(ms_ibasho, kys.MASU_ERROR, kys, bb_kiki);
+                                N050_SiraberuTobikikiHisya_KomaSetteiNoAto(ms_ibasho, Masu.Error, kys, bb_kiki);
                                 Standup(km, ms_ibasho, bb_kiki);
                             }
                             break;
@@ -676,7 +676,7 @@ public class Shogiban
                                 TasuKonoHidariue(km, ms_ibasho, kys);// 左上
 
                                 bb_kiki.Clear();
-                                N050_SiraberuTobikikiHisya_KomaSetteiNoAto(ms_ibasho, kys.MASU_ERROR, kys, bb_kiki);
+                                N050_SiraberuTobikikiHisya_KomaSetteiNoAto(ms_ibasho, Masu.Error, kys, bb_kiki);
                                 Standup(km, ms_ibasho, bb_kiki);
                             }
                             break;
@@ -771,7 +771,7 @@ public class Shogiban
                                 TasuKonoUe(km, ms_ibasho, kys);// 上
 
                                 bb_kiki.Clear();
-                                N050_SiraberuTobikikiKyosya_KomaSetteiNoAto( Med_Koma.PhaseOfPiece(km), ms_ibasho, kys.MASU_ERROR, kys, bb_kiki);
+                                N050_SiraberuTobikikiKyosya_KomaSetteiNoAto( Med_Koma.PhaseOfPiece(km), ms_ibasho, Masu.Error, kys, bb_kiki);
                                 Standup(km, ms_ibasho, bb_kiki);
                             }
                             break;
@@ -1409,7 +1409,7 @@ public class Shogiban
             N230_TukurinaosiTonarikikiTobikiki_Discovered_1(isSfen, ms_t1, kys, out kmHairetu_control, out bbHairetu_tobikikiKomaIbasho);
 
             // 駒が増えたことにより、カバーが発生することがあるぜ☆（＾▽＾）
-            N230_TukurinaosiTonarikikiTobikiki_Discovered(isSfen, ms_t1, kys.MASU_ERROR, kys, kmHairetu_control, bbHairetu_tobikikiKomaIbasho);
+            N230_TukurinaosiTonarikikiTobikiki_Discovered(isSfen, ms_t1, Masu.Error, kys, kmHairetu_control, bbHairetu_tobikikiKomaIbasho);
 
             N230_TukurinaosiTonarikikiTobikiki_Discovered_2(isSfen, ms_t1, kys);
 
@@ -1432,7 +1432,7 @@ public class Shogiban
         if (updateKiki)
         {
             Util_Machine.Assert_Sabun_Kiki("利き減らす1", kys);
-            N150_HerasuTonarikikiTobikiki(km_t0, ms_t0, kys.MASU_ERROR, kys);
+            N150_HerasuTonarikikiTobikiki(km_t0, ms_t0, Masu.Error, kys);
             // 駒をまだ取ってないんで、ここで駒の位置を元に利きを再計算すると、差分の利きの数と合わないぜ☆（＾～＾）
             // Util_Machine.Assert_Sabun_Kiki("利き減らす2", kys, syuturyoku);
         }

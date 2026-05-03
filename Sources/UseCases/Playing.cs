@@ -671,7 +671,7 @@ Kettyaku = {Util_Application.IsKettyaku(ky)}");
                 {
                     throw new Exception("パースエラー101");
                 }
-                ky.Shogiban.N250_TorinozokuBanjoKoma(isSfen, ms, ky.GetBanjoKoma(ms), ky.Sindan.MASU_ERROR, true, ky.Sindan, syuturyoku);
+                ky.Shogiban.N250_TorinozokuBanjoKoma(isSfen, ms, ky.GetBanjoKoma(ms), Masu.Error, true, ky.Sindan, syuturyoku);
                 ky.Tekiyo(true, syuturyoku);
             }
         }

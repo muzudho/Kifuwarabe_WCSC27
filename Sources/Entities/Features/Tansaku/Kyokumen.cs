@@ -666,7 +666,7 @@ public class Kyokumen
 
             if (0 < Option_Application.Random.Next(3))
             {
-                Shogiban.N250_TorinozokuBanjoKoma(isSfen, (Masu)i, GetBanjoKoma((Masu)i), Sindan.MASU_ERROR, true, Sindan, syuturyoku);
+                Shogiban.N250_TorinozokuBanjoKoma(isSfen, (Masu)i, GetBanjoKoma((Masu)i), Masu.Error, true, Sindan, syuturyoku);
             }
         }
 
@@ -721,7 +721,7 @@ public class Kyokumen
             }
             else
             {
-                Shogiban.N250_TorinozokuBanjoKoma(isSfen, (Masu)iMs, GetBanjoKoma((Masu)iMs), Sindan.MASU_ERROR, updateKiki, Sindan, syuturyoku);
+                Shogiban.N250_TorinozokuBanjoKoma(isSfen, (Masu)iMs, GetBanjoKoma((Masu)iMs), Masu.Error, updateKiki, Sindan, syuturyoku);
             }
         }
         // ここではまだ、利きチェックは働かない
@@ -1144,7 +1144,7 @@ public class Kyokumen
 
             Util_Machine.Assert_Sabun_Kiki("ＤｏＢ196", Sindan);
 
-            Shogiban.N250_TorinozokuBanjoKoma(isSfen, ms_t1, km_c, Sindan.MASU_ERROR, true, Sindan, syuturyoku);
+            Shogiban.N250_TorinozokuBanjoKoma(isSfen, ms_t1, km_c, Masu.Error, true, Sindan, syuturyoku);
 
             Util_Machine.Assert_Sabun_Kiki("ＤｏＢ197★", Sindan);
 
@@ -1890,16 +1890,16 @@ public class Kyokumen
                             {
                                 case Komasyurui.Z:
                                     MotiKomas.Fuyasu(mk);
-                                    Shogiban.N250_TorinozokuBanjoKoma(isSfen, (Masu)iMs1, GetBanjoKoma((Masu)iMs1), Sindan.MASU_ERROR, true, Sindan, syuturyoku);
+                                    Shogiban.N250_TorinozokuBanjoKoma(isSfen, (Masu)iMs1, GetBanjoKoma((Masu)iMs1), Masu.Error, true, Sindan, syuturyoku);
                                     break;
                                 case Komasyurui.K:
                                     MotiKomas.Fuyasu(mk);
-                                    Shogiban.N250_TorinozokuBanjoKoma(isSfen, (Masu)iMs1, GetBanjoKoma((Masu)iMs1), Sindan.MASU_ERROR, true, Sindan, syuturyoku);
+                                    Shogiban.N250_TorinozokuBanjoKoma(isSfen, (Masu)iMs1, GetBanjoKoma((Masu)iMs1), Masu.Error, true, Sindan, syuturyoku);
                                     break;
                                 case Komasyurui.PH://thru
                                 case Komasyurui.H:
                                     MotiKomas.Fuyasu(mk);
-                                    Shogiban.N250_TorinozokuBanjoKoma(isSfen, (Masu)iMs1, GetBanjoKoma((Masu)iMs1), Sindan.MASU_ERROR, true, Sindan, syuturyoku);
+                                    Shogiban.N250_TorinozokuBanjoKoma(isSfen, (Masu)iMs1, GetBanjoKoma((Masu)iMs1), Masu.Error, true, Sindan, syuturyoku);
                                     break;
                             }
 
