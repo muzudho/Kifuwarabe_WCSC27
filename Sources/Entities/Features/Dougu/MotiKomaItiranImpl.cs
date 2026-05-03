@@ -4,7 +4,7 @@
 using System;
 using System.Diagnostics;
 using System.Text;
-using Grayscale.Kifuwarakei.Entities.Logging;
+using Grayscale.Kifuwarakei.Entities.Infrastructure.Logging;
 #else
 using System;
 using System.Diagnostics;

@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using Grayscale.Kifuwarakei.Entities.Features.Coding;
 using Grayscale.Kifuwarakei.Entities.Features.Hyoka;
-using Grayscale.Kifuwarakei.Entities.Logging;
+using Grayscale.Kifuwarakei.Entities.Infrastructure.Logging;
 
 namespace Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 

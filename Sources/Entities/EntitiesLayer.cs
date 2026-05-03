@@ -1,6 +1,6 @@
 ﻿using System;
 using Grayscale.Kifuwarakei.Entities.Configuration;
-using Grayscale.Kifuwarakei.Entities.Logging;
+using Grayscale.Kifuwarakei.Entities.Infrastructure.Logging;
 
 namespace Grayscale.Kifuwarakei.Entities;
 

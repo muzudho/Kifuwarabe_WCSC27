@@ -1,6 +1,6 @@
 ﻿using Grayscale.Kifuwarakei.Entities.Configuration;
 
-namespace Grayscale.Kifuwarakei.Entities.Logging;
+namespace Grayscale.Kifuwarakei.Entities.Infrastructure.Logging;
 
 /// <summary>
 /// ログの書き込み先情報。

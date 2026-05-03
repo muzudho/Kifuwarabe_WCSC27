@@ -3,7 +3,7 @@
 using System;
 #if DEBUG
 using System.Text;
-using Grayscale.Kifuwarakei.Entities.Logging;
+using Grayscale.Kifuwarakei.Entities.Infrastructure.Logging;
 #else
 using System.Text;
 using Grayscale.Kifuwarakei.Entities.Features;
@@ -11,7 +11,7 @@ using Grayscale.Kifuwarakei.Entities.Features.Coding;
 using Grayscale.Kifuwarakei.Entities.Features.Hyoka;
 using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
 using Grayscale.Kifuwarakei.Entities.Features.Tansaku;
-using Grayscale.Kifuwarakei.Entities.Logging;
+using Grayscale.Kifuwarakei.Entities.Infrastructure.Logging;
 #endif
 /// <summary>
 /// コンソール画面用☆（＾～＾）

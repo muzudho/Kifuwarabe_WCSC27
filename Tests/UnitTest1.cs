@@ -1,9 +1,9 @@
 ﻿namespace Test;
 
-using Grayscale.Kifuwarakei.Entities.Techniques;
-using System.Text;
-using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
 using Grayscale.Kifuwarakei.Entities.Features;
+using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
+using Grayscale.Kifuwarakei.Entities.Features.Tansaku;
+using System.Text;
 
 /// <summary>
 /// きふわらべ思考エンジンのテストだぜ☆（＾▽＾）

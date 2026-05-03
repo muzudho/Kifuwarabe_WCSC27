@@ -7,7 +7,6 @@ using System.IO;
 using System.Text;
 using Grayscale.Kifuwarakei.Entities;
 using Grayscale.Kifuwarakei.Entities.Configuration;
-using Grayscale.Kifuwarakei.Entities.Logging;
 using Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 using Grayscale.Kifuwarakei.Entities.Features.Hyoka;
 using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
@@ -17,6 +16,7 @@ using Grayscale.Kifuwarakei.Entities.Features.Commandline;
 using Grayscale.Kifuwarakei.Entities.Features.TumeShogi;
 using Grayscale.Kifuwarakei.Entities.Features.Coding;
 using Grayscale.Kifuwarakei.Entities.Features;
+using Grayscale.Kifuwarakei.Entities.Infrastructure.Logging;
 
 public class Playing : IPlaying
 {

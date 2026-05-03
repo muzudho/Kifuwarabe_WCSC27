@@ -1,12 +1,11 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
-using System.Text;
+﻿namespace Grayscale.Kifuwarakei.Entities.Infrastructure.Logging;
+
 using Grayscale.Kifuwarakei.Entities.Configuration;
 using Grayscale.Kifuwarakei.Entities.Features;
 using Grayscale.Kifuwarakei.Entities.Features.Coding;
-
-namespace Grayscale.Kifuwarakei.Entities.Logging;
+using System;
+using System.Diagnostics;
+using System.IO;
 
 public abstract class Logger
 {
