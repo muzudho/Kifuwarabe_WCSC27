@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Grayscale.Kifuwarakei.Entities.Features.Dougu;
+using System;
 using System.Text;
 //using System.Diagnostics;
 

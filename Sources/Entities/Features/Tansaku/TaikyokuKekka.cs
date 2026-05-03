@@ -1,4 +1,4 @@
-﻿namespace Grayscale.Kifuwarakei.Entities.Techniques;
+﻿namespace Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 
 /// <summary>
 /// 対局結果
