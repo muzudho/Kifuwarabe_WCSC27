@@ -1,10 +1,9 @@
 ﻿using Grayscale.Kifuwarakei.Entities.Features;
-using Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 using Grayscale.Kifuwarakei.Entities.Language;
 using System;
 using System.Text;
 
-namespace Grayscale.Kifuwarakei.Entities.Techniques;
+namespace Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 
 public abstract class Conv_Taikyokusya
 {
