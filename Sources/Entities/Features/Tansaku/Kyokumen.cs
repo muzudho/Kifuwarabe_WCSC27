@@ -1054,7 +1054,7 @@ public class Kyokumen
         else
         {
             // 打
-            ms_t0 = MASU_ERROR;
+            ms_t0 = Masu.Error;
             mks_t0 = ConvSasite.GetUttaKomasyurui(ss);
             mk_t0 = Med_Koma.MotiKomasyuruiAndPhaseToMotiKoma(mks_t0, optionalPhase);
             km_t0 = Med_Koma.MotiKomasyuruiAndPhaseToKoma(mks_t0, optionalPhase);
@@ -1474,7 +1474,7 @@ public class Kyokumen
         }
         else// 打つ
         {
-            ms_t0 = MASU_ERROR;
+            ms_t0 = Masu.Error;
             km_t0 = Koma.PieceNum;
             ks_t0 = Komasyurui.Yososu;
             mk_t0 = Med_Koma.KomasyuruiAndTaikyokusyaToMotiKoma(ks_t1, CurrentOptionalPhase);
@@ -1754,7 +1754,7 @@ public class Kyokumen
                 return (Masu)iMs;
             }
         }
-        return MASU_ERROR;
+        return Masu.Error;
     }
 
     /// <summary>

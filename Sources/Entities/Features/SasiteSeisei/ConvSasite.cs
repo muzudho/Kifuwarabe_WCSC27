@@ -30,7 +30,7 @@ public abstract class ConvSasite
     public static Masu GetDstMasu(SasiteType ss, Kyokumen ky)
     {
         // エラーチェック付き
-        if (SasiteType.Toryo == ss) { return ky.MASU_ERROR; }
+        if (SasiteType.Toryo == ss) { return Masu.Error; }
         return GetDstMasu_WithoutErrorCheck((int)ss);
     }
     /// <summary>

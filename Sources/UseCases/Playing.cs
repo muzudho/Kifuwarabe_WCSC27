@@ -696,7 +696,7 @@ Kettyaku = {Util_Application.IsKettyaku(ky)}");
             Masu ms1;
             if (failure)
             {
-                ms1 = ky.MASU_ERROR;
+                ms1 = Masu.Error;
                 failure = true;
             }
             else
@@ -1066,7 +1066,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
             Masu ms1;
             if (failure)
             {
-                ms1 = ky.MASU_ERROR;
+                ms1 = Masu.Error;
                 syuturyoku.AppendLine("failure 3");
             }
             else
@@ -1074,7 +1074,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                 // 指定した升を空白にするぜ☆（＾▽＾）
                 if (!Med_Parser.TryParseMs(isSfen, commandline, ky, ref caret_1, out ms1))
                 {
-                    ms1 = ky.MASU_ERROR;
+                    ms1 = Masu.Error;
                     failure = true;
                     syuturyoku.AppendLine("failure 2");
                 }
@@ -1961,7 +1961,7 @@ USI                      = {Option_Application.Optionlist.USI}");
 
                     // 0～2
                     syuturyoku.Append("         ");
-                    for (int iMs = 0; iMs < (int)ky.MASU_ERROR; iMs++)
+                    for (int iMs = 0; iMs < (int)Masu.Error; iMs++)
                     {
                         maskBB.Set(0x01);// 0x01,0x02,0x04
                         for (int iShift = 0; iShift < 3; iShift++)
@@ -1971,7 +1971,7 @@ USI                      = {Option_Application.Optionlist.USI}");
                             maskBB.LeftShift(1);
                         }
 
-                        if (iMs + 1 < (int)ky.MASU_ERROR)
+                        if (iMs + 1 < (int)Masu.Error)
                         {
                             syuturyoku.Append("  ");
                         }
@@ -1982,7 +1982,7 @@ USI                      = {Option_Application.Optionlist.USI}");
                     }
                     // 3～5
                     syuturyoku.Append("         ");
-                    for (int iMs = 0; iMs < (int)ky.MASU_ERROR; iMs++)
+                    for (int iMs = 0; iMs < (int)Masu.Error; iMs++)
                     {
                         maskBB.Set(0x08);// 0x08,0x10,0x20
                         for (int iShift = 3; iShift < 6; iShift++)
@@ -1992,7 +1992,7 @@ USI                      = {Option_Application.Optionlist.USI}");
                             maskBB.LeftShift(1);
                         }
 
-                        if (iMs + 1 < (int)ky.MASU_ERROR)
+                        if (iMs + 1 < (int)Masu.Error)
                         {
                             syuturyoku.Append("  ");
                         }
@@ -2003,7 +2003,7 @@ USI                      = {Option_Application.Optionlist.USI}");
                     }
                     // 6～8
                     syuturyoku.Append("         ");
-                    for (int iMs = 0; iMs < (int)ky.MASU_ERROR; iMs++)
+                    for (int iMs = 0; iMs < (int)Masu.Error; iMs++)
                     {
                         maskBB.Set(0x40);// 0x40,0x80,0x100
                         for (int iShift = 6; iShift < 9; iShift++)
@@ -2013,7 +2013,7 @@ USI                      = {Option_Application.Optionlist.USI}");
                             maskBB.LeftShift(1);
                         }
 
-                        if (iMs + 1 < (int)ky.MASU_ERROR)
+                        if (iMs + 1 < (int)Masu.Error)
                         {
                             syuturyoku.Append("  ");
                         }
@@ -2024,7 +2024,7 @@ USI                      = {Option_Application.Optionlist.USI}");
                     }
                     // 9～11
                     syuturyoku.Append("         ");
-                    for (int iMs = 0; iMs < (int)ky.MASU_ERROR; iMs++)
+                    for (int iMs = 0; iMs < (int)Masu.Error; iMs++)
                     {
                         maskBB.Set(0x200);// 0x200,0x400,0x800
                         for (int iShift = 9; iShift < 12; iShift++)
@@ -2034,7 +2034,7 @@ USI                      = {Option_Application.Optionlist.USI}");
                             maskBB.LeftShift(1);
                         }
 
-                        if (iMs + 1 < (int)ky.MASU_ERROR)
+                        if (iMs + 1 < (int)Masu.Error)
                         {
                             syuturyoku.Append("  ");
                         }

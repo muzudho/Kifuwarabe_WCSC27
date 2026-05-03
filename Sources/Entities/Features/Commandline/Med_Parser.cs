@@ -32,7 +32,7 @@ public abstract class Med_Parser
         }
         else
         {
-            out_ms = ky.MASU_ERROR;
+            out_ms = Masu.Error;
             return false;
         }
     }

@@ -194,7 +194,7 @@ public abstract class Util_Application
         }
         else// kiki b3 R 1
         {
-            out_ms = ky.MASU_ERROR;
+            out_ms = Masu.Error;
 
             // 盤面表示を返すぜ☆
             string moji1 = "";
