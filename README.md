@@ -16,7 +16,22 @@
 * `Kifuwarakei.sln` を `Release` モードで ビルドしてください。
 * 設定ファイル1 の中にある `Profile` のパスを、 設定ファイル2 の親ディレクトリー `Profile` に合わせてください。  
 
-## Manual
+## せつめい
+
+Copilot くんが書いてくれた説明は以下の通りだぜ☆（＾～＾）  
+
+* [01-GettingStarted.md](./Docs/01-GettingStarted.md)
+* [02-Architecture.md](./Docs/02-Architecture.md)
+* [03-ProjectStructure.md](./Docs/03-ProjectStructure.md)
+* [04-HowToBuild.md](./Docs/04-HowToBuild.md)
+* [05-Configuration.md](./Docs/05-Configuration.md)
+* [06-USI-Protocol.md](./Docs/06-USI-Protocol.md)
+* [07-Commands.md](./Docs/07-Commands.md)
+* [08-Development.md](./Docs/08-Development.md)
+* [09-Testing.md](./Docs/09-Testing.md)
+* [10-Troubleshooting.md](./Docs/10-Troubleshooting.md)
+
+きふわらべのお父んが書いた説明は以下の通りだぜ☆（＾～＾）  
 
 MIT License
 https://opensource.org/licenses/mit-license.php
