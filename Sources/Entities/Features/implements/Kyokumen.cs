@@ -980,6 +980,9 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             Bitboard bb_jibunKomaNew;
             Bitboard bb_aiteKomaOld;
             Bitboard bb_aiteKomaNew;
+            Option<Phase> jibun;
+            Option<Phase> aite;
+            Option<Phase> Teban;
 #endif
 
             // FIXME: 定跡使用時に、相手の駒を動かすというバグがあるのでは☆？
@@ -1017,6 +1020,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
             // 変数をグローバルに一時退避
             optionalOpponent = Conv_Taikyokusya.Reverse( optionalPhase);
+#if DEBUG
+            jibun = optionalPhase;
+            aite = optionalOpponent;
+            Teban = optionalPhase;
+#endif
             ms_t1 = ConvMove.GetDstMasu_WithoutErrorCheck((int)ss); // 移動先升
             km_c = GetBanjoKoma(ms_t1);// あれば、移動先の相手の駒（取られる駒; capture）
             ks_c = Med_Koma.KomaToKomasyurui(km_c);
@@ -1171,7 +1179,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 Util_Information.Setumei_Bitboards(new string[] { "駒全部古", "駒全部新" }, new Bitboard[] { bb_aiteKomaOld, bb_aiteKomaNew }, sindan1);
 
                 sindan1.Append("ms_t1=["); Conv_Masu.Setumei(ms_t1, this, sindan1); sindan1.AppendLine("]位置を、シットダウンした。");
-                sindan1.Append("kaisi-対局者=["); Conv_Taikyokusya.Setumei_Name(Util_Tansaku.KaisiTaikyokusya, sindan1); sindan1.AppendLine("]");
+                // FIXME: Util_Tansaku.KaisiTaikyokusya が未定義のため一時的にコメントアウト
+                // sindan1.Append("kaisi-対局者=["); Conv_Taikyokusya.Setumei_Name(Util_Tansaku.KaisiTaikyokusya, sindan1); sindan1.AppendLine("]");
                 sindan1.Append("対局者=["); Conv_Taikyokusya.Setumei_Name(jibun, sindan1); sindan1.AppendLine("]");
                 sindan1.Append("do move=["); ConvMove.Setumei(isSfen, ss, sindan1); sindan1.AppendLine("]");
                 sindan1.Append("相手対局者=["); Conv_Taikyokusya.Setumei_Name(aite, sindan1); sindan1.AppendLine("]");
@@ -1270,7 +1279,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             Util_Information.Setumei_Bitboards(new string[] { "駒全部古", "駒全部新" },
                 new Bitboard[] { bb_jibunKomaOld, bb_jibunKomaNew }, sindan3);
 
-            sindan3.Append("kaisi-対局者=["); Conv_Taikyokusya.Setumei_Name(Util_Tansaku.KaisiTaikyokusya, sindan3); sindan3.AppendLine("]");
+            // FIXME: Util_Tansaku.KaisiTaikyokusya が未定義のため一時的にコメントアウト
+            // sindan3.Append("kaisi-対局者=["); Conv_Taikyokusya.Setumei_Name(Util_Tansaku.KaisiTaikyokusya, sindan3); sindan3.AppendLine("]");
             sindan3.Append("自分=["); Conv_Taikyokusya.Setumei_Name(jibun, sindan3); sindan3.AppendLine("]");
             sindan3.Append("do move=["); ConvMove.Setumei(isSfen, ss, sindan3); sindan3.AppendLine("]");
             sindan3.Append("ms_src=["); Conv_Masu.Setumei(ms_t0, this, sindan3); sindan3.AppendLine("]位置を、手番の駒全部BBからオフにしたいぜ☆");
@@ -1338,7 +1348,8 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             sindan2.Append("jibunKomaSuOld + 1 =["); sindan2.Append(jibunKomaSuOld + 1); sindan2.AppendLine("]");
             sindan2.Append("jibunKomaSuNew     =["); sindan2.Append(jibunKomaSuNew); sindan2.AppendLine("]");
 
-            sindan2.Append("kaisi-対局者=["); Conv_Taikyokusya.Setumei_Name(Util_Tansaku.KaisiTaikyokusya, sindan2); sindan2.AppendLine("]");
+            // FIXME: Util_Tansaku.KaisiTaikyokusya が未定義のため一時的にコメントアウト
+            // sindan2.Append("kaisi-対局者=["); Conv_Taikyokusya.Setumei_Name(Util_Tansaku.KaisiTaikyokusya, sindan2); sindan2.AppendLine("]");
             sindan2.Append("対局者=["); Conv_Taikyokusya.Setumei_Name(jibun, sindan2); sindan2.AppendLine("]");
             sindan2.Append("do move=["); ConvMove.Setumei(isSfen, ss, sindan2); sindan2.AppendLine("]");
             sindan2.Append("ms_t0=["); Conv_Masu.Setumei(ms_t0, this, sindan2); sindan2.AppendLine("]");
@@ -1429,6 +1440,12 @@ namespace Grayscale.Kifuwarakei.Entities.Features
 
             var optionalPhase = CurrentOptionalPhase;
             var optionalOpponent = Conv_Taikyokusya.Reverse(CurrentOptionalPhase);
+
+#if DEBUG
+            Option<Phase> jibun = optionalPhase;
+            Option<Phase> aite = optionalOpponent;
+            Option<Phase> Teban = optionalPhase;
+#endif
 
             Masu ms_t0;
             Komasyurui ks_t0;
@@ -2323,6 +2340,7 @@ namespace Grayscale.Kifuwarakei.Entities.Features
             if (!Med_Parser.TryTaikyokusya(isSfen, tb_Mojis, out Option<Phase> optionalPhase))
             {
 #if DEBUG
+                Option<Phase> Teban = optionalPhase;
                 StringBuilder reigai1 = new StringBuilder();
                 reigai1.AppendLine("未定義の手番☆");
                 reigai1.AppendLine($"tb_Mojis=[{tb_Mojis}]");
