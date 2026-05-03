@@ -1,8 +1,9 @@
-﻿namespace Grayscale.Kifuwarakei.Entities.Techniques;
+﻿namespace Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
 
 using Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 using Grayscale.Kifuwarakei.Entities.Game;
 using Grayscale.Kifuwarakei.Entities.Language;
+using Grayscale.Kifuwarakei.Entities.Techniques;
 using System;
 using System.Diagnostics;
 using System.Text;
@@ -250,14 +251,16 @@ public abstract class AbstractConvSasiteSyuruiType
 }
 
 /// <summary>
-/// 指し手生成だぜ☆（＾～＾）
+///     <pre>
+/// ［指し手生成］だぜ☆（＾～＾）
 /// 
 /// 優先度
 /// （１）らいおんキャッチ☆
+///     </pre>
 /// </summary>
-public abstract class AbstractUtilSasiteGen
+public abstract class AbstractUtilSasiteSeisei
 {
-    static AbstractUtilSasiteGen()
+    static AbstractUtilSasiteSeisei()
     {
         MoveList = new SasiteList[SAIDAI_SASITE_FUKASA];
         MoveListBad = new SasiteList[SAIDAI_SASITE_FUKASA];
@@ -307,7 +310,7 @@ public abstract class AbstractUtilSasiteGen
 
             Array.Copy(MoveListBad[fukasa].ListMove, 0, MoveList[fukasa].ListMove, MoveList[fukasa].SslistCount, MoveListBad[fukasa].SslistCount);
             Array.Copy(MoveListBad[fukasa].List_Reason, 0, MoveList[fukasa].List_Reason, MoveList[fukasa].SslistCount, MoveListBad[fukasa].SslistCount);
-            MoveList[fukasa].SslistCount += AbstractUtilSasiteGen.MoveListBad[fukasa].SslistCount;
+            MoveList[fukasa].SslistCount += AbstractUtilSasiteSeisei.MoveListBad[fukasa].SslistCount;
             Array.Clear(MoveListBad[fukasa].ListMove, 0, MoveListBad[fukasa].SslistCount);
             Array.Clear(MoveListBad[fukasa].List_Reason, 0, MoveListBad[fukasa].SslistCount);
             MoveListBad[fukasa].SslistCount = 0;
@@ -599,7 +602,7 @@ public abstract class AbstractUtilSasiteGen
 
                     while (idosakiBB.Ref_PopNTZ(out ms_ido))// 立っているビットを降ろすぜ☆
                     {
-                        if (AbstractUtilSasiteGen.TadasuteNoUgoki(ky, optionalPhase, ms_ido, false))// 相手の利きがあって、自分を除いた味方の利きがない升　に限るぜ☆（＾▽＾）ｗｗｗ
+                        if (AbstractUtilSasiteSeisei.TadasuteNoUgoki(ky, optionalPhase, ms_ido, false))// 相手の利きがあって、自分を除いた味方の利きがない升　に限るぜ☆（＾▽＾）ｗｗｗ
                         {
                             // タダ捨てに、一手詰めは無いだろう☆（*＾～＾*）
 
@@ -1336,7 +1339,7 @@ public abstract class AbstractUtilSasiteGen
     public static void GenerateMove01(int fukasa, Kyokumen ky, SasiteSyuruiType flag, bool sasitelistMerge, StringBuilder syuturyoku)
     {
         #region 前準備
-        Debug.Assert(0 <= fukasa && fukasa < AbstractUtilSasiteGen.MoveList.Length, "");
+        Debug.Assert(0 <= fukasa && fukasa < AbstractUtilSasiteSeisei.MoveList.Length, "");
 
         // 空っぽにしておくぜ☆　何か入れないと投了だぜ☆（＾▽＾）ｗｗｗ
         ClearMoveList(fukasa);
@@ -1359,12 +1362,12 @@ public abstract class AbstractUtilSasiteGen
         var opponentIndex = OptionalPhase.IndexOf(optionalPhase);
 
         // 手番側が、王手回避が必要かどうか調べたいぜ☆（＾～＾）
-        HiouteJoho jibunHioute = AbstractUtilSasiteGen.CreateHiouteJoho(ky, false);
+        HiouteJoho jibunHioute = AbstractUtilSasiteSeisei.CreateHiouteJoho(ky, false);
         // 相手番側が、王手回避が必要かどうか調べたいぜ☆（＾～＾）
         HiouteJoho aiteHioute;
         {
             ky.CurrentOptionalPhase = optionalOpponent;//一瞬ひっくり返す
-            aiteHioute = AbstractUtilSasiteGen.CreateHiouteJoho(ky, true);
+            aiteHioute = AbstractUtilSasiteSeisei.CreateHiouteJoho(ky, true);
             ky.CurrentOptionalPhase = optionalPhase;//すぐ戻す
         }
         #endregion
@@ -1520,7 +1523,7 @@ public abstract class AbstractUtilSasiteGen
                 MoveGenBunseki.Instance.MoveGenWoNuketaBasho = "らいおんキャッチ";
                 MoveGenBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
 #endif
-                int ssCount_old = AbstractUtilSasiteGen.MoveList[fukasa].SslistCount;
+                int ssCount_old = AbstractUtilSasiteSeisei.MoveList[fukasa].SslistCount;
 
                 foreach (Koma km in Conv_Koma.ItiranYowaimonoJun[phaseIndex])// 弱い駒から順
                 {
@@ -1549,7 +1552,7 @@ public abstract class AbstractUtilSasiteGen
                         }
 
                         // らいおんを捕まえる手が１手でもあれば十分☆ これ以降の手は作らないぜ☆（＾～＾）
-                        if (ssCount_old < AbstractUtilSasiteGen.MoveList[fukasa].SslistCount || jibunHioute.RaionCatchChosa) { goto gt_FlushMove; }
+                        if (ssCount_old < AbstractUtilSasiteSeisei.MoveList[fukasa].SslistCount || jibunHioute.RaionCatchChosa) { goto gt_FlushMove; }
                     }
                 }
             }
@@ -1585,7 +1588,7 @@ public abstract class AbstractUtilSasiteGen
                     while (idosakiBB_copy.Ref_PopNTZ(out Masu ms_ido))
                     {
                         SasiteType ss = ConvMove.ToMove01aNarazuSasi(jibunHioute.FriendRaionMs, ms_ido, ky.Sindan);
-                        AbstractUtilSasiteGen.MoveList[fukasa].AddSslist(ss, SasiteSyuruiType.N15_NigeroTe);
+                        AbstractUtilSasiteSeisei.MoveList[fukasa].AddSslist(ss, SasiteSyuruiType.N15_NigeroTe);
                     }
                 }
             }
@@ -1616,9 +1619,9 @@ public abstract class AbstractUtilSasiteGen
                 {
                     if (TansakuUtikiri.Karappo != jibunHioute.TansakuUtikiri) { goto gt_FlushMove; }// 指し手生成終了☆
                     idosakiBB_copy.Set(idosakiBB_base);
-                    AbstractUtilSasiteGen.GenerateMove02Raion(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, optionalPhase), SasiteSyuruiType.N16_Try, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku);
+                    AbstractUtilSasiteSeisei.GenerateMove02Raion(Med_Koma.KomasyuruiAndTaikyokusyaToKoma(Komasyurui.R, optionalPhase), SasiteSyuruiType.N16_Try, fukasa, ky, ms, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku);
                     // トライする手が１手でもあれば十分☆ 指し手生成終了☆（＾▽＾）
-                    if (0 < AbstractUtilSasiteGen.MoveList[fukasa].SslistCount) { goto gt_FlushMove; }
+                    if (0 < AbstractUtilSasiteSeisei.MoveList[fukasa].SslistCount) { goto gt_FlushMove; }
                 }
             }
         }
@@ -1676,7 +1679,7 @@ public abstract class AbstractUtilSasiteGen
         if (flag.HasFlag(SasiteSyuruiType.N18_Option_MergeGoodBad))
         {
             // マージをするぜ☆（＾▽＾）
-            AbstractUtilSasiteGen.MergeMoveListGoodBad(fukasa
+            AbstractUtilSasiteSeisei.MergeMoveListGoodBad(fukasa
 #if DEBUG
                 , "マージ　盤上駒で紐付王手（逃げ道を開ける手）"
 #endif
@@ -1809,7 +1812,7 @@ public abstract class AbstractUtilSasiteGen
                     MoveGenBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
 #endif
                     idosakiBB_copy.Set(idosakiBB_base);
-                    AbstractUtilSasiteGen.GenerateMoveMotiKoma(sasiteSyuruiType, fukasa, ky, optionalPhase, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku);
+                    AbstractUtilSasiteSeisei.GenerateMoveMotiKoma(sasiteSyuruiType, fukasa, ky, optionalPhase, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku);
                 }
             }
             #endregion
@@ -1833,7 +1836,7 @@ public abstract class AbstractUtilSasiteGen
                     MoveGenBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
 #endif
                     idosakiBB_copy.Set(idosakiBB_base);
-                    AbstractUtilSasiteGen.GenerateMoveMotiKoma(sasiteSyuruiType, fukasa, ky, optionalPhase, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku);
+                    AbstractUtilSasiteSeisei.GenerateMoveMotiKoma(sasiteSyuruiType, fukasa, ky, optionalPhase, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku);
                 }
             }
             #endregion
@@ -1843,7 +1846,7 @@ public abstract class AbstractUtilSasiteGen
         if (flag.HasFlag(SasiteSyuruiType.N18_Option_MergeGoodBad))
         {
             // マージをするぜ☆（＾▽＾）
-            AbstractUtilSasiteGen.MergeMoveListGoodBad(fukasa
+            AbstractUtilSasiteSeisei.MergeMoveListGoodBad(fukasa
 #if DEBUG
                 , "GoodBadマージ　紐付王手指（Good 逃げ道を開ける手、Bad 逃げ道を開けない手）"
 #endif
@@ -1873,7 +1876,7 @@ public abstract class AbstractUtilSasiteGen
                     MoveGenBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
 #endif
                     idosakiBB_copy.Set(idosakiBB_base);
-                    AbstractUtilSasiteGen.GenerateMoveMotiKoma(sasiteSyuruiType, fukasa, ky, optionalPhase, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku);
+                    AbstractUtilSasiteSeisei.GenerateMoveMotiKoma(sasiteSyuruiType, fukasa, ky, optionalPhase, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku);
                 }
             }
             #endregion
@@ -2003,7 +2006,7 @@ public abstract class AbstractUtilSasiteGen
                     MoveGenBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
 #endif
                     idosakiBB_copy.Set(idosakiBB_base);
-                    AbstractUtilSasiteGen.GenerateMoveMotiKoma(sasiteSyuruiType, fukasa, ky, optionalPhase, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku);
+                    AbstractUtilSasiteSeisei.GenerateMoveMotiKoma(sasiteSyuruiType, fukasa, ky, optionalPhase, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku);
                 }
             }
             #endregion
@@ -2096,7 +2099,7 @@ public abstract class AbstractUtilSasiteGen
                     MoveGenBunseki.Instance.BB_IdosakiBase = idosakiBB_base;
 #endif
                     idosakiBB_copy.Set(idosakiBB_base);
-                    AbstractUtilSasiteGen.GenerateMoveMotiKoma(sasiteSyuruiType, fukasa, ky, optionalPhase, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku);
+                    AbstractUtilSasiteSeisei.GenerateMoveMotiKoma(sasiteSyuruiType, fukasa, ky, optionalPhase, jibunHioute, aiteHioute, idosakiBB_copy, syuturyoku);
                 }
             }
             #endregion
@@ -2107,7 +2110,7 @@ public abstract class AbstractUtilSasiteGen
         if (sasitelistMerge)
         {
             // マージを忘れるなだぜ☆（＾▽＾）
-            AbstractUtilSasiteGen.MergeMoveListGoodBad(fukasa
+            AbstractUtilSasiteSeisei.MergeMoveListGoodBad(fukasa
 #if DEBUG
             , "マージを忘れるなだぜ☆（＾▽＾）"
 #endif

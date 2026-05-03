@@ -1,4 +1,6 @@
-﻿namespace Grayscale.Kifuwarakei.Entities.Techniques;
+﻿using Grayscale.Kifuwarakei.Entities.Techniques;
+
+namespace Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 
 public abstract class Util_TimeManager
 {

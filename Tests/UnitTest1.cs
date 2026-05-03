@@ -1,6 +1,7 @@
 ﻿using Grayscale.Kifuwarakei.Entities.Techniques;
 using Grayscale.Kifuwarakei.Entities.Game;
 using System.Text;
+using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
 
 namespace Test;
 
@@ -26,7 +27,7 @@ public class MoveGenerationTests
         ky.DoHirate(false, syuturyoku);
 
         // Act - 指し手を生成☆
-        AbstractUtilSasiteGen.GenerateMove01(
+        AbstractUtilSasiteSeisei.GenerateMove01(
             0, // fukasa
             ky,
             SasiteSyuruiType.N21_All, // 全ての手を生成
@@ -35,7 +36,7 @@ public class MoveGenerationTests
         );
 
         // Assert - 指し手が生成されることを確認☆
-        Assert.True(AbstractUtilSasiteGen.MoveList[0].SslistCount > 0, 
+        Assert.True(AbstractUtilSasiteSeisei.MoveList[0].SslistCount > 0, 
             "初期局面で指し手が生成されなかったぜ☆（＾～＾）");
     }
 
@@ -54,7 +55,7 @@ public class MoveGenerationTests
         // 逃げる先に相手の利きがある状況を作る☆
 
         // Act - 指し手を生成☆
-        AbstractUtilSasiteGen.GenerateMove01(
+        AbstractUtilSasiteSeisei.GenerateMove01(
             0,
             ky,
             SasiteSyuruiType.N21_All,
@@ -63,9 +64,9 @@ public class MoveGenerationTests
         );
 
         // Assert - 生成された全ての手をチェック☆
-        for (int i = 0; i < AbstractUtilSasiteGen.MoveList[0].SslistCount; i++)
+        for (int i = 0; i < AbstractUtilSasiteSeisei.MoveList[0].SslistCount; i++)
         {
-            SasiteType ss = AbstractUtilSasiteGen.MoveList[0].ListMove[i];
+            SasiteType ss = AbstractUtilSasiteSeisei.MoveList[0].ListMove[i];
 
             // TODO: 各手を指してみて、自玉が取られないことを確認☆
             // （実装は後で追加）
@@ -88,13 +89,13 @@ public class MoveGenerationTests
         ky.DoHirate(false, syuturyoku);
 
         // Act
-        AbstractUtilSasiteGen.GenerateMove01(0, ky, SasiteSyuruiType.N21_All, true, syuturyoku);
+        AbstractUtilSasiteSeisei.GenerateMove01(0, ky, SasiteSyuruiType.N21_All, true, syuturyoku);
 
         // Assert - 投了(Toryo)だけではないことを確認☆
         bool hasNonResignMove = false;
-        for (int i = 0; i < AbstractUtilSasiteGen.MoveList[0].SslistCount; i++)
+        for (int i = 0; i < AbstractUtilSasiteSeisei.MoveList[0].SslistCount; i++)
         {
-            if (AbstractUtilSasiteGen.MoveList[0].ListMove[i] != SasiteType.Toryo)
+            if (AbstractUtilSasiteSeisei.MoveList[0].ListMove[i] != SasiteType.Toryo)
             {
                 hasNonResignMove = true;
                 break;

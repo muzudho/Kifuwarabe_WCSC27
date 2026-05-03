@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
+using System;
 using System.Text;
 
 namespace Grayscale.Kifuwarakei.Entities.Techniques;

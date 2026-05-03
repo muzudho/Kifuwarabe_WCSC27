@@ -1,6 +1,7 @@
 ﻿namespace Grayscale.Kifuwarakei.Entities.Features.Gakusyu;
 
 using Grayscale.Kifuwarakei.Entities.Features.Hyoka;
+using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
 using Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 using Grayscale.Kifuwarakei.Entities.Game;
 using Grayscale.Kifuwarakei.Entities.Techniques;

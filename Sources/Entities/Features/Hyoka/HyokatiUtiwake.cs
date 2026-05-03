@@ -1,6 +1,7 @@
-﻿using System.Diagnostics;
+﻿using Grayscale.Kifuwarakei.Entities.Techniques;
+using System.Diagnostics;
 
-namespace Grayscale.Kifuwarakei.Entities.Techniques;
+namespace Grayscale.Kifuwarakei.Entities.Features.Hyoka;
 
 /// <summary>
 /// 評価値内訳
