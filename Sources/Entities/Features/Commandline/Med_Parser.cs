@@ -1,4 +1,6 @@
-﻿using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
+﻿using Grayscale.Kifuwarakei.Entities.Features.Coding;
+using Grayscale.Kifuwarakei.Entities.Features.Dougu;
+using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
 using Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 using Grayscale.Kifuwarakei.Entities.Language;
 using Grayscale.Kifuwarakei.Entities.Techniques;

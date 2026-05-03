@@ -1,7 +1,10 @@
 ﻿namespace Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
 
 using Grayscale.Kifuwarakei.Entities.Features;
+using Grayscale.Kifuwarakei.Entities.Features.Coding;
 using Grayscale.Kifuwarakei.Entities.Features.Commandline;
+using Grayscale.Kifuwarakei.Entities.Features.Dougu;
+using Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 using Grayscale.Kifuwarakei.Entities.Techniques;
 using System.Diagnostics;
 using System.Text;

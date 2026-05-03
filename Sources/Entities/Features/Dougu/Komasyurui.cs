@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace Grayscale.Kifuwarakei.Entities.Techniques;
+namespace Grayscale.Kifuwarakei.Entities.Features.Dougu;
 
 /// <summary>
 /// 先後を付けない、盤上の駒だぜ☆（＾▽＾）

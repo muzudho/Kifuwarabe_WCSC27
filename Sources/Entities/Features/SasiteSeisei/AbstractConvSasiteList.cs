@@ -1,10 +1,12 @@
-﻿using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 
-namespace Grayscale.Kifuwarakei.Entities.Techniques;
+namespace Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
 
-public abstract class AbstractConvMovelist
+/// <summary>
+/// ［指し手のリスト］
+/// </summary>
+public abstract class AbstractConvSasiteList
 {
     public static void Setumei(bool isSfen, string header, List<SasiteKakucho> sslist, StringBuilder syuturyoku)
     {

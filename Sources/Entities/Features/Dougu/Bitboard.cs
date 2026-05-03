@@ -2,7 +2,7 @@
 using System.Text;
 //using System.Diagnostics;
 
-namespace Grayscale.Kifuwarakei.Entities.Techniques;
+namespace Grayscale.Kifuwarakei.Entities.Features.Dougu;
 
 /// <summary>
 /// ビット演算

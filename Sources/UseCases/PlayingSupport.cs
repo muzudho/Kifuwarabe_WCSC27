@@ -1,6 +1,6 @@
 ﻿using System.Text;
 using Grayscale.Kifuwarakei.Entities.Features.Commandline;
-using Grayscale.Kifuwarakei.Entities.Techniques;
+using Grayscale.Kifuwarakei.Entities.Features.Dougu;
 
 namespace Grayscale.Kifuwarakei.UseCases;
 

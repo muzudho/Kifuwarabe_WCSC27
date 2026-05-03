@@ -1,7 +1,8 @@
-﻿using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
+﻿using Grayscale.Kifuwarakei.Entities.Features.Dougu;
+using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
 using System.Text;
 
-namespace Grayscale.Kifuwarakei.Entities.Techniques;
+namespace Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 
 /// <summary>
 /// 局面状況。１方向のリンクリストになっているぜ☆（＾▽＾）
