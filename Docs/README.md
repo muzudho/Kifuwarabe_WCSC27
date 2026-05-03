@@ -23,9 +23,33 @@ Copilot にも生成を頼んでいるぜ（＾▽＾）！
 
 # 📁 Engine プロジェクト
 
+
 # 📁 Entities プロジェクト
 
+```plaintext
+📁 Kifuwarabe_WCSC27
++-- 📁 Sources
+    +-- 📁 Entities      # プロジェクト
+        +-- 📁 Configuration
+        +-- 📁 Features
+            +-- 📁 abstracts
+            +-- 📁 facade
+            +-- 📁 implements
+            +-- 📁 interfaces
+            +-- 📁 machine
+            +-- 📁 Presenter
+            +-- 📄 DebugOptions.cs
+        +-- 📁 Game
+        +-- 📁 Language
+        +-- 📁 Logging
+        +-- 📁 Take1Base
+        +-- 📄 EntitiesLayer.cs
+        +-- 📄 IPlaying.cs
+```
+
+
 # 📁 UseCases プロジェクト
+
 
 # 📁 Tests プロジェクト
 

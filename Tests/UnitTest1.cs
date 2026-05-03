@@ -1,4 +1,4 @@
-﻿using Grayscale.Kifuwarakei.Entities.Features;
+﻿using Grayscale.Kifuwarakei.Entities.Techniques;
 using Grayscale.Kifuwarakei.Entities.Game;
 using System.Text;
 

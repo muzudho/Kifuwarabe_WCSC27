@@ -1,5 +1,5 @@
 ﻿using System.Text;
-using Grayscale.Kifuwarakei.Entities.Features;
+using Grayscale.Kifuwarakei.Entities.Techniques;
 
 namespace Grayscale.Kifuwarakei.UseCases;
 

@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using Grayscale.Kifuwarakei.Entities.Configuration;
-using Grayscale.Kifuwarakei.Entities.Features;
+using Grayscale.Kifuwarakei.Entities.Techniques;
 
 namespace Grayscale.Kifuwarakei.Entities.Logging;
 
