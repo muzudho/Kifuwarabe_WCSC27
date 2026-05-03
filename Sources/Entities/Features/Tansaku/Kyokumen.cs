@@ -87,11 +87,11 @@ public class Kyokumen
         /// <summary>
         /// 将棋盤の升の数だぜ☆（＾▽＾）
         /// </summary>
-        public int MASU_YOSOSU { get { return Hontai.m_masus_; } }
+        public int MASU_YOSOSU { get { return Hontai.m_banArea_; } }
         /// <summary>
         /// 盤外を指す要素数を返すが、エラーを意味する升として使うときに使えだぜ☆（＾▽＾）
         /// </summary>
-        public Masu MASU_ERROR { get { return (Masu)Hontai.m_masus_; } }
+        public Masu MASU_ERROR => (Masu)Hontai.m_banArea_;
 
         /// <summary>
         /// 局面ハッシュの再生成のために使用。
@@ -226,7 +226,7 @@ public class Kyokumen
     {
         Sindan = new Sindanyo(this);
         // 盤のサイズを決めたい。
-        m_masus_ = 3 * 4;
+        m_banArea_ = 3 * 4;
         //OnBanResized( 3, 4);
         //OnBanResized(Option_Application.Optionlist.BanYokoHaba, Option_Application.Optionlist.BanTateHaba);
         //TukurinaosiBanSize();
@@ -479,19 +479,28 @@ public class Kyokumen
     /// ゲーム盤の左上隅の升番号だぜ☆（＾～＾）
     /// </summary>
     public const int A1 = 0;
-    int m_masus_;
+
+    /// <summary>
+    ///     <pre>
+    /// ［盤の面積］、つまり盤のマス数だぜ（＾ｑ＾）！
+    /// 
+    ///     - どのマスでもないエラー値を表すときに、これを使うことがあるぜ☆（＾～＾）
+    ///     </pre>
+    /// </summary>
+    int m_banArea_;
+
     public void OnBanResized(int banYokoHaba, int banTateHaba)
     {
         // Option_Application.Optionlist はまだ生成されていないタイミングでも呼び出されるぜ☆（＾～＾）引数で指定しろだぜ☆（*＾～＾*）
-        m_masus_ = banYokoHaba * banTateHaba;
+        m_banArea_ = banYokoHaba * banTateHaba;
         m_migiHaji_suji_ = banYokoHaba;
         m_sitaHaji_dan_ = banTateHaba;
 
         // ビットを立てていく。
-        if (0 < m_masus_)
+        if (0 < m_banArea_)
         {
             BB_BoardArea.Set(1);
-            for (int i = 1; i < m_masus_; i++)
+            for (int i = 1; i < m_banArea_; i++)
             {
                 BB_BoardArea.LeftShift(1);
                 BB_BoardArea.Standup((Masu)0);
@@ -503,9 +512,9 @@ public class Kyokumen
         }
     }
     /// <summary>
-    /// エラー値の意図で升の数を使うときだぜ☆（＾～＾）
+    /// エラー値の意図で［升の数］を使うときだぜ☆（＾～＾）
     /// </summary>
-    public Masu MASU_ERROR { get { return (Masu)m_masus_; } }
+    public Masu MASU_ERROR => (Masu)m_banArea_;
     /// <summary>
     /// 将棋盤として使うビット
     /// </summary>
