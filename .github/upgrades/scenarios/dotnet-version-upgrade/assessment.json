@@ -7,8 +7,8 @@
     "targetId": "net10.0",
     "targetDisplayName": ".NETCoreApp,Version=v10.0"
   },
-  "analysisStartTime": "2026-05-03T00:48:12.9994027Z",
-  "analysisEndTime": "2026-05-03T00:48:14.5923138Z",
+  "analysisStartTime": "2026-05-03T00:53:44.6712426Z",
+  "analysisEndTime": "2026-05-03T00:53:46.1274107Z",
   "privacyModeHelpUrl": "https://go.microsoft.com/fwlink/?linkid=2270980",
   "stats": {
     "summary": {
@@ -59,7 +59,7 @@
       },
       "ruleInstances": [
         {
-          "incidentId": "da0327f1-d740-4feb-b3e4-ed40a026bbef",
+          "incidentId": "e1d819f2-ad3b-43e2-ad66-968337c22642",
           "ruleId": "Project.0001",
           "projectPath": "Sources\\Engine\\Engine.csproj",
           "state": "Active",
@@ -69,7 +69,7 @@
           }
         },
         {
-          "incidentId": "263aee36-cb36-4911-8b42-917437fe15ab",
+          "incidentId": "daf3f75f-b590-4b0e-84a2-37eb0eb479f7",
           "ruleId": "Project.0002",
           "projectPath": "Sources\\Engine\\Engine.csproj",
           "state": "Active",
@@ -89,7 +89,7 @@
           }
         },
         {
-          "incidentId": "31c35d03-98d5-4690-9487-6354c786caac",
+          "incidentId": "368f345d-0ac0-41de-97bd-4536949bccf4",
           "ruleId": "Api.0002",
           "description": "API is available in package System.Configuration.ConfigurationManager, 9.0.0-preview.6.24302.3. Add package reference to System.Configuration.ConfigurationManager, 9.0.0-preview.6.24302.3",
           "projectPath": "Sources\\Engine\\Engine.csproj",
@@ -113,7 +113,7 @@
           }
         },
         {
-          "incidentId": "42b99466-a65c-42ac-812e-f8ede0ba6dfd",
+          "incidentId": "76196abb-a40c-4a7d-bd3e-d8fa896a8ace",
           "ruleId": "Api.0002",
           "description": "API is available in package System.Configuration.ConfigurationManager, 9.0.0-preview.6.24302.3. Add package reference to System.Configuration.ConfigurationManager, 9.0.0-preview.6.24302.3",
           "projectPath": "Sources\\Engine\\Engine.csproj",
@@ -141,8 +141,8 @@
         {
           "featureId": "LegacyConfiguration",
           "incidents": [
-            "42b99466-a65c-42ac-812e-f8ede0ba6dfd",
-            "31c35d03-98d5-4690-9487-6354c786caac"
+            "76196abb-a40c-4a7d-bd3e-d8fa896a8ace",
+            "368f345d-0ac0-41de-97bd-4536949bccf4"
           ]
         }
       ]
@@ -175,7 +175,7 @@
       },
       "ruleInstances": [
         {
-          "incidentId": "656b010d-92e3-471d-8c95-c8ad19001202",
+          "incidentId": "d876618e-df7e-4e05-81eb-7812ac5d899e",
           "ruleId": "Project.0001",
           "projectPath": "Sources\\Entities\\Entities.csproj",
           "state": "Active",
@@ -185,7 +185,7 @@
           }
         },
         {
-          "incidentId": "e90e4066-7884-449c-9c38-ba84b23ba192",
+          "incidentId": "f41b9735-0857-4fbd-88df-903a0204f691",
           "ruleId": "Project.0002",
           "projectPath": "Sources\\Entities\\Entities.csproj",
           "state": "Active",
@@ -264,7 +264,7 @@
       },
       "ruleInstances": [
         {
-          "incidentId": "e8412070-1999-46af-89ed-5c224df4ba38",
+          "incidentId": "dfa5e328-85f4-4ea2-8932-bb03317a0f49",
           "ruleId": "Project.0001",
           "projectPath": "Sources\\UseCases\\UseCases.csproj",
           "state": "Active",
@@ -274,7 +274,7 @@
           }
         },
         {
-          "incidentId": "270be9c0-e976-4ec4-8a17-f8341f317fb3",
+          "incidentId": "464fe359-d616-4eae-b9f4-501b1802579d",
           "ruleId": "Project.0002",
           "projectPath": "Sources\\UseCases\\UseCases.csproj",
           "state": "Active",
