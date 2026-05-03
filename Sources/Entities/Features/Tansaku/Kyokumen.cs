@@ -76,7 +76,7 @@ public class Kyokumen
         /// <returns></returns>
         public bool IsBanjoOrError(Masu ms)
         {
-            return A1 <= ms && ms <= (Masu)MASU_YOSOSU;
+            return ms == MASU_ERROR || (A1 <= ms && ms < (Masu)MASU_YOSOSU);
         }
 
         public bool IsIntersect_UeHajiDan(Masu ms) { return Hontai.BB_DanArray[0].IsIntersect(ms); }
@@ -89,9 +89,10 @@ public class Kyokumen
         /// </summary>
         public int MASU_YOSOSU { get { return Hontai.m_banArea_; } }
         /// <summary>
-        /// 盤外を指す要素数を返すが、エラーを意味する升として使うときに使えだぜ☆（＾▽＾）
+        /// エラーを意味する升だぜ☆（＾▽＾）
+        /// 固定値 -1 を使うことで、盤のサイズが変わっても一貫したエラー値になるぜ☆（＾～＾）
         /// </summary>
-        public Masu MASU_ERROR => (Masu)Hontai.m_banArea_;
+        public Masu MASU_ERROR => (Masu)(-1);
 
         /// <summary>
         /// 局面ハッシュの再生成のために使用。
