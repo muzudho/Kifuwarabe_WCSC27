@@ -1,8 +1,7 @@
-﻿namespace Grayscale.Kifuwarakei.Entities;
+﻿namespace Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 
 using System.Text;
 using Grayscale.Kifuwarakei.Entities.Features.Commandline;
-using Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 
 public interface IPlaying
 {

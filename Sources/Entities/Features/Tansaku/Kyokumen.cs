@@ -13,7 +13,6 @@ using System;
 using System.Diagnostics;
 using System.Text;
 using System.Text.RegularExpressions;
-using Grayscale.Kifuwarakei.Entities;
 using Grayscale.Kifuwarakei.Entities.Features;
 using Grayscale.Kifuwarakei.Entities.Features.Coding;
 using Grayscale.Kifuwarakei.Entities.Features.Commandline;

@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
-using Grayscale.Kifuwarakei.Entities;
 using Grayscale.Kifuwarakei.Entities.Configuration;
 using Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 using Grayscale.Kifuwarakei.Entities.Features.Hyoka;
