@@ -16,7 +16,7 @@ public class Kifu
 {
     public Kifu()
     {
-        this.SsList = new List<Sasite>();
+        this.SsList = new List<SasiteType>();
         this.SyokiKyokumenFen = "";
     }
 
@@ -24,7 +24,7 @@ public class Kifu
     /// 先頭に追加するぜ☆（＾▽＾）
     /// </summary>
     /// <param name="ss"></param>
-    public void AddFirst(Sasite ss)
+    public void AddFirst(SasiteType ss)
     {
         this.SsList.Insert(0, ss);
     }
@@ -39,7 +39,7 @@ public class Kifu
         foreach (string fugo in fugoItiran)
         {
             int caret = 0;
-            if (!Med_Parser.TryFenMove(isSfen, fugo, ref caret, kys, out Sasite move))
+            if (!Med_Parser.TryFenMove(isSfen, fugo, ref caret, kys, out SasiteType move))
             {
                 throw new System.Exception($"指し手のパースエラー fugo=[{ fugo }]");
             }
@@ -59,7 +59,7 @@ public class Kifu
         Util_Information.Setumei_NingenGameYo(ky2, syuturyoku);
 
         int temeMade = 1;
-        foreach (Sasite ss in this.SsList)
+        foreach (SasiteType ss in this.SsList)
         {
             syuturyoku.Append("(");
             syuturyoku.Append(temeMade.ToString());
@@ -84,7 +84,7 @@ public class Kifu
 
         syuturyoku.Append("< kifu, move = ");
         int temeMade = 1;
-        foreach (Sasite ss in this.SsList)
+        foreach (SasiteType ss in this.SsList)
         {
             ConvMove.AppendFenTo(isSfen, ss, syuturyoku);
             syuturyoku.Append(" ");
@@ -93,7 +93,7 @@ public class Kifu
         syuturyoku.AppendLine();
     }
 
-    public List<Sasite> SsList { get; set; }
+    public List<SasiteType> SsList { get; set; }
     public string SyokiKyokumenFen { get; set; }
 
     /// <summary>
@@ -112,7 +112,7 @@ public class Kifu
             );
 
         // 棋譜を元に、局面データを再現するぜ☆
-        foreach (Sasite ss in SsList)
+        foreach (SasiteType ss in SsList)
         {
             Nanteme nanteme = new Nanteme();
             ky.DoMove(isSfen, ss, SasiteSyuruiType.N00_Karappo, ref nanteme, ky.CurrentOptionalPhase, syuturyoku);
@@ -140,7 +140,7 @@ public class Kifu
             , false, out string moves, syuturyoku
             );
         // 指定の手目まで進めるぜ☆（＾～＾）
-        foreach (Sasite ss in SsList)
+        foreach (SasiteType ss in SsList)
         {
             if (temeMade < 1)
             {
@@ -154,7 +154,7 @@ public class Kifu
 
     public void AppendMovesTo(bool isSfen, StringBuilder syuturyoku)
     {
-        foreach (Sasite ss in SsList)
+        foreach (SasiteType ss in SsList)
         {
             ConvMove.AppendFenTo(isSfen, ss, syuturyoku);
             syuturyoku.Append(" ");

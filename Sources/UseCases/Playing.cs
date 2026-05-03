@@ -94,7 +94,7 @@ usiok");
         }
 #endif
 
-        Sasite bestMove = Util_Application.Go(this, ky, out HyokatiUtiwake best_hyokatiUtiwake, Face_YomisujiJoho.Dlgt_WriteYomisujiJoho, syuturyoku);
+        SasiteType bestMove = Util_Application.Go(this, ky, out HyokatiUtiwake best_hyokatiUtiwake, Face_YomisujiJoho.Dlgt_WriteYomisujiJoho, syuturyoku);
         // 勝敗判定☆（＾▽＾）
         Util_Kettyaku.JudgeKettyaku(bestMove, ky);
 
@@ -153,7 +153,7 @@ usiok");
         int caret = 0;
         Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret, "do ");
 
-        if (!Med_Parser.TryFenMove(isSfen, commandline, ref caret, ky.Sindan, out Sasite ss))
+        if (!Med_Parser.TryFenMove(isSfen, commandline, ref caret, ky.Sindan, out SasiteType ss))
         {
             throw new Exception($"パースエラー [{commandline}]");
         }
@@ -377,10 +377,10 @@ Kettyaku = {Util_Application.IsKettyaku(ky)}");
                     throw new Exception(msg);
                 }
 
-                List<Sasite> removeListSs = new List<Sasite>();
-                foreach (KeyValuePair<Sasite, JosekiMove> ssEntry in kyEntry.Value.SsItems)
+                List<SasiteType> removeListSs = new List<SasiteType>();
+                foreach (KeyValuePair<SasiteType, JosekiMove> ssEntry in kyEntry.Value.SsItems)
                 {
-                    Sasite ss = ssEntry.Value.Move;//指し手データ
+                    SasiteType ss = ssEntry.Value.Move;//指し手データ
 
                     // 合法手かどうか調べるぜ☆
                     if (!ky2.CanDoMove(ss, out SasiteMatigaiRiyu reason)// 指せない手☆
@@ -395,7 +395,7 @@ Kettyaku = {Util_Application.IsKettyaku(ky)}");
                     countSs_all++;
                 }
 
-                foreach (Sasite ss in removeListSs)
+                foreach (SasiteType ss in removeListSs)
                 {
                     kyEntry.Value.SsItems.Remove(ss);
                 }
@@ -798,7 +798,7 @@ Kettyaku = {Util_Application.IsKettyaku(ky)}");
         else if (4 <= line2.Length)// see K*b2
         {
             // 指し手を指定した場合☆
-            Med_Parser.TryFenMove(isSfen, commandline, ref caret_1, ky.Sindan, out Sasite ss);
+            Med_Parser.TryFenMove(isSfen, commandline, ref caret_1, ky.Sindan, out SasiteType ss);
             Nanteme nanteme = new Nanteme();
             ky.DoMove(isSfen, ss, SasiteSyuruiType.N00_Karappo, ref nanteme, ky.CurrentOptionalPhase, syuturyoku);
             Masu ms = ConvMove.GetDstMasu(ss, ky);
@@ -1668,7 +1668,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
         #endregion
         else
         {
-            if (Util_Application.MoveCmd(commandline, ky.Sindan, out Sasite ss))// move 912 とか☆
+            if (Util_Application.MoveCmd(commandline, ky.Sindan, out SasiteType ss))// move 912 とか☆
             {
                 ConvMove.Setumei(isSfen, ss, syuturyoku);
                 syuturyoku.AppendLine($" ({(int)ss})");
@@ -1720,10 +1720,10 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                     throw new Exception(msg);
                 }
 
-                List<Sasite> removeListSs = new List<Sasite>();
-                foreach (KeyValuePair<Sasite, SeisekiMove> ssEntry in kyEntry.Value.SsItems)
+                List<SasiteType> removeListSs = new List<SasiteType>();
+                foreach (KeyValuePair<SasiteType, SeisekiMove> ssEntry in kyEntry.Value.SsItems)
                 {
-                    Sasite ss = ssEntry.Value.Move;//指し手データ
+                    SasiteType ss = ssEntry.Value.Move;//指し手データ
 
                     // 合法手かどうか調べるぜ☆
                     if (!ky2.CanDoMove(ss, out SasiteMatigaiRiyu reason)// 指せない手☆
@@ -1738,7 +1738,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                     countSs_all++;
                 }
 
-                foreach (Sasite ss in removeListSs)
+                foreach (SasiteType ss in removeListSs)
                 {
                     kyEntry.Value.SsItems.Remove(ss);
                 }
@@ -2404,7 +2404,7 @@ USI                      = {Option_Application.Optionlist.USI}");
             //────────────────────────────────────────
             foreach (KeyValuePair<ulong, JosekiKyokumen> entryKy in Option_Application.Joseki.KyItems)
             {
-                foreach (KeyValuePair<Sasite, JosekiMove> entrySs in entryKy.Value.SsItems)
+                foreach (KeyValuePair<SasiteType, JosekiMove> entrySs in entryKy.Value.SsItems)
                 {
                     if (entrySs.Value.Hyokati <= Hyokati.TumeTesu_FuNoSu_HyakuTeTumerare)
                     {

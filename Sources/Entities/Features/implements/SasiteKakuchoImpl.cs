@@ -5,20 +5,20 @@
 /// </summary>
 public class SasiteKakuchoImpl : SasiteKakucho
 {
-    public SasiteKakuchoImpl(Sasite move, SasiteSyuruiType kati)
+    public SasiteKakuchoImpl(SasiteType move, SasiteSyuruiType kati)
     {
-        this.Move = move;
-        this.MoveType = kati;
+        this.Sasite = move;
+        this.SasiteSyurui = kati;
     }
 
     /// <summary>
     /// 指し手☆
     /// </summary>
-    public Sasite Move { get; set; }
+    public SasiteType Sasite { get; set; }
 
     /// <summary>
     /// 相手の　らいおん　を捕まえる手か、トライアウトする手なら真だぜ☆（＾▽＾）ｖ
     /// 探索を打ち切るのに必要だし☆（＾＿＾）
     /// </summary>
-    public SasiteSyuruiType MoveType { get; set; }
+    public SasiteSyuruiType SasiteSyurui { get; set; }
 }

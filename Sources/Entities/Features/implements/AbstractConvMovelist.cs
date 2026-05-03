@@ -11,7 +11,7 @@ public abstract class AbstractConvMovelist
         syuturyoku.AppendLine("┌──────────┐");
         foreach (SasiteKakucho ss in sslist)
         {
-            ConvMove.AppendFenTo(isSfen, ss.Move, syuturyoku);
+            ConvMove.AppendFenTo(isSfen, ss.Sasite, syuturyoku);
             syuturyoku.AppendLine();
         }
         syuturyoku.AppendLine("└──────────┘");

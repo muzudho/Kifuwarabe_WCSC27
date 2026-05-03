@@ -19,10 +19,10 @@ public abstract class ConvMove
     {
         return (Masu)((ss & SasiteMask.DstMasu) >> SasiteShift.DstMasu);
     }
-    public static Masu GetDstMasu(Sasite ss, Kyokumen ky)
+    public static Masu GetDstMasu(SasiteType ss, Kyokumen ky)
     {
         // エラーチェック付き
-        if (Sasite.Toryo == ss) { return ky.MASU_ERROR; }
+        if (SasiteType.Toryo == ss) { return ky.MASU_ERROR; }
         return GetDstMasu_WithoutErrorCheck((int)ss);
     }
     /// <summary>
@@ -69,9 +69,9 @@ public abstract class ConvMove
     /// 改造FEN符号表記
     /// </summary>
     /// <returns></returns>
-    public static void AppendFenTo(bool isSfen, Sasite ss, StringBuilder syuturyoku)
+    public static void AppendFenTo(bool isSfen, SasiteType ss, StringBuilder syuturyoku)
     {
-        if (Sasite.Toryo == ss) { syuturyoku.Append(Itiran_FenParser.GetToryo(isSfen)); return; }
+        if (SasiteType.Toryo == ss) { syuturyoku.Append(Itiran_FenParser.GetToryo(isSfen)); return; }
 
         int v = (int)ss;//バリュー（ビットフィールド）
 
@@ -131,11 +131,11 @@ public abstract class ConvMove
     /// 指し手符号の解説。
     /// </summary>
     /// <returns></returns>
-    public static void Setumei(bool isSfen, Sasite ss, StringBuilder syuturyoku)
+    public static void Setumei(bool isSfen, SasiteType ss, StringBuilder syuturyoku)
     {
         AppendFenTo(isSfen, ss, syuturyoku);
     }
-    public static void SetumeiLine(bool isSfen, Sasite ss, StringBuilder syuturyoku)
+    public static void SetumeiLine(bool isSfen, SasiteType ss, StringBuilder syuturyoku)
     {
         AppendFenTo(isSfen, ss, syuturyoku);
         syuturyoku.AppendLine();
@@ -150,7 +150,7 @@ public abstract class ConvMove
     /// <param name="ms_dst"></param>
     /// <param name="natta"></param>
     /// <returns></returns>
-    public static Sasite ToMove01aNarazuSasi(Masu ms_src, Masu ms_dst, Kyokumen.Sindanyo kys)
+    public static SasiteType ToMove01aNarazuSasi(Masu ms_src, Masu ms_dst, Kyokumen.Sindanyo kys)
     {
         Debug.Assert(kys.IsBanjoOrError(ms_src), $"ms_src=[{ms_src}] kys.MASUS=[{kys.MASU_YOSOSU}]");
         Debug.Assert(kys.IsBanjo(ms_dst), "盤外に指したぜ☆？");
@@ -169,7 +169,7 @@ public abstract class ConvMove
 
         // 成らない☆（＾▽＾）
 
-        return (Sasite)v;
+        return (SasiteType)v;
     }
     /// <summary>
     /// 盤上の駒を指したぜ☆（＾▽＾）（打つ以外の指し手☆）
@@ -180,7 +180,7 @@ public abstract class ConvMove
     /// <param name="ms_dst"></param>
     /// <param name="natta"></param>
     /// <returns></returns>
-    public static Sasite ToMove01bNariSasi(Masu ms_src, Masu ms_dst, Kyokumen.Sindanyo kys)
+    public static SasiteType ToMove01bNariSasi(Masu ms_src, Masu ms_dst, Kyokumen.Sindanyo kys)
     {
         Debug.Assert(kys.IsBanjoOrError(ms_src), "");
         Debug.Assert(kys.IsBanjo(ms_dst), "盤外に指したぜ☆？");
@@ -200,7 +200,7 @@ public abstract class ConvMove
         // 成った☆（＾▽＾）
         v |= 1 << SasiteShift.Natta;
 
-        return (Sasite)v;
+        return (SasiteType)v;
     }
     /// <summary>
     /// 駒を打った指し手☆（＾▽＾）
@@ -210,7 +210,7 @@ public abstract class ConvMove
     /// <param name="mkUtta"></param>
     /// <param name="natta"></param>
     /// <returns></returns>
-    public static Sasite ToMove01cUtta(Masu ms_dst, MotiKomasyurui mkUtta)
+    public static SasiteType ToMove01cUtta(Masu ms_dst, MotiKomasyurui mkUtta)
     {
         Debug.Assert(MotiKomasyurui.Yososu != mkUtta, "");
 
@@ -237,12 +237,12 @@ public abstract class ConvMove
 
         // 打ったときは成れないぜ☆（＾▽＾）
 
-        return (Sasite)v;
+        return (SasiteType)v;
     }
 
-    public static bool IsNatta(Sasite ss)
+    public static bool IsNatta(SasiteType ss)
     {
-        if (Sasite.Toryo == ss) { return false; }//解析不能☆
+        if (SasiteType.Toryo == ss) { return false; }//解析不能☆
 
         int v = (int)ss;              // バリュー
 
@@ -261,9 +261,9 @@ public abstract class ConvMove
         return 0 != natta;
     }
 
-    public static MotiKomasyurui GetUttaKomasyurui(Sasite ss)
+    public static MotiKomasyurui GetUttaKomasyurui(SasiteType ss)
     {
-        if (Sasite.Toryo == ss) { return MotiKomasyurui.Yososu; }//解析不能☆
+        if (SasiteType.Toryo == ss) { return MotiKomasyurui.Yososu; }//解析不能☆
 
         // 式の形
         // (v & m) >> s;
@@ -283,7 +283,7 @@ public abstract class ConvMove
             (kirinuki + Conv_MotiKomasyurui.Itiran.Length) % Conv_MotiKomasyurui.SETS_LENGTH
             );
     }
-    public static bool IsUtta(Sasite ss)
+    public static bool IsUtta(SasiteType ss)
     {
         // 打か☆？
         return MotiKomasyurui.Yososu != ConvMove.GetUttaKomasyurui(ss);//指定があれば

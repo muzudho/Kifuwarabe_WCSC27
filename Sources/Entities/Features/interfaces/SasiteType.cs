@@ -5,8 +5,15 @@
 /// </summary>
 public interface SasiteKakucho
 {
-    Sasite Move { get; set; }
-    SasiteSyuruiType MoveType { get; set; }
+    /// <summary>
+    /// ［指し手］
+    /// </summary>
+    SasiteType Sasite { get; set; }
+
+    /// <summary>
+    /// ［指し手の種類］
+    /// </summary>
+    SasiteSyuruiType SasiteSyurui { get; set; }
 }
 
 /// <summary>
@@ -39,7 +46,7 @@ public interface SasiteKakucho
 /// 
 /// 0 なら投了だぜ☆（＾▽＾）自升と至升と打った駒の種類が0に揃うことはないんで、被らないぜ☆（＾～＾）
 /// </summary>
-public enum Sasite
+public enum SasiteType
 {
     Toryo = 0
 }

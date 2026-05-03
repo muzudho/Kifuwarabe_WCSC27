@@ -842,9 +842,9 @@ public class Kyokumen
     //    syuturyoku.AppendLine();
     //}
 
-    public bool CanDoMove(Sasite ss, out SasiteMatigaiRiyu reason)
+    public bool CanDoMove(SasiteType ss, out SasiteMatigaiRiyu reason)
     {
-        if (Sasite.Toryo == ss) { reason = SasiteMatigaiRiyu.Karappo; return true; }// 投了はＯＫだぜ☆（＾～＾）
+        if (SasiteType.Toryo == ss) { reason = SasiteMatigaiRiyu.Karappo; return true; }// 投了はＯＫだぜ☆（＾～＾）
 
         // 打つ駒調べ
         MotiKomasyurui mksUtta = ConvMove.GetUttaKomasyurui(ss);// 打った駒の種類
@@ -942,7 +942,7 @@ public class Kyokumen
     /// ハッシュも差分変更するぜ☆
     /// </summary>
     /// <param name="ss">指し手☆</param>
-    public void DoMove(bool isSfen, Sasite ss, SasiteSyuruiType ssType, ref Nanteme konoTeme, Option<Phase> optionalPhase, StringBuilder syuturyoku)
+    public void DoMove(bool isSfen, SasiteType ss, SasiteSyuruiType ssType, ref Nanteme konoTeme, Option<Phase> optionalPhase, StringBuilder syuturyoku)
     {
         // bool endMethodFlag;
 
@@ -989,7 +989,7 @@ public class Kyokumen
         Teme++;
 
         // endMethodFlag = false;
-        if (Sasite.Toryo == ss)
+        if (SasiteType.Toryo == ss)
         {
             goto gt_EndMethod;
         }// 投了なら、なにも更新せず終了☆（＾▽＾）
@@ -1393,7 +1393,7 @@ public class Kyokumen
     /// 指定した指し手をやりなおす動きをするぜ☆（＾▽＾）
     /// </summary>
     /// <param name="ss"></param>
-    public void UndoMove(bool isSfen, Sasite ss, StringBuilder syuturyoku)
+    public void UndoMove(bool isSfen, SasiteType ss, StringBuilder syuturyoku)
     {
         //────────────────────────────────────────
         // 手番
@@ -1406,7 +1406,7 @@ public class Kyokumen
             KyokumenHash.SetXor(Util_ZobristHashing.GetTaikyokusyaKey(CurrentOptionalPhase, Sindan));
         }
 
-        if (Sasite.Toryo == ss) { goto gt_EndMethod; }// なにも更新せず終了☆（＾▽＾）
+        if (SasiteType.Toryo == ss) { goto gt_EndMethod; }// なにも更新せず終了☆（＾▽＾）
 
         Util_Machine.Assert_Sabun_Kiki("Ｕｎｄｏ始", Sindan);
         Util_Machine.Assert_Sabun_Komawari("Ｕｎｄｏ始", Sindan, syuturyoku);
@@ -2402,7 +2402,7 @@ public class Kyokumen
                 ms_src = (Masu)ms_semegoma;
 
                 // FIXME: とりあえず、成らずで作ってみるぜ☆（＾～＾）
-                Sasite ss = ConvMove.ToMove01aNarazuSasi(ms_src, ms, this.Sindan);
+                SasiteType ss = ConvMove.ToMove01aNarazuSasi(ms_src, ms, this.Sindan);
 
                 // 駒を取る前に、取る駒の点数を取っておくぜ☆（＾～＾）
                 Komasyurui tottaKomasyurui;

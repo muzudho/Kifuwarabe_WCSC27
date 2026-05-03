@@ -162,7 +162,7 @@ public abstract class Util_ConsoleGame
     /// <summary>
     /// 定跡更新（ゲームセクション内）
     /// </summary>
-    public static void Update1_JosekiToroku(Sasite inputMove, Kyokumen ky, StringBuilder syuturyoku)
+    public static void Update1_JosekiToroku(SasiteType inputMove, Kyokumen ky, StringBuilder syuturyoku)
     {
         if (Util_Machine.IsEnableBoardSize() && Option_Application.Optionlist.JosekiRec)
         {
@@ -181,7 +181,7 @@ public abstract class Util_ConsoleGame
     /// <summary>
     /// 定跡更新（ゲームセクション内）
     /// </summary>
-    public static void Update2_JosekiToroku(Sasite bestMove, Hyokati bestHyokati, Kyokumen ky, StringBuilder syuturyoku)
+    public static void Update2_JosekiToroku(SasiteType bestMove, Hyokati bestHyokati, Kyokumen ky, StringBuilder syuturyoku)
     {
         if (Util_Machine.IsEnableBoardSize() && Option_Application.Optionlist.JosekiRec)
         {

@@ -205,7 +205,7 @@ System.Console.WriteLine($"# (~0UL << 1)=[{(~0UL << 1)}]");
                             // do以外のコマンドであれば、コマンドラインを保持したまま、そのまま続行
                         }
                         // 以下、do コマンドの場合☆
-                        else if (!Util_Application.ParseDoMove(ky, out Sasite inputSasite))
+                        else if (!Util_Application.ParseDoMove(ky, out SasiteType inputSasite))
                         {
                             // do コマンドのパースエラー表示（コンソール・ゲーム用）☆（＾～＾）
                             syuturyoku.AppendLine(ConvMove.Setumei(SasiteMatigaiRiyu.ParameterSyosikiMatigai));
@@ -244,7 +244,7 @@ System.Console.WriteLine($"# (~0UL << 1)=[{(~0UL << 1)}]");
                     {
                         Util_ConsoleGame.AppendMessage_ComputerSikochu(ky, syuturyoku);// 表示（コンピューター思考中☆）
 
-                        Sasite bestSasite = Util_Application.Go(playing, ky, out HyokatiUtiwake best_hyokatiUTiwake, Face_YomisujiJoho.Dlgt_WriteYomisujiJoho, syuturyoku);// コンピューターに１手指させるぜ☆
+                        SasiteType bestSasite = Util_Application.Go(playing, ky, out HyokatiUtiwake best_hyokatiUTiwake, Face_YomisujiJoho.Dlgt_WriteYomisujiJoho, syuturyoku);// コンピューターに１手指させるぜ☆
                         Util_Application.JudgeKettyaku(bestSasite, ky);// 勝敗判定☆（＾▽＾）
 
                         Util_ConsoleGame.Update2_JosekiToroku(bestSasite, best_hyokatiUTiwake.EdaBest, ky, syuturyoku);// やるなら、定跡更新☆（＾▽＾）
@@ -385,7 +385,7 @@ System.Console.WriteLine($"# (~0UL << 1)=[{(~0UL << 1)}]");
                     int caret2 = 0;
                     Util_String.TobasuTangoToMatubiKuhaku(commandline, ref caret2, "cando ");
 
-                    if (!Med_Parser.TryFenMove(Option_Application.Optionlist.USI, commandline, ref caret2, ky.Sindan, out Sasite ss))
+                    if (!Med_Parser.TryFenMove(Option_Application.Optionlist.USI, commandline, ref caret2, ky.Sindan, out SasiteType ss))
                     {
                         throw new Exception($"パースエラー [{commandline}]");
                     }

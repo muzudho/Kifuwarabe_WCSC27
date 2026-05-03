@@ -8,7 +8,7 @@ public abstract class Util_KikaiGakusyu
 {
     static Util_KikaiGakusyu()
     {
-        Util_KikaiGakusyu.FirstAndHappaFens = new Dictionary<Sasite, List<string>>();
+        Util_KikaiGakusyu.FirstAndHappaFens = new Dictionary<SasiteType, List<string>>();
     }
 
     /// <summary>
@@ -22,8 +22,8 @@ public abstract class Util_KikaiGakusyu
     /// <summary>
     /// 探索に入ったときの初手を覚えておくぜ☆（＾▽＾）
     /// </summary>
-    public static Sasite KaisiSasite { get; set; }
-    public static Dictionary<Sasite, List<string>> FirstAndHappaFens { get; set; }
+    public static SasiteType KaisiSasite { get; set; }
+    public static Dictionary<SasiteType, List<string>> FirstAndHappaFens { get; set; }
 
     /// <summary>
     /// 反復深化探索に入る前に、クリアーするぜ☆（＾▽＾）
@@ -62,7 +62,7 @@ public abstract class Util_KikaiGakusyu
     /// </summary>
     /// <param name="erandaSasite">実際に選んだ指し手☆</param>
     /// <param name="erandaHyokati">実際に選んだ手の評価値☆</param>
-    public static void Update(Sasite erandaSasite, Hyokati erandaHyokati, Kyokumen ky, StringBuilder syuturyoku)
+    public static void Update(SasiteType erandaSasite, Hyokati erandaHyokati, Kyokumen ky, StringBuilder syuturyoku)
     {
         JosekiKyokumen joKy_orNull = Option_Application.Joseki.GetKyokumen(Util_KikaiGakusyu.KaisiKyHash);
         if (null == joKy_orNull)// この局面の定跡データが入っていなければ、そもそも　学習できないぜ☆（＾▽＾）
@@ -72,7 +72,7 @@ public abstract class Util_KikaiGakusyu
 
         // 成績表を見て、現局面で最も勝率の高い指し手を、教師とするぜ☆（＾～＾）
 
-        Sasite kyosiSs = Option_Application.Seiseki.GetSasite_Winest(ky, out float kyosiSyoritu_notUse);
+        SasiteType kyosiSs = Option_Application.Seiseki.GetSasite_Winest(ky, out float kyosiSyoritu_notUse);
 
         Hyokati kyosiHyokati; // 教師の手の評価値☆
         if (Util_KikaiGakusyu.FirstAndHappaFens.ContainsKey(kyosiSs))// 教師の手はあるはずだろ☆（＾～＾）？
@@ -113,7 +113,7 @@ public abstract class Util_KikaiGakusyu
         // 1P から引いた分は 2P に足す、ということでどうか☆（＾～＾）？
 
         // では、今回の合法手を全て見ていくぜ☆（＾～＾）
-        foreach (KeyValuePair<Sasite, List<string>> entry in Util_KikaiGakusyu.FirstAndHappaFens)
+        foreach (KeyValuePair<SasiteType, List<string>> entry in Util_KikaiGakusyu.FirstAndHappaFens)
         {
             if (entry.Key == kyosiSs)
             {

@@ -144,7 +144,7 @@ public abstract class Util_Tansaku
     /// 最善手は yomisuji[0] に入っているぜ☆（＾▽＾）
     /// </summary>
     /// <returns></returns>
-    public static Sasite Go(
+    public static SasiteType Go(
         IPlaying playing,
         bool isSfen, Kyokumen ky, out HyokatiUtiwake out_kakutei_hyokatiUtiwake, out bool out_isJosekiNoTouri, Util_Tansaku.Dlgt_CreateJoho dlgt_CreateJoho, StringBuilder syuturyoku)
     {
@@ -214,7 +214,7 @@ public abstract class Util_Tansaku
                 Option_Application.TimeManager.RestartStopwatch_Tansaku();
                 Option_Application.TimeManager.LastJohoTime = 0;
 
-                Sasite josekiSs = Sasite.Toryo;
+                SasiteType josekiSs = SasiteType.Toryo;
 #if DEBUG
                 string fen_forTest = "未設定";
 #endif
@@ -225,12 +225,12 @@ public abstract class Util_Tansaku
                     case SasiteCharacter.SinteYusen://thru
                     case SasiteCharacter.SinteNomi:
                         {
-                            List<Sasite> josekiSasites = Option_Application.Joseki.GetMoves(ky);
+                            List<SasiteType> josekiSasites = Option_Application.Joseki.GetMoves(ky);
                             // この局面の合法手を取得☆（＾▽＾）
                             int fukasa = 0;
                             AbstractUtilSasiteGen.GenerateMove01(fukasa, ky, SasiteSyuruiType.N21_All, true, syuturyoku);// グローバル変数 Util_SasiteSeisei.Sasitelist[fukasa].Sslist に指し手がセットされるぜ☆（＾▽＾）
-                            List<Sasite> gohosyu = new List<Sasite>(AbstractUtilSasiteGen.MoveList[fukasa].ListMove);
-                            foreach (Sasite ss in josekiSasites)
+                            List<SasiteType> gohosyu = new List<SasiteType>(AbstractUtilSasiteGen.MoveList[fukasa].ListMove);
+                            foreach (SasiteType ss in josekiSasites)
                             {
                                 if (gohosyu.Contains(ss))
                                 {
@@ -270,21 +270,21 @@ public abstract class Util_Tansaku
                 }
 
                 // とはいえ、負け定跡を選ぶのは嫌だぜ☆（＾～＾）
-                if (Sasite.Toryo != josekiSs)
+                if (SasiteType.Toryo != josekiSs)
                 {
                     if (!Option_Application.Seiseki.GetSasite_Syoritu(ky, josekiSs, out float syoritu))
                     {
                         // 成績が登録されていなければ無視するぜ☆（＾～＾）
-                        josekiSs = Sasite.Toryo;
+                        josekiSs = SasiteType.Toryo;
                     }
                     else if (syoritu < 0.5)
                     {
                         // 成績が登録されていても、勝率が５割を切っていれば無視するぜ☆（＾～＾）
-                        josekiSs = Sasite.Toryo;
+                        josekiSs = SasiteType.Toryo;
                     }
                 }
 
-                if (Sasite.Toryo != josekiSs)
+                if (SasiteType.Toryo != josekiSs)
                 {
                     // 定跡用の 読み筋情報 を作るぜ☆（＾▽＾）
                     best_yomisuji_orNull = new Yomisuji();
@@ -686,7 +686,7 @@ public abstract class Util_Tansaku
 */
         Nanteme nanteme = new Nanteme();
         ky.DoMove(isSfen,
-            null != best_yomisuji_orNull ? best_yomisuji_orNull.GetBestSasite() : Sasite.Toryo,
+            null != best_yomisuji_orNull ? best_yomisuji_orNull.GetBestSasite() : SasiteType.Toryo,
             null != best_yomisuji_orNull ? best_yomisuji_orNull.GetBestSasiteSyuruiType() : SasiteSyuruiType.N00_Karappo
             , ref nanteme, ky.CurrentOptionalPhase, syuturyoku);
 
@@ -736,7 +736,7 @@ public abstract class Util_Tansaku
             Util_TimeManager.DoneShowJoho();
         }
 
-        return null != best_yomisuji_orNull ? best_yomisuji_orNull.GetBestSasite() : Sasite.Toryo;
+        return null != best_yomisuji_orNull ? best_yomisuji_orNull.GetBestSasite() : SasiteType.Toryo;
     }
 
     /// <summary>
@@ -774,7 +774,7 @@ public abstract class Util_Tansaku
             out out_hyokatiUtiwake,
             dlgt_CreateJoho,
             syuturyoku,
-            Sasite.Toryo,// １週目は、葉を通らない前提なので、この指し手は　スルーされる前提だぜ☆（＾▽＾）
+            SasiteType.Toryo,// １週目は、葉を通らない前提なので、この指し手は　スルーされる前提だぜ☆（＾▽＾）
             SasiteSyuruiType.N00_Karappo // まだ指し手を選んでないぜ☆　１週目は葉を通らない前提だぜ☆
             );
     }
@@ -804,7 +804,7 @@ public abstract class Util_Tansaku
         , out HyokatiUtiwake out_hyokatiUtiwake
         , Dlgt_CreateJoho dlgt_CreateJoho
         , StringBuilder syuturyoku // 出力先
-        , Sasite eranda_sasite // 指した手だぜ☆（＾▽＾）
+        , SasiteType eranda_sasite // 指した手だぜ☆（＾▽＾）
         , SasiteSyuruiType eranda_sasiteSyuruiType // 指した、指し手のタイプだぜ☆（＾▽＾）
         )
     {
@@ -918,7 +918,7 @@ public abstract class Util_Tansaku
 
             // このとき、駒を取った手かどうか☆
             //if (eranda_sasiteSyuruiType==SasiteSyuruiType.KomaWoToruTe)
-            if (Sasite.Toryo != eranda_sasite)
+            if (SasiteType.Toryo != eranda_sasite)
             {
                 // 駒を取る手が　葉っぱ　に来たときは、ＳＥＥ（Static Exchange Evaluation）をやりたいぜ☆
                 // おいしさ：この手を指したときに確定している手番の得だぜ☆（＾▽＾）
@@ -1018,7 +1018,7 @@ public abstract class Util_Tansaku
             HyokaRiyu.SaseruTeNasi3,// 合法手が無いとき☆
             ""
             );
-        Sasite bestSasite = Sasite.Toryo;
+        SasiteType bestSasite = SasiteType.Toryo;
         SasiteSyuruiType bestSasiteSyuruiType = SasiteSyuruiType.N00_Karappo;
         bool utikiri;
 
@@ -1080,7 +1080,7 @@ public abstract class Util_Tansaku
 
         for (int iSs = 0; iSs < AbstractUtilSasiteGen.MoveList[fukasa].SslistCount; iSs++)
         {
-            Sasite eda_sasite = AbstractUtilSasiteGen.MoveList[fukasa].ListMove[iSs];
+            SasiteType eda_sasite = AbstractUtilSasiteGen.MoveList[fukasa].ListMove[iSs];
             SasiteSyuruiType eda_sasiteSyuruiType = AbstractUtilSasiteGen.MoveList[fukasa].List_Reason[iSs];
 
             // 探索打ち切りフラグ☆（＾▽＾）
@@ -1563,7 +1563,7 @@ public abstract class Util_Tansaku
         //;
 
         // 一番良かった兄弟は☆（＾▽＾）
-        if (Sasite.Toryo != bestSasite && null != best_yomisujiChild_orNull)
+        if (SasiteType.Toryo != bestSasite && null != best_yomisujiChild_orNull)
         {
             out_edaBest_Yomisuji = new Yomisuji();
             out_edaBest_Yomisuji.Add(bestSasite, bestSasiteSyuruiType); // 先頭に今回の指し手を置くぜ☆
