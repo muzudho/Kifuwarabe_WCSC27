@@ -90,9 +90,9 @@ public class Kyokumen
         public int MASU_YOSOSU { get { return Hontai.m_banArea_; } }
         /// <summary>
         /// エラーを意味する升だぜ☆（＾▽＾）
-        /// 固定値 -1 を使うことで、盤のサイズが変わっても一貫したエラー値になるぜ☆（＾～＾）
+        /// 固定値 Masu.Error を使うことで、盤のサイズが変わっても一貫したエラー値になるぜ☆（＾～＾）
         /// </summary>
-        public Masu MASU_ERROR => (Masu)(-1);
+        public Masu MASU_ERROR => Masu.Error;
 
         /// <summary>
         /// 局面ハッシュの再生成のために使用。

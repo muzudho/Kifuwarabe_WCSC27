@@ -12,6 +12,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features.Dougu;
 /// </summary>
 public enum Masu
 {
+    /// <summary>
+    /// エラー値だぜ☆（＾▽＾）
+    /// 盤のサイズに依存しない固定のエラー値として -1 を使うぜ☆（＾～＾）
+    /// </summary>
+    Error = -1
 }
 
 /// <summary>
