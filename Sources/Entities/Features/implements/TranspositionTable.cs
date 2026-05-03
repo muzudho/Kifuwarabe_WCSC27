@@ -23,7 +23,7 @@ public class TTEntry
     {
         syuturyoku.Append($"key=[{Key}] move=[");
         ConvMove.Setumei(isSfen, Move, syuturyoku);
-        syuturyoku.Append($"] sasiteType=[{AbstractConvMoveType.Setumei(MoveType)}] fukasa=[{Fukasa}] hyokati=[{(int)Hyokati}] komawariHyokati_forJoho=[{(int)KomawariHyokati_ForJoho}] nikomaHyokati_forJoho=[{(int)NikomaHyokati_ForJoho}] okimariHyokati_forJoho=[${(int)OkimariHyokati_ForJoho}]");
+        syuturyoku.Append($"] sasiteType=[{AbstractConvSasiteType.Setumei(MoveType)}] fukasa=[{Fukasa}] hyokati=[{(int)Hyokati}] komawariHyokati_forJoho=[{(int)KomawariHyokati_ForJoho}] nikomaHyokati_forJoho=[{(int)NikomaHyokati_ForJoho}] okimariHyokati_forJoho=[${(int)OkimariHyokati_ForJoho}]");
     }
 
     public Sasite Move { get { return m_move_; } }

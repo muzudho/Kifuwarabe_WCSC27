@@ -141,7 +141,7 @@ public class Nanteme
                 syuturyoku.Append(" ");
 
                 // おまけ
-                syuturyoku.Append($"{AbstractConvMoveType.Setumei(nanteme.MoveType)} ");
+                syuturyoku.Append($"{AbstractConvSasiteType.Setumei(nanteme.MoveType)} ");
             }
             zuhaNantemade++;
         }

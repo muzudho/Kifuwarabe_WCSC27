@@ -266,15 +266,15 @@ public abstract class Util_Application
     public static void Rnd(Kyokumen ky, StringBuilder syuturyoku)
     {
         int fukasa = 0;
-        AbstractUtilMoveGen.GenerateMove01(fukasa, ky, SasiteType.N21_All, true, syuturyoku);//グローバル変数に指し手がセットされるぜ☆（＾▽＾）
-        if (AbstractUtilMoveGen.MoveList[fukasa].SslistCount < 1)
+        AbstractUtilSasiteGen.GenerateMove01(fukasa, ky, SasiteType.N21_All, true, syuturyoku);//グローバル変数に指し手がセットされるぜ☆（＾▽＾）
+        if (AbstractUtilSasiteGen.MoveList[fukasa].SslistCount < 1)
         {
             Nanteme nanteme = new Nanteme();
             ky.DoMove(Option_Application.Optionlist.USI, Sasite.Toryo, SasiteType.N00_Karappo, ref nanteme,  ky.CurrentOptionalPhase, syuturyoku);
         }
         else
         {
-            Sasite ss = AbstractUtilMoveGen.MoveList[fukasa].ListMove[Option_Application.Random.Next(AbstractUtilMoveGen.MoveList[fukasa].SslistCount)];
+            Sasite ss = AbstractUtilSasiteGen.MoveList[fukasa].ListMove[Option_Application.Random.Next(AbstractUtilSasiteGen.MoveList[fukasa].SslistCount)];
             Nanteme nanteme = new Nanteme();
             ky.DoMove(Option_Application.Optionlist.USI, ss, SasiteType.N00_Karappo, ref nanteme, ky.CurrentOptionalPhase, syuturyoku);
         }
@@ -284,11 +284,11 @@ public abstract class Util_Application
     {
         List<SasiteKakucho> sslist = new List<SasiteKakucho>();
         int fukasa = 0;
-        AbstractUtilMoveGen.GenerateMove01(fukasa, ky, SasiteType.N21_All, true, syuturyoku);//グローバル変数に指し手がセットされるぜ☆（＾▽＾）
+        AbstractUtilSasiteGen.GenerateMove01(fukasa, ky, SasiteType.N21_All, true, syuturyoku);//グローバル変数に指し手がセットされるぜ☆（＾▽＾）
 
-        for (int iSs = 0; iSs < AbstractUtilMoveGen.MoveList[fukasa].SslistCount; iSs++)
+        for (int iSs = 0; iSs < AbstractUtilSasiteGen.MoveList[fukasa].SslistCount; iSs++)
         {
-            sslist.Add(new SasiteKakuchoImpl(AbstractUtilMoveGen.MoveList[fukasa].ListMove[iSs], AbstractUtilMoveGen.MoveList[fukasa].List_Reason[iSs]));
+            sslist.Add(new SasiteKakuchoImpl(AbstractUtilSasiteGen.MoveList[fukasa].ListMove[iSs], AbstractUtilSasiteGen.MoveList[fukasa].List_Reason[iSs]));
         }
 
         return sslist;
@@ -710,10 +710,10 @@ public abstract class Util_Application
             {
                 Option_Application.Optionlist.SaidaiFukasa = val;
 
-                if (AbstractUtilMoveGen.SAIDAI_SASITE_FUKASA - 1 < Option_Application.Optionlist.SaidaiFukasa)
+                if (AbstractUtilSasiteGen.SAIDAI_SASITE_FUKASA - 1 < Option_Application.Optionlist.SaidaiFukasa)
                 {
-                    Option_Application.Optionlist.SaidaiFukasa = AbstractUtilMoveGen.SAIDAI_SASITE_FUKASA - 1;
-                    syuturyoku.AppendLine($"(^q^)実装の上限の [{ (AbstractUtilMoveGen.SAIDAI_SASITE_FUKASA - 1) }] に下げたぜ☆");
+                    Option_Application.Optionlist.SaidaiFukasa = AbstractUtilSasiteGen.SAIDAI_SASITE_FUKASA - 1;
+                    syuturyoku.AppendLine($"(^q^)実装の上限の [{ (AbstractUtilSasiteGen.SAIDAI_SASITE_FUKASA - 1) }] に下げたぜ☆");
                 }
             }
         }

@@ -26,7 +26,7 @@ public class MoveGenerationTests
         ky.DoHirate(false, syuturyoku);
 
         // Act - 指し手を生成☆
-        AbstractUtilMoveGen.GenerateMove01(
+        AbstractUtilSasiteGen.GenerateMove01(
             0, // fukasa
             ky,
             SasiteType.N21_All, // 全ての手を生成
@@ -35,7 +35,7 @@ public class MoveGenerationTests
         );
 
         // Assert - 指し手が生成されることを確認☆
-        Assert.True(AbstractUtilMoveGen.MoveList[0].SslistCount > 0, 
+        Assert.True(AbstractUtilSasiteGen.MoveList[0].SslistCount > 0, 
             "初期局面で指し手が生成されなかったぜ☆（＾～＾）");
     }
 
@@ -54,7 +54,7 @@ public class MoveGenerationTests
         // 逃げる先に相手の利きがある状況を作る☆
 
         // Act - 指し手を生成☆
-        AbstractUtilMoveGen.GenerateMove01(
+        AbstractUtilSasiteGen.GenerateMove01(
             0,
             ky,
             SasiteType.N21_All,
@@ -63,9 +63,9 @@ public class MoveGenerationTests
         );
 
         // Assert - 生成された全ての手をチェック☆
-        for (int i = 0; i < AbstractUtilMoveGen.MoveList[0].SslistCount; i++)
+        for (int i = 0; i < AbstractUtilSasiteGen.MoveList[0].SslistCount; i++)
         {
-            Sasite ss = AbstractUtilMoveGen.MoveList[0].ListMove[i];
+            Sasite ss = AbstractUtilSasiteGen.MoveList[0].ListMove[i];
 
             // TODO: 各手を指してみて、自玉が取られないことを確認☆
             // （実装は後で追加）
@@ -88,13 +88,13 @@ public class MoveGenerationTests
         ky.DoHirate(false, syuturyoku);
 
         // Act
-        AbstractUtilMoveGen.GenerateMove01(0, ky, SasiteType.N21_All, true, syuturyoku);
+        AbstractUtilSasiteGen.GenerateMove01(0, ky, SasiteType.N21_All, true, syuturyoku);
 
         // Assert - 投了(Toryo)だけではないことを確認☆
         bool hasNonResignMove = false;
-        for (int i = 0; i < AbstractUtilMoveGen.MoveList[0].SslistCount; i++)
+        for (int i = 0; i < AbstractUtilSasiteGen.MoveList[0].SslistCount; i++)
         {
-            if (AbstractUtilMoveGen.MoveList[0].ListMove[i] != Sasite.Toryo)
+            if (AbstractUtilSasiteGen.MoveList[0].ListMove[i] != Sasite.Toryo)
             {
                 hasNonResignMove = true;
                 break;
