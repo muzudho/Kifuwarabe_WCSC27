@@ -1282,7 +1282,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
     {
         if (commandline == "move")
         {
-            List<SasiteKakucho> sslist = Util_Application.MoveCmd(ky, syuturyoku);
+            List<ISasiteKakucho> sslist = Util_Application.MoveCmd(ky, syuturyoku);
             ConvSasiteList.Setumei(isSfen, "指し手全部", sslist, syuturyoku);
             syuturyoku.AppendLine();
             return;
@@ -1294,7 +1294,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
 
         if (caret_1 == commandline.IndexOf("su", caret_1))// 指し手の件数出力
         {
-            List<SasiteKakucho> sslist = Util_Application.MoveCmd(ky, syuturyoku);
+            List<ISasiteKakucho> sslist = Util_Application.MoveCmd(ky, syuturyoku);
             syuturyoku.AppendLine($"指し手 件数=[{sslist.Count}]");
             return;
         }
@@ -1327,7 +1327,7 @@ undo B4B3         : B3にある駒をB4へ動かしたあと ky するぜ☆");
                 }
             }
 
-            List<SasiteKakucho> sslist = new List<SasiteKakucho>();// 使いまわすぜ☆（＾▽＾）
+            List<ISasiteKakucho> sslist = new List<ISasiteKakucho>();// 使いまわすぜ☆（＾▽＾）
             #region 逼迫返討手
             {
                 sslist.Clear();

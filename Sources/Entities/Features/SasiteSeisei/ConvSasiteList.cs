@@ -5,11 +5,11 @@ using System.Text;
 
 public abstract class ConvSasiteList
 {
-    public static void Setumei(bool isSfen, string header, List<SasiteKakucho> sslist, StringBuilder syuturyoku)
+    public static void Setumei(bool isSfen, string header, List<ISasiteKakucho> sslist, StringBuilder syuturyoku)
     {
         syuturyoku.AppendLine(header);
         syuturyoku.AppendLine("┌──────────┐");
-        foreach (SasiteKakucho ss in sslist)
+        foreach (ISasiteKakucho ss in sslist)
         {
             ConvSasite.AppendFenTo(isSfen, ss.Sasite, syuturyoku);
             syuturyoku.AppendLine();

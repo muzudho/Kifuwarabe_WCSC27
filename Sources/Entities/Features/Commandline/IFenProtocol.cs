@@ -1,6 +1,6 @@
 ﻿namespace Grayscale.Kifuwarakei.Entities.Features.Commandline;
 
-public interface FenProtocol
+public interface IFenProtocol
 {
     string Fen { get; }
 

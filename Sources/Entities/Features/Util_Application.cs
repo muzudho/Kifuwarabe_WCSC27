@@ -285,9 +285,9 @@ public abstract class Util_Application
         }
     }
 
-    public static List<SasiteKakucho> MoveCmd(Kyokumen ky, StringBuilder syuturyoku)
+    public static List<ISasiteKakucho> MoveCmd(Kyokumen ky, StringBuilder syuturyoku)
     {
-        List<SasiteKakucho> sslist = new List<SasiteKakucho>();
+        List<ISasiteKakucho> sslist = new List<ISasiteKakucho>();
         int fukasa = 0;
         UtilSasiteSeisei.GenerateMove01(fukasa, ky, SasiteSyuruiType.N21_All, true, syuturyoku);//グローバル変数に指し手がセットされるぜ☆（＾▽＾）
 

@@ -11,7 +11,7 @@ public abstract class Itiran_FenParser
     /// <summary>
     /// 9x9への拡張も考慮
     /// </summary>
-    class Dfen3x4Protocol : FenProtocol
+    class Dfen3x4Protocol : IFenProtocol
     {
         public string Fen { get { return "fen"; } }
         public string Startpos { get { return "krz/1h1/1H1/ZRK"; } }
@@ -29,7 +29,7 @@ public abstract class Itiran_FenParser
     }
     static Dfen3x4Protocol Dfen { get; set; }
 
-    class Sfen9x9Protocol : FenProtocol
+    class Sfen9x9Protocol : IFenProtocol
     {
         public string Fen { get { return "sfen"; } }
         public string Startpos { get { return "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL"; } }

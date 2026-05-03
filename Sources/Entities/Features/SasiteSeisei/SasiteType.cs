@@ -2,7 +2,7 @@
 /// <summary>
 /// ［指し手拡張］
 /// </summary>
-public interface SasiteKakucho
+public interface ISasiteKakucho
 {
     /// <summary>
     /// ［指し手］
@@ -79,22 +79,22 @@ public abstract class SasiteShift
 public abstract class SasiteMask
 {
     /// <summary>
-    /// 自升 11111111 = 0xff
+    /// 自升 0b11111111 = 0xff
     /// </summary>
     public const int SrcMasu = 0xff;
 
     /// <summary>
-    /// 至升 11111111 = 0xff
+    /// 至升 0b11111111 = 0xff
     /// </summary>
     public const int DstMasu = 0xff << SasiteShift.DstMasu;
 
     /// <summary>
-    /// 打った駒の種類 111 = 0x07
+    /// 打った駒の種類 0b111 = 0x07
     /// </summary>
     public const int UttaKomasyurui = 0x07 << SasiteShift.UttaKomasyurui;
 
     /// <summary>
-    /// 成ったか☆ 1 = 0x01
+    /// 成ったか☆ 0b1 = 0x01
     /// </summary>
     public const int Natta = 0x01 << SasiteShift.Natta;
 }

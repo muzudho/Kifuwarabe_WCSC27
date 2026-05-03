@@ -5,7 +5,7 @@ using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
 /// <summary>
 /// 指し手拡張。
 /// </summary>
-public class SasiteKakuchoImpl : SasiteKakucho
+public class SasiteKakuchoImpl : ISasiteKakucho
 {
     public SasiteKakuchoImpl(SasiteType move, SasiteSyuruiType kati)
     {
