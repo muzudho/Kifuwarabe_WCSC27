@@ -1,4 +1,4 @@
-﻿namespace Grayscale.Kifuwarakei.Entities.Techniques;
+﻿namespace Grayscale.Kifuwarakei.Entities.Features.Gakusyu;
 
 /// <summary>
 /// スマホで外部ファイルを読込む方法が分からないので、埋め込むならこれを使うんだぜ☆（＾▽＾）

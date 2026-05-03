@@ -1,7 +1,6 @@
-﻿using Grayscale.Kifuwarakei.Entities.Features;
-using System.Text;
+﻿using System.Text;
 
-namespace Grayscale.Kifuwarakei.Entities.Techniques;
+namespace Grayscale.Kifuwarakei.Entities.Features;
 
 /// <summary>
 /// きふわらべだぜ☆（＾▽＾）
