@@ -14,6 +14,7 @@ using Grayscale.Kifuwarakei.UseCases;
 using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
 using Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 using Grayscale.Kifuwarakei.Entities.Features.Hyoka;
+using Grayscale.Kifuwarakei.Entities.Features.Commandline;
 
 public class Program
 {

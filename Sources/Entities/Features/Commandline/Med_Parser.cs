@@ -1,11 +1,12 @@
 ﻿using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
 using Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 using Grayscale.Kifuwarakei.Entities.Language;
+using Grayscale.Kifuwarakei.Entities.Techniques;
 using System;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 
-namespace Grayscale.Kifuwarakei.Entities.Techniques;
+namespace Grayscale.Kifuwarakei.Entities.Features.Commandline;
 
 public abstract class Med_Parser
 {

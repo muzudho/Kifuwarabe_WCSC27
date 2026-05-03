@@ -1,4 +1,6 @@
-﻿namespace Grayscale.Kifuwarakei.Entities.Techniques;
+﻿using Grayscale.Kifuwarakei.Entities.Techniques;
+
+namespace Grayscale.Kifuwarakei.Entities.Features.Commandline;
 
 using System;
 #if DEBUG

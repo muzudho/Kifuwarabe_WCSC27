@@ -1,6 +1,6 @@
-﻿using System;
+﻿namespace Grayscale.Kifuwarakei.Entities.Features.Coding;
 
-namespace Grayscale.Kifuwarakei.Entities.Techniques;
+using System;
 
 /// <summary>
 /// 出典：http://baba-s.hatenablog.com/entry/2014/08/10/130145

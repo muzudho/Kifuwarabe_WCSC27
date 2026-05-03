@@ -1,11 +1,12 @@
 ﻿using Grayscale.Kifuwarakei.Entities.Features.Dougu;
 using Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 using Grayscale.Kifuwarakei.Entities.Language;
+using Grayscale.Kifuwarakei.Entities.Techniques;
 using System;
 using System.Diagnostics;
 using System.Text;
 
-namespace Grayscale.Kifuwarakei.Entities.Techniques;
+namespace Grayscale.Kifuwarakei.Entities.Features.Commandline;
 
 /// <summary>
 /// 何かと情報を出力するのに使うぜ☆（＾～＾）

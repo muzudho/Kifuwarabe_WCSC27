@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Grayscale.Kifuwarakei.Entities.Features.Commandline;
 using Grayscale.Kifuwarakei.Entities.Logging;
 
 namespace Grayscale.Kifuwarakei.Entities.Techniques;
