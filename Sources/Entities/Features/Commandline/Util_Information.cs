@@ -1,7 +1,7 @@
-﻿using Grayscale.Kifuwarakei.Entities.Features.Dougu;
+﻿using Grayscale.Kifuwarakei.Entities.Features.Coding;
+using Grayscale.Kifuwarakei.Entities.Features.Dougu;
 using Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 using Grayscale.Kifuwarakei.Entities.Language;
-using Grayscale.Kifuwarakei.Entities.Techniques;
 using System;
 using System.Diagnostics;
 using System.Text;

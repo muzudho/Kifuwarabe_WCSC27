@@ -9,7 +9,6 @@ using System.Text;
 #else
 using Grayscale.Kifuwarakei.Entities.Features;
 using Grayscale.Kifuwarakei.Entities.Features.Coding;
-using Grayscale.Kifuwarakei.Entities.Features.Dougu;
 using Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 using Grayscale.Kifuwarakei.Entities.Language;
 using System;
@@ -17,7 +16,7 @@ using System.Diagnostics;
 using System.Text;
 #endif
 
-namespace Grayscale.Kifuwarakei.Entities.Techniques;
+namespace Grayscale.Kifuwarakei.Entities.Features.Dougu;
 
 /// <summary>
 /// 各種ボード・データまとめ☆（＾～＾）

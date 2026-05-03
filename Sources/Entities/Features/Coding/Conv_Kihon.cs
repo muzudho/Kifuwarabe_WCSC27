@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Grayscale.Kifuwarakei.Entities.Techniques;
+namespace Grayscale.Kifuwarakei.Entities.Features.Coding;
 
 public abstract class Conv_Kihon
 {

@@ -1,7 +1,7 @@
 ﻿namespace Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
 
 using Grayscale.Kifuwarakei.Entities.Features.Commandline;
-using Grayscale.Kifuwarakei.Entities.Techniques;
+using Grayscale.Kifuwarakei.Entities.Features.Dougu;
 using System.Text;
 
 /// <summary>

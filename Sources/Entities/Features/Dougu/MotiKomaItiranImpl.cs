@@ -1,6 +1,4 @@
-﻿namespace Grayscale.Kifuwarakei.Entities.Techniques;
-
-using Grayscale.Kifuwarakei.Entities.Features.Dougu;
+﻿namespace Grayscale.Kifuwarakei.Entities.Features.Dougu;
 
 #if DEBUG
 using System;

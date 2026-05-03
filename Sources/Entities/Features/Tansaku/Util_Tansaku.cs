@@ -8,7 +8,6 @@ using Grayscale.Kifuwarakei.Entities.Features.Gakusyu;
 using Grayscale.Kifuwarakei.Entities.Features.Hyoka;
 using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
 using Grayscale.Kifuwarakei.Entities.Language;
-using Grayscale.Kifuwarakei.Entities.Techniques;
 #if DEBUG
 using System;
 using System.Collections.Generic;
