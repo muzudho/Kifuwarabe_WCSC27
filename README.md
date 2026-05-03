@@ -8,7 +8,8 @@
 | 将棋エンジン ソース     | Kifuwarakei project                                   |
 | GUI                     | なし                                                  |
 | 将棋エンジン ランタイム | `Kifuwarabe_WCSC27/Game/kifuwarabe_wcsc27.exe`        |
-| 設定ファイル1           | `Kifuwarabe_WCSC27/Game/Grayscale.kifuwarakei.Engine.exe.config` |
+| 設定ファイル1           | `Kifuwarabe_WCSC27/Builds_AnyCPU/Release/net10.0/appsettings.json` |
+| 設定フォルダー          | `Kifuwarabe_WCSC27/Profile`                           |
 | 設定ファイル2           | `Kifuwarabe_WCSC27/Profile/Engine.toml`               |
 
 * `Kifuwarabe_WCSC27` のトップ・ディレクトリーに `Logs` ディレクトリーを作成してください。
