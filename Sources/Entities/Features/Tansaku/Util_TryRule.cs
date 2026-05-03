@@ -1,7 +1,6 @@
 ﻿using Grayscale.Kifuwarakei.Entities.Features.Coding;
 using Grayscale.Kifuwarakei.Entities.Features.Commandline;
 using Grayscale.Kifuwarakei.Entities.Features.Dougu;
-using Grayscale.Kifuwarakei.Entities.Language;
 using System;
 using System.Text;
 

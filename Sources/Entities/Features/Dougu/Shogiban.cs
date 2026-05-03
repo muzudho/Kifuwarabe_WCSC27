@@ -2,7 +2,6 @@
 //#define TOBIKIKI_ON
 
 #if DEBUG
-using Grayscale.Kifuwarakei.Entities.Language;
 using System;
 using System.Diagnostics;
 using System.Text;
@@ -10,7 +9,6 @@ using System.Text;
 using Grayscale.Kifuwarakei.Entities.Features;
 using Grayscale.Kifuwarakei.Entities.Features.Coding;
 using Grayscale.Kifuwarakei.Entities.Features.Tansaku;
-using Grayscale.Kifuwarakei.Entities.Language;
 using System;
 using System.Diagnostics;
 using System.Text;

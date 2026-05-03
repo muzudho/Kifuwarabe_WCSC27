@@ -2,7 +2,6 @@
 using Grayscale.Kifuwarakei.Entities.Features.Coding;
 using Grayscale.Kifuwarakei.Entities.Features.Hyoka;
 using Grayscale.Kifuwarakei.Entities.Features.Tansaku;
-using Grayscale.Kifuwarakei.Entities.Language;
 using System.Diagnostics;
 
 namespace Grayscale.Kifuwarakei.Entities.Features.Dougu;

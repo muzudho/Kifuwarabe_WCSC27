@@ -1,7 +1,6 @@
 ﻿using Grayscale.Kifuwarakei.Entities.Features;
 using Grayscale.Kifuwarakei.Entities.Features.Coding;
 using Grayscale.Kifuwarakei.Entities.Features.Tansaku;
-using Grayscale.Kifuwarakei.Entities.Language;
 using System.Text;
 
 namespace Grayscale.Kifuwarakei.Entities.Features.Dougu;

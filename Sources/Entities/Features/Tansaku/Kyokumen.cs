@@ -7,7 +7,6 @@ using System;
 using System.Diagnostics;
 using System.Text;
 using System.Text.RegularExpressions;
-using Grayscale.Kifuwarakei.Entities.Language;
 using Grayscale.Kifuwarakei.Entities.Logging;
 #else
 using System;
@@ -21,7 +20,6 @@ using Grayscale.Kifuwarakei.Entities.Features.Commandline;
 using Grayscale.Kifuwarakei.Entities.Features.Dougu;
 using Grayscale.Kifuwarakei.Entities.Features.Hyoka;
 using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
-using Grayscale.Kifuwarakei.Entities.Language;
 using Grayscale.Kifuwarakei.Entities.Logging;
 #endif
 

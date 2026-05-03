@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Grayscale.Kifuwarakei.Entities.Language;
+namespace Grayscale.Kifuwarakei.Entities.Features.Coding;
 
 public class Option<T>
 {

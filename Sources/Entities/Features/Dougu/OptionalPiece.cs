@@ -1,6 +1,6 @@
-﻿using Grayscale.Kifuwarakei.Entities.Language;
-using System;
+﻿using System;
 using Grayscale.Kifuwarakei.Entities.Take1Base;
+using Grayscale.Kifuwarakei.Entities.Features.Coding;
 
 namespace Grayscale.Kifuwarakei.Entities.Features.Dougu;
 

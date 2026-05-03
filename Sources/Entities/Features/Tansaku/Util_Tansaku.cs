@@ -7,7 +7,6 @@ using Grayscale.Kifuwarakei.Entities.Features.Dougu;
 using Grayscale.Kifuwarakei.Entities.Features.Gakusyu;
 using Grayscale.Kifuwarakei.Entities.Features.Hyoka;
 using Grayscale.Kifuwarakei.Entities.Features.SasiteSeisei;
-using Grayscale.Kifuwarakei.Entities.Language;
 #if DEBUG
 using System;
 using System.Collections.Generic;

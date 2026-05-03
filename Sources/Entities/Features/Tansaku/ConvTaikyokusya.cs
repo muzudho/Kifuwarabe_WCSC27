@@ -1,5 +1,5 @@
 ﻿using Grayscale.Kifuwarakei.Entities.Features;
-using Grayscale.Kifuwarakei.Entities.Language;
+using Grayscale.Kifuwarakei.Entities.Features.Coding;
 using System;
 using System.Text;
 
