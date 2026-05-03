@@ -1,7 +1,10 @@
-﻿namespace Grayscale.Kifuwarakei.Entities.Techniques;
+﻿namespace Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 
+using Grayscale.Kifuwarakei.Entities;
+using Grayscale.Kifuwarakei.Entities.Features.Gakusyu;
 using Grayscale.Kifuwarakei.Entities.Game;
 using Grayscale.Kifuwarakei.Entities.Language;
+using Grayscale.Kifuwarakei.Entities.Techniques;
 #if DEBUG
 using System;
 using System.Collections.Generic;

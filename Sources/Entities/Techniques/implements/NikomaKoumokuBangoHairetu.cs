@@ -1,5 +1,7 @@
 ﻿namespace Grayscale.Kifuwarakei.Entities.Techniques;
 
+using Grayscale.Kifuwarakei.Entities.Features.Hyoka;
+
 /// <summary>
 /// 配列を持っていて、「使用中の長さ」というプロパティーを別途持っているぜ☆（＾～＾）
 /// </summary>

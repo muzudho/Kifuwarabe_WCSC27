@@ -1,8 +1,11 @@
-﻿using Grayscale.Kifuwarakei.Entities.Game;
+﻿namespace Grayscale.Kifuwarakei.Entities.Features.Gakusyu;
+
+using Grayscale.Kifuwarakei.Entities.Features.Hyoka;
+using Grayscale.Kifuwarakei.Entities.Features.Tansaku;
+using Grayscale.Kifuwarakei.Entities.Game;
+using Grayscale.Kifuwarakei.Entities.Techniques;
 using System.Collections.Generic;
 using System.Text;
-
-namespace Grayscale.Kifuwarakei.Entities.Techniques;
 
 public abstract class Util_KikaiGakusyu
 {

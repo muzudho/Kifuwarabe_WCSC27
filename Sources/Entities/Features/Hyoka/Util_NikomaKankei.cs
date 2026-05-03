@@ -1,7 +1,8 @@
-﻿using Grayscale.Kifuwarakei.Entities.Game;
-using System.Text;
+﻿namespace Grayscale.Kifuwarakei.Entities.Features.Hyoka;
 
-namespace Grayscale.Kifuwarakei.Entities.Techniques;
+using Grayscale.Kifuwarakei.Entities.Game;
+using Grayscale.Kifuwarakei.Entities.Techniques;
+using System.Text;
 
 /// <summary>
 /// 二駒関係評価値表（パラメーターズ）

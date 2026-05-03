@@ -1,7 +1,8 @@
-﻿using Grayscale.Kifuwarakei.Entities.Game;
-using System.Text;
+﻿namespace Grayscale.Kifuwarakei.Entities.Features.Tansaku;
 
-namespace Grayscale.Kifuwarakei.Entities.Techniques;
+using Grayscale.Kifuwarakei.Entities.Game;
+using Grayscale.Kifuwarakei.Entities.Techniques;
+using System.Text;
 
 /// <summary>
 /// TODO: ビットボードに置き換えたいぜ☆（＾～＾）

@@ -1,4 +1,5 @@
-﻿using Grayscale.Kifuwarakei.Entities.Game;
+﻿using Grayscale.Kifuwarakei.Entities.Features.Hyoka;
+using Grayscale.Kifuwarakei.Entities.Game;
 using Grayscale.Kifuwarakei.Entities.Language;
 using System.Diagnostics;
 

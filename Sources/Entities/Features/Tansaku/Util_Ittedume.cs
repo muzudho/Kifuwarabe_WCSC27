@@ -1,14 +1,12 @@
-﻿using System;
+﻿namespace Grayscale.Kifuwarakei.Entities.Features.Tansaku;
+
+using System;
 using System.Diagnostics;
 using System.Text;
 using Grayscale.Kifuwarakei.Entities.Game;
 using Grayscale.Kifuwarakei.Entities.Language;
 using Grayscale.Kifuwarakei.Entities.Logging;
-
-#if DEBUG
-#endif
-
-namespace Grayscale.Kifuwarakei.Entities.Techniques;
+using Grayscale.Kifuwarakei.Entities.Techniques;
 
 public abstract class Util_Ittedume
 {

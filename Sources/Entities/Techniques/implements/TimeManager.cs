@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using Grayscale.Kifuwarakei.Entities.Features.Tansaku;
+using System.Diagnostics;
 
 namespace Grayscale.Kifuwarakei.Entities.Techniques;
 
