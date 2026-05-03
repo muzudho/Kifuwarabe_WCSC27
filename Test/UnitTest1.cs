@@ -10,7 +10,10 @@ namespace Test;
 public class MoveGenerationTests
 {
     /// <summary>
+    ///     <pre>
     /// 初期局面で指し手が生成されることをテストするぜ☆（＾～＾）
+    /// 指し手の内容まではチェックしないが、少なくとも何かしらの手が生成されることを確認するぜ☆（＾～＾）
+    ///     </pre>
     /// </summary>
     [Fact]
     public void Test_InitialPosition_GeneratesMoves()
@@ -64,7 +67,7 @@ public class MoveGenerationTests
         {
             Move ss = AbstractUtilMoveGen.MoveList[0].ListMove[i];
 
-            // 各手を指してみて、自玉が取られないことを確認☆
+            // TODO: 各手を指してみて、自玉が取られないことを確認☆
             // （実装は後で追加）
         }
 

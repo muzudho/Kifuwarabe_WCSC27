@@ -2,6 +2,9 @@
 
 namespace Grayscale.Kifuwarakei.Entities.Features
 {
+    /// <summary>
+    /// アプリケーション設定
+    /// </summary>
     public abstract class Option_Application
     {
         static Option_Application()
