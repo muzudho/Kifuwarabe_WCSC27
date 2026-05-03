@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using Grayscale.Kifuwarakei.Entities.Configuration;
 using Grayscale.Kifuwarakei.Entities.Features;
-using Grayscale.Kifuwarakei.Entities.Techniques;
+using Grayscale.Kifuwarakei.Entities.Features.Coding;
 
 namespace Grayscale.Kifuwarakei.Entities.Logging;
 

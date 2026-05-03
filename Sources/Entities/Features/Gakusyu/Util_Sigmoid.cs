@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
+using Grayscale.Kifuwarakei.Entities.Features.Coding;
 using Grayscale.Kifuwarakei.Entities.Logging;
-using Grayscale.Kifuwarakei.Entities.Techniques;
 
 namespace Grayscale.Kifuwarakei.Entities.Features.Gakusyu;
 

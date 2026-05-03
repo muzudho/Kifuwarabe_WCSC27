@@ -1,7 +1,7 @@
 ﻿using Grayscale.Kifuwarakei.Entities.Features.Commandline;
 using System.Text.RegularExpressions;
 
-namespace Grayscale.Kifuwarakei.Entities.Techniques;
+namespace Grayscale.Kifuwarakei.Entities.Features.Coding;
 
 /// <summary>
 /// FEN のパーサー一覧。

@@ -2,7 +2,7 @@
 using System.Text;
 using Grayscale.Kifuwarakei.Entities.Logging;
 
-namespace Grayscale.Kifuwarakei.Entities.Techniques;
+namespace Grayscale.Kifuwarakei.Entities.Features.Coding;
 
 public delegate void TestBlock(StringBuilder syuturyoku);
 
