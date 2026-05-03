@@ -1,4 +1,4 @@
-﻿namespace Grayscale.Kifuwarakei.Entities.Take1Base;
+﻿namespace Grayscale.Kifuwarakei.Entities.Features.Dougu;
 
 /// <summary>
 /// 先後付きの盤上の駒だぜ☆（＾▽＾）
