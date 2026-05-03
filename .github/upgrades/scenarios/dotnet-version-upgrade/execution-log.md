@@ -19,3 +19,10 @@ Successfully converted Entities, UseCases, and Engine projects to SDK-style form
 
 Successfully upgraded Entities.csproj to multi-target net48;net10.0. Changed TargetFramework to TargetFrameworks (plural) and added net10.0 target. Made .NET Framework-specific assembly references conditional. Both targets build successfully, all 3 tests pass, and Tier 2 (UseCases) still builds on net48 consuming Entities net48 target. Between-tier validation confirmed working.
 
+
+## [2026-05-03 10:37] 04-tier2-business-logic
+
+**Task 04-tier2-business-logic: Upgrade Tier 2 business logic** ✅
+
+Successfully upgraded UseCases.csproj to multi-target net48;net10.0. Changed TargetFramework to TargetFrameworks (plural), added net10.0 target, removed duplicate Nett reference, and made .NET Framework-specific assembly references conditional. Both targets build successfully, all 3 tests pass, and Tier 3 (Engine) still builds on net48 consuming UseCases net48 target. Between-tier validation confirmed working.
+
