@@ -925,11 +925,11 @@ namespace Grayscale.Kifuwarakei.Entities.Features
                 {
                     // その駒の種類からは、ありえない動きをしたぜ☆（＾▽＾）
 #if DEBUG
-
                     throw new Exception($"その駒の種類からは、ありえない動きをしたぜ☆（＾▽＾） ms1=[{ ms_src }] ms2=[{ ms_dst }]");
-#endif
+#else
                     reason = MoveMatigaiRiyu.SonoKomasyuruiKarahaArienaiUgoki;
                     return false;
+#endif
                 }
             }
 
