@@ -232,8 +232,8 @@ public abstract class Util_Tansaku
                             List<SasiteType> josekiSasites = Option_Application.Joseki.GetMoves(ky);
                             // この局面の合法手を取得☆（＾▽＾）
                             int fukasa = 0;
-                            AbstractUtilSasiteSeisei.GenerateMove01(fukasa, ky, SasiteSyuruiType.N21_All, true, syuturyoku);// グローバル変数 Util_SasiteSeisei.Sasitelist[fukasa].Sslist に指し手がセットされるぜ☆（＾▽＾）
-                            List<SasiteType> gohosyu = new List<SasiteType>(AbstractUtilSasiteSeisei.MoveList[fukasa].ListMove);
+                            UtilSasiteSeisei.GenerateMove01(fukasa, ky, SasiteSyuruiType.N21_All, true, syuturyoku);// グローバル変数 Util_SasiteSeisei.Sasitelist[fukasa].Sslist に指し手がセットされるぜ☆（＾▽＾）
+                            List<SasiteType> gohosyu = new List<SasiteType>(UtilSasiteSeisei.MoveList[fukasa].ListMove);
                             foreach (SasiteType ss in josekiSasites)
                             {
                                 if (gohosyu.Contains(ss))
@@ -338,7 +338,7 @@ public abstract class Util_Tansaku
                     Util_Tansaku.NekkoKaranoFukasa <= Option_Application.Optionlist.SaidaiFukasa && !Option_Application.TimeManager.IsTimeOver_IterationDeeping()//思考の時間切れ
                     ; Util_Tansaku.NekkoKaranoFukasa++)
                 {
-                    Debug.Assert(0 <= Util_Tansaku.NekkoKaranoFukasa && Util_Tansaku.NekkoKaranoFukasa < AbstractUtilSasiteSeisei.MoveList.Length, "");
+                    Debug.Assert(0 <= Util_Tansaku.NekkoKaranoFukasa && Util_Tansaku.NekkoKaranoFukasa < UtilSasiteSeisei.MoveList.Length, "");
 
                     #region アスピレーション・ウィンドウ・サーチ（１）
                     // アスピレーション・ウィンドウ・サーチ（１）を使う場合
@@ -761,7 +761,7 @@ public abstract class Util_Tansaku
         Dlgt_CreateJoho dlgt_CreateJoho,
         StringBuilder syuturyoku)
     {
-        Debug.Assert(1 <= fukasa && fukasa < AbstractUtilSasiteSeisei.MoveList.Length, "");
+        Debug.Assert(1 <= fukasa && fukasa < UtilSasiteSeisei.MoveList.Length, "");
 
         Util_Tansaku.StartingPhase = ky.CurrentOptionalPhase;
         Util_Tansaku.KaisiNantemade = ky.Konoteme.ScanNantemadeBango();
@@ -821,7 +821,7 @@ public abstract class Util_Tansaku
             ""
         );
 
-        Debug.Assert(0 <= fukasa && fukasa < AbstractUtilSasiteSeisei.MoveList.Length, "");
+        Debug.Assert(0 <= fukasa && fukasa < UtilSasiteSeisei.MoveList.Length, "");
         out_edaBest_Yomisuji = null;
         // 評価値は、開始時にマイナスで受け取り、相手番ではプラスに反転させつつ、葉まで届けるぜ☆（＾～＾）
 
@@ -1028,13 +1028,13 @@ public abstract class Util_Tansaku
 
         // 深さ1 のときに手を指しても、深さのカウントは増えない☆
         // 
-        AbstractUtilSasiteSeisei.GenerateMove01(fukasa, ky, SasiteSyuruiType.N21_All, true, syuturyoku);// グローバル変数 Util_SasiteSeisei.Sslist に指し手がセットされるぜ☆（＾▽＾）
+        UtilSasiteSeisei.GenerateMove01(fukasa, ky, SasiteSyuruiType.N21_All, true, syuturyoku);// グローバル変数 Util_SasiteSeisei.Sslist に指し手がセットされるぜ☆（＾▽＾）
 
         #region ステイルメイト
         //────────────────────────────────────────
         // ステイル・メイト
         //────────────────────────────────────────
-        if (AbstractUtilSasiteSeisei.MoveList[fukasa].SslistCount < 1)
+        if (UtilSasiteSeisei.MoveList[fukasa].SslistCount < 1)
         {
             // ステイルメイトだぜ☆（＾▽＾）！
 
@@ -1082,10 +1082,10 @@ public abstract class Util_Tansaku
         }
         #endregion
 
-        for (int iSs = 0; iSs < AbstractUtilSasiteSeisei.MoveList[fukasa].SslistCount; iSs++)
+        for (int iSs = 0; iSs < UtilSasiteSeisei.MoveList[fukasa].SslistCount; iSs++)
         {
-            SasiteType eda_sasite = AbstractUtilSasiteSeisei.MoveList[fukasa].ListMove[iSs];
-            SasiteSyuruiType eda_sasiteSyuruiType = AbstractUtilSasiteSeisei.MoveList[fukasa].List_Reason[iSs];
+            SasiteType eda_sasite = UtilSasiteSeisei.MoveList[fukasa].ListMove[iSs];
+            SasiteSyuruiType eda_sasiteSyuruiType = UtilSasiteSeisei.MoveList[fukasa].List_Reason[iSs];
 
             // 探索打ち切りフラグ☆（＾▽＾）
             utikiri = false;
