@@ -3,14 +3,14 @@
 ## Overview
 
 Upgrading Kifuwarakei solution from .NET Framework 4.8 to .NET 10.0 (LTS) using Bottom-Up strategy. Three projects (Entities, UseCases, Engine) will be upgraded tier-by-tier from leaf nodes to root application.
-**Progress**: 2/6 tasks complete <progress value="33" max="100"></progress> 33%
+**Progress**: 3/6 tasks complete <progress value="50" max="100"></progress> 50%
 **Progress**: 0/6 tasks complete <progress value="0" max="100"></progress> 0%
 
 ## Tasks
 - ✅ 01-prerequisites: Verify SDK and toolchain compatibility ([Content](tasks/01-prerequisites/task.md), [Progress](tasks/01-prerequisites/progress-details.md))
 - 🔲 01-prerequisites: Verify SDK and toolchain compatibility
 - ✅ 02-sdk-style-conversion: Convert projects to SDK-style format ([Content](tasks/02-sdk-style-conversion/task.md), [Progress](tasks/02-sdk-style-conversion/progress-details.md))
-- 🔲 03-tier1-entities: Upgrade Tier 1 foundation library
+- ✅ 03-tier1-entities: Upgrade Tier 1 foundation library ([Content](tasks/03-tier1-entities/task.md), [Progress](tasks/03-tier1-entities/progress-details.md))
 - 🔲 04-tier2-business-logic: Upgrade Tier 2 business logic
 - 🔲 05-tier3-engine-app: Upgrade Tier 3 application and migrate configuration
 - 🔲 06-final-validation: Solution-wide validation and deferred recommendations
